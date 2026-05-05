@@ -21,7 +21,7 @@
       "Bash(./scripts/*)",
       "Bash(.claude/skills/*/scripts/*)",
       "mcp__ahrefs__*"
-    ],
+    ]
   },
   "enableAllProjectMcpServers": true
 }
