@@ -22,10 +22,6 @@
       "Bash(.claude/skills/*/scripts/*)",
       "mcp__ahrefs__*"
     ],
-    "deny": [
-      "Bash(rm -rf:*)",
-      "Bash(git push:*)"
-    ]
   },
   "enableAllProjectMcpServers": true
 }
