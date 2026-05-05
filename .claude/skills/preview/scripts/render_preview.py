@@ -205,11 +205,13 @@ def render(slug: str) -> Path:
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        print("usage: render_preview.py <slug>", file=sys.stderr)
-        sys.exit(2)
-    slug = sys.argv[1]
-    out = render(slug)
+    import argparse
+    parser = argparse.ArgumentParser(
+        description="Render a cited draft to an Ahrefs-styled HTML preview.",
+    )
+    parser.add_argument("slug", help="The slug of the cited draft to render")
+    args = parser.parse_args()
+    out = render(args.slug)
     print(f"wrote {out}")
 
 

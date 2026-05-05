@@ -1,6 +1,6 @@
 ---
 name: optimize-content
-description: Optimize the cited draft against Semrush ContentShake AI scores. Calls scripts/contentshake_optimize.py for SEO + Quality scoring + recommendations, then judgment-rewrites the additions in brand voice. Iterates until both scores ≥ 8 or voice drift triggers a rollback. No Chrome MCP, no TipTap injection — pure API.
+description: Optimize the cited draft against Semrush ContentShake AI scores. Calls .claude/skills/optimize-content/scripts/contentshake_optimize.py for SEO + Quality scoring + recommendations, then judgment-rewrites the additions in brand voice. Iterates until both scores ≥ 8 or voice drift triggers a rollback. No Chrome MCP, no TipTap injection — pure API.
 allowed-tools: Read, Write, Edit, Bash
 ---
 
