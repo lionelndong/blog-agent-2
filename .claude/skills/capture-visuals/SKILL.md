@@ -1,4 +1,5 @@
 ---
+name: capture-visuals
 description: Walk through the manual-capture.md checklist for a slug, driving Chrome via the Claude in Chrome MCP to capture each visual that needs more than a static URL — multi-step flows, conversation states, settings panels, age gates on third-party sites. Runs equally well locally (your desktop Chrome) or on a VPS with always-on Chrome + the extension installed. Defaults to unattended mode when `BLOG_AGENT_AUTONOMOUS=1` (which forces `UNATTENDED=1`). Use after /generate-visuals has flagged action-shot or failed-screenshot entries.
 ---
 
