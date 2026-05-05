@@ -2,7 +2,10 @@
   "mcpServers": {
     "semrush": {
       "type": "http",
-      "url": "https://mcp.semrush.com/v1/mcp"
+      "url": "https://mcp.semrush.com/v1/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SEMRUSH_MCP_ACCESS_TOKEN}"
+      }
     }
   }
 }
