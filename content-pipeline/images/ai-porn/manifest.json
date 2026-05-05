@@ -1,0 +1,48 @@
+{
+  "slug": "ai-porn",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "inline:image:860000,video:38000,chat:33000,apps_sites:11400",
+        "style": "bar",
+        "title": "Monthly US searches by AI-porn format"
+      },
+      "alt": "Monthly US searches by AI-porn format — image generators dominate at ~860K/mo, video at ~38K, chat at ~33K, apps/sites at ~11K",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-porn/chart-1-ai-porn.png",
+        "style": "bar",
+        "data_points": 4,
+        "data_source": "Aggregated from research dossier cluster volumes (content-pipeline/1-research/ai-porn.md)"
+      },
+      "raw": "[VISUAL:type=chart;data=research.cluster_volumes;style=bar;title=Search demand by AI-porn format (image, video, chat, voice)]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "action-shot",
+      "attrs": {
+        "type": "action-shot",
+        "url": "https://pleasur.ai/create",
+        "goal": "Log into Pleasur.AI with the saved session. Open the AI Companion Creator at /create. Pick the Realistic template. Move through the wizard to the personality and backstory step. Capture that screen with the form fields visible.",
+        "what": "AI Companion Creator personality and backstory step, mid-flow"
+      },
+      "alt": "AI Companion Creator personality and backstory step, mid-flow",
+      "status": "manual",
+      "result": {
+        "status": "manual",
+        "reason": "action_shot_routed_to_editor",
+        "url": "https://pleasur.ai/create",
+        "goal": "Log into Pleasur.AI with the saved session. Open the AI Companion Creator at /create. Pick the Realistic template. Move through the wizard to the personality and backstory step. Capture that screen with the form fields visible.",
+        "filename": "action-2-ai-companion-creator-personality.png",
+        "hint": "Capture interactively via Claude in Chrome. Run `/capture-visuals ai-porn` and walk through this entry, or open the URL in Chrome and capture the moment described in 'goal' yourself."
+      },
+      "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Log into Pleasur.AI with the saved session. Open the AI Companion Creator at /create. Pick the Realistic template. Move through the wizard to the personality and backstory step. Capture that screen with the form fields visible.;what=AI Companion Creator personality and backstory step, mid-flow]",
+      "legacy": false
+    }
+  ]
+}

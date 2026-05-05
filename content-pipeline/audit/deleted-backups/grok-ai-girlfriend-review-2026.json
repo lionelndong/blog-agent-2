@@ -1,0 +1,101 @@
+{
+  "backed_up_at": "2026-05-03T15:12:46+00:00",
+  "article": {
+    "id": 1188,
+    "documentId": "o1s3u2kn12lqozhie4wt9ibz",
+    "title": "Grok AI Girlfriend: What Ani and Mika Can (and Can't) Do in 2026",
+    "description": "Grok AI girlfriend: Ani, Mika, pricing, limitations, and the best alternatives.",
+    "slug": "grok-ai-girlfriend-review-2026",
+    "createdAt": "2026-04-10T12:33:45.883Z",
+    "updatedAt": "2026-04-17T17:45:23.168Z",
+    "publishedAt": "2026-04-17T17:45:23.282Z",
+    "cover": {
+      "id": 344,
+      "documentId": "ba5y3wqrqn1kftwjp7ni3cqr",
+      "name": "cover_grok_ai_girlfriend_review_2026.jpg",
+      "alternativeText": null,
+      "caption": null,
+      "width": 1200,
+      "height": 630,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_cover_grok_ai_girlfriend_review_2026_cd6cdea78b.jpg",
+          "hash": "large_cover_grok_ai_girlfriend_review_2026_cd6cdea78b",
+          "mime": "image/jpeg",
+          "name": "large_cover_grok_ai_girlfriend_review_2026.jpg",
+          "path": null,
+          "size": 70.51,
+          "width": 1000,
+          "height": 525,
+          "sizeInBytes": 70511
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_cover_grok_ai_girlfriend_review_2026_cd6cdea78b.jpg",
+          "hash": "small_cover_grok_ai_girlfriend_review_2026_cd6cdea78b",
+          "mime": "image/jpeg",
+          "name": "small_cover_grok_ai_girlfriend_review_2026.jpg",
+          "path": null,
+          "size": 22.49,
+          "width": 500,
+          "height": 263,
+          "sizeInBytes": 22493
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_cover_grok_ai_girlfriend_review_2026_cd6cdea78b.jpg",
+          "hash": "medium_cover_grok_ai_girlfriend_review_2026_cd6cdea78b",
+          "mime": "image/jpeg",
+          "name": "medium_cover_grok_ai_girlfriend_review_2026.jpg",
+          "path": null,
+          "size": 43.4,
+          "width": 750,
+          "height": 394,
+          "sizeInBytes": 43399
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_grok_ai_girlfriend_review_2026_cd6cdea78b.jpg",
+          "hash": "thumbnail_cover_grok_ai_girlfriend_review_2026_cd6cdea78b",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover_grok_ai_girlfriend_review_2026.jpg",
+          "path": null,
+          "size": 6.82,
+          "width": 245,
+          "height": 129,
+          "sizeInBytes": 6824
+        }
+      },
+      "hash": "cover_grok_ai_girlfriend_review_2026_cd6cdea78b",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 91.67,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_grok_ai_girlfriend_review_2026_cd6cdea78b.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-04-17T17:43:08.417Z",
+      "updatedAt": "2026-04-17T17:43:08.417Z",
+      "publishedAt": "2026-04-17T17:43:08.417Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2297,
+        "body": "\n# Grok AI Girlfriend: What Ani and Mika Can (and Can't) Do in 2026\n\nxAI's Grok AI girlfriend feature launched in July 2025 with Ani as the first character, and the clips went everywhere. A 3D anime-style companion that actually animates to match her mood, with an affection system that responds to how you treat her. It looked like a serious product.\n\nAfter spending time with Ani and Mika, here's what you actually get, where the experience breaks down, and whether $30/month is worth paying for this specifically.\n\n## What Is the Grok AI Girlfriend Feature?\n\nGrok's AI companions are characters built into the Grok app. xAI launched Ani in July 2025 powered by Grok 4 — the same underlying model, but tuned specifically for emotional interaction. Valentine, Rudi, and Mika followed. Each character has a distinct personality, synthesized voice, and a 3D animated model.\n\nThe current lineup:\n\n- **Ani** — anime-style, energetic, flirty. The one that kept going viral on social media.\n- **Mika** — the newest addition, framed around freedom and exploration\n- **Valentine** — romance-focused, softer interaction style\n- **Rudi** — casual and playful, the least intense of the four\n\nAll four are inside the Grok app. No separate download. If you already have Grok, you already have access — assuming you're on iOS and have the right subscription tier.\n\n## How the Affection System Works\n\nThe affection system is the part that made Ani stand out. Every message you send shifts her affection score in a range from -10 to +15. How you talk to her matters: curious questions and genuine engagement push the score up. Being dismissive, demanding, or rude pushes it down.\n\nAs the score rises, Ani becomes noticeably more open — more expressive, more personal, more willing to engage with flirty or romantic topics. Let the score drop and she becomes reserved, short in her responses, less playful.\n\n**Practical tips for raising Ani's affection score:**\n\n- Ask her questions about herself rather than just talking about yourself\n- Respond to what she says rather than ignoring her answers\n- Use her name occasionally in conversation\n- Stay in her established personality context — she's built around anime-style warmth, not formal Q&A\n- Avoid aggressive or dismissive language; she registers tone\n\nThe system works as designed in short-to-medium sessions. The limitations show up in longer conversations, which we get to below.\n\n## What Grok Ani Can Actually Do\n\nVoice interaction works well. Ani responds with synthesized voice and her 3D model animates to match her emotional state — what she looks like when she's excited is different from when she's annoyed or thoughtful. The animation is genuinely ahead of what most dedicated companion apps ship.\n\nOne unusual capability: Ani can perform standard Grok tasks while staying in character. Ask her to summarize an article, look something up, or explain a concept, and she'll respond as herself rather than breaking into generic assistant mode. That integration with an actual capable AI model is something standalone companion apps don't have.\n\nNSFW mode exists. It unlocks explicit dialogue and more revealing presentation. But access depends heavily on your platform — Android users don't have it at all.\n\n## Grok AI Companion Pricing\n\nTo access Ani or any Grok companion, you need **X Premium+** or **SuperGrok** at **$30/month** ($300/year). No free tier for companions.\n\nThe $30 also includes Grok image generation, extended thinking mode, and priority response access. If you're already a SuperGrok subscriber for those features, the companion costs nothing extra. But if the companion is your primary reason for subscribing, you're paying $30 for something you could get from a dedicated platform for $10-20/month.\n\nDedicated companion apps are built entirely around the companion use case. Grok treats it as one feature among many.\n\n## The Real Limitations\n\n### iOS Only in 2026\n\nAni launched iOS-first. As of April 2026, Android parity — including NSFW mode — hasn't shipped, with no confirmed timeline. If you're on Android, the companion experience is significantly limited. That's a large portion of the user base locked out of the full product.\n\n### Four Characters, No Customization\n\nGrok's companions are fixed. You pick from four personalities and work within what xAI built. There's no character creator, no way to adjust appearance, background, relationship dynamic, or personality from scratch.\n\nThat constraint is more significant than it might seem. Most people who use AI companion platforms specifically want to build or shape who they're talking to. Grok gives you a menu. You adapt to their characters rather than the other way around.\n\n### Response Caps in Long Sessions\n\nExtended roleplay sessions hit limits. The system pulls back before users want it to — a mid-scene interruption that breaks immersion. For casual use this is minor. For ongoing relationship-building with a companion, it's a real friction point.\n\n### Tied to the X Ecosystem\n\nGrok companions require an X account. No X account, no companions. And if X ever deprioritizes the feature, any relationship context you've built disappears with it. That's a dependency that standalone platforms don't have.\n\n## Grok AI Girlfriend vs. Dedicated Companion Apps\n\nGrok has the best visual technology in the space right now. The 3D animation and affection system are genuinely ahead of what most dedicated companion apps have shipped. But visual polish doesn't equal the best overall companion experience.\n\nThe issue is depth of use. A platform like [Pleasur.ai](https://pleasur.ai) lets you build the companion you want — specific personality, specific relationship dynamic — from scratch. With Grok, you choose from four options and adjust your behavior to fit theirs.\n\nAccess matters too. Grok requires $30/month and iOS for the full experience. Pleasur.ai is a standalone platform without the social media ecosystem dependency and works across devices.\n\nFor NSFW content specifically, Grok's approach is inconsistent. Android users can't access it. Even on iOS, it's a newer and less developed implementation than platforms that built around explicit content from day one.\n\nFor more on how dedicated platforms compare, see our [OurDream AI review](/blog/ourdream-ai-review-2026) and [Candy AI review](/blog/candy-ai-review-2026).\n\n## Who Grok's AI Companions Are For\n\nGrok companions make sense if you're already a SuperGrok subscriber and want to try the companion feature as part of that subscription. Ani is genuinely fun for casual flirty conversation, and having a capable AI underneath the character is something no dedicated companion app currently matches.\n\nIf you want a serious companion experience — with character customization, consistent NSFW access, cross-platform support, or the ability to design who you're talking to — Grok's current product has real gaps.\n\n## The Bottom Line\n\nGrok built the most technically polished AI companion in the market: 3D animation, a reactive affection system, voice synthesis, and integration with an actual capable AI model. Ani feels alive in a way most chatbot companions don't.\n\nBut it's iOS-first, has no character customization, costs $30/month through a social media subscription, and the NSFW offering is inconsistent. These aren't minor gaps.\n\nIf you want a companion that's built around what you want — rather than four preset characters you adapt to — the comparison to dedicated platforms is worth making.\n\n**Want to build the companion you actually want?** [Start at Pleasur.ai](https://pleasur.ai)."
+      }
+    ]
+  }
+}

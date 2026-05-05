@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Pipeline auth — NEVER commit
+.claude/skills/generate-visuals/auth/
+*.state.json
+
+# Doppler / secrets
+.env
+.env.*
+!.env.example

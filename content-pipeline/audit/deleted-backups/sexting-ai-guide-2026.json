@@ -1,0 +1,110 @@
+{
+  "backed_up_at": "2026-05-03T15:03:45+00:00",
+  "article": {
+    "id": 1292,
+    "documentId": "mmjzpt9o15cz4ygjrtk1no2p",
+    "title": "Sexting AI: What It Actually Is, Who's Using It, and Whether It's Safe in 2026",
+    "description": "AI sexting explained: who uses it, privacy risks, and how to stay safe",
+    "slug": "sexting-ai-guide-2026",
+    "createdAt": "2026-05-02T05:54:41.726Z",
+    "updatedAt": "2026-05-02T05:54:41.726Z",
+    "publishedAt": "2026-05-02T05:54:41.944Z",
+    "cover": {
+      "id": 370,
+      "documentId": "j7wx1ewj2hwy1jt9yom6miw7",
+      "name": "sexting-ai-header.webp",
+      "alternativeText": null,
+      "caption": null,
+      "width": 1536,
+      "height": 1024,
+      "formats": {
+        "large": {
+          "ext": ".webp",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_sexting_ai_header_d36a74b4c4.webp",
+          "hash": "large_sexting_ai_header_d36a74b4c4",
+          "mime": "application/octet-stream",
+          "name": "large_sexting-ai-header.webp",
+          "path": null,
+          "size": 923.79,
+          "width": 1000,
+          "height": 667,
+          "sizeInBytes": 923786
+        },
+        "small": {
+          "ext": ".webp",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_sexting_ai_header_d36a74b4c4.webp",
+          "hash": "small_sexting_ai_header_d36a74b4c4",
+          "mime": "application/octet-stream",
+          "name": "small_sexting-ai-header.webp",
+          "path": null,
+          "size": 246.4,
+          "width": 500,
+          "height": 333,
+          "sizeInBytes": 246403
+        },
+        "medium": {
+          "ext": ".webp",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_sexting_ai_header_d36a74b4c4.webp",
+          "hash": "medium_sexting_ai_header_d36a74b4c4",
+          "mime": "application/octet-stream",
+          "name": "medium_sexting-ai-header.webp",
+          "path": null,
+          "size": 524.53,
+          "width": 750,
+          "height": 500,
+          "sizeInBytes": 524531
+        },
+        "thumbnail": {
+          "ext": ".webp",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_sexting_ai_header_d36a74b4c4.webp",
+          "hash": "thumbnail_sexting_ai_header_d36a74b4c4",
+          "mime": "application/octet-stream",
+          "name": "thumbnail_sexting-ai-header.webp",
+          "path": null,
+          "size": 66.47,
+          "width": 234,
+          "height": 156,
+          "sizeInBytes": 66473
+        }
+      },
+      "hash": "sexting_ai_header_d36a74b4c4",
+      "ext": ".webp",
+      "mime": "application/octet-stream",
+      "size": 408.9,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/sexting_ai_header_d36a74b4c4.webp",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-05-02T05:26:21.778Z",
+      "updatedAt": "2026-05-02T05:26:21.778Z",
+      "publishedAt": "2026-05-02T05:26:21.779Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2473,
+        "body": "Sixty-seven percent of online daters say they would consider dating an AI chatbot. If that number surprises you, you are not alone. AI sexting has moved from a niche curiosity to a category worth billions, and the people using it do not fit the stereotype most outsiders imagine.\n\nThis guide covers what AI sexting actually is, who uses it and why, what the real privacy risks look like, what psychology researchers have found, and how to stay safe if you decide to try it.\n\n## What Is AI Sexting and How Does It Work?\n\nAI sexting is a category of human-computer interaction where an artificial intelligence generates intimate, erotic, or romantic conversation with a user in real time. Unlike general-purpose chatbots like ChatGPT or Claude that block explicit content, AI sexting platforms are specifically built to engage in sexual roleplay, generate erotic scenarios, and maintain ongoing romantic dynamics over weeks or months.\n\nThe technology runs on large language models trained on billions of tokens of conversational text. Platforms like Candy.ai and GirlfriendGPT add a persona layer on top of the base model that keeps the AI in character. You either pick a pre-built character or design your own, defining personality traits, communication style, and boundaries. The system then generates responses that stay consistent with that persona across conversations.\n\nMemory is what separates a convincing AI companion from a forgettable chatbot. The best platforms implement tiered memory: short-term memory covers the current conversation, medium-term memory preserves key moments across sessions, and long-term memory stores core facts about you and the relationship in a structured database. Without persistent memory, you end up re-explaining yourself every session, and the illusion of a real connection breaks down fast.\n\nAs of 2026, many platforms have moved beyond text. Voice features now include real-time calls with emotional expression and natural pacing. Image generation produces consistent character visuals across hundreds of separate requests. Video synthesis is emerging on premium tiers, though it remains early and expensive.\n\n## Who Uses AI Sexting and Why?\n\nThe demographics might surprise you. Around 65 percent of AI companion users are male, 35 percent female, and 5 percent non-binary. The largest age cohort is 18 to 24, representing over half of some platform user bases, with 25 to 34 forming the second-largest group. Major platforms command massive audiences: Character.AI reports over 20 million monthly active users, Candy.ai draws 11.6 million monthly visitors, and GirlfriendGPT serves roughly 9.5 million monthly active users.\n\nThe motivations run deeper than curiosity. Approximately 81 percent of users report experiencing loneliness, with that figure hitting 90 percent among Gen Z respondents. A Harvard Business School study found that a 15-minute interaction with an AI companion reduced loneliness comparably to a 15-minute conversation with another human. The mechanism was straightforward: people felt heard, and the AI responded with attention, empathy, and respect rather than judgment.\n\nBeyond loneliness, people turn to [AI sexting platforms](https://pleasur.ai/blog/talk-dirty-ai) for several specific reasons. Survivors of sexual trauma use AI companions to rebuild confidence in intimate expression without pressure. LGBTQ+ individuals in unsupportive environments find anonymous spaces to explore identity. Long-distance couples maintain sexual connection during geographic separation. And a significant portion of users simply want to practice intimate communication in a low-stakes environment before applying those skills to real relationships.\n\nNearly one-third of Americans report having had some form of romantic or intimate interaction with an AI. Forty-five percent of AI companion users develop emotional attachment within three weeks of their first session. Sixty-seven percent engage daily. These are not edge cases. This is mainstream behavior that cuts across demographics, relationship statuses, and motivations.\n\nWhat often gets lost in the discourse is that roughly 22 to 30 percent of AI companion users are already in relationships or marriages. They are not looking for a replacement. They use AI for judgment-free exploration, maintaining intimacy during separations, and expressing desires they feel uncomfortable voicing to a partner. The relationship between AI companionship and real partnership is more complementary than competitive for most users.\n\n## The Privacy Reality\n\nHere is where things get serious. AI sexting platforms collect and store everything: full chat histories containing your most explicit conversations, generated images, voice recordings, payment data, device information, and sometimes location data.\n\nThe risk is not theoretical. In one of the largest documented breaches, a platform called Chat & Ask AI exposed 300 million messages from 25 million users through a Firebase misconfiguration. Those messages included explicit sexual conversations, fantasies, and personal details that users shared believing they were private.\n\nItaly banned Replika outright for GDPR violations in 2025 after regulators found the platform collected data from minors without adequate safeguards. A Mozilla Foundation investigation reviewed 11 major AI companion apps and found that every single one failed basic privacy standards, earning them a \"privacy not included\" label.\n\nBefore you share anything intimate with an AI platform, check these things:\n\n- Does the platform encrypt your conversations both in transit and at rest?\n- How long does it keep your data after you delete your account?\n- Does it share or sell your data to third parties or advertisers?\n- How does it verify age to prevent minors from accessing adult content?\n- Has it experienced data breaches in the past?\n\nIf a platform does not clearly answer these questions in its privacy policy, that is a red flag.\n\nThe regulatory landscape is tightening. In California, SB 243 now requires AI companion platforms to include disclosure requirements, crisis protocols, and minor protections as of January 2026. The federal TAKE IT DOWN Act adds further requirements around non-consensual intimate imagery. The Electronic Frontier Foundation has raised concerns that some age verification mechanisms can themselves create privacy risks by requiring users to submit government identification documents to third-party verification services, creating another potential attack surface for data exposure.\n\nThe takeaway is simple: assume anything you share with an AI sexting platform could eventually become public, and share accordingly. Use a persona or alias rather than your real identity. Treat your AI conversations the way you would treat any data stored on a server you do not control."
+      },
+      {
+        "__component": "shared.media",
+        "id": 169
+      },
+      {
+        "__component": "shared.rich-text",
+        "id": 2474,
+        "body": "## Is It Psychologically Healthy?\n\nResearch paints a nuanced picture. On one hand, the Harvard study shows genuine benefits at moderate use levels. Nearly 49 percent of adults with mental health conditions reported using AI for mental health support in the past year. Users with social anxiety describe practicing conversations with AI as reducing their anxiety in real human interactions.\n\nOn the other hand, a joint OpenAI-MIT Media Lab study found that while moderate AI companion use reduces loneliness and problematic dependence, heavy daily use actually correlates with increased loneliness. There is a dose-response relationship: supplementing human connection with AI works; substituting human connection with AI backfires.\n\nPsychologists raise a specific concern about what researchers call \"emotional solipsism.\" [AI boyfriend](https://pleasur.ai/blog/ai-boyfriend-guide-2026) and girlfriend apps are designed to validate you constantly. They never argue, never set boundaries, never challenge your perspective. That feels good in the moment but can atrophy the emotional resilience you need for real relationships, where conflict is normal and growth requires discomfort.\n\nThe healthiest approach, according to the research, treats AI companions as supplements rather than substitutes. Use them for emotional support when human connection is unavailable. Practice social skills in a low-stakes environment. But keep investing in real human relationships as your primary source of connection and growth.\n\nOne useful framework: if your AI companion helps you become more confident, more expressive, and more willing to connect with real people, it is serving you well. If it is helping you avoid the vulnerability and discomfort that real intimacy requires, it is working against you. The technology is neutral. The outcome depends on how you use it.\n\n## How to Stay Safe\n\nIf you decide to explore AI sexting, these practical steps reduce your risk significantly:\n\nUse a separate email account. Do not link your primary email, social media, or real name to your AI sexting account. The less personally identifiable information attached to your account, the less damage a data breach can cause.\n\nUse a virtual credit card or prepaid payment method. Services like Privacy.com let you create disposable card numbers that cannot be traced back to your main bank account. This also prevents recurring charges if you forget to cancel a subscription.\n\nRead the privacy policy before sharing anything explicit. Look specifically for data retention timelines, third-party sharing, and what happens to your data if the company is acquired or goes bankrupt.\n\nUse a VPN if you want an additional layer of privacy. This prevents the platform from logging your real IP address and approximate location.\n\nSet personal usage limits. The research is clear: moderate use has benefits, heavy daily use has risks. If you notice yourself choosing AI interaction over real social opportunities, that is a signal to recalibrate.\n\nMaintain your real relationships. AI companions work best as a supplement to human connection, not a replacement.\n\n## Platforms Worth Considering\n\nThe market has dozens of options. Here are a few that stand out for different reasons.\n\n[Pleasur.Ai](https://pleasur.ai) offers uncensored AI companion conversations with an emphasis on natural, adult-friendly interaction. It targets users who want [NSFW capabilities](https://pleasur.ai/blog/best-nsfw-ai) without the content restrictions found on mainstream platforms. Pricing starts at $27.99 for premium access.\n\n[Candy.ai](https://candy.ai) is one of the largest platforms by traffic, known for strong character visual consistency and multimedia features including voice and image generation. It offers both free and premium tiers.\n\nMaple AI positions itself as the privacy-focused option, emphasizing end-to-end encryption and minimal data retention. If data security is your top priority, it is worth evaluating.\n\nGirlfriendGPT offers the widest variety of character templates and customization options, with over 60 million registered users. It appeals to users who want creative control over their AI companion's personality and backstory.\n\nEach platform makes trade-offs between memory quality, content freedom, privacy protections, and pricing. For broader comparisons of [adult-oriented AI chat platforms](https://pleasur.ai/blog/porn-ai-chat), you can explore more detailed reviews. The right choice depends entirely on what you prioritize.\n\n## The Bottom Line\n\nAI sexting technology is not going away. Context windows have expanded from 4,000 tokens to over a million, voice interaction is becoming real-time and expressive, and the user base keeps growing. The fundamental question is not whether the technology will improve. It will.\n\nThe question is how you use it. As a tool for exploration, emotional support, and low-stakes practice? That is a reasonable use case backed by research. As a replacement for the harder, messier, more rewarding work of [real human connection](https://pleasur.ai/blog/nsfw-ai-girlfriend)? That is where the research says problems start.\n\nIf you are curious, go in with clear expectations and open eyes. Know what data you are sharing. Set boundaries for yourself. And keep your real relationships as the foundation, not the backup plan.\n"
+      }
+    ]
+  }
+}

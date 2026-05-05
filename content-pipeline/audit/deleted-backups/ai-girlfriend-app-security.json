@@ -1,0 +1,65 @@
+{
+  "backed_up_at": "2026-05-03T15:40:49+00:00",
+  "article": {
+    "id": 1245,
+    "documentId": "q6uih6fvy9fddc3eua8zf5jh",
+    "title": "AI Girlfriend App Security: What You Need to Know (2026)",
+    "description": "Security risks of AI girlfriend apps and safety.",
+    "slug": "ai-girlfriend-app-security",
+    "createdAt": "2026-03-22T17:46:13.583Z",
+    "updatedAt": "2026-04-17T17:45:44.010Z",
+    "publishedAt": "2026-04-17T17:45:44.122Z",
+    "cover": {
+      "id": 162,
+      "documentId": "tvp5vlx657qle7wbo71yx4xp",
+      "name": "cover-ai-girlfriend-app-security.jpg",
+      "alternativeText": "Cover: AI Girlfriend App Security: What You Need to Know (2026)",
+      "caption": null,
+      "width": 450,
+      "height": 450,
+      "formats": {
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_ai_girlfriend_app_security_ddf2687384.jpg",
+          "hash": "thumbnail_cover_ai_girlfriend_app_security_ddf2687384",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover-ai-girlfriend-app-security.jpg",
+          "path": null,
+          "size": 23.63,
+          "width": 156,
+          "height": 156,
+          "sizeInBytes": 23634
+        }
+      },
+      "hash": "cover_ai_girlfriend_app_security_ddf2687384",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 25.12,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_ai_girlfriend_app_security_ddf2687384.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-22T17:46:16.571Z",
+      "updatedAt": "2026-03-22T17:46:16.571Z",
+      "publishedAt": "2026-03-22T17:46:16.572Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2354,
+        "body": "**Pleasur AI takes privacy seriously.** We're building with security-first practices informed by the failures of our competitors. [Learn more about our approach](https://pleasur.ai) or [try it free](https://pleasur.ai).\n\n---\n\n## FAQ\n\n**Have any major AI girlfriend apps been hacked?**\nYes. In 2025, two apps leaked 43 million messages and 600,000 photos. In 2026, another breach exposed 300 million messages from 25 million users. These are the known incidents.\n\n**Does my AI girlfriend app sell my data?**\nMany apps share data with third parties for advertising and analytics. Check the privacy policy for \"third-party sharing\" sections. If the app is free, your data is likely part of the business model.\n\n**Can AI girlfriend apps see my conversations?**\nIn most cases, yes. Your conversations are stored on the platform's servers. Some platforms may use conversation data for model training. Look for explicit commitments about employee access to conversation data.\n\n**Is Replika safe to use?**\nReplika is among the safer options due to its scale and public accountability. It offers data export and deletion. However, no platform guarantees perfect privacy.\n\n**How do I delete my data from an AI girlfriend app?**\nMost platforms have account deletion options in settings. Under GDPR, you can also submit a formal data deletion request. Keep records of your request and follow up if data isn't deleted within the legally required timeframe (typically 30 days under GDPR)."
+      }
+    ]
+  }
+}

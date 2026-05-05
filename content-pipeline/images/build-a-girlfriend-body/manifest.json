@@ -1,0 +1,91 @@
+{
+  "slug": "build-a-girlfriend-body",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.serp_traffic_top_10",
+        "style": "bar",
+        "title": "Where the \"build a girlfriend body\" SERP traffic actually goes"
+      },
+      "alt": "Where the \"build a girlfriend body\" SERP traffic actually goes",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/build-a-girlfriend-body/chart-1-where-the-build-a-girlfriend-b.png",
+        "style": "bar",
+        "data_points": 10
+      },
+      "raw": "[VISUAL:type=chart;data=research.serp_traffic_top_10;style=bar;title=Where the \"build a girlfriend body\" SERP traffic actually goes]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "action-shot",
+      "attrs": {
+        "type": "action-shot",
+        "url": "https://pleasur.ai/create",
+        "goal": "Log into Pleasur.AI with the saved session. Open the Companion Creator at /create. Dismiss any age-verification dialog. Pick the Realistic template. Click through to the Ethnicity selection step. Capture that screen with the five ethnicity presets visible (Caucasian, Asian, Latina, Black/Afro, Arab).",
+        "what": "Companion Creator Ethnicity selection step with five presets visible"
+      },
+      "alt": "Companion Creator Ethnicity selection step with five preset cards visible",
+      "status": "mockup_in_place",
+      "result": {
+        "status": "mockup_in_place",
+        "path": "content-pipeline/images/build-a-girlfriend-body/action-2-companion-creator-ethnicity.png",
+        "capture_method": "pillow_mockup",
+        "remote_path": "/home/blogagent/blog-agent/content-pipeline/images/build-a-girlfriend-body/action-2-companion-creator-ethnicity.png",
+        "navigation_verified_on_vps": true,
+        "ui_observed": "Five ethnicity preset cards (Caucasian, Asian, Latina, Black/Afro, Arab), Skin Tone swatches, Age block",
+        "note": "Mockup PNG generated from the navigation agent's verified UI observations and watermarked 'MOCKUP — real screenshot pending VPS sync'. Real screenshot exists on the VPS; sync_captures_from_vps.sh will overwrite this mockup with the real PNG."
+      },
+      "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Log into Pleasur.AI with the saved session. Open the Companion Creator at /create. Dismiss any age-verification dialog. Pick the Realistic template. Click through to the Ethnicity selection step. Capture that screen with the five ethnicity presets visible.;what=Companion Creator Ethnicity selection step with five presets visible]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "action-shot",
+      "attrs": {
+        "type": "action-shot",
+        "url": "https://pleasur.ai/create",
+        "goal": "Log into Pleasur.AI with the saved session. Open the Companion Creator at /create. Move through the wizard to the body-type and breast/butt step. Capture that screen with the Body Type cards (Slim/Athletic/Voluptuous/Curvy), Breast Size cards (Small/Medium/Large/Athletic), and Butt Size cards visible together.",
+        "what": "Companion Creator body-type and breast/butt step (preset cards, not sliders)"
+      },
+      "alt": "Companion Creator body-type card plus breast/butt preset cards in the same step",
+      "status": "mockup_in_place",
+      "result": {
+        "status": "mockup_in_place",
+        "path": "content-pipeline/images/build-a-girlfriend-body/action-3-companion-creator-body.png",
+        "capture_method": "pillow_mockup",
+        "remote_path": "/home/blogagent/blog-agent/content-pipeline/images/build-a-girlfriend-body/action-3-companion-creator-body.png",
+        "navigation_verified_on_vps": true,
+        "ui_observed": "Body Type cards (Slim/Athletic/Voluptuous/Curvy), Breast Size cards (Small/Medium/Large/Athletic), Butt Size cards — preset cards, not sliders",
+        "note": "Mockup PNG generated from the navigation agent's verified UI observations and watermarked 'MOCKUP — real screenshot pending VPS sync'. Real screenshot exists on the VPS; sync_captures_from_vps.sh will overwrite this mockup with the real PNG."
+      },
+      "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Log into Pleasur.AI with the saved session. Open the Companion Creator at /create. Move through the wizard to the body-type and breast/butt step. Capture that screen with the Body Type cards (Slim/Athletic/Voluptuous/Curvy), Breast Size cards (Small/Medium/Large/Athletic), and Butt Size cards visible together.;what=Companion Creator body-type and breast/butt step (preset cards, not sliders)]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.competitor_pricing_disclosure",
+        "style": "bar",
+        "title": "How the top 10 disclose pricing on the create page"
+      },
+      "alt": "How the top 10 disclose pricing on the create page",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/build-a-girlfriend-body/chart-4-how-the-top-10-disclose-pricin.png",
+        "style": "bar",
+        "data_points": 3
+      },
+      "raw": "[VISUAL:type=chart;data=research.competitor_pricing_disclosure;style=bar;title=How the top 10 disclose pricing on the create page]",
+      "legacy": false
+    }
+  ]
+}

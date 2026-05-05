@@ -1,0 +1,77 @@
+{
+  "backed_up_at": "2026-05-03T15:40:51+00:00",
+  "article": {
+    "id": 1241,
+    "documentId": "m7wzc7ukm639jggp4y9bqdkr",
+    "title": "AI Girlfriend: Everything You Need to Know Before Getting Started (2026)",
+    "description": "Complete guide to AI girlfriends in 2026. How they work.",
+    "slug": "ai-girlfriend-guide",
+    "createdAt": "2026-03-22T17:38:30.755Z",
+    "updatedAt": "2026-04-17T17:45:42.645Z",
+    "publishedAt": "2026-04-17T17:45:42.737Z",
+    "cover": {
+      "id": 132,
+      "documentId": "n8394rev8qx1yx3mzl60g4sk",
+      "name": "cover-ai-girlfriend-guide.jpg",
+      "alternativeText": "Cover: AI Girlfriend: Everything You Need to Know Before Getting Started (2026)",
+      "caption": null,
+      "width": 720,
+      "height": 480,
+      "formats": {
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_cover_ai_girlfriend_guide_b48bbeadc0.jpg",
+          "hash": "small_cover_ai_girlfriend_guide_b48bbeadc0",
+          "mime": "image/jpeg",
+          "name": "small_cover-ai-girlfriend-guide.jpg",
+          "path": null,
+          "size": 23.48,
+          "width": 500,
+          "height": 333,
+          "sizeInBytes": 23479
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_ai_girlfriend_guide_b48bbeadc0.jpg",
+          "hash": "thumbnail_cover_ai_girlfriend_guide_b48bbeadc0",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover-ai-girlfriend-guide.jpg",
+          "path": null,
+          "size": 7.6,
+          "width": 234,
+          "height": 156,
+          "sizeInBytes": 7601
+        }
+      },
+      "hash": "cover_ai_girlfriend_guide_b48bbeadc0",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 41.04,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_ai_girlfriend_guide_b48bbeadc0.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-22T17:38:34.271Z",
+      "updatedAt": "2026-03-22T17:38:34.271Z",
+      "publishedAt": "2026-03-22T17:38:34.272Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2350,
+        "body": "## Start Your AI Girlfriend Experience\n\nPleasur AI offers the complete AI girlfriend experience: persistent memory that builds real relationship depth, uncensored conversation, contextual image generation, and characters that genuinely evolve with you.\n\n[Start your free trial on Pleasur AI →](https://pleasur.ai)\n\nNo credit card required. Your AI girlfriend is waiting — and she'll remember you tomorrow."
+      }
+    ]
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "backed_up_at": "2026-05-03T15:12:33+00:00",
+  "article": {
+    "id": 1204,
+    "documentId": "efl9cfs703rsrwll9jqkqgjd",
+    "title": "AI Companion That Remembers Conversations: How It Works (2026)",
+    "description": "How AI companions remember and which do it best.",
+    "slug": "ai-companion-remembers",
+    "createdAt": "2026-03-22T17:45:05.146Z",
+    "updatedAt": "2026-04-17T17:45:29.652Z",
+    "publishedAt": "2026-04-17T17:45:29.741Z",
+    "cover": {
+      "id": 154,
+      "documentId": "rum02jgiv2hjbd7nrhyzaik8",
+      "name": "cover-ai-companion-remembers.jpg",
+      "alternativeText": "Cover: AI Companion That Remembers Conversations: How It Works (2026)",
+      "caption": null,
+      "width": 1165,
+      "height": 776,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_cover_ai_companion_remembers_183462bc7f.jpg",
+          "hash": "large_cover_ai_companion_remembers_183462bc7f",
+          "mime": "image/jpeg",
+          "name": "large_cover-ai-companion-remembers.jpg",
+          "path": null,
+          "size": 116.02,
+          "width": 1000,
+          "height": 666,
+          "sizeInBytes": 116017
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_cover_ai_companion_remembers_183462bc7f.jpg",
+          "hash": "small_cover_ai_companion_remembers_183462bc7f",
+          "mime": "image/jpeg",
+          "name": "small_cover-ai-companion-remembers.jpg",
+          "path": null,
+          "size": 39.43,
+          "width": 500,
+          "height": 333,
+          "sizeInBytes": 39428
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_cover_ai_companion_remembers_183462bc7f.jpg",
+          "hash": "medium_cover_ai_companion_remembers_183462bc7f",
+          "mime": "image/jpeg",
+          "name": "medium_cover-ai-companion-remembers.jpg",
+          "path": null,
+          "size": 74,
+          "width": 750,
+          "height": 500,
+          "sizeInBytes": 73998
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_ai_companion_remembers_183462bc7f.jpg",
+          "hash": "thumbnail_cover_ai_companion_remembers_183462bc7f",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover-ai-companion-remembers.jpg",
+          "path": null,
+          "size": 11.64,
+          "width": 234,
+          "height": 156,
+          "sizeInBytes": 11640
+        }
+      },
+      "hash": "cover_ai_companion_remembers_183462bc7f",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 149.4,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_ai_companion_remembers_183462bc7f.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-22T17:45:08.348Z",
+      "updatedAt": "2026-03-22T17:45:08.348Z",
+      "publishedAt": "2026-03-22T17:45:08.349Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2313,
+        "body": "*Want to experience what good AI memory feels like?* [Start your Pleasur AI companion free](https://pleasur.ai) — your conversations build on each other, and your companion remembers who you are.\n\n*Related reading: [Best AI Girlfriend Apps With Memory in 2026](/blog/best-ai-girlfriend-app-2026-memory-2026)*"
+      }
+    ]
+  }
+}

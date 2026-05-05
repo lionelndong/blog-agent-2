@@ -1,0 +1,65 @@
+{
+  "backed_up_at": "2026-05-03T15:40:58+00:00",
+  "article": {
+    "id": 1223,
+    "documentId": "s4hkhz3fddw28xo3lq57o4m1",
+    "title": "AI Girlfriend App Unfiltered: No Restrictions Platforms (2026)",
+    "description": "AI girlfriend apps without content filters.",
+    "slug": "ai-girlfriend-app-unfiltered",
+    "createdAt": "2026-03-22T17:47:31.002Z",
+    "updatedAt": "2026-04-17T17:45:36.420Z",
+    "publishedAt": "2026-04-17T17:45:36.513Z",
+    "cover": {
+      "id": 168,
+      "documentId": "ctwvdxrj289g1vx6376h85gy",
+      "name": "cover-ai-girlfriend-app-unfiltered.jpg",
+      "alternativeText": "Cover: AI Girlfriend App Unfiltered: No Restrictions Platforms (2026)",
+      "caption": null,
+      "width": 400,
+      "height": 229,
+      "formats": {
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_ai_girlfriend_app_unfiltered_3387cb4540.jpg",
+          "hash": "thumbnail_cover_ai_girlfriend_app_unfiltered_3387cb4540",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover-ai-girlfriend-app-unfiltered.jpg",
+          "path": null,
+          "size": 10.28,
+          "width": 245,
+          "height": 140,
+          "sizeInBytes": 10280
+        }
+      },
+      "hash": "cover_ai_girlfriend_app_unfiltered_3387cb4540",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 25.8,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_ai_girlfriend_app_unfiltered_3387cb4540.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-22T17:47:33.869Z",
+      "updatedAt": "2026-03-22T17:47:33.869Z",
+      "publishedAt": "2026-03-22T17:47:33.869Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2332,
+        "body": "## Find Your Unfiltered AI Girlfriend\n\nTired of AI companions that censor your conversations and break character at the worst moments? Pleasur AI offers a genuinely unfiltered experience — persistent memory, AI-generated images, deep roleplay, and characters that never break character or refuse you.\n\n[Start your free trial on Pleasur AI →](https://pleasur.ai)\n\nNo content filters. No character breaks. No restrictions. Just connection."
+      }
+    ]
+  }
+}

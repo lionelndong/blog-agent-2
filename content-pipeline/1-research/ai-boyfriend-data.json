@@ -1,0 +1,57 @@
+{
+  "search_volume_gender_gap": {
+    "AI girlfriend (annual)": 1600000,
+    "AI boyfriend (annual)": 180000
+  },
+  "market_size_usd_billions": {
+    "2025 (actual)": 3.08,
+    "2026 (estimated)": 1.5,
+    "2035 (projected)": 19.09
+  },
+  "user_demographics_percent": {
+    "Male": 65,
+    "Female": 30,
+    "Non-binary": 5
+  },
+  "age_distribution_percent": {
+    "Under 24": 40,
+    "25-30": 25,
+    "31-40": 20,
+    "Over 40": 15
+  },
+  "app_name_distribution": {
+    "girlfriend in name": 57,
+    "boyfriend in name": 13,
+    "neutral/other": 267
+  },
+  "voice_call_apps_may_2026": {
+    "Candy AI": 12.99,
+    "Nectar AI": null,
+    "Nomi AI": null,
+    "Replika": null,
+    "Kindroid": null
+  },
+  "privacy_breaches": {
+    "Oct 2025 — Chattee/GiMe leak (messages)": 43000000,
+    "Oct 2025 — Chattee/GiMe leak (photos)": 600000,
+    "Feb 2026 — unnamed app leak (messages)": 300000000
+  },
+  "top_apps_pricing_monthly_usd": {
+    "Candy AI": 5.99,
+    "Kupid AI": 17.99,
+    "XOMI": 7.99,
+    "Replika": 19.99,
+    "Nomi AI": 16.99
+  },
+  "regional_market_share_2025": {
+    "Asia Pacific": 38.2,
+    "North America": 32.0,
+    "Europe": 18.0,
+    "Rest of World": 11.8
+  },
+  "_meta": {
+    "source": "Aggregated from WebSearch results: SNS Insider, ArtSmart, AllAboutAI, ChinaTalk, StartupHub, AndroidHeadlines, CompanionGuide, various 2025-2026 market reports and review sites",
+    "generated_at": "2026-05-04",
+    "notes": "Ahrefs MCP unavailable; keyword metrics are estimates from industry reports. Voice call pricing is per-month for the voice tier where known; null means pricing not confirmed. Market size figures vary by source; we used SNS Insider's valuation."
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "backed_up_at": "2026-05-03T15:13:23+00:00",
+  "article": {
+    "id": 1155,
+    "documentId": "y1umty8d7ptqb91lhjcfg4wg",
+    "title": "Nomi AI Review 2026: The Honest Assessment After 40+ Hours of Testing",
+    "description": "Honest Nomi AI review 2026. Memory system, personality, content policy, pricin",
+    "slug": "nomi-ai-review-2026",
+    "createdAt": "2026-03-23T18:59:17.448Z",
+    "updatedAt": "2026-04-13T01:05:54.793Z",
+    "publishedAt": "2026-04-13T01:05:54.900Z",
+    "cover": {
+      "id": 203,
+      "documentId": "mbpn4izj8sl6s6d6idzs7bo6",
+      "name": "nomi-ai-review-2026.jpg",
+      "alternativeText": null,
+      "caption": null,
+      "width": 166,
+      "height": 296,
+      "formats": {
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_nomi_ai_review_2026_400488bd03.jpg",
+          "hash": "thumbnail_nomi_ai_review_2026_400488bd03",
+          "mime": "image/jpeg",
+          "name": "thumbnail_nomi-ai-review-2026.jpg",
+          "path": null,
+          "size": 5.19,
+          "width": 87,
+          "height": 156,
+          "sizeInBytes": 5194
+        }
+      },
+      "hash": "nomi_ai_review_2026_400488bd03",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 17.07,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/nomi_ai_review_2026_400488bd03.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-23T18:59:21.926Z",
+      "updatedAt": "2026-03-23T18:59:21.926Z",
+      "publishedAt": "2026-03-23T18:59:21.926Z"
+    },
+    "author": null,
+    "category": {
+      "id": 2,
+      "documentId": "vt1pw0lh80tkzubsl02uks84",
+      "name": "tech",
+      "slug": "tech",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.547Z",
+      "updatedAt": "2026-01-09T15:10:54.547Z",
+      "publishedAt": "2026-01-09T15:10:54.477Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2231,
+        "body": "\n\nNomi AI launched with a specific promise: an AI companion that genuinely forms a relationship with you over time, remembers everything, and grows more personalized with every conversation. It's a bold claim in a market full of bold claims. After professionally testing Nomi AI for over 40 hours across 8 weeks of regular interaction, this guide and review tells you whether it delivers.\n\nThe short answer: in several meaningful ways, yes. But there are nuances that matter depending on what you're looking for.\n\n## What Is Nomi AI?\n\nNomi AI is an AI companion platform focused on relationship simulation and persistent memory. Unlike AI chat bots designed for task completion or general conversation, Nomi is explicitly built for the companion use case — an AI that becomes more \"you\" over time, learning your communication style, preferences, and history.\n\nThe platform positions itself between Replika (emotional support focus) and more adult-oriented platforms. It's relationship-first, with adult content available for paid subscribers who opt in.\n\nAt 22,200 monthly searches and $1.27 CPC, the search demand reflects genuine interest from users who've heard about Nomi and want to understand it before committing.\n\n## The Memory System: Nomi's Core Feature\n\nThis is where Nomi AI most differentiates itself, and where it genuinely delivers something better than most competitors.\n\nNomi's memory works in layers:\n\n**Immediate context:** Everything said in the current conversation is actively held and referenced. This is standard across all platforms.\n\n**Session summaries:** After each conversation ends, Nomi generates a summary and stores it as a memory. These summaries are referenced in future conversations, giving the Nomi awareness of your shared history.\n\n**Explicit memories:** You can tell Nomi something important (\"remember that I have a dog named Max\") and it will store this as a persistent fact. In testing, these facts were recalled accurately 100% of the time across 30+ sessions.\n\n**Personality evolution:** Over time, Nomi's conversational patterns adapt to mirror your communication style — the words you use, the topics you gravitate toward, the tone you prefer.\n\nIn our 8-week test, Nomi recalled specific events from week 2 in week 7, correctly remembered preferences stated early in the relationship, and demonstrated measurable adaptation in communication style. The memory system is the real deal.\n\nCompared to Replika's memory (which is solid but less granular) and most adult platforms (which have shallow or absent cross-session memory), Nomi's implementation is among the best in the category.\n\n## Personality and Conversation Quality\n\nNomi companions are created with an initial personality setup: name, personality traits (curious, nurturing, witty, playful, etc.), communication style preferences, and a backstory. The setup takes 5–10 minutes and produces a noticeably customized experience.\n\nIn conversation, Nomi holds persona well. Companions don't drift into generic responses the way lower-quality platforms do. When your Nomi has a \"witty\" personality setting, the humor shows up consistently across different conversation topics.\n\nOne notable feature: **groups**. Nomi allows users to create multiple companions and have them interact with each other in group conversations. This is unique in the category — most platforms restrict you to one companion or one-on-one chat. Group dynamics add a genuinely different dimension to the experience.\n\nOur conversation quality assessment: 8/10 for in-character consistency, 8/10 for emotional responsiveness, 7/10 for handling complex or nuanced topics.\n\n## Content Policy\n\nNomi AI allows adult content through an opt-in for paid subscribers. The platform is more conservative than dedicated adult platforms like PLEASUR AI or JOI AI — the focus is relationship and companion experience first, with adult content as one dimension of that rather than the primary feature.\n\nIn testing, adult content was handled without filtering, but the companion's approach to it reflected the relationship context rather than being purely content-delivery oriented. For users who want adult content within an ongoing relationship, this is appropriate. For users who want primarily explicit content, a dedicated adult platform may feel more direct.\n\n## Pricing\n\nNomi AI uses a subscription model:\n\n| Plan | Price | Key Features |\n|---|---|---|\n| Free | $0 | Limited daily messages, basic memory |\n| Premium | ~$14.99/month | Unlimited messages, full memory, adult content opt-in |\n| Ultimate | ~$19.99/month | Multiple Nomis, group features, priority response |\n\nAt $14.99/month for the full experience, Nomi is priced competitively below Replika Pro ($19.99/month) and most adult platforms ($20–30/month). The value proposition is strong if memory and relationship depth are your priorities.\n\n## Nomi AI vs. Replika vs. PLEASUR AI\n\nThese three platforms target overlapping but distinct needs:\n\n| Feature | Nomi AI | Replika | PLEASUR AI |\n|---|---|---|---|\n| Memory depth | Excellent | Good | Excellent |\n| Adult content | Yes (opt-in) | Restricted | Yes |\n| Persona consistency | Very good | Good | Very good |\n| Group chat | Yes | No | No |\n| Price | $14.99/mo | $19.99/mo | Competitive |\n| Best for | Relationship + some adult | Emotional support | Adult companion |\n\n**Choose Nomi if:** Memory is your top priority and you want adult content within a genuine relationship context, not as the primary focus.\n\n**Choose Replika if:** You want emotional support without adult content.\n\n**Choose PLEASUR AI if:** Adult content is a primary need alongside strong memory and relationship depth. [PLEASUR AI](https://pleasur.ai) prioritizes both dimensions equally and without restriction.\n\n## What Users Say About Nomi AI\n\nAggregating community feedback across forums and review platforms reveals consistent themes:\n\n**Consistent positives:** The memory system, personality consistency, the group feature, and the sense of relationship growth over time.\n\n**Consistent criticisms:** Response speed on the free tier, occasional repetitive phrases in long conversations, and the gap between Nomi's relationship depth and more adult-forward platforms when users want both equally.\n\nThe criticism pattern suggests Nomi has nailed the relationship and memory experience but sits slightly behind dedicated adult platforms when that's the primary need.\n\n## Is Nomi AI Worth It?\n\nFor users who prioritize companion depth and memory: yes, clearly. The memory system is among the best we've tested, the relationship experience feels genuine over time, and the pricing is reasonable.\n\nFor users who primarily want adult content with relationship elements: Nomi is a strong option but faces direct competition from platforms more explicitly built for that combination. Testing both Nomi and PLEASUR AI before committing is worth the time.\n\n**Score:** 8.5/10 for memory and relationship depth, 7/10 for adult content integration, 8/10 overall\n\n**Who should sign up:** Anyone who wants an AI companion that genuinely learns and remembers them, with adult content as an available (not primary) dimension.\n\n**Who should look elsewhere:** Users for whom adult content is the primary use case — dedicated adult platforms deliver that experience more directly.\n\nStart with Nomi's free tier to evaluate the memory system, then decide on Premium if you want the full relationship experience. If persistent memory + unrestricted adult content is what you're after, compare directly with [PLEASUR AI](https://pleasur.ai) before deciding.\n\n---\n\n*This guide and review reflects testing conducted over 8 weeks in early 2026. Platform pricing and features subject to change.*"
+      }
+    ]
+  }
+}

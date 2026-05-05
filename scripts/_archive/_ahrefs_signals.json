@@ -1,0 +1,21 @@
+{
+  "_source": "Ahrefs MCP responses captured 2026-05-03 — site-explorer-organic-keywords + site-explorer-pages-by-backlinks for pleasur.ai/blog (mode=prefix, protocol=https)",
+  "organic_keywords": [
+    {"keyword": "dirty ai apps", "best_position_url": "https://pleasur.ai/blog/dirty-ai-guide-2026", "best_position": 9, "volume": 70, "sum_traffic": 2},
+    {"keyword": "uncensored ai chatbot", "best_position_url": "https://pleasur.ai/blog/best-uncensored-ai-chatbot-free", "best_position": 30, "volume": 2600, "sum_traffic": 1},
+    {"keyword": "muah ai review", "best_position_url": "https://pleasur.ai/blog/muah-ai-review", "best_position": 10, "volume": 20, "sum_traffic": 1},
+    {"keyword": "muah ai review", "best_position_url": "https://pleasur.ai/blog/muah-ai-review", "best_position": 9, "volume": 10, "sum_traffic": 0},
+    {"keyword": "ai apps with no filter", "best_position_url": "https://pleasur.ai/blog/ai-chatbot-no-filter-2026", "best_position": 30, "volume": 350, "sum_traffic": 0},
+    {"keyword": "no filter ai", "best_position_url": "https://pleasur.ai/blog/ai-chatbot-no-filter-2026", "best_position": 43, "volume": 5300, "sum_traffic": 0},
+    {"keyword": "no filter ai", "best_position_url": "https://pleasur.ai/blog/ai-chatbot-no-filter-2026", "best_position": 35, "volume": 600, "sum_traffic": 0},
+    {"keyword": "ai girlfriend simulator", "best_position_url": "https://pleasur.ai/blog/ai-girlfriend-simulator", "best_position": 44, "volume": 2500, "sum_traffic": 0},
+    {"keyword": "ai with no filter", "best_position_url": "https://pleasur.ai/blog/ai-chatbot-no-filter-2026", "best_position": 44, "volume": 1000, "sum_traffic": 0},
+    {"keyword": "uncensored ai chatbot", "best_position_url": "https://pleasur.ai/blog/best-uncensored-ai-chatbot-free", "best_position": 46, "volume": 1500, "sum_traffic": 0},
+    {"keyword": "ai without filter", "best_position_url": "https://pleasur.ai/blog/ai-chatbot-no-filter-2026", "best_position": 45, "volume": 400, "sum_traffic": 0}
+  ],
+  "backlinks": [
+    {"url_to": "https://pleasur.ai/blog/ai-chatbot-app-guide-2026", "refdomains_target": 1, "links_to_target": 1, "url_rating_target": 0.0},
+    {"url_to": "https://pleasur.ai/blog/crushon-ai-review-2026", "refdomains_target": 1, "links_to_target": 1, "url_rating_target": 0.0},
+    {"url_to": "https://pleasur.ai/blog/tavern-ai-review-2026", "refdomains_target": 1, "links_to_target": 4, "url_rating_target": 0.0}
+  ]
+}

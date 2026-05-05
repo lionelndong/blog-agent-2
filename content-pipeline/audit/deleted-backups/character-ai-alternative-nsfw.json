@@ -1,0 +1,101 @@
+{
+  "backed_up_at": "2026-05-03T15:40:53+00:00",
+  "article": {
+    "id": 1237,
+    "documentId": "wx5wehbyf7m32x821h2cn9h5",
+    "title": "Character AI Alternative for NSFW: Best Unfiltered Options (2026)",
+    "description": "Best Character AI alternatives without content filters.",
+    "slug": "character-ai-alternative-nsfw",
+    "createdAt": "2026-03-22T17:41:20.900Z",
+    "updatedAt": "2026-04-17T17:45:41.241Z",
+    "publishedAt": "2026-04-17T17:45:41.339Z",
+    "cover": {
+      "id": 136,
+      "documentId": "c4wban15z94x1x8gmrgx0368",
+      "name": "cover-character-ai-alternative-nsfw.jpg",
+      "alternativeText": "Cover: Character AI Alternative for NSFW: Best Unfiltered Options (2026)",
+      "caption": null,
+      "width": 1440,
+      "height": 719,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_cover_character_ai_alternative_nsfw_bba13d5b92.jpg",
+          "hash": "large_cover_character_ai_alternative_nsfw_bba13d5b92",
+          "mime": "image/jpeg",
+          "name": "large_cover-character-ai-alternative-nsfw.jpg",
+          "path": null,
+          "size": 538.96,
+          "width": 1000,
+          "height": 499,
+          "sizeInBytes": 538959
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_cover_character_ai_alternative_nsfw_bba13d5b92.jpg",
+          "hash": "small_cover_character_ai_alternative_nsfw_bba13d5b92",
+          "mime": "image/jpeg",
+          "name": "small_cover-character-ai-alternative-nsfw.jpg",
+          "path": null,
+          "size": 157.88,
+          "width": 500,
+          "height": 250,
+          "sizeInBytes": 157881
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_cover_character_ai_alternative_nsfw_bba13d5b92.jpg",
+          "hash": "medium_cover_character_ai_alternative_nsfw_bba13d5b92",
+          "mime": "image/jpeg",
+          "name": "medium_cover-character-ai-alternative-nsfw.jpg",
+          "path": null,
+          "size": 322.62,
+          "width": 750,
+          "height": 374,
+          "sizeInBytes": 322615
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_character_ai_alternative_nsfw_bba13d5b92.jpg",
+          "hash": "thumbnail_cover_character_ai_alternative_nsfw_bba13d5b92",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover-character-ai-alternative-nsfw.jpg",
+          "path": null,
+          "size": 46.94,
+          "width": 245,
+          "height": 122,
+          "sizeInBytes": 46941
+        }
+      },
+      "hash": "cover_character_ai_alternative_nsfw_bba13d5b92",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 258.66,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_character_ai_alternative_nsfw_bba13d5b92.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-22T17:41:26.254Z",
+      "updatedAt": "2026-03-22T17:41:26.254Z",
+      "publishedAt": "2026-03-22T17:41:26.254Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2346,
+        "body": "## Keep the Quality. Drop the Filter.\n\nPleasur AI delivers Character.AI-level conversation quality with full NSFW access, persistent memory, and AI image generation. Everything Character.AI should have been — without the restrictions.\n\n[Start your free trial on Pleasur AI →](https://pleasur.ai)\n\nYour characters deserve to be remembered. And unfiltered."
+      }
+    ]
+  }
+}

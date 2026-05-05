@@ -1,0 +1,23 @@
+{
+  "cluster_volumes": {
+    "Image / generator": 860000,
+    "Video": 38000,
+    "Chat": 33000,
+    "Apps / sites": 11400
+  },
+  "format_share": {
+    "image": 0.91,
+    "video": 0.04,
+    "chat": 0.035,
+    "apps": 0.015
+  },
+  "top_serp_traffic": {
+    "Page #1 (highest-ranking listicle)": 125000,
+    "Page #2 (Economist analysis)": 95000,
+    "Page #3 (parasite listicle)": 47000
+  },
+  "_meta": {
+    "source": "Aggregated from content-pipeline/1-research/ai-porn.md cluster volumes (Ahrefs matching-terms aggregation, US locale)",
+    "generated_at": "2026-05-03"
+  }
+}

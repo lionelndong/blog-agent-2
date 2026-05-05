@@ -1,0 +1,101 @@
+{
+  "backed_up_at": "2026-05-03T15:05:31+00:00",
+  "article": {
+    "id": 1252,
+    "documentId": "gpsav97pl763fxvtg31xeoe0",
+    "title": "Are AI Companions Safe? Privacy, Security and Mental Health (2026)",
+    "description": "AI companion safety: privacy risks and health facts.",
+    "slug": "are-ai-companions-safe",
+    "createdAt": "2026-03-22T17:45:13.634Z",
+    "updatedAt": "2026-04-17T17:45:46.450Z",
+    "publishedAt": "2026-04-17T17:45:46.547Z",
+    "cover": {
+      "id": 155,
+      "documentId": "aswko0uu9npov1u3y1169uij",
+      "name": "cover-are-ai-companions-safe.jpg",
+      "alternativeText": "Cover: Are AI Companions Safe? Privacy, Security and Mental Health (2026)",
+      "caption": null,
+      "width": 1200,
+      "height": 630,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_cover_are_ai_companions_safe_8fb92845da.jpg",
+          "hash": "large_cover_are_ai_companions_safe_8fb92845da",
+          "mime": "image/jpeg",
+          "name": "large_cover-are-ai-companions-safe.jpg",
+          "path": null,
+          "size": 74.24,
+          "width": 1000,
+          "height": 525,
+          "sizeInBytes": 74242
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_cover_are_ai_companions_safe_8fb92845da.jpg",
+          "hash": "small_cover_are_ai_companions_safe_8fb92845da",
+          "mime": "image/jpeg",
+          "name": "small_cover-are-ai-companions-safe.jpg",
+          "path": null,
+          "size": 33.74,
+          "width": 500,
+          "height": 263,
+          "sizeInBytes": 33735
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_cover_are_ai_companions_safe_8fb92845da.jpg",
+          "hash": "medium_cover_are_ai_companions_safe_8fb92845da",
+          "mime": "image/jpeg",
+          "name": "medium_cover-are-ai-companions-safe.jpg",
+          "path": null,
+          "size": 52.91,
+          "width": 750,
+          "height": 394,
+          "sizeInBytes": 52908
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_are_ai_companions_safe_8fb92845da.jpg",
+          "hash": "thumbnail_cover_are_ai_companions_safe_8fb92845da",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover-are-ai-companions-safe.jpg",
+          "path": null,
+          "size": 14.48,
+          "width": 245,
+          "height": 129,
+          "sizeInBytes": 14483
+        }
+      },
+      "hash": "cover_are_ai_companions_safe_8fb92845da",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 14.5,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_are_ai_companions_safe_8fb92845da.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-22T17:45:17.015Z",
+      "updatedAt": "2026-03-22T17:45:17.015Z",
+      "publishedAt": "2026-03-22T17:45:17.016Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2361,
+        "body": "*Interested in an AI companion that respects your privacy?* [Try Pleasur AI free](https://pleasur.ai) — encrypted conversations, data deletion available, and no surprise content policy changes.\n\n*Related reading: [What Is an AI Girlfriend? Everything You Need to Know](/blog/what-is-ai-girlfriend)*"
+      }
+    ]
+  }
+}

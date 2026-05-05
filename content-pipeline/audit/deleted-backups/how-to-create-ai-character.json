@@ -1,0 +1,101 @@
+{
+  "backed_up_at": "2026-05-03T15:40:50+00:00",
+  "article": {
+    "id": 1244,
+    "documentId": "sj15e2csjcfy1w29vqm6lf2g",
+    "title": "How to Create an AI Character: Step-by-Step Guide (2026)",
+    "description": "Step-by-step guide to creating your own AI character.",
+    "slug": "how-to-create-ai-character",
+    "createdAt": "2026-03-22T17:46:30.095Z",
+    "updatedAt": "2026-04-17T17:45:43.667Z",
+    "publishedAt": "2026-04-17T17:45:43.758Z",
+    "cover": {
+      "id": 164,
+      "documentId": "f61bmotn1t0882t78h2nn9uo",
+      "name": "cover-how-to-create-ai-character.jpg",
+      "alternativeText": "Cover: How to Create an AI Character: Step-by-Step Guide (2026)",
+      "caption": null,
+      "width": 1040,
+      "height": 1040,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_cover_how_to_create_ai_character_95d73cf55e.jpg",
+          "hash": "large_cover_how_to_create_ai_character_95d73cf55e",
+          "mime": "image/jpeg",
+          "name": "large_cover-how-to-create-ai-character.jpg",
+          "path": null,
+          "size": 83.8,
+          "width": 1000,
+          "height": 1000,
+          "sizeInBytes": 83796
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_cover_how_to_create_ai_character_95d73cf55e.jpg",
+          "hash": "small_cover_how_to_create_ai_character_95d73cf55e",
+          "mime": "image/jpeg",
+          "name": "small_cover-how-to-create-ai-character.jpg",
+          "path": null,
+          "size": 35.08,
+          "width": 500,
+          "height": 500,
+          "sizeInBytes": 35080
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_cover_how_to_create_ai_character_95d73cf55e.jpg",
+          "hash": "medium_cover_how_to_create_ai_character_95d73cf55e",
+          "mime": "image/jpeg",
+          "name": "medium_cover-how-to-create-ai-character.jpg",
+          "path": null,
+          "size": 59.96,
+          "width": 750,
+          "height": 750,
+          "sizeInBytes": 59956
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_how_to_create_ai_character_95d73cf55e.jpg",
+          "hash": "thumbnail_cover_how_to_create_ai_character_95d73cf55e",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover-how-to-create-ai-character.jpg",
+          "path": null,
+          "size": 6.65,
+          "width": 156,
+          "height": 156,
+          "sizeInBytes": 6654
+        }
+      },
+      "hash": "cover_how_to_create_ai_character_95d73cf55e",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 111.08,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_how_to_create_ai_character_95d73cf55e.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-22T17:46:34.841Z",
+      "updatedAt": "2026-03-22T17:46:34.841Z",
+      "publishedAt": "2026-03-22T17:46:34.841Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2353,
+        "body": "**Ready to build your perfect AI companion?** [Start creating on Pleasur AI](https://pleasur.ai) — deep personality customization, long-term memory, and visual content that matches your character.\n\n---\n\n## FAQ\n\n**How long does it take to create a good AI character?**\nInitial setup takes 10-15 minutes if you follow this guide. The character continues improving through conversation over the first week or two.\n\n**Can I change my AI character after creating them?**\nYes. Most platforms allow you to adjust personality traits, appearance, and backstory at any time. Memory-enabled platforms will adapt to changes naturally.\n\n**Why does my AI character feel generic?**\nUsually because the personality setup was too broad. \"Confident and funny\" describes thousands of characters. Specific traits, contradictions, communication quirks, and a backstory create distinction.\n\n**Can I create multiple AI characters?**\nMost premium platforms support multiple characters, each with independent personality and memory. Free tiers typically limit you to one or two.\n\n**Do AI characters remember what I teach them?**\nOn platforms with long-term memory (Pleasur AI, Nomi AI), yes. On platforms with basic memory (SpicyChat, free tiers), generally no — you'll need to re-establish character context each session."
+      }
+    ]
+  }
+}

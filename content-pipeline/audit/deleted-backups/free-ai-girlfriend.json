@@ -1,0 +1,77 @@
+{
+  "backed_up_at": "2026-05-03T15:12:27+00:00",
+  "article": {
+    "id": 1215,
+    "documentId": "amap76bc1iywswp55286g8xc",
+    "title": "Free AI Girlfriend: Every Option Worth Trying in 2026",
+    "description": "Every free AI girlfriend option tested and ranked.",
+    "slug": "free-ai-girlfriend",
+    "createdAt": "2026-03-22T17:50:23.441Z",
+    "updatedAt": "2026-04-17T17:45:33.537Z",
+    "publishedAt": "2026-04-17T17:45:33.626Z",
+    "cover": {
+      "id": 176,
+      "documentId": "xth9110w1b7w32f7qrao619b",
+      "name": "cover-free-ai-girlfriend.jpg",
+      "alternativeText": null,
+      "caption": null,
+      "width": 720,
+      "height": 480,
+      "formats": {
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_cover_free_ai_girlfriend_808c855d1a.jpg",
+          "hash": "small_cover_free_ai_girlfriend_808c855d1a",
+          "mime": "image/jpeg",
+          "name": "small_cover-free-ai-girlfriend.jpg",
+          "path": null,
+          "size": 23.48,
+          "width": 500,
+          "height": 333,
+          "sizeInBytes": 23479
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_free_ai_girlfriend_808c855d1a.jpg",
+          "hash": "thumbnail_cover_free_ai_girlfriend_808c855d1a",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover-free-ai-girlfriend.jpg",
+          "path": null,
+          "size": 7.6,
+          "width": 234,
+          "height": 156,
+          "sizeInBytes": 7601
+        }
+      },
+      "hash": "cover_free_ai_girlfriend_808c855d1a",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 41.04,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_free_ai_girlfriend_808c855d1a.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-22T17:50:25.769Z",
+      "updatedAt": "2026-03-22T17:50:25.769Z",
+      "publishedAt": "2026-03-22T17:50:25.769Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2324,
+        "body": "## Experience What \"Premium\" Feels Like — Free\n\nPleasur AI's free trial gives you the full experience: persistent memory, AI image generation, uncensored conversation. See the difference memory makes before deciding whether to subscribe.\n\n[Start your free trial on Pleasur AI →](https://pleasur.ai)\n\nNo credit card required. No commitment. Just the real experience."
+      }
+    ]
+  }
+}

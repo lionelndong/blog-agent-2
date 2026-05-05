@@ -1,0 +1,72 @@
+{
+  "serp_traffic_top_10": {
+    "#1 Kupid AI (create-ai-girlfriend)": 18757,
+    "#3 OurDream.ai (create)": 5679,
+    "#9 MyDreamCompanion": 410,
+    "#5 Glambase (dream-girl-generator)": 178,
+    "#8 MWM Build a Girlfriend game": 12,
+    "#4 Reddit r/artificial thread": 7,
+    "#10 Candy.ai (create)": 6,
+    "#6 Ethumia": 6,
+    "#2 Scribehow how-to": 4,
+    "#7 TikTok Discover": 2
+  },
+  "build_design_cluster_volumes": {
+    "ai girlfriend (parent)": 80000,
+    "ai gf": 13000,
+    "free ai girlfriend": 12000,
+    "ai girl friend": 1000,
+    "ai girlfriend generator": 1100,
+    "ai girlfriend chatbot": 1100,
+    "create ai girl": 1000,
+    "build ai girlfriend": 90,
+    "build your ai girlfriend": 60,
+    "build a girlfriend ai": 50,
+    "build an ai girlfriend": 40,
+    "build your own ai girlfriend": 30,
+    "design a girlfriend": 20,
+    "design your own girlfriend": 20,
+    "design ai girlfriend": 20,
+    "build your girlfriend body": 20,
+    "how to build an ai girlfriend": 20,
+    "build a girlfriend body": 10,
+    "build a ai girlfriend": 10,
+    "design your ai girlfriend": 10,
+    "how to build ai girlfriend": 10,
+    "ai girlfriend design": 20,
+    "ai girlfriend body": 0
+  },
+  "competitor_pricing_disclosure": {
+    "Discloses concrete monthly price": 0.0,
+    "Discloses tier names but not price": 0.6,
+    "No pricing surfaced at all": 0.4,
+    "_note": "Sample of top-10 SERP product pages — Kupid, OurDream, Glambase, Ethumia, MyDreamCompanion, Candy.AI. Of 6 product pages with marketing copy, 0 surface a concrete monthly dollar figure on the create page."
+  },
+  "body_customization_options_offered": {
+    "Style (realistic vs anime)": 6,
+    "Ethnicity / skin tone": 6,
+    "Eye color": 6,
+    "Hair color and style": 6,
+    "Body type preset": 6,
+    "Breast size slider": 3,
+    "Butt size slider": 2,
+    "Age range presentation": 4,
+    "Outfit / clothing": 5,
+    "Custom prompt field": 4,
+    "Reference photo upload": 1,
+    "_note": "Count of top-10 product pages (n=6 with public marketing copy) explicitly advertising each option. Breast/butt sliders are advertised by Kupid + OurDream + Glambase; Candy.AI's marketing copy notably omits naming them."
+  },
+  "discourse_signals": {
+    "US adults uncomfortable sharing relationship data with AI (Pew Dec 2023)": 0.63,
+    "Global chatbot usage that is companionship/entertainment (Statista Q3 2023)": 0.30,
+    "AI sex robot + virtual companion market 2020 (USD billions)": 0.31,
+    "AI sex robot + virtual companion market projected 2030 (USD billions)": 2.40,
+    "Projected CAGR 2020-2030": 0.271
+  },
+  "_meta": {
+    "source": "Aggregated from Ahrefs MCP (keywords-explorer-overview, matching-terms, related-terms, serp-overview, US locale) + WebFetch of top SERP product pages + WebSearch discourse pass + deep research fallback (openai/o4-mini). Pricing-disclosure and customization-option ratios calculated from the 6 top-10 product pages with publicly readable marketing copy (Kupid, OurDream, Glambase, Ethumia, MyDreamCompanion, Candy.AI).",
+    "generated_at": "2026-05-03",
+    "keyword": "build a girlfriend body",
+    "slug": "build-a-girlfriend-body"
+  }
+}

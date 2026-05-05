@@ -1,0 +1,419 @@
+#!/usr/bin/env python3
+"""Format a cited draft for Strapi publishing.
+
+Produces three files under content-pipeline/8-publish/{slug}/:
+  - article.md       (clean markdown body, no H1, no shortcodes, with :::tip / :::note callouts)
+  - article.json     (Strapi-shaped payload for API publish or admin paste)
+  - README.md        (human-readable summary + what to do next)
+
+Usage:
+    python .claude/skills/format-for-publish/scripts/format_for_strapi.py <slug>
+
+To enable direct Strapi API publish later:
+  - Set STRAPI_BASE_URL and STRAPI_API_TOKEN env vars (e.g. via `doppler run --`)
+  - Pass --publish flag
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import re
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[4]
+DRAFT_DIR = ROOT / "content-pipeline" / "6-drafts-cited"
+OUT_DIR = ROOT / "content-pipeline" / "8-publish"
+IMAGES_DIR = ROOT / "content-pipeline" / "images"
+QC_DIR = ROOT / "content-pipeline" / "quality-checks"
+
+IMAGE_REF_RE = re.compile(r"!\[([^\]]*)\]\((images/[^)]+\.(?:png|jpg|jpeg|webp|gif))\)")
+QC_VERDICT_RE = re.compile(r"\b(PASS|BORDERLINE|FAIL)\b", re.IGNORECASE)
+
+
+def quality_precondition(slug: str) -> tuple[bool, str]:
+    """Read content-pipeline/quality-checks/{slug}.md verdict line.
+
+    Returns (allow_publish, reason). Refuses publish if verdict is FAIL or file missing.
+    """
+    path = QC_DIR / f"{slug}.md"
+    if not path.exists():
+        return False, f"quality-check report missing: {path}"
+    text = path.read_text(encoding="utf-8")
+    head = "\n".join(text.splitlines()[:30])
+    m = QC_VERDICT_RE.search(head)
+    if m is None:
+        return False, f"no verdict line found in {path}"
+    verdict = m.group(1).upper()
+    if verdict == "FAIL":
+        return False, f"quality verdict is FAIL — refusing auto-publish"
+    return True, f"verdict={verdict}"
+
+
+def read_draft(slug: str) -> str:
+    path = DRAFT_DIR / f"{slug}.md"
+    if not path.exists():
+        sys.exit(f"error: cited draft not found at {path}")
+    return path.read_text(encoding="utf-8")
+
+
+def strip_editor_notes(md: str) -> str:
+    """Drop the '## Editor notes' section and everything after it."""
+    m = re.search(r"^---\s*\n+##\s+Editor notes", md, re.MULTILINE)
+    if m:
+        return md[:m.start()].rstrip() + "\n"
+    m = re.search(r"^##\s+Editor notes", md, re.MULTILINE)
+    if m:
+        return md[:m.start()].rstrip() + "\n"
+    return md
+
+
+def extract_title(md: str) -> tuple[str, str]:
+    m = re.search(r"^#\s+(.+?)\s*$", md, re.MULTILINE)
+    if not m:
+        return "Untitled", md
+    title = m.group(1).strip()
+    body = (md[:m.start()] + md[m.end():]).lstrip("\n")
+    return title, body
+
+
+def transform_callouts(md: str) -> str:
+    """Convert **Tip:**, **Pro tip:**, **Note:**, **Sidenote:**, **Editor:** paragraphs into :::callout blocks."""
+    patterns = [
+        (r"\*\*Pro tip:\*\*\s*(.+?)(?=\n\n|\Z)", "tip"),
+        (r"\*\*Tip:\*\*\s*(.+?)(?=\n\n|\Z)", "tip"),
+        (r"\*\*Sidenote:\*\*\s*(.+?)(?=\n\n|\Z)", "note"),
+        (r"\*\*Note:\*\*\s*(.+?)(?=\n\n|\Z)", "note"),
+        (r"\*\*Editor:\*\*\s*(.+?)(?=\n\n|\Z)", "editor"),
+    ]
+    for pattern, kind in patterns:
+        md = re.sub(
+            pattern,
+            lambda m, k=kind: f":::{k}\n{m.group(1).strip()}\n:::",
+            md,
+            flags=re.DOTALL,
+        )
+    return md
+
+
+def first_sentences(text: str, max_chars: int = 160) -> str:
+    text = re.sub(r"\s+", " ", text).strip()
+    sentences = re.split(r"(?<=[.!?])\s+", text)
+    out = ""
+    for s in sentences:
+        candidate = (out + " " + s).strip() if out else s
+        if len(candidate) > max_chars:
+            return out if out else s[:max_chars].rstrip() + "..."
+        out = candidate
+    return out
+
+
+def extract_excerpt(body_md: str) -> str:
+    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", body_md) if p.strip()]
+    intro = ""
+    for p in paragraphs:
+        if p.startswith("#") or p.startswith(":::") or p.startswith("|") or p.startswith("```"):
+            continue
+        intro = p
+        break
+    intro = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", intro)
+    intro = re.sub(r"\*\*(.+?)\*\*", r"\1", intro)
+    intro = re.sub(r"(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)", r"\1", intro)
+    return first_sentences(intro, max_chars=160)
+
+
+def truncate_meta_title(title: str, limit: int = 60) -> str:
+    if len(title) <= limit:
+        return title
+    cut = title[:limit]
+    last_space = cut.rfind(" ")
+    return (cut[:last_space] if last_space > 0 else cut).rstrip() + "..."
+
+
+def extract_tags(body_md: str, max_tags: int = 5) -> list[str]:
+    h2s = re.findall(r"^##\s+(.+?)\s*$", body_md, re.MULTILINE)
+    tags = []
+    for h in h2s[:max_tags]:
+        h = re.sub(r"^[\d\.\)\s]+", "", h)
+        slug = re.sub(r"[^\w\s-]", "", h).strip().lower()
+        slug = re.sub(r"\s+", "-", slug)
+        if slug and slug not in tags:
+            tags.append(slug)
+    return tags[:max_tags]
+
+
+def build_payload(slug: str, title: str, body_md: str, *, published_at: str | None = None) -> dict:
+    excerpt = extract_excerpt(body_md)
+    return {
+        "data": {
+            "title": title,
+            "slug": slug,
+            "excerpt": excerpt,
+            "content": body_md.strip() + "\n",
+            "publishedAt": published_at,
+            "seo": {
+                "metaTitle": truncate_meta_title(title),
+                "metaDescription": excerpt,
+                "keywords": slug.replace("-", " "),
+            },
+            "categories": ["Guides"],
+            "tags": extract_tags(body_md),
+        }
+    }
+
+
+def find_image_refs(md: str) -> list[tuple[str, str]]:
+    """Return list of (alt, relative-path-from-content-pipeline)."""
+    return [(m.group(1), m.group(2)) for m in IMAGE_REF_RE.finditer(md)]
+
+
+def copy_images_to_publish(out_dir: Path, refs: list[tuple[str, str]]) -> list[Path]:
+    """Copy referenced images into <out_dir>/media/, return the absolute paths."""
+    if not refs:
+        return []
+    media_dir = out_dir / "media"
+    media_dir.mkdir(parents=True, exist_ok=True)
+    copied: list[Path] = []
+    for _, rel in refs:
+        src = ROOT / "content-pipeline" / rel
+        if not src.exists():
+            sys.stderr.write(f"warning: missing image {src}\n")
+            continue
+        dest = media_dir / src.name
+        try:
+            dest.write_bytes(src.read_bytes())
+            copied.append(dest)
+        except OSError as exc:
+            sys.stderr.write(f"warning: copy failed {src}: {exc}\n")
+    return copied
+
+
+def upload_to_strapi_media(image_paths: list[Path], base_url: str, token: str) -> dict[str, int]:
+    """POST each image to /api/upload, return mapping of filename -> media id."""
+    if not image_paths:
+        return {}
+    try:
+        import urllib.request
+        import uuid
+        import mimetypes
+    except ImportError as exc:
+        sys.stderr.write(f"warning: stdlib missing for media upload ({exc}); skipping\n")
+        return {}
+
+    endpoint = f"{base_url.rstrip('/')}/api/upload"
+    out: dict[str, int] = {}
+    for path in image_paths:
+        boundary = uuid.uuid4().hex
+        mime = mimetypes.guess_type(path.name)[0] or "image/png"
+        body = (
+            f"--{boundary}\r\n"
+            f'Content-Disposition: form-data; name="files"; filename="{path.name}"\r\n'
+            f"Content-Type: {mime}\r\n\r\n"
+        ).encode("utf-8")
+        body += path.read_bytes() + f"\r\n--{boundary}--\r\n".encode("utf-8")
+        req = urllib.request.Request(
+            endpoint,
+            data=body,
+            headers={
+                "Authorization": f"Bearer {token}",
+                "Content-Type": f"multipart/form-data; boundary={boundary}",
+            },
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+            if isinstance(data, list) and data:
+                first = data[0]
+                if isinstance(first, dict) and "id" in first:
+                    out[path.name] = int(first["id"])
+        except Exception as exc:
+            sys.stderr.write(f"warning: upload failed for {path.name}: {exc}\n")
+    return out
+
+
+def rewrite_image_refs(md: str, base_url: str | None) -> str:
+    """If we have a Strapi base URL, rewrite local image refs to absolute Strapi-served URLs.
+    Otherwise leave them as-is so the editor can drag from media/ folder."""
+    if not base_url:
+        return md
+    base = base_url.rstrip("/")
+
+    def _rewrite(match: "re.Match[str]") -> str:
+        alt = match.group(1)
+        rel = match.group(2)
+        filename = Path(rel).name
+        return f"![{alt}]({base}/uploads/{filename})"
+
+    return IMAGE_REF_RE.sub(_rewrite, md)
+
+
+def write_outputs(slug: str, body_md: str, payload: dict) -> Path:
+    out_dir = OUT_DIR / slug
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "article.md").write_text(body_md.strip() + "\n", encoding="utf-8")
+    (out_dir / "article.json").write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    data = payload["data"]
+    word_count = len(re.findall(r"\b\w+\b", data["content"]))
+    readme = f"""# Publish package — {data['title']}
+
+Generated by /format-for-publish. Two ways to use this:
+
+## Option A — paste into Strapi admin (no API needed)
+1. Open Strapi admin → Content Manager → create a new Article
+2. Title: {data['title']}
+3. Slug: {data['slug']}
+4. Excerpt: {data['excerpt']}
+5. Content: paste the contents of `article.md` into the rich-text / markdown field
+6. SEO meta title: {data['seo']['metaTitle']}
+7. SEO meta description: {data['seo']['metaDescription']}
+8. Suggested categories: {', '.join(data['categories'])}
+9. Suggested tags: {', '.join(data['tags'])}
+10. Save as draft, review, then publish
+
+## Option B — direct API publish (when Doppler creds are wired)
+```bash
+doppler run -- python .claude/skills/format-for-publish/scripts/format_for_strapi.py {slug} --publish
+```
+Requires STRAPI_BASE_URL and STRAPI_API_TOKEN env vars.
+
+## Files
+- `article.md` — clean markdown body (paste in Strapi rich-text field)
+- `article.json` — Strapi-shaped payload (for API publish)
+- `README.md` — this file
+
+## Stats
+- Word count: {word_count}
+- Excerpt length: {len(data['excerpt'])} chars
+- Meta title length: {len(data['seo']['metaTitle'])} chars
+- Tags: {len(data['tags'])}
+"""
+    (out_dir / "README.md").write_text(readme, encoding="utf-8")
+    return out_dir
+
+
+def find_existing_article_id(base_url: str, token: str, slug: str) -> int | None:
+    """Look up the Strapi article id for a slug. Returns None if not found."""
+    import urllib.parse
+    import urllib.request
+
+    endpoint = f"{base_url.rstrip('/')}/api/articles?filters[slug][$eq]={urllib.parse.quote(slug)}"
+    req = urllib.request.Request(
+        endpoint,
+        headers={"Authorization": f"Bearer {token}"},
+        method="GET",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        items = data.get("data") if isinstance(data, dict) else None
+        if isinstance(items, list) and items:
+            entry = items[0]
+            entry_id = entry.get("id") if isinstance(entry, dict) else None
+            return int(entry_id) if entry_id is not None else None
+    except Exception as exc:
+        sys.stderr.write(f"warning: lookup of slug {slug!r} failed: {exc}\n")
+    return None
+
+
+def publish_to_strapi(payload: dict, *, update: bool = False) -> None:
+    """Push payload to Strapi.
+
+    POST to /api/articles by default. If `update=True`, looks up the existing
+    article by slug and PATCHes /api/articles/{id} instead.
+    """
+    base_url = os.environ.get("STRAPI_BASE_URL")
+    token = os.environ.get("STRAPI_API_TOKEN")
+    if not base_url or not token:
+        sys.exit("error: STRAPI_BASE_URL and STRAPI_API_TOKEN env vars required for --publish")
+    try:
+        import urllib.request
+    except ImportError:
+        sys.exit("error: stdlib urllib unavailable (impossible on stdlib Python)")
+
+    method = "POST"
+    endpoint = f"{base_url.rstrip('/')}/api/articles"
+    if update:
+        slug = payload.get("data", {}).get("slug")
+        if not slug:
+            sys.exit("error: --update requires payload to have data.slug")
+        existing_id = find_existing_article_id(base_url, token, slug)
+        if existing_id is None:
+            sys.stderr.write(f"warning: --update set but slug {slug!r} not found in Strapi; falling back to POST\n")
+        else:
+            method = "PUT"
+            endpoint = f"{base_url.rstrip('/')}/api/articles/{existing_id}"
+
+    req = urllib.request.Request(
+        endpoint,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+        },
+        method=method,
+    )
+    try:
+        with urllib.request.urlopen(req) as resp:
+            print(f"{'updated' if method == 'PUT' else 'published'} — {resp.status} {resp.reason}")
+            print(resp.read().decode("utf-8"))
+    except Exception as e:
+        sys.exit(f"error: Strapi {method} failed: {e}")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("slug")
+    parser.add_argument("--publish", action="store_true", help="Direct API publish (requires STRAPI_BASE_URL + STRAPI_API_TOKEN)")
+    parser.add_argument("--auto-publish", action="store_true", help="Set publishedAt = now (live publish, not draft). Implies --publish. Requires quality-check verdict != FAIL.")
+    parser.add_argument("--update", action="store_true", help="PATCH (PUT) the existing Strapi article by slug instead of POST. For /update-pipeline runs.")
+    args = parser.parse_args()
+
+    auto_publish = args.auto_publish or os.environ.get("BLOG_AGENT_AUTO_PUBLISH") == "1"
+    publish_via_api = args.publish or auto_publish  # auto-publish implies --publish
+
+    if auto_publish:
+        allow, reason = quality_precondition(args.slug)
+        if not allow:
+            sys.exit(f"error: auto-publish refused — {reason}")
+        else:
+            print(f"quality-check precondition passed ({reason})")
+
+    raw = read_draft(args.slug)
+    no_notes = strip_editor_notes(raw)
+    title, body = extract_title(no_notes)
+    body = transform_callouts(body)
+
+    # Always copy referenced images into the publish folder so the editor can paste manually
+    image_refs = find_image_refs(body)
+    out_dir = OUT_DIR / args.slug
+    out_dir.mkdir(parents=True, exist_ok=True)
+    copied_images = copy_images_to_publish(out_dir, image_refs)
+
+    base_url = os.environ.get("STRAPI_BASE_URL")
+    token = os.environ.get("STRAPI_API_TOKEN")
+
+    if publish_via_api and base_url and token and copied_images:
+        media_map = upload_to_strapi_media(copied_images, base_url, token)
+        if media_map:
+            print(f"uploaded {len(media_map)} images to Strapi media library")
+        body = rewrite_image_refs(body, base_url)
+
+    published_at = datetime.now(timezone.utc).isoformat() if auto_publish else None
+    payload = build_payload(args.slug, title, body, published_at=published_at)
+    out_dir = write_outputs(args.slug, body, payload)
+    print(f"wrote {out_dir}/article.md")
+    print(f"wrote {out_dir}/article.json")
+    print(f"wrote {out_dir}/README.md")
+    if copied_images:
+        print(f"copied {len(copied_images)} image(s) to {out_dir / 'media'}")
+
+    if publish_via_api:
+        publish_to_strapi(payload, update=args.update)
+
+
+if __name__ == "__main__":
+    main()

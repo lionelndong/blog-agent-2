@@ -1,0 +1,101 @@
+{
+  "backed_up_at": "2026-05-03T15:13:36+00:00",
+  "article": {
+    "id": 1137,
+    "documentId": "yqlhx4mphmq38l05do2r9qyb",
+    "title": "Novel AI Review 2026: Is It Worth It for Creative Writing and Roleplay?",
+    "description": "Honest Novel AI review 2026. Pricing, image gen, storytelling tools, and how i",
+    "slug": "novel-ai-review-2026",
+    "createdAt": "2026-03-23T18:58:08.117Z",
+    "updatedAt": "2026-04-13T01:03:37.057Z",
+    "publishedAt": "2026-04-13T01:03:37.147Z",
+    "cover": {
+      "id": 199,
+      "documentId": "xltx4nvu8y2id2n7cu2n57wx",
+      "name": "novel-ai-review-2026.jpg",
+      "alternativeText": null,
+      "caption": null,
+      "width": 1024,
+      "height": 1024,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_novel_ai_review_2026_a7c5f26edf.jpg",
+          "hash": "large_novel_ai_review_2026_a7c5f26edf",
+          "mime": "image/jpeg",
+          "name": "large_novel-ai-review-2026.jpg",
+          "path": null,
+          "size": 189.08,
+          "width": 1000,
+          "height": 1000,
+          "sizeInBytes": 189080
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_novel_ai_review_2026_a7c5f26edf.jpg",
+          "hash": "small_novel_ai_review_2026_a7c5f26edf",
+          "mime": "image/jpeg",
+          "name": "small_novel-ai-review-2026.jpg",
+          "path": null,
+          "size": 65.43,
+          "width": 500,
+          "height": 500,
+          "sizeInBytes": 65433
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_novel_ai_review_2026_a7c5f26edf.jpg",
+          "hash": "medium_novel_ai_review_2026_a7c5f26edf",
+          "mime": "image/jpeg",
+          "name": "medium_novel-ai-review-2026.jpg",
+          "path": null,
+          "size": 121.43,
+          "width": 750,
+          "height": 750,
+          "sizeInBytes": 121430
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_novel_ai_review_2026_a7c5f26edf.jpg",
+          "hash": "thumbnail_novel_ai_review_2026_a7c5f26edf",
+          "mime": "image/jpeg",
+          "name": "thumbnail_novel-ai-review-2026.jpg",
+          "path": null,
+          "size": 10.12,
+          "width": 156,
+          "height": 156,
+          "sizeInBytes": 10122
+        }
+      },
+      "hash": "novel_ai_review_2026_a7c5f26edf",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 189.72,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/novel_ai_review_2026_a7c5f26edf.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-23T18:58:11.884Z",
+      "updatedAt": "2026-03-23T18:58:11.884Z",
+      "publishedAt": "2026-03-23T18:58:11.885Z"
+    },
+    "author": null,
+    "category": {
+      "id": 2,
+      "documentId": "vt1pw0lh80tkzubsl02uks84",
+      "name": "tech",
+      "slug": "tech",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.547Z",
+      "updatedAt": "2026-01-09T15:10:54.547Z",
+      "publishedAt": "2026-01-09T15:10:54.477Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2177,
+        "body": "\n\nNovel AI sits at a unique intersection: it's part creative writing tool, part image generator, part AI companion. With 33,100 monthly searches, there's a significant audience asking whether it delivers. This guide and review gives you the honest answer after testing it extensively.\n\nThe short version: Novel AI is genuinely impressive for creative writing and storytelling. For pure companion chat, it's more limited. And the pricing model requires careful evaluation before you commit.\n\nOur team has professionally tested Novel AI for over 40 hours across multiple subscription tiers, comparing output quality against character.ai, Janitor AI, and other platforms targeting the same creative AI space.\n\n## What Is Novel AI?\n\nNovel AI (novelai.net) is a subscription service offering three main products: AI-assisted storytelling, AI image generation, and a text adventure module. It's built around a set of proprietary language models fine-tuned specifically for creative writing — not general conversation.\n\nThe platform launched in 2021 and has built a loyal following among writers, roleplayers, and anime fans. Its image generation tool, using their custom Anime Diffusion models, is particularly popular in the anime art community.\n\nUnlike Character AI (which is free at its base), Novel AI is entirely paid. There is no free tier — you pay from the moment you sign up.\n\n## Novel AI Pricing (2026)\n\nNovel AI operates on a subscription + credit model:\n\n| Plan | Price | Text Gen | Image Gen |\n|---|---|---|---|\n| Tablet | ~$10/month | Limited context | 1,000 Anlas credits |\n| Scroll | ~$15/month | 8,192 tokens | 1,000 Anlas credits |\n| Opus | ~$25/month | 8,192 tokens | 10,000 Anlas credits + unlimited small images |\n\nThe \"Anlas\" credit system governs image generation. Generating larger or higher-quality images costs more Anlas. The Opus tier is the most practical for regular image generation users — lower tiers drain credits quickly.\n\nThis pricing structure is more complex than most competitors. Understanding what you'll actually use before subscribing matters.\n\n## The Storytelling Engine\n\nThis is where Novel AI genuinely excels. The platform's storytelling module uses a fill-in-the-middle approach: you write the beginning of a scene, and the AI continues it in your voice and style. You can then edit what it wrote, redirect the story, or let it continue.\n\nThe models available on Scroll and Opus tiers produce noticeably better prose than standard GPT-based alternatives. The writing feels less robotic, maintains narrative momentum, and handles genre conventions (fantasy, sci-fi, horror, romance) reasonably well.\n\nFeatures that make the storytelling engine valuable:\n- **Lorebook:** A world-building system where you define characters, places, and facts. The AI references these during generation.\n- **Memory module:** Forces the AI to keep specific context in focus.\n- **Author's Note:** You can embed style instructions that influence the AI's writing tone.\n- **Scenarios:** Pre-built templates for common story types that get you started quickly.\n\nFor writers who want an AI collaborator that can hold a complex narrative together, Novel AI is one of the best options available at any price.\n\n## The Image Generator\n\nNovel AI's image generation uses their own Anime Diffusion models, with the current Finetune V3 model producing high-quality anime-style art. The interface is more technical than tools like Midjourney — you work with text prompts, negative prompts, and parameters like steps and CFG scale.\n\nFor anime-style content, including NSFW art (available on Opus tier after enabling adult content settings), the output quality is among the best in the category. Users who want AI-generated anime characters in specific poses or scenarios have made Novel AI the default tool for this use case.\n\nThe tradeoff: learning to prompt effectively takes time. The system rewards users who understand how diffusion models work. Casual users may be frustrated by inconsistent results until they develop that knowledge.\n\n## Novel AI as a Companion / Chat Platform\n\nHere's where expectations need calibrating. Novel AI is a storytelling tool that happens to support conversation-style interaction, not a dedicated companion platform.\n\nYou can absolutely use it for roleplay and ongoing character interaction. But compared to platforms built specifically for companion chat — with memory systems, personality profiles, and relationship tracking — Novel AI is more demanding to set up and maintain.\n\nIf you want to chat with a specific persona across multiple sessions, you'll need to manually maintain a lorebook entry for your character and manually import context from previous sessions. There's no automatic \"remember this conversation\" system.\n\nFor users who are already writers and enjoy the craft of setting up these systems, this is fine. For users who want a companion that just works without configuration, it's a significant friction point.\n\n## Content Policy\n\nNovel AI allows adult content at the Opus tier level through an explicit opt-in. This is a meaningful differentiator from platforms like Character AI that block adult content entirely.\n\nBoth the text generation and image generation modules can produce explicit content for opted-in adult subscribers. The platform treats users as adults capable of choosing their own content experiences.\n\n## Novel AI vs. Alternatives\n\n| Feature | Novel AI | Character AI | PLEASUR AI |\n|---|---|---|---|\n| Adult content | Yes (Opus) | No | Yes |\n| Companion memory | Manual setup | Limited | Automatic |\n| Image generation | Excellent anime | None | — |\n| Price entry point | ~$10/month | Free | Competitive |\n| Best for | Writers + image gen | SFW character chat | Adult companion chat |\n\nNovel AI and PLEASUR AI serve somewhat different needs. Novel AI is strongest for creative writing, storytelling, and anime image generation. PLEASUR AI is purpose-built for companion conversation with persistent memory and no content restrictions.\n\nIf you primarily want to write stories or generate anime art, Novel AI is the better tool. If you want a companion that remembers you, knows your preferences, and has unrestricted conversation, [PLEASUR AI](https://pleasur.ai) is the more direct fit.\n\n## Who Should Subscribe to Novel AI\n\n**Strong fit:**\n- Writers who want an AI collaborator for fiction projects\n- Anime art enthusiasts who want AI-generated images\n- Roleplayers who enjoy building detailed fictional worlds\n- Users comfortable with technical tools and fine-tuning prompts\n\n**Not a strong fit:**\n- Users who want plug-and-play companion chat without setup\n- People on tight budgets (no free tier)\n- Those who want automatic persistent memory\n- Users unfamiliar with prompt engineering\n\n## Is Novel AI Worth It in 2026?\n\nAt $25/month for Opus, Novel AI is priced at the high end for this category. The value depends on what you need:\n\n- For storytelling and image generation: strong yes. The tools are best-in-class for the use case.\n- For companion chat: only if you're willing to invest time in the setup.\n- For casual users: probably not — the complexity and cost don't match.\n\nA 14-day trial at the Tablet tier (~$10) is a reasonable way to test whether it works for your specific use case before committing to Opus pricing.\n\n**Score:** 8.5/10 for creative writing, 6/10 for companion chat, 9/10 for anime image generation\n\nIf what you actually want is a companion that knows you across sessions with no content restrictions and no configuration overhead, [PLEASUR AI](https://pleasur.ai) removes the setup friction entirely.\n\n---\n\n*This guide and review reflects testing conducted in March 2026. Pricing and features subject to change.*"
+      }
+    ]
+  }
+}

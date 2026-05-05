@@ -1,0 +1,27 @@
+{
+  "slug": "ai-boyfriend",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "action-shot",
+      "attrs": {
+        "type": "action-shot",
+        "url": "https://pleasur.ai/create",
+        "goal": "Navigate to pleasur.ai/create. Dismiss the age verification dialog. Select a male character template. Reach the personality/backstory configuration step. Capture that screen.",
+        "what": "Pleasur.AI AI Companion Creator \u2014 personality and backstory configuration for a male character"
+      },
+      "alt": "Pleasur.AI AI Companion Creator \u2014 personality and backstory configuration for a male character",
+      "status": "manual",
+      "result": {
+        "status": "manual",
+        "reason": "action_shot_routed_to_editor",
+        "url": "https://pleasur.ai/create",
+        "goal": "Navigate to pleasur.ai/create. Dismiss the age verification dialog. Select a male character template. Reach the personality/backstory configuration step. Capture that screen.",
+        "filename": "action-1-navigate-to-pleasur-ai-create.png",
+        "hint": "Capture interactively via Claude in Chrome. Run `/capture-visuals ai-boyfriend` and walk through this entry, or open the URL in Chrome and capture the moment described in 'goal' yourself."
+      },
+      "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Navigate to pleasur.ai/create. Dismiss the age verification dialog. Select a male character template. Reach the personality/backstory configuration step. Capture that screen.;what=Pleasur.AI AI Companion Creator \u2014 personality and backstory configuration for a male character]",
+      "legacy": false
+    }
+  ]
+}

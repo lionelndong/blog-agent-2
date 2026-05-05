@@ -1,0 +1,101 @@
+{
+  "backed_up_at": "2026-05-03T15:12:44+00:00",
+  "article": {
+    "id": 1190,
+    "documentId": "uvgsvk1bugqnx2j91q6sqk2n",
+    "title": "NSFW AI Girlfriend: What These Apps Actually Offer and How to Choose",
+    "description": "NSFW AI girlfriend apps: top platforms, features, and what to look for in 2026.",
+    "slug": "nsfw-ai-girlfriend",
+    "createdAt": "2026-04-11T07:12:43.339Z",
+    "updatedAt": "2026-04-17T17:45:23.899Z",
+    "publishedAt": "2026-04-17T17:45:23.998Z",
+    "cover": {
+      "id": 342,
+      "documentId": "hbfxlol2lefax0h3so7w25fq",
+      "name": "cover_nsfw_ai_girlfriend.jpg",
+      "alternativeText": null,
+      "caption": null,
+      "width": 1200,
+      "height": 630,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_cover_nsfw_ai_girlfriend_72645491ac.jpg",
+          "hash": "large_cover_nsfw_ai_girlfriend_72645491ac",
+          "mime": "image/jpeg",
+          "name": "large_cover_nsfw_ai_girlfriend.jpg",
+          "path": null,
+          "size": 70.22,
+          "width": 1000,
+          "height": 525,
+          "sizeInBytes": 70218
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_cover_nsfw_ai_girlfriend_72645491ac.jpg",
+          "hash": "small_cover_nsfw_ai_girlfriend_72645491ac",
+          "mime": "image/jpeg",
+          "name": "small_cover_nsfw_ai_girlfriend.jpg",
+          "path": null,
+          "size": 22.97,
+          "width": 500,
+          "height": 263,
+          "sizeInBytes": 22974
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_cover_nsfw_ai_girlfriend_72645491ac.jpg",
+          "hash": "medium_cover_nsfw_ai_girlfriend_72645491ac",
+          "mime": "image/jpeg",
+          "name": "medium_cover_nsfw_ai_girlfriend.jpg",
+          "path": null,
+          "size": 43.92,
+          "width": 750,
+          "height": 394,
+          "sizeInBytes": 43920
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_nsfw_ai_girlfriend_72645491ac.jpg",
+          "hash": "thumbnail_cover_nsfw_ai_girlfriend_72645491ac",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover_nsfw_ai_girlfriend.jpg",
+          "path": null,
+          "size": 6.92,
+          "width": 245,
+          "height": 129,
+          "sizeInBytes": 6920
+        }
+      },
+      "hash": "cover_nsfw_ai_girlfriend_72645491ac",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 91.74,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_nsfw_ai_girlfriend_72645491ac.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-04-17T17:43:06.308Z",
+      "updatedAt": "2026-04-17T17:43:06.308Z",
+      "publishedAt": "2026-04-17T17:43:06.308Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2299,
+        "body": "Most NSFW AI girlfriend apps don't deliver what they advertise. The pitch is straightforward — a companion with no content filters, persistent memory, adult conversation. But \"NSFW\" means different things on different platforms, and the gap between what's marketed and what's in the product is wide.\n\nA few platforms are genuinely good. Most have at least one critical flaw: filters that cut in mid-conversation, memory that resets every session, or characters that slide into generic chatbot mode when you push past surface-level topics.\n\n## What \"NSFW AI Girlfriend\" Actually Means in Practice\n\nAt its core, an NSFW AI girlfriend app is a chatbot with explicit content enabled. The \"girlfriend\" framing matters because it implies persistence — a character with a personality, memory of past conversations, and a relationship dynamic that develops over time. Not just a one-time chat.\n\nThe gaps show up in different ways. Some platforms have explicit content but no memory — you're talking to a stranger every time you return. Others have strong memory but characters who drift. A few advertise \"no filters\" and mean it. Many do not. The ones that actually deliver on all three — explicit content, persistent memory, consistent character — are a short list.\n\nKnowing which category a platform falls into before paying saves a lot of frustration.\n\n## What to Look For Before Choosing\n\n### Content limits\n\nThe first thing to check is whether the platform's \"NSFW\" label is real. Some platforms advertise adult content but still apply filters that interrupt roleplay at certain points. The reliable signal is user reviews that mention specific content types — if people are discussing what the AI will and won't engage with in detail, that's evidence the platform has been tested thoroughly.\n\nCharacter.AI, for example, explicitly does not allow NSFW content regardless of account type. Strict filters are applied consistently. This is not an NSFW AI girlfriend platform, whatever its other merits.\n\n### Memory\n\nMemory is what separates a companion from a chatbot. A platform with no session persistence means your AI girlfriend has no idea who you are each time you return. The relationship starts from zero every time.\n\nMeaningful memory means the AI knows your name, what you've told it about yourself, how the relationship has developed, and things you said two weeks ago that it can reference now. The best platforms track this across months of interaction. Most do not.\n\n### Character consistency\n\nAn AI girlfriend who breaks character to remind you she's an AI, or who suddenly responds like a generic customer service bot, kills the experience immediately. Character consistency means the AI maintains the same personality, tone, and relationship dynamic across different topics and conversation types — not just in obviously roleplay-coded messages, but in casual conversation too.\n\n### Multimedia\n\nChat-only platforms have been losing ground to platforms that integrate AI-generated images, voice messages, and in some cases video. If a visual or audio component matters to you, this filters your options significantly.\n\n## Top NSFW AI Girlfriend Platforms in 2026\n\n### Candy AI\n\nCandy AI is the largest player in this category by traffic. It supports chat, voice, AI-generated images, and some video capabilities. NSFW content is available on paid plans. The platform lets you build a character from scratch rather than choosing from a preset list, with customization across appearance, personality, and relationship dynamic.\n\nPricing starts around $5.99/month at the entry tier, with higher tiers unlocking image generation limits and video features. Candy AI's character memory is functional but not its strongest point — it retains core facts but doesn't recall fine conversational details as reliably as some competitors.\n\n### CrushOn AI\n\nCrushOn AI is at the lower end of the price range (from $3.90/month) while still offering unrestricted NSFW content. The interface is simpler than Candy AI. Character customization is more limited — you choose from preset characters rather than building your own — but the content restrictions are genuinely minimal. Worth considering if budget is a constraint and you don't need deep customization.\n\n### OurDream AI\n\nOurDream AI sits in the mid-range. It positions primarily as an AI roleplay platform with strong character creation tools — 40+ personality types, 135 occupations, 29 relationship types. NSFW content is available. Pricing is $9.99/month (annual) or $19.99/month (monthly). See our [full OurDream AI review](/blog/ourdream-ai-review-2026) for a detailed breakdown of what's included.\n\nThe main limitation: no mobile app (web only), and no free tier for core features.\n\n### AICupid\n\nAICupid markets itself as an NSFW-first platform with voice, image generation, and video call features alongside chat. It has a larger character catalog than most competitors. The multimedia features are the main differentiator — if you want image or video alongside conversation, AICupid is worth comparing against Candy AI on that dimension. Pricing is in the $15-20/month range for full feature access.\n\n### Nastia AI\n\nNastia AI (nastia.ai) focuses on the \"uncensored AI companion\" angle with a cleaner interface than many platforms in this category. It offers persistent memory and character customization with fewer visual features than Candy AI. Pricing starts around $12.99/month.\n\n### GoLove AI\n\nGoLove AI offers 350+ companions from the start, so you're not starting from scratch with character creation. No NSFW restrictions. Pricing from $9.99/month. The breadth of character options is the main selling point; depth of individual character memory is more variable.\n\n### Pleasur.ai\n\n[Pleasur.ai](https://pleasur.ai) is built specifically for NSFW AI companion chat with a focus on character depth and conversation quality. You can create companions from scratch or interact with existing characters, and NSFW content is available without filters. The platform is designed for ongoing interaction — memory persists, character personality stays consistent, and the relationship develops based on your actual conversation history rather than resetting.\n\nIf you've read our [yandere AI girlfriend simulator guide](/blog/yandere-ai-girlfriend-simulator), Pleasur.ai is also one of the stronger options for building a companion with a specific personality type (possessive, dominant, submissive, caring, etc.) and maintaining that personality over time.\n\n## Common Failure Modes to Avoid\n\n**The filter surprise.** A platform advertises NSFW but applies restrictions mid-conversation on certain topics. Only user reviews reveal this reliably — read them before subscribing.\n\n**No cross-session memory.** Some platforms reset the AI's memory each session. You're talking to a stranger every time. This is fine for casual use but incompatible with building an ongoing relationship dynamic.\n\n**Character drift.** The AI maintains the character for a few messages, then defaults to generic responses. Usually a sign of a weak system prompt or insufficient fine-tuning for character consistency.\n\n**Upcharge for basics.** Entry-tier subscriptions that don't include memory or NSFW content — those are the features you're there for. Read what each tier actually includes before paying.\n\n## Which Platform Fits What You're Looking For\n\n| Need | Best Option |\n|---|---|\n| Largest platform, most features | Candy AI |\n| Lowest price for NSFW content | CrushOn AI ($3.90/month) |\n| Multimedia (voice + video + images) | AICupid |\n| Clean interface, uncensored chat | Nastia AI |\n| Strong roleplay structure + character variety | OurDream AI |\n| Deep character customization + NSFW + memory | [Pleasur.ai](https://pleasur.ai) |\n| Specific personality type (yandere, dominant, etc.) | [Pleasur.ai](https://pleasur.ai) |\n\nThe right choice depends on whether you want a preset character library or the ability to build from scratch, and how much character consistency and memory matter to your use case.\n\n[Try Pleasur.ai](https://pleasur.ai) if you want an NSFW AI girlfriend with persistent memory, no content filters, and a character that stays consistent across sessions."
+      }
+    ]
+  }
+}

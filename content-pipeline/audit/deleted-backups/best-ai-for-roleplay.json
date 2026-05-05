@@ -1,0 +1,101 @@
+{
+  "backed_up_at": "2026-05-03T15:40:54+00:00",
+  "article": {
+    "id": 1231,
+    "documentId": "tacwoxt1a8j63eorxyrlpaqn",
+    "title": "Best AI for Roleplay: Top Platforms Tested (2026)",
+    "description": "Best AI platforms for roleplay tested and compared.",
+    "slug": "best-ai-for-roleplay",
+    "createdAt": "2026-03-22T17:42:48.003Z",
+    "updatedAt": "2026-04-17T17:45:39.175Z",
+    "publishedAt": "2026-04-17T17:45:39.269Z",
+    "cover": {
+      "id": 142,
+      "documentId": "gsxp83pdj40jvnnm99emfnya",
+      "name": "cover-best-ai-for-roleplay.jpg",
+      "alternativeText": "Cover: Best AI for Roleplay: Top Platforms Tested (2026)",
+      "caption": null,
+      "width": 1616,
+      "height": 981,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_cover_best_ai_for_roleplay_9d52a50640.jpg",
+          "hash": "large_cover_best_ai_for_roleplay_9d52a50640",
+          "mime": "image/jpeg",
+          "name": "large_cover-best-ai-for-roleplay.jpg",
+          "path": null,
+          "size": 81.92,
+          "width": 1000,
+          "height": 607,
+          "sizeInBytes": 81922
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_cover_best_ai_for_roleplay_9d52a50640.jpg",
+          "hash": "small_cover_best_ai_for_roleplay_9d52a50640",
+          "mime": "image/jpeg",
+          "name": "small_cover-best-ai-for-roleplay.jpg",
+          "path": null,
+          "size": 31.16,
+          "width": 500,
+          "height": 304,
+          "sizeInBytes": 31164
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_cover_best_ai_for_roleplay_9d52a50640.jpg",
+          "hash": "medium_cover_best_ai_for_roleplay_9d52a50640",
+          "mime": "image/jpeg",
+          "name": "medium_cover-best-ai-for-roleplay.jpg",
+          "path": null,
+          "size": 54.28,
+          "width": 750,
+          "height": 455,
+          "sizeInBytes": 54284
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_best_ai_for_roleplay_9d52a50640.jpg",
+          "hash": "thumbnail_cover_best_ai_for_roleplay_9d52a50640",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover-best-ai-for-roleplay.jpg",
+          "path": null,
+          "size": 10.32,
+          "width": 245,
+          "height": 149,
+          "sizeInBytes": 10322
+        }
+      },
+      "hash": "cover_best_ai_for_roleplay_9d52a50640",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 175.82,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_best_ai_for_roleplay_9d52a50640.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-22T17:42:52.338Z",
+      "updatedAt": "2026-03-22T17:42:52.338Z",
+      "publishedAt": "2026-03-22T17:42:52.338Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2340,
+        "body": "## Start Your Story\n\nPleasur AI combines the best creative writing, persistent narrative memory, and uncensored content to deliver roleplay experiences that actually go somewhere. Your characters remember. Your stories build. Your worlds persist.\n\n[Start your free trial on Pleasur AI →](https://pleasur.ai)\n\nEvery story deserves to be remembered."
+      }
+    ]
+  }
+}

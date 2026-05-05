@@ -1,0 +1,8 @@
+# Core pipeline dependencies
+markdown>=3.5
+
+# Visual-media pipeline
+playwright>=1.40
+Pillow>=10.0
+matplotlib>=3.8
+replicate>=0.25

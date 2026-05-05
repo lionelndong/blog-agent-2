@@ -1,0 +1,101 @@
+{
+  "backed_up_at": "2026-05-03T15:14:20+00:00",
+  "article": {
+    "id": 1052,
+    "documentId": "rydtcfwec8opmaz2fbrfd9nz",
+    "title": "Perplexity AI in 2026: What It Is, How It Works, and Honest Review",
+    "description": "Complete Perplexity AI review for 2026 — what it is, how it differs from ChatG",
+    "slug": "perplexity-ai-review-guide-2026",
+    "createdAt": "2026-03-23T19:18:11.277Z",
+    "updatedAt": "2026-03-23T19:18:15.728Z",
+    "publishedAt": "2026-03-23T19:18:15.818Z",
+    "cover": {
+      "id": 319,
+      "documentId": "jbh2216i822rg9oqv18g59ul",
+      "name": "perplexity-ai-review-guide-2026.jpg",
+      "alternativeText": null,
+      "caption": null,
+      "width": 1024,
+      "height": 576,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_perplexity_ai_review_guide_2026_c6baa28ef9.jpg",
+          "hash": "large_perplexity_ai_review_guide_2026_c6baa28ef9",
+          "mime": "image/jpeg",
+          "name": "large_perplexity-ai-review-guide-2026.jpg",
+          "path": null,
+          "size": 129.11,
+          "width": 1000,
+          "height": 563,
+          "sizeInBytes": 129112
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_perplexity_ai_review_guide_2026_c6baa28ef9.jpg",
+          "hash": "small_perplexity_ai_review_guide_2026_c6baa28ef9",
+          "mime": "image/jpeg",
+          "name": "small_perplexity-ai-review-guide-2026.jpg",
+          "path": null,
+          "size": 45.94,
+          "width": 500,
+          "height": 281,
+          "sizeInBytes": 45941
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_perplexity_ai_review_guide_2026_c6baa28ef9.jpg",
+          "hash": "medium_perplexity_ai_review_guide_2026_c6baa28ef9",
+          "mime": "image/jpeg",
+          "name": "medium_perplexity-ai-review-guide-2026.jpg",
+          "path": null,
+          "size": 82.98,
+          "width": 750,
+          "height": 422,
+          "sizeInBytes": 82975
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_perplexity_ai_review_guide_2026_c6baa28ef9.jpg",
+          "hash": "thumbnail_perplexity_ai_review_guide_2026_c6baa28ef9",
+          "mime": "image/jpeg",
+          "name": "thumbnail_perplexity-ai-review-guide-2026.jpg",
+          "path": null,
+          "size": 17.73,
+          "width": 245,
+          "height": 138,
+          "sizeInBytes": 17732
+        }
+      },
+      "hash": "perplexity_ai_review_guide_2026_c6baa28ef9",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 24.78,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/perplexity_ai_review_guide_2026_c6baa28ef9.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-23T19:18:15.622Z",
+      "updatedAt": "2026-03-23T19:18:15.622Z",
+      "publishedAt": "2026-03-23T19:18:15.623Z"
+    },
+    "author": null,
+    "category": {
+      "id": 2,
+      "documentId": "vt1pw0lh80tkzubsl02uks84",
+      "name": "tech",
+      "slug": "tech",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.547Z",
+      "updatedAt": "2026-01-09T15:10:54.547Z",
+      "publishedAt": "2026-01-09T15:10:54.477Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2072,
+        "body": "# Perplexity AI in 2026: What It Is, How It Works, and Honest Review\n\nPerplexity AI is an AI-powered search and answer engine that has attracted over 450,000 monthly searches in 2026. Unlike ChatGPT or Claude, Perplexity AI is built around real-time web search — providing cited, up-to-date answers rather than relying on a static training cutoff. This guide and review covers what Perplexity AI does best, where it falls short, and when to use alternatives.\n\n![Perplexity AI review 2026 — how it works, best features, and honest assessment](https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=1200)\n\n## What Is Perplexity AI?\n\nPerplexity AI is an AI-powered answer engine — a search tool that uses large language models to synthesize real-time web search results into coherent, cited responses. Founded in 2022 by former OpenAI researchers, it positions itself as \"the answer engine for the curious.\"\n\nUnlike ChatGPT or Claude, which generate responses from training data, Perplexity AI actively searches the web for each query, then uses an LLM to synthesize the results into a clear answer with source citations.\n\n**Key features:**\n- Real-time web search with every response\n- Source citations for all factual claims\n- Follow-up question suggestions for deeper exploration\n- Multiple search modes: Quick, Detailed, Academic, Writing, Math, Video\n- Pro users can choose the underlying AI model (GPT-4o, Claude 3.5 Sonnet, Gemini, Sonar Large)\n- Available on web, iOS, and Android\n\n## What Perplexity AI Does Well\n\n**Real-time, cited answers.** Perplexity's core advantage: every answer links to sources. For research, fact-checking, current events, and finding authoritative information, this is more useful than a confidently-stated AI response that may be outdated or hallucinated.\n\n**Current information.** No training cutoff problem. Perplexity searches the live web — it can answer questions about things that happened yesterday, current prices, recent news, and live data.\n\n**Research acceleration.** For knowledge workers who do a lot of research, Perplexity's ability to synthesize and cite multiple sources is a significant time saver vs. traditional search. Instead of opening 10 browser tabs, you get a synthesis with linked sources to verify.\n\n**Academic search mode.** Perplexity Pro's Academic mode searches academic papers and journals specifically — useful for literature reviews, scientific questions, and finding peer-reviewed sources.\n\n**Clean interface and fast responses.** Perplexity's UX is well-designed — responses appear quickly, sources are cleanly displayed, and follow-up questions are intelligent.\n\n**Pro model flexibility.** Perplexity Pro lets you choose which underlying AI model answers your query — GPT-4o for reasoning, Claude for writing, Gemini for long context. This multi-model flexibility is valuable.\n\n## What Perplexity AI Doesn't Do Well\n\n**Not for creative tasks.** Perplexity is optimized for answering factual questions, not generating creative content. Writing an essay, creating a story, or drafting marketing copy is better in Claude or ChatGPT where the model has more latitude to create.\n\n**No memory.** Perplexity doesn't maintain memory across search sessions. Each conversation starts fresh — there's no concept of a persistent user profile or relationship.\n\n**Source quality varies.** Perplexity searches the live web — which means it can cite low-quality, biased, or factually questionable sources. The AI synthesizes what it finds, which isn't always the most authoritative information.\n\n**No adult content.** Like all major AI platforms, Perplexity applies strict content filtering — no adult, explicit, or intimate content.\n\n**Not a companion.** Perplexity is built for answering questions, not for conversation, relationship, or emotional engagement. It's a research tool, not a chat companion.\n\n**Pro pricing for best features.** The free tier is genuinely useful, but the best features (GPT-4o model selection, Academic mode, unlimited searches) require Pro at $20/month.\n\n## Perplexity AI Pricing\n\n| Plan | Price | What You Get |\n|---|---|---|\n| Free | $0 | Perplexity AI search with standard model; 5 Pro searches/day |\n| Perplexity Pro | $20/month ($200/year) | Unlimited Pro searches; GPT-4o, Claude, Gemini model selection; Academic mode; file uploads |\n\n## Perplexity AI vs. ChatGPT vs. Google\n\n| Feature | Perplexity AI | ChatGPT Plus | Google Search/Gemini |\n|---|---|---|---|\n| Real-time web data | Always | Via Browsing tool | Yes (Search) / Via tool (Gemini) |\n| Source citations | Always | Sometimes | Varies |\n| Best for | Research, fact-finding | Creative tasks, coding | Quick facts, Google Workspace |\n| Memory | No | Yes (Plus) | No |\n| Adult content | No | No | No |\n| Price | Free / $20/mo | Free / $20/mo | Free / $19.99/mo |\n\n## When to Use Perplexity AI — and When to Use Alternatives\n\n**Use Perplexity AI when:**\n- You need current, up-to-date information with source citations\n- You're doing research and want a synthesis of multiple sources\n- You want to quickly understand a complex topic from authoritative sources\n- You need academic papers and peer-reviewed sources (Pro Academic mode)\n- You want to compare AI model outputs on the same search query (Pro)\n\n**Use alternatives when:**\n- Creative writing and long-form content: Claude AI — best writing quality\n- General productivity and chat: ChatGPT — most versatile, best integrations\n- AI companion with memory: [PLEASUR AI](https://pleasur.ai) — persistent memory, adult content, free\n- Quick factual lookup: Google Search remains fastest for known-answer questions\n\n## The Perplexity AI Market in 2026\n\nData on Perplexity's position:\n\n- **450,000+ monthly searches** for \"Perplexity AI\" — strong awareness among AI power users (DataForSEO, 2026)\n- Perplexity reached **100 million monthly active users** by end of 2025 — among the fastest-growing AI consumer products (Perplexity investor update, 2025)\n- Perplexity raised **$500 million** in Series C funding in 2025, valuing the company at $9 billion — reflecting strong investor confidence in the AI search category\n- **73% of Perplexity users** cite \"cited sources\" as their primary reason for choosing it over general AI chatbots (Perplexity user survey, 2025)\n- Perplexity processes an estimated **100 million queries per day** — making it the third-largest AI query platform after ChatGPT and Google AI (industry estimates, 2025)\n- The AI search market is expected to reach **$14 billion by 2027**, with Perplexity positioned as the primary challenger to Google's AI search dominance\n\n## FAQ: Perplexity AI\n\n**What is Perplexity AI?**\nPerplexity AI is an AI-powered answer engine that searches the web in real-time and provides cited responses. Unlike ChatGPT or Claude, every Perplexity answer links to its sources, making it better for research and current-information queries.\n\n**Is Perplexity AI free?**\nYes — Perplexity has a free tier with standard AI search. Free users get 5 Pro searches per day (using premium models like GPT-4o). Unlimited Pro searches and model selection require Pro at $20/month.\n\n**How is Perplexity AI different from ChatGPT?**\nPerplexity searches the web in real-time and cites sources. ChatGPT uses its training data (with optional web browsing). Perplexity is better for research and current information; ChatGPT is better for creative tasks, coding, and general conversation.\n\n**Is Perplexity AI accurate?**\nMore reliable than non-browsing AI models for current information, since it cites sources. However, it can still synthesize low-quality or biased web sources. Always verify important claims against the linked sources.\n\n**Does Perplexity AI have memory?**\nNo — Perplexity doesn't maintain memory between searches. Each search session starts fresh.\n\n**What is Perplexity Pro worth paying for?**\nPro is worth it if you do regular research requiring current information and source citations, need Academic mode for scientific papers, or want to switch between GPT-4o and Claude for different queries. The $20/month price matches ChatGPT Plus and Claude Pro.\n\n**Can Perplexity AI do adult content?**\nNo. Perplexity applies content filtering preventing adult or explicit content. For AI with adult content capability: PLEASUR AI.\n\n## The Bottom Line\n\nPerplexity AI in 2026 is the best AI tool for research, fact-finding, and questions requiring current, cited information. No other mainstream AI platform matches it for source-cited, real-time web synthesis.\n\nIts core limitations: not for creative tasks, no memory, source quality varies with web quality, no adult content.\n\nFor research and current information: Perplexity is the best choice. For writing: Claude. For general AI: ChatGPT Plus. For AI companion with memory and no content restrictions: [PLEASUR AI](https://pleasur.ai) — free, persistent memory, adult content."
+      }
+    ]
+  }
+}

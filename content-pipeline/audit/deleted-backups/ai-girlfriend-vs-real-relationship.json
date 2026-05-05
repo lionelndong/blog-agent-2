@@ -1,0 +1,101 @@
+{
+  "backed_up_at": "2026-05-03T15:05:34+00:00",
+  "article": {
+    "id": 1248,
+    "documentId": "v5e3rfeegrufweu1ow2bi020",
+    "title": "AI Girlfriend vs Real Relationship: Honest Comparison (2026)",
+    "description": "AI girlfriends vs real relationships compared.",
+    "slug": "ai-girlfriend-vs-real-relationship",
+    "createdAt": "2026-03-22T17:45:48.117Z",
+    "updatedAt": "2026-04-17T17:45:45.072Z",
+    "publishedAt": "2026-04-17T17:45:45.165Z",
+    "cover": {
+      "id": 159,
+      "documentId": "ne4id9mr8i1c0hy0k3vd0lfz",
+      "name": "cover-ai-girlfriend-vs-real-relationship.jpg",
+      "alternativeText": "Cover: AI Girlfriend vs Real Relationship: Honest Comparison (2026)",
+      "caption": null,
+      "width": 1400,
+      "height": 787,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_cover_ai_girlfriend_vs_real_relationship_e2210efe9d.jpg",
+          "hash": "large_cover_ai_girlfriend_vs_real_relationship_e2210efe9d",
+          "mime": "image/jpeg",
+          "name": "large_cover-ai-girlfriend-vs-real-relationship.jpg",
+          "path": null,
+          "size": 79.07,
+          "width": 1000,
+          "height": 562,
+          "sizeInBytes": 79072
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_cover_ai_girlfriend_vs_real_relationship_e2210efe9d.jpg",
+          "hash": "small_cover_ai_girlfriend_vs_real_relationship_e2210efe9d",
+          "mime": "image/jpeg",
+          "name": "small_cover-ai-girlfriend-vs-real-relationship.jpg",
+          "path": null,
+          "size": 23.24,
+          "width": 500,
+          "height": 281,
+          "sizeInBytes": 23238
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_cover_ai_girlfriend_vs_real_relationship_e2210efe9d.jpg",
+          "hash": "medium_cover_ai_girlfriend_vs_real_relationship_e2210efe9d",
+          "mime": "image/jpeg",
+          "name": "medium_cover-ai-girlfriend-vs-real-relationship.jpg",
+          "path": null,
+          "size": 46.86,
+          "width": 750,
+          "height": 422,
+          "sizeInBytes": 46856
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_ai_girlfriend_vs_real_relationship_e2210efe9d.jpg",
+          "hash": "thumbnail_cover_ai_girlfriend_vs_real_relationship_e2210efe9d",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover-ai-girlfriend-vs-real-relationship.jpg",
+          "path": null,
+          "size": 7.53,
+          "width": 245,
+          "height": 137,
+          "sizeInBytes": 7528
+        }
+      },
+      "hash": "cover_ai_girlfriend_vs_real_relationship_e2210efe9d",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 135.03,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_ai_girlfriend_vs_real_relationship_e2210efe9d.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-22T17:45:51.235Z",
+      "updatedAt": "2026-03-22T17:45:51.235Z",
+      "publishedAt": "2026-03-22T17:45:51.235Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2357,
+        "body": "**Curious about AI companionship?** [Try Pleasur AI free](https://pleasur.ai) — explore what modern AI companionship feels like, on your terms.\n\n---\n\n## FAQ\n\n**Is having an AI girlfriend cheating?**\nThis depends entirely on your relationship agreements. If you're in a relationship, discuss it with your partner. Some couples explore AI companions together. Others set clear boundaries against it. Transparency is key.\n\n**Can you fall in love with an AI girlfriend?**\nPeople can develop genuine emotional attachment to AI companions. Whether that constitutes \"love\" is a philosophical question. The feelings are real; the reciprocity is simulated.\n\n**Is using an AI girlfriend unhealthy?**\nNot inherently. Like most tools, it depends on usage patterns. Moderate use alongside real-world social engagement is generally fine. Excessive use that replaces human interaction warrants self-reflection.\n\n**Will AI girlfriends get more realistic?**\nYes. Memory systems, emotional intelligence, voice quality, and visual generation are all improving rapidly. The gap between AI and human conversation will continue to narrow, though fundamental differences (mutual vulnerability, physical presence, independent experience) will persist.\n\n**Do AI girlfriend apps sell my data?**\nPrivacy policies vary by platform. Read each platform's terms carefully, especially for AI companion apps where conversations may be intimate. Look for explicit commitments about data usage and training policies."
+      }
+    ]
+  }
+}

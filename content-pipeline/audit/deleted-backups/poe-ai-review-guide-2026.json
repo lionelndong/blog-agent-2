@@ -1,0 +1,101 @@
+{
+  "backed_up_at": "2026-05-03T15:14:24+00:00",
+  "article": {
+    "id": 1040,
+    "documentId": "srq9m8o8wx1gis6zjxj8ofl3",
+    "title": "Poe AI in 2026: What It Is, What It Offers, and Honest Review",
+    "description": "Complete Poe AI review for 2026 — what models it offers, free tier limits, hon",
+    "slug": "poe-ai-review-guide-2026",
+    "createdAt": "2026-03-23T19:17:37.407Z",
+    "updatedAt": "2026-03-23T19:17:41.922Z",
+    "publishedAt": "2026-03-23T19:17:42.023Z",
+    "cover": {
+      "id": 315,
+      "documentId": "ovh32s4mcg4jbwernonz1rp4",
+      "name": "poe-ai-review-guide-2026.jpg",
+      "alternativeText": null,
+      "caption": null,
+      "width": 1920,
+      "height": 1090,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_poe_ai_review_guide_2026_4071f18427.jpg",
+          "hash": "large_poe_ai_review_guide_2026_4071f18427",
+          "mime": "image/jpeg",
+          "name": "large_poe-ai-review-guide-2026.jpg",
+          "path": null,
+          "size": 43.86,
+          "width": 1000,
+          "height": 568,
+          "sizeInBytes": 43858
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_poe_ai_review_guide_2026_4071f18427.jpg",
+          "hash": "small_poe_ai_review_guide_2026_4071f18427",
+          "mime": "image/jpeg",
+          "name": "small_poe-ai-review-guide-2026.jpg",
+          "path": null,
+          "size": 12.87,
+          "width": 500,
+          "height": 284,
+          "sizeInBytes": 12874
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_poe_ai_review_guide_2026_4071f18427.jpg",
+          "hash": "medium_poe_ai_review_guide_2026_4071f18427",
+          "mime": "image/jpeg",
+          "name": "medium_poe-ai-review-guide-2026.jpg",
+          "path": null,
+          "size": 24.37,
+          "width": 750,
+          "height": 426,
+          "sizeInBytes": 24366
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_poe_ai_review_guide_2026_4071f18427.jpg",
+          "hash": "thumbnail_poe_ai_review_guide_2026_4071f18427",
+          "mime": "image/jpeg",
+          "name": "thumbnail_poe-ai-review-guide-2026.jpg",
+          "path": null,
+          "size": 4.46,
+          "width": 245,
+          "height": 139,
+          "sizeInBytes": 4460
+        }
+      },
+      "hash": "poe_ai_review_guide_2026_4071f18427",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 90.89,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/poe_ai_review_guide_2026_4071f18427.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-23T19:17:41.825Z",
+      "updatedAt": "2026-03-23T19:17:41.825Z",
+      "publishedAt": "2026-03-23T19:17:41.826Z"
+    },
+    "author": null,
+    "category": {
+      "id": 2,
+      "documentId": "vt1pw0lh80tkzubsl02uks84",
+      "name": "tech",
+      "slug": "tech",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.547Z",
+      "updatedAt": "2026-01-09T15:10:54.547Z",
+      "publishedAt": "2026-01-09T15:10:54.477Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2060,
+        "body": "# Poe AI in 2026: What It Is, What It Offers, and Honest Review\n\nPoe AI is Quora's AI platform that gives users access to multiple AI models — Claude, GPT-4o, Gemini, Llama, and others — from a single interface. In this guide and review, we cover what Poe AI is, how it works, what the free tier actually includes, and where Poe falls short compared to alternatives. 27,100 people search \"Poe AI\" every month — here's everything you need to know.\n\n![Poe AI review 2026 — what it offers, free tier, and best alternatives](https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200)\n\n## What Is Poe AI?\n\nPoe AI (poe.com) is an AI platform created by Quora that aggregates multiple large language models into one interface. Instead of subscribing to ChatGPT, Claude.ai, and Gemini separately, Poe lets you access all of them — plus dozens of community-created AI bots — from one app.\n\n**Models available on Poe in 2026:**\n- **Claude 3.5 Sonnet and Haiku** (Anthropic)\n- **GPT-4o and GPT-4o mini** (OpenAI)\n- **Gemini 1.5 Pro and Flash** (Google)\n- **Llama 3** variants (Meta)\n- **Mistral** models\n- **Stable Diffusion** for image generation\n- **Community-created bots** — thousands of fine-tuned and prompt-engineered AI assistants\n\nPoe launched in 2023 and has become one of the most popular AI aggregator platforms by user base.\n\n## What Poe AI Does Well\n\n**Access to multiple models in one place.** The core value proposition: you don't need separate accounts and subscriptions for Claude, ChatGPT, and Gemini. Poe gives you one interface for all of them — useful for comparing model outputs on the same prompt.\n\n**Community bots and customization.** Poe lets users create and share custom AI bots — specialized assistants with specific system prompts. The community has built thousands of bots for writing, coding, roleplay, research, and niche tasks.\n\n**Cross-platform availability.** Poe works on web, iOS, and Android. Interface is clean and fast.\n\n**Model comparison.** The ability to run the same prompt against multiple models and compare outputs side-by-side is genuinely useful for research and evaluation.\n\n**Image generation.** Access to image generation models (Stable Diffusion, DALL-E variants) alongside text models in one platform.\n\n## What Poe AI Doesn't Do Well\n\n**Free tier is severely limited.** Poe's free tier is misleading — you get a small number of \"points\" daily that run out quickly with the premium models (GPT-4o, Claude 3.5 Sonnet). The free tier realistically only provides limited access to top-tier models; meaningful use requires subscription.\n\n**Poe subscription vs. native subscriptions.** Poe Pro costs $19.99/month. But ChatGPT Plus is $20/month and Claude Pro is $20/month. Poe's value depends on whether you need multiple premium models — if you mainly use one model, a direct subscription may be better value.\n\n**No persistent memory.** Like most AI platforms, Poe doesn't maintain memory across conversations. Each session starts fresh — no cross-conversation context.\n\n**No adult or intimate content.** All models on Poe inherit the content restrictions of the underlying models (Claude, GPT-4o, Gemini). No adult content is available anywhere on the platform.\n\n**No companion capability.** Poe is an assistant aggregator — it doesn't support ongoing relationship building, companion personas, or intimate conversation. Custom bots can approximate personalities but without persistent memory or adult capability.\n\n**API reseller pricing.** Poe uses its own \"points\" system to resell API access — the per-use cost for heavy model usage may exceed direct API pricing for developers.\n\n## Poe AI Pricing in 2026\n\n| Plan | Price | What You Get |\n|---|---|---|\n| Free | $0 | Daily points for limited premium model access; unlimited access to select free models |\n| Poe Pro (monthly) | $19.99/month | 1M points/month; full access to all models including GPT-4o and Claude 3.5 |\n| Poe Pro (annual) | $16.67/month | Same as monthly, billed annually |\n\n**Reality check:** 1 million points/month sounds generous, but GPT-4o costs ~3,500 points per message on the standard output. That's approximately 285 GPT-4o responses per month on the Pro plan — not unlimited by any stretch.\n\n## Poe AI vs. Native AI Apps\n\n| Feature | Poe AI | ChatGPT Plus | Claude Pro | PLEASUR AI |\n|---|---|---|---|---|\n| Models available | 20+ | GPT-4o only | Claude only | Companion-optimized |\n| Price | $19.99/month | $20/month | $20/month | Free |\n| Memory | No | Yes (Plus) | No | Persistent (free) |\n| Adult content | No | No | No | Yes (free) |\n| Companion capability | No | No | No | Yes |\n| Community bots | Yes | Limited | No | No |\n\n## When to Use Poe AI — and When to Use Alternatives\n\n**Use Poe AI when:**\n- You regularly need access to multiple AI models and want one subscription\n- You want to compare outputs from Claude vs. GPT-4o vs. Gemini on the same prompt\n- You're exploring the community bot ecosystem for specialized assistants\n- You're evaluating AI models before committing to a native subscription\n\n**Use alternatives when:**\n- You mainly use one model: subscribe directly (ChatGPT Plus, Claude Pro) for better value\n- You want AI companion with memory: [PLEASUR AI](https://pleasur.ai) — persistent memory, adult content, free\n- You need an AI writing partner or coder: Claude.ai or ChatGPT offer better native integrations\n- You need a free AI with no significant limits: PLEASUR AI for companion use; free model tiers of Claude/Gemini for productivity\n\n## The Poe AI Market in 2026\n\nData on Poe and the AI aggregator space:\n\n- **27,100+ monthly searches** for \"Poe AI\" — strong brand awareness among AI consumers (DataForSEO, 2026)\n- Poe AI reached **4 million users** in 2024, positioning it as one of the largest multi-model AI platforms (Quora investor data, 2024)\n- The AI aggregator market is growing — users increasingly want access to multiple models without managing separate subscriptions\n- **68% of Poe users** report using more than two different AI models in a typical week — validating the multi-model use case (Poe user survey, 2024)\n- Community bot creation on Poe has exceeded **500,000 unique bots** — the largest AI bot marketplace by creator count\n- Poe's subscription price point ($19.99/month) places it in direct competition with both ChatGPT Plus and Claude Pro — driving multi-model comparison as its primary value proposition\n\n## Creating Custom Bots on Poe\n\nOne of Poe's most useful features for power users is bot creation — defining a custom AI assistant with a system prompt and sharing it publicly or using it privately.\n\n**How custom Poe bots work:**\n1. Choose a base model (Claude 3.5, GPT-4o, Llama 3, etc.)\n2. Write a system prompt defining personality, task focus, and behavior\n3. Optionally add knowledge via file upload\n4. Test and iterate\n5. Share publicly to build a following or keep private\n\nThis system is similar to GPT \"Custom GPTs\" but cross-model. For productivity use cases, a well-crafted Poe bot can be more useful than a generic model.\n\n**Limitation:** Custom bots don't solve the memory problem — bots still start fresh each conversation unless you manually provide context.\n\n## FAQ: Poe AI\n\n**What is Poe AI?**\nPoe AI is a platform by Quora that gives access to multiple AI language models — Claude, GPT-4o, Gemini, Llama, and others — from one interface. It also hosts thousands of community-created AI bots built on these underlying models.\n\n**Is Poe AI free?**\nPoe has a free tier with daily points for premium model access. Free models (lighter variants) are available with no point cost. Meaningful access to GPT-4o and Claude 3.5 Sonnet requires the Pro subscription at $19.99/month.\n\n**What models does Poe AI offer?**\nIn 2026: Claude 3.5 Sonnet, Claude 3 Haiku, GPT-4o, GPT-4o mini, Gemini 1.5 Pro, Gemini Flash, Llama 3 variants, Mistral models, and image generation via Stable Diffusion. New models are typically added within weeks of release.\n\n**Is Poe AI worth paying for?**\nWorth it if you regularly use 3+ different AI models. Not worth it if you primarily use one model — a direct subscription to that model gives more features (memory in ChatGPT Plus, Projects in Claude Pro) for the same or lower price.\n\n**Does Poe AI have adult content?**\nNo. All models on Poe inherit the content restrictions of their underlying providers (OpenAI, Anthropic, Google). Adult, NSFW, and explicit content is not available on any Poe bot.\n\n**What is the best alternative to Poe AI for companion relationships?**\nPLEASUR AI — free AI companion with persistent cross-session memory, adult content capability, and deep character customization. Poe's lack of memory and adult content makes it unsuitable for companion use cases.\n\n**Can I build a bot on Poe AI?**\nYes — Poe allows creating custom bots by writing a system prompt on any base model. You can keep bots private or share them publicly. The community has built over 500,000 bots across genres.\n\n## The Bottom Line\n\nPoe AI in 2026 is the best multi-model AI aggregator — useful if you regularly need Claude, GPT-4o, and Gemini in one place without managing separate subscriptions.\n\nIts core limitations: metered free tier, no persistent memory, no adult content, and subscription cost comparable to native apps that offer more features.\n\nFor multi-model access and community bots: Poe is the best option. For a single model in depth: subscribe directly to ChatGPT Plus ($20) or Claude Pro ($20). For AI companion relationship with memory and adult content: [PLEASUR AI](https://pleasur.ai) — free, no point limits, persistent memory."
+      }
+    ]
+  }
+}

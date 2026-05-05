@@ -1,0 +1,101 @@
+{
+  "backed_up_at": "2026-05-03T15:40:52+00:00",
+  "article": {
+    "id": 1240,
+    "documentId": "ahvrqk3sz0llgirx7kmp2o24",
+    "title": "AI Companion: Complete Guide to Finding the Right One (2026)",
+    "description": "Everything about AI companions and how to pick one.",
+    "slug": "ai-companion-guide",
+    "createdAt": "2026-03-22T17:39:35.894Z",
+    "updatedAt": "2026-04-17T17:45:42.296Z",
+    "publishedAt": "2026-04-17T17:45:42.399Z",
+    "cover": {
+      "id": 133,
+      "documentId": "mbppfuigxefljpdatq91diur",
+      "name": "cover-ai-companion-guide.jpg",
+      "alternativeText": "Cover: AI Companion: Complete Guide to Finding the Right One (2026)",
+      "caption": null,
+      "width": 1024,
+      "height": 536,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_cover_ai_companion_guide_f12e7a8fd8.jpg",
+          "hash": "large_cover_ai_companion_guide_f12e7a8fd8",
+          "mime": "image/jpeg",
+          "name": "large_cover-ai-companion-guide.jpg",
+          "path": null,
+          "size": 866.15,
+          "width": 1000,
+          "height": 523,
+          "sizeInBytes": 866150
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_cover_ai_companion_guide_f12e7a8fd8.jpg",
+          "hash": "small_cover_ai_companion_guide_f12e7a8fd8",
+          "mime": "image/jpeg",
+          "name": "small_cover-ai-companion-guide.jpg",
+          "path": null,
+          "size": 257.05,
+          "width": 500,
+          "height": 262,
+          "sizeInBytes": 257052
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_cover_ai_companion_guide_f12e7a8fd8.jpg",
+          "hash": "medium_cover_ai_companion_guide_f12e7a8fd8",
+          "mime": "image/jpeg",
+          "name": "medium_cover-ai-companion-guide.jpg",
+          "path": null,
+          "size": 545.5,
+          "width": 750,
+          "height": 393,
+          "sizeInBytes": 545503
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_ai_companion_guide_f12e7a8fd8.jpg",
+          "hash": "thumbnail_cover_ai_companion_guide_f12e7a8fd8",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover-ai-companion-guide.jpg",
+          "path": null,
+          "size": 70.93,
+          "width": 245,
+          "height": 128,
+          "sizeInBytes": 70930
+        }
+      },
+      "hash": "cover_ai_companion_guide_f12e7a8fd8",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 190.42,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_ai_companion_guide_f12e7a8fd8.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-22T17:39:39.810Z",
+      "updatedAt": "2026-03-22T17:39:39.810Z",
+      "publishedAt": "2026-03-22T17:39:39.811Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2349,
+        "body": "## Find Your AI Companion\n\nPleasur AI offers the most complete AI companion experience: persistent memory that builds genuine relationship depth, uncensored conversation, contextual image generation, and characters that evolve with you.\n\n[Start your free trial on Pleasur AI →](https://pleasur.ai)\n\nYour companion is waiting — and she'll remember you tomorrow."
+      }
+    ]
+  }
+}

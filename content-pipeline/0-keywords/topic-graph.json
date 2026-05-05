@@ -1,0 +1,13 @@
+{
+  "root_seed": "ai companion",
+  "brand_domain": "pleasur.ai",
+  "clusters": [],
+  "generated_at": "2026-05-05T00:00:00Z",
+  "brand_snapshot": "a0cfac183e477e304e9a2b9218d614d058449ff716f6ea982df7ea3fce76a3d0",
+  "_meta": {
+    "source": "Semrush Topic Research + .Trends",
+    "tool_inventory_ref": ".claude/skills/keyword-research-pipeline/references/semrush-mcp-tool-inventory.md",
+    "degraded": true,
+    "error": "Semrush MCP unauthenticated — re-run consent or check SEMRUSH_API_KEY_BLOG_AGENT"
+  }
+}

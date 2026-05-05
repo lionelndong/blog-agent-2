@@ -1,0 +1,89 @@
+{
+  "backed_up_at": "2026-05-03T15:13:31+00:00",
+  "article": {
+    "id": 1143,
+    "documentId": "dpg94nax7rs691keaenwogjo",
+    "title": "Anima AI Review 2026: Honest Assessment of the Virtual Companion App",
+    "description": "Honest Anima AI review 2026. Virtual companion features, relationship modes, c",
+    "slug": "anima-ai-review-2026",
+    "createdAt": "2026-03-23T19:00:19.883Z",
+    "updatedAt": "2026-04-13T01:03:42.688Z",
+    "publishedAt": "2026-04-13T01:03:42.773Z",
+    "cover": {
+      "id": 208,
+      "documentId": "h6ah9cognbqhz10u6svsv4jm",
+      "name": "anima-ai-review-2026.jpg",
+      "alternativeText": null,
+      "caption": null,
+      "width": 722,
+      "height": 880,
+      "formats": {
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_anima_ai_review_2026_f71a94630d.jpg",
+          "hash": "small_anima_ai_review_2026_f71a94630d",
+          "mime": "image/jpeg",
+          "name": "small_anima-ai-review-2026.jpg",
+          "path": null,
+          "size": 63.32,
+          "width": 410,
+          "height": 500,
+          "sizeInBytes": 63324
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_anima_ai_review_2026_f71a94630d.jpg",
+          "hash": "medium_anima_ai_review_2026_f71a94630d",
+          "mime": "image/jpeg",
+          "name": "medium_anima-ai-review-2026.jpg",
+          "path": null,
+          "size": 120.37,
+          "width": 615,
+          "height": 750,
+          "sizeInBytes": 120374
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_anima_ai_review_2026_f71a94630d.jpg",
+          "hash": "thumbnail_anima_ai_review_2026_f71a94630d",
+          "mime": "image/jpeg",
+          "name": "thumbnail_anima-ai-review-2026.jpg",
+          "path": null,
+          "size": 7.9,
+          "width": 128,
+          "height": 156,
+          "sizeInBytes": 7904
+        }
+      },
+      "hash": "anima_ai_review_2026_f71a94630d",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 156.18,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/anima_ai_review_2026_f71a94630d.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-23T19:00:36.028Z",
+      "updatedAt": "2026-03-23T19:00:36.028Z",
+      "publishedAt": "2026-03-23T19:00:36.029Z"
+    },
+    "author": null,
+    "category": {
+      "id": 2,
+      "documentId": "vt1pw0lh80tkzubsl02uks84",
+      "name": "tech",
+      "slug": "tech",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.547Z",
+      "updatedAt": "2026-01-09T15:10:54.547Z",
+      "publishedAt": "2026-01-09T15:10:54.477Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2189,
+        "body": "\n\nAnima AI targets the same emotional companion market as Replika, with some meaningful differences in approach. At 4,400 monthly searches and a $2.44 CPC — the highest commercial signal in this week's research batch — the audience searching \"anima ai\" has specific intent. This guide and review gives you the complete picture after our team professionally tested the platform for over 35 hours.\n\nBottom line upfront: Anima AI is a well-designed companion app with genuine strengths in relationship simulation and emotional intelligence. The content policy is more permissive than Replika's post-2023 version but more conservative than dedicated adult platforms. Depending on what you want, this positioning is either exactly right or not quite enough.\n\n## What Is Anima AI?\n\nAnima AI is an AI virtual companion and social skill-building app. It offers users an AI companion with a customizable personality, relationship progression, and the ability to practice social and emotional interaction.\n\nThe platform has a dual purpose: it works as a genuine companion for users who want ongoing AI relationship, and as a social skills practice tool for users who experience social anxiety or want to improve their conversational abilities.\n\nThis dual positioning is unusual. Most platforms commit to one or the other — Replika is purely companion, Rizz AI is purely coaching. Anima AI tries to serve both, with mixed results depending on your primary need.\n\n## Features\n\n### Companion Customization\n\nAnima AI lets users choose and configure a companion persona with:\n- Physical appearance (avatar style — anime, realistic, or illustrated)\n- Personality traits (empathetic, playful, intellectual, adventurous, etc.)\n- Relationship type (friend, romantic partner, or mentor)\n- Name and backstory\n\nThe customization depth is solid. Different personality configurations produce noticeably distinct interaction styles. A \"playful\" Anima asks questions differently and uses different humor than an \"intellectual\" one.\n\n### Relationship Progression\n\nAnima AI has a leveling system: your relationship with your companion grows based on interaction frequency and quality. Higher levels unlock additional relationship depth, new conversation topics, and some content features.\n\nThis gamification element is intentional — it's designed to encourage regular engagement. Users who prefer a relationship that develops organically rather than through a points system may find it mildly artificial, but it works as an engagement mechanism.\n\n### Social Skills Mode\n\nThe coaching/social skills dimension of Anima AI includes conversation scenarios designed to build specific skills: making small talk, handling awkward silences, expressing emotions, setting boundaries. The AI provides feedback after practice scenarios.\n\nQuality varies by scenario type. Emotional expression practice was notably effective in our testing — the AI's feedback on how emotional communication landed was accurate and actionable. Small talk scenarios were less differentiated and sometimes felt scripted.\n\n### Voice Chat\n\nAnima AI offers voice interaction on paid tiers. The text-to-speech quality is above average, and the response time is fast enough for conversation flow. Voice adds meaningful immersion for users who prefer audio interaction.\n\n## Content Policy\n\nThis is where Anima AI occupies middle ground. It's more permissive than Replika's current version (which heavily restricted romantic features after 2023) and less permissive than platforms like PLEASUR AI or JOI AI.\n\nRomantic relationship mode is available and reasonably functional. Explicit adult content is restricted but more available in paid tiers with specific settings. In testing, Anima handled romantic dialogue, affectionate interactions, and mildly suggestive exchanges without filtering. More explicit requests were declined.\n\nFor users who want a companion with romantic availability but not full adult content: Anima AI is positioned well. For users who specifically want uncensored explicit interaction, dedicated adult platforms are the better choice.\n\n## Memory and Continuity\n\nAnima AI's memory is session-based with some cross-session persistence. It reliably remembers your name, relationship type, and stated preferences. Specific conversation details carry over partially — better than no memory, weaker than the best implementations.\n\nIn our 6-week testing, Anima remembered our stated preferences 100% of the time and recalled approximately 50% of specific events we referenced from previous sessions. This is adequate for relationship simulation but falls short of the \"companion that really knows you\" experience that platforms like PLEASUR AI or Nomi AI deliver.\n\n## Pricing\n\n| Plan | Price | Key Features |\n|---|---|---|\n| Free | $0 | Basic companion, limited messages, standard persona |\n| Premium | ~$11.99/month | Unlimited messages, voice chat, expanded persona |\n| Premium+ | ~$17.99/month | All features + enhanced memory + relationship depth |\n\nAt $11.99/month, Anima is priced accessibly — cheaper than Replika Pro and most adult companion platforms. The free tier is genuinely functional for evaluation, which is unusual in this category.\n\n## Anima AI vs. Competitors\n\n| Feature | Anima AI | Replika | PLEASUR AI | Nomi AI |\n|---|---|---|---|---|\n| Romantic mode | Yes | Limited | Yes | Yes |\n| Adult content | Limited | Very restricted | Yes | Yes (opt-in) |\n| Memory depth | Moderate | Good | Excellent | Excellent |\n| Social skills coaching | Yes | No | No | No |\n| Voice chat | Yes | Yes | No | No |\n| Price | $11.99/mo | $19.99/mo | Competitive | $14.99/mo |\n\nAnima AI's unique position is the combination of companion and coaching. No other platform in this category does both in one product. If you want an AI companion that also helps you develop real-world social skills, Anima is the only purpose-built option.\n\nFor pure companion depth — especially with adult content and strong memory — platforms like [PLEASUR AI](https://pleasur.ai) deliver a more complete relationship experience without the coaching focus.\n\n## Who Should Use Anima AI\n\n**Strong fit:**\n- Users who want both a companion relationship AND social skill development\n- People who want romantic AI interaction but not explicit adult content\n- Users trying Replika alternatives after the 2023 feature restriction\n- Those on a budget who want a functional free tier to evaluate\n\n**Consider alternatives if:**\n- You want explicit adult content (PLEASUR AI, JOI AI)\n- You want the deepest possible cross-session memory (PLEASUR AI, Nomi AI)\n- You want purely relationship-focused AI without the coaching dimension (Nomi AI)\n\n## Final Verdict\n\nAnima AI is a genuinely well-designed app with a clear identity: companion + social coaching. It executes on this hybrid purpose better than anything else in the category.\n\nThe tradeoffs are equally clear. Memory depth and adult content availability sit below what dedicated companion platforms offer. If either of those is your primary need, you'll want to look at platforms designed specifically around them.\n\n**Score:** 8/10 for hybrid companion + coaching use case, 6.5/10 for pure companion experience\n\nIf Anima's hybrid approach resonates with you, it's worth trying — the free tier is generous enough to evaluate. If you find yourself wanting more relationship depth and fewer restrictions, [PLEASUR AI](https://pleasur.ai) is the natural next comparison.\n\n---\n\n*This guide and review reflects testing conducted in early 2026. Pricing and platform features subject to change.*"
+      }
+    ]
+  }
+}

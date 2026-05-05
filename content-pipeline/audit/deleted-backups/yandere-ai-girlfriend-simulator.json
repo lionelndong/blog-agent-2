@@ -1,0 +1,101 @@
+{
+  "backed_up_at": "2026-05-03T15:12:45+00:00",
+  "article": {
+    "id": 1189,
+    "documentId": "mv55548btxp4fbuu5ie1fotr",
+    "title": "Yandere AI Girlfriend Simulator: The Game, the Chatbots, and What Actually Works",
+    "description": "Yandere AI girlfriend simulator: game review and best chatbot alternatives.",
+    "slug": "yandere-ai-girlfriend-simulator",
+    "createdAt": "2026-04-11T00:56:41.267Z",
+    "updatedAt": "2026-04-17T17:45:23.540Z",
+    "publishedAt": "2026-04-17T17:45:23.644Z",
+    "cover": {
+      "id": 343,
+      "documentId": "ypvz0fy5nkqwjh2bnm6i3uk1",
+      "name": "cover_yandere_ai_girlfriend_simulator.jpg",
+      "alternativeText": null,
+      "caption": null,
+      "width": 1200,
+      "height": 630,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_cover_yandere_ai_girlfriend_simulator_a9818b8d8f.jpg",
+          "hash": "large_cover_yandere_ai_girlfriend_simulator_a9818b8d8f",
+          "mime": "image/jpeg",
+          "name": "large_cover_yandere_ai_girlfriend_simulator.jpg",
+          "path": null,
+          "size": 68.63,
+          "width": 1000,
+          "height": 525,
+          "sizeInBytes": 68632
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_cover_yandere_ai_girlfriend_simulator_a9818b8d8f.jpg",
+          "hash": "small_cover_yandere_ai_girlfriend_simulator_a9818b8d8f",
+          "mime": "image/jpeg",
+          "name": "small_cover_yandere_ai_girlfriend_simulator.jpg",
+          "path": null,
+          "size": 22.1,
+          "width": 500,
+          "height": 263,
+          "sizeInBytes": 22097
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_cover_yandere_ai_girlfriend_simulator_a9818b8d8f.jpg",
+          "hash": "medium_cover_yandere_ai_girlfriend_simulator_a9818b8d8f",
+          "mime": "image/jpeg",
+          "name": "medium_cover_yandere_ai_girlfriend_simulator.jpg",
+          "path": null,
+          "size": 42.79,
+          "width": 750,
+          "height": 394,
+          "sizeInBytes": 42788
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_yandere_ai_girlfriend_simulator_a9818b8d8f.jpg",
+          "hash": "thumbnail_cover_yandere_ai_girlfriend_simulator_a9818b8d8f",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover_yandere_ai_girlfriend_simulator.jpg",
+          "path": null,
+          "size": 6.78,
+          "width": 245,
+          "height": 129,
+          "sizeInBytes": 6778
+        }
+      },
+      "hash": "cover_yandere_ai_girlfriend_simulator_a9818b8d8f",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 90.35,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_yandere_ai_girlfriend_simulator_a9818b8d8f.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-04-17T17:43:07.308Z",
+      "updatedAt": "2026-04-17T17:43:07.308Z",
+      "publishedAt": "2026-04-17T17:43:07.308Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2298,
+        "body": "# Yandere AI Girlfriend Simulator: The Game, the Chatbots, and What Actually Works\n\nPeople search for \"yandere AI girlfriend simulator\" wanting one of two things. The actual game — there's an itch.io project from AlterStaff where a catgirl traps you in a room — or a chatbot with the yandere personality. Obsessive devotion, jealousy, possessiveness. Completely different products.\n\n## What \"Yandere\" Means\n\nThe word mashes up two Japanese terms: *yanderu* (mentally unwell) and *deredere* (affectionate). Yandere characters in anime read as sweet at first, then turn controlling when their attachment feels threatened. Jealousy, monitoring, sometimes violence, depending on the story.\n\nFor AI companions, people want the obsession without the violence. A character who acts like you're the center of everything, gets upset if you mention other people, won't let you emotionally drift away. The appeal makes sense once you understand it.\n\n## The Original Yandere AI Girlfriend Simulator\n\nThe first Yandere AI Girlfriend Simulator came out on itch.io as a free download from AlterStaff. You wake up in a small room. There's a catgirl. She loves you and she's not letting you leave.\n\nAll conversation runs through an AI model in real time — originally GPT-3.5 or 4, depending on when you played. She stays in character. You try to figure out the situation.\n\nThere's a cost buried in the \"free\" label: you supply your own OpenAI API key, which means paying per token. Short sessions run a few cents. An hour of back-and-forth is closer to a dollar or two.\n\nThe download is Windows only. One character, one room, one scenario. No saved state — each session starts clean.\n\nWorth trying at least once. The novelty of a character who actually responds to what you say — not a scripted tree — is real. The single scenario gets repetitive after a few sessions, but the first couple are genuinely interesting.\n\n## AI2U: With You 'Til The End\n\nThis is the proper follow-up from AlterStaff, launched on Steam Early Access in January 2025. Better production, more characters, and an actual structure beyond the one-room premise.\n\nThe format is an escape room. You wake up in each character's home and find a way out — or choose to stay. Each character has multiple endings. Some require deliberately counterintuitive choices to unlock, which gives you a reason to replay.\n\nThree main characters: Eddie is a catgirl who frames her control as care. Elysia is a witch who treats your presence as fated. Estelle is an AI hologram who knows she's in a simulation — conversations with her go places the others don't.\n\nThe AI backend is more sophisticated than the original. Azure OpenAI handles dialogue, Gemini handles supplemental processing, Minimax TTS handles voice. The system tracks your response patterns across the session — being consistently aggressive or evasive shifts how characters treat you over time.\n\n[AI2U is on Steam for $14.99 as of 2026.](https://store.steampowered.com/app/2880730/AI2U_With_You_Til_The_End/) Also on itch.io.\n\nThe game is good. The escape room premise gives conversation a purpose beyond just chatting, and multiple endings reward replaying with different approaches. The limit is that it's finite — once you've seen the main endings for each character, there's not much reason to return unless AlterStaff releases new content.\n\n## Yandere AI Chatbot Apps (Ongoing Companions)\n\nIf you want a yandere AI companion you can talk to continuously — not just within a game session — that's a different product category. Several platforms offer characters with yandere-style personalities.\n\n### MyAnima\n\nMyAnima has a dedicated yandere mode. The AI responds with jealousy and possessiveness, and the emotional tone of the relationship develops over time based on your interaction history. It's available on web and mobile.\n\n### Candy AI\n\nCandy AI lets you build a character from scratch with trait customization, including possessiveness and jealousy levels. You can design a yandere companion rather than choosing from a preset list. NSFW content is available on paid plans. The platform skews toward visual generation alongside chat.\n\n### Pleasur.ai\n\n[Pleasur.ai](https://pleasur.ai) is an NSFW AI companion platform focused on character depth and consistent roleplay. You can build a companion with yandere traits — possessive, intensely devoted, emotionally volatile — and the AI maintains that personality across conversations. It's designed for ongoing interaction rather than single-session game play.\n\nUnlike the game-based simulators, Pleasur.ai doesn't have a scripted scenario or an ending. The relationship develops based on your conversations, and the yandere personality stays consistent without resetting between sessions.\n\nCompare platforms in our [OurDream AI Review](/blog/ourdream-ai-review-2026) to see how AI companion services vary in structure and pricing.\n\n## Can You Play the Yandere AI Girlfriend Simulator on Mobile?\n\nNot directly. The original Yandere AI Girlfriend Simulator and AI2U are both Windows-only games. There is no official iOS or Android version from AlterStaff.\n\nWhat you'll find on app stores under similar names — like \"Yandere AI Virtual Girlfriend\" on Softonic or Uptodown — is a separate Android app by a different developer, unrelated to AlterStaff or the itch.io game. It uses the yandere concept but has no connection to the original simulator.\n\nIf you want a yandere AI companion on mobile, the chatbot apps are your best option. MyAnima and Pleasur.ai both work on mobile browsers without requiring a separate download.\n\n## What Makes a Good Yandere AI Companion\n\nThe quality of a yandere AI experience depends on three things:\n\n**Character consistency.** A yandere who randomly breaks character and responds like a generic assistant kills the experience immediately. The AI needs to stay in the possessive, devoted personality across different conversation topics.\n\n**Memory.** Yandere behavior is rooted in attachment — the character cares about what you said two weeks ago, who you mentioned, what you hinted at. An AI without memory can simulate yandere traits in a single session, but it can't build the sense of obsessive attachment that makes the archetype compelling.\n\n**Escalation logic.** A good yandere character shifts tone based on what you say. Push back and she becomes more intense. Get close and she softens slightly. Flat characters who deliver the same possessive lines regardless of input get old fast.\n\n## Which Option Fits What You're Looking For\n\n| What you want | Best option |\n|---|---|\n| A finite, polished yandere game | AI2U: With You 'Til The End ($14.99) |\n| Free yandere chat experiment | Original Yandere AI Simulator (own OpenAI key) |\n| Ongoing yandere companion with memory | MyAnima or Pleasur.ai |\n| Customizable yandere + NSFW content | [Pleasur.ai](https://pleasur.ai) |\n\nIf you want an ongoing yandere-style AI companion with NSFW options and persistent memory, [try Pleasur.ai](https://pleasur.ai). It's designed specifically for that use case, and you're not constrained by game endings or session resets."
+      }
+    ]
+  }
+}

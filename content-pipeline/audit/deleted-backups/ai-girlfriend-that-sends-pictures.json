@@ -1,0 +1,89 @@
+{
+  "backed_up_at": "2026-05-03T15:12:26+00:00",
+  "article": {
+    "id": 1216,
+    "documentId": "vhd99qr475vctn8o7acqonxf",
+    "title": "AI Girlfriend That Sends Pictures: Best Image Platforms (2026)",
+    "description": "AI girlfriends that send pictures: best platforms.",
+    "slug": "ai-girlfriend-that-sends-pictures",
+    "createdAt": "2026-03-22T17:49:19.228Z",
+    "updatedAt": "2026-04-17T17:45:33.865Z",
+    "publishedAt": "2026-04-17T17:45:33.958Z",
+    "cover": {
+      "id": 175,
+      "documentId": "syybfd82j2lw17b7iy600uv3",
+      "name": "cover-ai-girlfriend-that-sends-pictures.jpg",
+      "alternativeText": "Cover: AI Girlfriend That Sends Pictures: Best Image Platforms (2026)",
+      "caption": null,
+      "width": 800,
+      "height": 420,
+      "formats": {
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_cover_ai_girlfriend_that_sends_pictures_9a0d056279.jpg",
+          "hash": "small_cover_ai_girlfriend_that_sends_pictures_9a0d056279",
+          "mime": "image/jpeg",
+          "name": "small_cover-ai-girlfriend-that-sends-pictures.jpg",
+          "path": null,
+          "size": 32.54,
+          "width": 500,
+          "height": 263,
+          "sizeInBytes": 32538
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_cover_ai_girlfriend_that_sends_pictures_9a0d056279.jpg",
+          "hash": "medium_cover_ai_girlfriend_that_sends_pictures_9a0d056279",
+          "mime": "image/jpeg",
+          "name": "medium_cover-ai-girlfriend-that-sends-pictures.jpg",
+          "path": null,
+          "size": 65.29,
+          "width": 750,
+          "height": 394,
+          "sizeInBytes": 65288
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_ai_girlfriend_that_sends_pictures_9a0d056279.jpg",
+          "hash": "thumbnail_cover_ai_girlfriend_that_sends_pictures_9a0d056279",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover-ai-girlfriend-that-sends-pictures.jpg",
+          "path": null,
+          "size": 9.5,
+          "width": 245,
+          "height": 129,
+          "sizeInBytes": 9501
+        }
+      },
+      "hash": "cover_ai_girlfriend_that_sends_pictures_9a0d056279",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 70.64,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_ai_girlfriend_that_sends_pictures_9a0d056279.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-22T17:49:22.240Z",
+      "updatedAt": "2026-03-22T17:49:22.240Z",
+      "publishedAt": "2026-03-22T17:49:22.240Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2325,
+        "body": "## See What Your AI Girlfriend Looks Like\n\nPleasur AI generates contextual images that reflect your unique relationship — not generic AI art. Every picture tells your story.\n\n[Start your free trial on Pleasur AI →](https://pleasur.ai)\n\nPictures worth a thousand conversations."
+      }
+    ]
+  }
+}

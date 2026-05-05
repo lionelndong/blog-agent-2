@@ -1,0 +1,101 @@
+{
+  "backed_up_at": "2026-05-03T15:39:55+00:00",
+  "article": {
+    "id": 1238,
+    "documentId": "hcqg1whxrx743d81c3jyj7v0",
+    "title": "AI Girlfriend App: 7 Apps Ranked After Hands-On Testing (2026)",
+    "description": "Hands-on review of 7 AI girlfriend apps tested in 2026.",
+    "slug": "ai-girlfriend-app-guide",
+    "createdAt": "2026-03-22T17:41:04.924Z",
+    "updatedAt": "2026-04-17T17:45:41.596Z",
+    "publishedAt": "2026-04-17T17:45:41.694Z",
+    "cover": {
+      "id": 135,
+      "documentId": "p71vvdclcfc496vw8vj449tr",
+      "name": "cover-ai-girlfriend-app-guide.jpg",
+      "alternativeText": "Cover: AI Girlfriend App: 7 Apps Ranked After Hands-On Testing (2026)",
+      "caption": null,
+      "width": 1280,
+      "height": 720,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/large_cover_ai_girlfriend_app_guide_373ee52869.jpg",
+          "hash": "large_cover_ai_girlfriend_app_guide_373ee52869",
+          "mime": "image/jpeg",
+          "name": "large_cover-ai-girlfriend-app-guide.jpg",
+          "path": null,
+          "size": 65.49,
+          "width": 1000,
+          "height": 563,
+          "sizeInBytes": 65487
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/small_cover_ai_girlfriend_app_guide_373ee52869.jpg",
+          "hash": "small_cover_ai_girlfriend_app_guide_373ee52869",
+          "mime": "image/jpeg",
+          "name": "small_cover-ai-girlfriend-app-guide.jpg",
+          "path": null,
+          "size": 23.21,
+          "width": 500,
+          "height": 281,
+          "sizeInBytes": 23213
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/medium_cover_ai_girlfriend_app_guide_373ee52869.jpg",
+          "hash": "medium_cover_ai_girlfriend_app_guide_373ee52869",
+          "mime": "image/jpeg",
+          "name": "medium_cover-ai-girlfriend-app-guide.jpg",
+          "path": null,
+          "size": 41.69,
+          "width": 750,
+          "height": 422,
+          "sizeInBytes": 41690
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/thumbnail_cover_ai_girlfriend_app_guide_373ee52869.jpg",
+          "hash": "thumbnail_cover_ai_girlfriend_app_guide_373ee52869",
+          "mime": "image/jpeg",
+          "name": "thumbnail_cover-ai-girlfriend-app-guide.jpg",
+          "path": null,
+          "size": 8.64,
+          "width": 245,
+          "height": 138,
+          "sizeInBytes": 8638
+        }
+      },
+      "hash": "cover_ai_girlfriend_app_guide_373ee52869",
+      "ext": ".jpg",
+      "mime": "image/jpeg",
+      "size": 99.29,
+      "url": "https://elegant-cactus-c693703b28.media.strapiapp.com/cover_ai_girlfriend_app_guide_373ee52869.jpg",
+      "previewUrl": null,
+      "provider": "strapi-provider-upload-strapi-cloud",
+      "provider_metadata": null,
+      "createdAt": "2026-03-22T17:41:08.049Z",
+      "updatedAt": "2026-03-22T17:41:08.049Z",
+      "publishedAt": "2026-03-22T17:41:08.049Z"
+    },
+    "author": null,
+    "category": {
+      "id": 1,
+      "documentId": "jdcpc19na9qbi8eeqaugwftf",
+      "name": "AI Companions",
+      "slug": "ai-companions",
+      "description": null,
+      "createdAt": "2026-01-09T15:10:54.202Z",
+      "updatedAt": "2026-04-17T17:49:32.433Z",
+      "publishedAt": "2026-04-17T17:49:32.425Z"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "id": 2347,
+        "body": "## Find Your Perfect AI Girlfriend App\n\nPleasur AI combines persistent memory, uncensored conversation, and contextual image generation — everything you want from an AI girlfriend app, nothing you don't.\n\n[Start your free trial on Pleasur AI →](https://pleasur.ai)\n\nThe AI girlfriend app that actually remembers you."
+      }
+    ]
+  }
+}
