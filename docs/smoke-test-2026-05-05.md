@@ -25,10 +25,16 @@ Goal: validate the pipeline scaffold without burning Semrush / OpenRouter / Repl
 1. **`.claude/skills/capture-visuals/SKILL.md` was missing `name:` in YAML frontmatter.** Every other skill declares `name:` explicitly; the harness fell back to the directory name so discovery still worked, but the inconsistency would silently break any tooling that keys off the YAML. Fixed.
 2. **`.claude/skills/optimize-content/SKILL.md` description referenced `scripts/contentshake_optimize.py`** but the script lives at `.claude/skills/optimize-content/scripts/contentshake_optimize.py`. Cosmetic doc drift — the SKILL body itself uses the right path. Fixed in the description so the skill listing matches reality.
 
-### Environment (not fixed — flagged for the operator)
+### Code (also fixed — second pass)
 
-3. **No API credentials in this environment.** All four providers `_smoke_integrations.py` checks (`OPENROUTER_API_KEY_BLOG_AGENT`, `REPLICATE_API_TOKEN`, `BROWSER_USE_API_KEY`, `GITHUB_TOKEN`) report no key in env. `SEMRUSH_API_KEY_BLOG_AGENT` and `STRAPI_API_TOKEN` are also unset. Doppler isn't installed. A real end-to-end `/blog-pipeline <keyword>` run would fail at stage 1 (`/research` calls Semrush MCP + OpenRouter).
-4. **`requirements.txt` deps not installed.** `markdown`, `playwright`, `Pillow`, `matplotlib`, `replicate` are all declared but missing from the active Python env. `/preview` (markdown), `/optimize-content` (markdown), `/generate-visuals` (all of playwright/Pillow/matplotlib/replicate) would crash on a real run. Fix: `pip install -r requirements.txt && python -m playwright install chromium`.
+5. **`render_preview.py` and `generate_visuals.py` treated `--help` as a slug** because they read `sys.argv[1]` directly. Replaced with `argparse` so `--help` works while keeping the same positional-argument call shape — no behavioral regression for the existing callers (verified: no-arg invocation still exits 2 with usage, just like before).
+
+### Environment (partially fixed — rest needs operator input)
+
+6. **`requirements.txt` deps now installed.** Ran `pip install -r requirements.txt` — `markdown`, `playwright`, `Pillow`, `matplotlib`, `replicate` all import cleanly. `/preview`, `/optimize-content`, `/generate-visuals` will no longer crash on import. ✅
+7. **Playwright Chromium browser NOT installed.** `python -m playwright install chromium` fails with a network 403 in this sandbox — Chrome for Testing CDN is not reachable. `/generate-visuals` will work for matplotlib charts and Replicate images but Playwright-based screenshots will fail until the browser binary is installed in an env with outbound HTTPS. **Needs operator action** in the deploy env.
+8. **Doppler CLI NOT installed.** `cli.doppler.com` and `api.github.com` both return 403 from this sandbox. **Needs operator action** in the deploy env (`brew install dopplerhq/cli/doppler` on Mac, or apt repo on Linux).
+9. **No API credentials** — unchanged. `OPENROUTER_API_KEY_BLOG_AGENT`, `REPLICATE_API_TOKEN`, `BROWSER_USE_API_KEY`, `GITHUB_TOKEN`, `SEMRUSH_API_KEY_BLOG_AGENT`, `STRAPI_API_TOKEN` all unset. **Needs operator action** — set up Doppler with these secrets, then run `doppler run -- claude` to launch sessions with creds loaded.
 
 ### Confirmed false positives (no action needed)
 
@@ -38,7 +44,19 @@ Goal: validate the pipeline scaffold without burning Semrush / OpenRouter / Repl
 
 A true end-to-end `/blog-pipeline <keyword>` run was not attempted because:
 - No Semrush / OpenRouter credentials in env (would fail at stage 1).
-- Visual deps (playwright, matplotlib, Pillow, replicate) not installed (would fail at stage 9).
+- Playwright Chromium not downloadable in this sandbox (would partially fail at stage 9).
 - Real run costs ~30+ min and meaningful API spend; not appropriate for a scaffold-level smoke test in an unconfigured env.
 
-When credentials and deps are loaded, the recommended next-pass smoke is `/blog-pipeline "test keyword" --context "smoke test, ok to skip publish"` and observe each stage's output file lands on disk.
+When credentials and the Chromium browser are loaded, the recommended next-pass smoke is `doppler run -- claude` then `/blog-pipeline "test keyword" --context "smoke test, ok to skip publish"`, observing each stage's output file lands on disk.
+
+## Verification of fixes (re-run after each change)
+
+| Fix | Verification command | Result |
+|---|---|---|
+| capture-visuals `name:` | `python -c "import yaml,re; t=open('.claude/skills/capture-visuals/SKILL.md').read(); m=re.match(r'^---\n(.*?)\n---', t, re.DOTALL); print(yaml.safe_load(m.group(1))['name'])"` | `capture-visuals` |
+| optimize-content description path | YAML re-parse | references `.claude/skills/optimize-content/scripts/contentshake_optimize.py` |
+| Frontmatter sweep across all 34 skills | YAML parse + `name`/`description` required | 0 issues |
+| Python deps importable | `python -c "import markdown, playwright, PIL, matplotlib, replicate"` | All OK |
+| `--help` on render_preview / generate_visuals | run with `--help` | argparse usage prints, exit 0 |
+| No-arg regression on render_preview / generate_visuals | run with no args | exit 2 with usage (unchanged) |
+| Python syntax across skills + scripts | `ast.parse` all `.py` | 0 errors |

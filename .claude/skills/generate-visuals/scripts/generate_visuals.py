@@ -469,10 +469,13 @@ def run(slug: str) -> int:
 
 
 def main() -> int:
-    if len(sys.argv) < 2:
-        sys.stderr.write("usage: generate_visuals.py <slug>\n")
-        return 2
-    return run(sys.argv[1])
+    import argparse
+    parser = argparse.ArgumentParser(
+        description="Realize [VISUAL:...] placeholders in a cited draft into actual assets.",
+    )
+    parser.add_argument("slug", help="The slug of the cited draft to process")
+    args = parser.parse_args()
+    return run(args.slug)
 
 
 if __name__ == "__main__":
