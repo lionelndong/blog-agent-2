@@ -387,6 +387,22 @@ def main() -> None:
     title, body = extract_title(no_notes)
     body = transform_callouts(body)
 
+    # Hard-fail gate: never ship a publish package containing raw [VISUAL:...] /
+    # [SCREENSHOT:...] template syntax. Neo, PLEAA-392 (2026-05-06): the visuals
+    # stage is responsible for substituting these into ![alt](path) markdown OR
+    # routing to manual capture; if any leftover survives to format-for-publish,
+    # halt rather than ship template syntax to readers.
+    leftover_visuals = re.findall(r"\[VISUAL:[^\]]+\]|\[SCREENSHOT:[^\]]+\]", body)
+    if leftover_visuals:
+        first = leftover_visuals[0][:140] + ("…" if len(leftover_visuals[0]) > 140 else "")
+        sys.exit(
+            f"error: refusing to write publish package — {len(leftover_visuals)} naked "
+            f"[VISUAL:...] / [SCREENSHOT:...] placeholder(s) in cited draft.\n"
+            f"  first: {first}\n"
+            f"  fix: re-run /generate-visuals (or /capture-visuals for action-shots) "
+            f"so every placeholder produces a real asset and the draft references it via ![alt](path)."
+        )
+
     # Always copy referenced images into the publish folder so the editor can paste manually
     image_refs = find_image_refs(body)
     out_dir = OUT_DIR / args.slug

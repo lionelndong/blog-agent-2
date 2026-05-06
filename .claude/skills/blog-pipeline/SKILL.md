@@ -8,6 +8,27 @@ allowed-tools: Read, Write, Bash, Agent, Glob
 
 Take a keyword and produce a publish-ready article. The orchestrator does NOT inline-fork via the Skill tool — that fails with `Prompt is too long` once the parent context has any history. Instead each stage is dispatched as a fresh `general-purpose` Agent with a self-contained brief.
 
+## HARD-FAIL GATES — non-negotiable
+
+Neo, PLEAA-392 (2026-05-06): "we cannot skip steps. If something is missing, stop and address it before moving on. Quality is the #1 priority."
+
+Between every stage transition, the orchestrator MUST run:
+
+```bash
+python scripts/pipeline_gate.py <stage-key> <slug>
+```
+
+Stage keys: `research`, `reference`, `outline`, `annotated`, `draft`, `cited`, `quality`, `visuals`, `preview`, `publish`, `deliverable`. The script's exit code is authoritative — non-zero means HALT, do NOT advance to the next stage. Print the stderr summary to the user.
+
+Specific halt conditions the gate enforces:
+
+- **`visuals`** — every `[VISUAL:...]` placeholder must produce a real asset on disk. Any `manual` or `failed` entry in `manifest.json`, or any naked `[VISUAL:...]` left in the cited draft, is a HALT. Resolution: run `/capture-visuals`, or fix the SKILL/script to actually handle the type, then re-run `/generate-visuals`. Do NOT advance to preview/publish with unresolved visuals — Neo will reject the run.
+- **`quality`** — verdict FAIL or BORDERLINE-with-CRITICAL is a HALT. The autonomous-mode revision loop addresses this; if the loop's budget is exhausted and the verdict is still failing, write `9-needs-review/{slug}.md` and STOP — never publish broken prose.
+- **`publish`** — `8-publish/{slug}/{article.md, article.json, README.md}` must all exist AND `article.md` must contain zero raw `[VISUAL:...]` placeholders. The format-for-publish skill must strip or substitute these — never ship template syntax.
+- **`deliverable`** — for issue-driven runs (PAPERCLIP_TASK_ID set), a deliverable comment with the slug + verdict must be posted to the trigger issue before the run is considered complete. Run-status "succeeded" means nothing if Neo can't see the result.
+
+**Never claim a stage succeeded just because the agent dispatched cleanly.** The gate is the source of truth.
+
 ## Invocation
 
 ```
