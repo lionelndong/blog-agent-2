@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog pipeline runs · blog-agent-2</title>
+<style>
+:root {
+  --bg: #0e0e10;
+  --panel: #17171a;
+  --panel-2: #1f1f23;
+  --border: #2a2a30;
+  --text: #e7e7ea;
+  --text-dim: #9a9aa3;
+  --accent: #f59e0b;
+  --green: #22c55e;
+  --gray: #4b5563;
+  --link: #f59e0b;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font: 14px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+header.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 22px; border-bottom: 1px solid var(--border);
+  background: var(--panel);
+}
+header.topbar h1 { font-size: 14px; font-weight: 600; margin: 0; color: var(--text-dim); letter-spacing: 0.02em; }
+header.topbar .nav { display: flex; gap: 18px; }
+header.topbar .nav a { color: var(--text-dim); font-size: 13px; }
+header.topbar .nav a.active { color: var(--text); }
+.app { display: grid; grid-template-columns: 320px 1fr; min-height: calc(100vh - 50px); }
+aside.sidebar {
+  border-right: 1px solid var(--border);
+  background: var(--panel);
+  padding: 22px 16px;
+  overflow-y: auto;
+}
+.run-header { padding: 4px 6px 18px; border-bottom: 1px solid var(--border); margin-bottom: 14px; }
+.run-header .back { color: var(--text-dim); font-size: 13px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.run-header .title { font-size: 18px; font-weight: 700; margin: 8px 0 4px; }
+.run-header .meta { color: var(--text-dim); font-size: 12px; }
+.run-header .badge { display: inline-block; background: rgba(245, 158, 11, 0.15); color: var(--accent); font-size: 11px; padding: 2px 9px; border-radius: 4px; margin-top: 8px; font-weight: 600; }
+.steps { list-style: none; padding: 0; margin: 0; }
+.steps li {
+  display: flex; gap: 10px; padding: 10px 8px; cursor: pointer; border-radius: 6px;
+  border: 1px solid transparent;
+  margin-bottom: 4px;
+}
+.steps li:hover { background: var(--panel-2); }
+.steps li.active { background: var(--panel-2); border-color: var(--border); }
+.steps .dot {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+  border: 1.5px solid var(--gray); color: var(--text-dim);
+}
+.steps li.done .dot { background: var(--green); border-color: var(--green); color: #0e0e10; }
+.steps li.done .dot::before { content: "✓"; }
+.steps li.skipped .dot { background: var(--gray); border-color: var(--gray); }
+.steps li.skipped .dot::before { content: "·"; }
+.steps li.active .dot { box-shadow: 0 0 0 2px var(--accent) inset; }
+.steps .step-meta { flex: 1; min-width: 0; }
+.steps .step-name { font-weight: 600; font-size: 13px; }
+.steps .step-desc { color: var(--text-dim); font-size: 11.5px; line-height: 1.4; margin-top: 2px;
+  overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+main.viewer { padding: 22px 28px; overflow-y: auto; max-height: calc(100vh - 50px); }
+.viewer-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
+.viewer-head h2 { margin: 0; font-size: 20px; color: var(--accent); font-weight: 700; }
+.viewer-head .desc { color: var(--text-dim); margin-top: 4px; font-size: 13px; }
+.viewer-head .actions { display: flex; gap: 8px; flex-shrink: 0; margin-left: 16px; }
+.btn { background: var(--panel-2); color: var(--text); border: 1px solid var(--border); padding: 6px 12px; border-radius: 5px; font-size: 12px; cursor: pointer; }
+.btn.primary { background: var(--green); border-color: var(--green); color: #0e0e10; font-weight: 600; }
+.btn:hover { background: var(--border); }
+.btn.primary:hover { background: var(--green); opacity: 0.85; }
+.tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+.tab { padding: 8px 16px; cursor: pointer; color: var(--text-dim); font-size: 13px; border-bottom: 2px solid transparent; }
+.tab.active { color: var(--accent); border-color: var(--accent); }
+.content {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px 26px;
+  min-height: 400px;
+}
+.content h1, .content h2, .content h3, .content h4 { color: var(--text); }
+.content h2 { color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-top: 28px; }
+.content h1:first-child, .content h2:first-child { margin-top: 0; }
+.content table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+.content th, .content td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; font-size: 13px; }
+.content th { background: var(--panel-2); }
+.content code { background: var(--panel-2); padding: 1px 5px; border-radius: 3px; font-size: 12.5px; }
+.content pre { background: var(--panel-2); padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 12.5px; border: 1px solid var(--border); }
+.content blockquote { border-left: 3px solid var(--accent); padding: 4px 14px; color: var(--text-dim); margin: 14px 0; }
+.content iframe { width: 100%; border: 1px solid var(--border); border-radius: 6px; }
+.content a { color: var(--link); }
+.empty { color: var(--text-dim); padding: 50px 0; text-align: center; }
+.empty .label { font-size: 12px; opacity: 0.6; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+.spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--text-dim); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.run-list { padding: 22px 28px; }
+.run-list h2 { margin-top: 0; }
+.run-card { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin-bottom: 10px; cursor: pointer; }
+.run-card:hover { border-color: var(--accent); }
+.run-card .slug { font-size: 16px; font-weight: 600; }
+.run-card .stats { color: var(--text-dim); font-size: 12px; margin-top: 4px; }
+.run-card .verdict { display: inline-block; padding: 2px 8px; font-size: 11px; border-radius: 4px; font-weight: 600; margin-left: 8px; }
+.run-card .verdict.pass { background: rgba(34, 197, 94, 0.15); color: var(--green); }
+.run-card .verdict.fail { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.run-card .verdict.unknown { background: rgba(156, 163, 175, 0.15); color: var(--text-dim); }
+.notice { background: var(--panel); border: 1px solid var(--border); padding: 12px 16px; border-radius: 6px; font-size: 12.5px; color: var(--text-dim); margin-bottom: 14px; }
+.notice strong { color: var(--text); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <h1>Whiteboard · Blog pipeline</h1>
+  <div class="nav">
+    <a href="#" id="nav-home" class="active">Runs</a>
+    <a href="https://github.com/lionelndong/blog-agent-2" target="_blank">GitHub ↗</a>
+  </div>
+</header>
+
+<div id="app"></div>
+
+<!-- Markdown renderer -->
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script>
+// ---------- Config ----------
+const REPO = "lionelndong/blog-agent-2";
+const BRANCH = "main";
+const RAW = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
+const GH_API = `https://api.github.com/repos/${REPO}/contents`;
+const BLOB = `https://github.com/${REPO}/blob/${BRANCH}`;
+
+// Pipeline stage definitions, in order.
+const STAGES = [
+  { key: "1-research", name: "Research", desc: "SERP analysis + competitor pull + deep-research synthesis",
+    files: (slug) => [
+      { label: "broad", path: `content-pipeline/1-research/${slug}.md`, kind: "md" },
+      { label: "deep", path: `content-pipeline/1-research/${slug}-deep.md`, kind: "md" },
+      { label: "data", path: `content-pipeline/1-research/${slug}-data.json`, kind: "json" },
+    ] },
+  { key: "2-reference", name: "Reference", desc: "Reference snapshot of competitor article structure / tone",
+    files: (slug) => [{ label: "reference", path: `content-pipeline/2-reference/${slug}.md`, kind: "md" }] },
+  { key: "3-outlines", name: "Outline", desc: "Structured H2/H3 outline with BLUF openers",
+    files: (slug) => [{ label: "outline", path: `content-pipeline/3-outlines/${slug}.md`, kind: "md" }] },
+  { key: "4-outlines-annotated", name: "Outline annotated", desc: "Outline + citation slots + visual placement",
+    files: (slug) => [{ label: "annotated", path: `content-pipeline/4-outlines-annotated/${slug}.md`, kind: "md" }] },
+  { key: "5-drafts", name: "Draft", desc: "Full article draft (target 2,000–2,300 words)",
+    files: (slug) => [{ label: "draft", path: `content-pipeline/5-drafts/${slug}.md`, kind: "md" }] },
+  { key: "6-drafts-cited", name: "Verify Claims", desc: "Source citations + hyperlinks resolved",
+    files: (slug) => [{ label: "cited draft", path: `content-pipeline/6-drafts-cited/${slug}.md`, kind: "md" }] },
+  { key: "visuals", name: "Visuals", desc: "Image generation / action-shot capture manifest",
+    files: (slug) => [
+      { label: "manifest", path: `content-pipeline/images/${slug}/manifest.json`, kind: "json" },
+      { label: "manual capture", path: `content-pipeline/images/${slug}/manual-capture.md`, kind: "md" },
+    ] },
+  { key: "7-preview", name: "Preview", desc: "Rendered HTML preview as readers will see it",
+    files: (slug) => [{ label: "preview", path: `content-pipeline/7-preview/${slug}.html`, kind: "html" }] },
+  { key: "quality-checks", name: "Quality check", desc: "Auto metrics + adversarial reader + verdict (PASS / FAIL)",
+    files: (slug) => [
+      { label: "verdict", path: `content-pipeline/quality-checks/${slug}.md`, kind: "md" },
+      { label: "metrics", path: `content-pipeline/quality-checks/${slug}-metrics.md`, kind: "md" },
+      { label: "adversarial", path: `content-pipeline/quality-checks/${slug}-adversarial.md`, kind: "md" },
+    ] },
+  { key: "8-publish", name: "Publish package", desc: "Strapi-ready article.md + article.json + paste/publish README",
+    files: (slug) => [
+      { label: "article.md", path: `content-pipeline/8-publish/${slug}/article.md`, kind: "md" },
+      { label: "article.json", path: `content-pipeline/8-publish/${slug}/article.json`, kind: "json" },
+      { label: "README", path: `content-pipeline/8-publish/${slug}/README.md`, kind: "md" },
+    ] },
+];
+
+// ---------- Routing ----------
+const app = document.getElementById("app");
+
+function parseHash() {
+  const h = location.hash.replace(/^#/, "");
+  if (!h) return { view: "list" };
+  const parts = h.split("/").filter(Boolean);
+  return { view: "run", slug: parts[0], stage: parts[1] || "1-research", file: parts[2] || "0" };
+}
+window.addEventListener("hashchange", render);
+
+// ---------- List of runs ----------
+async function fetchRuns() {
+  // Use GitHub API to list slugs in 8-publish/, fall back to known slugs.
+  try {
+    const r = await fetch(`${GH_API}/content-pipeline/8-publish?ref=${BRANCH}`);
+    if (!r.ok) throw new Error("api");
+    const items = await r.json();
+    return items.filter(i => i.type === "dir").map(i => i.name);
+  } catch (e) {
+    return ["what-is-an-ai-girlfriend", "ai-girlfriend", "ai-porn", "build-a-girlfriend-body", "ai-boyfriend"];
+  }
+}
+
+async function fetchVerdict(slug) {
+  try {
+    const r = await fetch(`${RAW}/content-pipeline/quality-checks/${slug}.md`);
+    if (!r.ok) return { status: "unknown", text: "no quality-check" };
+    const t = await r.text();
+    const m = t.match(/Verdict:\s*\*\*(PASS|FAIL)\*\*\s*\(?(\d+\s*\/\s*\d+)?/i);
+    if (!m) return { status: "unknown", text: "no verdict line" };
+    return { status: m[1].toLowerCase(), text: m[2] || m[1] };
+  } catch (e) { return { status: "unknown", text: "fetch error" }; }
+}
+
+async function renderList() {
+  app.innerHTML = `
+    <div class="run-list">
+      <div class="notice">
+        <strong>Where everything lives:</strong> all pipeline artifacts are stored in GitHub at
+        <a href="https://github.com/${REPO}" target="_blank">github.com/${REPO}</a>
+        on the <code>${BRANCH}</code> branch. This viewer reads them live via the GitHub raw URLs — no separate copy.
+        Click a run to walk every stage.
+      </div>
+      <h2>Runs</h2>
+      <div id="runs"><span class="spinner"></span> loading…</div>
+    </div>`;
+  const slugs = await fetchRuns();
+  const verdicts = await Promise.all(slugs.map(fetchVerdict));
+  const list = document.getElementById("runs");
+  list.innerHTML = slugs.map((slug, i) => {
+    const v = verdicts[i];
+    return `<div class="run-card" onclick="location.hash='#${slug}'">
+      <div><span class="slug">${slug}</span> <span class="verdict ${v.status}">${v.status === 'unknown' ? 'no verdict' : v.text}</span></div>
+      <div class="stats">${BRANCH} · click to inspect every pipeline stage</div>
+    </div>`;
+  }).join("");
+}
+
+// ---------- Run detail (whiteboard) ----------
+async function detectStageStatus(slug) {
+  // For each stage's primary file, HEAD-check existence to mark done/skipped.
+  const checks = STAGES.map(async (s) => {
+    const primary = s.files(slug)[0];
+    try {
+      const r = await fetch(`${RAW}/${primary.path}`, { method: "GET" });
+      return { key: s.key, done: r.ok };
+    } catch (e) { return { key: s.key, done: false }; }
+  });
+  const results = await Promise.all(checks);
+  return Object.fromEntries(results.map(r => [r.key, r.done]));
+}
+
+async function renderRun(state) {
+  const { slug, stage, file } = state;
+  const stageDef = STAGES.find(s => s.key === stage) || STAGES[0];
+  const fileIdx = parseInt(file) || 0;
+  const fileDef = stageDef.files(slug)[fileIdx] || stageDef.files(slug)[0];
+
+  app.innerHTML = `
+    <div class="app">
+      <aside class="sidebar">
+        <div class="run-header">
+          <a class="back" href="#">← Back</a>
+          <div class="title">${slug}</div>
+          <div class="meta">github.com/${REPO}</div>
+          <span class="badge" id="run-badge">loading…</span>
+        </div>
+        <ul class="steps" id="steps">
+          ${STAGES.map(s => `
+            <li data-stage="${s.key}" class="${s.key === stage ? 'active' : ''}">
+              <span class="dot"></span>
+              <div class="step-meta">
+                <div class="step-name">${s.name}</div>
+                <div class="step-desc">${s.desc}</div>
+              </div>
+            </li>`).join("")}
+        </ul>
+      </aside>
+      <main class="viewer">
+        <div class="viewer-head">
+          <div>
+            <h2>${stageDef.name}</h2>
+            <div class="desc">${stageDef.desc}</div>
+          </div>
+          <div class="actions">
+            <a class="btn" href="${BLOB}/${fileDef.path}" target="_blank">Open in GitHub</a>
+            <a class="btn" href="${RAW}/${fileDef.path}" target="_blank">Raw</a>
+          </div>
+        </div>
+        <div class="tabs" id="file-tabs">
+          ${stageDef.files(slug).map((f, i) => `<div class="tab ${i === fileIdx ? 'active' : ''}" data-file="${i}">${f.label}</div>`).join("")}
+        </div>
+        <div class="content" id="content"><span class="spinner"></span> loading <code>${fileDef.path}</code>…</div>
+      </main>
+    </div>`;
+
+  // Wire sidebar
+  document.querySelectorAll("#steps li").forEach(el => {
+    el.onclick = () => { location.hash = `#${slug}/${el.dataset.stage}`; };
+  });
+  // Wire tabs
+  document.querySelectorAll("#file-tabs .tab").forEach(el => {
+    el.onclick = () => { location.hash = `#${slug}/${stage}/${el.dataset.file}`; };
+  });
+
+  // Determine stage status badges
+  detectStageStatus(slug).then(status => {
+    document.querySelectorAll("#steps li").forEach(el => {
+      el.classList.toggle("done", !!status[el.dataset.stage]);
+      el.classList.toggle("skipped", !status[el.dataset.stage]);
+    });
+    const doneCount = Object.values(status).filter(Boolean).length;
+    document.getElementById("run-badge").textContent = `${doneCount}/${STAGES.length} stages produced`;
+  });
+
+  // Load file content
+  const url = `${RAW}/${fileDef.path}`;
+  const resp = await fetch(url);
+  const target = document.getElementById("content");
+  if (!resp.ok) {
+    target.innerHTML = `<div class="empty"><div class="label">stage skipped or file missing</div><p><code>${fileDef.path}</code> didn't return 200 — this stage probably wasn't produced for this run.</p></div>`;
+    return;
+  }
+  const text = await resp.text();
+  if (fileDef.kind === "html") {
+    target.innerHTML = `<iframe srcdoc="${text.replace(/"/g, "&quot;")}" style="width:100%;height:80vh;background:white;border-radius:6px;"></iframe>`;
+  } else if (fileDef.kind === "json") {
+    let pretty = text;
+    try { pretty = JSON.stringify(JSON.parse(text), null, 2); } catch (e) {}
+    target.innerHTML = `<pre>${escapeHtml(pretty)}</pre>`;
+  } else {
+    target.innerHTML = marked.parse(text);
+  }
+}
+
+function escapeHtml(s) { return s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]); }
+
+// ---------- Render ----------
+async function render() {
+  const state = parseHash();
+  if (state.view === "list") return renderList();
+  return renderRun(state);
+}
+render();
+</script>
+
+</body>
+</html>
