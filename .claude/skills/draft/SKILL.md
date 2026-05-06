@@ -57,7 +57,7 @@ For slug `{slug}`:
    - **`image`** → `[VISUAL:type=image;prompt=<scene description, no people for SFW>;style=<photorealistic|illustration>;safety=<sfw|adult>]` — default `safety=sfw`. Use `safety=adult` only when the section genuinely needs adult-themed imagery; this routes to manual capture.
    - **`chart`** → `[VISUAL:type=chart;data=<source>;style=<bar|line|pie>;title=<chart title>]`
    - **`video`** → `[VISUAL:type=video;url=<youtube-or-loom URL>;what=<description>]`
-   - **`external`** → `[VISUAL:type=external;url=<source URL>;what=<description>]`
+   - **`external`** → `[VISUAL:type=external;sub=<reddit-comment|tweet|news-quote|competitor-ui|chart>;url=<source URL>;selector=<CSS selector>;crop=padded;what=<short caption>]` — **PLEAA-417: auto-captured by default.** When the section quotes a Reddit comment, embeds a tweet, or cites a chart in a news article, emit one of these so the pipeline produces a real cropped PNG of the cited element. Always pair with a `selector` that clips to the specific element (Reddit comment IDs are `#t1_<id>`, tweets are `article[data-testid="tweet"]`, news charts are commonly `figure.chart`). On Cloudflare/login walls the pipeline auto-falls-back to `/capture-visuals` (Claude-in-Chrome). See `templates/visual-types.md` for the selector cheatsheet.
    - **`gif`** → `[VISUAL:type=gif;what=<multi-step interaction description>]`
    - **`table`** → write the markdown table inline. **No placeholder.**
    - **`none`** → write prose only. No placeholder.

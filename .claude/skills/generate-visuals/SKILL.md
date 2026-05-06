@@ -83,8 +83,28 @@ Legacy `[SCREENSHOT: description]` placeholders are still recognized and treated
 - **Playwright auth missing**: `capture_screenshot.py` falls back to capturing without auth (public pages render; authenticated pages show login). If the captured image height is suspiciously short, the entry is flagged for editor review.
 - **Replicate / Playwright not installed**: dispatcher logs and continues; visuals of those types are flagged manual.
 
-## Why not auto-capture videos / external / gifs
+## Auto-capture coverage by type
 
-- **Videos** are generally embedded by URL, not by file. The editor pastes the YouTube/Loom URL into Strapi.
-- **External screenshots** (Reddit, X, competitor sites) often violate ToS to auto-capture. Manual capture by the editor is the safe path.
-- **GIFs** require a screen-recording source the pipeline doesn't have. Once an editor records one, ffmpeg can convert — that's a future enhancement.
+- **`screenshot`** — auto-captured (patchright headless; uses `auth/state.json` if present).
+- **`image`** — auto-generated (Replicate; SFW only).
+- **`chart`** — auto-rendered (matplotlib from research data).
+- **`external`** — **auto-captured (PLEAA-417, 2026-05-06).** Was manual. Now patchright opens the URL, clips to `selector`, and applies a padded crop. Cloudflare / login walls fall back to `/capture-visuals` (Claude-in-Chrome with a real Chrome session). ToS bypasses are out of scope — if both paths fail the entry stays `failed` and the visuals gate halts.
+- **`action-shot`** — routed to `/capture-visuals` (multi-step interactive flows).
+- **`video`** — manual. Embedded by URL into Strapi, not produced as a PNG.
+- **`gif`** — manual. Requires a screen-recording source the pipeline doesn't have. ffmpeg conversion is a future enhancement.
+
+## Failure → fallback dispatch (PLEAA-417)
+
+When `external` capture fails for one of the bot-block reasons (`cloudflare_challenge_unresolved`, `redirected_to_login`, `navigation_failed`, `image_dimensions_too_small`), the manifest entry stays `status: "failed"` (so `pipeline_gate.py` halts as PLEAA-392 requires) but carries a `fallback` block:
+
+```json
+{
+  "fallback": {
+    "method": "claude_in_chrome",
+    "skill": "/capture-visuals",
+    "url": "...", "selector": "...", "what": "...", "sub": "..."
+  }
+}
+```
+
+The orchestrator (or an autonomous heartbeat) reads the failed entries, runs `/capture-visuals {slug}` to dispatch the Chrome MCP fallback, and re-runs the gate. If the Chrome path also fails, the entry stays `failed` and the editor handles it manually — we never bypass site protections.
