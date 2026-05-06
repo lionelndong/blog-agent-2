@@ -1,0 +1,3 @@
+contentshake: action=optimize slug=what-is-an-ai-girlfriend draft=what-is-an-ai-girlfriend.md (20878 chars) endpoint=/articles/analyze
+error: ContentShake API HTTP 400 Bad Request: query type not found
+

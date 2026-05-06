@@ -1,0 +1,27 @@
+{
+  "slug": "what-is-an-ai-girlfriend",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "action-shot",
+      "attrs": {
+        "type": "action-shot",
+        "url": "https://pleasur.ai/create",
+        "goal": "Navigate to pleasur.ai/create. Dismiss the age verification dialog. Wait for the templates / character-creator landing state to load. Capture the page showing the companion build flow.",
+        "what": "Pleasur.AI Companion Creator landing \u2014 the \"where to start\" screen"
+      },
+      "alt": "Pleasur.AI Companion Creator landing \u2014 the \"where to start\" screen",
+      "status": "manual",
+      "result": {
+        "status": "manual",
+        "reason": "action_shot_routed_to_editor",
+        "url": "https://pleasur.ai/create",
+        "goal": "Navigate to pleasur.ai/create. Dismiss the age verification dialog. Wait for the templates / character-creator landing state to load. Capture the page showing the companion build flow.",
+        "filename": "action-1-navigate-to-pleasur-ai-create.png",
+        "hint": "Capture interactively via Claude in Chrome. Run `/capture-visuals what-is-an-ai-girlfriend` and walk through this entry, or open the URL in Chrome and capture the moment described in 'goal' yourself."
+      },
+      "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Navigate to pleasur.ai/create. Dismiss the age verification dialog. Wait for the templates / character-creator landing state to load. Capture the page showing the companion build flow.;what=Pleasur.AI Companion Creator landing \u2014 the \"where to start\" screen]",
+      "legacy": false
+    }
+  ]
+}

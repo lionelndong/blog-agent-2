@@ -1,0 +1,43 @@
+Pipeline complete. Final report:
+
+```
+✓ Pipeline complete for "what is an ai girlfriend" (slug: what-is-an-ai-girlfriend)
+
+Stages run:
+  ✓ research              → content-pipeline/1-research/what-is-an-ai-girlfriend.md
+                            (+ -deep.md, -data.json) — 1,470 words
+  ✓ brand-reference       → content-pipeline/2-reference/what-is-an-ai-girlfriend.md
+                            8 inventory, 5 relevant, 3 internal-link slots wired
+  ✓ outline               → content-pipeline/3-outlines/what-is-an-ai-girlfriend.md
+                            Title: "What Is an AI Girlfriend? A Plain-English Definition (2026)" (53 chars)
+                            6 H2s · 2 typed Visuals (table + action-shot), rest none
+  ✓ product-mentions      → content-pipeline/4-outlines-annotated/what-is-an-ai-girlfriend.md
+                            2 of 6 H2s annotated · 1 reconciliation deletion (coming-soon Voice/Phone removed from §6)
+  ✓ draft                 → content-pipeline/5-drafts/what-is-an-ai-girlfriend.md
+                            2,562 words · em-dashes 7.2/1k · you-words 32/1k · avg paragraph 30.3
+  ✓ quality-check         → content-pipeline/quality-checks/what-is-an-ai-girlfriend.md
+                            Verdict: PASS (94/100) · 0 CRITICAL · 3 HIGH (surfaced below)
+  ✓ verify-claims         → content-pipeline/6-drafts-cited/what-is-an-ai-girlfriend.md
+                            10/10 [link] resolved · ~90% must-cite density · 6 internal links wired · 11 voice-flagged statements
+  ⚠ optimize-content      → content-pipeline/optimization/what-is-an-ai-girlfriend.md (verdict: SKIPPED)
+                            ContentShake API contract mismatch (HTTP 400 "query type not found") — known issue on sibling slugs · draft unchanged · pipeline failed-soft per skill spec
+  ✓ generate-visuals      → content-pipeline/images/what-is-an-ai-girlfriend/manifest.json
+                            0 captured · 1 manual (action-shot of Pleasur.AI Companion Creator) · 0 failed
+  ⏭ capture-visuals       → not run (Claude-in-Chrome MCP not connected this session)
+  ✓ preview               → content-pipeline/7-preview/what-is-an-ai-girlfriend.html
+```
+
+**Quality-check HIGH items the editor should be aware of (none blocked the pipeline):**
+1. §1 hero stat was Replika "by mid-2023" — verify-claims refreshed it to durable Wired/HBS-backed framing during stage 7. Likely resolved; double-check on read.
+2. §2 prose + table convey the same component breakdown — editor may want to trim one.
+3. Verify-claims also swapped a Stanford "48% loneliness reduction" claim for the directionally accurate De Freitas et al. HBS finding (the 48% number couldn't be sourced) and dropped a Reuters "herbivore men" attribution that didn't verify, replacing with Japan Times Loverse reporting. Both are documented in the cited draft's editor notes.
+
+**Brand-string check:** every mention in the article body is exactly `Pleasur.AI` — no `Pleasure AI` / `Pleasure Ai` / `Pleasurai` slipped in. (One stray reference in editor-notes metadata was scrubbed mid-pipeline.)
+
+**ContentShake skip:** the Semrush ContentShake API rejected the analyze payload with HTTP 400 — a script-side fix, not an article problem. Documented in `content-pipeline/optimization/what-is-an-ai-girlfriend-errors.log`. Draft unchanged.
+
+**Next steps (interactive mode):**
+1. Open `content-pipeline/7-preview/what-is-an-ai-girlfriend.html` in your browser.
+2. Capture the §6 Pleasur.AI Companion Creator action-shot per `content-pipeline/images/what-is-an-ai-girlfriend/manual-capture.md` (or run `/capture-visuals what-is-an-ai-girlfriend` in a session where the Claude-in-Chrome MCP is connected).
+3. Review the 11 voice-flagged statements in the cited draft's editor-notes section — auto-citing them was suppressed by design.
+4. When ready, run `/format-for-publish what-is-an-ai-girlfriend` to package for Strapi.

@@ -1,0 +1,3 @@
+# Context for what-is-an-ai-girlfriend
+
+Audience: curious adults considering an AI companion for the first time. Angle: definitional + experiential — explain what an AI girlfriend actually is, how it works under the hood (LLM + persona + memory), the real emotional/practical experience, who it's for, common misconceptions, and an honest discussion of limits. Informational, not commercial-comparison. Voice: conversational, candid, slightly playful, confident — Pleasur.AI brand. Surface Pleasur.AI naturally near the end as a recommended starting point, not as the topic. Hard rule: brand mention is exactly 'Pleasur.AI' — never Pleasure AI / Pleasure Ai / Pleasurai.

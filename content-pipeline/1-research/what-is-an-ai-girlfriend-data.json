@@ -1,0 +1,57 @@
+{
+  "cluster_volumes": {
+    "ai girlfriend (parent)": 80000,
+    "ai gf": 9900,
+    "ai companion": 9900,
+    "girlfriend ai": 5400,
+    "ai girlfriends (plural)": 5400,
+    "what is an ai girlfriend": 210,
+    "what is ai girlfriend": 90,
+    "what is a ai girlfriend": 50,
+    "what's an ai girlfriend": 50,
+    "is there an ai girlfriend": 40,
+    "are ai girlfriends real": 30,
+    "is having an ai girlfriend cheating": 30,
+    "will ai girlfriends replace women": 30
+  },
+  "serp_format_share": {
+    "informational_publisher": 0.4,
+    "ugc_qa_forum": 0.2,
+    "product_landing_pages": 0.4
+  },
+  "top_page_word_counts": {
+    "stillmindflorida.com": 2200,
+    "aijourn.com": 1900,
+    "sometimes-homemade.com": 3300,
+    "mydreamgirlfriend.ai": 2400
+  },
+  "search_trend_12mo": {
+    "month_-11": 0.28,
+    "month_-10": 0.28,
+    "month_-9": 0.28,
+    "month_-8": 0.35,
+    "month_-7": 0.53,
+    "month_-6": 0.66,
+    "month_-5": 0.66,
+    "month_-4": 0.53,
+    "month_-3": 1.00,
+    "month_-2": 0.43,
+    "month_-1": 0.43,
+    "month_0": 0.43
+  },
+  "category_market_size_usd_b": {
+    "social_companion_ai_2023": 3.7,
+    "social_companion_ai_2028_projected": 15.1
+  },
+  "replika_signals": {
+    "paid_subscribers_2023": 1000000,
+    "share_treating_as_romantic_partner": 0.33,
+    "stanford_increased_loneliness_share": 0.48
+  },
+  "_meta": {
+    "source": "Semrush phrase_this / phrase_questions / phrase_related / phrase_organic (US, May 2026); WebFetch top-5 SERP pages; OpenRouter o4-mini deep-research fallback citing VentureBeat 2023, Juniper Research 2028 forecast, Stanford Replika study.",
+    "generated_at": "2026-05-05",
+    "primary_keyword": "what is an ai girlfriend",
+    "slug": "what-is-an-ai-girlfriend"
+  }
+}
