@@ -18,12 +18,13 @@ Between every stage transition, the orchestrator MUST run:
 python scripts/pipeline_gate.py <stage-key> <slug>
 ```
 
-Stage keys: `research`, `reference`, `outline`, `annotated`, `draft`, `cited`, `quality`, `visuals`, `preview`, `publish`, `deliverable`. The script's exit code is authoritative — non-zero means HALT, do NOT advance to the next stage. Print the stderr summary to the user.
+Stage keys: `research`, `research-adversarial`, `reference`, `outline`, `outline-adversarial`, `annotated`, `draft`, `cited`, `quality`, `visuals`, `visuals-adversarial`, `preview`, `publish`, `deliverable`. The script's exit code is authoritative — non-zero means HALT, do NOT advance to the next stage. Print the stderr summary to the user.
 
 Specific halt conditions the gate enforces:
 
 - **`visuals`** — every `[VISUAL:...]` placeholder must produce a real asset on disk. Any `manual` or `failed` entry in `manifest.json`, or any naked `[VISUAL:...]` left in the cited draft, is a HALT. Resolution: run `/capture-visuals`, or fix the SKILL/script to actually handle the type, then re-run `/generate-visuals`. Do NOT advance to preview/publish with unresolved visuals — Neo will reject the run.
 - **`quality`** — verdict FAIL or BORDERLINE-with-CRITICAL is a HALT. The autonomous-mode revision loop addresses this; if the loop's budget is exhausted and the verdict is still failing, write `9-needs-review/{slug}.md` and STOP — never publish broken prose.
+- **`research-adversarial` / `outline-adversarial` / `visuals-adversarial`** (PLEAA-418, Phase 3) — the adversarial verdict file must exist with `## Verdict: **PASS**` OR `## Verdict: **FAIL**` with revision budget remaining. FAIL with the per-stage budget exhausted is a HALT; write `9-needs-review/{slug}.md` and STOP. Per-stage budgets are tracked in `.runs/{slug}-budgets.json` via `python scripts/adversarial_runlog.py`. Default budgets (override via env): `BLOG_AGENT_RESEARCH_REVISION_BUDGET=1`, `BLOG_AGENT_OUTLINE_REVISION_BUDGET=1`, `BLOG_AGENT_VISUALS_REVISION_BUDGET=1`. The existing prose loop continues to use `BLOG_AGENT_REVISION_BUDGET=2`.
 - **`publish`** — `8-publish/{slug}/{article.md, article.json, README.md}` must all exist AND `article.md` must contain zero raw `[VISUAL:...]` placeholders. The format-for-publish skill must strip or substitute these — never ship template syntax.
 - **`deliverable`** — for issue-driven runs (PAPERCLIP_TASK_ID set), a deliverable comment with the slug + verdict must be posted to the trigger issue before the run is considered complete. Run-status "succeeded" means nothing if Neo can't see the result.
 
@@ -72,7 +73,13 @@ When `BLOG_AGENT_AUTONOMOUS` is unset (interactive / dev mode), the original beh
 5. **Run the chain via parallel + sequential agent dispatches** (see "Stage briefs" below for the exact prompt template per stage):
    - **Parallel:** Stage 1 (`/research`) + Stage 2 (`/brand-reference`). Independent.
    - Wait for both. Verify outputs on disk. If either failed, stop and surface the error.
-   - **Sequential:** Stage 3 (`/outline`) → Stage 4 (`/product-mentions`) → Stage 5 (`/draft`)
+   - **Stage 1b — Research adversarial (PLEAA-418, Phase 3):** dispatch `/research-adversarial` for {slug}. Read the verdict.
+     - PASS → continue.
+     - FAIL with budget remaining (`python scripts/adversarial_runlog.py can-revise {slug} research`) → increment via `python scripts/adversarial_runlog.py increment {slug} research`, re-dispatch stage 1 with the CRITICAL findings as a revision brief, then re-run stage 1b. Loop up to `BLOG_AGENT_RESEARCH_REVISION_BUDGET` (default 1) revision passes.
+     - FAIL with budget exhausted → write `content-pipeline/9-needs-review/{slug}.md` with the CRITICAL list and abort. Do NOT advance to stage 3. Run `python scripts/pipeline_gate.py research-adversarial {slug}` between attempts to enforce the rule.
+   - **Sequential:** Stage 3 (`/outline`)
+   - **Stage 3b — Outline adversarial (PLEAA-418, Phase 3):** dispatch `/outline-adversarial` for {slug}. Same FAIL handling as 1b but with stage key `outline` and budget `BLOG_AGENT_OUTLINE_REVISION_BUDGET`. Run `python scripts/pipeline_gate.py outline-adversarial {slug}` between attempts.
+   - **Sequential continued:** Stage 4 (`/product-mentions`) → Stage 5 (`/draft`)
    - **Quality gate:** Stage 6 (`/quality-check`). Read the verdict.
    - **Autonomous mode revision loop** (when `BLOG_AGENT_AUTONOMOUS=1`):
      - On FAIL or BORDERLINE-with-CRITICAL → dispatch Stage 6b targeted-revision Agent (brief expects to address every CRITICAL+HIGH item, not just CRITICAL). Re-run quality-check.
@@ -86,6 +93,7 @@ When `BLOG_AGENT_AUTONOMOUS` is unset (interactive / dev mode), the original beh
      - On PASS: continue.
    - **Sequential continued:** Stage 7 (`/verify-claims`) → Stage 8 (`/optimize-content`) → Stage 9 (`/generate-visuals`).
    - **Auto-capture-visuals when the Chrome MCP is connected:** if the manifest from stage 9 has `manual` entries that are `action-shot` or `screenshot` types AND the Claude-in-Chrome MCP is reachable (call `mcp__Claude_in_Chrome__list_connected_browsers`; if it returns at least one browser, the MCP is on), dispatch `/capture-visuals` automatically. The user's VPS keeps Chrome + the extension always-on, so this is the normal-running condition — not an opt-in. Only fall through to "surface manual-capture.md and stop" if the MCP is genuinely unreachable. `UNATTENDED=1` only changes whether the capture skill asks for per-step confirmations, not whether it fires.
+   - **Stage 9b — Visuals adversarial (PLEAA-418, Phase 3):** dispatch `/visuals-adversarial` for {slug}. Same FAIL handling as 1b/3b but with stage key `visuals` and budget `BLOG_AGENT_VISUALS_REVISION_BUDGET`. Revisions for this stage are surgical: strip CRITICAL decorative entries from the cited draft + manifest, then add new typed `[VISUAL:...]` placeholders for CRITICAL missing-visual findings and re-dispatch `/generate-visuals` for just those new placeholders. Run `python scripts/pipeline_gate.py visuals-adversarial {slug}` between attempts. NOTE: full value of this gate ships once PLEAA-417 (visuals broadening) lands; in the interim it strips decorative auto-captures and flags pure-fluff placeholders.
    - Stage 10 (`/preview`).
 
 6. **Verify each stage's output file exists** before advancing. If a stage's expected file isn't on disk after the agent reports completion, that's a failure even if the agent claimed success.
@@ -115,6 +123,22 @@ Critical requirements:
 - 800–1500 words
 
 Return: word count, recommended angle (one sentence), 3 most surprising findings from deep research, any failures encountered. Under 400 words.
+```
+
+### Stage 1b — Research adversarial (PLEAA-418)
+
+```
+You are running stage 1b at {ROOT}. Slug: {SLUG}.
+
+Your job: produce content-pipeline/quality-checks/{SLUG}-research-adversarial.md per .claude/skills/research-adversarial/SKILL.md. Read the SKILL first.
+
+Steps:
+1. Spawn a Task sub-agent with the skill's adversarial brief — the agent reads 1-research/{SLUG}.md, {SLUG}-deep.md (if present), {SLUG}-data.json, 0-context/{SLUG}.md (if present), and brand-config.md, then returns a critique tagged CRITICAL/HIGH/MEDIUM/LOW with a one-line `## Verdict: **PASS|FAIL**`.
+2. Combine into the verdict file.
+
+The orchestrator reads the verdict and the runlog (`python scripts/adversarial_runlog.py used {SLUG} research`) to decide whether to revise or advance. Do NOT rewrite the dossier yourself — your only job is to push back.
+
+Return: verdict, count of CRITICAL findings, top 3 findings by severity. Under 250 words.
 ```
 
 ### Stage 2 — Brand reference
@@ -160,6 +184,22 @@ Editorial requirements:
 - Title under 60 chars, includes primary keyword
 
 Return: title, one-sentence thesis, H2 list with one-line description each, count of non-`none` Visuals (and which type), any structural concerns. Under 350 words.
+```
+
+### Stage 3b — Outline adversarial (PLEAA-418)
+
+```
+You are running stage 3b at {ROOT}. Slug: {SLUG}.
+
+Your job: produce content-pipeline/quality-checks/{SLUG}-outline-adversarial.md per .claude/skills/outline-adversarial/SKILL.md. Read the SKILL first.
+
+Steps:
+1. Spawn a Task sub-agent with the skill's adversarial brief — the agent reads 3-outlines/{SLUG}.md, 1-research/{SLUG}.md, 2-reference/{SLUG}.md, templates/editorial-principles-visuals.md, and brand-config.md. The agent must push back on MECE coverage, BLUF on every opener, problem-agitate-solution arc, differentiation vs SERP top-5, and whether visuals earn their place. It returns 5–8 findings tagged CRITICAL/HIGH/MEDIUM/LOW, one thing that works, and a `## Verdict: **PASS|FAIL**` line.
+2. Combine into the verdict file.
+
+The orchestrator reads the verdict and the runlog to decide whether to revise (re-run /outline) or advance to /product-mentions.
+
+Return: verdict, count of CRITICAL findings, top 3 findings by severity. Under 250 words.
 ```
 
 ### Stage 4 — Product mentions
@@ -310,6 +350,22 @@ If the dispatcher reports any chart with status=failed and reason=invalid_data_s
 Return: captured / manual / failed counts, manifest path, manual-capture path.
 ```
 
+### Stage 9b — Visuals adversarial (PLEAA-418, full value pending PLEAA-417)
+
+```
+You are running stage 9b at {ROOT}. Slug: {SLUG}.
+
+Your job: produce content-pipeline/quality-checks/{SLUG}-visuals-adversarial.md per .claude/skills/visuals-adversarial/SKILL.md. Read the SKILL first.
+
+Steps:
+1. Spawn a Task sub-agent with the skill's adversarial brief — the agent reads 4-outlines-annotated/{SLUG}.md, 6-drafts-cited/{SLUG}.md, images/{SLUG}/manifest.json, images/{SLUG}/manual-capture.md (if present), templates/editorial-principles-visuals.md, and templates/visual-types.md. The agent must apply the 9-step "does this visual earn its place?" rule and flag decorative auto-captures, missing visuals where one would carry information, wrong-type visuals, bad crops, and any manual-capture entries that shouldn't have been requested at all.
+2. Combine into the verdict file with `## Verdict: **PASS|FAIL**`.
+
+NOTE: full value of this gate ships once PLEAA-417 (visuals broadening) lands; in the interim the adversarial mostly strips decorative pleasur.ai screenshots and flags pure-fluff placeholders. Skip the "is this external screenshot the right crop" question when the asset doesn't exist yet.
+
+Return: verdict, CRITICAL count, list of visuals to strip + list of visuals to add (if any). Under 300 words.
+```
+
 ### Stage 10 — Preview
 
 ```
@@ -370,14 +426,17 @@ When the pipeline finishes, output:
 
 Stages run:
   ✓ research              → content-pipeline/1-research/{slug}.md (+ {slug}-deep.md, {slug}-data.json)
+  ✓ research-adversarial  → quality-checks/{slug}-research-adversarial.md (verdict: PASS, research: N/M revisions used)
   ✓ brand-reference       → content-pipeline/2-reference/{slug}.md
   ✓ outline               → content-pipeline/3-outlines/{slug}.md
+  ✓ outline-adversarial   → quality-checks/{slug}-outline-adversarial.md (verdict: PASS, outline: N/M revisions used)
   ✓ product-mentions      → content-pipeline/4-outlines-annotated/{slug}.md
   ✓ draft                 → content-pipeline/5-drafts/{slug}.md
-  ✓ quality-check         → content-pipeline/quality-checks/{slug}.md (verdict: PASS|BORDERLINE)
+  ✓ quality-check         → content-pipeline/quality-checks/{slug}.md (verdict: PASS|BORDERLINE, quality: N/M revisions used)
   ✓ verify-claims         → content-pipeline/6-drafts-cited/{slug}.md
   ✓ optimize-content      → content-pipeline/optimization/{slug}.md (verdict WIN|ROLLBACK|PLATEAU|CAPPED|SKIPPED)
   ✓ generate-visuals      → content-pipeline/images/{slug}/manifest.json (N captured, M manual)
+  ✓ visuals-adversarial   → quality-checks/{slug}-visuals-adversarial.md (verdict: PASS, visuals: N/M revisions used)
   ✓ capture-visuals       → (only if UNATTENDED=1; otherwise listed under "Next steps")
   ✓ preview               → content-pipeline/7-preview/{slug}.html
 

@@ -15,18 +15,25 @@ Usage:
     python scripts/pipeline_gate.py <stage-key> <slug>
 
 Stage keys mirror the pipeline stages:
-    research        — 1-research/{slug}.md exists and is non-trivial
-    reference       — 2-reference/{slug}.md exists
-    outline         — 3-outlines/{slug}.md exists
-    annotated       — 4-outlines-annotated/{slug}.md exists
-    draft           — 5-drafts/{slug}.md exists and has H2 sections
-    cited           — 6-drafts-cited/{slug}.md exists
-    visuals         — images/{slug}/manifest.json exists, no `manual` or
-                      `failed` entries remain, AND the cited draft contains
-                      no naked `[VISUAL:...]` placeholders
-    quality         — quality-checks/{slug}.md exists with verdict PASS or
-                      BORDERLINE-no-CRITICAL
-    preview         — 7-preview/{slug}.html exists
+    research              — 1-research/{slug}.md exists and is non-trivial
+    research-adversarial  — quality-checks/{slug}-research-adversarial.md
+                            verdict PASS, OR FAIL with revision budget
+                            remaining (orchestrator must re-run /research)
+    reference             — 2-reference/{slug}.md exists
+    outline               — 3-outlines/{slug}.md exists
+    outline-adversarial   — quality-checks/{slug}-outline-adversarial.md
+                            verdict PASS, OR FAIL with budget remaining
+    annotated             — 4-outlines-annotated/{slug}.md exists
+    draft                 — 5-drafts/{slug}.md exists and has H2 sections
+    cited                 — 6-drafts-cited/{slug}.md exists
+    visuals               — images/{slug}/manifest.json exists, no `manual` or
+                            `failed` entries remain, AND the cited draft
+                            contains no naked `[VISUAL:...]` placeholders
+    visuals-adversarial   — quality-checks/{slug}-visuals-adversarial.md
+                            verdict PASS, OR FAIL with budget remaining
+    quality               — quality-checks/{slug}.md exists with verdict PASS
+                            or BORDERLINE-no-CRITICAL
+    preview               — 7-preview/{slug}.html exists
     publish         — 8-publish/{slug}/{article.md, article.json, README.md}
                       all exist, no naked [VISUAL:...] in article.md
     deliverable     — for an issue-driven run: verify a comment with the
@@ -163,6 +170,61 @@ def check_visuals(slug: str) -> int:
     return ok("visuals", slug, f"{len(visuals)} visual(s), all resolved")
 
 
+def _check_adversarial(slug: str, stage_key: str, file_suffix: str, label: str) -> int:
+    """Shared check for an adversarial verdict file.
+
+    Phase 3 of PLEAA-392 (PLEAA-418): each adversarial pass writes a verdict
+    file with a `## Verdict: **PASS|FAIL**` line. The gate fails when:
+      - the verdict file is missing, OR
+      - the verdict is FAIL AND the revision budget for this stage is
+        exhausted (per `scripts/adversarial_runlog.py`).
+
+    A FAIL with budget remaining is NOT a gate fail — the orchestrator is
+    expected to re-dispatch the producing stage and re-run the adversarial
+    skill. The gate only halts the pipeline once the budget is gone.
+    """
+    p = CP / f"quality-checks/{slug}-{file_suffix}.md"
+    err = must_exist(p)
+    if err:
+        return fail(f"{label} adversarial verdict missing", err,
+                    f"orchestrator must run /{label}-adversarial after the producing stage")
+    text = p.read_text(encoding="utf-8")
+    m = re.search(r"##\s*Verdict:\s*\*\*(PASS|FAIL)\*\*", text, re.I)
+    if not m:
+        return fail(f"{label} adversarial has no parseable verdict line",
+                    f"expected '## Verdict: **PASS**' or '## Verdict: **FAIL**' in {p.relative_to(REPO_ROOT)}")
+    verdict = m.group(1).upper()
+    if verdict == "PASS":
+        return ok(f"{label}-adversarial", slug, "verdict=PASS")
+
+    # FAIL: only halt if the per-stage revision budget is exhausted.
+    try:
+        sys.path.insert(0, str(REPO_ROOT / "scripts"))
+        import adversarial_runlog  # type: ignore
+    except Exception as e:
+        return fail(f"{label} adversarial FAIL and runlog module unavailable", str(e))
+    used = adversarial_runlog.used(slug, stage_key)
+    budget = adversarial_runlog.budget_for(stage_key)
+    if used < budget:
+        return ok(f"{label}-adversarial", slug,
+                  f"verdict=FAIL but budget remains ({used}/{budget}) — orchestrator must revise + re-run")
+    return fail(f"{label} adversarial verdict is FAIL and revision budget is exhausted ({used}/{budget})",
+                f"see {p.relative_to(REPO_ROOT)}",
+                f"write 9-needs-review/{slug}.md and STOP — never advance with unresolved CRITICAL adversarial findings")
+
+
+def check_outline_adversarial(slug: str) -> int:
+    return _check_adversarial(slug, "outline", "outline-adversarial", "outline")
+
+
+def check_research_adversarial(slug: str) -> int:
+    return _check_adversarial(slug, "research", "research-adversarial", "research")
+
+
+def check_visuals_adversarial(slug: str) -> int:
+    return _check_adversarial(slug, "visuals", "visuals-adversarial", "visuals")
+
+
 def check_quality(slug: str) -> int:
     p = CP / f"quality-checks/{slug}.md"
     err = must_exist(p)
@@ -245,12 +307,15 @@ def check_deliverable(slug: str) -> int:
 
 CHECKS = {
     "research": check_research,
+    "research-adversarial": check_research_adversarial,
     "reference": check_reference,
     "outline": check_outline,
+    "outline-adversarial": check_outline_adversarial,
     "annotated": check_annotated,
     "draft": check_draft,
     "cited": check_cited,
     "visuals": check_visuals,
+    "visuals-adversarial": check_visuals_adversarial,
     "quality": check_quality,
     "preview": check_preview,
     "publish": check_publish,
