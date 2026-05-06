@@ -613,50 +613,63 @@ def capture(
                         # the gate to evaluate.
                         locator.screenshot(path=str(out_path))
                     else:
+                        # Greptile P1 (PR #4 PLEAA-417): tmp_full was leaked
+                        # on Pillow errors because unlink() lived inside the
+                        # try block. try/finally ensures the intermediate is
+                        # removed whether the crop succeeds or fails — on a
+                        # VPS that retries a failing external source, leaks
+                        # silently fill disk.
                         tmp_full = out_path.with_suffix(".full.png")
                         page.screenshot(path=str(tmp_full), full_page=True)
                         try:
-                            from PIL import Image
-                            sf = DEVICE_SCALE_FACTOR
-                            x0 = max(0, int((bbox["x"] - padding) * sf))
-                            y0 = max(0, int((bbox["y"] - padding) * sf))
-                            x1 = int((bbox["x"] + bbox["width"] + padding) * sf)
-                            y1 = int((bbox["y"] + bbox["height"] + padding) * sf)
-                            with Image.open(tmp_full) as img:
-                                # Clamp to image extent
-                                x1 = min(x1, img.width)
-                                y1 = min(y1, img.height)
-                                img.crop((x0, y0, x1, y1)).save(out_path, format="PNG")
+                            try:
+                                from PIL import Image
+                                sf = DEVICE_SCALE_FACTOR
+                                x0 = max(0, int((bbox["x"] - padding) * sf))
+                                y0 = max(0, int((bbox["y"] - padding) * sf))
+                                x1 = int((bbox["x"] + bbox["width"] + padding) * sf)
+                                y1 = int((bbox["y"] + bbox["height"] + padding) * sf)
+                                with Image.open(tmp_full) as img:
+                                    # Clamp to image extent
+                                    x1 = min(x1, img.width)
+                                    y1 = min(y1, img.height)
+                                    img.crop((x0, y0, x1, y1)).save(out_path, format="PNG")
+                            except Exception as exc:
+                                _cleanup()
+                                return {
+                                    "status": "failed",
+                                    "reason": "padded_crop_failed",
+                                    "error": str(exc),
+                                }
+                        finally:
                             tmp_full.unlink(missing_ok=True)
-                        except Exception as exc:
-                            _cleanup()
-                            return {
-                                "status": "failed",
-                                "reason": "padded_crop_failed",
-                                "error": str(exc),
-                            }
                 else:
                     locator.screenshot(path=str(out_path))
             elif crop:  # noqa: PLR5501 - keep readability of capture-mode ladder
-                # Capture full viewport then crop with Pillow
+                # Capture full viewport then crop with Pillow.
+                # Same try/finally pattern as the padded-crop branch above —
+                # the legacy crop=X,Y,W,H path had the identical leak Greptile
+                # called out, fix both at once.
                 tmp_full = out_path.with_suffix(".full.png")
                 page.screenshot(path=str(tmp_full), full_page=False)
                 try:
-                    from PIL import Image
-                    with Image.open(tmp_full) as img:
-                        # Account for device scale factor in crop coords
-                        sf = DEVICE_SCALE_FACTOR
-                        box = (
-                            crop["x"] * sf,
-                            crop["y"] * sf,
-                            (crop["x"] + crop["width"]) * sf,
-                            (crop["y"] + crop["height"]) * sf,
-                        )
-                        img.crop(box).save(out_path, format="PNG")
+                    try:
+                        from PIL import Image
+                        with Image.open(tmp_full) as img:
+                            # Account for device scale factor in crop coords
+                            sf = DEVICE_SCALE_FACTOR
+                            box = (
+                                crop["x"] * sf,
+                                crop["y"] * sf,
+                                (crop["x"] + crop["width"]) * sf,
+                                (crop["y"] + crop["height"]) * sf,
+                            )
+                            img.crop(box).save(out_path, format="PNG")
+                    except Exception as exc:
+                        _cleanup()
+                        return {"status": "failed", "reason": "crop_failed", "error": str(exc)}
+                finally:
                     tmp_full.unlink(missing_ok=True)
-                except Exception as exc:
-                    _cleanup()
-                    return {"status": "failed", "reason": "crop_failed", "error": str(exc)}
             else:
                 page.screenshot(path=str(out_path), full_page=False)
         except Exception as exc:

@@ -163,11 +163,19 @@ def _capture_with_playwright(
 
     crop = module._parse_crop(a.get("crop")) if a.get("crop") else None
     crop_mode = (a.get("crop") or "").lower() if a.get("crop") else ""
+    crop_directive_ignored = False
     if crop_mode in {"padded", "tight"}:
         # `crop=padded|tight` is sugar for selector-based padded crops.
         # `tight` ≈ 8px; `padded` ≈ 48px. Caller can override with crop=N.
         crop = None
         padding = 48 if crop_mode == "padded" else 8
+        # Greptile P2 (PR #4 PLEAA-417): padded/tight crops require a selector
+        # — capture_screenshot only enters the padded branch when selector is
+        # truthy. Without one, capture falls through to viewport and silently
+        # ignores the directive. Surface it as needs_review so the editor sees
+        # the manifest entry didn't honor the crop hint.
+        if not a.get("selector"):
+            crop_directive_ignored = True
     else:
         try:
             padding = int(a.get("padding")) if a.get("padding") else default_padding
@@ -188,18 +196,33 @@ def _capture_with_playwright(
         padding=padding,
     )
     result["url"] = url
+    if crop_directive_ignored:
+        result["needs_review"] = True
+        result["warn_crop_ignored"] = (
+            f"crop={crop_mode} requires a selector; viewport screenshot was "
+            "captured instead. Add a CSS selector to the placeholder to honor "
+            "the padded/tight crop directive."
+        )
     return result
 
 
 # Failure reasons from capture_screenshot.capture() that mean Playwright was
-# blocked at the page level (bot wall, login, navigation). For `external`
-# placeholders these are exactly the cases where Claude-in-Chrome (with a real
-# logged-in session, a real IP, and visual judgment) is the right fallback.
+# blocked at the page level (bot wall, login, navigation, selector-covered-by-
+# overlay). For `external` placeholders these are exactly the cases where
+# Claude-in-Chrome (real logged-in session, real IP, visual judgment) is the
+# right fallback.
+#
+# `bounding_box_failed` is in this set per Greptile review on PR #4 (PLEAA-417):
+# when a login overlay covers the target selector, locator.bounding_box() raises
+# BEFORE _check_quality runs, so `redirected_to_login` never fires. Without
+# bounding_box_failed in the set the operator would see a bare `failed` and
+# /capture-visuals would have no retry breadcrumb.
 _CHROME_FALLBACK_REASONS = {
     "cloudflare_challenge_unresolved",
     "redirected_to_login",
     "navigation_failed",
     "image_dimensions_too_small",
+    "bounding_box_failed",
 }
 
 
