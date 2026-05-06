@@ -138,18 +138,42 @@ def _load_run_action_shot():
         return None
 
 
-def _handle_screenshot(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
-    a = item["attrs"]
-    target = a.get("target") or a.get("url") or "create"
-    url = a["url"] if "url" in a else _resolve_brand_url(target)
-    name = _slug(a.get("what") or target)
-    out_path = out_dir / f"screenshot-{index}-{name}.png"
+def _capture_with_playwright(
+    item: dict[str, Any],
+    url: str,
+    out_path: Path,
+    *,
+    default_padding: int = 0,
+) -> dict[str, Any]:
+    """Shared Playwright capture path used by both `screenshot` and `external` types.
 
+    `default_padding` is applied when the placeholder doesn't specify one. Set
+    to 0 for brand screenshots (we want pixel-perfect product UI), 48 for
+    external sources (Reddit / tweet / chart looks nicer with breathing room).
+    """
+    a = item["attrs"]
     module = _load_capture_screenshot()
     if module is None:
-        return {"status": "manual", "reason": "playwright_unavailable", "url": url, "filename": out_path.name}
+        return {
+            "status": "manual",
+            "reason": "playwright_unavailable",
+            "url": url,
+            "filename": out_path.name,
+        }
 
     crop = module._parse_crop(a.get("crop")) if a.get("crop") else None
+    crop_mode = (a.get("crop") or "").lower() if a.get("crop") else ""
+    if crop_mode in {"padded", "tight"}:
+        # `crop=padded|tight` is sugar for selector-based padded crops.
+        # `tight` ≈ 8px; `padded` ≈ 48px. Caller can override with crop=N.
+        crop = None
+        padding = 48 if crop_mode == "padded" else 8
+    else:
+        try:
+            padding = int(a.get("padding")) if a.get("padding") else default_padding
+        except (TypeError, ValueError):
+            padding = default_padding
+
     validate = (a.get("validate") or "").lower() in {"1", "true", "yes"} or bool(
         os.environ.get("VISUAL_VALIDATION", "").lower() in {"1", "true", "yes"}
     )
@@ -161,9 +185,90 @@ def _handle_screenshot(item: dict[str, Any], slug: str, index: int, out_dir: Pat
         annotate_selector=a.get("annotate"),
         validate=validate,
         expected_what=a.get("what"),
+        padding=padding,
     )
     result["url"] = url
     return result
+
+
+# Failure reasons from capture_screenshot.capture() that mean Playwright was
+# blocked at the page level (bot wall, login, navigation). For `external`
+# placeholders these are exactly the cases where Claude-in-Chrome (with a real
+# logged-in session, a real IP, and visual judgment) is the right fallback.
+_CHROME_FALLBACK_REASONS = {
+    "cloudflare_challenge_unresolved",
+    "redirected_to_login",
+    "navigation_failed",
+    "image_dimensions_too_small",
+}
+
+
+def _attach_chrome_fallback_hint(result: dict[str, Any], slug: str, item: dict[str, Any]) -> dict[str, Any]:
+    """Annotate a failed external capture with /capture-visuals fallback metadata.
+
+    The visuals stage stays `failed` (so pipeline_gate halts as PLEAA-392
+    requires) but the manifest entry now carries enough breadcrumbs that
+    /capture-visuals can pick this exact entry up in unattended mode and
+    re-attempt via the Claude-in-Chrome MCP.
+    """
+    if result.get("status") != "failed":
+        return result
+    if result.get("reason") not in _CHROME_FALLBACK_REASONS:
+        return result
+    a = item["attrs"]
+    result["fallback"] = {
+        "method": "claude_in_chrome",
+        "skill": "/capture-visuals",
+        "url": a.get("url"),
+        "selector": a.get("selector"),
+        "what": a.get("what"),
+        "sub": a.get("sub"),
+    }
+    result["hint"] = (
+        f"Playwright blocked ({result['reason']}). Run `/capture-visuals {slug}` "
+        "to retry this entry via Claude-in-Chrome (real Chrome session bypasses "
+        "the wall). The skill picks up `failed` external entries automatically "
+        "in unattended mode."
+    )
+    return result
+
+
+def _handle_screenshot(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
+    a = item["attrs"]
+    target = a.get("target") or a.get("url") or "create"
+    url = a["url"] if "url" in a else _resolve_brand_url(target)
+    name = _slug(a.get("what") or target)
+    out_path = out_dir / f"screenshot-{index}-{name}.png"
+    return _capture_with_playwright(item, url, out_path, default_padding=0)
+
+
+def _handle_external(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
+    """Auto-capture an external source (Reddit comment, tweet, news chart, etc.).
+
+    PLEAA-417: this used to short-circuit to manual. Neo overrode that — the
+    pipeline now actually attempts the capture. A `selector` is strongly
+    recommended (clip to the relevant Reddit comment / tweet card / chart);
+    without one we capture the viewport, which is rarely useful for cited
+    visuals.
+
+    Sub-types (`sub=reddit-comment|tweet|news-quote|competitor-ui|chart`) are
+    free-form metadata at the moment — they round-trip into the manifest for
+    downstream tooling (e.g. /capture-visuals retry) but don't change capture
+    behavior. Per-sub heuristics (e.g. auto-pick `article > figure` for
+    `sub=news-quote`) can layer on later without breaking the placeholder
+    grammar.
+    """
+    a = item["attrs"]
+    url = a.get("url")
+    if not url:
+        return {"status": "failed", "reason": "external_visual_missing_url"}
+    sub = (a.get("sub") or "external").lower()
+    name = _slug(a.get("what") or sub)
+    out_path = out_dir / f"external-{index}-{name}.png"
+
+    result = _capture_with_playwright(item, url, out_path, default_padding=48)
+    result.setdefault("sub", sub)
+    return _attach_chrome_fallback_hint(result, slug, item)
 
 
 def _handle_image(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
@@ -345,7 +450,9 @@ def _dispatch(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dic
         return _handle_image(item, slug, index, out_dir)
     if t == "chart":
         return _handle_chart(item, slug, index, out_dir)
-    if t in {"video", "external", "gif"}:
+    if t == "external":
+        return _handle_external(item, slug, index, out_dir)
+    if t in {"video", "gif"}:
         return _handle_manual(item, index)
     if t == "table" or t == "none":
         return {"status": "skip", "reason": f"type_{t}_not_an_asset"}
@@ -364,11 +471,22 @@ def _build_manual_capture_md(slug: str, manual_items: list[dict[str, Any]]) -> s
         lines.append(f"- **Reason:** {result.get('reason', 'manual')}")
         if result.get("url"):
             lines.append(f"- **Source URL:** {result['url']}")
+        if item["attrs"].get("selector"):
+            lines.append(f"- **Selector:** `{item['attrs']['selector']}`")
         if result.get("hint"):
             lines.append(f"- **Hint:** {result['hint']}")
         if result.get("prompt"):
             lines.append(f"- **Prompt:** {result['prompt']}")
-        lines.append(f"- **Suggested filename:** `images/{slug}/{result.get('filename', 'TBD.png')}`")
+        if result.get("fallback", {}).get("method") == "claude_in_chrome":
+            lines.append(
+                f"- **Fallback:** /capture-visuals (Claude-in-Chrome) — Playwright blocked, "
+                f"retry via real Chrome session."
+            )
+        # Build a suggested filename even when the result didn't carry one
+        # (`failed` results from capture_screenshot don't, but we still need
+        # a stable name for /capture-visuals to write to).
+        suggested = result.get("filename") or f"{item['type']}-{i}-{_slug(_alt_text(item))}.png"
+        lines.append(f"- **Suggested filename:** `images/{slug}/{suggested}`")
         lines.append("")
         lines.append(f"Original placeholder: `{item['raw']}`")
         lines.append("")

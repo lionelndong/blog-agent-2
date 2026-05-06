@@ -20,6 +20,7 @@ This is the action-driven counterpart to `/generate-visuals`. Generate-visuals h
 - Visuals that need conversation state, settings flow, or visual judgment
 - Captures of sites whose bot protection beats patchright (CF Pro, DataDome, etc.)
 - Captures requiring auth on third-party sites where you keep a logged-in Chrome session
+- **PLEAA-417:** any `external` entry in the manifest with `status: "failed"` and a `fallback.method == "claude_in_chrome"` block. These are Reddit / tweet / news / competitor-UI visuals where Playwright hit a CF challenge or login wall — the manifest carries the URL + selector + suggested filename so this skill can drive Chrome to the same element and capture it via the real session.
 
 Do NOT use for:
 - Bulk captures of static public pages — `/generate-visuals` (patchright headless) is faster and free for those

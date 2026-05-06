@@ -12,7 +12,7 @@ Single source of truth for visual placement decisions across the pipeline. Every
 | `table` | Section compares N items across M dimensions, or presents structured comparison data. | Inline markdown table — no asset file. The draft writes the table directly. |
 | `chart` | Section presents quantitative data with trends, distributions, or proportions (search volumes, percentages, rankings). | matplotlib PNG rendered from data in the research dossier. |
 | `video` | Section references an embedded video (YouTube, Loom, screen recording, demo). | Editor-managed: provide an embed URL; rendered as `<iframe>` or Strapi video block. Not auto-captured. |
-| `external` | Section references a screenshot of something the brand doesn't own (a tweet, Reddit thread, competitor's site, third-party tool) where ToS or bot protection makes auto-capture risky. | Editor-managed by default. May escalate to `action-shot` if it's safe to capture and the goal can be expressed naturally. |
+| `external` | Section references something the brand doesn't own that adds *specific* value — a Reddit comment we cite, a tweet, a chart in a news article, a competitor UI panel, a third-party tool screen. **PLEAA-417 (2026-05-06): auto-captured by default**, not routed to manual. | Patchright headless capture of the URL plus a CSS `selector` that clips to the relevant element (the comment, the tweet, the chart). `crop=padded` adds breathing room around the bbox. On Cloudflare / login-wall / nav-fail, the manifest entry stays `failed` with a `fallback.method=claude_in_chrome` breadcrumb so `/capture-visuals` retries via a real Chrome session. ToS bypasses (puzzle-solving, IP rotation chains) are out of scope: if both paths fail, the entry stays `failed` and the visuals gate halts. |
 | `gif` | Section needs an animated GIF for a multi-step interaction text alone struggles to describe. | Editor-managed: provide a screen-recording source; ffmpeg conversion is a future enhancement. |
 | `none` | Section is foundational, conceptual, or argumentative — a forced visual would dilute it. | Skip — no placeholder rendered, no asset generated. |
 
@@ -24,7 +24,7 @@ For each H2 section in an outline, ask in this order:
 2. Does the section need a UI state that **only exists after multi-step interaction** (clicks through a wizard, sending messages, opening settings, mid-form state)? → `action-shot`
 3. Does the section **compare N things on M axes**? → `table`
 4. Does the section present **quantitative data with trends**? → `chart`
-5. Does the section **reference a third-party artifact** (tweet, Reddit, competitor)? → `external` (or `action-shot` if the page is reachable and the goal expressible naturally)
+5. Does the section **reference a third-party artifact** (a Reddit comment we quote, a tweet, a chart in a news article, a competitor UI panel)? → `external` — pair with `selector=` so we capture the exact element, not the whole page. Use `action-shot` instead only when the artifact is reachable just from a multi-step flow (logged-in dashboard, after-click state).
 6. Does the section need an **animated multi-step demo**? → `gif`
 7. Does the section embed a **video / demo**? → `video`
 8. Would an **aesthetic / mood / lifestyle illustration** add real value, SFW? → `image`
@@ -93,7 +93,13 @@ The draft realizes the outline's typed `Visual:` block as a single typed placeho
 
 [VISUAL:type=video;url=https://youtube.com/watch?v=<id>;what=demo of voice reply tap-to-play]
 
-[VISUAL:type=external;url=https://reddit.com/r/AICompanions/comments/<id>;what=Reddit thread on memory limits]
+[VISUAL:type=external;sub=reddit-comment;url=https://www.reddit.com/r/AICompanions/comments/<id>/;selector=#t1_<comment-id>;crop=padded;what=Top reply on memory-limit complaints]
+
+[VISUAL:type=external;sub=tweet;url=https://x.com/<user>/status/<id>;selector=article[data-testid="tweet"];crop=padded;what=User's hot-take on AI girlfriend pricing]
+
+[VISUAL:type=external;sub=news-quote;url=https://example.com/article;selector=figure.chart;crop=tight;what=Chart of monthly active users by AI companion app]
+
+[VISUAL:type=external;sub=competitor-ui;url=https://competitor.example.com/pricing;selector=.pricing-table;crop=padded;what=Competitor pricing tiers]
 ```
 
 Tables are not placeholders — `/draft` writes them inline as markdown.
@@ -108,13 +114,37 @@ Tables are not placeholders — `/draft` writes them inline as markdown.
 | `max_steps` | no | Override default of 25. Lower for simple tasks (saves $), higher for complex flows. |
 | `llm` | no | Override default `claude-sonnet-4-6`. Try `gpt-4.1-mini` for cheaper / faster on simple tasks. |
 
-## Targeting and quality (`screenshot` only)
+### `external` placeholder fields (PLEAA-417)
+
+`external` is the right type when the section *quotes* or *cites* something the brand doesn't own and the visual evidence is a specific element on that page — a single Reddit comment, a tweet, a chart inside an article, a competitor pricing tier. Always pair with `selector` to clip to the element; a viewport-sized screenshot of a Reddit thread is wasted space.
+
+| Field | Required | Purpose |
+|---|---|---|
+| `url` | yes | Source URL. Must be reachable without login when possible; if login-walled, the manifest entry will fall back to `/capture-visuals` (real Chrome session). |
+| `selector` | strongly recommended | CSS selector clipping to the element that matters. Reddit comment IDs (`#t1_<id>`), tweet `article[data-testid="tweet"]`, news `figure.chart`, competitor `.pricing-table`. |
+| `sub` | recommended | One of `reddit-comment`, `tweet`, `news-quote`, `competitor-ui`, `chart`. Free-form metadata today; future heuristics may auto-pick selectors per sub. |
+| `crop` | no | `padded` (default for external, ~48px breathing room around the bbox) or `tight` (~8px). Or `X,Y,W,H` for a manual rectangle if no selector works. |
+| `what` | yes | Short caption / alt text. Used for the published image. |
+| `validate` | no | Set `validate=true` to add a Claude-vision sanity check (~$0.003/capture). |
+
+**Sub-type cheatsheet:**
+
+- `sub=reddit-comment` — `selector=#t1_<base36-comment-id>` (the data-fullname suffix on the comment node). Old Reddit (`old.reddit.com`) renders cleaner than new Reddit; prefer it when you can.
+- `sub=tweet` — `selector=article[data-testid="tweet"]`. X/Twitter login-gates many pages; expect the Claude-in-Chrome fallback to handle most of these.
+- `sub=news-quote` — selectors vary by publication. `figure.chart`, `.embedded-chart`, `.article__pull-quote` are common starting points; inspect the page first.
+- `sub=competitor-ui` — `.pricing-table`, `.feature-grid`, etc. ToS check before scraping; if competitor blocks bots aggressively, flag and use a manual capture.
+- `sub=chart` — when the source is a chart (vs the page that hosts it). Often the same selector as `news-quote` with a tighter crop.
+
+**ToS rule:** we don't bypass site protections. If both Playwright and Claude-in-Chrome fail, the entry stays `failed` and the visuals gate halts — do not chain proxies, solve CAPTCHAs, or scrape rate-limit-protected APIs to make it pass.
+
+## Targeting and quality (`screenshot` and `external`)
 
 A screenshot of a whole viewport is rarely the right capture. Specify what to clip to:
 
 | Directive | When to use | Example |
 |---|---|---|
-| `selector=<css>` | The thing you want to show is a specific element on the page (a card, a panel, a single post). The capture is clipped to that element's bounding box. | `selector=.companion-card[data-id="123"]` |
+| `selector=<css>` | The thing you want to show is a specific element on the page (a card, a panel, a single post, a Reddit comment, a tweet). The capture is clipped to that element's bounding box. | `selector=.companion-card[data-id="123"]` |
+| `crop=padded` / `crop=tight` | With `selector`, expand the bbox by ~48px (padded) or ~8px (tight) before clipping. Padded is the right default for external visuals — bbox-tight Reddit/tweet captures look cramped. | `selector=#t1_xyz;crop=padded` |
 | `crop=X,Y,W,H` | No clean selector is available, but you know the rectangle. Coordinates in CSS pixels (pre-2x scale). | `crop=0,0,1440,720` (top-of-viewport hero) |
 | `annotate=<css>` | Highlight an element with a red outline before capture. Independent of selector — you can highlight one thing inside a larger element. | `annotate=#voice-button` |
 | (none) | Capture the whole 1440×900 viewport. Use sparingly — usually you want a selector. | — |

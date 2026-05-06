@@ -1,13 +1,21 @@
 #!/usr/bin/env python3
-"""Capture a screenshot of a brand-owned UI URL using Playwright.
+"""Capture a screenshot of any URL using Playwright.
 
-Supports element-clipped captures (via CSS selector), manual rect crops,
-post-capture quality heuristics, and optional Claude-vision validation.
+PLEAA-417: this no longer assumes a brand-owned URL. Targets can be Reddit
+threads, news articles, tweets, competitor UI, or anywhere else a draft cites
+visual evidence. Use `--selector` to clip to an element (a Reddit comment, a
+tweet card, a chart inside an article); use `--padding N` with a selector to
+crop with N px breathing room around the element instead of a tight bbox.
+
+Supports element-clipped captures (via CSS selector), padded element crops,
+manual rect crops, post-capture quality heuristics, and optional Claude-vision
+validation.
 
 Standalone usage:
     python capture_screenshot.py --url <url> --out <path>
         [--selector "css selector"]
         [--crop X,Y,W,H]
+        [--padding N]    # pad selector bbox by N CSS px on every side
         [--annotate "css selector to highlight"]
         [--validate]   # opt-in vision check via Claude API
 
@@ -315,6 +323,7 @@ def capture(
     validate: bool = False,
     expected_what: str | None = None,
     headed: bool = False,
+    padding: int = 0,
 ) -> dict[str, Any]:
     """Capture a screenshot. Returns a result dict for the manifest."""
     # Prefer patchright over playwright. Patchright is a drop-in fork that
@@ -583,8 +592,52 @@ def capture(
                     locator.scroll_into_view_if_needed(timeout=5_000)
                 except Exception:
                     pass
-                locator.screenshot(path=str(out_path))
-            elif crop:
+                if padding and padding > 0:
+                    # Padded crop: get element bbox, expand by `padding` CSS px
+                    # on every side, full-page screenshot, Pillow-crop to the
+                    # expanded box. Useful for [VISUAL:type=external] where a
+                    # Reddit comment / tweet / chart looks better with breathing
+                    # room around it than a bbox-tight clip.
+                    try:
+                        bbox = locator.bounding_box()
+                    except Exception as exc:
+                        _cleanup()
+                        return {
+                            "status": "failed",
+                            "reason": "bounding_box_failed",
+                            "error": str(exc),
+                        }
+                    if not bbox:
+                        # Selector matched no on-screen element; fall back to
+                        # bbox-tight capture so we still produce SOMETHING for
+                        # the gate to evaluate.
+                        locator.screenshot(path=str(out_path))
+                    else:
+                        tmp_full = out_path.with_suffix(".full.png")
+                        page.screenshot(path=str(tmp_full), full_page=True)
+                        try:
+                            from PIL import Image
+                            sf = DEVICE_SCALE_FACTOR
+                            x0 = max(0, int((bbox["x"] - padding) * sf))
+                            y0 = max(0, int((bbox["y"] - padding) * sf))
+                            x1 = int((bbox["x"] + bbox["width"] + padding) * sf)
+                            y1 = int((bbox["y"] + bbox["height"] + padding) * sf)
+                            with Image.open(tmp_full) as img:
+                                # Clamp to image extent
+                                x1 = min(x1, img.width)
+                                y1 = min(y1, img.height)
+                                img.crop((x0, y0, x1, y1)).save(out_path, format="PNG")
+                            tmp_full.unlink(missing_ok=True)
+                        except Exception as exc:
+                            _cleanup()
+                            return {
+                                "status": "failed",
+                                "reason": "padded_crop_failed",
+                                "error": str(exc),
+                            }
+                else:
+                    locator.screenshot(path=str(out_path))
+            elif crop:  # noqa: PLR5501 - keep readability of capture-mode ladder
                 # Capture full viewport then crop with Pillow
                 tmp_full = out_path.with_suffix(".full.png")
                 page.screenshot(path=str(tmp_full), full_page=False)
@@ -661,6 +714,13 @@ def main() -> int:
     parser.add_argument("--out", required=True)
     parser.add_argument("--selector", default=None, help="CSS selector to clip the capture to")
     parser.add_argument("--crop", default=None, help="Manual crop X,Y,W,H (CSS px, pre-scale)")
+    parser.add_argument(
+        "--padding",
+        type=int,
+        default=0,
+        help="Pad selector bbox by N CSS px on every side (only with --selector). "
+        "Use ~24 for tight, ~48 for padded crops of Reddit comments / tweets / charts.",
+    )
     parser.add_argument("--annotate", default=None, help="CSS selector to highlight before capture")
     parser.add_argument("--validate", action="store_true", help="Run Claude vision check (costs money)")
     parser.add_argument("--what", default=None, help="Expected subject — used by --validate")
@@ -684,6 +744,7 @@ def main() -> int:
         validate=args.validate,
         expected_what=args.what,
         headed=args.headed,
+        padding=args.padding,
     )
     json.dump(result, sys.stdout, indent=2)
     sys.stdout.write("\n")
