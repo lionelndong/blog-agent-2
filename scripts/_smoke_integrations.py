@@ -171,9 +171,28 @@ def check_strapi_v5_payload_shape() -> str:
             return "STRAPI_V5_SHAPE FAIL — payload missing top-level data"
 
         problems: list[str] = []
-        for required in ("title", "slug", "description", "blocks", "publishedAt"):
+        # build_payload emits read_time and author_name unconditionally — assert
+        # them too so a future refactor that drops either field surfaces here
+        # rather than as a silent Strapi rejection in production
+        # (PLEAA-457 Greptile P3).
+        for required in (
+            "title",
+            "slug",
+            "description",
+            "blocks",
+            "publishedAt",
+            "read_time",
+            "author_name",
+        ):
             if required not in d:
                 problems.append(f"missing {required}")
+
+        rt = d.get("read_time")
+        if "read_time" in d and (not isinstance(rt, int) or rt <= 0):
+            problems.append(f"read_time must be a positive int, got {rt!r}")
+        author = d.get("author_name")
+        if "author_name" in d and (not isinstance(author, str) or not author.strip()):
+            problems.append(f"author_name must be non-empty string, got {author!r}")
 
         desc = d.get("description")
         if not isinstance(desc, str) or len(desc) > 80:

@@ -182,8 +182,14 @@ _CATEGORY_DOCUMENT_ID_CACHE: dict[str, str] | None = None
 def _load_category_index(base_url: str, token: str) -> dict[str, str]:
     """Fetch /api/categories once and return a {lowercased_name: documentId} map.
 
-    Returns an empty dict on failure — callers handle the empty case by leaving
-    `category` off the payload so Strapi can apply its default rather than 400.
+    Caches a successful result for the rest of the process lifetime. A transient
+    fetch failure (network hiccup, expired token, Strapi restart) is NOT cached —
+    we return an empty dict to the caller so it omits `category` for that one
+    payload, but the next call retries the fetch. PLEAA-457 (Greptile P1): the
+    earlier shape cached the empty dict on failure too, which permanently
+    disabled category resolution for the rest of a batch run and silently
+    published every later article without a category — exactly the silent-
+    failure pattern this PR was written to close.
     """
     global _CATEGORY_DOCUMENT_ID_CACHE
     if _CATEGORY_DOCUMENT_ID_CACHE is not None:
@@ -197,11 +203,11 @@ def _load_category_index(base_url: str, token: str) -> dict[str, str]:
         headers={"Authorization": f"Bearer {token}"},
         method="GET",
     )
-    index: dict[str, str] = {}
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode("utf-8"))
         items = data.get("data") if isinstance(data, dict) else None
+        index: dict[str, str] = {}
         if isinstance(items, list):
             for entry in items:
                 if not isinstance(entry, dict):
@@ -210,10 +216,12 @@ def _load_category_index(base_url: str, token: str) -> dict[str, str]:
                 doc_id = entry.get("documentId") or (entry.get("attributes") or {}).get("documentId")
                 if isinstance(name, str) and isinstance(doc_id, str):
                     index[name.strip().lower()] = doc_id
+        _CATEGORY_DOCUMENT_ID_CACHE = index
+        return index
     except Exception as exc:
         sys.stderr.write(f"warning: category index fetch failed: {exc}\n")
-    _CATEGORY_DOCUMENT_ID_CACHE = index
-    return index
+        # Intentionally do NOT write the cache here — let the next call retry.
+        return {}
 
 
 def resolve_category_document_id(name: str) -> str | None:
@@ -238,8 +246,12 @@ def extract_cover_image_url(body_md: str, base_url: str | None) -> str | None:
     Returns None when no image is referenced or no rewrite target is available
     (caller should then omit `cover_image_url` from the payload).
     """
-    # Absolute URL in the markdown wins outright.
-    abs_match = re.search(r"!\[[^\]]*\]\((https?://[^)]+\.(?:png|jpe?g|webp|gif))\)", body_md)
+    # Absolute URL in the markdown wins outright. We accept any http(s) URL
+    # inside an image-markdown link rather than gating on a known file extension —
+    # CDN-hosted images (Cloudinary, imgix, Strapi /uploads/, signed URLs) commonly
+    # omit extensions and the previous extension-gated regex silently dropped them
+    # (PLEAA-457 Greptile P3).
+    abs_match = re.search(r"!\[[^\]]*\]\((https?://[^)\s]+)\)", body_md)
     if abs_match:
         return abs_match.group(1)
     # Otherwise fall back to the first uploaded local image, if we have a base.
@@ -484,7 +496,13 @@ def publish_to_strapi(payload: dict, *, update: bool = False) -> None:
     """Push payload to Strapi.
 
     POST to /api/articles by default. If `update=True`, looks up the existing
-    article by slug and PATCHes /api/articles/{id} instead.
+    article by slug and PUTs /api/articles/{documentId} instead. Strapi v5
+    uses PUT for updates with full-replacement semantics — fields not present
+    in the payload are wiped on the server. Callers that want to preserve
+    admin-edited fields (e.g. a manually attached cover image) must include
+    those fields in the update payload, or POST a brand-new article instead.
+    PLEAA-457 (Greptile P2): the original docstring + PR description called
+    this "PATCH" which is a v4 idiom and misleads anyone reading the code.
     """
     base_url = os.environ.get("STRAPI_BASE_URL")
     token = os.environ.get("STRAPI_API_TOKEN")
@@ -530,7 +548,7 @@ def main() -> None:
     parser.add_argument("slug")
     parser.add_argument("--publish", action="store_true", help="Direct API publish (requires STRAPI_BASE_URL + STRAPI_API_TOKEN)")
     parser.add_argument("--auto-publish", action="store_true", help="Set publishedAt = now (live publish, not draft). Implies --publish. Requires quality-check verdict != FAIL.")
-    parser.add_argument("--update", action="store_true", help="PATCH (PUT) the existing Strapi article by slug instead of POST. For /update-pipeline runs.")
+    parser.add_argument("--update", action="store_true", help="PUT the existing Strapi article by slug instead of POST (full-replacement semantics — fields absent from the payload get wiped). For /update-pipeline runs.")
     args = parser.parse_args()
 
     auto_publish = args.auto_publish or os.environ.get("BLOG_AGENT_AUTO_PUBLISH") == "1"
