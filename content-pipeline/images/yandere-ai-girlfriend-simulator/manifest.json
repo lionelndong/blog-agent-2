@@ -1,0 +1,39 @@
+{
+  "slug": "yandere-ai-girlfriend-simulator",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "url": "https://helixngc7293.itch.io/yandere-ai-girlfriend-simulator",
+        "selector": ".game_summary",
+        "crop": "padded",
+        "alt": "Yandere AI Girlfriend Simulator on itch.io by DGSpitzer"
+      },
+      "alt": "external visual",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "reason": "bounding_box_failed",
+        "error": "Locator.bounding_box: Timeout 30000ms exceeded.\nCall log:\n  2 \u00d7 waiting for locator(\".game_summary\").first\n",
+        "url": "https://helixngc7293.itch.io/yandere-ai-girlfriend-simulator",
+        "sub": "external",
+        "fallback": {
+          "method": "claude_in_chrome",
+          "skill": "/capture-visuals",
+          "url": "https://helixngc7293.itch.io/yandere-ai-girlfriend-simulator",
+          "selector": ".game_summary",
+          "what": null,
+          "sub": null
+        },
+        "hint": "Playwright blocked (bounding_box_failed). Run `/capture-visuals yandere-ai-girlfriend-simulator` to retry this entry via Claude-in-Chrome (real Chrome session bypasses the wall). The skill picks up `failed` external entries automatically in unattended mode.",
+        "file": "external-1-external-visual.png",
+        "method": "patchright_headless",
+        "note": ".game_summary selector not found; captured game header top crop (0,0,1440,300) instead"
+      },
+      "raw": "[VISUAL:type=external;url=https://helixngc7293.itch.io/yandere-ai-girlfriend-simulator;selector=.game_summary;crop=padded;alt=Yandere AI Girlfriend Simulator on itch.io by DGSpitzer]",
+      "legacy": false
+    }
+  ]
+}

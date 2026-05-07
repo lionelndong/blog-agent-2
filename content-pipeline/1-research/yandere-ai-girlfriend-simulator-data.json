@@ -1,0 +1,42 @@
+{
+  "keyword_cluster_volumes": {
+    "yandere ai girlfriend simulator": 1900,
+    "yandere girlfriend": 1900,
+    "ai girlfriend game": 1900,
+    "ai2u": 2400,
+    "yandere girl": 2900,
+    "ai girlfriend love simulator": 1600,
+    "ai anime girlfriend": 1600,
+    "ai girlfriend simulator": 1000,
+    "yandere game": 1000
+  },
+  "serp_competitors": {
+    "helixngc7293.itch.io": 1,
+    "myanima.ai": 4,
+    "store.steampowered.com": 6,
+    "yandere-aigirlfriendsimulator.com": 7,
+    "aimojo.io": null,
+    "ohgirlfriend.com": null
+  },
+  "game_reception": {
+    "itchio_ratings": 286,
+    "itchio_score": 3.8,
+    "itchio_comments": 970,
+    "steam_reviews_total": 1468,
+    "steam_positive_pct": 89
+  },
+  "app_pricing_range": {
+    "lovescape_ai_usd_month": 2.30,
+    "joi_ai_usd_month": 4.00,
+    "kupid_ai_usd_month": 7.99,
+    "ourdream_ai_usd_month": 9.99,
+    "candy_ai_usd_month": 9.00,
+    "ai2u_steam_one_time": 14.99,
+    "swipey_ai_usd_month": 19.97
+  },
+  "_meta": {
+    "source": "Semrush phrase_this + phrase_related + phrase_organic reports; itch.io game page WebFetch; Steam store page WebFetch; competitor listicle WebFetch",
+    "generated_at": "2026-05-07",
+    "slug": "yandere-ai-girlfriend-simulator"
+  }
+}

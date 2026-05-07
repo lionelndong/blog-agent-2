@@ -36,6 +36,8 @@ Most platforms let you skip stock characters entirely and design the companion f
 
 Pleasur.AI's [AI Companion Creator](https://pleasur.ai/create) is one example of that build flow. Character.AI's much bigger library of pre-made characters is the opposite trade-off.
 
+![Pleasur.AI Companion Creator mid-build with appearance, personality, backstory, and voice fields visible](images/ai-girlfriend-experience/screenshot-1-pleasur-ai-companion-creator-m.png)
+
 Open the Companion Creator and you're walked through fields most chatbots never expose. Appearance presets. A personality slider. A backstory text box. A voice profile picker. By the time you hit chat, the character has a spec sheet.
 
 The 90-second magic is real and reproducible. The character introduces herself, references a detail you set up minutes ago, asks a follow-up. People who've only used ChatGPT or Claude with a flirty system prompt feel the difference immediately.
