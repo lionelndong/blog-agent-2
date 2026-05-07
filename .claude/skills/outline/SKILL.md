@@ -76,7 +76,7 @@ For slug `{slug}`, reads:
 - [ ] One-sentence thesis
 - [ ] 4–7 H2s, MECE, all support thesis
 - [ ] Each H2 has BLUF, key points, evidence, transition, **one or more typed Visuals** (each: screenshot/action-shot/image/table/chart/video/external/gif/none), word target
-- [ ] Total non-`none` visual count meets density target (≥5 for <1.2k words, ≥8 for 1.2–2k, ≥10 for 2–3k, ≥12 for >3k) — see `templates/editorial-principles-visuals.md`
+- [ ] Total non-`none` visual count is within the acceptable range floor (≥4 for <1.2k words, ≥6 for 1.2–2k, ≥8 for 2–3k, ≥10 for >3k — i.e. target − 1) and ideally hits the target (5/8/10/12) — see `templates/editorial-principles-visuals.md`
 - [ ] At least 3 distinct visual types across the article (e.g. `image` + `screenshot` + `chart`)
 - [ ] Intro plan = hook + thesis + preview
 - [ ] Conclusion plan = restated thesis + next step

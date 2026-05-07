@@ -17,7 +17,7 @@
 
 **Preview:** {{PREVIEW}}
 
-**Visual (optional, recommended for longer articles):** {type: image, sub: concept-illustration, prompt: ..., safety: sfw} — anchors the thesis with a labeled diagram.
+**Visual:** {type: image, sub: concept-illustration, prompt: ..., safety: sfw} — optional but recommended for longer articles; anchors the thesis with a labeled diagram. Omit this line entirely (or use `{type: none}`) if the intro doesn't warrant one.
 
 ---
 

@@ -114,14 +114,20 @@ For slug `{slug}`:
 >
 > - 4–10 findings tagged `CRITICAL`, `HIGH`, `MEDIUM`, `LOW`.
 >   - `CRITICAL` = the article ships either (a) below the density target
->     by 3+ visuals (reads thin / monotype), or (b) with a visual that
+>     by 2+ visuals (reads thin / monotype), or (b) with a visual that
 >     actively hurts (decorative in a serious section; chart whose data
 >     contradicts the prose; comparison forced into paragraph form).
->   - `HIGH` = density is at the bottom of the band, or a visual is
->     low-value but not actively harmful.
+>     Each missing-density `CRITICAL` should name a specific H2 + the
+>     suggested type so the revision loop has a placeholder to add.
+>   - `HIGH` = density is exactly 1 below target (within the acceptable
+>     range floor but tight), or a visual is low-value but not actively
+>     harmful.
 > - At least 2 visuals that genuinely earn their place (call out the good).
 > - A one-line **Verdict: PASS** or **Verdict: FAIL**. **FAIL** if density
->   is below target by 2+ OR if any CRITICAL is open.
+>   is below target by 2+ OR if any CRITICAL is open. The FAIL and
+>   CRITICAL thresholds are deliberately aligned: a 2-below-target FAIL
+>   always carries at least one CRITICAL density finding, so the revision
+>   loop's Add step has something concrete to act on.
 >
 > Do NOT capture replacement visuals or rewrite the draft. Under 700 words.
 
@@ -167,6 +173,6 @@ both directions.
 Historical note (PLEAA-499, 2026-05-07): earlier framing of this skill
 biased it toward stripping. Pre-PLEAA-499 articles routinely shipped with
 2/4 visuals stripped on aesthetic grounds, leaving 1–2 captures total —
-materially below the editorial bar. The rebalanced version stripes the
+materially below the editorial bar. The rebalanced version strips the
 bias: missing visuals at the density target are a CRITICAL finding equal
 in weight to a decorative visual that hurts.
