@@ -25,20 +25,21 @@ Apply in this order:
    - `**Editor:** ...` → fenced `:::editor ... :::` block
 5. **Preserve everything else as-is** — H2/H3, lists, tables, code blocks, links, image references, screenshot placeholders.
 
-## JSON metadata extraction rules
+## JSON metadata extraction rules (Strapi v5 schema)
 
 Extracted from the cited draft:
 
 - **`title`** — H1 of the cited draft
 - **`slug`** — file slug (already known)
-- **`excerpt`** — first 2 sentences of the intro, capped at 160 chars; if the second sentence pushes over the cap, take only the first
-- **`content`** — full markdown body (post-transformation, without H1)
-- **`seo.metaTitle`** — same as title if ≤60 chars, otherwise truncate at the last word boundary before 60
-- **`seo.metaDescription`** — same as excerpt
-- **`seo.keywords`** — primary keyword (from the slug) + 2–3 related keywords from the research dossier if available
-- **`categories`** — derive from brand-config product affinity if obvious; otherwise `["Guides"]` as default
-- **`tags`** — slugified key terms from the article (extracted from H2 headings, max 5)
-- **`publishedAt`** — `null` (article enters Strapi as draft; editor publishes manually)
+- **`description`** — first 1–2 sentences of the intro, hard-capped at 80 chars (truncated at last word boundary, trailing punctuation stripped). Replaces the v4 `excerpt` field.
+- **`blocks[]`** — array of components. Default is a single `shared.rich-text` block with the full markdown body in `body`. Replaces the v4 `content` string.
+- **`category`** — Strapi v5 `documentId` STRING, resolved from category name via `/api/categories` and cached at module load. Replaces the v4 `categories[]` array. Omitted if no Strapi creds available so dry-runs still serialise.
+- **`author_name`** — top-level string. Default `"Pleasur.AI Team"`.
+- **`read_time`** — integer minutes (220 wpm).
+- **`cover_image_url`** — top-level URL string. First absolute image in the body wins; otherwise the first uploaded local image rewritten to `<STRAPI_BASE_URL>/uploads/<file>`. Omitted if neither resolves.
+- **`publishedAt`** — `null` for draft, ISO timestamp for live publish (set by `--auto-publish`).
+
+SEO metadata (meta title / description / keywords) is **not** included on the top-level v5 payload. The article content type may expose it via a separate `/api/seos` collection or a `seo` component — confirm with CTO before wiring (PLEAA-457 DOD#4). The `description` field above is what feeds search-engine + social previews in the meantime.
 
 ## Edge cases
 

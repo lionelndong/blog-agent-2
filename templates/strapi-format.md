@@ -39,30 +39,36 @@ Sidenote. Replaces WordPress's `[sidenote]` shortcode.
 :::
 ```
 
-## article.json format
+## article.json format — Strapi v5
 
-A payload shaped for Strapi's content-types API. Default schema assumes a typical "Article" content type with these fields:
+A payload shaped for Strapi's v5 content-types API. The v5 article schema uses a `blocks` component array, a single `category` documentId string (not an array), and a top-level `description` field (≤80 chars) instead of v4's `excerpt`/`content`/`seo`/`categories`:
 
 ```json
 {
   "data": {
     "title": "Article Title",
     "slug": "article-slug",
-    "excerpt": "First two sentences of the intro, ~160 chars max — used for previews and SEO description fallback.",
-    "content": "# Article Title\n\nFull markdown body here...",
-    "publishedAt": null,
-    "seo": {
-      "metaTitle": "Article Title (≤60 chars)",
-      "metaDescription": "≤160 char description for search engines",
-      "keywords": "primary keyword, related, related"
-    },
-    "categories": ["Category Name"],
-    "tags": ["tag-one", "tag-two"]
+    "description": "≤80 char summary (truncated at word boundary).",
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "body": "Full markdown body here..."
+      }
+    ],
+    "category": "<documentId-string>",
+    "author_name": "Pleasur.AI Team",
+    "read_time": 9,
+    "cover_image_url": "https://.../uploads/cover.jpg",
+    "publishedAt": null
   }
 }
 ```
 
-`publishedAt: null` means the article enters Strapi as a draft. Editor flips it to a published date in the admin UI when ready.
+`publishedAt: null` means the article enters Strapi as a draft. Editor flips it to a published date in the admin UI when ready (or pass `--auto-publish` to set it to `now`).
+
+**Why v5, not v4:** Strapi 5 rejects v4-shaped payloads silently (PLEAA-457). The skill resolves `category` by name to documentId at module load via `/api/categories` and caches it; if the env lacks `STRAPI_BASE_URL`/`STRAPI_API_TOKEN`, the field is omitted so dry-runs still serialise. `cover_image_url` is set to the first uploaded image's URL when present, otherwise omitted.
+
+**SEO metadata path:** v5 does not include `seo.metaTitle` / `seo.metaDescription` / `seo.keywords` inline. Confirm with CTO whether to wire a `seo` component or `/api/seos` relation before adding (PLEAA-457 DOD#4). The `description` field above is the social/search preview source meanwhile.
 
 ## Adapting to your actual Strapi schema
 
