@@ -71,10 +71,12 @@ def _resolve_asset(ref: str, base_dir: Path) -> Path | None:
 
 
 _IMG_SRC_RE = re.compile(r'(<img\b[^>]*?\bsrc\s*=\s*)(["\'])([^"\']+)\2', re.IGNORECASE)
-_LINK_CSS_RE = re.compile(
-    r'<link\b[^>]*\brel\s*=\s*["\']stylesheet["\'][^>]*\bhref\s*=\s*["\']([^"\']+)["\'][^>]*/?>',
-    re.IGNORECASE,
-)
+# Match a stylesheet <link> regardless of attribute order. We capture the full
+# tag, then extract `rel` and `href` separately so `<link href=… rel=stylesheet>`
+# (the order many template engines emit) works the same as `<link rel=… href=…>`.
+_LINK_TAG_RE = re.compile(r"<link\b[^>]*/?>", re.IGNORECASE)
+_REL_ATTR_RE = re.compile(r'\brel\s*=\s*["\']([^"\']+)["\']', re.IGNORECASE)
+_HREF_ATTR_RE = re.compile(r'\bhref\s*=\s*["\']([^"\']+)["\']', re.IGNORECASE)
 _MD_IMG_RE = re.compile(r"(!\[[^\]]*\]\()([^)\s]+)(\s*(?:\"[^\"]*\")?\s*\))")
 
 
@@ -96,19 +98,30 @@ def inline_html_assets(html: str, base_dir: Path) -> str:
     html = _IMG_SRC_RE.sub(repl_img, html)
 
     def repl_css(m):
-        href = m.group(1)
+        tag = m.group(0)
+        rel_m = _REL_ATTR_RE.search(tag)
+        if not rel_m or "stylesheet" not in rel_m.group(1).lower().split():
+            return tag
+        href_m = _HREF_ATTR_RE.search(tag)
+        if not href_m:
+            return tag
+        href = href_m.group(1)
         path = _resolve_asset(href, base_dir)
         if path is None or not path.exists():
-            return m.group(0)
+            return tag
         try:
             css = path.read_text(encoding="utf-8")
         except Exception:
-            return m.group(0)
+            return tag
         # Recurse into the CSS for url(...) image refs so background-image works.
         css = _inline_css_urls(css, path.parent)
-        return f"<style data-inlined-from=\"{escape(href)}\">{css}</style>"
+        # Neutralise any literal `</style>` (or `</StYlE>`) that could appear in
+        # comments or string values — otherwise the HTML parser would close the
+        # style block early and drop the rest of the rules.
+        safe_css = re.sub(r"</(?=style)", r"<\\/", css, flags=re.IGNORECASE)
+        return f"<style data-inlined-from=\"{escape(href)}\">{safe_css}</style>"
 
-    html = _LINK_CSS_RE.sub(repl_css, html)
+    html = _LINK_TAG_RE.sub(repl_css, html)
     return html
 
 
@@ -188,7 +201,11 @@ STAGES = [
         "key": "visuals",
         "name": "Visuals",
         "desc": "Image generation / action-shot capture manifest",
+        # `gallery` is a synthetic file produced by build_visuals_gallery — it
+        # renders the captured images themselves (data-URI inlined) so the user
+        # can actually see what shipped, instead of just the manifest text.
         "files": lambda slug: [
+            ("gallery", f"images/{slug}/__gallery__", "html"),
             ("manifest", f"images/{slug}/manifest.json", "json"),
             ("manual capture", f"images/{slug}/manual-capture.md", "md"),
         ],
@@ -222,9 +239,113 @@ STAGES = [
 ]
 
 
+def build_visuals_gallery(slug: str) -> str | None:
+    """Build a self-contained HTML gallery from the manifest's captured images.
+
+    Reads `content-pipeline/images/<slug>/manifest.json`, finds every entry with
+    a captured/uploaded image on disk, and emits a flexbox grid of `<figure>`
+    tiles where each `<img>` is a data URI. The HTML is then embedded in the
+    bundle's iframe srcdoc so the user can actually see the visuals in the
+    Visuals stage instead of staring at JSON metadata.
+    """
+    manifest_path = CP / f"images/{slug}/manifest.json"
+    if not manifest_path.exists():
+        return None
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    visuals = manifest.get("visuals") or []
+    if not visuals:
+        return None
+
+    tiles = []
+    captured = 0
+    missing = 0
+    for v in visuals:
+        idx = v.get("index", "?")
+        kind = v.get("type", "")
+        alt = v.get("alt") or v.get("attrs", {}).get("what") or f"visual {idx}"
+        result = v.get("result") or {}
+        status = (result.get("status") or v.get("status") or "").lower()
+        rel_path = result.get("path")  # e.g. "content-pipeline/images/<slug>/screenshot-1-…png"
+        img_path = None
+        if rel_path:
+            cand = (REPO_ROOT / rel_path).resolve()
+            try:
+                cand.relative_to(REPO_ROOT.resolve())
+            except ValueError:
+                cand = None
+            if cand and cand.exists() and cand.is_file():
+                img_path = cand
+
+        badge_color = {"captured": "#22c55e", "uploaded": "#22c55e"}.get(status, "#9a9aa3")
+        badge_text = status or "pending"
+
+        if img_path is not None:
+            data_uri = _read_data_uri(img_path)
+            if data_uri:
+                captured += 1
+                tiles.append(
+                    f'<figure class="tile">'
+                    f'<div class="head"><span class="idx">#{idx}</span>'
+                    f'<span class="kind">{escape(kind)}</span>'
+                    f'<span class="badge" style="background:{badge_color}">{escape(badge_text)}</span></div>'
+                    f'<img alt="{escape(alt)}" src="{data_uri}" loading="lazy">'
+                    f'<figcaption>{escape(alt)}</figcaption>'
+                    f'</figure>'
+                )
+                continue
+        missing += 1
+        tiles.append(
+            f'<figure class="tile placeholder">'
+            f'<div class="head"><span class="idx">#{idx}</span>'
+            f'<span class="kind">{escape(kind)}</span>'
+            f'<span class="badge" style="background:#9a9aa3">{escape(badge_text)}</span></div>'
+            f'<div class="missing">no image on disk</div>'
+            f'<figcaption>{escape(alt)}</figcaption>'
+            f'</figure>'
+        )
+
+    summary = f"{captured} captured · {missing} missing · {len(visuals)} total"
+    return (
+        '<!DOCTYPE html><html><head><meta charset="UTF-8"><style>'
+        'body{margin:0;padding:18px;background:#0e0e10;color:#e7e7ea;'
+        'font:13px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}'
+        '.summary{color:#9a9aa3;margin-bottom:14px;font-size:12px;}'
+        '.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;}'
+        '.tile{margin:0;background:#17171a;border:1px solid #2a2a30;border-radius:8px;'
+        'overflow:hidden;display:flex;flex-direction:column;}'
+        '.tile .head{display:flex;gap:8px;align-items:center;padding:8px 10px;'
+        'border-bottom:1px solid #2a2a30;background:#1f1f23;font-size:11.5px;}'
+        '.idx{color:#f59e0b;font-weight:700;}'
+        '.kind{color:#9a9aa3;text-transform:uppercase;letter-spacing:0.04em;}'
+        '.badge{margin-left:auto;color:#0e0e10;padding:1px 7px;border-radius:3px;'
+        'font-weight:700;font-size:10.5px;text-transform:uppercase;letter-spacing:0.04em;}'
+        '.tile img{display:block;width:100%;height:auto;background:#000;}'
+        '.tile .missing{padding:42px 14px;text-align:center;color:#9a9aa3;'
+        'background:repeating-linear-gradient(45deg,#17171a 0 8px,#1a1a1d 8px 16px);}'
+        '.tile figcaption{padding:9px 11px;font-size:12px;color:#cfcfd4;'
+        'border-top:1px solid #2a2a30;}'
+        '.placeholder{opacity:0.7;}'
+        '</style></head><body>'
+        f'<div class="summary">{escape(summary)}</div>'
+        f'<div class="grid">{"".join(tiles)}</div>'
+        '</body></html>'
+    )
+
+
 def load_stage(slug, stage):
     out = []
     for label, rel, kind in stage["files"](slug):
+        # Synthetic gallery file: not on disk, generated from the manifest.
+        if rel.endswith("__gallery__"):
+            html = build_visuals_gallery(slug)
+            if html:
+                out.append({"label": label, "path": f"images/{slug}/ (rendered gallery)", "kind": "html", "ok": True, "content": html})
+            else:
+                out.append({"label": label, "path": rel, "kind": "html", "ok": False, "content": ""})
+            continue
         p = CP / rel
         if p.exists():
             try:
