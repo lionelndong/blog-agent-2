@@ -33,11 +33,15 @@ For slug `{slug}`, reads:
    - Key points (2–4 bullets)
    - Evidence (stat / quote / example / walkthrough — preferably from `1-research/` or `2-reference/`)
    - Transition to next section
-   - **Visual** — typed micro-spec. One of: `screenshot`, `action-shot`, `image`, `table`, `chart`, `video`, `external`, `gif`, `none`. Format:
+   - **Visuals** — one or more typed micro-specs. Each visual is one of: `screenshot`, `action-shot`, `image`, `table`, `chart`, `video`, `external`, `gif`, `none`. Format:
      ```
-     **Visual:** {type: screenshot, target: create, what: voice profile selector, annotate: arrow on speaker icon}
+     **Visuals:**
+       Visual 1: {type: image, sub: concept-illustration, prompt: <specific structured prompt>, safety: sfw}
+       Visual 2: {type: screenshot, target: create, what: voice profile selector, annotate: arrow on speaker icon}
      ```
-     **How to decide** — apply the 9-step decision sequence in `templates/editorial-principles-visuals.md` (the principles file). The rule maps to types defined in `templates/visual-types.md`. The rule is principle-led: a visual must *earn its place*. The default is `none` and most sections should be `none`. AI-written content's most common failure mode is sprinkling visuals everywhere — don't.
+     For single-visual sections, the legacy `**Visual:** {type: ..., ...}` form is still accepted.
+
+     **How to decide** — apply the 10-step decision sequence in `templates/editorial-principles-visuals.md` (the principles file). The rule maps to types defined in `templates/visual-types.md`. A visual must *earn its place* — but the editorial bar shifted: the new default for any non-trivial section (>300 words) is "this section deserves a visual; what kind?", not "this section gets no visual unless I can justify one." Most sections in a well-researched article have something concrete to show: a diagram of the concept (`image` sub=concept-illustration), a screenshot of the brand UI doing the thing, a chart of the data being cited, a Reddit/tweet/news source being quoted (`external`).
 
      **The screenshot vs action-shot choice** — when you decide a section needs a brand-product UI capture, ask: "could a developer paste a single URL into a fresh browser and see this state immediately?" If yes → `screenshot` (patchright headless, free, fast). If no — the state requires clicks/typing/wait/login — → `action-shot` (routed to `/capture-visuals`, which drives the VPS's always-on Chrome via the Claude in Chrome MCP; also free, just slower because it's a real browser performing real actions). Examples that clearly map: a static templates grid → `screenshot`; the wizard mid-flow at step 3 → `action-shot`; a chat with a response visible → `action-shot`; a static feature page → `screenshot`. When in doubt, prefer `screenshot` first; the dispatcher will surface failures cleanly and you can upgrade to `action-shot` then.
 
@@ -45,12 +49,18 @@ For slug `{slug}`, reads:
    - Word target
 7. **Plan the intro.** Hook + thesis + preview. 150–200 words.
 8. **Plan the conclusion.** Restated thesis + one next step (often link to a `2-reference/` article). 80–150 words.
-9. **Run the visual sanity check.** For every H2 with a non-`none` Visual, apply the "Test for an existing `Visual:` assignment" checklist in `templates/editorial-principles-visuals.md`:
-   - Does the visual *earn its place* (concrete info the reader would lose without it)?
-   - Does it *support* the BLUF, not replace it?
-   - Is it *concrete* (real UI / real data / real source) — not a stylized abstraction?
-   - Is it *MECE* across sections (no other section uses the same visual)?
-   If any answer is no, change to `none`. A great section with no visual beats a mediocre section with a generic one.
+9. **Run the visual sanity check (two-way).** For every H2:
+   - **If it has at least one non-`none` Visual** — apply the "Test for an existing `Visual:` assignment" checklist in `templates/editorial-principles-visuals.md`:
+     - Does the visual *earn its place* (concrete info the reader would lose without it)?
+     - Does it *support* the BLUF, not replace it?
+     - Is it *concrete* (real UI / real data / real source / a labeled diagram with accurate components) — not a stylized abstraction?
+     - Is it *MECE* across sections (no other section uses the same visual)?
+     If any answer is no, change to `none` *or swap the type*.
+   - **If the section currently has `none`** — apply the inverse test:
+     - Could a labeled `image` (sub=concept-illustration) make this section twice as good?
+     - Is there a screenshot, chart, table, external source the prose is currently describing in words?
+     If yes, upgrade from `none` to the matching type.
+   - **Density check** — count total non-`none` visuals across the outline. Compare against the target table in `editorial-principles-visuals.md` (5/8/10/12 for <1.2k / 1.2–2k / 2–3k / >3k word articles). Aim for at least 3 distinct types across the article (e.g. image + screenshot + chart, or image + external + video).
 10. **Run the structural self-check** in `references/bluf-mece-rules.md` before saving.
 11. **Save** to `content-pipeline/3-outlines/{slug}.md` using `templates/outline-template.md` structure.
 
@@ -65,7 +75,9 @@ For slug `{slug}`, reads:
 - [ ] Title is direct, includes primary keyword, under 60 chars
 - [ ] One-sentence thesis
 - [ ] 4–7 H2s, MECE, all support thesis
-- [ ] Each H2 has BLUF, key points, evidence, transition, **typed Visual** (one of: screenshot/image/table/chart/video/external/gif/none), word target
+- [ ] Each H2 has BLUF, key points, evidence, transition, **one or more typed Visuals** (each: screenshot/action-shot/image/table/chart/video/external/gif/none), word target
+- [ ] Total non-`none` visual count meets density target (≥5 for <1.2k words, ≥8 for 1.2–2k, ≥10 for 2–3k, ≥12 for >3k) — see `templates/editorial-principles-visuals.md`
+- [ ] At least 3 distinct visual types across the article (e.g. `image` + `screenshot` + `chart`)
 - [ ] Intro plan = hook + thesis + preview
 - [ ] Conclusion plan = restated thesis + next step
 - [ ] All forbidden phrases (from `brand-config.md`) absent

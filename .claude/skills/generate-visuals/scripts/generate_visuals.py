@@ -294,6 +294,19 @@ def _handle_external(item: dict[str, Any], slug: str, index: int, out_dir: Path)
     return _attach_chrome_fallback_hint(result, slug, item)
 
 
+# Style-suffix defaults per `sub` (PLEAA-499) — the dispatcher prepends these
+# hints when the placeholder doesn't override `style_suffix` explicitly. Diagram
+# / concept-illustration prompts default to the clean editorial style that
+# reads well in a blog post; lifestyle keeps the photorealistic tone.
+_IMAGE_SUB_STYLE_DEFAULTS = {
+    "concept-illustration": "Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+    "diagram": "Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts.",
+    "flow-diagram": "Clean editorial flow-diagram illustration, white background, sans-serif labels, directional arrows between components, brand-neutral colors, no text artifacts.",
+    "comparison": "Clean editorial side-by-side comparison illustration, white background, sans-serif labels, balanced left/right layout, brand-neutral colors, no text artifacts.",
+    "lifestyle": "Editorial photorealistic style, natural lighting, no people unless prompt specifies, no readable text on screens.",
+}
+
+
 def _handle_image(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
     a = item["attrs"]
     safety = (a.get("safety") or "sfw").lower()
@@ -315,7 +328,11 @@ def _handle_image(item: dict[str, Any], slug: str, index: int, out_dir: Path) ->
     if module is None:
         return {"status": "manual", "reason": "replicate_unavailable", "prompt": prompt, "filename": out_path.name}
 
-    style_suffix = a.get("style_suffix")
+    # PLEAA-499: derive style_suffix from `sub` when the placeholder doesn't
+    # set one explicitly. Concept-illustration / diagram defaults push gpt-image-2
+    # toward the clean editorial look the ahrefs reference uses.
+    sub = (a.get("sub") or "concept-illustration").lower()
+    style_suffix = a.get("style_suffix") or _IMAGE_SUB_STYLE_DEFAULTS.get(sub)
     model = a.get("model", module.DEFAULT_MODEL)
     return module.generate(prompt, out_path, model=model, style_suffix=style_suffix, safety=safety)
 
