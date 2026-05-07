@@ -39,30 +39,35 @@ Sidenote. Replaces WordPress's `[sidenote]` shortcode.
 :::
 ```
 
-## article.json format
+## article.json format — Strapi v5
 
-A payload shaped for Strapi's content-types API. Default schema assumes a typical "Article" content type with these fields:
+A payload shaped for Strapi's v5 content-types API. The v5 article schema uses a `blocks` component array, a single `category` documentId string (not an array), and a top-level `description` field (≤80 chars) instead of v4's `excerpt`/`content`/`seo`/`categories`. Verified end-to-end on 2026-05-07 by live POST/DELETE round-trip against production Strapi (PLEAA-457):
 
 ```json
 {
   "data": {
     "title": "Article Title",
     "slug": "article-slug",
-    "excerpt": "First two sentences of the intro, ~160 chars max — used for previews and SEO description fallback.",
-    "content": "# Article Title\n\nFull markdown body here...",
-    "publishedAt": null,
-    "seo": {
-      "metaTitle": "Article Title (≤60 chars)",
-      "metaDescription": "≤160 char description for search engines",
-      "keywords": "primary keyword, related, related"
-    },
-    "categories": ["Category Name"],
-    "tags": ["tag-one", "tag-two"]
+    "description": "≤80 char summary (truncated at word boundary).",
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "body": "Full markdown body here..."
+      }
+    ],
+    "category": "<documentId-string>",
+    "publishedAt": null
   }
 }
 ```
 
-`publishedAt: null` means the article enters Strapi as a draft. Editor flips it to a published date in the admin UI when ready.
+`publishedAt: null` means the article enters Strapi as a draft. Editor flips it to a published date in the admin UI when ready (or pass `--auto-publish` to set it to `now`).
+
+**Why v5, not v4:** Strapi v5 is in strict mode — it returns HTTP 400 `Invalid key <name>` for any unknown key, failing the whole POST (this is what caused the silent publish failures in PLEAA-86 / 228 / 267). The skill resolves `category` by name to documentId at module load via `/api/categories` and caches it; if the env lacks `STRAPI_BASE_URL`/`STRAPI_API_TOKEN`, the field is omitted so dry-runs still serialise.
+
+**Forbidden / not-in-schema fields** (will 400 if sent — matches the offline-smoke forbidden-key gate in `scripts/_smoke_integrations.py`): `author_name`, `read_time` / `readTime`, `cover_image_url` / `coverImage`, `tags`, `excerpt`, `content`, `seo`, `categories`. These looked plausible but are NOT on the live Article content-type. The `author` and `cover` relations exist (Author content-type + Media) but require correct id types and are usually attached in Strapi admin, not auto-emitted.
+
+**SEO metadata path (DOD#4, resolved 2026-05-07):** the Article content-type has **no** `seo` field, no `seo` component, and no separate `/api/seos` collection — verified by probing `populate=seo`/`populate=seos`/`/api/seos` (all 400/404). `title` + `description` ARE the SEO surface; the frontend renders `<title>` from `title` and `<meta name="description">` from `description`. The 80-char description cap matches Google's mobile snippet ceiling. If a richer SEO model is ever needed, add a `seo` component to the Article content-type in Strapi admin first; do not pre-emit it.
 
 ## Adapting to your actual Strapi schema
 

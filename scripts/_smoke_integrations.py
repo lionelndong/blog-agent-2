@@ -124,11 +124,193 @@ def check_github() -> str:
         return f"GITHUB FAIL — {type(e).__name__}: {e}"
 
 
+def check_strapi_v5_payload_shape() -> str:
+    """Assert format_for_strapi.build_payload emits a Strapi v5 payload.
+
+    No network. Validates the schema invariants that PLEAA-457 fixed:
+      - Top-level data fields: title, slug, description, blocks, publishedAt
+      - description is ≤80 chars
+      - blocks[] non-empty with __component='shared.rich-text' and body markdown
+      - legacy v4 fields (excerpt / content / seo / categories[]) are absent
+      - category, when supplied, is a STRING (documentId), not an array
+    """
+    try:
+        # Import lazily so the rest of the smoke checks run even if the script
+        # path moves or has a syntax error in a feature branch.
+        import importlib.util
+        from pathlib import Path
+
+        repo_root = Path(__file__).resolve().parents[1]
+        target = (
+            repo_root
+            / ".claude"
+            / "skills"
+            / "format-for-publish"
+            / "scripts"
+            / "format_for_strapi.py"
+        )
+        spec = importlib.util.spec_from_file_location("format_for_strapi", target)
+        if spec is None or spec.loader is None:
+            return f"STRAPI_V5_SHAPE FAIL — cannot load {target}"
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+
+        body = (
+            "Intro line one introducing the topic at length so the description "
+            "extractor has more than eighty characters of usable prose to work "
+            "from before it gets truncated.\n\n## A heading\n\nMore body.\n"
+        )
+        payload = mod.build_payload(
+            "smoke-slug",
+            "Smoke Title",
+            body,
+            published_at=None,
+        )
+        d = payload.get("data") if isinstance(payload, dict) else None
+        if not isinstance(d, dict):
+            return "STRAPI_V5_SHAPE FAIL — payload missing top-level data"
+
+        problems: list[str] = []
+        # Required v5 fields (verified by live POST/DELETE 2026-05-07).
+        for required in (
+            "title",
+            "slug",
+            "description",
+            "blocks",
+            "publishedAt",
+        ):
+            if required not in d:
+                problems.append(f"missing {required}")
+
+        desc = d.get("description")
+        if not isinstance(desc, str) or len(desc) > 80:
+            problems.append(f"description shape (got len={len(desc) if isinstance(desc, str) else 'n/a'}, cap=80)")
+
+        blocks = d.get("blocks")
+        if not isinstance(blocks, list) or not blocks:
+            problems.append("blocks must be non-empty list")
+        else:
+            first = blocks[0]
+            if not isinstance(first, dict):
+                problems.append("blocks[0] not an object")
+            else:
+                if first.get("__component") != "shared.rich-text":
+                    problems.append(f"blocks[0].__component={first.get('__component')!r} (want shared.rich-text)")
+                if not isinstance(first.get("body"), str) or not first["body"].strip():
+                    problems.append("blocks[0].body must be non-empty string")
+
+        # Strict-mode rejections — Strapi v5 returns HTTP 400 "Invalid key
+        # <name>" for any of these. Catching them here prevents the silent
+        # publish-failure regression PLEAA-457 was opened to close.
+        forbidden = (
+            "excerpt", "content", "seo", "categories",  # v4 legacy
+            "author_name", "read_time", "readTime",     # not in current v5 schema
+            "cover_image_url", "coverImage", "tags",
+        )
+        for f in forbidden:
+            if f in d:
+                problems.append(f"forbidden field {f!r} would be rejected by Strapi v5")
+
+        if "category" in d and not isinstance(d["category"], str):
+            problems.append(f"category must be documentId string, got {type(d['category']).__name__}")
+
+        if problems:
+            return "STRAPI_V5_SHAPE FAIL — " + "; ".join(problems)
+        return (
+            f"STRAPI_V5_SHAPE OK — fields="
+            f"{sorted(d.keys())} description_len={len(d['description'])} blocks={len(d['blocks'])}"
+        )
+    except Exception as e:
+        return f"STRAPI_V5_SHAPE FAIL — {type(e).__name__}: {e}"
+
+
+def check_strapi_update_guard() -> str:
+    """PLEAA-457 (Greptile P1, round 2): on the ``--update`` PUT path, a
+    transient ``/api/categories`` fetch failure would silently wipe the
+    article's existing category server-side. ``publish_to_strapi`` aborts
+    with a clear error in that case. Smoke covers both branches:
+
+      * PUT without ``category`` → SystemExit (guard fired)
+      * PUT with ``category`` present → no abort (regression check)
+
+    No network — uses monkeypatched ``find_existing_article_id``.
+    """
+    try:
+        import importlib.util
+        from pathlib import Path
+
+        repo_root = Path(__file__).resolve().parents[1]
+        target = (
+            repo_root
+            / ".claude"
+            / "skills"
+            / "format-for-publish"
+            / "scripts"
+            / "format_for_strapi.py"
+        )
+        spec = importlib.util.spec_from_file_location("format_for_strapi", target)
+        if spec is None or spec.loader is None:
+            return f"STRAPI_UPDATE_GUARD FAIL — cannot load {target}"
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+
+        original_find = mod.find_existing_article_id
+        original_base = os.environ.get("STRAPI_BASE_URL")
+        original_token = os.environ.get("STRAPI_API_TOKEN")
+        try:
+            os.environ["STRAPI_BASE_URL"] = "https://example.invalid"
+            os.environ["STRAPI_API_TOKEN"] = "fake-token-for-smoke"
+            mod.find_existing_article_id = lambda *a, **kw: "FAKEDOCID"
+
+            base_payload = {"data": {
+                "title": "Existing",
+                "slug": "existing-slug-smoke",
+                "description": "smoke",
+                "blocks": [{"__component": "shared.rich-text", "body": "x"}],
+                "publishedAt": None,
+            }}
+
+            # Branch 1: missing category → must abort.
+            try:
+                mod.publish_to_strapi({"data": dict(base_payload["data"])}, update=True)
+                return "STRAPI_UPDATE_GUARD FAIL — PUT without category did not abort"
+            except SystemExit as e:
+                if "refusing to PUT" not in str(e):
+                    return f"STRAPI_UPDATE_GUARD FAIL — wrong abort message: {e}"
+
+            # Branch 2: category present → guard must NOT fire (we still hit a
+            # network error from the fake host, which is fine — that proves
+            # we got past the guard).
+            with_cat = {"data": dict(base_payload["data"], category="abc123documentid")}
+            try:
+                mod.publish_to_strapi(with_cat, update=True)
+            except SystemExit as e:
+                if "refusing to PUT" in str(e):
+                    return f"STRAPI_UPDATE_GUARD FAIL — guard fired with category present"
+                # any other SystemExit (network failure) is expected here.
+        finally:
+            mod.find_existing_article_id = original_find
+            if original_base is None:
+                os.environ.pop("STRAPI_BASE_URL", None)
+            else:
+                os.environ["STRAPI_BASE_URL"] = original_base
+            if original_token is None:
+                os.environ.pop("STRAPI_API_TOKEN", None)
+            else:
+                os.environ["STRAPI_API_TOKEN"] = original_token
+
+        return "STRAPI_UPDATE_GUARD OK — PUT-without-category aborts; PUT-with-category proceeds"
+    except Exception as e:
+        return f"STRAPI_UPDATE_GUARD FAIL — {type(e).__name__}: {e}"
+
+
 CHECKS = {
     "openrouter": check_openrouter,
     "replicate": check_replicate,
     "browser_use": check_browser_use,
     "strapi": check_strapi,
+    "strapi_v5_shape": check_strapi_v5_payload_shape,
+    "strapi_update_guard": check_strapi_update_guard,
     "github": check_github,
 }
 
@@ -137,8 +319,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--targets",
-        default="openrouter,replicate,browser_use,github",
-        help="comma-separated list of integrations to test (default excludes strapi)",
+        default="openrouter,replicate,browser_use,github,strapi_v5_shape,strapi_update_guard",
+        help="comma-separated list of integrations to test (default excludes strapi network check)",
     )
     args = parser.parse_args()
 

@@ -132,6 +132,22 @@ def truncate_meta_title(title: str, limit: int = 60) -> str:
     return (cut[:last_space] if last_space > 0 else cut).rstrip() + "..."
 
 
+def truncate_description(text: str, limit: int = 80) -> str:
+    """Strapi v5 `description` is capped at 80 chars. Truncate at the last word
+    boundary before `limit`, dropping trailing punctuation/quotes so we never end
+    on a half-word or a dangling clause-opener like "include," or "with:". Falls
+    back to a hard cut when there's no whitespace in the input.
+    """
+    text = re.sub(r"\s+", " ", text or "").strip()
+    if len(text) <= limit:
+        return text
+    cut = text[:limit]
+    last_space = cut.rfind(" ")
+    out = cut[:last_space] if last_space > 0 else cut
+    # Strip trailing connector punctuation that signals a sentence in progress.
+    return out.rstrip(" ,;:.-—–").rstrip()
+
+
 def extract_tags(body_md: str, max_tags: int = 5) -> list[str]:
     h2s = re.findall(r"^##\s+(.+?)\s*$", body_md, re.MULTILINE)
     tags = []
@@ -144,24 +160,187 @@ def extract_tags(body_md: str, max_tags: int = 5) -> list[str]:
     return tags[:max_tags]
 
 
-def build_payload(slug: str, title: str, body_md: str, *, published_at: str | None = None) -> dict:
-    excerpt = extract_excerpt(body_md)
-    return {
+def compute_read_time(body_md: str, *, wpm: int = 220) -> int:
+    """Conservative read-time estimate in whole minutes. Floors at 1.
+
+    Default 220 wpm matches the typical "tech blog reader" benchmark used by
+    Medium / Substack — high enough to not feel padded, low enough that a
+    skimmer can still trust the number on a quick read.
+    """
+    words = len(re.findall(r"\b\w+\b", body_md or ""))
+    if words <= 0:
+        return 1
+    return max(1, round(words / wpm))
+
+
+# Module-level cache for category-name → documentId. Strapi categories are
+# small (<50 rows) and rarely change; pulling them once per process avoids
+# re-hitting /api/categories for every article in a batch run.
+_CATEGORY_DOCUMENT_ID_CACHE: dict[str, str] | None = None
+
+
+def _load_category_index(base_url: str, token: str) -> dict[str, str]:
+    """Fetch /api/categories once and return a {lowercased_name: documentId} map.
+
+    Caches a successful result for the rest of the process lifetime. A transient
+    fetch failure (network hiccup, expired token, Strapi restart) is NOT cached —
+    we return an empty dict to the caller so it omits `category` for that one
+    payload, but the next call retries the fetch. PLEAA-457 (Greptile P1): the
+    earlier shape cached the empty dict on failure too, which permanently
+    disabled category resolution for the rest of a batch run and silently
+    published every later article without a category — exactly the silent-
+    failure pattern this PR was written to close.
+    """
+    global _CATEGORY_DOCUMENT_ID_CACHE
+    if _CATEGORY_DOCUMENT_ID_CACHE is not None:
+        return _CATEGORY_DOCUMENT_ID_CACHE
+
+    import urllib.request
+
+    endpoint = f"{base_url.rstrip('/')}/api/categories?pagination[limit]=100"
+    req = urllib.request.Request(
+        endpoint,
+        headers={"Authorization": f"Bearer {token}"},
+        method="GET",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        items = data.get("data") if isinstance(data, dict) else None
+        index: dict[str, str] = {}
+        if isinstance(items, list):
+            for entry in items:
+                if not isinstance(entry, dict):
+                    continue
+                name = entry.get("name") or (entry.get("attributes") or {}).get("name")
+                doc_id = entry.get("documentId") or (entry.get("attributes") or {}).get("documentId")
+                if isinstance(name, str) and isinstance(doc_id, str):
+                    index[name.strip().lower()] = doc_id
+        _CATEGORY_DOCUMENT_ID_CACHE = index
+        return index
+    except Exception as exc:
+        sys.stderr.write(f"warning: category index fetch failed: {exc}\n")
+        # Intentionally do NOT write the cache here — let the next call retry.
+        return {}
+
+
+def resolve_category_document_id(name: str) -> str | None:
+    """Resolve a human-readable category name to a Strapi v5 documentId.
+
+    Requires STRAPI_BASE_URL + STRAPI_API_TOKEN (silently returns None if absent
+    so dry-runs that just write the JSON package don't fail).
+    """
+    base_url = os.environ.get("STRAPI_BASE_URL")
+    token = os.environ.get("STRAPI_API_TOKEN")
+    if not base_url or not token or not name:
+        return None
+    index = _load_category_index(base_url, token)
+    return index.get(name.strip().lower())
+
+
+def extract_cover_image_url(body_md: str, base_url: str | None) -> str | None:
+    """Pick a cover image URL from the body. We prefer the first image whose ref
+    we can resolve to an absolute URL — i.e. either already absolute, or under
+    `images/` once `base_url` is known so we can rewrite to `<base>/uploads/<file>`.
+
+    Returns None when no image is referenced or no rewrite target is available
+    (caller should then omit `cover_image_url` from the payload).
+    """
+    # Absolute URL in the markdown wins outright. We accept any http(s) URL
+    # inside an image-markdown link rather than gating on a known file extension —
+    # CDN-hosted images (Cloudinary, imgix, Strapi /uploads/, signed URLs) commonly
+    # omit extensions and the previous extension-gated regex silently dropped them
+    # (PLEAA-457 Greptile P3).
+    abs_match = re.search(r"!\[[^\]]*\]\((https?://[^)\s]+)\)", body_md)
+    if abs_match:
+        return abs_match.group(1)
+    # Otherwise fall back to the first uploaded local image, if we have a base.
+    if not base_url:
+        return None
+    rel_match = IMAGE_REF_RE.search(body_md)
+    if not rel_match:
+        return None
+    filename = Path(rel_match.group(2)).name
+    return f"{base_url.rstrip('/')}/uploads/{filename}"
+
+
+def build_payload(
+    slug: str,
+    title: str,
+    body_md: str,
+    *,
+    published_at: str | None = None,
+    category_name: str = "AI Companions",
+    author_name: str = "Pleasur.AI Team",  # noqa: ARG001 — kept for backwards compat with callers; not in v5 schema
+    cover_image_url: str | None = None,    # noqa: ARG001 — same as above
+) -> dict:
+    """Build a Strapi v5 article payload.
+
+    v5 schema (verified end-to-end on 2026-05-07 by live POST/GET/DELETE
+    against production Strapi — see ``scripts/_smoke_integrations.py::strapi_v5_shape``):
+
+      - title:        string
+      - slug:         string (unique)
+      - description:  short summary, hard-capped at 80 chars
+      - blocks[]:     component array — at minimum one shared.rich-text with
+                      the full markdown body in `body`
+      - category:     documentId STRING (not array, not numeric id). Resolved
+                      by name from Strapi when STRAPI_BASE_URL + STRAPI_API_TOKEN
+                      are set; omitted otherwise so the package still serialises
+                      in dry-runs.
+      - publishedAt:  ISO timestamp to publish live, null for draft.
+
+    Strict-mode rejection list (PLEAA-457, 2026-05-07): the live Strapi
+    rejects unknown keys with HTTP 400 ``Invalid key <name>``. Fields that
+    looked plausible but are NOT in the schema and would fail every POST:
+    ``author_name``, ``read_time``, ``readTime``, ``cover_image_url``,
+    ``coverImage``, ``tags``, ``excerpt``, ``content``. ``author`` and
+    ``cover`` exist as relations to the Author / Media content-types but
+    require numeric/documentId references (not strings) and are out of
+    scope for the auto-publish path — they're set manually in the admin
+    when needed.
+
+    SEO metadata (DOD#4, resolved 2026-05-07): the Article content-type
+    does NOT expose a ``seo`` field, ``seo`` component, or separate
+    ``/api/seos`` collection (verified — populate=seo and /api/seos both
+    return 400/404). ``title`` + ``description`` ARE the SEO surface: the
+    frontend renders ``<title>`` from ``title`` and ``<meta name="description">``
+    from ``description`` (hence the 80-char cap matching Google's mobile
+    snippet ceiling). If a richer SEO model is ever needed, add a ``seo``
+    component to the Article type in Strapi admin first; do not pre-emit it.
+
+    The ``author_name`` and ``cover_image_url`` parameters are kept on the
+    function signature for backwards compatibility with existing callers
+    (notably ``main()`` and any orchestrator override) but are intentionally
+    NOT emitted into the payload. ``compute_read_time`` is similarly retained
+    for callers that want to surface a read-time number in the publish
+    package's README, but the value never crosses the wire to Strapi.
+    """
+    description_source = extract_excerpt(body_md) or title
+    description = truncate_description(description_source, limit=80)
+
+    blocks = [
+        {
+            "__component": "shared.rich-text",
+            "body": body_md.strip() + "\n",
+        }
+    ]
+
+    payload: dict = {
         "data": {
             "title": title,
             "slug": slug,
-            "excerpt": excerpt,
-            "content": body_md.strip() + "\n",
+            "description": description,
+            "blocks": blocks,
             "publishedAt": published_at,
-            "seo": {
-                "metaTitle": truncate_meta_title(title),
-                "metaDescription": excerpt,
-                "keywords": slug.replace("-", " "),
-            },
-            "categories": ["Guides"],
-            "tags": extract_tags(body_md),
         }
     }
+
+    category_document_id = resolve_category_document_id(category_name)
+    if category_document_id:
+        payload["data"]["category"] = category_document_id
+
+    return payload
 
 
 def find_image_refs(md: str) -> list[tuple[str, str]]:
@@ -257,22 +436,23 @@ def write_outputs(slug: str, body_md: str, payload: dict) -> Path:
     (out_dir / "article.json").write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     data = payload["data"]
-    word_count = len(re.findall(r"\b\w+\b", data["content"]))
+    body_text = data["blocks"][0]["body"] if data.get("blocks") else ""
+    word_count = len(re.findall(r"\b\w+\b", body_text))
+    category_value = data.get("category") or "(unresolved — set STRAPI_BASE_URL + STRAPI_API_TOKEN)"
+    read_time_min = compute_read_time(body_text)
     readme = f"""# Publish package — {data['title']}
 
-Generated by /format-for-publish. Two ways to use this:
+Generated by /format-for-publish. Strapi v5 schema (PLEAA-457). Two ways to use this:
 
 ## Option A — paste into Strapi admin (no API needed)
 1. Open Strapi admin → Content Manager → create a new Article
 2. Title: {data['title']}
 3. Slug: {data['slug']}
-4. Excerpt: {data['excerpt']}
-5. Content: paste the contents of `article.md` into the rich-text / markdown field
-6. SEO meta title: {data['seo']['metaTitle']}
-7. SEO meta description: {data['seo']['metaDescription']}
-8. Suggested categories: {', '.join(data['categories'])}
-9. Suggested tags: {', '.join(data['tags'])}
-10. Save as draft, review, then publish
+4. Description (≤80 chars): {data['description']}
+5. Blocks: paste the contents of `article.md` into a `shared.rich-text` block
+6. Category (documentId): {category_value}
+7. Author / cover: attach manually in admin if desired (relations, not strings)
+8. Save as draft, review, then publish
 
 ## Option B — direct API publish (when Doppler creds are wired)
 ```bash
@@ -281,22 +461,26 @@ doppler run -- python .claude/skills/format-for-publish/scripts/format_for_strap
 Requires STRAPI_BASE_URL and STRAPI_API_TOKEN env vars.
 
 ## Files
-- `article.md` — clean markdown body (paste in Strapi rich-text field)
-- `article.json` — Strapi-shaped payload (for API publish)
+- `article.md` — clean markdown body (paste in Strapi rich-text block)
+- `article.json` — Strapi v5 payload (for API publish)
 - `README.md` — this file
 
 ## Stats
 - Word count: {word_count}
-- Excerpt length: {len(data['excerpt'])} chars
-- Meta title length: {len(data['seo']['metaTitle'])} chars
-- Tags: {len(data['tags'])}
+- Description length: {len(data['description'])} chars (cap 80)
+- Read time: ~{read_time_min} min (computed at 220 wpm; informational only — not in payload)
+- Blocks: {len(data.get('blocks', []))}
 """
     (out_dir / "README.md").write_text(readme, encoding="utf-8")
     return out_dir
 
 
-def find_existing_article_id(base_url: str, token: str, slug: str) -> int | None:
-    """Look up the Strapi article id for a slug. Returns None if not found."""
+def find_existing_article_id(base_url: str, token: str, slug: str) -> str | None:
+    """Look up the Strapi v5 article documentId for a slug.
+
+    Strapi v5 routes entity URLs by documentId (string), not numeric id, so
+    we return that here. Returns None if not found.
+    """
     import urllib.parse
     import urllib.request
 
@@ -312,8 +496,12 @@ def find_existing_article_id(base_url: str, token: str, slug: str) -> int | None
         items = data.get("data") if isinstance(data, dict) else None
         if isinstance(items, list) and items:
             entry = items[0]
-            entry_id = entry.get("id") if isinstance(entry, dict) else None
-            return int(entry_id) if entry_id is not None else None
+            if isinstance(entry, dict):
+                # v5 places documentId at the top level; some Strapi configs
+                # still mirror it under attributes.
+                doc_id = entry.get("documentId") or (entry.get("attributes") or {}).get("documentId")
+                if isinstance(doc_id, str) and doc_id:
+                    return doc_id
     except Exception as exc:
         sys.stderr.write(f"warning: lookup of slug {slug!r} failed: {exc}\n")
     return None
@@ -323,7 +511,24 @@ def publish_to_strapi(payload: dict, *, update: bool = False) -> None:
     """Push payload to Strapi.
 
     POST to /api/articles by default. If `update=True`, looks up the existing
-    article by slug and PATCHes /api/articles/{id} instead.
+    article by slug and PUTs /api/articles/{documentId} instead. Strapi v5
+    uses PUT for updates with full-replacement semantics — fields not present
+    in the payload are wiped on the server. Callers that want to preserve
+    admin-edited fields (e.g. a manually attached cover image) must include
+    those fields in the update payload, or POST a brand-new article instead.
+    PLEAA-457 (Greptile P2): the original docstring + PR description called
+    this "PATCH" which is a v4 idiom and misleads anyone reading the code.
+
+    Update-path safety guard (PLEAA-457 Greptile P1, round 2): on the PUT path,
+    if ``payload.data.category`` is missing we abort instead of sending the
+    request. Strapi's PUT semantics would otherwise WIPE the article's existing
+    category server-side, which is exactly the silent destructive-failure class
+    this PR was opened to close. The most common cause is a transient
+    ``/api/categories`` fetch failure inside ``_load_category_index``; the
+    cache stays ``None`` so the next run retries cleanly, but only if we don't
+    let this PUT through. POSTs are still allowed without ``category`` (a
+    brand-new article without a category is recoverable in admin; an existing
+    one having its category wiped is not).
     """
     base_url = os.environ.get("STRAPI_BASE_URL")
     token = os.environ.get("STRAPI_API_TOKEN")
@@ -340,12 +545,22 @@ def publish_to_strapi(payload: dict, *, update: bool = False) -> None:
         slug = payload.get("data", {}).get("slug")
         if not slug:
             sys.exit("error: --update requires payload to have data.slug")
-        existing_id = find_existing_article_id(base_url, token, slug)
-        if existing_id is None:
+        existing_doc_id = find_existing_article_id(base_url, token, slug)
+        if existing_doc_id is None:
             sys.stderr.write(f"warning: --update set but slug {slug!r} not found in Strapi; falling back to POST\n")
         else:
+            # Refuse to PUT when category resolution failed — see docstring.
+            if not (payload.get("data") or {}).get("category"):
+                sys.exit(
+                    "error: --update with missing data.category — refusing to PUT.\n"
+                    "  Strapi v5 PUT is full-replacement; sending this would wipe the\n"
+                    "  existing article's category server-side. Most likely cause: a\n"
+                    "  transient /api/categories fetch failure in _load_category_index.\n"
+                    "  Re-run when Strapi is reachable; the category cache resets per\n"
+                    "  process so the next run will retry cleanly."
+                )
             method = "PUT"
-            endpoint = f"{base_url.rstrip('/')}/api/articles/{existing_id}"
+            endpoint = f"{base_url.rstrip('/')}/api/articles/{existing_doc_id}"
 
     req = urllib.request.Request(
         endpoint,
@@ -369,7 +584,7 @@ def main() -> None:
     parser.add_argument("slug")
     parser.add_argument("--publish", action="store_true", help="Direct API publish (requires STRAPI_BASE_URL + STRAPI_API_TOKEN)")
     parser.add_argument("--auto-publish", action="store_true", help="Set publishedAt = now (live publish, not draft). Implies --publish. Requires quality-check verdict != FAIL.")
-    parser.add_argument("--update", action="store_true", help="PATCH (PUT) the existing Strapi article by slug instead of POST. For /update-pipeline runs.")
+    parser.add_argument("--update", action="store_true", help="PUT the existing Strapi article by slug instead of POST (full-replacement semantics — fields absent from the payload get wiped). For /update-pipeline runs.")
     args = parser.parse_args()
 
     auto_publish = args.auto_publish or os.environ.get("BLOG_AGENT_AUTO_PUBLISH") == "1"
@@ -419,7 +634,14 @@ def main() -> None:
         body = rewrite_image_refs(body, base_url)
 
     published_at = datetime.now(timezone.utc).isoformat() if auto_publish else None
-    payload = build_payload(args.slug, title, body, published_at=published_at)
+    cover_image_url = extract_cover_image_url(body, base_url)
+    payload = build_payload(
+        args.slug,
+        title,
+        body,
+        published_at=published_at,
+        cover_image_url=cover_image_url,
+    )
     out_dir = write_outputs(args.slug, body, payload)
     print(f"wrote {out_dir}/article.md")
     print(f"wrote {out_dir}/article.json")

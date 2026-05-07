@@ -24,7 +24,7 @@ For slug `{slug}`:
    - `**Tip:** ...` and `**Pro tip:** ...` → `:::tip ... :::`
    - `**Note:** ...` and `**Sidenote:** ...` → `:::note ... :::`
    - `**Editor:** ...` → `:::editor ... :::`
-5. **Build the JSON payload** with title, slug, excerpt (first ~160 chars of intro), content (markdown body), SEO fields (metaTitle, metaDescription, keywords), default category, derived tags.
+5. **Build the Strapi v5 JSON payload** with title, slug, description (first 1–2 sentences of intro, ≤80 chars — also serves as `<meta name="description">`), blocks[] (single `shared.rich-text` component holding the markdown body), category (documentId resolved via `/api/categories`), publishedAt. The schema is strict — `author_name`, `read_time`, `cover_image_url`, `tags`, `excerpt`, `content`, `seo` are NOT in the Article content-type; Strapi 400s on them. Author + cover relations are attached manually in admin if needed. SEO surface is `title` + `description` only (PLEAA-457 DOD#4 resolved 2026-05-07).
 6. **Run the formatter script:**
    ```bash
    python .claude/skills/format-for-publish/scripts/format_for_strapi.py "<slug>"
@@ -49,11 +49,13 @@ For slug `{slug}`:
 - [ ] H1 stripped from body (title lives in JSON only)
 - [ ] No `**Tip:**` / `**Note:**` / `**Editor:**` markdown prefixes remaining in body — all converted to `:::` callouts
 - [ ] Editor-notes section excluded from output (it's pipeline metadata, not content)
-- [ ] Excerpt is real prose from the intro, not the title or first heading
-- [ ] Excerpt ≤ 160 chars
-- [ ] Meta title ≤ 60 chars (truncated at word boundary if needed)
+- [ ] `description` is real prose from the intro, not the title or first heading
+- [ ] `description` ≤ 80 chars (Strapi v5 cap)
+- [ ] `blocks[0].__component == "shared.rich-text"` and `blocks[0].body` non-empty
+- [ ] No legacy v4 fields (`excerpt`, `content`, `seo`, `categories[]`) in payload
+- [ ] `category` (when set) is a documentId STRING, not an array
 - [ ] Slug matches the input slug exactly
-- [ ] `publishedAt: null` (article enters Strapi as draft, never auto-published)
+- [ ] `publishedAt: null` for draft mode; ISO timestamp only when `--auto-publish` is set
 
 ## Customizing for your Strapi schema
 
