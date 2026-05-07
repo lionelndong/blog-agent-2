@@ -75,8 +75,14 @@ _IMG_SRC_RE = re.compile(r'(<img\b[^>]*?\bsrc\s*=\s*)(["\'])([^"\']+)\2', re.IGN
 # tag, then extract `rel` and `href` separately so `<link href=… rel=stylesheet>`
 # (the order many template engines emit) works the same as `<link rel=… href=…>`.
 _LINK_TAG_RE = re.compile(r"<link\b[^>]*/?>", re.IGNORECASE)
-_REL_ATTR_RE = re.compile(r'\brel\s*=\s*["\']([^"\']+)["\']', re.IGNORECASE)
-_HREF_ATTR_RE = re.compile(r'\bhref\s*=\s*["\']([^"\']+)["\']', re.IGNORECASE)
+# Two alternation branches — quoted (group 1) or unquoted (group 2). Callers
+# read via `m.group(1) or m.group(2)` to handle both shapes uniformly.
+# - `rel` values never contain `/`, so we exclude it from the unquoted class
+#   so `<link rel=stylesheet/>` doesn't capture `stylesheet/`.
+# - `href` legitimately contains `/` (e.g. `images/foo.png`), so we accept any
+#   non-space/non-`>` chars but stop before a self-closing `/>` boundary.
+_REL_ATTR_RE = re.compile(r'\brel\s*=\s*(?:["\']([^"\']+)["\']|([^\s>/]+))', re.IGNORECASE)
+_HREF_ATTR_RE = re.compile(r'\bhref\s*=\s*(?:["\']([^"\']+)["\']|([^\s>]+?)(?=[\s>]|/>|$))', re.IGNORECASE)
 _MD_IMG_RE = re.compile(r"(!\[[^\]]*\]\()([^)\s]+)(\s*(?:\"[^\"]*\")?\s*\))")
 
 
@@ -100,12 +106,17 @@ def inline_html_assets(html: str, base_dir: Path) -> str:
     def repl_css(m):
         tag = m.group(0)
         rel_m = _REL_ATTR_RE.search(tag)
-        if not rel_m or "stylesheet" not in rel_m.group(1).lower().split():
+        if not rel_m:
+            return tag
+        rel_value = rel_m.group(1) or rel_m.group(2) or ""
+        if "stylesheet" not in rel_value.lower().split():
             return tag
         href_m = _HREF_ATTR_RE.search(tag)
         if not href_m:
             return tag
-        href = href_m.group(1)
+        href = href_m.group(1) or href_m.group(2) or ""
+        if not href:
+            return tag
         path = _resolve_asset(href, base_dir)
         if path is None or not path.exists():
             return tag
@@ -118,7 +129,11 @@ def inline_html_assets(html: str, base_dir: Path) -> str:
         # Neutralise any literal `</style>` (or `</StYlE>`) that could appear in
         # comments or string values — otherwise the HTML parser would close the
         # style block early and drop the rest of the rules.
-        safe_css = re.sub(r"</(?=style)", r"<\\/", css, flags=re.IGNORECASE)
+        # Per HTML5 §13.2.5.1, a <style> raw-text block ends only at `</style`
+        # followed by whitespace, `/`, or `>`. Mirror that exactly so we don't
+        # mangle harmless tokens like `</stylesheet>` or `</style-foo>` that a
+        # CSS comment/string might contain.
+        safe_css = re.sub(r"</style(?=[\s/>])", r"<\\/style", css, flags=re.IGNORECASE)
         return f"<style data-inlined-from=\"{escape(href)}\">{safe_css}</style>"
 
     html = _LINK_TAG_RE.sub(repl_css, html)
