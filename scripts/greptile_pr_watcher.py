@@ -140,8 +140,62 @@ def _gh_paginated(path: str, *, max_pages: int = 50) -> list[dict]:
     return aggregate
 
 
+# Window (days) for picking up activity on recently-closed PRs. Greptile often
+# leaves follow-up review comments minutes-to-hours AFTER a PR merges
+# (e.g. PR #11 merged 22:04 UTC, Greptile comment landed 22:13 UTC). The
+# original `state=open`-only listing missed those entirely. We now fetch
+# state=all sorted by updated desc and stop once we cross this window —
+# bounded work, no flood on first encounter of an old PR.
+RECENT_PR_WINDOW_DAYS = 14
+
+
+def _parse_iso8601(ts: str | None) -> datetime | None:
+    if not ts:
+        return None
+    try:
+        return datetime.fromisoformat(ts.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+def list_recent_prs(window_days: int = RECENT_PR_WINDOW_DAYS) -> list[dict]:
+    """Fetch PRs (open + recently-closed) sorted by `updated` desc.
+
+    Stops paginating once we see a PR last updated more than `window_days`
+    ago — anything older has either already been processed (cursor advanced)
+    or is too stale to care about. This catches Greptile activity on PRs
+    that have been merged but are still receiving review comments.
+    """
+    cutoff = datetime.now(timezone.utc).timestamp() - window_days * 86400
+    headers = _gh_headers()
+    url: str | None = (
+        f"https://api.github.com/repos/{REPO}/pulls"
+        "?state=all&sort=updated&direction=desc&per_page=100"
+    )
+    aggregate: list[dict] = []
+    pages = 0
+    max_pages = 10  # 1000 PRs max scanned per tick — way more than we need
+    while url and pages < max_pages:
+        payload, resp_headers = _http_json_with_headers("GET", url, headers=headers)
+        if not isinstance(payload, list):
+            break
+        for pr in payload:
+            updated = _parse_iso8601(pr.get("updated_at"))
+            if updated is None:
+                aggregate.append(pr)
+                continue
+            if updated.timestamp() < cutoff:
+                # Sorted desc by updated — once we cross the window, stop.
+                return aggregate
+            aggregate.append(pr)
+        url = _parse_next_link(resp_headers.get("link"))
+        pages += 1
+    return aggregate
+
+
+# Backwards-compat alias for any external caller still importing the old name.
 def list_open_prs() -> list[dict]:
-    return _gh_paginated(f"/repos/{REPO}/pulls?state=open")
+    return list_recent_prs()
 
 
 def list_pr_reviews(pr_num: int) -> list[dict]:
@@ -261,6 +315,7 @@ def summarise_review(r: dict) -> str:
 def process_pr(pr: dict, state: dict, dry_run: bool = False) -> dict:
     pr_num = pr["number"]
     pr_key = str(pr_num)
+    first_encounter = pr_key not in state["prs"]
     pr_state = state["prs"].setdefault(pr_key, {"last_review_id": 0, "last_comment_id": 0, "last_issue_comment_id": 0})
 
     ticket = extract_ticket(
@@ -271,17 +326,44 @@ def process_pr(pr: dict, state: dict, dry_run: bool = False) -> dict:
     if not ticket:
         return {"pr": pr_num, "skipped": "no PLEAA-NNN ticket in title/body/branch"}
 
-    new_reviews = [r for r in list_pr_reviews(pr_num)
-                   if r.get("user", {}).get("login") == GREPTILE_LOGIN
-                   and r.get("id", 0) > pr_state["last_review_id"]]
-    new_inline = [c for c in list_pr_review_comments(pr_num)
-                  if c.get("user", {}).get("login") == GREPTILE_LOGIN
-                  and c.get("id", 0) > pr_state["last_comment_id"]]
-    new_issue_comments = [c for c in list_pr_issue_comments(pr_num)
-                          if c.get("user", {}).get("login") == GREPTILE_LOGIN
-                          and c.get("id", 0) > pr_state["last_issue_comment_id"]]
+    # First-encounter floor for closed/merged PRs: only surface activity that
+    # happened AFTER the merge timestamp. Anything pre-merge was visible to
+    # the author during the PR review and addressed (or knowingly waived)
+    # before the PR landed — re-posting it now would just spam the tracking
+    # issue. For open PRs (or PRs we've already seen at least once) this
+    # floor is `None` and the cursor-based filter does the work.
+    merged_floor = None
+    if first_encounter and (pr.get("merged_at") or pr.get("closed_at")):
+        merged_floor = _parse_iso8601(pr.get("merged_at") or pr.get("closed_at"))
+
+    def _after_floor(item: dict) -> bool:
+        if merged_floor is None:
+            return True
+        ts = _parse_iso8601(item.get("created_at") or item.get("submitted_at"))
+        return ts is not None and ts >= merged_floor
+
+    all_reviews = [r for r in list_pr_reviews(pr_num) if r.get("user", {}).get("login") == GREPTILE_LOGIN]
+    all_inline  = [c for c in list_pr_review_comments(pr_num) if c.get("user", {}).get("login") == GREPTILE_LOGIN]
+    all_issuecs = [c for c in list_pr_issue_comments(pr_num) if c.get("user", {}).get("login") == GREPTILE_LOGIN]
+
+    new_reviews = [r for r in all_reviews if r.get("id", 0) > pr_state["last_review_id"] and _after_floor(r)]
+    new_inline  = [c for c in all_inline  if c.get("id", 0) > pr_state["last_comment_id"] and _after_floor(c)]
+    new_issue_comments = [c for c in all_issuecs if c.get("id", 0) > pr_state["last_issue_comment_id"] and _after_floor(c)]
+
+    def _absorb_first_encounter() -> None:
+        # On first encounter of a closed PR with no post-merge activity,
+        # bootstrap cursors past every Greptile finding we observed so we
+        # don't re-evaluate them every tick. Without this, the empty cursor
+        # gets persisted, the merged_floor stops applying next run (no
+        # longer first_encounter), and pre-merge findings would suddenly
+        # flood the tracking issue.
+        if first_encounter and merged_floor is not None:
+            pr_state["last_review_id"] = max([pr_state["last_review_id"]] + [r.get("id", 0) for r in all_reviews])
+            pr_state["last_comment_id"] = max([pr_state["last_comment_id"]] + [c.get("id", 0) for c in all_inline])
+            pr_state["last_issue_comment_id"] = max([pr_state["last_issue_comment_id"]] + [c.get("id", 0) for c in all_issuecs])
 
     if not (new_reviews or new_inline or new_issue_comments):
+        _absorb_first_encounter()
         return {"pr": pr_num, "ticket": ticket, "new_findings": 0}
 
     # Build a single Paperclip comment summarising everything new.
@@ -326,10 +408,18 @@ def process_pr(pr: dict, state: dict, dry_run: bool = False) -> dict:
     result["paperclip_comment_id"] = comment_id
 
     # Advance cursors only after a successful post — if anything failed we'll
-    # retry the same items next tick.
-    pr_state["last_review_id"] = max([pr_state["last_review_id"]] + [r["id"] for r in new_reviews])
-    pr_state["last_comment_id"] = max([pr_state["last_comment_id"]] + [c["id"] for c in new_inline])
-    pr_state["last_issue_comment_id"] = max([pr_state["last_issue_comment_id"]] + [c["id"] for c in new_issue_comments])
+    # retry the same items next tick. Absorb all observed Greptile IDs (not
+    # just the posted ones) so any pre-merge items the floor filtered out
+    # also get parked behind the cursor and don't re-surface next tick.
+    pr_state["last_review_id"] = max(
+        [pr_state["last_review_id"]] + [r.get("id", 0) for r in all_reviews]
+    )
+    pr_state["last_comment_id"] = max(
+        [pr_state["last_comment_id"]] + [c.get("id", 0) for c in all_inline]
+    )
+    pr_state["last_issue_comment_id"] = max(
+        [pr_state["last_issue_comment_id"]] + [c.get("id", 0) for c in all_issuecs]
+    )
     return result
 
 
@@ -353,9 +443,9 @@ def main(argv: list[str]) -> int:
         sys.stderr.write(f"reset: removed {STATE_PATH}\n")
 
     state = load_state()
-    prs = list_open_prs()
+    prs = list_recent_prs()
     if not prs:
-        print("no open PRs")
+        print("no recent PRs")
         return 0
 
     results = []
