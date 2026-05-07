@@ -19,6 +19,7 @@ import argparse
 import json
 import os
 import re
+import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -28,6 +29,9 @@ DRAFT_DIR = ROOT / "content-pipeline" / "6-drafts-cited"
 OUT_DIR = ROOT / "content-pipeline" / "8-publish"
 IMAGES_DIR = ROOT / "content-pipeline" / "images"
 QC_DIR = ROOT / "content-pipeline" / "quality-checks"
+DOCS_DIR = ROOT / "docs"
+BUNDLE_VIEWER = ROOT / "scripts" / "bundle_viewer.py"
+INDEX_HTML = DOCS_DIR / "index.html"
 
 IMAGE_REF_RE = re.compile(r"!\[([^\]]*)\]\((images/[^)]+\.(?:png|jpg|jpeg|webp|gif))\)")
 QC_VERDICT_RE = re.compile(r"\b(PASS|BORDERLINE|FAIL)\b", re.IGNORECASE)
@@ -579,6 +583,136 @@ def publish_to_strapi(payload: dict, *, update: bool = False) -> None:
         sys.exit(f"error: Strapi {method} failed: {e}")
 
 
+# ---------- GitHub-Pages whiteboard staging (PLEAA-448) ----------
+# After format-for-publish writes the Strapi package, also bake a static
+# `docs/run-<slug>.html` viewer and append the slug to the fallback runs
+# array in `docs/index.html` so the run shows up at
+# https://lionelndong.github.io/blog-agent-2/ as soon as the operator pushes
+# `main`. The GitHub-API enumeration path in index.html is rate-limited and
+# unreliable, so the static fallback is the source of truth.
+#
+# This step is best-effort: a failure here must NOT fail the publish run —
+# the publish package is the primary deliverable and the operator can
+# always run `python scripts/bundle_viewer.py <slug>` manually.
+
+# The fallback runs array is a JS literal on a single line in docs/index.html.
+# We match it loosely so we tolerate whitespace/newline drift but require the
+# array to be the one inside the `catch` block (the only `return [...]` of
+# string-literals followed by `;` in the file).
+_FALLBACK_RUNS_RE = re.compile(
+    r'(return\s*\[)([^\]]*?)(\]\s*;)',
+    re.DOTALL,
+)
+
+
+def _update_index_fallback(slug: str) -> tuple[bool, str]:
+    """Idempotently append slug to the fallback runs array in docs/index.html.
+
+    Returns (changed, message). Never raises.
+    """
+    if not INDEX_HTML.exists():
+        return False, f"docs/index.html not found at {INDEX_HTML}"
+    try:
+        html = INDEX_HTML.read_text(encoding="utf-8")
+    except Exception as e:
+        return False, f"read error: {e}"
+
+    match = _FALLBACK_RUNS_RE.search(html)
+    if not match:
+        return False, "fallback runs array not found in docs/index.html"
+
+    body = match.group(2)
+    # Existing slugs are quoted strings; cheap parse via regex.
+    existing = re.findall(r'"([^"]+)"', body)
+    if slug in existing:
+        return False, f"slug already in fallback runs ({len(existing)} entries)"
+
+    new_list = existing + [slug]
+    rendered = ", ".join(f'"{s}"' for s in new_list)
+    new_body = match.group(1) + rendered + match.group(3)
+    new_html = html[: match.start()] + new_body + html[match.end():]
+    try:
+        INDEX_HTML.write_text(new_html, encoding="utf-8")
+    except Exception as e:
+        return False, f"write error: {e}"
+    return True, f"appended to fallback runs ({len(new_list)} entries)"
+
+
+def _bundle_run_viewer(slug: str) -> tuple[bool, str]:
+    """Run scripts/bundle_viewer.py to write docs/run-<slug>.html. Never raises."""
+    if not BUNDLE_VIEWER.exists():
+        return False, f"bundle_viewer.py not found at {BUNDLE_VIEWER}"
+    try:
+        proc = subprocess.run(
+            [sys.executable, str(BUNDLE_VIEWER), slug],
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
+    except Exception as e:
+        return False, f"subprocess failed: {e}"
+    if proc.returncode != 0:
+        return False, f"bundle_viewer exit {proc.returncode}: {proc.stderr.strip()[:200]}"
+    out_path = DOCS_DIR / f"run-{slug}.html"
+    if not out_path.exists():
+        return False, f"bundle_viewer ran but {out_path} missing"
+    return True, f"wrote {out_path.relative_to(ROOT)} ({out_path.stat().st_size:,} bytes)"
+
+
+def stage_whiteboard(slug: str) -> None:
+    """Stage the GitHub-Pages whiteboard artifacts for `slug`.
+
+    Idempotent: re-running for the same slug overwrites the bundle and
+    leaves the index untouched if the slug is already in the fallback list.
+    Best-effort: failures print a warning but never raise.
+    """
+    print(f"\n--- whiteboard staging for {slug} ---")
+    bundled, bmsg = _bundle_run_viewer(slug)
+    print(f"  bundle: {'ok' if bundled else 'skipped'} — {bmsg}")
+
+    indexed, imsg = _update_index_fallback(slug)
+    print(f"  index:  {'updated' if indexed else 'unchanged'} — {imsg}")
+
+    if not bundled:
+        print(
+            "  hint: run `python scripts/bundle_viewer.py "
+            f"{slug}` manually to regenerate the static viewer."
+        )
+        return
+
+    # Best-effort `git add` so the operator just has to commit + push.
+    paths_to_stage = [DOCS_DIR / f"run-{slug}.html"]
+    if indexed:
+        paths_to_stage.append(INDEX_HTML)
+    try:
+        rels = [str(p.relative_to(ROOT)) for p in paths_to_stage]
+        proc = subprocess.run(
+            ["git", "add", "--", *rels],
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+            timeout=20,
+        )
+        if proc.returncode == 0:
+            print(f"  staged: {', '.join(rels)}")
+            print(
+                "  hint: commit + push `main` to surface this run on "
+                "https://lionelndong.github.io/blog-agent-2/"
+            )
+        else:
+            # Non-fatal: maybe not a git repo, or git missing. Just tell the
+            # operator the file paths so they can stage manually.
+            print(
+                "  staged: git add skipped — "
+                f"{proc.stderr.strip()[:120] or 'non-zero exit'}"
+            )
+            print(f"  files: {', '.join(rels)}")
+    except Exception as e:
+        rels = [str(p.relative_to(ROOT)) for p in paths_to_stage]
+        print(f"  staged: git add unavailable ({e}); files: {', '.join(rels)}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("slug")
@@ -651,6 +785,15 @@ def main() -> None:
 
     if publish_via_api:
         publish_to_strapi(payload, update=args.update)
+
+    # PLEAA-448: bake the static GitHub-Pages viewer + index entry so the run
+    # surfaces at https://lionelndong.github.io/blog-agent-2/ as soon as the
+    # operator pushes `main`. Best-effort — never blocks publish.
+    if os.environ.get("BLOG_AGENT_SKIP_WHITEBOARD") != "1":
+        try:
+            stage_whiteboard(args.slug)
+        except Exception as e:
+            print(f"warning: whiteboard staging failed: {e}")
 
 
 if __name__ == "__main__":
