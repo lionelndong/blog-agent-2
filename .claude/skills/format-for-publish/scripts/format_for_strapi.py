@@ -518,6 +518,17 @@ def publish_to_strapi(payload: dict, *, update: bool = False) -> None:
     those fields in the update payload, or POST a brand-new article instead.
     PLEAA-457 (Greptile P2): the original docstring + PR description called
     this "PATCH" which is a v4 idiom and misleads anyone reading the code.
+
+    Update-path safety guard (PLEAA-457 Greptile P1, round 2): on the PUT path,
+    if ``payload.data.category`` is missing we abort instead of sending the
+    request. Strapi's PUT semantics would otherwise WIPE the article's existing
+    category server-side, which is exactly the silent destructive-failure class
+    this PR was opened to close. The most common cause is a transient
+    ``/api/categories`` fetch failure inside ``_load_category_index``; the
+    cache stays ``None`` so the next run retries cleanly, but only if we don't
+    let this PUT through. POSTs are still allowed without ``category`` (a
+    brand-new article without a category is recoverable in admin; an existing
+    one having its category wiped is not).
     """
     base_url = os.environ.get("STRAPI_BASE_URL")
     token = os.environ.get("STRAPI_API_TOKEN")
@@ -538,6 +549,16 @@ def publish_to_strapi(payload: dict, *, update: bool = False) -> None:
         if existing_doc_id is None:
             sys.stderr.write(f"warning: --update set but slug {slug!r} not found in Strapi; falling back to POST\n")
         else:
+            # Refuse to PUT when category resolution failed — see docstring.
+            if not (payload.get("data") or {}).get("category"):
+                sys.exit(
+                    "error: --update with missing data.category — refusing to PUT.\n"
+                    "  Strapi v5 PUT is full-replacement; sending this would wipe the\n"
+                    "  existing article's category server-side. Most likely cause: a\n"
+                    "  transient /api/categories fetch failure in _load_category_index.\n"
+                    "  Re-run when Strapi is reachable; the category cache resets per\n"
+                    "  process so the next run will retry cleanly."
+                )
             method = "PUT"
             endpoint = f"{base_url.rstrip('/')}/api/articles/{existing_doc_id}"
 
