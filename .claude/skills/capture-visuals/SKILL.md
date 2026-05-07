@@ -108,6 +108,8 @@ Always run this skill on **Sonnet 4.6** (`claude-sonnet-4-6`) — never Opus. Dr
 
       Pre-existing manifest entries that say `byte_transport_unavailable` for what was actually a Cloudflare/auth wall should be retro-corrected to `bot_wall_blocked` / `auth_required` so the next debugger doesn't chase an FS-perms ghost.
 
+      **Own-domain (`pleasur.ai`) captures and the Cloudflare allowlist.** PLEAA-454 added a WAF custom rule on the `pleasur.ai` zone that skips `http_request_sbfm` (Bot Fight Mode) and `http_request_firewall_managed` (managed WAF) for the capture VPS public IP. As of 2026-05-07 that IP is `187.124.74.198` and the rule lives in the `default` `http_request_firewall_custom` ruleset (id `aa579f0845d5462985401ddfa8d52d70`). If a future capture run starts seeing `bot_wall_blocked` against `pleasur.ai`/`www.pleasur.ai`, the first thing to check is whether the VPS IP rotated — re-run `curl -s https://api.ipify.org` on the capture host and update the rule's `ip.src` expression via the Cloudflare API (token in Doppler as `CLOUDFLARE_API_TOKEN`, account `CLOUDFLARE_ACCOUNT_ID`). The rule is intentionally narrow: only the two host strings, only those two phases skipped, source IP gated. Do not broaden it — the marketing zone is on a Free plan and Bot Fight Mode is the only meaningful bot defense it has.
+
    g. **(Interactive only) Confirm.** Show the captured PNG to the user. Ask "good or retry?" Loop on retry. **Unattended:** skip this step; the validation in (f) is the gate.
 
    h. **Move on** to the next entry.
