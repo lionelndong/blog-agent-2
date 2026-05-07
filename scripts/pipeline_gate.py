@@ -198,13 +198,18 @@ def _check_adversarial(slug: str, stage_key: str, file_suffix: str, label: str) 
         return ok(f"{label}-adversarial", slug, "verdict=PASS")
 
     # FAIL: only halt if the per-stage revision budget is exhausted.
+    # Guard the entire runlog interaction (import + used + budget_for) so an
+    # unknown stage_key or any other runlog failure surfaces as a clean GATE
+    # FAIL instead of a Python traceback. _check_adversarial is a shared
+    # helper; today's callers pass valid keys but a future caller mistyping a
+    # key shouldn't crash the gate.
     try:
         sys.path.insert(0, str(REPO_ROOT / "scripts"))
         import adversarial_runlog  # type: ignore
+        used = adversarial_runlog.used(slug, stage_key)
+        budget = adversarial_runlog.budget_for(stage_key)
     except Exception as e:
         return fail(f"{label} adversarial FAIL and runlog module unavailable", str(e))
-    used = adversarial_runlog.used(slug, stage_key)
-    budget = adversarial_runlog.budget_for(stage_key)
     if used < budget:
         return ok(f"{label}-adversarial", slug,
                   f"verdict=FAIL but budget remains ({used}/{budget}) — orchestrator must revise + re-run")

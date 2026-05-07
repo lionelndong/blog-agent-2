@@ -84,6 +84,12 @@ def _save(slug: str, data: dict) -> None:
 
 
 def used(slug: str, stage: str) -> int:
+    # Validate the stage so an unknown key surfaces at the earliest call site
+    # — keeps used()/budget_for()/increment() consistent (all three raise
+    # ValueError for unknown stages) and avoids the silent `used=0` followed
+    # by an exception on the next line trap when callers chain the two.
+    if stage not in STAGE_BUDGETS:
+        raise ValueError(f"unknown stage '{stage}'. valid: {', '.join(STAGE_BUDGETS)}")
     data = _load(slug)
     return int(data.get("stages", {}).get(stage, {}).get("revisions_used", 0))
 
@@ -128,30 +134,50 @@ def main(argv: list[str]) -> int:
             return 64
         print(json.dumps(status(argv[2]), indent=2))
         return 0
+    # Wrap the stage-aware subcommands so an unknown-stage `ValueError` surfaces
+    # as a usage error (exit 64) rather than Python's default unformatted-traceback
+    # exit 1 — which the orchestrator interprets as "budget exhausted — HALT" for
+    # `can-revise`, silently halting the pipeline on a typo'd stage key.
     if cmd == "used":
         if len(argv) != 4:
             print("usage: used <slug> <stage>", file=sys.stderr)
             return 64
-        print(used(argv[2], argv[3]))
+        try:
+            print(used(argv[2], argv[3]))
+        except ValueError as e:
+            print(f"error: {e}", file=sys.stderr)
+            return 64
         return 0
     if cmd == "budget":
         if len(argv) != 3:
             print("usage: budget <stage>", file=sys.stderr)
             return 64
-        print(budget_for(argv[2]))
+        try:
+            print(budget_for(argv[2]))
+        except ValueError as e:
+            print(f"error: {e}", file=sys.stderr)
+            return 64
         return 0
     if cmd == "increment":
         if len(argv) != 4:
             print("usage: increment <slug> <stage>", file=sys.stderr)
             return 64
-        n = increment(argv[2], argv[3])
+        try:
+            n = increment(argv[2], argv[3])
+        except ValueError as e:
+            print(f"error: {e}", file=sys.stderr)
+            return 64
         print(n)
         return 0
     if cmd == "can-revise":
         if len(argv) != 4:
             print("usage: can-revise <slug> <stage>", file=sys.stderr)
             return 64
-        return 0 if can_revise(argv[2], argv[3]) else 1
+        try:
+            return 0 if can_revise(argv[2], argv[3]) else 1
+        except ValueError as e:
+            print(f"error: {e}", file=sys.stderr)
+            return 64
     print(f"unknown subcommand: {cmd}", file=sys.stderr)
     return 64
 
