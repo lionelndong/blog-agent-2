@@ -8,29 +8,30 @@ Single source of truth for visual placement decisions across the pipeline. Every
 |---|---|---|
 | `screenshot` | Section walks through a brand-owned product UI at a **static, navigable URL**. The page renders the wanted state immediately on load (or after a known modal dismissal). No multi-step interaction required. | Patchright headless capture (Playwright fork with CF/bot bypass). May require auth (`setup_auth.py`). |
 | `action-shot` | Section needs the UI in a state that **only exists after a sequence of actions** — clicking through a wizard, sending a message in a conversation, opening settings, dismissing a non-trivial modal, mid-form state. Also the right tool when `screenshot` can't get past the site's bot protection. | Default: routed to `manual-capture.md` for the editor to handle interactively via `/capture-visuals` (driven by Claude in Chrome — full visibility and control, no token cost, uses the editor's real Chrome session). Opt-in agent fallback: set `BROWSER_USE_ENABLED=1` to delegate to Browser Use Cloud (~$0.05–$0.15/visual). |
-| `image` | Section makes an aesthetic / lifestyle / mood / conceptual point that benefits from visual context. **SFW only.** | AI-generated via Replicate. Default model `openai/gpt-image-2`, backup `google/nano-banana`. |
+| `image` | Section either (a) **explains a concept, mental model, workflow, or relationship** that a labeled diagram would convey faster than prose (highest-value `image` use — `sub=concept-illustration` or `sub=diagram`), or (b) needs an aesthetic / scene-setting illustration where the prose alone leaves the reader without a visual anchor (`sub=lifestyle`, rare). **SFW only.** | AI-generated via Replicate. Default model `openai/gpt-image-2`, backup `google/nano-banana`. Prompts must be specific, structured, and label-explicit — vague prompts produce vague art. |
 | `table` | Section compares N items across M dimensions, or presents structured comparison data. | Inline markdown table — no asset file. The draft writes the table directly. |
 | `chart` | Section presents quantitative data with trends, distributions, or proportions (search volumes, percentages, rankings). | matplotlib PNG rendered from data in the research dossier. |
 | `video` | Section references an embedded video (YouTube, Loom, screen recording, demo). | Editor-managed: provide an embed URL; rendered as `<iframe>` or Strapi video block. Not auto-captured. |
 | `external` | Section references something the brand doesn't own that adds *specific* value — a Reddit comment we cite, a tweet, a chart in a news article, a competitor UI panel, a third-party tool screen. **PLEAA-417 (2026-05-06): auto-captured by default**, not routed to manual. | Patchright headless capture of the URL plus a CSS `selector` that clips to the relevant element (the comment, the tweet, the chart). `crop=padded` adds breathing room around the bbox. On Cloudflare / login-wall / nav-fail, the manifest entry stays `failed` with a `fallback.method=claude_in_chrome` breadcrumb so `/capture-visuals` retries via a real Chrome session. ToS bypasses (puzzle-solving, IP rotation chains) are out of scope: if both paths fail, the entry stays `failed` and the visuals gate halts. |
 | `gif` | Section needs an animated GIF for a multi-step interaction text alone struggles to describe. | Editor-managed: provide a screen-recording source; ffmpeg conversion is a future enhancement. |
-| `none` | Section is foundational, conceptual, or argumentative — a forced visual would dilute it. | Skip — no placeholder rendered, no asset generated. |
+| `none` | Section is purely transitional, very short (<150 words), or argumentative-rhetorical — a forced visual would dilute it. **Use sparingly:** the new editorial bar (per `editorial-principles-visuals.md`) is that most non-trivial sections deserve a visual, often more than one. | Skip — no placeholder rendered, no asset generated. |
 
 ## Decision rule (one-pass check)
 
-For each H2 section in an outline, ask in this order:
+For each H2 section in an outline, ask in this order. The first "yes" wins. **Sections often warrant more than one visual** — once you find a primary, also ask whether a secondary type (e.g. `chart` after a `screenshot`, or `external` after an `image`) would carry additional concrete information.
 
 1. Does the section walk through a **brand product UI at a static URL**, where the wanted state is visible on first load (or after one age-gate/cookie click)? → `screenshot`
 2. Does the section need a UI state that **only exists after multi-step interaction** (clicks through a wizard, sending messages, opening settings, mid-form state)? → `action-shot`
 3. Does the section **compare N things on M axes**? → `table`
 4. Does the section present **quantitative data with trends**? → `chart`
-5. Does the section **reference a third-party artifact** (a Reddit comment we quote, a tweet, a chart in a news article, a competitor UI panel)? → `external` — pair with `selector=` so we capture the exact element, not the whole page. Use `action-shot` instead only when the artifact is reachable just from a multi-step flow (logged-in dashboard, after-click state).
-6. Does the section need an **animated multi-step demo**? → `gif`
-7. Does the section embed a **video / demo**? → `video`
-8. Would an **aesthetic / mood / lifestyle illustration** add real value, SFW? → `image`
-9. Otherwise → `none` — argue with prose, not pictures
+5. Does the section **reference a third-party artifact** (a Reddit comment we quote, a tweet, a chart in a news article, a competitor UI panel)? → `external` — pair with `selector=` so we capture the exact element, not the whole page.
+6. Does the section **explain a concept, mental model, workflow, or "how it works" idea** that a labeled diagram would convey faster than the next paragraph? → `image` with `sub=concept-illustration` or `sub=diagram` (gpt-image-2 with a specific structured prompt — labels, layout, components).
+7. Does the section need an **animated multi-step demo**? → `gif`
+8. Does the section embed a **video / demo** where motion is essential? → `video`
+9. Would a **scene-setting / atmospheric illustration** add specific value, SFW? → `image` with `sub=lifestyle` (rare; high bar — must convey something prose can't).
+10. Otherwise → `none` — argue with prose, not pictures
 
-The default for sections that don't have an obvious match is `none`. A forced visual is worse than no visual.
+**New default bias:** the editorial bar (per `editorial-principles-visuals.md`) is that most non-trivial sections in a well-researched article have something concrete to show. If the decision tree above leaves you at "none" for a 300+ word section, double-check by asking: "is there a flow, comparison, claim, or concept here that a labeled `image` would explain better than prose?" Forced visuals are still bad — but visual under-density is now a more common failure than over-density.
 
 ## `screenshot` vs `action-shot` — the key distinction
 
@@ -85,7 +86,11 @@ The draft realizes the outline's typed `Visual:` block as a single typed placeho
 
 [VISUAL:type=action-shot;url=https://pleasur.ai;goal=Log into Pleasur with the saved session. Open an existing character chat. Send the message "Tell me about your day." Wait for the typing indicator to appear and the response to arrive. Capture the chat with the response visible.;what=Mid-conversation chat with typing indicator and response]
 
-[VISUAL:type=image;prompt=modern apartment interior with warm evening light, no people;style=photorealistic;safety=sfw]
+[VISUAL:type=image;sub=concept-illustration;prompt=Flow diagram showing how a memory-augmented AI girlfriend chat works. Three labeled components arranged left-to-right: "User Message" (speech bubble icon), "Vector Memory Store" (three boxes labeled "Embed", "Retrieve", "Rerank"), "LLM Response" (chat bubble icon). Arrows connect each step; a feedback loop arrow returns from Response to Memory. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors.;style=illustration;safety=sfw]
+
+[VISUAL:type=image;sub=diagram;prompt=Side-by-side comparison labeled "Generative AI" (left) vs "Agentic AI" (right). Left panel: single user prompt arrow into a brain icon, single output arrow. Right panel: same prompt arrow into a brain icon, but with three sub-arrows out to three labeled tools ("Browser", "Code", "Memory"), and a return arrow combining results. Clean editorial illustration, white background, sans-serif labels.;style=illustration;safety=sfw]
+
+[VISUAL:type=image;sub=lifestyle;prompt=Modern apartment interior at evening, warm desk lamp, laptop with chat interface visible (no readable text on screen), no people. Photorealistic, editorial.;style=photorealistic;safety=sfw]
 
 [VISUAL:type=image;prompt=portrait of a custom-designed companion character;safety=adult]
 
@@ -113,6 +118,31 @@ Tables are not placeholders — `/draft` writes them inline as markdown.
 | `what` | yes | Short caption / alt text. Used for the published image. |
 | `max_steps` | no | Override default of 25. Lower for simple tasks (saves $), higher for complex flows. |
 | `llm` | no | Override default `claude-sonnet-4-6`. Try `gpt-4.1-mini` for cheaper / faster on simple tasks. |
+
+### `image` placeholder fields
+
+`image` covers two distinct sub-types. Choose deliberately.
+
+| Field | Required | Purpose |
+|---|---|---|
+| `sub` | recommended | One of `concept-illustration` (default), `diagram`, `flow-diagram`, `comparison`, `lifestyle`. Drives prompt-template defaults — the dispatcher may prepend style hints (e.g. "clean editorial illustration, white background, sans-serif labels" for diagrams). |
+| `prompt` | yes | The full image prompt. **Be specific.** For diagrams: name every labeled component, describe layout (left-to-right, side-by-side, etc.), specify connectors (arrows, lines), and demand a clean editorial style. For lifestyle: describe scene, lighting, mood, "no people" (or "people, no faces shown") to avoid the AI face-rendering problem. |
+| `style` | recommended | `illustration` (default for diagrams), `photorealistic` (default for lifestyle), `flat-vector`, `isometric`. |
+| `safety` | recommended | `sfw` (default; pipeline calls Replicate) or `adult` (routes to manual capture; pipeline never sends adult prompts to Replicate). |
+
+**Prompt patterns that work for `concept-illustration` / `diagram`:**
+
+- *"Flow diagram showing X. Components from left to right: A → B → C. Each component labeled with [name]. Arrows showing direction. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors."*
+- *"Side-by-side comparison: '[Concept A]' on left vs '[Concept B]' on right. Each side has [shared structure] with [specific differences highlighted]. Clean editorial illustration, white background, sans-serif labels."*
+- *"Layered architecture diagram. Bottom layer labeled '[base]'. Middle layer labeled '[middle]'. Top layer labeled '[top]'. Arrows show data flow upward. Clean editorial style, white background."*
+
+**Prompt anti-patterns** (produce vague art):
+
+- "An AI girlfriend." (no structure, no labels, no scene)
+- "A futuristic concept of love and technology." (abstract, no concrete elements)
+- "A diagram of how AI works." (no specifics — what diagram, what components, what relationships)
+
+The diagram prompts that work read like a *brief to a junior illustrator*, not like a haiku.
 
 ### `external` placeholder fields (PLEAA-417)
 
