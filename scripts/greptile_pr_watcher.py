@@ -181,9 +181,14 @@ def find_issue_by_identifier(identifier: str) -> str | None:
         sys.exit("error: PAPERCLIP_COMPANY_ID required")
     q = urllib.parse.quote(identifier)
     out = _pc("GET", f"/api/companies/{company_id}/issues?q={q}&limit=20")
-    if not isinstance(out, dict):
+    # The endpoint returns a bare list of issues. Accept dict-wrapped shapes
+    # too in case it ever changes (`{issues: [...]}` / `{data: [...]}`).
+    if isinstance(out, list):
+        items = out
+    elif isinstance(out, dict):
+        items = out.get("issues") or out.get("data") or []
+    else:
         return None
-    items = out.get("issues") or out.get("data") or []
     for entry in items:
         if entry.get("identifier") == identifier:
             return entry.get("id")
