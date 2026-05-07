@@ -1,0 +1,109 @@
+{
+  "cluster_volumes": {
+    "ai girlfriend (parent)": 80000,
+    "free ai girlfriend": 12000,
+    "ai girlfriend online free": 5100,
+    "ai girlfriend chat": 4900,
+    "best ai girlfriend": 3300,
+    "ai girlfriend app": 3300,
+    "best ai girlfriend app": 2900,
+    "ai girlfriend simulator": 2200,
+    "ai girlfriend no sign up": 2000,
+    "ai robot girlfriend": 1900,
+    "ai girlfriend sex": 1800,
+    "ai girlfriend nsfw": 1300,
+    "nsfw ai girlfriend": 1200,
+    "ai girlfriend chatbot": 1100,
+    "ai girlfriend generator": 1100,
+    "ai girlfriend experience (estimated)": 900,
+    "ai girlfriend app review": 480
+  },
+  "primary_keyword_volume_band": {
+    "low": 720,
+    "point": 900,
+    "high": 1200,
+    "_note": "Single point estimate is 900/mo (matches dossier prose); 720–1200 is the inferred uncertainty band from sibling-cluster signals. Both prose and JSON now agree on 900 as the headline."
+  },
+  "serp_format_share_observed": {
+    "vendor_owned_listicle": 0.5,
+    "third_party_listicle_review": 0.3,
+    "vendor_landing_page": 0.2,
+    "first_person_narrative": 0.0,
+    "_methodology": "Observation across the top 10 DuckDuckGo HTML SERP results (US, 2026-05-06). N=10, single search engine, Google blocked headless. Treat as a SERP snapshot, NOT a market share. Re-pull on Google when MCP unblocks.",
+    "_sample_size": 10
+  },
+  "top_page_word_counts": {
+    "aigirlfriendscout.com": 6700,
+    "luvr.ai": 3200,
+    "cyberlink.com": 3750,
+    "mariavibe.com": 2400,
+    "unite.ai": 2800,
+    "ourdream.ai": 4200
+  },
+  "industry_size_usd_b_verified": {
+    "global_chatbot_market_2022": 2.9,
+    "global_chatbot_market_2027_projected": 11.5,
+    "_meta": "Grand View Research via PR Newswire, Sep 2023, https://www.prnewswire.com/news-releases/global-chatbot-market-size-worth-11-5-billion-by-2027-grand-view-research-inc-301696276.html . NOTE: prior 'ai_companion_segment_2023=2.8 / 2028=9.5' figures (luvr.ai) failed primary-source verification across 3 search attempts and have been removed."
+  },
+  "genai_app_market_h1_2025_sensor_tower": {
+    "genai_apps_in_app_revenue_h1_2025_usd_b": 1.87,
+    "genai_apps_downloads_h1_2025_b": 1.7,
+    "ai_companion_apps_revenue_h1_2025_usd_m": 82,
+    "ai_companion_apps_h1_2025_downloads_m": 60,
+    "ai_companion_apps_yoy_download_growth_pct": 88,
+    "_source": "Sensor Tower H1 2025 GenAI report via Yahoo Finance / TechCrunch (Jul 30, 2025): https://finance.yahoo.com/news/gen-ai-apps-doubled-revenue-141446411.html . The $82M is the AI companion *category*, NOT Character.AI alone — listicles conflate."
+  },
+  "engagement_signals_verified": {
+    "Mid-2024 peak (28M MAU)": 28,
+    "Early 2025 (~20M MAU)": 20,
+    "_meta": "Character.AI MAU peak-to-trough only — chart-ready (two points, same metric, same platform). Sources: Business of Apps (https://www.businessofapps.com/data/character-ai-statistics/), Sacra (https://sacra.com/c/character-ai/). Filtered in revision pass on 2026-05-06 to address visuals-adversarial CRITICAL #1: prior third point (replika_installs_google_play_millions_may_2024=10) was a different metric on a different platform and contradicted the chart title. Moved to replika_installs_aux. Removed unverified figures: '525% YoY search growth', 'character_ai_monthly_visits_millions=100', 'daily_open_rate_share=0.67', 'emotional_attachment_within_3_weeks_share=0.45' — all failed primary-source verification."
+  },
+  "replika_installs_aux": {
+    "replika_installs_google_play_millions_may_2024": 10,
+    "_meta": "Aux key (not chart-ready alongside Character.AI MAU). Replika Google Play install count, May 2024. Source: Google Play listing. Held here for prose use; do NOT plot together with Character.AI MAU (different metric, different platform)."
+  },
+  "privacy_and_safety_verified": {
+    "mozilla_data_share_or_sell_pct": 90,
+    "mozilla_apps_meeting_min_security_count": 1,
+    "mozilla_apps_tested_count": 11,
+    "mozilla_no_vulnerability_process_pct": 73,
+    "mozilla_no_delete_data_pct": 54,
+    "mozilla_weak_passwords_allowed_pct": 45,
+    "mozilla_avg_trackers_per_minute": 2663,
+    "muah_ai_breach_emails_millions": 1.9,
+    "muah_ai_breach_date": "2024-09-17",
+    "_source_mozilla": "Mozilla Foundation, Privacy Not Included, 'Romantic AI Chatbots Don't Have Your Privacy at Heart', Feb 14, 2024: https://foundation.mozilla.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/",
+    "_source_muah": "Have I Been Pwned, https://haveibeenpwned.com/Breach/Muah ; Linklaters writeup, https://www.linklaters.com/en/insights/blogs/digilinks/2024/october/the-muah-ai-data-breach---extortion-threats-and-cyber-vulnerabilities"
+  },
+  "mit_openai_chatbot_rct": {
+    "participants": 981,
+    "messages_analyzed": 300000,
+    "study_duration_weeks": 4,
+    "headline_finding": "higher daily usage across all modalities and conversation types correlates with higher loneliness, emotional dependence, and problematic use, and lower socialization with real people",
+    "_source": "MIT Media Lab × OpenAI longitudinal RCT, March 2025: https://www.media.mit.edu/publications/how-ai-and-human-behaviors-shape-psychosocial-effects-of-chatbot-use-a-longitudinal-controlled-study/"
+  },
+  "search_intent_split": {
+    "informational": 0.55,
+    "commercial_investigation": 0.40,
+    "transactional": 0.05,
+    "navigational": 0.0
+  },
+  "_meta": {
+    "source": "DuckDuckGo HTML SERP (US, 2026-05-06); WebFetch top-5 SERP pages; sibling dossier ai-girlfriend.md (Ahrefs May 2026) for parent-cluster volume; OpenRouter o4-mini deep-research fallback; revision-pass primary-source verifications via WebSearch + WebFetch (Mozilla, HIBP, Linklaters, Business of Apps, Sacra, Sensor Tower / Yahoo Finance, MIT Media Lab, Wired, Reuters).",
+    "generated_at": "2026-05-06",
+    "revision_pass_at": "2026-05-06",
+    "primary_keyword": "ai girlfriend experience",
+    "slug": "ai-girlfriend-experience",
+    "semrush_mcp_status": "unavailable_in_agent_context",
+    "openrouter_status": "perplexity_shallow_fallback_to_o4_mini",
+    "removed_in_revision": [
+      "narrative_arc_phases (was angle-as-data, all values=1)",
+      "industry_size.ai_companion_segment_2023=2.8 (luvr.ai, no primary source)",
+      "industry_size.ai_companion_segment_2028_projected=9.5 (luvr.ai, no primary source)",
+      "engagement_signals.character_ai_monthly_visits_millions=100 (luvr.ai, no primary source)",
+      "engagement_signals.daily_open_rate_share=0.67 (luvr.ai, no primary source)",
+      "engagement_signals.emotional_attachment_within_3_weeks_share=0.45 (ourdream/listicle, no primary source)",
+      "engagement_signals.search_interest_growth_yoy_pct=525 (luvr.ai, no denominator/window/source)"
+    ]
+  }
+}
