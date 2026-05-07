@@ -77,8 +77,12 @@ _IMG_SRC_RE = re.compile(r'(<img\b[^>]*?\bsrc\s*=\s*)(["\'])([^"\']+)\2', re.IGN
 _LINK_TAG_RE = re.compile(r"<link\b[^>]*/?>", re.IGNORECASE)
 # Two alternation branches — quoted (group 1) or unquoted (group 2). Callers
 # read via `m.group(1) or m.group(2)` to handle both shapes uniformly.
-_REL_ATTR_RE = re.compile(r'\brel\s*=\s*(?:["\']([^"\']+)["\']|([^\s>]+))', re.IGNORECASE)
-_HREF_ATTR_RE = re.compile(r'\bhref\s*=\s*(?:["\']([^"\']+)["\']|([^\s>]+))', re.IGNORECASE)
+# - `rel` values never contain `/`, so we exclude it from the unquoted class
+#   so `<link rel=stylesheet/>` doesn't capture `stylesheet/`.
+# - `href` legitimately contains `/` (e.g. `images/foo.png`), so we accept any
+#   non-space/non-`>` chars but stop before a self-closing `/>` boundary.
+_REL_ATTR_RE = re.compile(r'\brel\s*=\s*(?:["\']([^"\']+)["\']|([^\s>/]+))', re.IGNORECASE)
+_HREF_ATTR_RE = re.compile(r'\bhref\s*=\s*(?:["\']([^"\']+)["\']|([^\s>]+?)(?=[\s>]|/>|$))', re.IGNORECASE)
 _MD_IMG_RE = re.compile(r"(!\[[^\]]*\]\()([^)\s]+)(\s*(?:\"[^\"]*\")?\s*\))")
 
 
