@@ -171,28 +171,16 @@ def check_strapi_v5_payload_shape() -> str:
             return "STRAPI_V5_SHAPE FAIL — payload missing top-level data"
 
         problems: list[str] = []
-        # build_payload emits read_time and author_name unconditionally — assert
-        # them too so a future refactor that drops either field surfaces here
-        # rather than as a silent Strapi rejection in production
-        # (PLEAA-457 Greptile P3).
+        # Required v5 fields (verified by live POST/DELETE 2026-05-07).
         for required in (
             "title",
             "slug",
             "description",
             "blocks",
             "publishedAt",
-            "read_time",
-            "author_name",
         ):
             if required not in d:
                 problems.append(f"missing {required}")
-
-        rt = d.get("read_time")
-        if "read_time" in d and (not isinstance(rt, int) or rt <= 0):
-            problems.append(f"read_time must be a positive int, got {rt!r}")
-        author = d.get("author_name")
-        if "author_name" in d and (not isinstance(author, str) or not author.strip()):
-            problems.append(f"author_name must be non-empty string, got {author!r}")
 
         desc = d.get("description")
         if not isinstance(desc, str) or len(desc) > 80:
@@ -211,9 +199,17 @@ def check_strapi_v5_payload_shape() -> str:
                 if not isinstance(first.get("body"), str) or not first["body"].strip():
                     problems.append("blocks[0].body must be non-empty string")
 
-        for legacy in ("excerpt", "content", "seo", "categories"):
-            if legacy in d:
-                problems.append(f"legacy v4 field {legacy!r} leaked into payload")
+        # Strict-mode rejections — Strapi v5 returns HTTP 400 "Invalid key
+        # <name>" for any of these. Catching them here prevents the silent
+        # publish-failure regression PLEAA-457 was opened to close.
+        forbidden = (
+            "excerpt", "content", "seo", "categories",  # v4 legacy
+            "author_name", "read_time", "readTime",     # not in current v5 schema
+            "cover_image_url", "coverImage", "tags",
+        )
+        for f in forbidden:
+            if f in d:
+                problems.append(f"forbidden field {f!r} would be rejected by Strapi v5")
 
         if "category" in d and not isinstance(d["category"], str):
             problems.append(f"category must be documentId string, got {type(d['category']).__name__}")

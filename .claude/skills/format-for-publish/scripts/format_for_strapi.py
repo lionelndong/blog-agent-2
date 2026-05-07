@@ -271,28 +271,50 @@ def build_payload(
     *,
     published_at: str | None = None,
     category_name: str = "AI Companions",
-    author_name: str = "Pleasur.AI Team",
-    cover_image_url: str | None = None,
+    author_name: str = "Pleasur.AI Team",  # noqa: ARG001 — kept for backwards compat with callers; not in v5 schema
+    cover_image_url: str | None = None,    # noqa: ARG001 — same as above
 ) -> dict:
     """Build a Strapi v5 article payload.
 
-    v5 schema (verified via successful POST on 2026-05-07, PLEAA-456):
-      - description: short summary, hard-capped at 80 chars
-      - blocks[]:    component array — at minimum one shared.rich-text with
-                     the full markdown body in `body`
-      - category:    documentId STRING (not array). Resolved by name from
-                     Strapi when STRAPI_BASE_URL + STRAPI_API_TOKEN are set;
-                     omitted otherwise so the package still serialises in
-                     dry-runs.
-      - author_name, read_time, cover_image_url: top-level scalar fields
-      - publishedAt: ISO timestamp to publish live, null for draft
+    v5 schema (verified end-to-end on 2026-05-07 by live POST/GET/DELETE
+    against production Strapi — see ``scripts/_smoke_integrations.py::strapi_v5_shape``):
 
-    Note: SEO metadata (meta title / description / keywords) is NOT included
-    on the top-level payload. The v5 article type may expose it through a
-    separate `/api/seos` collection or a `seo` component — confirm with CTO
-    before wiring (DOD#4 in PLEAA-457). Excerpt prose is preserved in
-    `description` (truncated) so search engines and social previews still get
-    a sensible fallback.
+      - title:        string
+      - slug:         string (unique)
+      - description:  short summary, hard-capped at 80 chars
+      - blocks[]:     component array — at minimum one shared.rich-text with
+                      the full markdown body in `body`
+      - category:     documentId STRING (not array, not numeric id). Resolved
+                      by name from Strapi when STRAPI_BASE_URL + STRAPI_API_TOKEN
+                      are set; omitted otherwise so the package still serialises
+                      in dry-runs.
+      - publishedAt:  ISO timestamp to publish live, null for draft.
+
+    Strict-mode rejection list (PLEAA-457, 2026-05-07): the live Strapi
+    rejects unknown keys with HTTP 400 ``Invalid key <name>``. Fields that
+    looked plausible but are NOT in the schema and would fail every POST:
+    ``author_name``, ``read_time``, ``readTime``, ``cover_image_url``,
+    ``coverImage``, ``tags``, ``excerpt``, ``content``. ``author`` and
+    ``cover`` exist as relations to the Author / Media content-types but
+    require numeric/documentId references (not strings) and are out of
+    scope for the auto-publish path — they're set manually in the admin
+    when needed.
+
+    SEO metadata (DOD#4, resolved 2026-05-07): the Article content-type
+    does NOT expose a ``seo`` field, ``seo`` component, or separate
+    ``/api/seos`` collection (verified — populate=seo and /api/seos both
+    return 400/404). ``title`` + ``description`` ARE the SEO surface: the
+    frontend renders ``<title>`` from ``title`` and ``<meta name="description">``
+    from ``description`` (hence the 80-char cap matching Google's mobile
+    snippet ceiling). If a richer SEO model is ever needed, add a ``seo``
+    component to the Article type in Strapi admin first; do not pre-emit it.
+
+    The ``author_name`` and ``cover_image_url`` parameters are kept on the
+    function signature for backwards compatibility with existing callers
+    (notably ``main()`` and any orchestrator override) but are intentionally
+    NOT emitted into the payload. ``compute_read_time`` is similarly retained
+    for callers that want to surface a read-time number in the publish
+    package's README, but the value never crosses the wire to Strapi.
     """
     description_source = extract_excerpt(body_md) or title
     description = truncate_description(description_source, limit=80)
@@ -310,8 +332,6 @@ def build_payload(
             "slug": slug,
             "description": description,
             "blocks": blocks,
-            "author_name": author_name,
-            "read_time": compute_read_time(body_md),
             "publishedAt": published_at,
         }
     }
@@ -319,9 +339,6 @@ def build_payload(
     category_document_id = resolve_category_document_id(category_name)
     if category_document_id:
         payload["data"]["category"] = category_document_id
-
-    if cover_image_url:
-        payload["data"]["cover_image_url"] = cover_image_url
 
     return payload
 
@@ -422,7 +439,7 @@ def write_outputs(slug: str, body_md: str, payload: dict) -> Path:
     body_text = data["blocks"][0]["body"] if data.get("blocks") else ""
     word_count = len(re.findall(r"\b\w+\b", body_text))
     category_value = data.get("category") or "(unresolved — set STRAPI_BASE_URL + STRAPI_API_TOKEN)"
-    cover_value = data.get("cover_image_url") or "(none — first body image used as fallback when uploaded)"
+    read_time_min = compute_read_time(body_text)
     readme = f"""# Publish package — {data['title']}
 
 Generated by /format-for-publish. Strapi v5 schema (PLEAA-457). Two ways to use this:
@@ -434,10 +451,8 @@ Generated by /format-for-publish. Strapi v5 schema (PLEAA-457). Two ways to use 
 4. Description (≤80 chars): {data['description']}
 5. Blocks: paste the contents of `article.md` into a `shared.rich-text` block
 6. Category (documentId): {category_value}
-7. Author name: {data.get('author_name', '')}
-8. Read time (min): {data.get('read_time', '')}
-9. Cover image URL: {cover_value}
-10. Save as draft, review, then publish
+7. Author / cover: attach manually in admin if desired (relations, not strings)
+8. Save as draft, review, then publish
 
 ## Option B — direct API publish (when Doppler creds are wired)
 ```bash
@@ -453,7 +468,7 @@ Requires STRAPI_BASE_URL and STRAPI_API_TOKEN env vars.
 ## Stats
 - Word count: {word_count}
 - Description length: {len(data['description'])} chars (cap 80)
-- Read time: {data.get('read_time', '?')} min
+- Read time: ~{read_time_min} min (computed at 220 wpm; informational only — not in payload)
 - Blocks: {len(data.get('blocks', []))}
 """
     (out_dir / "README.md").write_text(readme, encoding="utf-8")

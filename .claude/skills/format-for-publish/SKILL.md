@@ -24,7 +24,7 @@ For slug `{slug}`:
    - `**Tip:** ...` and `**Pro tip:** ...` → `:::tip ... :::`
    - `**Note:** ...` and `**Sidenote:** ...` → `:::note ... :::`
    - `**Editor:** ...` → `:::editor ... :::`
-5. **Build the Strapi v5 JSON payload** with title, slug, description (first 1–2 sentences of intro, ≤80 chars), blocks[] (single `shared.rich-text` component holding the markdown body), category (documentId resolved via `/api/categories`), author_name, read_time, cover_image_url. SEO fields are not on the top-level v5 payload — see PLEAA-457 DOD#4.
+5. **Build the Strapi v5 JSON payload** with title, slug, description (first 1–2 sentences of intro, ≤80 chars — also serves as `<meta name="description">`), blocks[] (single `shared.rich-text` component holding the markdown body), category (documentId resolved via `/api/categories`), publishedAt. The schema is strict — `author_name`, `read_time`, `cover_image_url`, `tags`, `excerpt`, `content`, `seo` are NOT in the Article content-type; Strapi 400s on them. Author + cover relations are attached manually in admin if needed. SEO surface is `title` + `description` only (PLEAA-457 DOD#4 resolved 2026-05-07).
 6. **Run the formatter script:**
    ```bash
    python .claude/skills/format-for-publish/scripts/format_for_strapi.py "<slug>"

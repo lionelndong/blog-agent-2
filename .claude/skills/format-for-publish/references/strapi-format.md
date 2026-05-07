@@ -27,19 +27,28 @@ Apply in this order:
 
 ## JSON metadata extraction rules (Strapi v5 schema)
 
-Extracted from the cited draft:
+Verified end-to-end on 2026-05-07 by live POST/DELETE against production Strapi (PLEAA-457). The schema is strict — Strapi returns HTTP 400 `Invalid key <name>` for any field outside this list.
+
+Emitted fields:
 
 - **`title`** — H1 of the cited draft
 - **`slug`** — file slug (already known)
-- **`description`** — first 1–2 sentences of the intro, hard-capped at 80 chars (truncated at last word boundary, trailing punctuation stripped). Replaces the v4 `excerpt` field.
+- **`description`** — first 1–2 sentences of the intro, hard-capped at 80 chars (truncated at last word boundary, trailing punctuation stripped). Replaces the v4 `excerpt` field. **This is also the SEO meta description** (DOD#4 resolution): the frontend renders `<meta name="description">` from this field.
 - **`blocks[]`** — array of components. Default is a single `shared.rich-text` block with the full markdown body in `body`. Replaces the v4 `content` string.
 - **`category`** — Strapi v5 `documentId` STRING, resolved from category name via `/api/categories` and cached at module load. Replaces the v4 `categories[]` array. Omitted if no Strapi creds available so dry-runs still serialise.
-- **`author_name`** — top-level string. Default `"Pleasur.AI Team"`.
-- **`read_time`** — integer minutes (220 wpm).
-- **`cover_image_url`** — top-level URL string. First absolute image in the body wins; otherwise the first uploaded local image rewritten to `<STRAPI_BASE_URL>/uploads/<file>`. Omitted if neither resolves.
 - **`publishedAt`** — `null` for draft, ISO timestamp for live publish (set by `--auto-publish`).
 
-SEO metadata (meta title / description / keywords) is **not** included on the top-level v5 payload. The article content type may expose it via a separate `/api/seos` collection or a `seo` component — confirm with CTO before wiring (PLEAA-457 DOD#4). The `description` field above is what feeds search-engine + social previews in the meantime.
+**Forbidden / not-in-schema** (will 400 if sent):
+
+- `author_name`, `read_time` / `readTime`, `cover_image_url` / `coverImage`, `tags` — these were on an earlier "verified" memory but live probing showed they don't exist on the Article content-type. The orchestrator-bypass at PLEAA-456 succeeded only because it stripped them too.
+- `excerpt`, `content`, `categories`, `seo` — v4 legacy.
+
+**Relations that exist but are not auto-emitted:**
+
+- `author` — relation to Author content-type. Set manually in admin if a byline is needed.
+- `cover` — media relation. Upload via `/api/upload` first, then attach the numeric media id. Out of scope for the auto-publish path; left to the editor.
+
+SEO metadata (DOD#4, resolved 2026-05-07): the Article content-type has **no** `seo` field, `seo` component, or separate `/api/seos` collection (verified — `populate=seo`/`populate=seos`/`/api/seos` all return 400/404). `title` + `description` ARE the SEO surface. The 80-char description cap matches Google's mobile snippet ceiling.
 
 ## Edge cases
 
