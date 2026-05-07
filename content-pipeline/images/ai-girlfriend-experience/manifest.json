@@ -18,15 +18,18 @@
       "stripped_finding_id": "visuals-adversarial-HIGH-section-2",
       "result": {
         "status": "failed",
-        "reason": "byte_transport_unavailable",
+        "reason": "bot_wall_blocked",
         "page_title": "Create Your AI Character | Pleasur.ai",
         "url": "https://pleasur.ai/create",
         "final_url": "https://pleasur.ai/create",
         "auth_used": true,
         "claude_in_chrome_attempted": true,
-        "wizard_state_reached": "Personality step (step 5/6) with Character name 'Aria' filled, Description filled, Personality Details panel (Voice/Personality/Occupation/Relationship/Hobby/Fetish) and Advanced Details > Definition (backstory) all visible — perfect goal-state",
+        "wizard_state_reached": "Personality step (step 5/6) with Character name 'Aria' filled, Description filled, Personality Details panel (Voice/Personality/Occupation/Relationship/Hobby/Fetish) and Advanced Details > Definition (backstory) all visible \u2014 perfect goal-state",
         "blocker": "Chrome MCP save_to_disk writes to /paperclip/Downloads (root-owned, mode 700, unreadable by node user). Screenshot tool returns no save path in tool result. DOM serialization to data:URL via SVG/foreignObject failed at 525KB (image load error). dataURL chunked retrieval through javascript_tool truncated by harness output cap.",
-        "hint": "Either: (1) chmod 755 /paperclip/Downloads and configure Chrome to download there, (2) run Stage 9 from a Claude session running inside the same root-owned namespace, or (3) extend Chrome MCP to return the save_to_disk path so the local skill can read+copy. Until then, /capture-visuals cannot land Pleasur.ai bytes locally even though the wizard is fully reachable post-auth."
+        "hint": "Either: (1) chmod 755 /paperclip/Downloads and configure Chrome to download there, (2) run Stage 9 from a Claude session running inside the same root-owned namespace, or (3) extend Chrome MCP to return the save_to_disk path so the local skill can read+copy. Until then, /capture-visuals cannot land Pleasur.ai bytes locally even though the wizard is fully reachable post-auth.",
+        "reason_corrected_at": "2026-05-07",
+        "reason_corrected_note": "Originally recorded as byte_transport_unavailable; PLEAA-454 diagnosis confirmed the actual block was Cloudflare Bot Fight on pleasur.ai. Saved bytes were the \"Verify you are human\" interstitial (Ray ID 9f7cd5336e140cee), now quarantined under _quarantine/.",
+        "quarantined_path": "_quarantine/2026-05-06T2236-bot_wall_blocked-screenshot-1-pleasur-ai-companion-creator-m.png"
       },
       "raw": "[VISUAL:type=screenshot;target=create;what=Pleasur.AI Companion Creator mid-build with appearance, personality, backstory, and voice fields visible;selector=.create-panel;annotate=.personality-block]",
       "legacy": false
@@ -54,7 +57,7 @@
         "sub": "news-quote",
         "url": "https://foundation.mozilla.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/",
         "selector": "article h1",
-        "note": "H1 located via real Chrome session (selector 'h1.tw-h1-heading' on rendered page; original 'article h1' selector still failed because Mozilla wraps headline in DIV, not ARTICLE). Headline text ('Romantic AI Chatbots Don’t Have Your Privacy at Heart') extracted from live DOM and rendered via PIL with DejaVuSerif-Bold (1200x234, 19050 bytes) because Chrome MCP screenshot bytes cannot land on local FS in this deployment (save_to_disk writes to root-owned /paperclip/Downloads, dataURL chunked retrieval truncated by tool harness)."
+        "note": "H1 located via real Chrome session (selector 'h1.tw-h1-heading' on rendered page; original 'article h1' selector still failed because Mozilla wraps headline in DIV, not ARTICLE). Headline text ('Romantic AI Chatbots Don\u2019t Have Your Privacy at Heart') extracted from live DOM and rendered via PIL with DejaVuSerif-Bold (1200x234, 19050 bytes) because Chrome MCP screenshot bytes cannot land on local FS in this deployment (save_to_disk writes to root-owned /paperclip/Downloads, dataURL chunked retrieval truncated by tool harness)."
       },
       "raw": "[VISUAL:type=external;sub=news-quote;url=https://foundation.mozilla.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/;selector=article h1;crop=padded;what=Mozilla Privacy Not Included headline on romantic AI chatbots]",
       "legacy": false
@@ -66,9 +69,9 @@
         "type": "chart",
         "data": "research.engagement_signals_verified",
         "style": "line",
-        "title": "Character.AI monthly active users — mid-2024 peak (28M) to early 2025 (~20M)"
+        "title": "Character.AI monthly active users \u2014 mid-2024 peak (28M) to early 2025 (~20M)"
       },
-      "alt": "Character.AI monthly active users — mid-2024 peak (28M) to early 2025 (~20M)",
+      "alt": "Character.AI monthly active users \u2014 mid-2024 peak (28M) to early 2025 (~20M)",
       "status": "stripped",
       "stripped_at": "2026-05-06",
       "stripped_reason": "CRITICAL #1 from visuals-adversarial: data contradicts title (3rd point was Replika installs, different metric / different platform). Replaced by index 4 with filtered data (2 Character.AI MAU points only).",
@@ -79,7 +82,7 @@
         "style": "line",
         "data_points": 3
       },
-      "raw": "[VISUAL:type=chart;data=research.engagement_signals_verified;style=line;title=Character.AI monthly active users — mid-2024 peak (28M) to early 2025 (~20M)]",
+      "raw": "[VISUAL:type=chart;data=research.engagement_signals_verified;style=line;title=Character.AI monthly active users \u2014 mid-2024 peak (28M) to early 2025 (~20M)]",
       "legacy": false
     },
     {
@@ -89,10 +92,10 @@
         "type": "chart",
         "data": "research.engagement_signals_verified",
         "style": "line",
-        "title": "Character.AI monthly active users — mid-2024 peak (28M) to early 2025 (~20M)",
+        "title": "Character.AI monthly active users \u2014 mid-2024 peak (28M) to early 2025 (~20M)",
         "y_label": "Monthly active users (millions)"
       },
-      "alt": "Character.AI monthly active users — mid-2024 peak (28M) to early 2025 (~20M)",
+      "alt": "Character.AI monthly active users \u2014 mid-2024 peak (28M) to early 2025 (~20M)",
       "status": "captured",
       "added_at": "2026-05-06",
       "added_reason": "Re-render after CRITICAL #1 strip. research.engagement_signals_verified now contains only the two Character.AI MAU points (Replika installs moved to research.replika_installs_aux).",
@@ -102,7 +105,7 @@
         "style": "line",
         "data_points": 2
       },
-      "raw": "[VISUAL:type=chart;data=research.engagement_signals_verified;style=line;title=Character.AI monthly active users — mid-2024 peak (28M) to early 2025 (~20M);y_label=Monthly active users (millions)]",
+      "raw": "[VISUAL:type=chart;data=research.engagement_signals_verified;style=line;title=Character.AI monthly active users \u2014 mid-2024 peak (28M) to early 2025 (~20M);y_label=Monthly active users (millions)]",
       "legacy": false
     }
   ]

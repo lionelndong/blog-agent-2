@@ -77,9 +77,36 @@ Always run this skill on **Sonnet 4.6** (`claude-sonnet-4-6`) — never Opus. Dr
 
       The filename to save under is whatever the `manual-capture.md` entry suggested (or replace `TBD.png` with a sensible slug derived from the goal text).
 
-   f. **Validate the capture** with the heuristics in `templates/visual-types.md` (final URL didn't redirect to login, image dimensions sane, color variance > 0.02, file size > 5KB). If validation fails:
+   f. **Validate the capture** with the heuristics in `templates/visual-types.md` (final URL didn't redirect to login, image dimensions sane, color variance > 0.02, file size > 5KB).
+
+      **Then run content-verification on the saved bytes — this is mandatory, not optional.** The size/variance/dimension heuristics above will happily pass a Cloudflare bot-wall page (PLEAA-454: 96 KB Cloudflare interstitial sailed through every byte-level check and parked at the canonical screenshot path). Compare the saved PNG against the goal:
+
+      - **OCR the saved PNG** (`pytesseract.image_to_string(Image.open(target))` — install `pytesseract` if missing). Reject if any blocker phrase appears in the extracted text:
+        - `"Verify you are human"`, `"Checking your browser"`, `"Just a moment"`, `"Cloudflare"`, `"Ray ID"`, `"Performing security verification"`, `"Access denied"`, `"Attention Required"`, `"Please complete the security check"`, `"DDoS protection"`, `"Bot Fight"`, `"Are you a robot"`, `"reCAPTCHA"`, `"Sign in to continue"` (when the goal wasn't a sign-in page).
+      - **Goal-string positive match.** The `manual-capture.md` entry's `goal` or `alt` text usually names a UI element ("Companion Creator", "Personality slider", "Mozilla Privacy Not Included"). Confirm at least one distinctive token from the goal appears in the OCR output. If neither a blocker phrase matches nor a goal-token matches, treat as `goal_state_unreachable`.
+
+      **On any verification failure: `os.remove()` the file before returning.** Wrong-content bytes parked at the canonical path are worse than no file — they look legitimate to later passes and grep-and-publish steps. Never leave a quarantined-but-named file at `content-pipeline/images/{slug}/{filename}`. If you want to keep the bytes for forensics, move them to `content-pipeline/images/{slug}/_quarantine/{ts}-{filename}` with the failure reason in a sibling `.txt`.
+
+      If validation or content-verification fails:
       - **Interactive:** show the capture and ask "retry / accept / skip".
-      - **Unattended:** mark `failed` with the validation reason; the entry stays in `manual-capture.md` for the next interactive run.
+      - **Unattended:** mark `failed` with the structured reason from the taxonomy below; the entry stays in `manual-capture.md` for the next interactive run.
+
+      **Manifest `result.reason` taxonomy** (use exactly one — old `byte_transport_unavailable` should be reserved for FS-write failures only):
+
+      | reason | when to use |
+      | --- | --- |
+      | `byte_transport_unavailable` | save_to_disk wrote to an unreadable path; chunked dataURL retrieval truncated; legitimate FS-plumbing failure where bytes never landed locally |
+      | `bot_wall_blocked` | OCR matched a blocker phrase (Cloudflare, CAPTCHA, DDoS, "Verify you are human") |
+      | `goal_state_unreachable` | DOM read or OCR did not contain any token from the entry's goal/alt; navigation succeeded but the page isn't what we wanted |
+      | `auth_required` | redirected to login / sign-in page; cookie/session expired |
+      | `state_mismatch` | step (d) read_page contradicted the goal before capture fired |
+      | `timeout` | navigation or interaction exceeded its time budget |
+      | `upstream_4xx` / `upstream_5xx` | source returned an HTTP error before the capture stage |
+      | `validation_failed` | size/variance/dimension heuristics from `templates/visual-types.md` failed |
+      | `tool_error` | Chrome MCP tool itself errored — include the message |
+      | `other` | last resort; include free-text in `result.note` |
+
+      Pre-existing manifest entries that say `byte_transport_unavailable` for what was actually a Cloudflare/auth wall should be retro-corrected to `bot_wall_blocked` / `auth_required` so the next debugger doesn't chase an FS-perms ghost.
 
    g. **(Interactive only) Confirm.** Show the captured PNG to the user. Ask "good or retry?" Loop on retry. **Unattended:** skip this step; the validation in (f) is the gate.
 

@@ -1,0 +1,10 @@
+Quarantined 2026-05-07 by CTO (PLEAA-454).
+
+Reason: bot_wall_blocked. The 96 KB PNG saved at this path was the
+Cloudflare "Verify you are human" interstitial for pleasur.ai
+(Ray ID 9f7cd5336e140cee), not the Companion Creator the entry asked
+for. capture-visuals' first-pass attempt left this file at the
+canonical manifest path even though later passes flagged the capture
+as failed. Kept here for forensics; do not move back to the canonical
+path. Re-capture will be tried after the Cloudflare Bot Fight allowlist
+fix in PLEAA-454 lands.
