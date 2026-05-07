@@ -35,7 +35,10 @@ from typing import Any
 
 REPO = "lionelndong/blog-agent-2"
 GREPTILE_LOGIN = "greptile-apps[bot]"
-TICKET_RE = re.compile(r"\b([A-Z]{2,8})-(\d+)\b")
+# Scoped to the Pleasurai company prefix to avoid spurious cross-project lookups
+# (e.g. a branch like `fix/JIRA-456-thing` resolving to a Paperclip issue in the
+# wrong company). Widen this if/when the watcher is taught to handle more repos.
+TICKET_RE = re.compile(r"\b(PLEAA)-(\d+)\b")
 
 # State file: per-PR `last_seen_review_id` and `last_seen_comment_id` cursors.
 # Living under AGENT_HOME means it survives across heartbeats and is scoped
@@ -60,43 +63,97 @@ def _http_json(method: str, url: str, *, headers: dict[str, str], body: dict | N
         return None
 
 
+def _http_json_with_headers(
+    method: str, url: str, *, headers: dict[str, str], body: dict | None = None, timeout: int = 30
+) -> tuple[dict | list | None, dict[str, str]]:
+    """Variant of _http_json that also returns response headers — needed for
+    GitHub `Link: rel="next"` pagination."""
+    data = json.dumps(body).encode() if body is not None else None
+    req = urllib.request.Request(url, data=data, headers=headers, method=method)
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            raw = resp.read()
+            payload = json.loads(raw.decode("utf-8")) if raw else None
+            resp_headers = {k.lower(): v for k, v in resp.headers.items()}
+            return payload, resp_headers
+    except urllib.error.HTTPError as e:
+        body_txt = e.read().decode("utf-8", errors="replace")[:500]
+        sys.stderr.write(f"warning: {method} {url} -> {e.code} {body_txt}\n")
+        return None, {}
+    except urllib.error.URLError as e:
+        sys.stderr.write(f"warning: {method} {url} -> URLError {e}\n")
+        return None, {}
+
+
 # --- GitHub --------------------------------------------------------------
 
 
-def _gh(path: str) -> Any:
+_LINK_NEXT_RE = re.compile(r'<([^>]+)>;\s*rel="next"')
+
+
+def _parse_next_link(link_header: str | None) -> str | None:
+    """Extract the rel="next" URL from a GitHub Link response header."""
+    if not link_header:
+        return None
+    m = _LINK_NEXT_RE.search(link_header)
+    return m.group(1) if m else None
+
+
+def _gh_headers() -> dict[str, str]:
     token = os.environ.get("GITHUB_TOKEN")
     if not token:
         sys.exit("error: GITHUB_TOKEN required")
-    return _http_json(
-        "GET",
-        f"https://api.github.com{path}",
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Accept": "application/vnd.github+json",
-            "X-GitHub-Api-Version": "2022-11-28",
-            "User-Agent": "greptile-pr-watcher/1.0",
-        },
-    )
+    return {
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "User-Agent": "greptile-pr-watcher/1.0",
+    }
+
+
+def _gh(path: str) -> Any:
+    """Single-page GET — kept for callers that don't need pagination."""
+    return _http_json("GET", f"https://api.github.com{path}", headers=_gh_headers())
+
+
+def _gh_paginated(path: str, *, max_pages: int = 50) -> list[dict]:
+    """GET a GitHub list endpoint, following Link: rel="next" until exhausted.
+
+    Returns the concatenated list across all pages. Uses `per_page=100` by
+    default so each tick stays cheap. `max_pages` is a safety bound so a
+    runaway pagination loop can't pin the heartbeat.
+    """
+    headers = _gh_headers()
+    sep = "&" if "?" in path else "?"
+    url: str | None = f"https://api.github.com{path}{sep}per_page=100"
+    aggregate: list[dict] = []
+    pages = 0
+    while url and pages < max_pages:
+        payload, resp_headers = _http_json_with_headers("GET", url, headers=headers)
+        if not isinstance(payload, list):
+            break
+        aggregate.extend(payload)
+        url = _parse_next_link(resp_headers.get("link"))
+        pages += 1
+    if pages >= max_pages and url:
+        sys.stderr.write(f"warning: pagination cap hit ({max_pages} pages) for {path}\n")
+    return aggregate
 
 
 def list_open_prs() -> list[dict]:
-    prs = _gh(f"/repos/{REPO}/pulls?state=open&per_page=100") or []
-    return prs if isinstance(prs, list) else []
+    return _gh_paginated(f"/repos/{REPO}/pulls?state=open")
 
 
 def list_pr_reviews(pr_num: int) -> list[dict]:
-    out = _gh(f"/repos/{REPO}/pulls/{pr_num}/reviews?per_page=100") or []
-    return out if isinstance(out, list) else []
+    return _gh_paginated(f"/repos/{REPO}/pulls/{pr_num}/reviews")
 
 
 def list_pr_review_comments(pr_num: int) -> list[dict]:
-    out = _gh(f"/repos/{REPO}/pulls/{pr_num}/comments?per_page=100") or []
-    return out if isinstance(out, list) else []
+    return _gh_paginated(f"/repos/{REPO}/pulls/{pr_num}/comments")
 
 
 def list_pr_issue_comments(pr_num: int) -> list[dict]:
-    out = _gh(f"/repos/{REPO}/issues/{pr_num}/comments?per_page=100") or []
-    return out if isinstance(out, list) else []
+    return _gh_paginated(f"/repos/{REPO}/issues/{pr_num}/comments")
 
 
 # --- Paperclip -----------------------------------------------------------
@@ -276,7 +333,14 @@ def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dry-run", action="store_true", help="don't post Paperclip comments or advance cursors")
     parser.add_argument("--reset", action="store_true", help="wipe state file before running (re-bootstrap cursors at HEAD of each PR)")
-    parser.add_argument("--bootstrap", action="store_true", help="set cursors to current HEAD without posting (use on first install)")
+    parser.add_argument(
+        "--bootstrap",
+        action="store_true",
+        help=(
+            "set cursors to current HEAD without posting (use on first install). "
+            "State is always persisted when this flag is set, even with --dry-run."
+        ),
+    )
     args = parser.parse_args(argv)
 
     if args.reset and STATE_PATH.exists():
@@ -306,7 +370,13 @@ def main(argv: list[str]) -> int:
         else:
             results.append(process_pr(pr, state, dry_run=args.dry_run))
 
-    if not args.dry_run:
+    # `--bootstrap` is a setup operation: its whole purpose is to persist
+    # cursors at HEAD so the next steady-state run doesn't re-post historical
+    # comments. We persist even with `--dry-run` so an operator using
+    # `--bootstrap --dry-run` as a "safe first run" doesn't end up with an
+    # un-bootstrapped state file. `--dry-run` still suppresses Paperclip
+    # comment POSTs (those happen in `process_pr`, not here).
+    if args.bootstrap or not args.dry_run:
         save_state(state)
 
     print(json.dumps({"checked": len(prs), "results": results}, indent=2))
