@@ -5,13 +5,143 @@ Reads every stage's file from the local content-pipeline/ tree and bakes
 the contents into a single HTML file. Output renders entirely client-side
 with no external fetches — works as an offline file or on any host.
 """
+import base64
 import json
+import mimetypes
+import re
 import sys
 from pathlib import Path
 from html import escape
+from urllib.parse import unquote
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CP = REPO_ROOT / "content-pipeline"
+
+# Asset types we'll inline as data URIs. Anything else stays as-is.
+INLINE_IMAGE_EXT = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".avif"}
+
+
+def _read_data_uri(path: Path | None) -> str | None:
+    """Read a local file and return a data: URI, or None if not inlinable."""
+    if path is None or not path.exists() or not path.is_file():
+        return None
+    if path.suffix.lower() not in INLINE_IMAGE_EXT:
+        return None
+    mime, _ = mimetypes.guess_type(str(path))
+    if not mime:
+        mime = "application/octet-stream"
+    try:
+        b = path.read_bytes()
+    except Exception:
+        return None
+    # Always use base64. Keeps the alphabet to [A-Za-z0-9+/=], which is safe
+    # inside both the iframe srcdoc attribute and CSS url() values without
+    # any further escaping.
+    return f"data:{mime};base64,{base64.b64encode(b).decode('ascii')}"
+
+
+def _resolve_asset(ref: str, base_dir: Path) -> Path | None:
+    """Resolve a possibly-relative asset reference to an on-disk path.
+
+    Tries the obvious base_dir first, then falls back to the content-pipeline
+    root (markdown drafts use `images/...` paths assuming they're rendered at
+    Strapi root, not next to the file). Skips absolute URLs (http://, https://,
+    //, data:, mailto:, etc.) and fragment-only refs.
+    """
+    if not ref:
+        return None
+    r = ref.strip()
+    if r.startswith(("http://", "https://", "//", "data:", "mailto:", "tel:", "#")):
+        return None
+    # Strip query/fragment, decode percent-escapes.
+    r = unquote(r.split("#", 1)[0].split("?", 1)[0])
+    candidates = [base_dir / r, CP / r, REPO_ROOT / r]
+    for cand in candidates:
+        try:
+            p = cand.resolve()
+        except Exception:
+            continue
+        try:
+            p.relative_to(REPO_ROOT.resolve())
+        except ValueError:
+            continue
+        if p.exists() and p.is_file():
+            return p
+    return None
+
+
+_IMG_SRC_RE = re.compile(r'(<img\b[^>]*?\bsrc\s*=\s*)(["\'])([^"\']+)\2', re.IGNORECASE)
+_LINK_CSS_RE = re.compile(
+    r'<link\b[^>]*\brel\s*=\s*["\']stylesheet["\'][^>]*\bhref\s*=\s*["\']([^"\']+)["\'][^>]*/?>',
+    re.IGNORECASE,
+)
+_MD_IMG_RE = re.compile(r"(!\[[^\]]*\]\()([^)\s]+)(\s*(?:\"[^\"]*\")?\s*\))")
+
+
+def inline_html_assets(html: str, base_dir: Path) -> str:
+    """Inline <img src> images as data URIs, and inline <link rel=stylesheet>
+    CSS files as <style> blocks, so the bundled iframe srcdoc can render
+    everything without any external fetches.
+    """
+    def repl_img(m):
+        prefix, quote, src = m.group(1), m.group(2), m.group(3)
+        path = _resolve_asset(src, base_dir)
+        if path is None:
+            return m.group(0)
+        data_uri = _read_data_uri(path)
+        if not data_uri:
+            return m.group(0)
+        return f"{prefix}{quote}{data_uri}{quote}"
+
+    html = _IMG_SRC_RE.sub(repl_img, html)
+
+    def repl_css(m):
+        href = m.group(1)
+        path = _resolve_asset(href, base_dir)
+        if path is None or not path.exists():
+            return m.group(0)
+        try:
+            css = path.read_text(encoding="utf-8")
+        except Exception:
+            return m.group(0)
+        # Recurse into the CSS for url(...) image refs so background-image works.
+        css = _inline_css_urls(css, path.parent)
+        return f"<style data-inlined-from=\"{escape(href)}\">{css}</style>"
+
+    html = _LINK_CSS_RE.sub(repl_css, html)
+    return html
+
+
+_CSS_URL_RE = re.compile(r"url\(\s*(['\"]?)([^'\")]+)\1\s*\)")
+
+
+def _inline_css_urls(css: str, base_dir: Path) -> str:
+    def repl(m):
+        ref = m.group(2)
+        path = _resolve_asset(ref, base_dir)
+        if path is None:
+            return m.group(0)
+        data_uri = _read_data_uri(path)
+        if not data_uri:
+            return m.group(0)
+        return f"url({data_uri})"
+
+    return _CSS_URL_RE.sub(repl, css)
+
+
+def inline_markdown_assets(md: str, base_dir: Path) -> str:
+    """Rewrite ![alt](relative/path.png) to ![alt](data:...)."""
+    def repl(m):
+        head, src, tail = m.group(1), m.group(2), m.group(3)
+        path = _resolve_asset(src, base_dir)
+        if path is None:
+            return m.group(0)
+        data_uri = _read_data_uri(path)
+        if not data_uri:
+            return m.group(0)
+        return f"{head}{data_uri}{tail}"
+
+    return _MD_IMG_RE.sub(repl, md)
 
 STAGES = [
     {
@@ -99,6 +229,15 @@ def load_stage(slug, stage):
         if p.exists():
             try:
                 txt = p.read_text(encoding="utf-8")
+                # Iframe srcdoc has no base URL and the docs/ viewer lives in a
+                # different directory than content-pipeline/, so any relative
+                # <img src> / <link href> / ![](path) breaks. Inline assets so
+                # the bundled viewer is fully self-contained — matches this
+                # script's stated "offline bundle, no external fetches" goal.
+                if kind == "html":
+                    txt = inline_html_assets(txt, p.parent)
+                elif kind == "md":
+                    txt = inline_markdown_assets(txt, p.parent)
                 out.append({"label": label, "path": rel, "kind": kind, "ok": True, "content": txt})
             except Exception as e:
                 out.append({"label": label, "path": rel, "kind": kind, "ok": False, "content": f"read error: {e}"})
