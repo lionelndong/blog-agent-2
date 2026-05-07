@@ -12,24 +12,22 @@
         "annotate": ".personality-block"
       },
       "alt": "Pleasur.AI Companion Creator mid-build with appearance, personality, backstory, and voice fields visible",
-      "status": "stripped",
-      "stripped_at": "2026-05-06",
-      "stripped_reason": "HIGH from visuals-adversarial: byte_transport_unavailable in this deployment + raw placeholder leaked in cited draft (env limitation, not editorial)",
-      "stripped_finding_id": "visuals-adversarial-HIGH-section-2",
+      "status": "captured",
+      "captured_at": "2026-05-07",
       "result": {
-        "status": "failed",
-        "reason": "bot_wall_blocked",
-        "page_title": "Create Your AI Character | Pleasur.ai",
-        "url": "https://pleasur.ai/create",
-        "final_url": "https://pleasur.ai/create",
-        "auth_used": true,
-        "claude_in_chrome_attempted": true,
-        "wizard_state_reached": "Personality step (step 5/6) with Character name 'Aria' filled, Description filled, Personality Details panel (Voice/Personality/Occupation/Relationship/Hobby/Fetish) and Advanced Details > Definition (backstory) all visible \u2014 perfect goal-state",
-        "blocker": "Chrome MCP save_to_disk writes to /paperclip/Downloads (root-owned, mode 700, unreadable by node user). Screenshot tool returns no save path in tool result. DOM serialization to data:URL via SVG/foreignObject failed at 525KB (image load error). dataURL chunked retrieval through javascript_tool truncated by harness output cap.",
-        "hint": "Either: (1) chmod 755 /paperclip/Downloads and configure Chrome to download there, (2) run Stage 9 from a Claude session running inside the same root-owned namespace, or (3) extend Chrome MCP to return the save_to_disk path so the local skill can read+copy. Until then, /capture-visuals cannot land Pleasur.ai bytes locally even though the wizard is fully reachable post-auth.",
-        "reason_corrected_at": "2026-05-07",
-        "reason_corrected_note": "Originally recorded as byte_transport_unavailable; PLEAA-454 diagnosis confirmed the actual block was Cloudflare Bot Fight on pleasur.ai. Saved bytes were the \"Verify you are human\" interstitial (Ray ID 9f7cd5336e140cee), now quarantined under _quarantine/.",
-        "quarantined_path": "_quarantine/2026-05-06T2236-bot_wall_blocked-screenshot-1-pleasur-ai-companion-creator-m.png"
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-experience/screenshot-1-pleasur-ai-companion-creator-m.png",
+        "capture_method": "patchright_headless",
+        "dimensions": "2880x1800",
+        "file_size_bytes": 215816,
+        "wizard_state": "Personality step (step 5/6) \u2014 Personality Details panel (Voice/Personality/Occupation/Relationship/Hobby/Fetish) and Advanced Details > Definition (backstory) all visible",
+        "content_verification": "PASS \u2014 variance=711.3, no bot-wall strings, goal tokens: Personality+Voice+Definition visible",
+        "capture_note": "Captured via patchright headless Chromium v145/1208 after Cloudflare Bot Fight Mode bypass (WAF custom rule PLEAA-454). No auth required \u2014 /create accessible without login after age-gate dismiss. Previous failure was Cloudflare interstitial now in _quarantine/.",
+        "previous_result": {
+          "status": "failed",
+          "reason": "bot_wall_blocked",
+          "quarantined_path": "_quarantine/2026-05-06T2236-bot_wall_blocked-screenshot-1-pleasur-ai-companion-creator-m.png"
+        }
       },
       "raw": "[VISUAL:type=screenshot;target=create;what=Pleasur.AI Companion Creator mid-build with appearance, personality, backstory, and voice fields visible;selector=.create-panel;annotate=.personality-block]",
       "legacy": false
