@@ -24,6 +24,8 @@ The person they've chosen is their entire world. That's obviously dangerous in r
 
 That distinction matters. Yandere is a fictional trope, not a relationship model. Its emotional power comes from the same place as horror films or tragedy. It's safe to feel the tension because you're watching, not living it.
 
+![Concept diagram of the yandere personality compound. Two labeled source boxes on the left: top box "Yanderu (病む) — mentally ill / sick" with a jagged cracked border](images/yandere-ai-girlfriend-simulator/image-1-concept-diagram-of-the-yandere.png)
+
 ---
 
 ## The Original Game: Yandere AI Girlfriend Simulator
@@ -52,6 +54,8 @@ The game has [970+ comments on itch.io and 286 ratings (3.8/5)](https://helixngc
 
 It became a minor TikTok phenomenon when clips of people trying and failing to reason their way out of the room started circulating. Search volume for the phrase now exceeds what the active player base alone would generate.
 
+![Monthly searches: yandere AI girlfriend simulator cluster (Semrush 2026)](images/yandere-ai-girlfriend-simulator/chart-2-monthly-searches-yandere-ai-gi.png)
+
 ![Yandere AI Girlfriend Simulator on itch.io by DGSpitzer](../images/yandere-ai-girlfriend-simulator/external-1-external-visual.png)
 
 ---
@@ -65,6 +69,10 @@ The practical answer to "should I play the free game or buy AI2U?" is: start wit
 If you enjoy the format and want more variety without the API key setup, buy AI2U. The Steam version handles its own AI calls with no OpenAI key required, and you get higher production values including optional voice acting.
 
 The reception has been consistently positive. AI2U holds [Very Positive status on Steam](https://store.steampowered.com/app/2880730/AI2U_With_You_Til_The_End/): 89% positive across 1,468 reviews, with recent reviews stable at 83% positive. For a game in a niche this small, that's strong signal.
+
+![AI2U on Steam — Very Positive reviews, 89% positive across 1468 ratings](images/yandere-ai-girlfriend-simulator/external-1-ai2u-on-steam-very-positive-re.png)
+
+![Player engagement: itch.io vs Steam review volume](images/yandere-ai-girlfriend-simulator/chart-3-player-engagement-itch-io-vs-s.png)
 
 Worth repeating: both versions are *games*, not companion apps. The AI characters don't remember you between sessions. The relationship doesn't build over time. You're trying to escape a puzzle, not build a bond. That's a genuinely different experience from what companion apps offer.
 
@@ -86,6 +94,8 @@ The quality difference between apps comes down to two things: how well the perso
 
 [MyAnima](https://myanima.ai/yandere-ai-girlfriend) markets itself using this exact phrase and ranks directly for it. A free tier is available, with possessiveness and jealousy framed as core features. The free version is limited; the service doesn't disclose premium pricing upfront.
 
+![MyAnima yandere AI girlfriend page — free-tier companion app with possessive personality](images/yandere-ai-girlfriend-simulator/external-2-myanima-yandere-ai-girlfriend.png)
+
 Candy AI ($9/month) has strong personality customization and is the most-cited option across aggregator lists for yandere-style companions.
 
 SillyTavern's character card community has multiple yandere-persona cards available for download — free but requires technical setup. See our [Tavern AI and SillyTavern guide](https://www.pleasur.ai/blog/tavern-ai-review-2026) if that route interests you.
@@ -93,6 +103,8 @@ SillyTavern's character card community has multiple yandere-persona cards availa
 [Pleasur.AI](https://pleasur.ai/create) takes a different approach. The Companion Creator at pleasur.ai/create lets you build the character from scratch: personality field, backstory, emotional style, everything.
 
 If you want a yandere-archetype companion, you write it in directly: "obsessive devotion, possessive and jealous, yandere emotional style." The character persists across sessions with full chat history, so the dynamic builds rather than resetting every time you open the app. You're describing the character you want, not selecting from a preset menu.
+
+![Pleasur.AI Companion Creator — personality field where you write the yandere archetype directly](images/yandere-ai-girlfriend-simulator/screenshot-5-pleasur-ai-companion-creator-p.png)
 
 | App | What it is | Price |
 |---|---|---|
@@ -111,6 +123,8 @@ For a broader look at the companion app category beyond yandere specifically, ou
 The yandere fantasy — whether in a game or a companion app — keeps showing up because it taps into something specific: the appeal of being someone's entire world.
 
 Researchers studying parasocial relationships (the bonds people form with fictional characters or one-sided media figures) have noted that part of what makes intense fictional attachment appealing is the absence of the conditional elements that make real relationships anxious — [individuals with higher attachment anxiety, in particular, seek out parasocial relationships because they offer emotional safety without the risks inherent in mutual relationships](https://pmc.ncbi.nlm.nih.gov/articles/PMC11002006/).
+
+![Concept diagram comparing two relationship dynamics side by side. Left column labeled "Real Relationship" with three sub-items listed vertically: "Divided attention," "Risk of rejection," "Conditional care." Right column labeled "Yandere Fantasy (fiction)" with three matching sub-items: "Total devotion," "No risk of abandonment," "Unconditional intensity." A horizontal label beneath both columns reads "Same emotional need — opposite risk profile." Clean editorial illustration, white background, sans-serif labels, no people depicted, brand-neutral colors.](images/yandere-ai-girlfriend-simulator/image-7-concept-diagram-comparing-two.png)
 
 A yandere character has no competing priorities. She's not distracted. She won't leave. The attachment is total. That's obviously dystopian at any intensity in reality, and genuinely compelling to imagine in fiction.
 

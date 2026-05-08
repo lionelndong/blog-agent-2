@@ -2,7 +2,7 @@
   "slug": "yandere-ai-girlfriend-simulator",
   "visuals": [
     {
-      "index": 1,
+      "index": 0,
       "type": "external",
       "attrs": {
         "type": "external",
@@ -11,28 +11,179 @@
         "crop": "padded",
         "alt": "Yandere AI Girlfriend Simulator on itch.io by DGSpitzer"
       },
-      "alt": "external visual",
+      "alt": "itch.io game header",
       "status": "captured",
       "result": {
         "status": "captured",
-        "reason": "bounding_box_failed",
-        "error": "Locator.bounding_box: Timeout 30000ms exceeded.\nCall log:\n  2 \u00d7 waiting for locator(\".game_summary\").first\n",
+        "path": "content-pipeline/images/yandere-ai-girlfriend-simulator/external-1-external-visual.png",
         "url": "https://helixngc7293.itch.io/yandere-ai-girlfriend-simulator",
-        "sub": "external",
-        "fallback": {
-          "method": "claude_in_chrome",
-          "skill": "/capture-visuals",
-          "url": "https://helixngc7293.itch.io/yandere-ai-girlfriend-simulator",
-          "selector": ".game_summary",
-          "what": null,
-          "sub": null
-        },
-        "hint": "Playwright blocked (bounding_box_failed). Run `/capture-visuals yandere-ai-girlfriend-simulator` to retry this entry via Claude-in-Chrome (real Chrome session bypasses the wall). The skill picks up `failed` external entries automatically in unattended mode.",
-        "file": "external-1-external-visual.png",
         "method": "patchright_headless",
-        "note": ".game_summary selector not found; captured game header top crop (0,0,1440,300) instead"
+        "note": "Game header top crop (0,0,1440,300); captured in prior run"
       },
-      "raw": "[VISUAL:type=external;url=https://helixngc7293.itch.io/yandere-ai-girlfriend-simulator;selector=.game_summary;crop=padded;alt=Yandere AI Girlfriend Simulator on itch.io by DGSpitzer]",
+      "raw": "legacy markdown image (pre-density run)",
+      "legacy": true
+    },
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Concept diagram of the yandere personality compound. Two labeled source boxes on the left: top box \"Yanderu (病む) — mentally ill / sick\" with a jagged cracked border; bottom box \"Deredere (デレデレ) — lovestruck / affectionate\" with a small heart icon. Arrows from each box merge into a central circle labeled \"Yandere.\" From the center circle two output branches go right: upper branch labeled \"Sweet & devoted\" in a soft warm color; lower branch labeled \"Possessive & dangerous\" in a sharp contrasting color. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "concept-diagram-of-the-yandere",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/yandere-ai-girlfriend-simulator/image-1-concept-diagram-of-the-yandere.png",
+        "method": "replicate_gpt_image_2"
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Concept diagram of the yandere personality compound...;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.keyword_cluster_volumes",
+        "style": "bar",
+        "title": "Monthly searches: yandere AI girlfriend simulator cluster (Semrush 2026)",
+        "x_label": "Search term",
+        "y_label": "Monthly searches"
+      },
+      "alt": "monthly-searches-yandere-ai-gi",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/yandere-ai-girlfriend-simulator/chart-2-monthly-searches-yandere-ai-gi.png",
+        "style": "bar",
+        "method": "matplotlib"
+      },
+      "raw": "[VISUAL:type=chart;data=research.keyword_cluster_volumes;style=bar;title=Monthly searches: yandere AI girlfriend simulator cluster (Semrush 2026);x_label=Search term;y_label=Monthly searches]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "competitor-ui",
+        "url": "https://store.steampowered.com/app/2880730/AI2U_With_You_Til_The_End/",
+        "crop": "0,0,1440,420",
+        "what": "AI2U on Steam — Very Positive reviews, 89% positive across 1468 ratings"
+      },
+      "alt": "AI2U on Steam — Very Positive reviews, 89% positive across 1468 ratings",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/yandere-ai-girlfriend-simulator/external-1-ai2u-on-steam-very-positive-re.png",
+        "url": "https://store.steampowered.com/app/2880730/AI2U_With_You_Til_The_End/",
+        "final_url": "https://store.steampowered.com/app/2880730/AI2U_With_You_Til_The_End/",
+        "auth_used": false,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 840,
+          "stddev_normalized": 0.2292,
+          "bytes": 864613
+        },
+        "sub": "competitor-ui"
+      },
+      "raw": "[VISUAL:type=external;sub=competitor-ui;url=https://store.steampowered.com/app/2880730/AI2U_With_You_Til_The_End/;crop=0,0,1440,420;what=AI2U on Steam — Very Positive reviews, 89% positive across 1468 ratings]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "competitor-ui",
+        "url": "https://myanima.ai/yandere-ai-girlfriend",
+        "crop": "0,0,1440,600",
+        "what": "MyAnima yandere AI girlfriend page — free-tier companion app with possessive personality"
+      },
+      "alt": "MyAnima yandere AI girlfriend page — free-tier companion app with possessive personality",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/yandere-ai-girlfriend-simulator/external-2-myanima-yandere-ai-girlfriend.png",
+        "url": "https://myanima.ai/yandere-ai-girlfriend",
+        "final_url": "https://myanima.ai/yandere-ai-girlfriend",
+        "auth_used": false,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1200,
+          "stddev_normalized": 0.2628,
+          "bytes": 749000
+        },
+        "sub": "competitor-ui"
+      },
+      "raw": "[VISUAL:type=external;sub=competitor-ui;url=https://myanima.ai/yandere-ai-girlfriend;crop=0,0,1440,600;what=MyAnima yandere AI girlfriend page — free-tier companion app with possessive personality]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "url": "https://pleasur.ai/create",
+        "what": "Pleasur.AI Companion Creator — personality field where you write the yandere archetype directly",
+        "crop": "0,0,1440,720"
+      },
+      "alt": "Pleasur.AI Companion Creator — personality field where you write the yandere archetype directly",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/yandere-ai-girlfriend-simulator/screenshot-5-pleasur-ai-companion-creator-p.png",
+        "method": "patchright_headless"
+      },
+      "raw": "[VISUAL:type=screenshot;url=https://pleasur.ai/create;what=Pleasur.AI Companion Creator — personality field where you write the yandere archetype directly;crop=0,0,1440,720]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "{\"itch.io ratings\": 286, \"itch.io comments\": 970, \"Steam reviews\": 1468}",
+        "style": "bar",
+        "title": "Player engagement: itch.io vs Steam review volume",
+        "x_label": "Metric",
+        "y_label": "Count"
+      },
+      "alt": "Player engagement: itch.io vs Steam review volume",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/yandere-ai-girlfriend-simulator/chart-3-player-engagement-itch-io-vs-s.png",
+        "style": "bar",
+        "data_points": 3
+      },
+      "raw": "[VISUAL:type=chart;data={\"itch.io ratings\": 286, \"itch.io comments\": 970, \"Steam reviews\": 1468};style=bar;title=Player engagement: itch.io vs Steam review volume;x_label=Metric;y_label=Count]",
+      "legacy": false
+    },
+    {
+      "index": 7,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Concept diagram comparing two relationship dynamics side by side. Left column labeled \"Real Relationship\" with three sub-items listed vertically: \"Divided attention,\" \"Risk of rejection,\" \"Conditional care.\" Right column labeled \"Yandere Fantasy (fiction)\" with three matching sub-items: \"Total devotion,\" \"No risk of abandonment,\" \"Unconditional intensity.\" A horizontal label beneath both columns reads \"Same emotional need — opposite risk profile.\" Clean editorial illustration, white background, sans-serif labels, no people depicted, brand-neutral colors.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "concept-diagram-comparing-two",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/yandere-ai-girlfriend-simulator/image-7-concept-diagram-comparing-two.png",
+        "method": "replicate_gpt_image_2"
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Concept diagram comparing two relationship dynamics...;style=illustration;safety=sfw]",
       "legacy": false
     }
   ]
