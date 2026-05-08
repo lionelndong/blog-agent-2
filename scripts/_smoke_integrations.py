@@ -304,6 +304,57 @@ def check_strapi_update_guard() -> str:
         return f"STRAPI_UPDATE_GUARD FAIL — {type(e).__name__}: {e}"
 
 
+def check_category_resolver() -> str:
+    """PLEAA-524: ``resolve_category_name`` must (1) honour an explicit
+    ``category:`` line in the cited draft, (2) fall back to a slug heuristic,
+    and (3) drop unknown names back to the heuristic rather than passing them
+    through to Strapi (where they'd silently fail to resolve and the article
+    would publish with no category).
+    """
+    try:
+        import importlib.util
+        from pathlib import Path
+
+        repo_root = Path(__file__).resolve().parents[1]
+        target = (
+            repo_root
+            / ".claude"
+            / "skills"
+            / "format-for-publish"
+            / "scripts"
+            / "format_for_strapi.py"
+        )
+        spec = importlib.util.spec_from_file_location("format_for_strapi", target)
+        if spec is None or spec.loader is None:
+            return f"CATEGORY_RESOLVER FAIL — cannot load {target}"
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+
+        cases: list[tuple[str, str, str, str]] = [
+            # (label, slug, raw_md, expected_category)
+            ("frontmatter wins",     "ai-girlfriend-foo",  "category: Reviews\n# Title\nbody",  "Reviews"),
+            ("editor-notes section", "anything",           "# T\n\n## Editor notes\n\ncategory: Guides\n", "Guides"),
+            ("review heuristic",     "muah-ai-review",     "# Title\nbody",                     "Reviews"),
+            ("guide heuristic",      "ai-chatbot-app-guide-2026", "# Title\nbody",              "Guides"),
+            ("uncensored heuristic", "best-uncensored-ai-chatbot-free", "# Title\nbody",        "Uncensored"),
+            ("nofilter heuristic",   "ai-chatbot-no-filter-2026", "# Title\nbody",              "Uncensored"),
+            ("default companions",   "ai-girlfriend-experience", "# Title\nbody",               "AI Companions"),
+            ("unknown override drops to heuristic",
+                                     "muah-ai-review",     "category: BogusCategory\n# T\nbody", "Reviews"),
+        ]
+        problems: list[str] = []
+        for label, slug, md, expected in cases:
+            got = mod.resolve_category_name(slug, md)
+            if got != expected:
+                problems.append(f"{label}: slug={slug!r} expected={expected!r} got={got!r}")
+
+        if problems:
+            return "CATEGORY_RESOLVER FAIL — " + "; ".join(problems)
+        return f"CATEGORY_RESOLVER OK — {len(cases)} cases, known={sorted(mod.CATEGORY_KNOWN)}"
+    except Exception as e:
+        return f"CATEGORY_RESOLVER FAIL — {type(e).__name__}: {e}"
+
+
 CHECKS = {
     "openrouter": check_openrouter,
     "replicate": check_replicate,
@@ -311,6 +362,7 @@ CHECKS = {
     "strapi": check_strapi,
     "strapi_v5_shape": check_strapi_v5_payload_shape,
     "strapi_update_guard": check_strapi_update_guard,
+    "category_resolver": check_category_resolver,
     "github": check_github,
 }
 
@@ -319,7 +371,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--targets",
-        default="openrouter,replicate,browser_use,github,strapi_v5_shape,strapi_update_guard",
+        default="openrouter,replicate,browser_use,github,strapi_v5_shape,strapi_update_guard,category_resolver",
         help="comma-separated list of integrations to test (default excludes strapi network check)",
     )
     args = parser.parse_args()

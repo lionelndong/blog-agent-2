@@ -36,6 +36,72 @@ INDEX_HTML = DOCS_DIR / "index.html"
 IMAGE_REF_RE = re.compile(r"!\[([^\]]*)\]\((images/[^)]+\.(?:png|jpg|jpeg|webp|gif))\)")
 QC_VERDICT_RE = re.compile(r"\b(PASS|BORDERLINE|FAIL)\b", re.IGNORECASE)
 
+# PLEAA-524: editorial category taxonomy. Strapi is the source of truth for the
+# `name` strings — keep this list aligned with /api/categories. The publisher
+# pipeline routes a cited draft to a category via three signals (in order):
+#
+#   1. An explicit `category:` line in the cited draft's frontmatter or
+#      `## Editor notes` block. Wins outright when present.
+#   2. A slug-pattern heuristic — `*-review*` → Reviews, `*-guide*` → Guides,
+#      keyword markers like `uncensored`/`no-filter`/`nsfw`/`dirty` → Uncensored.
+#   3. Default: AI Companions (the brand-categorical bucket).
+#
+# Out of scope here (PLEAA-524): tag taxonomy, multi-category posts, or the
+# auto-creation of new categories on Strapi when an unknown name is referenced —
+# the resolver in this file silently omits `category` for unknown names rather
+# than POSTing a new category. Operators add categories in the Strapi admin and
+# the next publish picks them up via the existing /api/categories cache.
+CATEGORY_DEFAULT = "AI Companions"
+CATEGORY_KNOWN = {"AI Companions", "Reviews", "Guides", "Uncensored"}
+
+# Regex catching `category: <name>` either in YAML-style frontmatter at the top
+# of the draft or inside an `## Editor notes` block. Multi-word names are fine
+# (the value is everything up to end-of-line, then trimmed).
+CATEGORY_FRONTMATTER_RE = re.compile(
+    r"^\s*category\s*:\s*(.+?)\s*$",
+    re.MULTILINE | re.IGNORECASE,
+)
+
+
+def _slug_to_category_heuristic(slug: str) -> str:
+    """Pick a category for a slug when no explicit override is present.
+
+    Lower-cased slug matched in priority order: review → Reviews,
+    uncensored / no-filter / nsfw / dirty → Uncensored, guide → Guides,
+    everything else → AI Companions. Heuristic is deliberately conservative;
+    operators override via `category:` in the draft when this gets it wrong.
+    """
+    s = slug.lower()
+    if "review" in s:
+        return "Reviews"
+    if any(tok in s for tok in ("uncensored", "no-filter", "nofilter", "nsfw", "dirty")):
+        return "Uncensored"
+    if "guide" in s or s.startswith("how-to-") or s.startswith("how-"):
+        return "Guides"
+    return CATEGORY_DEFAULT
+
+
+def resolve_category_name(slug: str, raw_md: str) -> str:
+    """Return the human-readable category name to send to Strapi for `slug`.
+
+    Reads an explicit `category: <name>` declaration anywhere in the raw cited
+    draft (frontmatter or editor-notes section) before falling back to the
+    slug-pattern heuristic. The result MUST be one of CATEGORY_KNOWN — anything
+    else is logged and replaced with the heuristic so a typo can't silently
+    publish under an unknown bucket. Strapi-side resolution still validates by
+    fetching /api/categories; an unknown name is dropped from the payload.
+    """
+    m = CATEGORY_FRONTMATTER_RE.search(raw_md)
+    if m:
+        candidate = m.group(1).strip()
+        if candidate in CATEGORY_KNOWN:
+            return candidate
+        sys.stderr.write(
+            f"warning: cited draft requested unknown category {candidate!r}; "
+            f"falling back to slug heuristic. Known: {sorted(CATEGORY_KNOWN)}\n"
+        )
+    return _slug_to_category_heuristic(slug)
+
 
 def quality_precondition(slug: str) -> tuple[bool, str]:
     """Read content-pipeline/quality-checks/{slug}.md verdict line.
@@ -798,11 +864,18 @@ def main() -> None:
 
     published_at = datetime.now(timezone.utc).isoformat() if auto_publish else None
     cover_image_url = extract_cover_image_url(body, base_url)
+    # PLEAA-524: resolve category from the raw cited draft (frontmatter wins,
+    # slug-heuristic fallback). `raw` carries the editor-notes block intact —
+    # we resolve before strip_editor_notes() above already ran (`raw` is
+    # untouched), but downstream `body` is already cleaned, so reach for `raw`.
+    category_name = resolve_category_name(args.slug, raw)
+    print(f"category resolved: {category_name}")
     payload = build_payload(
         args.slug,
         title,
         body,
         published_at=published_at,
+        category_name=category_name,
         cover_image_url=cover_image_url,
     )
     out_dir = write_outputs(args.slug, body, payload)
