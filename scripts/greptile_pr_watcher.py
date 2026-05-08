@@ -200,6 +200,16 @@ def post_paperclip_comment(issue_id: str, body: str) -> str | None:
     return out.get("id") if isinstance(out, dict) else None
 
 
+def mark_self_done() -> None:
+    """PATCH the executing Paperclip issue to done so it doesn't linger in_progress
+    between webhook deliveries and trip long_active_duration productivity reviews.
+    Idempotent — safe to call even when no Greptile findings were posted."""
+    task_id = os.environ.get("PAPERCLIP_TASK_ID")
+    if not task_id:
+        return
+    _pc("PATCH", f"/api/issues/{task_id}", {"status": "done"})
+
+
 # --- State ----------------------------------------------------------------
 
 
@@ -385,6 +395,10 @@ def main(argv: list[str]) -> int:
         save_state(state)
 
     print(json.dumps({"checked": len(prs), "results": results}, indent=2))
+
+    if not args.dry_run:
+        mark_self_done()
+
     return 0
 
 
