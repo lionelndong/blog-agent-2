@@ -5,7 +5,8 @@
       "revisions_used": 1
     },
     "visuals": {
-      "revisions_used": 1
+      "revisions_used": 0,
+      "pleaa_500_soak_test_reset": "2026-05-07: revision budget reset for soak test of new rules per PLEAA-500"
     }
   }
 }

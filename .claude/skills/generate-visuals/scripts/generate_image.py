@@ -86,29 +86,55 @@ def _run_replicate(model: str, prompt: str, timeout_s: int = 180) -> dict[str, A
     return {"status": "ok", "image_url": image_url, "model": model}
 
 
-def _extract_image_url(output: Any) -> str | None:
-    """Replicate's output shape varies by model. Handle the common cases."""
-    if isinstance(output, str) and output.startswith("http"):
-        return output
-    if hasattr(output, "url"):
+def _coerce_url(item: Any) -> str | None:
+    """Pull a URL string out of a single Replicate output item.
+
+    Handles plain string URLs and the modern `replicate.helpers.FileOutput`
+    object (which exposes `.url` as a string attribute, *not* a callable).
+    Older SDKs exposed `.url()` as a method, so try the callable path as a
+    fallback for forward/backward compatibility.
+    """
+    if isinstance(item, str) and item.startswith("http"):
+        return item
+    # FileOutput.url is a string attribute on current SDKs; older SDKs had it
+    # as a method. Try the attribute first, then call as a fallback.
+    url_attr = getattr(item, "url", None)
+    if isinstance(url_attr, str) and url_attr.startswith("http"):
+        return url_attr
+    if callable(url_attr):
         try:
-            return output.url()
+            value = url_attr()
+            if isinstance(value, str) and value.startswith("http"):
+                return value
         except Exception:
             pass
+    # FileOutput stringifies to its URL on current SDKs. Guard against a
+    # custom subclass that raises in __str__ — return None gracefully rather
+    # than letting the exception escape _extract_image_url.
+    try:
+        text = str(item) if item is not None else ""
+    except Exception:
+        return None
+    if text.startswith("http"):
+        return text
+    return None
+
+
+def _extract_image_url(output: Any) -> str | None:
+    """Replicate's output shape varies by model. Handle the common cases."""
+    direct = _coerce_url(output)
+    if direct:
+        return direct
     if isinstance(output, list) and output:
-        first = output[0]
-        if isinstance(first, str) and first.startswith("http"):
+        first = _coerce_url(output[0])
+        if first:
             return first
-        if hasattr(first, "url"):
-            try:
-                return first.url()
-            except Exception:
-                pass
     if isinstance(output, dict):
         for key in ("image", "url", "output"):
             value = output.get(key)
-            if isinstance(value, str) and value.startswith("http"):
-                return value
+            url = _coerce_url(value)
+            if url:
+                return url
     return None
 
 

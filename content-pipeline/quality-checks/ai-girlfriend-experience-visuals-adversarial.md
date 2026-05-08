@@ -1,173 +1,164 @@
-# Visuals Adversarial — ai-girlfriend-experience (re-run after revision)
+# Visuals Adversarial — ai-girlfriend-experience (post-PLEAA-500 second pass)
 
-Second adversarial pass on the visuals manifest + cited draft after the
-revision pass (1/1 budget consumed) addressed the prior FAIL's two
-CRITICAL findings and one HIGH. Verifies the strip+add ops actually landed
-in the cited draft and that the resulting article — now carrying a single
-visual across ~2,600 words — still defends its visual budget under the
-9-step rule.
+Second adversarial pass after the prior FAIL. The §5 paraphrased
+gpt-image-2 checklist (prior CRITICAL) was stripped and replaced with an
+inline 5×4 markdown `table`. A new §3 `screenshot` of `pleasur.ai/generate`
+was added. Verifying the prior CRITICAL is resolved and the additions hold.
 
-The article ships with one visual: the §4 Character.AI MAU chart at
-`content-pipeline/images/ai-girlfriend-experience/chart-3-character-ai-monthly-active-us.png`.
-§§1, 2, 3, 5 carry no visual. The two prior decorative/wrong-data assets
-were stripped; the prior raw §2 `[VISUAL:...]` leak was stripped (and
-should ideally be re-captured, but env-blocked in this deployment).
+## Computed inputs
 
----
+- **Word count (cited draft, prose only — alt-text excluded):** ~2,600 words.
+  `wc -w` reports 3,400 because alt-text inside `![alt](path)` is dense.
+  Per the brief, prose-words density-band controls.
+- **Density band:** 2,000–3,000 words → **target 10, acceptable range 8–13.**
+- **Captured visuals:** 11 (10 PNG assets + 1 inline `table` per manifest
+  index 11; indices 100–103 are stripped legacy entries).
+- **Distinct types:** 5 — `image` (6), `screenshot` (2), `external` (1),
+  `chart` (1), `table` (1).
+- **Type diversity target (≥3):** met, with comfortable margin.
+- **Density vs target:** 11 / 10 — at target, +1.
+- **manual-capture.md:** "No manual visuals required." — clean.
 
-## Prior CRITICAL #1 (chart wrong data) — fixed
+## Prior CRITICAL verification
 
-**Verification.** Manifest entry index 3 (`status=stripped`,
-`stripped_finding_id=visuals-adversarial-CRITICAL-1-section-4`) carries
-the original three-point chart (28 / 20 / 10) marker. New entry index 4
-(`status=captured`, `data_points=2`) is the re-rendered replacement.
-The on-disk PNG (`chart-3-character-ai-monthly-active-us.png`, mtime
-2026-05-06 22:57, 65,077 bytes vs the prior asset's smaller bytes)
-plots exactly two points: `Mid-2024 peak (28M MAU)` → `Early 2025
-(~20M MAU)`. Title and Y-axis label both name "Character.AI monthly
-active users (millions)". Replika installs has been moved out of
-`research.engagement_signals_verified` into `research.replika_installs_aux`,
-with a `_meta` note explicitly forbidding the two from being plotted
-together. Chart now matches the prose claim ("eight-million-user
-shrinkage … 28M → ~20M") in one glance — the inverted-pyramid
-takeaway that principle #4 asks for.
+The prior CRITICAL was that gpt-image-2 paraphrased the §5 five-test
+checklist into generic chatbot-eval categories (Clarity / Completeness /
+Accuracy / Reasoning / Fit & Tone) — actively misleading readers. The
+revision strips that asset (manifest index 102, `status=stripped`) and
+substitutes an inline markdown `table` (manifest index 11) at draft lines
+136–142. The table preserves the actual test names verbatim:
+**Fictional-dog callback**, **Contradiction test**, **"I'm here for you"
+count**, **Privacy-policy 2-minute read**, **Modality-stitch test** — same
+names the prose uses below it, with a "what you do / what a pass looks like"
+column pair. `table` is the canonical type for an N×M comparison
+(visual-types.md decision step 3); no asset file is expected. **Prior
+CRITICAL resolved.**
 
-## Prior CRITICAL #2 (Mozilla PIL-rendered fake) — fixed
+## Six-question framework
 
-**Verification.** Manifest entry index 2 (`status=stripped`,
-`stripped_finding_id=visuals-adversarial-CRITICAL-2-section-3`). Cited
-draft contains no `![...](images/...mozilla...)` image line in §3 (Act
-2). The Mozilla `Privacy Not Included` claim still lands on the prose
-load — three statistics (90% / 73% / 54%) each linked to the same
-primary URL on lines 75 of the cited draft, plus a fourth link in §5
-test #4 for cross-checking. The fabricated PIL render is no longer in
-the publishable file; only the data the prose actually quotes remains.
-The PNG file is still on disk (housekeeping drift), but it is unreferenced.
+### 1. Density vs target
 
-## Prior HIGH (§2 raw `[VISUAL:...]` placeholder leak) — fixed
+11 captured / 10 target → **+1, comfortably inside 8–13 band.** The intro
+and conclusion each carry one image (legitimate per editorial rules).
+§1 carries the stacked-components definition diagram. §2, §3, §4 each
+carry two visuals (a primary + a supporting artifact). §5 now carries
+the inline `table`. No section is starved.
 
-**Verification.** Manifest entry index 1 (`status=stripped`,
-`stripped_finding_id=visuals-adversarial-HIGH-section-2`). A `grep -n
-"VISUAL:"` of the cited draft returns no hits — the bare placeholder
-line is gone. §2's prose was reflowed to walk the Companion Creator
-fields (appearance, personality, backstory, voice) in text alone
-(lines 41–47 of the cited draft) so the section reads cleanly without
-the screenshot. Pleasur.AI's `/create` is still linked; readers can
-follow the link to see the UI. The `byte_transport_unavailable`
-deployment-environment limitation (root-owned `/paperclip/Downloads`)
-is documented in the manifest hint for a future re-attempt.
+### 2. Type diversity
 
----
+**Five distinct types** — well above the ≥3 bar. The mix is
+`image` (6) + `screenshot` (2) + `external` (1) + `chart` (1) + `table` (1).
+The image lean is lighter than the prior pass (was 7 of 10, now 6 of 11)
+and the new `screenshot` + `table` shift texture toward the ahrefs
+reference.
 
-## Five-question framework — re-run
+### 3. Decorative visuals
 
-### 1. Decorative visuals?
+The conclusion lifeline-graph (`image-6-a-simple-recap-illustration-sh.png`)
+remains borderline — it restates the three-act arc with one new beat
+(the Week-3 fork). MEDIUM rather than CRITICAL because the prose's "either
+keeps up with you or repeats itself" is *itself* the fork, so the visual
+is not load-bearing. Everything else earns placement: the §1 stacked-
+components diagram has a "NOT THIS" contrast column doing definitional
+work, the §3 memory side-by-side legibly distinguishes summarize-vs-
+truncate, the §4 chart anchors the 28M→20M cliff.
 
-The single landed visual (§4 chart) is not decorative. Two-point line
-chart, ~30% drop, BLUF-supporting, sourced. No strip needed.
+### 4. Wrong type
 
-### 2. Missing visuals?
+No wrong-type findings. The §5 conversion from `image` to `table` is
+correct: the section is genuinely a 5×N comparison and the table is the
+canonical fit. The §3 `pleasur.ai/generate` capture is a real static-URL
+product surface → `screenshot` is the right call.
 
-§2 (Act 1) is the open question. The annotated outline asked for a
-Pleasur.AI Companion Creator screenshot and the 9-step rule
-(decision step #1) does point that section at `screenshot`. The strip
-was an environment workaround, not an editorial call. **Honest read:**
-this is a `MEDIUM` editorial gap, not a `CRITICAL` — §2's prose now
-walks the build flow concretely, the linked URL gives readers a way
-to see the UI themselves, and forcing a re-capture from this verdict
-would just re-trigger the same `byte_transport_unavailable` block. Flag
-for the deployment-fix backlog (manifest entry #1 hint), not for a
-revision-budget consumption.
+### 5. Crop / framing
 
-§§1 (definition), 5 (checklist) correctly default to `none` per the
-foundational/checklist rules in the editorial principles.
+The new §3 `screenshot-1-pleasur-ai-in-chat-image-gener.png` lands on
+the empty/blank state of `pleasur.ai/generate` — the prompt input,
+20-coins meter, and four style chips (Portrait photo / Fantasy art /
+Anime style / Cinematic) are visible, but **no chat thread and no recent
+generations are visible**, despite the alt-text claiming "request form and
+recent generations visible inside the chat surface." Minor mismatch with
+the prose ("inside the chat thread" — the captured page is the standalone
+generator, not the in-thread surface). HIGH below.
 
-### 3. Wrong type?
+The Mozilla `external` is well-clipped (h1 padded), the §2 Companion
+Creator screenshot lands on the Personality step, the chart's framing is
+generous and readable. No other framing failures.
 
-The §4 chart is the right type for "Character.AI MAU peak-to-trough" —
-two-point line chart conveys the cliff better than a table of two
-rows would. No mismatch.
+### 6. Manual fallthrough
 
-### 4. Crop / framing?
-
-The chart's framing is appropriate: title takes the takeaway, axis
-labels name units, two markers sit at the X-axis tick positions,
-no extraneous data. Padding around the line is generous but acceptable
-at 1178×707.
-
-### 5. Manual fallthrough?
-
-`manual-capture.md` still lists entries #1 (Pleasur.AI screenshot) and
-#2 (Mozilla external) as pending fallbacks. Both are now obsolete:
-entry #1 has been stripped (env block), entry #2 was retried and
-then stripped in this revision. Same housekeeping drift the prior
-LOW finding flagged — still a LOW, still not editorially load-bearing.
-
----
+`manual-capture.md` reads "No manual visuals required." — clean.
 
 ## Findings
 
-### MEDIUM — §2 walkthrough no longer carries a UI screenshot (deployment-env, not editorial)
+### HIGH — §3 image-gen screenshot mismatches the alt-text and the prose claim
 
-§2 explicitly walks the Pleasur.AI Companion Creator (appearance →
-personality → backstory → voice fields) and the 9-step rule's step #1
-points such a section at `screenshot`. The strip was the right call
-given `byte_transport_unavailable` blocked byte landing in this
-deployment, but the editorial bar is not met until a real screenshot
-lands. Action: leave as-is for this article (don't burn revision
-budget on a re-capture that would hit the same env block); track
-the Chrome-MCP byte-transport fix as a separate backlog item so the
-next walkthrough article doesn't strip the same way.
+The new `screenshot-1-pleasur-ai-in-chat-image-gener.png` shows
+`pleasur.ai/generate` in its empty default state — prompt box, style
+chips, 20-coins meter, "Login / Join Free" in the corner. The alt-text
+promises "request form and recent generations visible *inside the chat
+surface*." Two problems: (a) no recent generations are visible (the
+gallery / history is empty); (b) the §3 prose explicitly contrasts
+"in-chat image generation" against competitors that "route image gen
+through a separate page" — but the captured surface *is* the separate
+page (`/generate`), not an in-chat thread. Either re-capture inside an
+authenticated chat (an `action-shot` with a sent image-request and the
+returned image visible) or rewrite the alt-text + caption to honestly
+describe what's shown ("Pleasur.AI image-generation entry surface with
+style presets"). Not strip-worthy as a real product capture, but the
+alt/prose alignment is wrong.
 
-### MEDIUM — `manual-capture.md` is stale
+### MEDIUM — Conclusion recap image still borderline decorative
 
-Entries #1 and #2 are both stripped in the manifest but still listed
-as pending in `manual-capture.md`. Housekeeping drift, not an
-editorial failure. Action: trim during the next bookkeeping pass on
-the visuals stage; or at /preview time, suppress entries whose
-manifest status is `stripped`.
+`image-6-a-simple-recap-illustration-sh.png` (lifeline-graph forking at
+Week 3) restates the three-act arc the prose has already summarized in
+the paragraph above. Only new beat is the explicit fork at Week 3,
+which the prose covers verbatim ("either keeps up with you or repeats
+itself in six predictable ways"). Density floor doesn't demand it;
+cleanest cut takes the article to 10 captured (still at target). Keep
+if editor prefers the recap visual; it's not actively misleading.
 
-### LOW — chart PNG file was reused at the same path as the stripped version
+### MEDIUM — §1 carries two images on a section the outline marked `Visual: none`
 
-The re-rendered chart writes to the same path
-(`chart-3-character-ai-monthly-active-us.png`) the original
-three-point version used. The manifest tracks this correctly via
-two entries (index 3 stripped, index 4 captured), but a reader who
-looks only at the file path won't see the version history. Action:
-none required — the manifest is the source of truth and the file's
-actual content is correct. Noting it for completeness.
+The outline self-check still claims §1 is `none` (foundational
+definition argues with prose). The cited draft now carries the intro
+three-act timeline *and* the §1 stacked-components diagram inside that
+section. The stacked-components diagram earns its place — the "NOT THIS"
+contrast column makes the MECE argument visually — but the outline
+should be reconciled to reflect the upgrade rather than carrying a stale
+self-check.
 
-### LOW — orphan PNG on disk (`external-2-mozilla-privacy-not-included-h.png`)
+### LOW — Chart still has only 2 data points
 
-The stripped Mozilla render is still on disk (19,050 bytes). It's
-unreferenced from the cited draft and marked `stripped` in the
-manifest, so it won't ship. Action: delete during the next
-bookkeeping pass. No editorial risk.
+`chart-3-character-ai-monthly-active-us.png` carries the 28M→20M cliff
+on two markers. Reads as a slope, not a trend. A pre-peak third point
+(if the dossier supports it) or an explicit "-28%" annotation would
+upgrade this from "passes the bar" to "carries the section's hardest
+evidence with confidence." Not strip-worthy; same finding as the prior
+pass.
 
----
+## What earns its place
 
-## What works
-
-The §4 chart now earns its place cleanly — two points, same metric,
-same platform, sourced (Business of Apps + Sacra), title carries the
-takeaway in one glance, and it sits next to the prose claim it
-supports rather than competing with the BLUF. This is the strongest
-visual the article could carry, and it's the only one. A 2,600-word
-piece anchored on a single high-information chart is editorially
-defensible (the 9-step rule defaults to `none`; one earned visual
-across five H2s is honest, not sparse).
-
----
+- **§5 inline `table`** — correct type (5×4 comparison), preserves the
+  actual test names (fictional-dog, contradiction, "I'm here for you"
+  count, privacy-policy read, modality-stitch), and resolves the prior
+  CRITICAL cleanly. Adds skim-able structure exactly where the section
+  hands the reader a checklist.
+- **§4 Character.AI MAU chart** — clean 2-point line, takeaway in the
+  title, sourced (Business of Apps + Sacra), supports the BLUF.
+- **§2 Companion Creator screenshot** — real product surface (Personality
+  step, 2880×1800 patchright), matches the §2 walkthrough.
+- **§3 Mozilla `external`** — clipped to the h1, supports the privacy-
+  floor claim with a real third-party artifact.
+- **§3 memory-architecture side-by-side image** — makes summarize-vs-
+  truncate legible at a glance.
+- **§1 stacked-components diagram** — definitional work the prose takes
+  a paragraph to do, NOT THIS column does the MECE move.
 
 ## Verdict: **PASS**
 
-All three prior findings are resolved in the current cited draft +
-manifest: the §4 chart is re-rendered with only the two Character.AI
-MAU points; the §3 Mozilla PIL render is stripped from both the draft
-and (effectively) the manifest; the §2 raw `[VISUAL:...]` placeholder
-no longer leaks into the cited draft. No new CRITICAL findings. The
-remaining MEDIUM/LOW items are housekeeping drift (stale
-`manual-capture.md`, on-disk orphan files) and one editorial-vs-env
-trade-off (§2 walkthrough without a screenshot, blocked by
-`byte_transport_unavailable` — the right call for this article, the
-wrong default for the deployment long-term). Ship.
+Zero CRITICAL. Density at target (+1). Type diversity strong (5 types).
+Prior CRITICAL resolved cleanly via the inline `table`. The HIGH on the
+§3 screenshot/alt mismatch should be fixed before publish but is not a
+ship-blocker (the asset is real, only the alt-text/prose alignment is
+off). Two MEDIUMs are housekeeping.
