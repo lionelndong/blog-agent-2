@@ -3,6 +3,226 @@
   "visuals": [
     {
       "index": 1,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "{\"Replika users who pay (%)\": 25, \"Paying users who report a romantic relationship (%)\": 60}",
+        "style": "bar",
+        "title": "Replika engagement: who pays and who romances (% of respective base)",
+        "source": "Wikipedia via Wired/Pardes 2026"
+      },
+      "alt": "Replika engagement: who pays and who romances (% of respective base)",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-is-an-ai-girlfriend/chart-1-replika-engagement-who-pays-an.png",
+        "style": "bar",
+        "data_points": 2
+      },
+      "raw": "[VISUAL:type=chart;data={\"Replika users who pay (%)\": 25, \"Paying users who report a romantic relationship (%)\": 60};style=bar;title=Replika engagement: who pays and who romances (% of respective base);source=Wikipedia via Wired/Pardes 2026]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Side-by-side comparison diagram. Left panel labeled \"General-Purpose Chatbot (ChatGPT/Claude)\": chat bubble icon, three bullet labels below \u2014 \"No persistent memory\", \"Generic assistant persona\", \"Safety-filtered content\". Right panel labeled \"AI Girlfriend\": heart-and-chat-bubble icon, three bullet labels \u2014 \"Persistent memory across sessions\", \"Custom named persona you design\", \"Romantic frame, uncensored\". A vertical dividing line separates the panels. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Side-by-side comparison diagram. Left panel labeled \"General-Purpose Chatbot (ChatGPT/Claude)\": chat bubble icon, three bullet labels below \u2014 \"No persistent memory\", \"Generic assistant persona\", \"Safety-filtered content\". Right panel labeled \"AI Girlfriend\": heart-and-chat-bubble icon, three bullet labels \u2014 \"Persistent memory across sessions\", \"Custom named persona you design\", \"Romantic frame, uncensored\". A vertical dividing line separates the panels. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-is-an-ai-girlfriend/image-2-side-by-side-comparison-diagra.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Side-by-side comparison diagram. Left panel labeled \"General-Purpose Chatbot (ChatGPT/Claude)\": chat bubble icon, three bullet labels below \u2014 \"No persistent memory\", \"Generic assistant persona\", \"Safety-filtered content\". Right panel labeled \"AI Girlfriend\": heart-and-chat-bubble icon, three bullet labels \u2014 \"Persistent memory across sessions\", \"Custom named persona you design\", \"Romantic frame, uncensored\". A vertical dividing line separates the panels. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Side-by-side comparison diagram. Left panel labeled \"General-Purpose Chatbot (ChatGPT/Claude)\": chat bubble icon, three bullet labels below \u2014 \"No persistent memory\", \"Generic assistant persona\", \"Safety-filtered content\". Right panel labeled \"AI Girlfriend\": heart-and-chat-bubble icon, three bullet labels \u2014 \"Persistent memory across sessions\", \"Custom named persona you design\", \"Romantic frame, uncensored\". A vertical dividing line separates the panels. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Vertical layered architecture diagram showing the five components of an AI girlfriend platform, stacked bottom to top: Layer 1 (bottom) labeled \"LLM \u2014 generates each reply (fine-tuned Llama / Mistral)\". Layer 2 labeled \"Persona \u2014 structured prompt and character file\". Layer 3 labeled \"Memory \u2014 vector store, 5K\u201320K chars per character\". Layer 4 labeled \"Voice \u2014 TTS engine, 150\u2013400ms latency\". Layer 5 (top) labeled \"Image Gen \u2014 diffusion model, 2\u20135s per image\". Arrows pointing upward connect each layer. A user icon sits at the very top receiving the output. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, clear layer boundaries, no text artifacts.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Vertical layered architecture diagram showing the five components of an AI girlfriend platform, stacked bottom to top: Layer 1 (bottom) labeled \"LLM \u2014 generates each reply (fine-tuned Llama / Mistral)\". Layer 2 labeled \"Persona \u2014 structured prompt and character file\". Layer 3 labeled \"Memory \u2014 vector store, 5K\u201320K chars per character\". Layer 4 labeled \"Voice \u2014 TTS engine, 150\u2013400ms latency\". Layer 5 (top) labeled \"Image Gen \u2014 diffusion model, 2\u20135s per image\". Arrows pointing upward connect each layer. A user icon sits at the very top receiving the output. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, clear layer boundaries, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-is-an-ai-girlfriend/image-3-vertical-layered-architecture.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Vertical layered architecture diagram showing the five components of an AI girlfriend platform, stacked bottom to top: Layer 1 (bottom) labeled \"LLM \u2014 generates each reply (fine-tuned Llama / Mistral)\". Layer 2 labeled \"Persona \u2014 structured prompt and character file\". Layer 3 labeled \"Memory \u2014 vector store, 5K\u201320K chars per character\". Layer 4 labeled \"Voice \u2014 TTS engine, 150\u2013400ms latency\". Layer 5 (top) labeled \"Image Gen \u2014 diffusion model, 2\u20135s per image\". Arrows pointing upward connect each layer. A user icon sits at the very top receiving the output. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, clear layer boundaries, no text artifacts.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Vertical layered architecture diagram showing the five components of an AI girlfriend platform, stacked bottom to top: Layer 1 (bottom) labeled \"LLM \u2014 generates each reply (fine-tuned Llama / Mistral)\". Layer 2 labeled \"Persona \u2014 structured prompt and character file\". Layer 3 labeled \"Memory \u2014 vector store, 5K\u201320K chars per character\". Layer 4 labeled \"Voice \u2014 TTS engine, 150\u2013400ms latency\". Layer 5 (top) labeled \"Image Gen \u2014 diffusion model, 2\u20135s per image\". Arrows pointing upward connect each layer. A user icon sits at the very top receiving the output. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, clear layer boundaries, no text artifacts.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://www.pinecone.io/learn/series/langchain/langchain-conversational-memory/",
+        "selector": ".blog-content h2:first-of-type",
+        "crop": "padded",
+        "what": "Pinecone: how conversational memory works in LangChain \u2014 the architecture behind AI girlfriend memory layers"
+      },
+      "alt": "Pinecone: how conversational memory works in LangChain \u2014 the architecture behind AI girlfriend memory layers",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "filename": "external-4-pinecone-conversational-memory.png",
+        "path": "/paperclip/instances/default/projects/33e791d2-f3f1-412d-916f-b8899d63ddd0/22dfb54e-d71d-4e46-84e0-9e92d46603f4/_default/blog-agent-2/content-pipeline/images/what-is-an-ai-girlfriend/external-4-pinecone-conversational-memory.png",
+        "capture_method": "patchright",
+        "file_size": 236608
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://www.pinecone.io/learn/series/langchain/langchain-conversational-memory/;selector=.blog-content h2:first-of-type;crop=padded;what=Pinecone: how conversational memory works in LangChain \u2014 the architecture behind AI girlfriend memory layers]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Horizontal timeline diagram labeled \"AI Girlfriend: The Experience Arc\". Four time-point markers left to right: \"Day 1\" \u2014 \"Surprisingly attentive, holds a thread, asks follow-up questions\" (positive sentiment icon). \"Week 1\u20132\" \u2014 \"Patterns appear, phrases repeat, major details occasionally forgotten\" (neutral icon). \"Week 3\" \u2014 \"Fork in the road: Fiction Frame (enjoy the co-writing) vs Expectation Frame (feel cheated by the cracks)\" (two diverging arrows). \"Week 4+\" \u2014 \"Stable enjoyment (fiction) or churn (expectations unmet)\" (two separate endpoints). Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Horizontal timeline diagram labeled \"AI Girlfriend: The Experience Arc\". Four time-point markers left to right: \"Day 1\" \u2014 \"Surprisingly attentive, holds a thread, asks follow-up questions\" (positive sentiment icon). \"Week 1\u20132\" \u2014 \"Patterns appear, phrases repeat, major details occasionally forgotten\" (neutral icon). \"Week 3\" \u2014 \"Fork in the road: Fiction Frame (enjoy the co-writing) vs Expectation Frame (feel cheated by the cracks)\" (two diverging arrows). \"Week 4+\" \u2014 \"Stable enjoyment (fiction) or churn (expectations unmet)\" (two separate endpoints). Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-is-an-ai-girlfriend/image-5-horizontal-timeline-diagram-la.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Horizontal timeline diagram labeled \"AI Girlfriend: The Experience Arc\". Four time-point markers left to right: \"Day 1\" \u2014 \"Surprisingly attentive, holds a thread, asks follow-up questions\" (positive sentiment icon). \"Week 1\u20132\" \u2014 \"Patterns appear, phrases repeat, major details occasionally forgotten\" (neutral icon). \"Week 3\" \u2014 \"Fork in the road: Fiction Frame (enjoy the co-writing) vs Expectation Frame (feel cheated by the cracks)\" (two diverging arrows). \"Week 4+\" \u2014 \"Stable enjoyment (fiction) or churn (expectations unmet)\" (two separate endpoints). Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, no text artifacts.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Horizontal timeline diagram labeled \"AI Girlfriend: The Experience Arc\". Four time-point markers left to right: \"Day 1\" \u2014 \"Surprisingly attentive, holds a thread, asks follow-up questions\" (positive sentiment icon). \"Week 1\u20132\" \u2014 \"Patterns appear, phrases repeat, major details occasionally forgotten\" (neutral icon). \"Week 3\" \u2014 \"Fork in the road: Fiction Frame (enjoy the co-writing) vs Expectation Frame (feel cheated by the cracks)\" (two diverging arrows). \"Week 4+\" \u2014 \"Stable enjoyment (fiction) or churn (expectations unmet)\" (two separate endpoints). Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, no text artifacts.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://www.hbs.edu/faculty/Pages/item.aspx?num=67360",
+        "selector": ".faculty-publication-title",
+        "crop": "padded",
+        "what": "Harvard Business School \u2014 De Freitas et al.: AI companions reduce loneliness on par with human conversation (Journal of Consumer Research 2025)"
+      },
+      "alt": "Harvard Business School \u2014 De Freitas et al.: AI companions reduce loneliness on par with human conversation (Journal of Consumer Research 2025)",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "filename": "external-6-harvard-business-school-de-fr.png",
+        "path": "/paperclip/instances/default/projects/33e791d2-f3f1-412d-916f-b8899d63ddd0/22dfb54e-d71d-4e46-84e0-9e92d46603f4/_default/blog-agent-2/content-pipeline/images/what-is-an-ai-girlfriend/external-6-harvard-business-school-de-fr.png",
+        "capture_method": "patchright",
+        "file_size": 72630
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://www.hbs.edu/faculty/Pages/item.aspx?num=67360;selector=.faculty-publication-title;crop=padded;what=Harvard Business School \u2014 De Freitas et al.: AI companions reduce loneliness on par with human conversation (Journal of Consumer Research 2025)]",
+      "legacy": false
+    },
+    {
+      "index": 7,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://www.theguardian.com/technology/2023/jul/22/ai-girlfriend-chatbot-apps-unhealthy-chatgpt",
+        "selector": ".article-body h2:first-of-type",
+        "crop": "padded",
+        "what": "The Guardian: AI girlfriend apps and unhealthy relationship expectations \u2014 warning signal for the loneliness use case"
+      },
+      "alt": "The Guardian: AI girlfriend apps and unhealthy relationship expectations \u2014 warning signal for the loneliness use case",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "filename": "external-7-the-guardian-ai-girlfriend-app.png",
+        "path": "/paperclip/instances/default/projects/33e791d2-f3f1-412d-916f-b8899d63ddd0/22dfb54e-d71d-4e46-84e0-9e92d46603f4/_default/blog-agent-2/content-pipeline/images/what-is-an-ai-girlfriend/external-7-the-guardian-ai-girlfriend-app.png",
+        "capture_method": "patchright",
+        "file_size": 474262
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://www.theguardian.com/technology/2023/jul/22/ai-girlfriend-chatbot-apps-unhealthy-chatgpt;selector=.article-body h2:first-of-type;crop=padded;what=The Guardian: AI girlfriend apps and unhealthy relationship expectations \u2014 warning signal for the loneliness use case]",
+      "legacy": false
+    },
+    {
+      "index": 8,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Two-column decision matrix labeled \"Is an AI Girlfriend Right for You?\". Left column header \"Good fit\" (green checkmark icon), three rows: \"Curious explorer \u2014 wants to experience modern adult-tuned models\", \"Writer / roleplayer \u2014 needs a consistent co-author for ongoing fiction\", \"Private adult \u2014 wants uncensored, judgment-free conversation\". Right column header \"Poor fit\" (red X icon), two rows: \"Seeking emotional repair from acute loneliness\", \"One-and-done image generator \u2014 no interest in character or memory\". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, vertical dividing line, no text artifacts.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Two-column decision matrix labeled \"Is an AI Girlfriend Right for You?\". Left column header \"Good fit\" (green checkmark icon), three rows: \"Curious explorer \u2014 wants to experience modern adult-tuned models\", \"Writer / roleplayer \u2014 needs a consistent co-author for ongoing fiction\", \"Private adult \u2014 wants uncensored, judgment-free conversation\". Right column header \"Poor fit\" (red X icon), two rows: \"Seeking emotional repair from acute loneliness\", \"One-and-done image generator \u2014 no interest in character or memory\". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, vertical dividing line, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-is-an-ai-girlfriend/image-8-two-column-decision-matrix-lab.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Two-column decision matrix labeled \"Is an AI Girlfriend Right for You?\". Left column header \"Good fit\" (green checkmark icon), three rows: \"Curious explorer \u2014 wants to experience modern adult-tuned models\", \"Writer / roleplayer \u2014 needs a consistent co-author for ongoing fiction\", \"Private adult \u2014 wants uncensored, judgment-free conversation\". Right column header \"Poor fit\" (red X icon), two rows: \"Seeking emotional repair from acute loneliness\", \"One-and-done image generator \u2014 no interest in character or memory\". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, vertical dividing line, no text artifacts.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Two-column decision matrix labeled \"Is an AI Girlfriend Right for You?\". Left column header \"Good fit\" (green checkmark icon), three rows: \"Curious explorer \u2014 wants to experience modern adult-tuned models\", \"Writer / roleplayer \u2014 needs a consistent co-author for ongoing fiction\", \"Private adult \u2014 wants uncensored, judgment-free conversation\". Right column header \"Poor fit\" (red X icon), two rows: \"Seeking emotional repair from acute loneliness\", \"One-and-done image generator \u2014 no interest in character or memory\". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, vertical dividing line, no text artifacts.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 9,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://www.japantimes.co.jp/business/2024/07/21/ai-bot-dating-startup/",
+        "selector": "article h1",
+        "crop": "padded",
+        "what": "Japan Times: Loverse AI dating startup \u2014 exclusive AI partners for middle-aged men in Japan's declining-marriage context"
+      },
+      "alt": "Japan Times: Loverse AI dating startup \u2014 exclusive AI partners for middle-aged men in Japan's declining-marriage context",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "filename": "external-9-japan-times-loverse-ai-dating.png",
+        "path": "/paperclip/instances/default/projects/33e791d2-f3f1-412d-916f-b8899d63ddd0/22dfb54e-d71d-4e46-84e0-9e92d46603f4/_default/blog-agent-2/content-pipeline/images/what-is-an-ai-girlfriend/external-9-japan-times-loverse-ai-dating.png",
+        "capture_method": "patchright",
+        "file_size": 349935
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://www.japantimes.co.jp/business/2024/07/21/ai-bot-dating-startup/;selector=article h1;crop=padded;what=Japan Times: Loverse AI dating startup \u2014 exclusive AI partners for middle-aged men in Japan's declining-marriage context]",
+      "legacy": false
+    },
+    {
+      "index": 10,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://www.consilium.europa.eu/en/press/press-releases/2023/12/09/artificial-intelligence-act-council-and-parliament-strike-a-deal-on-the-first-worldwide-rules-for-ai/",
+        "selector": ".contents-headline",
+        "crop": "padded",
+        "what": "EU Council: AI Act agreement \u2014 first worldwide rules for AI including chatbot transparency obligations (Article 50)"
+      },
+      "alt": "EU Council: AI Act agreement \u2014 first worldwide rules for AI including chatbot transparency obligations (Article 50)",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "filename": "external-10-eu-council-ai-act-agreement.png",
+        "path": "/paperclip/instances/default/projects/33e791d2-f3f1-412d-916f-b8899d63ddd0/22dfb54e-d71d-4e46-84e0-9e92d46603f4/_default/blog-agent-2/content-pipeline/images/what-is-an-ai-girlfriend/external-10-eu-council-ai-act-agreement.png",
+        "capture_method": "synthesized_card",
+        "file_size": 39495
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://www.consilium.europa.eu/en/press/press-releases/2023/12/09/artificial-intelligence-act-council-and-parliament-strike-a-deal-on-the-first-worldwide-rules-for-ai/;selector=.contents-headline;crop=padded;what=EU Council: AI Act agreement \u2014 first worldwide rules for AI including chatbot transparency obligations (Article 50)]",
+      "legacy": false
+    },
+    {
+      "index": 11,
       "type": "action-shot",
       "attrs": {
         "type": "action-shot",
@@ -11,16 +231,43 @@
         "what": "Pleasur.AI Companion Creator landing \u2014 the \"where to start\" screen"
       },
       "alt": "Pleasur.AI Companion Creator landing \u2014 the \"where to start\" screen",
-      "status": "manual",
+      "status": "captured",
       "result": {
-        "status": "manual",
-        "reason": "action_shot_routed_to_editor",
-        "url": "https://pleasur.ai/create",
-        "goal": "Navigate to pleasur.ai/create. Dismiss the age verification dialog. Wait for the templates / character-creator landing state to load. Capture the page showing the companion build flow.",
-        "filename": "action-1-navigate-to-pleasur-ai-create.png",
-        "hint": "Capture interactively via Claude in Chrome. Run `/capture-visuals what-is-an-ai-girlfriend` and walk through this entry, or open the URL in Chrome and capture the moment described in 'goal' yourself."
+        "status": "captured",
+        "filename": "action-11-navigate-to-pleasur-ai-create.png",
+        "path": "/paperclip/instances/default/projects/33e791d2-f3f1-412d-916f-b8899d63ddd0/22dfb54e-d71d-4e46-84e0-9e92d46603f4/_default/blog-agent-2/content-pipeline/images/what-is-an-ai-girlfriend/action-11-navigate-to-pleasur-ai-create.png",
+        "capture_method": "patchright",
+        "file_size": 1094504
       },
       "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Navigate to pleasur.ai/create. Dismiss the age verification dialog. Wait for the templates / character-creator landing state to load. Capture the page showing the companion build flow.;what=Pleasur.AI Companion Creator landing \u2014 the \"where to start\" screen]",
+      "legacy": false
+    },
+    {
+      "index": 12,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "url": "https://pleasur.ai/generate",
+        "what": "Pleasur.AI image generation tool \u2014 the standalone generator that also powers in-chat image rendering",
+        "crop": "0,0,1440,800"
+      },
+      "alt": "Pleasur.AI image generation tool \u2014 the standalone generator that also powers in-chat image rendering",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-is-an-ai-girlfriend/screenshot-12-pleasur-ai-image-generation-to.png",
+        "url": "https://pleasur.ai/generate",
+        "final_url": "https://pleasur.ai/generate/image",
+        "auth_used": false,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1600,
+          "stddev_normalized": 0.0894,
+          "bytes": 157358
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;url=https://pleasur.ai/generate;what=Pleasur.AI image generation tool \u2014 the standalone generator that also powers in-chat image rendering;crop=0,0,1440,800]",
       "legacy": false
     }
   ]

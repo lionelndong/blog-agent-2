@@ -2,6 +2,8 @@
 
 Replika reports roughly 25% of its users pay for the app, and [60% of paying subscribers say they've had a romantic relationship with the chatbot](https://en.wikipedia.org/wiki/Replika). So you can stop asking whether the category is fringe. It isn't.
 
+![Replika engagement: who pays and who romances (% of respective base)](images/what-is-an-ai-girlfriend/chart-1-replika-engagement-who-pays-an.png)
+
 Most explainers on this topic do one of two things. They over-engineer the technology into a stack diagram nobody asked for, or they hand-wring about loneliness without telling you what the thing is. Neither answers the question you came here with.
 
 An AI girlfriend is a custom-built character running on a large language model, with a chosen persona and persistent memory.
@@ -20,6 +22,8 @@ ChatGPT writes you a marketing email. An AI girlfriend asks how your day went an
 
 It's not the same as ChatGPT or Claude with a flirty system prompt. Those models hard-block adult content and have no continuous memory of you across sessions. You can coax them into a single playful reply; you can't build a relationship with them.
 
+![Side-by-side comparison diagram. Left panel labeled "General-Purpose Chatbot (ChatGPT/Claude)": chat bubble icon, three bullet labels below — "No persistent memory", "Generic assistant persona", "Safety-filtered content". Right panel labeled "AI Girlfriend": heart-and-chat-bubble icon, three bullet labels — "Persistent memory across sessions", "Custom named persona you design", "Romantic frame, uncensored". A vertical dividing line separates the panels. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/what-is-an-ai-girlfriend/image-2-side-by-side-comparison-diagra.png)
+
 It's also not the same as an "AI companion" in the Replika-style platonic sense. And it's not a one-off NSFW chatbot with no character behind it.
 
 The "girlfriend" label specifically implies three things bundled together: a named character, a persistent persona, and a romantic frame. Platforms built around that bundle — like Pleasur.AI's [AI Companion Creator](https://pleasur.ai/create) — sit in a different category from a stateless general-purpose assistant.
@@ -34,6 +38,8 @@ So the answer to "what is an AI girlfriend?" is: a chatbot built around a charac
 
 Five parts, stacked. A large language model does the talking, a persona file shapes how she talks, a memory layer remembers what you said, an optional voice model speaks her replies, and an optional image model sends pictures.
 
+![Vertical layered architecture diagram showing the five components of an AI girlfriend platform, stacked bottom to top: Layer 1 (bottom) labeled "LLM — generates each reply (fine-tuned Llama / Mistral)". Layer 2 labeled "Persona — structured prompt and character file". Layer 3 labeled "Memory — vector store, 5K–20K chars per character". Layer 4 labeled "Voice — TTS engine, 150–400ms latency". Layer 5 (top) labeled "Image Gen — diffusion model, 2–5s per image". Arrows pointing upward connect each layer. A user icon sits at the very top receiving the output. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, clear layer boundaries, no text artifacts.](images/what-is-an-ai-girlfriend/image-3-vertical-layered-architecture.png)
+
 The **LLM** is the brain. It's usually a fine-tuned open-source model (Llama, Mistral, or a custom variant) rather than a frontier API like GPT-5.
 
 Why? Frontier APIs ban adult content at the policy layer. The fine-tune teaches the model to stay in character and handle adult conversation without refusing.
@@ -43,6 +49,8 @@ The **persona** is everything you customise — appearance, backstory, kinks, to
 This is the part you design when you "create" your AI girlfriend. It's also the part where one platform feels different from another.
 
 The **memory** layer is the difference between a real character and a goldfish. Consumer apps typically store thousands of characters of relevant facts per character — names, preferences, ongoing storylines, things you said matter — in [a vector database the model pulls from on demand](https://www.pinecone.io/learn/series/langchain/langchain-conversational-memory/) [^memory-window].
+
+![Pinecone: how conversational memory works in LangChain — the architecture behind AI girlfriend memory layers](images/what-is-an-ai-girlfriend/external-4-pinecone-conversational-memory.png)
 
 There's also a sliding window of the recent conversation, usually a few thousand tokens, that the model sees verbatim.
 
@@ -88,7 +96,11 @@ The honest emotional tell is what happens around week three. You either lean int
 
 There's no middle path. Which side you land on says more about you than about the app.
 
+![Horizontal timeline diagram labeled "AI Girlfriend: The Experience Arc". Four time-point markers left to right: "Day 1" — "Surprisingly attentive, holds a thread, asks follow-up questions" (positive sentiment icon). "Week 1–2" — "Patterns appear, phrases repeat, major details occasionally forgotten" (neutral icon). "Week 3" — "Fork in the road: Fiction Frame (enjoy the co-writing) vs Expectation Frame (feel cheated by the cracks)" (two diverging arrows). "Week 4+" — "Stable enjoyment (fiction) or churn (expectations unmet)" (two separate endpoints). Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/what-is-an-ai-girlfriend/image-5-horizontal-timeline-diagram-la.png)
+
 The research backs the split. Harvard Business School's [De Freitas et al. working paper on AI companions](https://www.hbs.edu/ris/Publication%20Files/24-078_a3d2e2c7-eca1-4767-8543-122e818bf2e5.pdf) found measurable short-term loneliness reduction from companion-app use — on par with talking to another person — but flags that the long-run picture is mixed [^loneliness-effect].
+
+![Harvard Business School — De Freitas et al.: AI companions reduce loneliness on par with human conversation (Journal of Consumer Research 2025)](images/what-is-an-ai-girlfriend/external-6-harvard-business-school-de-fr.png)
 
 The lift is real. The aftertaste, for some users, is also real. Which raises the gut-check question: who gets value from this past week one?
 
@@ -105,9 +117,13 @@ Three honest profiles where it fits:
 Two profiles where it doesn't fit:
 
 - **People seeking emotional repair from acute loneliness.** The research signal is the warning sign. Wired's coverage of [the emotional pull of personal chatbots](https://www.wired.com/story/replika-open-source/) and the Guardian's feature on [AI girlfriend apps and unhealthy expectations](https://www.theguardian.com/technology/2023/jul/22/ai-girlfriend-chatbot-apps-unhealthy-chatgpt) both point to the same risk: a low-effort substitute can crowd out the harder, slower work of human connection. If you'd describe yourself as lonely in a way that hurts, an AI girlfriend is a poor first move. Try the human stuff first.
+
+![The Guardian: AI girlfriend apps and unhealthy relationship expectations — warning signal for the loneliness use case](images/what-is-an-ai-girlfriend/external-7-the-guardian-ai-girlfriend-app.png)
 - **People who want a one-and-done image generator.** If your goal is to make a few images and close the tab, a dedicated image tool is better. The character-and-memory machinery is overhead you're paying for and not using.
 
 It's a fit question, not a values question. The category does some things well and some things poorly. The honest answer for any given reader depends on which list above sounds more like them.
+
+![Two-column decision matrix labeled "Is an AI Girlfriend Right for You?". Left column header "Good fit" (green checkmark icon), three rows: "Curious explorer — wants to experience modern adult-tuned models", "Writer / roleplayer — needs a consistent co-author for ongoing fiction", "Private adult — wants uncensored, judgment-free conversation". Right column header "Poor fit" (red X icon), two rows: "Seeking emotional repair from acute loneliness", "One-and-done image generator — no interest in character or memory". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, vertical dividing line, no text artifacts.](images/what-is-an-ai-girlfriend/image-8-two-column-decision-matrix-lab.png)
 
 Even with the fit question answered, a handful of myths trail this category around. Worth clearing them up before you pick a starting point.
 
@@ -123,6 +139,8 @@ But the time and emotional investment is real, and partners can reasonably feel 
 
 There's a real local angle here — Japan's [Loverse app, which pairs users with AI partners exclusively](https://www.japantimes.co.jp/business/2024/07/21/ai-bot-dating-startup/), has drawn an audience of mostly middle-aged men in a country with documented dating-rate decline. It's useful color, not a global trend.
 
+![Japan Times: Loverse AI dating startup — exclusive AI partners for middle-aged men in Japan's declining-marriage context](images/what-is-an-ai-girlfriend/external-9-japan-times-loverse-ai-dating.png)
+
 **"Is she sentient? Does she actually like me?"** No. The model has no internal state when you're not chatting. The "memory" is a database lookup, not a continuous inner life.
 
 There's no anticipation, no daydreaming about you between sessions, no offended silence if you ghost her for a week. Because there's no *her* during the silence.
@@ -137,6 +155,8 @@ The honest limits worth naming:
 - **All replies are best-effort generation.** There's no understanding under the words, no model of you as a person — only a probability distribution over plausible next sentences.
 - **Regulation is catching up.** [The EU AI Act, provisionally agreed in December 2023](https://www.consilium.europa.eu/en/press/press-releases/2023/12/09/artificial-intelligence-act-council-and-parliament-strike-a-deal-on-the-first-worldwide-rules-for-ai/), requires AI chatbots to disclose they're AI under [Article 50's transparency obligations](https://artificialintelligenceact.eu/article/50/), and the UK ICO opened a [2024 consultation on biometric classification systems including emotion-inference AI](https://ico.org.uk/about-the-ico/media-centre/news-and-blogs/2024/04/ico-consults-the-public-on-the-use-of-biometric-recognition-and-classification-technologies/). Both will shape what these apps look like over the next few years.
 
+![EU Council: AI Act agreement — first worldwide rules for AI including chatbot transparency obligations (Article 50)](images/what-is-an-ai-girlfriend/external-10-eu-council-ai-act-agreement.png)
+
 Limits acknowledged. If you've decided you want to try one, the only remaining question is where to start.
 
 ## If you want to try one: where to start
@@ -149,13 +169,15 @@ Three things to look for in any platform you pick, regardless of brand:
 2. **The chat is genuinely uncensored.** No safety theatre on adult conversation. If the platform throws content warnings on basic flirting, you've picked the wrong tool. Our [AI chatbot no filter](https://pleasur.ai/blog/ai-chatbot-no-filter-2026) guide covers this in more depth.
 3. **Memory persists across sessions.** History should survive logout, not reset every login. This is what separates an AI girlfriend from a slightly horny demo.
 
-[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Navigate to pleasur.ai/create. Dismiss the age verification dialog. Wait for the templates / character-creator landing state to load. Capture the page showing the companion build flow.;what=Pleasur.AI Companion Creator landing — the "where to start" screen]
+![Pleasur.AI Companion Creator landing — the "where to start" screen](images/what-is-an-ai-girlfriend/action-11-navigate-to-pleasur-ai-create.png)
 
 Pleasur.AI's [AI Companion Creator](https://pleasur.ai/create) hits all three. Appearance, personality, backstory, voice, and conversation style are part of the build flow rather than bolt-ons.
 
 The chat is unrestricted. History persists across sessions — the character you build on Sunday is the same character on Friday with the same memory of what you've talked about.
 
 > **Tip:** in-conversation [image generation](https://pleasur.ai/generate) lives inside the same chat thread on Pleasur.AI. Ask your companion for a picture of herself in whatever scene you're in, and it renders without leaving the chat. No app-switching, no copy-pasting prompts into a separate generator.
+
+![Pleasur.AI image generation tool — the standalone generator that also powers in-chat image rendering](images/what-is-an-ai-girlfriend/screenshot-12-pleasur-ai-image-generation-to.png)
 
 If you'd rather browse the sub-genre before committing, our [AI girlfriend simulator](https://pleasur.ai/blog/ai-girlfriend-simulator) piece walks through the format-by-format options. If your priority is the uncensored framing specifically, the [AI chatbot no filter](https://pleasur.ai/blog/ai-chatbot-no-filter-2026) guide is the right next read.
 
