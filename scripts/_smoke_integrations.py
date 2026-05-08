@@ -216,9 +216,55 @@ def check_strapi_v5_payload_shape() -> str:
 
         if problems:
             return "STRAPI_V5_SHAPE FAIL — " + "; ".join(problems)
+
+        # PLEAA-528 (2026-05-08): when a media_map is supplied, build_blocks
+        # must split the body into alternating shared.rich-text + shared.media
+        # blocks so the frontend renders each image. The single-block fallback
+        # (covered above) keeps working for dry-runs.
+        block_problems: list[str] = []
+        body_with_imgs = (
+            "Intro paragraph long enough that the description extractor has "
+            "more than eighty characters of usable prose before truncation.\n\n"
+            "![alt one](https://example.cdn/foo.png)\n\n"
+            "## A heading\n\nMore body text below the image.\n\n"
+            "![alt two](https://example.cdn/bar.png)\n\n"
+            "Closing paragraph.\n"
+        )
+        media_map = {
+            "foo.png": {"id": 100, "url": "https://example.cdn/foo.png"},
+            "bar.png": {"id": 101, "url": "https://example.cdn/bar.png"},
+        }
+        multi_payload = mod.build_payload(
+            "smoke-slug",
+            "Smoke Title",
+            body_with_imgs,
+            published_at=None,
+            media_map=media_map,
+        )
+        mb = (multi_payload.get("data") or {}).get("blocks") or []
+        if not (isinstance(mb, list) and len(mb) >= 4):
+            block_problems.append(f"multiblock got {len(mb)} blocks (want ≥4)")
+        else:
+            kinds = [b.get("__component") for b in mb if isinstance(b, dict)]
+            if kinds.count("shared.media") != 2:
+                block_problems.append(f"multiblock media count={kinds.count('shared.media')} (want 2)")
+            file_ids = [b.get("file") for b in mb if isinstance(b, dict) and b.get("__component") == "shared.media"]
+            if file_ids != [100, 101]:
+                block_problems.append(f"multiblock file ids={file_ids} (want [100, 101])")
+
+        # Without a media_map the emitter must fall back to a single rich-text
+        # block (preserves dry-run / no-API parity with pre-PLEAA-528 behaviour).
+        single = mod.build_blocks(body_with_imgs)
+        if len(single) != 1 or single[0].get("__component") != "shared.rich-text":
+            block_problems.append(f"no-media-map fallback shape: {[b.get('__component') for b in single]}")
+
+        if block_problems:
+            return "STRAPI_V5_SHAPE FAIL — " + "; ".join(block_problems)
+
         return (
             f"STRAPI_V5_SHAPE OK — fields="
-            f"{sorted(d.keys())} description_len={len(d['description'])} blocks={len(d['blocks'])}"
+            f"{sorted(d.keys())} description_len={len(d['description'])} blocks={len(d['blocks'])} "
+            f"multiblock_blocks={len(mb)}"
         )
     except Exception as e:
         return f"STRAPI_V5_SHAPE FAIL — {type(e).__name__}: {e}"

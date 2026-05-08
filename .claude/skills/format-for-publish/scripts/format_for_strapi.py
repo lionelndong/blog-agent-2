@@ -338,6 +338,82 @@ def extract_cover_image_url(body_md: str, base_url: str | None) -> str | None:
     return f"{base_url.rstrip('/')}/uploads/{filename}"
 
 
+def build_blocks(body_md: str, media_map: dict[str, dict] | None = None) -> list[dict]:
+    """Split body markdown into alternating ``shared.rich-text`` and ``shared.media`` blocks.
+
+    The renderer Neo runs (Pleasur.ai blog frontend) only displays media that
+    lives inside its own ``shared.media`` block — images embedded inside a
+    single rich-text block aren't rendered as ``<img>`` (PLEAA-528 2026-05-08).
+    To make every uploaded image actually appear on the published page, we
+    walk the body and emit a fresh block whenever an image ref sits on a line
+    by itself:
+
+      - whole-line ``![alt](https://media.strapiapp.com/foo.png)`` and the
+        URL is one we just uploaded → emit ``shared.media`` with the file id
+        and drop the markdown line
+      - everything else → accumulate into the current ``shared.rich-text``
+
+    When ``media_map`` is empty or no whole-line image refs match it, this
+    function returns a single rich-text block containing the full body —
+    same behaviour as the pre-PLEAA-528 emitter, so dry-runs and unconfigured
+    Strapi targets keep working unchanged.
+
+    The ``media_map`` is the same one ``upload_to_strapi_media`` returns:
+    ``{filename: {"id": <int>, "url": <absolute_url>}}``. We index it by the
+    absolute Strapi URL because ``rewrite_image_refs`` has already replaced
+    local paths with the absolute Strapi Cloud media URLs by the time we get
+    here.
+    """
+    if not media_map:
+        return [{"__component": "shared.rich-text", "body": body_md.strip() + "\n"}]
+
+    # Index by absolute URL (the form rewrite_image_refs leaves in the body).
+    by_url: dict[str, int] = {}
+    for entry in media_map.values():
+        url = entry.get("url")
+        fid = entry.get("id")
+        if url and isinstance(fid, int):
+            by_url[url] = fid
+
+    if not by_url:
+        return [{"__component": "shared.rich-text", "body": body_md.strip() + "\n"}]
+
+    # Match a line that is *only* a markdown image — possibly with surrounding
+    # whitespace. Avoid matching images embedded inside a paragraph.
+    whole_line_image = re.compile(r"^\s*!\[[^\]]*\]\(([^)]+)\)\s*$")
+
+    blocks: list[dict] = []
+    buf: list[str] = []
+
+    def flush_text() -> None:
+        text = "\n".join(buf).strip()
+        buf.clear()
+        if text:
+            blocks.append({"__component": "shared.rich-text", "body": text + "\n"})
+
+    for line in body_md.splitlines():
+        m = whole_line_image.match(line)
+        if not m:
+            buf.append(line)
+            continue
+        file_id = by_url.get(m.group(1))
+        if file_id is None:
+            # Image we didn't upload (e.g. inline cover URL) — leave inline.
+            buf.append(line)
+            continue
+        flush_text()
+        blocks.append({"__component": "shared.media", "file": file_id})
+
+    flush_text()
+
+    # Defensive fallback: if for some reason every line was an image-only line
+    # (or all matched nothing), don't emit an empty block list — Strapi will 400.
+    if not blocks:
+        return [{"__component": "shared.rich-text", "body": body_md.strip() + "\n"}]
+
+    return blocks
+
+
 def build_payload(
     slug: str,
     title: str,
@@ -347,6 +423,7 @@ def build_payload(
     category_name: str = "AI Companions",
     author_name: str = "Pleasur.AI Team",  # noqa: ARG001 — kept for backwards compat with callers; not in v5 schema
     cover_image_url: str | None = None,    # noqa: ARG001 — same as above
+    media_map: dict[str, dict] | None = None,
 ) -> dict:
     """Build a Strapi v5 article payload.
 
@@ -393,12 +470,11 @@ def build_payload(
     description_source = extract_excerpt(body_md) or title
     description = truncate_description(description_source, limit=80)
 
-    blocks = [
-        {
-            "__component": "shared.rich-text",
-            "body": body_md.strip() + "\n",
-        }
-    ]
+    # PLEAA-528 (2026-05-08): when images were uploaded to Strapi, split the
+    # body into alternating shared.rich-text + shared.media blocks so the
+    # frontend actually renders each image. Falls back to single-block when
+    # no media_map (dry-run, unconfigured Strapi, or article with no images).
+    blocks = build_blocks(body_md, media_map)
 
     payload: dict = {
         "data": {
@@ -881,6 +957,7 @@ def main() -> None:
         published_at=published_at,
         category_name=category_name,
         cover_image_url=cover_image_url,
+        media_map=media_map,
     )
     out_dir = write_outputs(args.slug, body, payload)
     print(f"wrote {out_dir}/article.md")
