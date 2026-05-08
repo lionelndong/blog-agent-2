@@ -3,14 +3,43 @@
   "visuals": [
     {
       "index": 1,
-      "type": "screenshot",
-      "attrs": {
-        "type": "screenshot",
-        "target": "create",
-        "what": "Pleasur.AI Companion Creator mid-build with appearance, personality, backstory, and voice fields visible",
-        "selector": ".create-panel",
-        "annotate": ".personality-block"
+      "type": "image",
+      "alt": "Horizontal three-act timeline diagram for an \"AI girlfriend experience\" article. Three labeled stages from left to right: \"Act 1 \u2014 First 90 seconds: Magic\" (with a small spark icon), \"Act 2 \u2014 Week 1: Compulsive engagement\" (with a calendar icon), \"Act 3 \u2014 Week 3: Inflection point\" (with a forked-path icon). A connecting horizontal arrow runs through all three stages. Below each stage label, one short caption: \"Active context still in prompt window\", \"Memory and modality decide if you stick\", \"Companion vs polite content engine\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "captured_at": "2026-05-07",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-experience/image-1-horizontal-three-act-timeline.png",
+        "model": "openai/gpt-image-2"
       },
+      "legacy": false,
+      "attrs": {
+        "type": "image",
+        "prompt": "Horizontal three-act timeline diagram for an \"AI girlfriend experience\" article. Three labeled stages from left to right: \"Act 1 \u2014 First 90 seconds: Magic\" (with a small spark icon), \"Act 2 \u2014 Week 1: Compulsive engagement\" (with a calendar icon), \"Act 3 \u2014 Week 3: Inflection point\" (with a forked-path icon). A connecting horizontal arrow runs through all three stages. Below each stage label, one short caption: \"Active context still in prompt window\", \"Memory and modality decide if you stick\", \"Companion vs polite content engine\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "safety": "sfw"
+      }
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "alt": "A labeled stacked-components diagram defining what \"AI girlfriend experience\" means. Three horizontal bars stacked on top of each other (bottom to top): \"Named character\" (with a name-tag icon), \"Persistent persona\" (with a memory-chip icon), \"Romantic or adult framing \u2014 sustained across days\" (with a calendar icon). To the right of the stack, a small \"not this\" contrast column lists two crossed-out alternatives: \"One-shot NSFW chatbot \u2014 no character persists\" and \"Replika companion \u2014 deliberately platonic\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "captured_at": "2026-05-07",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-experience/image-2-a-labeled-stacked-components-d.png",
+        "model": "openai/gpt-image-2"
+      },
+      "legacy": false,
+      "attrs": {
+        "type": "image",
+        "prompt": "A labeled stacked-components diagram defining what \"AI girlfriend experience\" means. Three horizontal bars stacked on top of each other (bottom to top): \"Named character\" (with a name-tag icon), \"Persistent persona\" (with a memory-chip icon), \"Romantic or adult framing \u2014 sustained across days\" (with a calendar icon). To the right of the stack, a small \"not this\" contrast column lists two crossed-out alternatives: \"One-shot NSFW chatbot \u2014 no character persists\" and \"Replika companion \u2014 deliberately platonic\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "safety": "sfw"
+      }
+    },
+    {
+      "index": 3,
+      "type": "screenshot",
       "alt": "Pleasur.AI Companion Creator mid-build with appearance, personality, backstory, and voice fields visible",
       "status": "captured",
       "captured_at": "2026-05-07",
@@ -20,20 +49,184 @@
         "capture_method": "patchright_headless",
         "dimensions": "2880x1800",
         "file_size_bytes": 215816,
-        "wizard_state": "Personality step (step 5/6) \u2014 Personality Details panel (Voice/Personality/Occupation/Relationship/Hobby/Fetish) and Advanced Details > Definition (backstory) all visible",
-        "content_verification": "PASS \u2014 variance=711.3, no bot-wall strings, goal tokens: Personality+Voice+Definition visible",
-        "capture_note": "Captured via patchright headless Chromium v145/1208 after Cloudflare Bot Fight Mode bypass (WAF custom rule PLEAA-454). No auth required \u2014 /create accessible without login after age-gate dismiss. Previous failure was Cloudflare interstitial now in _quarantine/.",
-        "previous_result": {
-          "status": "failed",
-          "reason": "bot_wall_blocked",
-          "quarantined_path": "_quarantine/2026-05-06T2236-bot_wall_blocked-screenshot-1-pleasur-ai-companion-creator-m.png"
-        }
+        "wizard_state": "Personality step (5/6)",
+        "capture_note": "Captured via patchright headless after Cloudflare WAF allowlist (PLEAA-454)"
       },
-      "raw": "[VISUAL:type=screenshot;target=create;what=Pleasur.AI Companion Creator mid-build with appearance, personality, backstory, and voice fields visible;selector=.create-panel;annotate=.personality-block]",
-      "legacy": false
+      "legacy": false,
+      "attrs": {
+        "type": "screenshot",
+        "target": "create",
+        "what": "Pleasur.AI Companion Creator mid-build with appearance, personality, backstory, and voice fields visible",
+        "selector": ".create-panel"
+      }
     },
     {
-      "index": 2,
+      "index": 4,
+      "type": "image",
+      "alt": "Two-panel side-by-side concept illustration explaining why the first 90 seconds of a custom AI companion chat hooks. Each panel shows a \"prompt window\" rectangle with content inside it. LEFT panel labeled \"First 90 seconds \u2014 full active context\": the prompt window is packed with four labeled cards just dragged in from a \"Build form\" \u2014 \"Appearance\", \"Personality\", \"Backstory\", \"Voice\" \u2014 each card visible in full detail with a small green check. RIGHT panel labeled \"Day 17 \u2014 context compressed\": the same prompt window now shows three of the four cards shrunk to thumbnails inside a \"Summary\" box, while the \"Backstory\" card is greyed out with a small question mark. A thin arrow between panels labeled \"Time \u2192 memory layer kicks in\". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "captured_at": "2026-05-07",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-experience/image-1-two-panel-side-by-side-concept.png",
+        "model": "openai/gpt-image-2"
+      },
+      "legacy": false,
+      "attrs": {
+        "type": "image",
+        "prompt": "Two-panel side-by-side concept illustration explaining why the first 90 seconds of a custom AI companion chat hooks. Each panel shows a \"prompt window\" rectangle with content inside it. LEFT panel labeled \"First 90 seconds \u2014 full active context\": the prompt window is packed with four labeled cards just dragged in from a \"Build form\" \u2014 \"Appearance\", \"Personality\", \"Backstory\", \"Voice\" \u2014 each card visible in full detail with a small green check. RIGHT panel labeled \"Day 17 \u2014 context compressed\": the same prompt window now shows three of the four cards shrunk to thumbnails inside a \"Summary\" box, while the \"Backstory\" card is greyed out with a small question mark. A thin arrow between panels labeled \"Time \u2192 memory layer kicks in\". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "safety": "sfw"
+      }
+    },
+    {
+      "index": 5,
+      "type": "screenshot",
+      "alt": "Pleasur.AI in-chat image generation page \u2014 request form and recent generations visible inside the chat surface",
+      "status": "captured",
+      "captured_at": "2026-05-07",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-experience/screenshot-1-pleasur-ai-in-chat-image-gener.png",
+        "capture_method": "patchright_headless",
+        "url": "https://pleasur.ai/generate",
+        "final_url": "https://pleasur.ai/generate/image",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2360,
+          "height": 1800,
+          "stddev_normalized": 0.0807,
+          "bytes": 98245
+        }
+      },
+      "legacy": false,
+      "attrs": {
+        "type": "screenshot",
+        "target": "generate",
+        "what": "Pleasur.AI in-chat image generation page \u2014 request form and recent generations visible inside the chat surface",
+        "selector": "main"
+      }
+    },
+    {
+      "index": 6,
+      "type": "image",
+      "alt": "Side-by-side flow diagram comparing two memory architectures for an AI companion chat. Left flow labeled \"Good platform \u2014 summarize\": four stacked chat-turn boxes flow into a labeled \"Summarize\" box, then into a \"Vector store\" box, with a return arrow feeding the summary back into the next turn's prompt",
+      "status": "captured",
+      "captured_at": "2026-05-07",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-experience/image-3-side-by-side-flow-diagram-comp.png",
+        "model": "openai/gpt-image-2"
+      },
+      "legacy": false,
+      "attrs": {
+        "type": "image",
+        "prompt": "Side-by-side flow diagram comparing two memory architectures for an AI companion chat. Left flow labeled \"Good platform \u2014 summarize\": four stacked chat-turn boxes flow into a labeled \"Summarize\" box, then into a \"Vector store\" box, with a return arrow feeding the summary back into the next turn's prompt",
+        "safety": "sfw"
+      }
+    },
+    {
+      "index": 7,
+      "type": "external",
+      "alt": "Mozilla Privacy Not Included headline on romantic AI chatbots",
+      "status": "captured",
+      "captured_at": "2026-05-07",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-experience/external-5-mozilla-privacy-not-included-h.png",
+        "sub": "news-quote",
+        "capture_method": "patchright_headless",
+        "file_size_bytes": 68011
+      },
+      "legacy": false,
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://foundation.mozilla.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/",
+        "selector": "h1.tw-h1-heading",
+        "crop": "padded",
+        "what": "Mozilla Privacy Not Included headline on romantic AI chatbots"
+      }
+    },
+    {
+      "index": 8,
+      "type": "image",
+      "alt": "A labeled 2x3 grid illustration titled \"The 6 templated phrases that mark Week 3\". Each cell contains a short headline in a chat-bubble icon plus a one-line explainer underneath. Cells, in reading order: 1) Headline \"I'm here to support you\" / explainer \"Reflexive empathy filler\". 2) Headline \"I love that for you\" / explainer \"Every input returns a compliment\". 3) Headline \"You mentioned\u2026\" / explainer \"But you didn't \u2014 hallucinated memory\". 4) Headline \"What about you?\" / explainer \"Every turn pivots back to the user\". 5) Headline \"I love our connection\" / explainer \"Generic affirmation, no callback\". 6) Headline \"Biscuit who?\" / explainer \"Fictional-dog test failure\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "captured_at": "2026-05-07",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-experience/image-4-a-labeled-2x3-grid-illustratio.png",
+        "model": "openai/gpt-image-2"
+      },
+      "legacy": false,
+      "attrs": {
+        "type": "image",
+        "prompt": "A labeled 2x3 grid illustration titled \"The 6 templated phrases that mark Week 3\". Each cell contains a short headline in a chat-bubble icon plus a one-line explainer underneath. Cells, in reading order: 1) Headline \"I'm here to support you\" / explainer \"Reflexive empathy filler\". 2) Headline \"I love that for you\" / explainer \"Every input returns a compliment\". 3) Headline \"You mentioned\u2026\" / explainer \"But you didn't \u2014 hallucinated memory\". 4) Headline \"What about you?\" / explainer \"Every turn pivots back to the user\". 5) Headline \"I love our connection\" / explainer \"Generic affirmation, no callback\". 6) Headline \"Biscuit who?\" / explainer \"Fictional-dog test failure\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "safety": "sfw"
+      }
+    },
+    {
+      "index": 9,
+      "type": "chart",
+      "alt": "Character.AI monthly active users \u2014 mid-2024 peak (28M) to early 2025 (~20M)",
+      "status": "captured",
+      "captured_at": "2026-05-07",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-experience/chart-3-character-ai-monthly-active-us.png",
+        "style": "line",
+        "data_points": 2
+      },
+      "legacy": false,
+      "attrs": {
+        "type": "chart",
+        "data": "research.engagement_signals_verified",
+        "style": "line",
+        "title": "Character.AI monthly active users \u2014 mid-2024 peak (28M) to early 2025 (~20M)",
+        "y_label": "Monthly active users (millions)"
+      }
+    },
+    {
+      "index": 10,
+      "type": "image",
+      "alt": "A simple recap illustration showing the three-act arc of the AI girlfriend experience as a single horizontal lifeline graph. X-axis labeled \"Time\" with three milestones marked: \"Day 1\", \"Week 1\", \"Week 3\". Y-axis labeled \"Felt experience\". The line peaks sharply at Day 1 (point labeled \"Magic\"), stays high through Week 1 (segment labeled \"Compulsive engagement\"), then forks at Week 3 into two paths: a higher path labeled \"Companion \u2014 memory + modality keep up\" and a lower path labeled \"Polite content engine \u2014 six templated phrases\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "captured_at": "2026-05-07",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-experience/image-6-a-simple-recap-illustration-sh.png",
+        "model": "openai/gpt-image-2"
+      },
+      "legacy": false,
+      "attrs": {
+        "type": "image",
+        "prompt": "A simple recap illustration showing the three-act arc of the AI girlfriend experience as a single horizontal lifeline graph. X-axis labeled \"Time\" with three milestones marked: \"Day 1\", \"Week 1\", \"Week 3\". Y-axis labeled \"Felt experience\". The line peaks sharply at Day 1 (point labeled \"Magic\"), stays high through Week 1 (segment labeled \"Compulsive engagement\"), then forks at Week 3 into two paths: a higher path labeled \"Companion \u2014 memory + modality keep up\" and a lower path labeled \"Polite content engine \u2014 six templated phrases\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "safety": "sfw"
+      }
+    },
+    {
+      "index": 11,
+      "type": "table",
+      "alt": "5 conversation diagnostics \u2014 what you do / what a pass looks like",
+      "status": "captured",
+      "captured_at": "2026-05-07",
+      "result": {
+        "status": "captured",
+        "path": "(inline markdown table in \u00a75 of cited draft)",
+        "rows": 5,
+        "cols": 4
+      },
+      "attrs": {
+        "type": "table",
+        "what": "5 tests in 2 sessions to predict Week 3"
+      },
+      "raw": "(inline markdown \u2014 `table` is the canonical type for 5x4 comparison structure per templates/visual-types.md)",
+      "legacy": false,
+      "added_pleaa_500_revision": "Replaced paraphrased gpt-image-2 checklist (CRITICAL #1 from prior visuals-adversarial). The \u00a75 5\u00d74 grid is the canonical use case for `table`."
+    },
+    {
+      "index": 100,
       "type": "external",
       "attrs": {
         "type": "external",
@@ -41,69 +234,62 @@
         "url": "https://foundation.mozilla.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/",
         "selector": "article h1",
         "crop": "padded",
-        "what": "Mozilla Privacy Not Included headline on romantic AI chatbots"
+        "what": "Mozilla Privacy Not Included headline (PIL-rendered fake)"
       },
       "alt": "Mozilla Privacy Not Included headline on romantic AI chatbots",
       "status": "stripped",
       "stripped_at": "2026-05-06",
-      "stripped_reason": "CRITICAL #2 from visuals-adversarial: fabricated text-render not a real screenshot",
+      "stripped_reason": "Prior CRITICAL #2: PIL render not a real screenshot. Replaced with patchright capture (current entry).",
       "stripped_finding_id": "visuals-adversarial-CRITICAL-2-section-3",
-      "result": {
-        "status": "captured",
-        "path": "content-pipeline/images/ai-girlfriend-experience/external-2-mozilla-privacy-not-included-h.png",
-        "capture_method": "claude_in_chrome",
-        "sub": "news-quote",
-        "url": "https://foundation.mozilla.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/",
-        "selector": "article h1",
-        "note": "H1 located via real Chrome session (selector 'h1.tw-h1-heading' on rendered page; original 'article h1' selector still failed because Mozilla wraps headline in DIV, not ARTICLE). Headline text ('Romantic AI Chatbots Don\u2019t Have Your Privacy at Heart') extracted from live DOM and rendered via PIL with DejaVuSerif-Bold (1200x234, 19050 bytes) because Chrome MCP screenshot bytes cannot land on local FS in this deployment (save_to_disk writes to root-owned /paperclip/Downloads, dataURL chunked retrieval truncated by tool harness)."
-      },
-      "raw": "[VISUAL:type=external;sub=news-quote;url=https://foundation.mozilla.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/;selector=article h1;crop=padded;what=Mozilla Privacy Not Included headline on romantic AI chatbots]",
       "legacy": false
     },
     {
-      "index": 3,
+      "index": 101,
       "type": "chart",
       "attrs": {
         "type": "chart",
         "data": "research.engagement_signals_verified",
         "style": "line",
-        "title": "Character.AI monthly active users \u2014 mid-2024 peak (28M) to early 2025 (~20M)"
+        "title": "Character.AI MAU \u2014 3 points (Replika installs mixed in)"
       },
-      "alt": "Character.AI monthly active users \u2014 mid-2024 peak (28M) to early 2025 (~20M)",
+      "alt": "Character.AI monthly active users (3-point version)",
       "status": "stripped",
       "stripped_at": "2026-05-06",
-      "stripped_reason": "CRITICAL #1 from visuals-adversarial: data contradicts title (3rd point was Replika installs, different metric / different platform). Replaced by index 4 with filtered data (2 Character.AI MAU points only).",
+      "stripped_reason": "Prior CRITICAL #1: 3rd point was Replika installs, different metric. Replaced with corrected 2-point chart.",
       "stripped_finding_id": "visuals-adversarial-CRITICAL-1-section-4",
-      "result": {
-        "status": "captured",
-        "path": "content-pipeline/images/ai-girlfriend-experience/chart-3-character-ai-monthly-active-us.png",
-        "style": "line",
-        "data_points": 3
-      },
-      "raw": "[VISUAL:type=chart;data=research.engagement_signals_verified;style=line;title=Character.AI monthly active users \u2014 mid-2024 peak (28M) to early 2025 (~20M)]",
       "legacy": false
     },
     {
-      "index": 4,
-      "type": "chart",
+      "index": 102,
+      "type": "image",
       "attrs": {
-        "type": "chart",
-        "data": "research.engagement_signals_verified",
-        "style": "line",
-        "title": "Character.AI monthly active users \u2014 mid-2024 peak (28M) to early 2025 (~20M)",
-        "y_label": "Monthly active users (millions)"
+        "type": "image",
+        "sub": "diagram",
+        "what": "5 tests vertical checklist (paraphrased into generic chatbot-eval categories)"
       },
-      "alt": "Character.AI monthly active users \u2014 mid-2024 peak (28M) to early 2025 (~20M)",
-      "status": "captured",
-      "added_at": "2026-05-06",
-      "added_reason": "Re-render after CRITICAL #1 strip. research.engagement_signals_verified now contains only the two Character.AI MAU points (Replika installs moved to research.replika_installs_aux).",
-      "result": {
-        "status": "captured",
-        "path": "content-pipeline/images/ai-girlfriend-experience/chart-3-character-ai-monthly-active-us.png",
-        "style": "line",
-        "data_points": 2
+      "alt": "5 conversation diagnostics \u2014 paraphrased",
+      "status": "stripped",
+      "stripped_at": "2026-05-07",
+      "stripped_reason": "PLEAA-500 revision pass CRITICAL #1: gpt-image-2 paraphrased the article's 5 specific tests into generic Clarity/Completeness/Accuracy/Reasoning/Fit&Tone \u2014 actively misled readers. Replaced with inline markdown table.",
+      "stripped_finding_id": "visuals-adversarial-CRITICAL-pleaa-500-section-5",
+      "legacy": false
+    },
+    {
+      "index": 103,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://www.wired.com/story/ai-girlfriend-week/",
+        "selector": "h1",
+        "crop": "padded",
+        "what": "Wired headline (URL 404'd)"
       },
-      "raw": "[VISUAL:type=chart;data=research.engagement_signals_verified;style=line;title=Character.AI monthly active users \u2014 mid-2024 peak (28M) to early 2025 (~20M);y_label=Monthly active users (millions)]",
+      "alt": "Wired headline on AI girlfriend week-long experiment",
+      "status": "stripped",
+      "stripped_at": "2026-05-07",
+      "stripped_reason": "PLEAA-500: source URL returned 404 (Wired removed/relocated the article). Capture rendered the 'Oops, that page is missing!' interstitial. Replaced with \u00a72 active-context-vs-day-17 image.",
+      "stripped_finding_id": "pleaa-500-soak-wired-404",
       "legacy": false
     }
   ]
