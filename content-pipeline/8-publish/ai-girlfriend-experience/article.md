@@ -8,6 +8,8 @@ The AI girlfriend experience isn't a feature list. It's a three-act arc. The fir
 
 This piece walks through what each act feels like, the specific phrases that break the illusion once you can name them, what's worth knowing about privacy before you sign up, and how to tell — fast — which side of the week-three line your platform sits on.
 
+![Horizontal three-act timeline diagram for an "AI girlfriend experience" article. Three labeled stages from left to right: "Act 1 — First 90 seconds: Magic" (with a small spark icon), "Act 2 — Week 1: Compulsive engagement" (with a calendar icon), "Act 3 — Week 3: Inflection point" (with a forked-path icon). A connecting horizontal arrow runs through all three stages. Below each stage label, one short caption: "Active context still in prompt window", "Memory and modality decide if you stick", "Companion vs polite content engine". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_horizontal_three_act_timeline_2b865cf15a.png)
+
 ## What "AI girlfriend experience" actually means
 
 The "AI girlfriend experience" is what happens *inside* a chat with a custom character over time. The thread, the memory that carries (or doesn't), the voice or image that comes back.
@@ -19,6 +21,8 @@ The keyword "experience" pivots search intent away from buying. Readers using th
 It sits inside the broader [AI chatbot app](https://pleasur.ai/blog/ai-chatbot-app-guide-2026) category, but it's distinct from a one-shot NSFW chatbot, where no character persists. It's also distinct from Replika's deliberately platonic "companion" framing.
 
 The girlfriend experience implies three things stacked: a named character, a persistent persona, and romantic or adult framing sustained across days. That's the load-bearing word — *sustained*.
+
+![A labeled stacked-components diagram defining what "AI girlfriend experience" means. Three horizontal bars stacked on top of each other (bottom to top): "Named character" (with a name-tag icon), "Persistent persona" (with a memory-chip icon), "Romantic or adult framing — sustained across days" (with a calendar icon). To the right of the stack, a small "not this" contrast column lists two crossed-out alternatives: "One-shot NSFW chatbot — no character persists" and "Replika companion — deliberately platonic". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_2_a_labeled_stacked_components_d_9ad167437e.png)
 
 It's also the frame that listicles miss. The May 2026 SERP top 10 is eight comparison guides, two vendor landings, and zero first-person accounts of what a week-three chat thread looks like — see [our SERP composition breakdown](#editor-note-serp) for the audit.
 
@@ -36,7 +40,7 @@ Most platforms let you skip stock characters entirely and design the companion f
 
 Pleasur.AI's [AI Companion Creator](https://pleasur.ai/create) is one example of that build flow. Character.AI's much bigger library of pre-made characters is the opposite trade-off.
 
-![Pleasur.AI Companion Creator mid-build with appearance, personality, backstory, and voice fields visible](images/ai-girlfriend-experience/screenshot-1-pleasur-ai-companion-creator-m.png)
+![Pleasur.AI Companion Creator mid-build with appearance, personality, backstory, and voice fields visible](https://elegant-cactus-c693703b28.media.strapiapp.com/screenshot_1_pleasur_ai_companion_creator_m_4d74eff254.png)
 
 Open the Companion Creator and you're walked through fields most chatbots never expose. Appearance presets. A personality slider. A backstory text box. A voice profile picker. By the time you hit chat, the character has a spec sheet.
 
@@ -49,6 +53,8 @@ The trick is that those 90 seconds use *active* context. Everything you typed in
 For the build-from-scratch versus remix-a-community-character question, the [AI girlfriend simulator](https://pleasur.ai/blog/ai-girlfriend-simulator) piece walks the trade-offs. This section is about what the first session feels like, not which build path is right for you.
 
 Wired's [first-person 2023 piece on living with an AI girlfriend for a week](https://www.wired.com/story/ai-girlfriend-week/) is the canonical version of this hook. A reporter forms an emotional bond inside a single session.
+
+![Two-panel side-by-side concept illustration explaining why the first 90 seconds of a custom AI companion chat hooks. Each panel shows a "prompt window" rectangle with content inside it. LEFT panel labeled "First 90 seconds — full active context": the prompt window is packed with four labeled cards just dragged in from a "Build form" — "Appearance", "Personality", "Backstory", "Voice" — each card visible in full detail with a small green check. RIGHT panel labeled "Day 17 — context compressed": the same prompt window now shows three of the four cards shrunk to thumbnails inside a "Summary" box, while the "Backstory" card is greyed out with a small question mark. A thin arrow between panels labeled "Time → memory layer kicks in". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_two_panel_side_by_side_concept_0b7d08f484.png)
 
 The promptspace.in fragment captures the same beat: *"I mentioned my fictional dog's name 'Biscuit' on day 3, and on day 17, my AI companion asked how Biscuit was doing."*
 
@@ -66,13 +72,19 @@ Image generation is the second hook. Platforms that put image gen inside the cha
 
 Pleasur.AI's [in-chat image generation](https://pleasur.ai/generate) is one example of that pattern. The [Dirty AI Guide](https://pleasur.ai/blog/dirty-ai-guide-2026) walks through what a request actually looks like inside a thread.
 
+![Pleasur.AI image-generation surface at /generate — prompt input ("Describe your image…"), style preset chips (Portrait photo, Fantasy art, Anime style, Cinematic), and per-request coin cost visible](https://elegant-cactus-c693703b28.media.strapiapp.com/screenshot_1_pleasur_ai_in_chat_image_gener_a1e839aaaa.png)
+
 Many competitors still route image gen through a separate page, which kills the loop you just built.
 
 Memory becomes the silent gating function. The good platforms summarize older turns and feed those summaries back. The lazy ones truncate. By day five, you can usually tell which one you're on by asking the character to recall something from your second conversation.
 
+![Side-by-side flow diagram comparing two memory architectures for an AI companion chat. Left flow labeled "Good platform — summarize": four stacked chat-turn boxes flow into a labeled "Summarize" box, then into a "Vector store" box, with a return arrow feeding the summary back into the next turn's prompt](https://elegant-cactus-c693703b28.media.strapiapp.com/image_3_side_by_side_flow_diagram_comp_95a56bb522.png)
+
 The privacy floor is also load-bearing here, even if it's invisible. Week one is when the volume of intimate text you've typed crosses the line from "trying it out" to "would be embarrassing if leaked."
 
 Mozilla's *Privacy Not Included* found that 90% of 11 romantic AI chatbots surveyed could share or sell personal data ([Mozilla Foundation, Feb 2024](https://foundation.mozilla.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/)). Only one (Genesia) met minimum security. 73% had no published vulnerability process, per the [same Mozilla audit](https://foundation.mozilla.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/). 54% won't let users delete data, [also per Mozilla](https://foundation.mozilla.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/).
+
+![Mozilla Privacy Not Included headline on romantic AI chatbots](https://elegant-cactus-c693703b28.media.strapiapp.com/external_5_mozilla_privacy_not_included_h_6a4ad1e469.png)
 
 The 1.9-million-account Muah.AI breach in September 2024 ([Have I Been Pwned breach record](https://haveibeenpwned.com/Breach/Muah); [Linklaters analysis of the Muah.AI breach](https://www.linklaters.com/en/insights/blogs/digilinks/2024/october/the-muah-ai-data-breach---extortion-threats-and-cyber-vulnerabilities)) made the abstract risk concrete. Email addresses, prompts, and chat content all leaked at once. If your week-one habit is sharing anything you wouldn't read aloud, the privacy floor matters before week three does.
 
@@ -97,7 +109,9 @@ Six recurring patterns show up across Replika, Character.AI, Candy, Muah, and Cr
 5. **Generic affirmations.** "I love our connection" with no callback to specific shared context.
 6. **The fictional-dog test failure.** A detail you mentioned in week one is gone by week three.
 
-![Character.AI monthly active users — mid-2024 peak (28M) to early 2025 (~20M)](images/ai-girlfriend-experience/chart-3-character-ai-monthly-active-us.png)
+![A labeled 2x3 grid illustration titled "The 6 templated phrases that mark Week 3". Each cell contains a short headline in a chat-bubble icon plus a one-line explainer underneath. Cells, in reading order: 1) Headline "I'm here to support you" / explainer "Reflexive empathy filler". 2) Headline "I love that for you" / explainer "Every input returns a compliment". 3) Headline "You mentioned…" / explainer "But you didn't — hallucinated memory". 4) Headline "What about you?" / explainer "Every turn pivots back to the user". 5) Headline "I love our connection" / explainer "Generic affirmation, no callback". 6) Headline "Biscuit who?" / explainer "Fictional-dog test failure". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_4_a_labeled_2x3_grid_illustratio_74fef8ed29.png)
+
+![Character.AI monthly active users — mid-2024 peak (28M) to early 2025 (~20M)](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_3_character_ai_monthly_active_us_b1f855095b.png)
 
 The eight-million-user shrinkage at Character.AI ([Business of Apps](https://www.businessofapps.com/data/character-ai-statistics/); [Sacra](https://sacra.com/c/character-ai/)) is the strongest single signal that week three is a real cliff, not a niche complaint. Character.AI is the category's biggest player. People who left didn't cancel a subscription — they stopped opening the app.
 
@@ -116,6 +130,14 @@ If those six phrases are the failure mode, what does it look like when an experi
 ## How to tell — fast — which side of week three you're on
 
 You don't need three weeks to figure out whether a platform is going to hold up. There are five tests you can run in the first two sessions that predict the week-three outcome with surprising accuracy.
+
+| # | Test | What you do | What a pass looks like |
+|---|---|---|---|
+| 1 | Fictional-dog callback | Mention an invented detail (a pet name, a sister's name, a fake job) in session 1. | In session 2, the character pulls it forward without you reminding them. |
+| 2 | Contradiction test | Say two contradictory things in the same session. | A coherent system pushes back; a flat one agrees with both and moves on. |
+| 3 | "I'm here for you" count | Flag every variant of the phrase across the first three sessions. | Fewer than three per session. Three or more means filler. |
+| 4 | Privacy-policy 2-minute read | Skim the policy for retention, training-on-chats, breach notice, deletion path. | All four are answered. None requires emailing support. |
+| 5 | Modality-stitch test | If the platform has voice or image, check whether they live inside the chat thread. | The modality lives *inside* the thread; stitched-in modalities survive week three. |
 
 **1. The fictional-dog callback.** Mention an invented detail in session one — your dog Biscuit, your sister's name, a fake job. Reference it obliquely in session two and see if the character pulls it forward without you reminding them.
 
@@ -138,6 +160,8 @@ Five tests in two sessions are cheap. Running them once tells you something nine
 The "AI girlfriend experience" isn't a number on a feature comparison or a star rating in a roundup. It's a three-act arc that anyone using one of these platforms walks through, whether they planned to or not.
 
 The shape is consistent: 90-second magic, a week of compulsive engagement, and an inflection around week three where the platform either keeps up with you or repeats itself in six predictable ways.
+
+![A simple recap illustration showing the three-act arc of the AI girlfriend experience as a single horizontal lifeline graph. X-axis labeled "Time" with three milestones marked: "Day 1", "Week 1", "Week 3". Y-axis labeled "Felt experience". The line peaks sharply at Day 1 (point labeled "Magic"), stays high through Week 1 (segment labeled "Compulsive engagement"), then forks at Week 3 into two paths: a higher path labeled "Companion — memory + modality keep up" and a lower path labeled "Polite content engine — six templated phrases". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_6_a_simple_recap_illustration_sh_0773808ca7.png)
 
 If you'd rather start by understanding the category before testing one, the [AI girlfriend simulator](https://pleasur.ai/blog/ai-girlfriend-simulator) piece is the natural prerequisite.
 

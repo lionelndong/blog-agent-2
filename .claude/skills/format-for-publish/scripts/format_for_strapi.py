@@ -373,8 +373,15 @@ def copy_images_to_publish(out_dir: Path, refs: list[tuple[str, str]]) -> list[P
     return copied
 
 
-def upload_to_strapi_media(image_paths: list[Path], base_url: str, token: str) -> dict[str, int]:
-    """POST each image to /api/upload, return mapping of filename -> media id."""
+def upload_to_strapi_media(image_paths: list[Path], base_url: str, token: str) -> dict[str, dict]:
+    """POST each image to /api/upload, return mapping of filename -> {id, url}.
+
+    Strapi Cloud rewrites uploaded asset URLs to a separate media subdomain
+    (e.g. ``media.strapiapp.com/<file>_<hash>.png``) instead of serving them
+    from ``{base_url}/uploads/<filename>``. We must trust the ``url`` field
+    that Strapi returns from /api/upload — synthesizing /uploads/ paths
+    produces 404s on Strapi Cloud (PLEAA-499 followup, 2026-05-08).
+    """
     if not image_paths:
         return {}
     try:
@@ -386,7 +393,8 @@ def upload_to_strapi_media(image_paths: list[Path], base_url: str, token: str) -
         return {}
 
     endpoint = f"{base_url.rstrip('/')}/api/upload"
-    out: dict[str, int] = {}
+    base = base_url.rstrip("/")
+    out: dict[str, dict] = {}
     for path in image_paths:
         boundary = uuid.uuid4().hex
         mime = mimetypes.guess_type(path.name)[0] or "image/png"
@@ -411,23 +419,44 @@ def upload_to_strapi_media(image_paths: list[Path], base_url: str, token: str) -
             if isinstance(data, list) and data:
                 first = data[0]
                 if isinstance(first, dict) and "id" in first:
-                    out[path.name] = int(first["id"])
+                    rel_url = first.get("url") or ""
+                    # Strapi Cloud returns absolute URLs (https://...media.strapiapp.com/...);
+                    # self-hosted returns paths like "/uploads/<file>". Make absolute either way.
+                    if rel_url.startswith("//"):
+                        full_url = f"https:{rel_url}"
+                    elif rel_url.startswith("http"):
+                        full_url = rel_url
+                    elif rel_url:
+                        full_url = f"{base}{rel_url if rel_url.startswith('/') else '/' + rel_url}"
+                    else:
+                        # Fallback to legacy /uploads/<name> guess; will likely 404 on Strapi Cloud.
+                        full_url = f"{base}/uploads/{path.name}"
+                    out[path.name] = {"id": int(first["id"]), "url": full_url}
         except Exception as exc:
             sys.stderr.write(f"warning: upload failed for {path.name}: {exc}\n")
     return out
 
 
-def rewrite_image_refs(md: str, base_url: str | None) -> str:
-    """If we have a Strapi base URL, rewrite local image refs to absolute Strapi-served URLs.
-    Otherwise leave them as-is so the editor can drag from media/ folder."""
+def rewrite_image_refs(md: str, base_url: str | None, media_map: dict[str, dict] | None = None) -> str:
+    """Rewrite local image refs to absolute Strapi-served URLs.
+
+    Prefers the ``url`` returned by ``/api/upload`` (correct for Strapi Cloud's
+    separate media subdomain). Falls back to ``{base}/uploads/<filename>`` only
+    when no upload entry exists for that filename. Without a base URL, leaves
+    refs alone so the editor can drag from the publish package's ``media/``.
+    """
     if not base_url:
         return md
     base = base_url.rstrip("/")
+    media_map = media_map or {}
 
     def _rewrite(match: "re.Match[str]") -> str:
         alt = match.group(1)
         rel = match.group(2)
         filename = Path(rel).name
+        entry = media_map.get(filename)
+        if entry and entry.get("url"):
+            return f"![{alt}]({entry['url']})"
         return f"![{alt}]({base}/uploads/{filename})"
 
     return IMAGE_REF_RE.sub(_rewrite, md)
@@ -760,11 +789,12 @@ def main() -> None:
     base_url = os.environ.get("STRAPI_BASE_URL")
     token = os.environ.get("STRAPI_API_TOKEN")
 
+    media_map: dict[str, dict] = {}
     if publish_via_api and base_url and token and copied_images:
         media_map = upload_to_strapi_media(copied_images, base_url, token)
         if media_map:
             print(f"uploaded {len(media_map)} images to Strapi media library")
-        body = rewrite_image_refs(body, base_url)
+    body = rewrite_image_refs(body, base_url if (base_url and media_map) else None, media_map)
 
     published_at = datetime.now(timezone.utc).isoformat() if auto_publish else None
     cover_image_url = extract_cover_image_url(body, base_url)
