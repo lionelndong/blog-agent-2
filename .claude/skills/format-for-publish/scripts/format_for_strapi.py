@@ -601,7 +601,6 @@ def publish_to_strapi(payload: dict, *, update: bool = False) -> None:
 # string-literals followed by `;` in the file).
 _FALLBACK_RUNS_RE = re.compile(
     r'(return\s*\[)([^\]]*?)(\]\s*;)',
-    re.DOTALL,
 )
 
 
@@ -671,15 +670,15 @@ def stage_whiteboard(slug: str) -> None:
     bundled, bmsg = _bundle_run_viewer(slug)
     print(f"  bundle: {'ok' if bundled else 'skipped'} — {bmsg}")
 
-    indexed, imsg = _update_index_fallback(slug)
-    print(f"  index:  {'updated' if indexed else 'unchanged'} — {imsg}")
-
     if not bundled:
         print(
             "  hint: run `python scripts/bundle_viewer.py "
             f"{slug}` manually to regenerate the static viewer."
         )
         return
+
+    indexed, imsg = _update_index_fallback(slug)
+    print(f"  index:  {'updated' if indexed else 'unchanged'} — {imsg}")
 
     # Best-effort `git add` so the operator just has to commit + push.
     paths_to_stage = [DOCS_DIR / f"run-{slug}.html"]
@@ -790,10 +789,7 @@ def main() -> None:
     # surfaces at https://lionelndong.github.io/blog-agent-2/ as soon as the
     # operator pushes `main`. Best-effort — never blocks publish.
     if os.environ.get("BLOG_AGENT_SKIP_WHITEBOARD") != "1":
-        try:
-            stage_whiteboard(args.slug)
-        except Exception as e:
-            print(f"warning: whiteboard staging failed: {e}")
+        stage_whiteboard(args.slug)
 
 
 if __name__ == "__main__":
