@@ -1,4 +1,253 @@
 {
   "slug": "ai-girlfriend",
-  "visuals": []
+  "visuals": [
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Three-column labeled comparison diagram titled \"The three AI chat categories\". Left column labeled \"Productivity tools\" with wrench icon, examples \"ChatGPT, Claude\", sub-text \"No persona, task-focused, no memory between sessions\". Center column labeled \"Platonic companions\" with heart-outline icon, examples \"Replika, Character.AI\", sub-text \"Named character, platonic, heavy content moderation\". Right column labeled \"AI girlfriend platforms\" with star icon, sub-text \"Named character, adult themes first-class, persistent persona\". Vertical gray dividers between columns. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "safety": "sfw"
+      },
+      "alt": "Three-column labeled comparison diagram titled \"The three AI chat categories\". Left column labeled \"Productivity tools\" with wrench icon, examples \"ChatGPT, Claude\", sub-text \"No persona, task-focused, no memory between sessions\". Center column labeled \"Platonic companions\" with heart-outline icon, examples \"Replika, Character.AI\", sub-text \"Named character, platonic, heavy content moderation\". Right column labeled \"AI girlfriend platforms\" with star icon, sub-text \"Named character, adult themes first-class, persistent persona\". Vertical gray dividers between columns. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend/image-1-three-column-labeled-compariso.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Three-column labeled comparison diagram titled \"The three AI chat categories\". Left column labeled \"Productivity tools\" with wrench icon, examples \"ChatGPT, Claude\", sub-text \"No persona, task-focused, no memory between sessions\". Center column labeled \"Platonic companions\" with heart-outline icon, examples \"Replika, Character.AI\", sub-text \"Named character, platonic, heavy content moderation\". Right column labeled \"AI girlfriend platforms\" with star icon, sub-text \"Named character, adult themes first-class, persistent persona\". Vertical gray dividers between columns. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Three-column labeled comparison diagram titled \"The three AI chat categories\". Left column labeled \"Productivity tools\" with wrench icon, examples \"ChatGPT, Claude\", sub-text \"No persona, task-focused, no memory between sessions\". Center column labeled \"Platonic companions\" with heart-outline icon, examples \"Replika, Character.AI\", sub-text \"Named character, platonic, heavy content moderation\". Right column labeled \"AI girlfriend platforms\" with star icon, sub-text \"Named character, adult themes first-class, persistent persona\". Vertical gray dividers between columns. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Five labeled use-case icons arranged in a horizontal row, titled \"Why people use AI companion platforms\". Icon 1 (speech-bubble with practice arrows): labeled \"Practice conversations \u2014 flirting, vulnerability, intimacy\". Icon 2 (shield with checkmark): labeled \"Judgment-free space \u2014 topics too personal to share elsewhere\". Icon 3 (clock showing 24/7): labeled \"Always-available presence \u2014 shift workers, transitions\". Icon 4 (paintbrush): labeled \"Creative expression \u2014 character design and roleplay\". Icon 5 (filter icon with X through it): labeled \"Escape refusals \u2014 mainstream chatbots block normal adult talk\". Each icon sits centered above its label in a clean card layout. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "safety": "sfw"
+      },
+      "alt": "Five labeled use-case icons arranged in a horizontal row, titled \"Why people use AI companion platforms\". Icon 1 (speech-bubble with practice arrows): labeled \"Practice conversations \u2014 flirting, vulnerability, intimacy\". Icon 2 (shield with checkmark): labeled \"Judgment-free space \u2014 topics too personal to share elsewhere\". Icon 3 (clock showing 24/7): labeled \"Always-available presence \u2014 shift workers, transitions\". Icon 4 (paintbrush): labeled \"Creative expression \u2014 character design and roleplay\". Icon 5 (filter icon with X through it): labeled \"Escape refusals \u2014 mainstream chatbots block normal adult talk\". Each icon sits centered above its label in a clean card layout. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend/image-1-five-labeled-use-case-icons-ar.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Five labeled use-case icons arranged in a horizontal row, titled \"Why people use AI companion platforms\". Icon 1 (speech-bubble with practice arrows): labeled \"Practice conversations \u2014 flirting, vulnerability, intimacy\". Icon 2 (shield with checkmark): labeled \"Judgment-free space \u2014 topics too personal to share elsewhere\". Icon 3 (clock showing 24/7): labeled \"Always-available presence \u2014 shift workers, transitions\". Icon 4 (paintbrush): labeled \"Creative expression \u2014 character design and roleplay\". Icon 5 (filter icon with X through it): labeled \"Escape refusals \u2014 mainstream chatbots block normal adult talk\". Each icon sits centered above its label in a clean card layout. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Five labeled use-case icons arranged in a horizontal row, titled \"Why people use AI companion platforms\". Icon 1 (speech-bubble with practice arrows): labeled \"Practice conversations \u2014 flirting, vulnerability, intimacy\". Icon 2 (shield with checkmark): labeled \"Judgment-free space \u2014 topics too personal to share elsewhere\". Icon 3 (clock showing 24/7): labeled \"Always-available presence \u2014 shift workers, transitions\". Icon 4 (paintbrush): labeled \"Creative expression \u2014 character design and roleplay\". Icon 5 (filter icon with X through it): labeled \"Escape refusals \u2014 mainstream chatbots block normal adult talk\". Each icon sits centered above its label in a clean card layout. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Four-panel grid titled \"What good AI companion conversations actually deliver\". Panel 1 labeled \"Emotional memory\" \u2014 two chat bubbles: user says \"Been stressed about work\" and later companion reply shows a small chain-link icon referencing it three messages later. Panel 2 labeled \"Roleplay continuity\" \u2014 a chain-link icon with a scenario-start flag at message 1 and the same scenario flag intact at message 12, context held. Panel 3 labeled \"Emotional pacing\" \u2014 single companion speech-bubble showing \"What happened?\" with no advice offered, pause icon beside it. Panel 4 labeled \"Multi-modal flow\" \u2014 text bubble then voice-speaker icon then phone-call icon in a smooth left-to-right sequence. No human faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "safety": "sfw"
+      },
+      "alt": "Four-panel grid titled \"What good AI companion conversations actually deliver\". Panel 1 labeled \"Emotional memory\" \u2014 two chat bubbles: user says \"Been stressed about work\" and later companion reply shows a small chain-link icon referencing it three messages later. Panel 2 labeled \"Roleplay continuity\" \u2014 a chain-link icon with a scenario-start flag at message 1 and the same scenario flag intact at message 12, context held. Panel 3 labeled \"Emotional pacing\" \u2014 single companion speech-bubble showing \"What happened?\" with no advice offered, pause icon beside it. Panel 4 labeled \"Multi-modal flow\" \u2014 text bubble then voice-speaker icon then phone-call icon in a smooth left-to-right sequence. No human faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend/image-3-four-panel-grid-titled-what-go.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Four-panel grid titled \"What good AI companion conversations actually deliver\". Panel 1 labeled \"Emotional memory\" \u2014 two chat bubbles: user says \"Been stressed about work\" and later companion reply shows a small chain-link icon referencing it three messages later. Panel 2 labeled \"Roleplay continuity\" \u2014 a chain-link icon with a scenario-start flag at message 1 and the same scenario flag intact at message 12, context held. Panel 3 labeled \"Emotional pacing\" \u2014 single companion speech-bubble showing \"What happened?\" with no advice offered, pause icon beside it. Panel 4 labeled \"Multi-modal flow\" \u2014 text bubble then voice-speaker icon then phone-call icon in a smooth left-to-right sequence. No human faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Four-panel grid titled \"What good AI companion conversations actually deliver\". Panel 1 labeled \"Emotional memory\" \u2014 two chat bubbles: user says \"Been stressed about work\" and later companion reply shows a small chain-link icon referencing it three messages later. Panel 2 labeled \"Roleplay continuity\" \u2014 a chain-link icon with a scenario-start flag at message 1 and the same scenario flag intact at message 12, context held. Panel 3 labeled \"Emotional pacing\" \u2014 single companion speech-bubble showing \"What happened?\" with no advice offered, pause icon beside it. Panel 4 labeled \"Multi-modal flow\" \u2014 text bubble then voice-speaker icon then phone-call icon in a smooth left-to-right sequence. No human faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Labeled flow diagram titled \"How good platform memory actually works\". Left: a vertical stack of 5 labeled chat-turn rectangles (\"Session 1\" through \"Session 5\"). Arrow from the stack into a funnel box labeled \"Summarize\". Arrow from funnel into a cylinder labeled \"Vector store\". A retrieval arrow from the cylinder feeds back into a box labeled \"Next prompt context\". Contrasting right side labeled \"Weak platform\" shows the same stack with a bracket around only the bottom two labeled \"Last 4 000 tokens\" and an X through older sessions. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, directional arrows, no text artifacts.",
+        "safety": "sfw"
+      },
+      "alt": "Labeled flow diagram titled \"How good platform memory actually works\". Left: a vertical stack of 5 labeled chat-turn rectangles (\"Session 1\" through \"Session 5\"). Arrow from the stack into a funnel box labeled \"Summarize\". Arrow from funnel into a cylinder labeled \"Vector store\". A retrieval arrow from the cylinder feeds back into a box labeled \"Next prompt context\". Contrasting right side labeled \"Weak platform\" shows the same stack with a bracket around only the bottom two labeled \"Last 4 000 tokens\" and an X through older sessions. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, directional arrows, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend/image-4-labeled-flow-diagram-titled-ho.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Labeled flow diagram titled \"How good platform memory actually works\". Left: a vertical stack of 5 labeled chat-turn rectangles (\"Session 1\" through \"Session 5\"). Arrow from the stack into a funnel box labeled \"Summarize\". Arrow from funnel into a cylinder labeled \"Vector store\". A retrieval arrow from the cylinder feeds back into a box labeled \"Next prompt context\". Contrasting right side labeled \"Weak platform\" shows the same stack with a bracket around only the bottom two labeled \"Last 4 000 tokens\" and an X through older sessions. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, directional arrows, no text artifacts.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Labeled flow diagram titled \"How good platform memory actually works\". Left: a vertical stack of 5 labeled chat-turn rectangles (\"Session 1\" through \"Session 5\"). Arrow from the stack into a funnel box labeled \"Summarize\". Arrow from funnel into a cylinder labeled \"Vector store\". A retrieval arrow from the cylinder feeds back into a box labeled \"Next prompt context\". Contrasting right side labeled \"Weak platform\" shows the same stack with a bracket around only the bottom two labeled \"Last 4 000 tokens\" and an X through older sessions. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, directional arrows, no text artifacts.;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "comparison",
+        "prompt": "Side-by-side comparison titled \"Character coherence under pressure\". LEFT panel labeled \"Well-tuned platform\" with a green checkmark: USER bubble says \"You said you love jazz \u2014 but I hate it, prove you don't care\". COMPANION bubble responds in distinct character voice: \"Fair enough. Jazz can wait. What's actually on your mind?\" RIGHT panel labeled \"Generic chatbot wrapper\" with a red X: same user message. COMPANION bubble responds: \"I understand your feelings. I apologize if that upset you. How can I assist you today?\" No human faces. Clean editorial illustration style, white background, sans-serif labels, chat-bubble styling, brand-neutral colors, no text artifacts.",
+        "safety": "sfw"
+      },
+      "alt": "Side-by-side comparison titled \"Character coherence under pressure\". LEFT panel labeled \"Well-tuned platform\" with a green checkmark: USER bubble says \"You said you love jazz \u2014 but I hate it, prove you don't care\". COMPANION bubble responds in distinct character voice: \"Fair enough. Jazz can wait. What's actually on your mind?\" RIGHT panel labeled \"Generic chatbot wrapper\" with a red X: same user message. COMPANION bubble responds: \"I understand your feelings. I apologize if that upset you. How can I assist you today?\" No human faces. Clean editorial illustration style, white background, sans-serif labels, chat-bubble styling, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend/image-5-side-by-side-comparison-titled.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Side-by-side comparison titled \"Character coherence under pressure\". LEFT panel labeled \"Well-tuned platform\" with a green checkmark: USER bubble says \"You said you love jazz \u2014 but I hate it, prove you don't care\". COMPANION bubble responds in distinct character voice: \"Fair enough. Jazz can wait. What's actually on your mind?\" RIGHT panel labeled \"Generic chatbot wrapper\" with a red X: same user message. COMPANION bubble responds: \"I understand your feelings. I apologize if that upset you. How can I assist you today?\" No human faces. Clean editorial illustration style, white background, sans-serif labels, chat-bubble styling, brand-neutral colors, no text artifacts.. Clean editorial side-by-side comparison illustration, white background, sans-serif labels, balanced left/right layout, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=comparison;prompt=Side-by-side comparison titled \"Character coherence under pressure\". LEFT panel labeled \"Well-tuned platform\" with a green checkmark: USER bubble says \"You said you love jazz \u2014 but I hate it, prove you don't care\". COMPANION bubble responds in distinct character voice: \"Fair enough. Jazz can wait. What's actually on your mind?\" RIGHT panel labeled \"Generic chatbot wrapper\" with a red X: same user message. COMPANION bubble responds: \"I understand your feelings. I apologize if that upset you. How can I assist you today?\" No human faces. Clean editorial illustration style, white background, sans-serif labels, chat-bubble styling, brand-neutral colors, no text artifacts.;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "comparison",
+        "prompt": "Side-by-side UX comparison diagram titled \"Image generation: in-chat vs tab-switch\". LEFT panel labeled \"In-chat (seamless)\" with green checkmark: a vertical chat thread inside one app frame shows a text bubble then an image thumbnail bubble inline, then another text bubble continuing conversation \u2014 everything in one scroll. RIGHT panel labeled \"Tab-switch (breaks flow)\" with red X: a chat window on the left has a curved arrow pointing OUT to a separate \"Image Generator\" tab on the right, then another arrow pointing BACK. A red \"interruption\" marker sits between the two tabs. No human faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "safety": "sfw"
+      },
+      "alt": "Side-by-side UX comparison diagram titled \"Image generation: in-chat vs tab-switch\". LEFT panel labeled \"In-chat (seamless)\" with green checkmark: a vertical chat thread inside one app frame shows a text bubble then an image thumbnail bubble inline, then another text bubble continuing conversation \u2014 everything in one scroll. RIGHT panel labeled \"Tab-switch (breaks flow)\" with red X: a chat window on the left has a curved arrow pointing OUT to a separate \"Image Generator\" tab on the right, then another arrow pointing BACK. A red \"interruption\" marker sits between the two tabs. No human faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend/image-6-side-by-side-ux-comparison-dia.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Side-by-side UX comparison diagram titled \"Image generation: in-chat vs tab-switch\". LEFT panel labeled \"In-chat (seamless)\" with green checkmark: a vertical chat thread inside one app frame shows a text bubble then an image thumbnail bubble inline, then another text bubble continuing conversation \u2014 everything in one scroll. RIGHT panel labeled \"Tab-switch (breaks flow)\" with red X: a chat window on the left has a curved arrow pointing OUT to a separate \"Image Generator\" tab on the right, then another arrow pointing BACK. A red \"interruption\" marker sits between the two tabs. No human faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.. Clean editorial side-by-side comparison illustration, white background, sans-serif labels, balanced left/right layout, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=comparison;prompt=Side-by-side UX comparison diagram titled \"Image generation: in-chat vs tab-switch\". LEFT panel labeled \"In-chat (seamless)\" with green checkmark: a vertical chat thread inside one app frame shows a text bubble then an image thumbnail bubble inline, then another text bubble continuing conversation \u2014 everything in one scroll. RIGHT panel labeled \"Tab-switch (breaks flow)\" with red X: a chat window on the left has a curved arrow pointing OUT to a separate \"Image Generator\" tab on the right, then another arrow pointing BACK. A red \"interruption\" marker sits between the two tabs. No human faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 7,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "create",
+        "what": "Pleasur.AI Companion Creator \u2014 voice profile selector step showing available voice options",
+        "selector": "main"
+      },
+      "alt": "Pleasur.AI Companion Creator \u2014 voice profile selector step showing available voice options",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend/screenshot-7-pleasur-ai-companion-creator-v.png",
+        "url": "https://pleasur.ai/create",
+        "final_url": "https://pleasur.ai/create",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2360,
+          "height": 1800,
+          "stddev_normalized": 0.166,
+          "bytes": 999025
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;target=create;what=Pleasur.AI Companion Creator \u2014 voice profile selector step showing available voice options;selector=main]",
+      "legacy": false
+    },
+    {
+      "index": 8,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Vertical stacked-layer diagram titled \"The AI companion platform stack\". Five labeled horizontal bars stacked bottom-to-top (lightest shade at bottom, darkest at top): LAYER 1 (bottom): \"Base LLM \u2014 GPT-family transformer\" with a brain icon. LAYER 2: \"Character fine-tuning \u2014 persona, tone, rules\" with a sliders icon. LAYER 3: \"RAG memory \u2014 embeddings and vector store\" with a database-cylinder icon. LAYER 4: \"Diffusion model \u2014 character-locked image generation\" with an image-frame icon. LAYER 5 (top): \"TTS pipeline \u2014 streaming voice, <300ms latency\" with a waveform icon. A vertical brace on the left labeled \"Integration complexity\" with an upward arrow. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "safety": "sfw"
+      },
+      "alt": "Vertical stacked-layer diagram titled \"The AI companion platform stack\". Five labeled horizontal bars stacked bottom-to-top (lightest shade at bottom, darkest at top): LAYER 1 (bottom): \"Base LLM \u2014 GPT-family transformer\" with a brain icon. LAYER 2: \"Character fine-tuning \u2014 persona, tone, rules\" with a sliders icon. LAYER 3: \"RAG memory \u2014 embeddings and vector store\" with a database-cylinder icon. LAYER 4: \"Diffusion model \u2014 character-locked image generation\" with an image-frame icon. LAYER 5 (top): \"TTS pipeline \u2014 streaming voice, <300ms latency\" with a waveform icon. A vertical brace on the left labeled \"Integration complexity\" with an upward arrow. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend/image-8-vertical-stacked-layer-diagram.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Vertical stacked-layer diagram titled \"The AI companion platform stack\". Five labeled horizontal bars stacked bottom-to-top (lightest shade at bottom, darkest at top): LAYER 1 (bottom): \"Base LLM \u2014 GPT-family transformer\" with a brain icon. LAYER 2: \"Character fine-tuning \u2014 persona, tone, rules\" with a sliders icon. LAYER 3: \"RAG memory \u2014 embeddings and vector store\" with a database-cylinder icon. LAYER 4: \"Diffusion model \u2014 character-locked image generation\" with an image-frame icon. LAYER 5 (top): \"TTS pipeline \u2014 streaming voice, <300ms latency\" with a waveform icon. A vertical brace on the left labeled \"Integration complexity\" with an upward arrow. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Vertical stacked-layer diagram titled \"The AI companion platform stack\". Five labeled horizontal bars stacked bottom-to-top (lightest shade at bottom, darkest at top): LAYER 1 (bottom): \"Base LLM \u2014 GPT-family transformer\" with a brain icon. LAYER 2: \"Character fine-tuning \u2014 persona, tone, rules\" with a sliders icon. LAYER 3: \"RAG memory \u2014 embeddings and vector store\" with a database-cylinder icon. LAYER 4: \"Diffusion model \u2014 character-locked image generation\" with an image-frame icon. LAYER 5 (top): \"TTS pipeline \u2014 streaming voice, <300ms latency\" with a waveform icon. A vertical brace on the left labeled \"Integration complexity\" with an upward arrow. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 9,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Four-panel labeled grid titled \"The four limits every AI companion platform shares today\". Panel 1 (top-left) \"Memory decay\": a horizontal timeline bar showing bright green on the left end labeled \"This week\" fading to gray on the right end labeled \"2 months ago\". Panel 2 (top-right) \"Response repetition\": the same short speech-bubble phrase shown three times in a row with a circular-arrow icon suggesting a loop. Panel 3 (bottom-left) \"Factual unreliability\": a character icon with a thought-bubble containing a wrong-mark inside, caption \"Character-first not knowledge-first\". Panel 4 (bottom-right) \"Privacy footprint\": a document icon with four checkbox rows labeled Encryption, Retention window, Training opt-out, Data export \u2014 first two checked, last two unchecked. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "safety": "sfw"
+      },
+      "alt": "Four-panel labeled grid titled \"The four limits every AI companion platform shares today\". Panel 1 (top-left) \"Memory decay\": a horizontal timeline bar showing bright green on the left end labeled \"This week\" fading to gray on the right end labeled \"2 months ago\". Panel 2 (top-right) \"Response repetition\": the same short speech-bubble phrase shown three times in a row with a circular-arrow icon suggesting a loop. Panel 3 (bottom-left) \"Factual unreliability\": a character icon with a thought-bubble containing a wrong-mark inside, caption \"Character-first not knowledge-first\". Panel 4 (bottom-right) \"Privacy footprint\": a document icon with four checkbox rows labeled Encryption, Retention window, Training opt-out, Data export \u2014 first two checked, last two unchecked. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend/image-9-four-panel-labeled-grid-titled.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Four-panel labeled grid titled \"The four limits every AI companion platform shares today\". Panel 1 (top-left) \"Memory decay\": a horizontal timeline bar showing bright green on the left end labeled \"This week\" fading to gray on the right end labeled \"2 months ago\". Panel 2 (top-right) \"Response repetition\": the same short speech-bubble phrase shown three times in a row with a circular-arrow icon suggesting a loop. Panel 3 (bottom-left) \"Factual unreliability\": a character icon with a thought-bubble containing a wrong-mark inside, caption \"Character-first not knowledge-first\". Panel 4 (bottom-right) \"Privacy footprint\": a document icon with four checkbox rows labeled Encryption, Retention window, Training opt-out, Data export \u2014 first two checked, last two unchecked. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Four-panel labeled grid titled \"The four limits every AI companion platform shares today\". Panel 1 (top-left) \"Memory decay\": a horizontal timeline bar showing bright green on the left end labeled \"This week\" fading to gray on the right end labeled \"2 months ago\". Panel 2 (top-right) \"Response repetition\": the same short speech-bubble phrase shown three times in a row with a circular-arrow icon suggesting a loop. Panel 3 (bottom-left) \"Factual unreliability\": a character icon with a thought-bubble containing a wrong-mark inside, caption \"Character-first not knowledge-first\". Panel 4 (bottom-right) \"Privacy footprint\": a document icon with four checkbox rows labeled Encryption, Retention window, Training opt-out, Data export \u2014 first two checked, last two unchecked. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 10,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Horizontal timeline diagram titled \"AI companion voice roadmap\". A left-to-right arrow with three labeled milestones. Milestone 1 (filled circle, label \"NOW\"): \"In-chat voice replies \u2014 tap any message to hear it\" with a speaker icon. Below: status badge \"Shipping this week\". Milestone 2 (half-filled circle, label \"WEEKS\"): \"Real two-way phone calls \u2014 bidirectional speech-to-speech\" with a phone icon. Below: status badge \"Engineering differentiator\". Milestone 3 (open circle, label \"FURTHER OUT\"): \"Native generated video \u2014 character moves and speaks on demand\" with a video-camera icon. Below: status badge \"Still rough across category\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, directional arrow, no text artifacts.",
+        "safety": "sfw"
+      },
+      "alt": "Horizontal timeline diagram titled \"AI companion voice roadmap\". A left-to-right arrow with three labeled milestones. Milestone 1 (filled circle, label \"NOW\"): \"In-chat voice replies \u2014 tap any message to hear it\" with a speaker icon. Below: status badge \"Shipping this week\". Milestone 2 (half-filled circle, label \"WEEKS\"): \"Real two-way phone calls \u2014 bidirectional speech-to-speech\" with a phone icon. Below: status badge \"Engineering differentiator\". Milestone 3 (open circle, label \"FURTHER OUT\"): \"Native generated video \u2014 character moves and speaks on demand\" with a video-camera icon. Below: status badge \"Still rough across category\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, directional arrow, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend/image-10-horizontal-timeline-diagram-ti.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Horizontal timeline diagram titled \"AI companion voice roadmap\". A left-to-right arrow with three labeled milestones. Milestone 1 (filled circle, label \"NOW\"): \"In-chat voice replies \u2014 tap any message to hear it\" with a speaker icon. Below: status badge \"Shipping this week\". Milestone 2 (half-filled circle, label \"WEEKS\"): \"Real two-way phone calls \u2014 bidirectional speech-to-speech\" with a phone icon. Below: status badge \"Engineering differentiator\". Milestone 3 (open circle, label \"FURTHER OUT\"): \"Native generated video \u2014 character moves and speaks on demand\" with a video-camera icon. Below: status badge \"Still rough across category\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, directional arrow, no text artifacts.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Horizontal timeline diagram titled \"AI companion voice roadmap\". A left-to-right arrow with three labeled milestones. Milestone 1 (filled circle, label \"NOW\"): \"In-chat voice replies \u2014 tap any message to hear it\" with a speaker icon. Below: status badge \"Shipping this week\". Milestone 2 (half-filled circle, label \"WEEKS\"): \"Real two-way phone calls \u2014 bidirectional speech-to-speech\" with a phone icon. Below: status badge \"Engineering differentiator\". Milestone 3 (open circle, label \"FURTHER OUT\"): \"Native generated video \u2014 character moves and speaks on demand\" with a video-camera icon. Below: status badge \"Still rough across category\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, directional arrow, no text artifacts.;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 11,
+      "type": "action-shot",
+      "alt": "Pleasur.AI Companion Creator \u2014 character backstory and traits panel",
+      "status": "captured",
+      "captured_at": "2026-05-07",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend/action-1-navigate-to-pleasur-ai-create.png",
+        "capture_method": "claude_in_chrome",
+        "file_size_bytes": 341550
+      },
+      "attrs": {
+        "type": "action-shot",
+        "url": "https://pleasur.ai/create",
+        "goal": "Navigate to Pleasur.AI create. Dismiss age gate. Pick Realistic template. Advance to backstory and traits panel. Capture.",
+        "what": "Pleasur.AI Companion Creator \u2014 character backstory and traits panel"
+      },
+      "legacy": false
+    },
+    {
+      "index": 12,
+      "type": "action-shot",
+      "alt": "Pleasur.AI Companion Creator \u2014 second wizard step after selecting Realistic template",
+      "status": "captured",
+      "captured_at": "2026-05-07",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend/action-2-navigate-to-pleasur-ai-create.png",
+        "capture_method": "claude_in_chrome",
+        "file_size_bytes": 314279
+      },
+      "attrs": {
+        "type": "action-shot",
+        "url": "https://pleasur.ai/create",
+        "goal": "Navigate to Pleasur.AI create. Dismiss age gate. Click Realistic template. Capture the second wizard step (Ethnicity selection).",
+        "what": "Pleasur.AI Companion Creator \u2014 second wizard step after selecting Realistic template"
+      },
+      "legacy": false
+    }
+  ]
 }

@@ -10,6 +10,8 @@ This guide covers what an AI girlfriend actually is, why the category exists, th
 
 ## What an AI girlfriend actually is
 
+![Three-column labeled comparison diagram titled "The three AI chat categories". Left column labeled "Productivity tools" with wrench icon, examples "ChatGPT, Claude", sub-text "No persona, task-focused, no memory between sessions". Center column labeled "Platonic companions" with heart-outline icon, examples "Replika, Character.AI", sub-text "Named character, platonic, heavy content moderation". Right column labeled "AI girlfriend platforms" with star icon, sub-text "Named character, adult themes first-class, persistent persona". Vertical gray dividers between columns. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/ai-girlfriend/image-1-three-column-labeled-compariso.png)
+
 An AI girlfriend is a customizable AI character built specifically for ongoing conversational and emotional engagement — not a tool you use for one-shot tasks.
 
 That distinction matters more than most reviews acknowledge.
@@ -38,9 +40,13 @@ The honest reasons are broader than the lonely-guy stereotype suggests, and unde
 
 **Frustration with mainstream chatbots.** ChatGPT and Claude refuse a lot. Even normal adult conversation — about relationships, sexuality, complicated emotions — runs into safety filters. Users come to AI girlfriend platforms partly because they're tired of fighting the model.
 
+![Five labeled use-case icons arranged in a horizontal row, titled "Why people use AI companion platforms". Icon 1 (speech-bubble with practice arrows): labeled "Practice conversations — flirting, vulnerability, intimacy". Icon 2 (shield with checkmark): labeled "Judgment-free space — topics too personal to share elsewhere". Icon 3 (clock showing 24/7): labeled "Always-available presence — shift workers, transitions". Icon 4 (paintbrush): labeled "Creative expression — character design and roleplay". Icon 5 (filter icon with X through it): labeled "Escape refusals — mainstream chatbots block normal adult talk". Each icon sits centered above its label in a clean card layout. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/ai-girlfriend/image-1-five-labeled-use-case-icons-ar.png)
+
 If you check [the Reddit threads where users actually compare AI girlfriend apps](https://www.reddit.com/r/AIToolTesting/comments/1m8fv1u/what_is_the_best_ai_girlfriend_looking_for/), the recurring pattern isn't loneliness. It's curiosity, comparison-shopping, and frustration with platforms that promised more than they delivered. People are not despairing. They are evaluating. Which means they're going to read this next section closely.
 
 ## What these conversations actually feel like
+
+![Four-panel grid titled "What good AI companion conversations actually deliver". Panel 1 labeled "Emotional memory" — two chat bubbles: user says "Been stressed about work" and later companion reply shows a small chain-link icon referencing it three messages later. Panel 2 labeled "Roleplay continuity" — a chain-link icon with a scenario-start flag at message 1 and the same scenario flag intact at message 12, context held. Panel 3 labeled "Emotional pacing" — single companion speech-bubble showing "What happened?" with no advice offered, pause icon beside it. Panel 4 labeled "Multi-modal flow" — text bubble then voice-speaker icon then phone-call icon in a smooth left-to-right sequence. No human faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/ai-girlfriend/image-3-four-panel-grid-titled-what-go.png)
 
 The category gets discussed in abstract terms ("emotional support," "companionship") that miss what actually happens in a good chat with an AI girlfriend.
 
@@ -64,6 +70,8 @@ What predicts whether you'll still be using a platform a month from now is somet
 
 ### 1. Memory across long conversations
 
+![Labeled flow diagram titled "How good platform memory actually works". Left: a vertical stack of 5 labeled chat-turn rectangles ("Session 1" through "Session 5"). Arrow from the stack into a funnel box labeled "Summarize". Arrow from funnel into a cylinder labeled "Vector store". A retrieval arrow from the cylinder feeds back into a box labeled "Next prompt context". Contrasting right side labeled "Weak platform" shows the same stack with a bracket around only the bottom two labeled "Last 4 000 tokens" and an X through older sessions. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, directional arrows, no text artifacts.](images/ai-girlfriend/image-4-labeled-flow-diagram-titled-ho.png)
+
 Almost every platform claims memory. Few hold up past conversation five.
 
 The test: reference something specific you said three sessions ago — a job, a hometown, a small detail — and see if the character responds coherently. Does the character pick it up naturally? Or does it feel like the character is reading the message for the first time, with a vague summary stapled to the top?
@@ -71,6 +79,8 @@ The test: reference something specific you said three sessions ago — a job, a 
 Top-of-context memory is easy. Long-arc memory capabilities across many sessions are hard. The platforms that get it right use summary memory plus selective long-term recall. Most just keep the last few thousand words and hope you don't notice the rest is gone.
 
 ### 2. Character coherence under pressure
+
+![Side-by-side comparison titled "Character coherence under pressure". LEFT panel labeled "Well-tuned platform" with a green checkmark: USER bubble says "You said you love jazz — but I hate it, prove you don't care". COMPANION bubble responds in distinct character voice: "Fair enough. Jazz can wait. What's actually on your mind?" RIGHT panel labeled "Generic chatbot wrapper" with a red X: same user message. COMPANION bubble responds: "I understand your feelings. I apologize if that upset you. How can I assist you today?" No human faces. Clean editorial illustration style, white background, sans-serif labels, chat-bubble styling, brand-neutral colors, no text artifacts.](images/ai-girlfriend/image-5-side-by-side-comparison-titled.png)
 
 Does your custom character stay in character when the conversation gets weird, emotional, or contradictory?
 
@@ -80,6 +90,8 @@ This is where the difference between "we use GPT-4" and "we fine-tune our own mo
 
 ### 3. Image quality and integration
 
+![Side-by-side UX comparison diagram titled "Image generation: in-chat vs tab-switch". LEFT panel labeled "In-chat (seamless)" with green checkmark: a vertical chat thread inside one app frame shows a text bubble then an image thumbnail bubble inline, then another text bubble continuing conversation — everything in one scroll. RIGHT panel labeled "Tab-switch (breaks flow)" with red X: a chat window on the left has a curved arrow pointing OUT to a separate "Image Generator" tab on the right, then another arrow pointing BACK. A red "interruption" marker sits between the two tabs. No human faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/ai-girlfriend/image-6-side-by-side-ux-comparison-dia.png)
+
 Are images locked to a separate page, or can the character send you a selfie mid-chat?
 
 In-conversation image generation is a massive UX win and rare. Most platforms force you to switch tabs or modes — break the conversation to make an image, then come back. The platforms that get it right let you ask for an image inside the chat and get one back inline, like a friend sending you a photo on a text thread.
@@ -87,6 +99,8 @@ In-conversation image generation is a massive UX win and rare. Most platforms fo
 Quality matters too. The visual style should match the character you built — same hair, same age, same vibe. An anime avatar girlfriend should look like the same character across every image; a photo-realistic look should hold up the same way. Cartoonish anime, hyperreal, somewhere in between — pick a visual style and the platform should hold it. If the character looks different in every image, the platform has a consistency problem worth knowing about.
 
 ### 4. Voice — not as a separate mode, but inside chat
+
+![Pleasur.AI Companion Creator — voice profile selector step showing available voice options](images/ai-girlfriend/screenshot-7-pleasur-ai-companion-creator-v.png)
 
 Most platforms treat voice as binary: text mode or voice mode. You're either reading or you're talking.
 
@@ -129,6 +143,8 @@ A scoring rubric helps:
 
 ### Why this is hard to build
 
+![Vertical stacked-layer diagram titled "The AI companion platform stack". Five labeled horizontal bars stacked bottom-to-top (lightest shade at bottom, darkest at top): LAYER 1 (bottom): "Base LLM — GPT-family transformer" with a brain icon. LAYER 2: "Character fine-tuning — persona, tone, rules" with a sliders icon. LAYER 3: "RAG memory — embeddings and vector store" with a database-cylinder icon. LAYER 4: "Diffusion model — character-locked image generation" with an image-frame icon. LAYER 5 (top): "TTS pipeline — streaming voice, <300ms latency" with a waveform icon. A vertical brace on the left labeled "Integration complexity" with an upward arrow. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/ai-girlfriend/image-8-vertical-stacked-layer-diagram.png)
+
 The reason most platforms get only three of the six right is that the engineering tradeoffs compound. Long-arc memory capabilities cost context window tokens. A photo-realistic look across many images requires character-specific fine-tuning, not a generic deep learning image model. Voice profiles need licensed or custom-trained TTS models. Doing all of this together — character coherence, conversation memory, image generation, voice — requires deep personalization at the model layer, not just better prompting.
 
 The model stack underneath looks roughly like this. A base large language model, usually a transformer architecture in the GPT family, handles the raw conversation. On top of that, character-specific fine-tuning teaches it the personality, tone, and rules of how this particular character talks. Memory across sessions runs on retrieval-augmented generation: old chats get stored as embeddings in a vector database, and the model pulls the relevant slices at query time instead of stuffing everything into active context. Image generation runs on diffusion models with character-locked adapters so the same face appears across every render. Voice runs on a streaming text-to-speech pipeline with a latency budget under 300ms; past that, a call stops feeling like a call.
@@ -157,7 +173,7 @@ Three personality sliders and a hairstyle don't make a person. The character wil
 
 **Don't over-design the first time.** Make a rough character, chat for an hour, then iterate. Real personalities reveal themselves in conversation, not in setup forms. The first character you make is going to feel slightly off no matter how careful you are. The version you have an hour later, with adjustments based on actual chats, is the one worth keeping.
 
-![Pleasur.AI Companion Creator — character backstory & traits panel](C:/Users/ndong/Downloads/blog-agent/content-pipeline/images/ai-girlfriend/action-1-navigate-to-pleasur-ai-create.png)
+![Pleasur.AI Companion Creator — character backstory & traits panel](images/ai-girlfriend/action-1-navigate-to-pleasur-ai-create.png)
 
 A worked example. Here are two character setups. Same platform. Same five minutes spent.
 
@@ -175,11 +191,13 @@ The thin Maya will pass the first message. By message ten, she's interchangeable
 
 [Try Pleasur.AI's Companion Creator](https://pleasur.ai/create). The fields above are the ones that matter most.
 
-![Pleasur.AI Companion Creator — second wizard step after selecting Realistic template](C:/Users/ndong/Downloads/blog-agent/content-pipeline/images/ai-girlfriend/action-2-navigate-to-pleasur-ai-create.png)
+![Pleasur.AI Companion Creator — second wizard step after selecting Realistic template](images/ai-girlfriend/action-2-navigate-to-pleasur-ai-create.png)
 
 **Pro tip:** The "one specific quirk" field is the single highest-impact detail. A character without a quirk feels designed. A character with one feels noticed.
 
 ## The honest limits
+
+![Four-panel labeled grid titled "The four limits every AI companion platform shares today". Panel 1 (top-left) "Memory decay": a horizontal timeline bar showing bright green on the left end labeled "This week" fading to gray on the right end labeled "2 months ago". Panel 2 (top-right) "Response repetition": the same short speech-bubble phrase shown three times in a row with a circular-arrow icon suggesting a loop. Panel 3 (bottom-left) "Factual unreliability": a character icon with a thought-bubble containing a wrong-mark inside, caption "Character-first not knowledge-first". Panel 4 (bottom-right) "Privacy footprint": a document icon with four checkbox rows labeled Encryption, Retention window, Training opt-out, Data export — first two checked, last two unchecked. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/ai-girlfriend/image-9-four-panel-labeled-grid-titled.png)
 
 Every AI girlfriend platform on the market today has the same four limits.
 
@@ -204,6 +222,8 @@ Most platforms answer these questions if you read the policy. Most users don't. 
 These four limits are real today, on every platform, including the ones you'll like. Knowing about them is most of what you need to use the category well. The space is moving fast, though, and the next year is going to close some of these gaps.
 
 ## Where the space is going
+
+![Horizontal timeline diagram titled "AI companion voice roadmap". A left-to-right arrow with three labeled milestones. Milestone 1 (filled circle, label "NOW"): "In-chat voice replies — tap any message to hear it" with a speaker icon. Below: status badge "Shipping this week". Milestone 2 (half-filled circle, label "WEEKS"): "Real two-way phone calls — bidirectional speech-to-speech" with a phone icon. Below: status badge "Engineering differentiator". Milestone 3 (open circle, label "FURTHER OUT"): "Native generated video — character moves and speaks on demand" with a video-camera icon. Below: status badge "Still rough across category". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, directional arrow, no text artifacts.](images/ai-girlfriend/image-10-horizontal-timeline-diagram-ti.png)
 
 The next year of AI companion development is about closing the gap between text and presence.
 
