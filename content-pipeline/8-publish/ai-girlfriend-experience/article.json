@@ -10,7 +10,7 @@
       },
       {
         "__component": "shared.media",
-        "file": 382
+        "file": 392
       },
       {
         "__component": "shared.rich-text",
@@ -18,7 +18,7 @@
       },
       {
         "__component": "shared.media",
-        "file": 383
+        "file": 393
       },
       {
         "__component": "shared.rich-text",
@@ -26,7 +26,7 @@
       },
       {
         "__component": "shared.media",
-        "file": 384
+        "file": 394
       },
       {
         "__component": "shared.rich-text",
@@ -34,7 +34,7 @@
       },
       {
         "__component": "shared.media",
-        "file": 385
+        "file": 395
       },
       {
         "__component": "shared.rich-text",
@@ -42,7 +42,7 @@
       },
       {
         "__component": "shared.media",
-        "file": 386
+        "file": 396
       },
       {
         "__component": "shared.rich-text",
@@ -50,7 +50,7 @@
       },
       {
         "__component": "shared.media",
-        "file": 387
+        "file": 397
       },
       {
         "__component": "shared.rich-text",
@@ -58,7 +58,7 @@
       },
       {
         "__component": "shared.media",
-        "file": 388
+        "file": 398
       },
       {
         "__component": "shared.rich-text",
@@ -66,11 +66,11 @@
       },
       {
         "__component": "shared.media",
-        "file": 389
+        "file": 399
       },
       {
         "__component": "shared.media",
-        "file": 390
+        "file": 400
       },
       {
         "__component": "shared.rich-text",
@@ -78,14 +78,14 @@
       },
       {
         "__component": "shared.media",
-        "file": 391
+        "file": 401
       },
       {
         "__component": "shared.rich-text",
-        "body": "If you'd rather start by understanding the category before testing one, the [AI girlfriend simulator](https://pleasur.ai/blog/ai-girlfriend-simulator) piece is the natural prerequisite.\n\nIf you're past that and want a character to run the five tests on, [Pleasur.AI's Companion Creator](https://pleasur.ai/create) is one place to build one.\n\n---\n\n<a id=\"editor-note-serp\"></a>**Editor note — SERP composition (May 2026).** The \"eight comparison guides, two vendor landings, zero first-person accounts\" breakdown of the top-10 SERP for \"ai girlfriend experience\" is an internal audit run on 2026-05-06 (DDG HTML SERP, US locale) and recorded in `content-pipeline/1-research/ai-girlfriend-experience.md` (SERP analysis section). The \"6,700-word ranking exercise\" figure refers to the #1 result, aigirlfriendscout.com, whose H2s pattern as \"How We Ranked / Best Apps / What to Consider / FAQ\" — a feature-comparison listicle, not a first-person experience account. The \"vendor blog whose load-bearing stats fail primary verification\" refers to the #2 result, captured in the same audit's primary-verification table; the broader observation that *none of the top 10 delivers a first-person week-three account* drove this article's brief. Editor: confirm whether to surface this as \"internal SERP audit, May 2026\" inline or keep as an editor note.\n"
+        "body": "If you'd rather start by understanding the category before testing one, the [AI girlfriend simulator](https://pleasur.ai/blog/ai-girlfriend-simulator) piece is the natural prerequisite.\n\nIf you're past that and want a character to run the five tests on, [Pleasur.AI's Companion Creator](https://pleasur.ai/create) is one place to build one.\n"
       }
     ],
-    "publishedAt": "2026-05-08T09:31:26.538388+00:00",
+    "publishedAt": "2026-05-08T09:52:37.443170+00:00",
     "category": "jdcpc19na9qbi8eeqaugwftf"
   }
 }

@@ -166,7 +166,3 @@ The shape is consistent: 90-second magic, a week of compulsive engagement, and a
 If you'd rather start by understanding the category before testing one, the [AI girlfriend simulator](https://pleasur.ai/blog/ai-girlfriend-simulator) piece is the natural prerequisite.
 
 If you're past that and want a character to run the five tests on, [Pleasur.AI's Companion Creator](https://pleasur.ai/create) is one place to build one.
-
----
-
-<a id="editor-note-serp"></a>**Editor note — SERP composition (May 2026).** The "eight comparison guides, two vendor landings, zero first-person accounts" breakdown of the top-10 SERP for "ai girlfriend experience" is an internal audit run on 2026-05-06 (DDG HTML SERP, US locale) and recorded in `content-pipeline/1-research/ai-girlfriend-experience.md` (SERP analysis section). The "6,700-word ranking exercise" figure refers to the #1 result, aigirlfriendscout.com, whose H2s pattern as "How We Ranked / Best Apps / What to Consider / FAQ" — a feature-comparison listicle, not a first-person experience account. The "vendor blog whose load-bearing stats fail primary verification" refers to the #2 result, captured in the same audit's primary-verification table; the broader observation that *none of the top 10 delivers a first-person week-three account* drove this article's brief. Editor: confirm whether to surface this as "internal SERP audit, May 2026" inline or keep as an editor note.
