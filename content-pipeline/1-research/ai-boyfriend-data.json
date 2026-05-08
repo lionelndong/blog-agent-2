@@ -49,6 +49,11 @@
     "Europe": 18.0,
     "Rest of World": 11.8
   },
+  "mozilla_privacy_audit_percent": {
+    "Failed min. security standards": 91,
+    "No vulnerability disclosure policy": 73,
+    "May sell or share personal data": 90
+  },
   "_meta": {
     "source": "Aggregated from WebSearch results: SNS Insider, ArtSmart, AllAboutAI, ChinaTalk, StartupHub, AndroidHeadlines, CompanionGuide, various 2025-2026 market reports and review sites",
     "generated_at": "2026-05-04",

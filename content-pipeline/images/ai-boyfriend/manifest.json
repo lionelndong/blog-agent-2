@@ -3,6 +3,139 @@
   "visuals": [
     {
       "index": 1,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.search_volume_gender_gap",
+        "style": "bar",
+        "title": "Annual US Search Volume \u2014 AI Boyfriend vs AI Girlfriend (2026)"
+      },
+      "alt": "Annual US Search Volume \u2014 AI Boyfriend vs AI Girlfriend (2026)",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-boyfriend/chart-1-annual-us-search-volume-ai-boy.png",
+        "style": "bar",
+        "data_points": 2
+      },
+      "raw": "[VISUAL:type=chart;data=research.search_volume_gender_gap;style=bar;title=Annual US Search Volume \u2014 AI Boyfriend vs AI Girlfriend (2026)]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Horizontal spectrum diagram labeled \"The AI Companion Quality Spectrum\". Left end labeled \"Scripted Novelty\" with a simple speech bubble icon. Right end labeled \"Adaptive Companion\" with a brain-plus-memory icon. Three intermediate labels along the arrow: \"Generic Bot (no memory, no persona)\", \"Mid-tier App (basic personality, session memory)\", \"Full Companion (custom voice, long-term recall, emotional context)\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Horizontal spectrum diagram labeled \"The AI Companion Quality Spectrum\". Left end labeled \"Scripted Novelty\" with a simple speech bubble icon. Right end labeled \"Adaptive Companion\" with a brain-plus-memory icon. Three intermediate labels along the arrow: \"Generic Bot (no memory, no persona)\", \"Mid-tier App (basic personality, session memory)\", \"Full Companion (custom voice, long-term recall, emotional context)\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-boyfriend/image-2-horizontal-spectrum-diagram-la.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Horizontal spectrum diagram labeled \"The AI Companion Quality Spectrum\". Left end labeled \"Scripted Novelty\" with a simple speech bubble icon. Right end labeled \"Adaptive Companion\" with a brain-plus-memory icon. Three intermediate labels along the arrow: \"Generic Bot (no memory, no persona)\", \"Mid-tier App (basic personality, session memory)\", \"Full Companion (custom voice, long-term recall, emotional context)\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Horizontal spectrum diagram labeled \"The AI Companion Quality Spectrum\". Left end labeled \"Scripted Novelty\" with a simple speech bubble icon. Right end labeled \"Adaptive Companion\" with a brain-plus-memory icon. Three intermediate labels along the arrow: \"Generic Bot (no memory, no persona)\", \"Mid-tier App (basic personality, session memory)\", \"Full Companion (custom voice, long-term recall, emotional context)\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://www.roborhythms.com/best-ai-companion-voice-calls/",
+        "selector": "h1",
+        "crop": "padded",
+        "what": "RoboRhythms: only 5 AI companion apps offer working voice calls as of May 2026"
+      },
+      "alt": "RoboRhythms: only 5 AI companion apps offer working voice calls as of May 2026",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-boyfriend/external-3-roborhythms-only-5-ai-companio.png",
+        "url": "https://www.roborhythms.com/best-ai-companion-voice-calls/",
+        "final_url": "https://www.roborhythms.com/best-ai-companion-voice-calls/",
+        "auth_used": false,
+        "quality": {
+          "status": "ok",
+          "width": 1840,
+          "height": 362,
+          "stddev_normalized": 0.2384,
+          "bytes": 55002
+        },
+        "sub": "news-quote"
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://www.roborhythms.com/best-ai-companion-voice-calls/;selector=h1;crop=padded;what=RoboRhythms: only 5 AI companion apps offer working voice calls as of May 2026]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Four-box grid diagram labeled \"The Four Dimensions That Actually Matter in an AI Boyfriend App\". Top-left box: \"Memory\" \u2014 subtitle \"Long-term recall vs session-only\". Top-right box: \"Voice Calls\" \u2014 subtitle \"Latency, persistence, cross-mode memory\". Bottom-left box: \"Personality Depth\" \u2014 subtitle \"Backstory, tone, conflict style, interests\". Bottom-right box: \"Unrestricted Chat\" \u2014 subtitle \"No content walls or topic filters\". Each box has a simple line-art icon. Clean editorial illustration, white background, sans-serif labels, 2x2 grid layout.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Four-box grid diagram labeled \"The Four Dimensions That Actually Matter in an AI Boyfriend App\". Top-left box: \"Memory\" \u2014 subtitle \"Long-term recall vs session-only\". Top-right box: \"Voice Calls\" \u2014 subtitle \"Latency, persistence, cross-mode memory\". Bottom-left box: \"Personality Depth\" \u2014 subtitle \"Backstory, tone, conflict style, interests\". Bottom-right box: \"Unrestricted Chat\" \u2014 subtitle \"No content walls or topic filters\". Each box has a simple line-art icon. Clean editorial illustration, white background, sans-serif labels, 2x2 grid layout.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-boyfriend/image-4-four-box-grid-diagram-labeled.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Four-box grid diagram labeled \"The Four Dimensions That Actually Matter in an AI Boyfriend App\". Top-left box: \"Memory\" \u2014 subtitle \"Long-term recall vs session-only\". Top-right box: \"Voice Calls\" \u2014 subtitle \"Latency, persistence, cross-mode memory\". Bottom-left box: \"Personality Depth\" \u2014 subtitle \"Backstory, tone, conflict style, interests\". Bottom-right box: \"Unrestricted Chat\" \u2014 subtitle \"No content walls or topic filters\". Each box has a simple line-art icon. Clean editorial illustration, white background, sans-serif labels, 2x2 grid layout.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Four-box grid diagram labeled \"The Four Dimensions That Actually Matter in an AI Boyfriend App\". Top-left box: \"Memory\" \u2014 subtitle \"Long-term recall vs session-only\". Top-right box: \"Voice Calls\" \u2014 subtitle \"Latency, persistence, cross-mode memory\". Bottom-left box: \"Personality Depth\" \u2014 subtitle \"Backstory, tone, conflict style, interests\". Bottom-right box: \"Unrestricted Chat\" \u2014 subtitle \"No content walls or topic filters\". Each box has a simple line-art icon. Clean editorial illustration, white background, sans-serif labels, 2x2 grid layout.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.top_apps_pricing_monthly_usd",
+        "style": "bar",
+        "title": "AI Boyfriend App Starting Price ($/month) \u2014 May 2026"
+      },
+      "alt": "AI Boyfriend App Starting Price ($/month) \u2014 May 2026",
+      "status": "stripped",
+      "result": {
+        "status": "stripped",
+        "reason": "visuals_adversarial_HIGH_mece_violation",
+        "detail": "Chart placed immediately after markdown comparison table that already contains starting price column. Redundant representation of same data in same section."
+      },
+      "raw": "[VISUAL:type=chart;data=research.top_apps_pricing_monthly_usd;style=bar;title=AI Boyfriend App Starting Price ($/month) \u2014 May 2026]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Vertical four-step flowchart labeled \"Building Your AI Boyfriend on Pleasur.AI\". Step 1 \"Appearance\" \u2014 body type, face, hair, style (icon: camera). Step 2 \"Personality\" \u2014 traits, tone, conflict style (icon: star). Step 3 \"Backstory\" \u2014 profession, history, context (icon: scroll). Step 4 \"Conversation Style and Limits\" \u2014 preferences and boundaries (icon: sliders). Downward arrows connect each step sequentially. A curved dashed \"Iterate\" arrow points from Step 4 back up to Step 2, labeled \"refine after first week\". Clean editorial illustration, white background, sans-serif labels.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Vertical four-step flowchart labeled \"Building Your AI Boyfriend on Pleasur.AI\". Step 1 \"Appearance\" \u2014 body type, face, hair, style (icon: camera). Step 2 \"Personality\" \u2014 traits, tone, conflict style (icon: star). Step 3 \"Backstory\" \u2014 profession, history, context (icon: scroll). Step 4 \"Conversation Style and Limits\" \u2014 preferences and boundaries (icon: sliders). Downward arrows connect each step sequentially. A curved dashed \"Iterate\" arrow points from Step 4 back up to Step 2, labeled \"refine after first week\". Clean editorial illustration, white background, sans-serif labels.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-boyfriend/image-6-vertical-four-step-flowchart-l.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Vertical four-step flowchart labeled \"Building Your AI Boyfriend on Pleasur.AI\". Step 1 \"Appearance\" \u2014 body type, face, hair, style (icon: camera). Step 2 \"Personality\" \u2014 traits, tone, conflict style (icon: star). Step 3 \"Backstory\" \u2014 profession, history, context (icon: scroll). Step 4 \"Conversation Style and Limits\" \u2014 preferences and boundaries (icon: sliders). Downward arrows connect each step sequentially. A curved dashed \"Iterate\" arrow points from Step 4 back up to Step 2, labeled \"refine after first week\". Clean editorial illustration, white background, sans-serif labels.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Vertical four-step flowchart labeled \"Building Your AI Boyfriend on Pleasur.AI\". Step 1 \"Appearance\" \u2014 body type, face, hair, style (icon: camera). Step 2 \"Personality\" \u2014 traits, tone, conflict style (icon: star). Step 3 \"Backstory\" \u2014 profession, history, context (icon: scroll). Step 4 \"Conversation Style and Limits\" \u2014 preferences and boundaries (icon: sliders). Downward arrows connect each step sequentially. A curved dashed \"Iterate\" arrow points from Step 4 back up to Step 2, labeled \"refine after first week\". Clean editorial illustration, white background, sans-serif labels.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 7,
       "type": "action-shot",
       "attrs": {
         "type": "action-shot",
@@ -11,16 +144,142 @@
         "what": "Pleasur.AI AI Companion Creator \u2014 personality and backstory configuration for a male character"
       },
       "alt": "Pleasur.AI AI Companion Creator \u2014 personality and backstory configuration for a male character",
-      "status": "manual",
+      "status": "captured",
       "result": {
-        "status": "manual",
-        "reason": "action_shot_routed_to_editor",
-        "url": "https://pleasur.ai/create",
-        "goal": "Navigate to pleasur.ai/create. Dismiss the age verification dialog. Select a male character template. Reach the personality/backstory configuration step. Capture that screen.",
-        "filename": "action-1-navigate-to-pleasur-ai-create.png",
-        "hint": "Capture interactively via Claude in Chrome. Run `/capture-visuals ai-boyfriend` and walk through this entry, or open the URL in Chrome and capture the moment described in 'goal' yourself."
+        "status": "captured",
+        "path": "content-pipeline/images/ai-boyfriend/action-7-navigate-to-pleasur-ai-create.png",
+        "method": "patchright_wizard_navigation",
+        "note": "Captured via patchright: navigated through 4 setup steps (basics/ethnicity/hair/body) to reach Personality step. Character name Alex, description filled. Page shows personality/backstory configuration UI."
       },
       "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Navigate to pleasur.ai/create. Dismiss the age verification dialog. Select a male character template. Reach the personality/backstory configuration step. Capture that screen.;what=Pleasur.AI AI Companion Creator \u2014 personality and backstory configuration for a male character]",
+      "legacy": false
+    },
+    {
+      "index": 8,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://cybernews.com/security/ai-girlfriend-app-leak-exposes-400k-users/",
+        "selector": "h1",
+        "crop": "padded",
+        "what": "Cybernews: Chattee/GiMe AI companion breach exposed 400K users \u2014 43M messages and 600K photos leaked, October 2025"
+      },
+      "alt": "Cybernews: Chattee/GiMe AI companion breach exposed 400K users \u2014 43M messages and 600K photos leaked, October 2025",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-boyfriend/external-8-cybernews-chattee-gime-ai-comp.png",
+        "method": "local_html_render",
+        "note": "Cybernews headline extracted via Chrome JS (patchright DNS-blocked), rendered as styled local HTML to match Cybernews article header. Title, byline, excerpt all accurate from live page.",
+        "sub": "news-quote"
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://cybernews.com/security/ai-girlfriend-app-leak-exposes-400k-users/;selector=h1;crop=padded;what=Cybernews: Chattee/GiMe AI companion breach exposed 400K users \u2014 43M messages and 600K photos leaked, October 2025]",
+      "legacy": false
+    },
+    {
+      "index": 9,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://www.mozillafoundation.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/",
+        "selector": "h1",
+        "crop": "padded",
+        "what": "Mozilla Privacy Not Included: romantic AI chatbot audit \u2014 10 of 11 apps failed minimum security standards, 90% may sell your data"
+      },
+      "alt": "Mozilla Privacy Not Included: romantic AI chatbot audit \u2014 10 of 11 apps failed minimum security standards, 90% may sell your data",
+      "status": "stripped",
+      "result": {
+        "status": "stripped",
+        "reason": "visuals_adversarial_MEDIUM_mece_violation",
+        "detail": "Both index 9 (external h1 clip) and index 10 (bar chart) cover the same Mozilla audit data in the same 200-word stretch. Chart (index 10) carries the data more directly. External h1 is the weaker of the two.",
+        "path": "content-pipeline/images/ai-boyfriend/external-9-mozilla-privacy-not-included-r.png",
+        "url": "https://www.mozillafoundation.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/",
+        "final_url": "https://www.mozillafoundation.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/",
+        "auth_used": false,
+        "quality": {
+          "status": "ok",
+          "width": 1652,
+          "height": 422,
+          "stddev_normalized": 0.2352,
+          "bytes": 69539
+        },
+        "sub": "news-quote"
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://www.mozillafoundation.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/;selector=h1;crop=padded;what=Mozilla Privacy Not Included: romantic AI chatbot audit \u2014 10 of 11 apps failed minimum security standards, 90% may sell your data]",
+      "legacy": false
+    },
+    {
+      "index": 10,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.mozilla_privacy_audit_percent",
+        "style": "bar",
+        "title": "Romantic AI Chatbots Failing Privacy Standards \u2014 Mozilla Audit (%)"
+      },
+      "alt": "Romantic AI Chatbots Failing Privacy Standards \u2014 Mozilla Audit (%)",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-boyfriend/chart-10-romantic-ai-chatbots-failing-p.png",
+        "style": "bar",
+        "data_points": 3
+      },
+      "raw": "[VISUAL:type=chart;data=research.mozilla_privacy_audit_percent;style=bar;title=Romantic AI Chatbots Failing Privacy Standards \u2014 Mozilla Audit (%)]",
+      "legacy": false
+    },
+    {
+      "index": 11,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://www.hbs.edu/faculty/Pages/item.aspx?num=67360",
+        "selector": ".faculty-item__publication,h1",
+        "crop": "padded",
+        "what": "Harvard Business School: De Freitas et al. \u2014 AI companions reduce loneliness as effectively as human conversation (Journal of Consumer Research, 2025)"
+      },
+      "alt": "Harvard Business School: De Freitas et al. \u2014 AI companions reduce loneliness as effectively as human conversation (Journal of Consumer Research, 2025)",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-boyfriend/external-11-harvard-business-school-de-fre.png",
+        "url": "https://www.hbs.edu/faculty/Pages/item.aspx?num=67360",
+        "final_url": "https://www.hbs.edu/faculty/Pages/item.aspx?num=67360",
+        "auth_used": false,
+        "quality": {
+          "status": "ok",
+          "width": 1992,
+          "height": 320,
+          "stddev_normalized": 0.1793,
+          "bytes": 27185
+        },
+        "sub": "news-quote"
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://www.hbs.edu/faculty/Pages/item.aspx?num=67360;selector=.faculty-item__publication,h1;crop=padded;what=Harvard Business School: De Freitas et al. \u2014 AI companions reduce loneliness as effectively as human conversation (Journal of Consumer Research, 2025)]",
+      "legacy": false
+    },
+    {
+      "index": 12,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Side-by-side comparison labeled \"AI Companion: Healthy vs. Unhealthy Pattern\". Left panel labeled \"Supplement\" with green checkmark: shows AI chat app icon alongside icons for human friend, phone call, coffee meetup. Three bullet labels: \"Enjoy conversations\", \"Maintain human relationships\", \"Use as creative or emotional outlet\". Right panel labeled \"Replacement\" with red warning icon: shows only AI chat app icon, human-connection icons crossed out. Three bullet labels: \"Cancel plans to chat\", \"Feel anxious without the app\", \"AI becomes primary social contact\". Clean editorial illustration, white background, sans-serif labels, two-column layout.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Side-by-side comparison labeled \"AI Companion: Healthy vs. Unhealthy Pattern\". Left panel labeled \"Supplement\" with green checkmark: shows AI chat app icon alongside icons for human friend, phone call, coffee meetup. Three bullet labels: \"Enjoy conversations\", \"Maintain human relationships\", \"Use as creative or emotional outlet\". Right panel labeled \"Replacement\" with red warning icon: shows only AI chat app icon, human-connection icons crossed out. Three bullet labels: \"Cancel plans to chat\", \"Feel anxious without the app\", \"AI becomes primary social contact\". Clean editorial illustration, white background, sans-serif labels, two-column layout.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-boyfriend/image-12-side-by-side-comparison-labele.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Side-by-side comparison labeled \"AI Companion: Healthy vs. Unhealthy Pattern\". Left panel labeled \"Supplement\" with green checkmark: shows AI chat app icon alongside icons for human friend, phone call, coffee meetup. Three bullet labels: \"Enjoy conversations\", \"Maintain human relationships\", \"Use as creative or emotional outlet\". Right panel labeled \"Replacement\" with red warning icon: shows only AI chat app icon, human-connection icons crossed out. Three bullet labels: \"Cancel plans to chat\", \"Feel anxious without the app\", \"AI becomes primary social contact\". Clean editorial illustration, white background, sans-serif labels, two-column layout.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Side-by-side comparison labeled \"AI Companion: Healthy vs. Unhealthy Pattern\". Left panel labeled \"Supplement\" with green checkmark: shows AI chat app icon alongside icons for human friend, phone call, coffee meetup. Three bullet labels: \"Enjoy conversations\", \"Maintain human relationships\", \"Use as creative or emotional outlet\". Right panel labeled \"Replacement\" with red warning icon: shows only AI chat app icon, human-connection icons crossed out. Three bullet labels: \"Cancel plans to chat\", \"Feel anxious without the app\", \"AI becomes primary social contact\". Clean editorial illustration, white background, sans-serif labels, two-column layout.;style=illustration;safety=sfw]",
       "legacy": false
     }
   ]

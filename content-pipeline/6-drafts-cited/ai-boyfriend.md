@@ -10,6 +10,8 @@ Most "best AI boyfriend" listicles won't tell you this: the gap between a good A
 
 This guide covers what makes an AI boyfriend worth your time, compares the top platforms on the features that matter, walks you through building your own, and addresses the privacy crisis that most articles in this space completely ignore.
 
+![Annual US Search Volume — AI Boyfriend vs AI Girlfriend (2026)](images/ai-boyfriend/chart-1-annual-us-search-volume-ai-boy.png)
+
 ## What an AI Boyfriend Actually Is (and Isn't)
 
 An AI boyfriend is a chatbot trained to simulate a romantic partner. But the range between a scripted novelty and a genuinely adaptive companion is enormous.
@@ -21,6 +23,8 @@ Your AI boyfriend holds a persistent identity. It mirrors your emotional tone. I
 Think of it as a spectrum. On one end: scripted bots that cycle through the same flirty lines regardless of what you say. On the other: multi-modal companions with custom voices, image generation, and conversation styles that adapt over weeks.
 
 The difference between those endpoints is the difference between a novelty and something you use daily.
+
+![Horizontal spectrum diagram labeled "The AI Companion Quality Spectrum". Left end labeled "Scripted Novelty" with a simple speech bubble icon. Right end labeled "Adaptive Companion" with a brain-plus-memory icon. Three intermediate labels along the arrow: "Generic Bot (no memory, no persona)", "Mid-tier App (basic personality, session memory)", "Full Companion (custom voice, long-term recall, emotional context)". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors.](images/ai-boyfriend/image-2-horizontal-spectrum-diagram-la.png)
 
 Most apps on the market sit somewhere in the middle. Good enough to hook you in the first session, not good enough to keep you coming back after a month.
 
@@ -44,6 +48,8 @@ When your AI boyfriend forgets a conversation you had three days ago, the illusi
 
 If voice matters to you, your options are limited right now. But this is the feature every platform is racing to ship next — expect that list to grow by the end of 2026.
 
+![RoboRhythms: only 5 AI companion apps offer working voice calls as of May 2026](images/ai-boyfriend/external-3-roborhythms-only-5-ai-companio.png)
+
 Then there's the customization question. Most listicles rate apps by appearance options: how many hairstyles, how many outfits, how many body types. Experienced users care about something different: whether you can shape conversation style, interests, and boundaries.
 
 Can you tell your AI boyfriend to be sarcastic? To push back when you vent instead of agreeing with everything? Can you set a communication style that matches what you want from a partner? That's personality customization, and it matters more than eye color.
@@ -53,6 +59,8 @@ The other deal-breaker: uncensored chat. Mainstream bots — ChatGPT, Claude, Re
 Pleasur.AI combines [unrestricted chat](https://pleasur.ai/blog/ai-chatbot-no-filter-2026), image generation, and deep character customization in one place. For a broader look at [uncensored platforms and what they offer](https://pleasur.ai/blog/best-uncensored-ai-chatbot-free), we've covered that separately. And if you want the full rundown on what "unrestricted" means in practice, our [dirty AI guide](https://pleasur.ai/blog/dirty-ai-guide-2026) goes deeper.
 
 Those are the four axes worth comparing on: memory, voice, personality customization, and unrestricted chat. Price matters too, but only after you've filtered for the features you care about.
+
+![Four-box grid diagram labeled "The Four Dimensions That Actually Matter in an AI Boyfriend App". Top-left box: "Memory" — subtitle "Long-term recall vs session-only". Top-right box: "Voice Calls" — subtitle "Latency, persistence, cross-mode memory". Bottom-left box: "Personality Depth" — subtitle "Backstory, tone, conflict style, interests". Bottom-right box: "Unrestricted Chat" — subtitle "No content walls or topic filters". Each box has a simple line-art icon. Clean editorial illustration, white background, sans-serif labels, 2x2 grid layout.](images/ai-boyfriend/image-4-four-box-grid-diagram-labeled.png)
 
 ## Best AI Boyfriend Apps Compared
 
@@ -125,9 +133,11 @@ Don't want to start from scratch? Browse community-shared characters and remix o
 
 One more tip: don't treat the creation flow as one-and-done. The best AI boyfriend characters evolve. Come back after a week of conversations and refine the personality based on what's working and what isn't. Most platforms let you edit without starting over.
 
+![Vertical four-step flowchart labeled "Building Your AI Boyfriend on Pleasur.AI". Step 1 "Appearance" — body type, face, hair, style (icon: camera). Step 2 "Personality" — traits, tone, conflict style (icon: star). Step 3 "Backstory" — profession, history, context (icon: scroll). Step 4 "Conversation Style and Limits" — preferences and boundaries (icon: sliders). Downward arrows connect each step sequentially. A curved dashed "Iterate" arrow points from Step 4 back up to Step 2, labeled "refine after first week". Clean editorial illustration, white background, sans-serif labels.](images/ai-boyfriend/image-6-vertical-four-step-flowchart-l.png)
+
 For the parallel guide on building a female companion, see our [AI girlfriend simulator walkthrough](https://pleasur.ai/blog/ai-girlfriend-simulator). The creator flow is identical.
 
-[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Navigate to pleasur.ai/create. Dismiss the age verification dialog. Select a male character template. Reach the personality/backstory configuration step. Capture that screen.;what=Pleasur.AI AI Companion Creator — personality and backstory configuration for a male character]
+![Pleasur.AI AI Companion Creator — personality and backstory configuration for a male character](images/ai-boyfriend/action-7-navigate-to-pleasur-ai-create.png)
 
 ## The Privacy Crisis Nobody's Talking About
 
@@ -136,6 +146,8 @@ Two major data breaches in the past eight months exposed over 340 million intima
 In October 2025, a breach at Chattee/GiMe [leaked 43 million messages and 600,000 photos from over 400,000 users](https://cybernews.com/security/ai-girlfriend-app-leak-exposes-400k-users/). Four months later, in February 2026, Chat & Ask AI [exposed 300 million messages from 25 million users](https://www.malwarebytes.com/blog/news/2026/02/ai-chat-app-leak-exposes-300-million-messages-tied-to-25-million-users) due to a Firebase misconfiguration.
 
 These weren't metadata leaks. They were full conversation logs.
+
+![Cybernews: Chattee/GiMe AI companion breach exposed 400K users — 43M messages and 600K photos leaked, October 2025](images/ai-boyfriend/external-8-cybernews-chattee-gime-ai-comp.png)
 
 Think about what you'd say to an AI boyfriend in a private chat. Now picture 300 million messages like that sitting on an unsecured server. That's what happened.
 
@@ -155,6 +167,8 @@ Before you sign up for any platform, check four things.
 
 **How Pleasur.AI handles this:** Pleasur.AI doesn't sell your data to third parties. You can delete your conversation history and your account at any time. For a broader look at how [uncensored platforms handle security](https://pleasur.ai/blog/best-uncensored-ai-chatbot-free), we've compared several.
 
+![Romantic AI Chatbots Failing Privacy Standards — Mozilla Audit (%)](images/ai-boyfriend/chart-10-romantic-ai-chatbots-failing-p.png)
+
 Privacy is one side of the "should I?" question. The other is whether this is good for you.
 
 ## Is Having an AI Boyfriend Healthy?
@@ -162,6 +176,8 @@ Privacy is one side of the "should I?" question. The other is whether this is go
 Research suggests AI companions can reduce loneliness, but only when you treat them as a supplement to human connection — not a replacement.
 
 The [Harvard Business School study](https://www.hbs.edu/faculty/Pages/item.aspx?num=67360) (De Freitas et al., published in the *Journal of Consumer Research*) found AI companions reduced loneliness about as effectively as human conversation. The key variable was whether users felt genuinely heard. When the AI delivered on that, the emotional benefit was real and measurable.
+
+![Harvard Business School: De Freitas et al. — AI companions reduce loneliness as effectively as human conversation (Journal of Consumer Research, 2025)](images/ai-boyfriend/external-11-harvard-business-school-de-fre.png)
 
 But the researchers also flagged a clear risk: dependency.
 
@@ -182,6 +198,8 @@ In the US, motivations vary more widely. Some users want creative roleplay. Some
 None of these reasons are inherently unhealthy. What matters is the pattern, not the motivation.
 
 The research is clear on one point: an AI companion works best when you approach it with intention. Know why you're using it. Check in with yourself occasionally. If it's adding to your life, keep going. If it's replacing parts of your life you care about, recalibrate.
+
+![Side-by-side comparison labeled "AI Companion: Healthy vs. Unhealthy Pattern". Left panel labeled "Supplement" with green checkmark: shows AI chat app icon alongside icons for human friend, phone call, coffee meetup. Three bullet labels: "Enjoy conversations", "Maintain human relationships", "Use as creative or emotional outlet". Right panel labeled "Replacement" with red warning icon: shows only AI chat app icon, human-connection icons crossed out. Three bullet labels: "Cancel plans to chat", "Feel anxious without the app", "AI becomes primary social contact". Clean editorial illustration, white background, sans-serif labels, two-column layout.](images/ai-boyfriend/image-12-side-by-side-comparison-labele.png)
 
 An AI boyfriend can be worth your time. Pick the right app, build a character with depth, and keep your data safe.
 
