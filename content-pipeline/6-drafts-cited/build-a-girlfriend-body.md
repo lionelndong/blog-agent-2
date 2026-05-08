@@ -12,6 +12,8 @@ This guide walks every step in the Pleasur.AI Companion Creator with real screen
 
 It calls out the failure modes where combinations fight each other. It's honest about pricing and what the platform stores. The SERP top 10 dodge all three.
 
+![Seven-step decision sequence flow diagram for building an AI girlfriend. A horizontal left-to-right pipeline with seven labeled boxes connected by arrows. Box 1: "Art Style" (palette icon, label below "Realistic or Anime"). Box 2: "Archetype" (pen icon, label below "2–3 words"). Box 3: "Ethnicity" (globe icon, label below "5 presets"). Box 4: "Hair" (scissors icon, label below "Color + Length"). Box 5: "Body Type" (figure icon, label below "4 preset cards"). Box 6: "Breast & Butt" (card icon, label below "Match body type"). Box 7: "Outfit" (hanger icon, label below "Most disposable"). Boxes 1 through 7 connected by simple right-pointing arrows. Below the pipeline a single footer label: "Decide this order BEFORE opening the creator". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/build-a-girlfriend-body/image-1-seven-step-decision-sequence-f.png)
+
 ## Why a "build" walkthrough is missing from the SERP
 
 Nine of the top ten Google results for "build a girlfriend body" are product landing pages or parasite listicles. The lone how-to ranker (a [Scribe walkthrough](https://scribehow.com/page/How_to_Create_a_Custom_AI_Companion_on_OurDream_AI_Complete_Guide__qek6cA0LQn-WVhOEcJLY_A) on a parasite host) currently captures about four visitors a month [^1] — that's the gap, not the ceiling.
@@ -52,6 +54,8 @@ The customization-options matrix across the SERP confirms the order. All six pro
 
 The "decide before clicking" framing comes from the same r/artificial discourse that put a Reddit thread on the SERP at position 4. People who've burned a few dozen regenerations all arrive at the same conclusion.
 
+![Two-column concept illustration labeled "How most people build" vs "How it should work". LEFT column header "Most people" with a red X icon. Below it three steps with red arrows: Step 1 "Open creator", Step 2 "Start picking randomly", Step 3 "40+ regenerations wasted". RIGHT column header "Decide first" with a green checkmark icon. Below it three steps with green arrows: Step 1 "Write 7 decisions on paper", Step 2 "Open creator", Step 3 "Build lands in one pass". A dividing vertical line between the two columns. Footer label: "The order you decide matters more than the tool". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/build-a-girlfriend-body/image-2-two-column-concept-illustratio.png)
+
 | Decision | What you pick | Why this order |
 |---|---|---|
 | 1. Art style | Realistic or anime | Everything else renders inside it |
@@ -61,6 +65,8 @@ The "decide before clicking" framing comes from the same r/artificial discourse 
 | 5. Body type | One of four preset cards | Sets the baseline shape |
 | 6. Breast and butt | Preset cards, not sliders | Match the body-type card |
 | 7. Outfit | Match the energy | Most disposable; changeable in chat |
+
+![Archetype anchor diagram titled "Two or three words anchor everything else." Three horizontal rows, each a full-width band with a left label box and three downstream decision boxes connected by arrows. Row 1: Left box "Athletic surfer" in bold. Arrow right to three boxes: "Ethnicity: Latina or White" (globe icon), "Hair: Warm blonde, long" (scissors icon), "Outfit: Casual beach" (hanger icon). Row 2: Left box "Soft librarian". Arrow right to three boxes: "Ethnicity: Asian or White" (globe icon), "Hair: Dark, medium length" (scissors icon), "Outfit: Cozy sweater" (hanger icon). Row 3: Left box "Club promoter". Arrow right to three boxes: "Ethnicity: Latina or Black" (globe icon), "Hair: Short dark bob" (scissors icon), "Outfit: Evening wear" (hanger icon). Footer below all rows: "Write the archetype first. Every picker after falls from it." No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/build-a-girlfriend-body/image-1-archetype-anchor-diagram-title.png)
 
 For the open-source path where you write the body description in raw character cards, see our [Tavern AI Review 2026](https://pleasur.ai/blog/tavern-ai-review-2026).
 
@@ -73,6 +79,10 @@ Now that your seven decisions are on paper, here's what each one actually looks 
 The first four decisions happen in the first two screens of the Pleasur.AI Companion Creator. Getting them right in one pass is mostly about not skipping the archetype step that lives in your head, not on screen.
 
 `pleasur.ai/create` opens on the templates grid. The first wizard step asks Realistic or Anime. Realistic is the default for most users coming from this search.
+
+<!-- MANUAL CAPTURE PENDING: Companion Creator first step — Realistic vs Anime art style selection (action-shot, /capture-visuals) -->
+
+![Two-panel comparison diagram. Left panel header "Realistic" with a camera icon. Five descriptor rows, each with a small icon: "Photorealistic skin tone" (skin-color swatch icon), "Natural body proportions" (abstract human silhouette with natural proportions), "Photography-style color palette" (muted color circles), "Subtle texture rendering" (texture icon), "Error mode: uncanny valley if sliders pushed to extremes" (warning triangle icon). Right panel header "Anime" with a pen-nib icon. Five matching rows: "Cel-shaded outlines" (outline stroke icon), "Stylized proportions" (abstract silhouette with larger head ratio), "Saturated vivid palette" (bright color circles), "Flat color fills" (flat paint icon), "Error mode: inconsistent proportions across poses" (warning triangle icon). Vertical dividing line between panels. Footer: "Pick first — all other decisions render inside it. Don't switch mid-build." No human faces, no explicit anatomy. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/build-a-girlfriend-body/image-2-two-panel-comparison-diagram-l.png)
 
 The long-tail variants ("create your own girlfriend body," "ai girlfriend body") all skew toward photorealistic output. Pick Realistic and move on.
 
@@ -92,6 +102,8 @@ Step four is body type. Pleasur uses four preset cards. Naming what each one out
 - **Athletic** outputs visible muscle definition.
 - **Voluptuous** outputs a fuller, higher-volume frame.
 - **Curvy** outputs an hourglass shape with a softer waist.
+
+![Side-by-side comparison diagram of the four AI girlfriend body-type preset cards. Four equal-width columns with a header row and two descriptor rows each. Column headers: "Slim", "Athletic", "Voluptuous", "Curvy". First descriptor row for each: "Model-thin proportions", "Visible muscle definition", "Fuller, higher-volume frame", "Hourglass, softer waist". Second descriptor row: a small abstract silhouette icon for each (vertical rectangle for Slim, V-shaped torso for Athletic, fuller oval for Voluptuous, hourglass shape for Curvy). A red warning strip below the two right columns reads "High-volume cards — match body type to avoid card-fighting". No human faces or explicit anatomy. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/build-a-girlfriend-body/image-4-side-by-side-comparison-diagra.png)
 
 Kupid AI and OurDream.ai use sliders here instead — Kupid's [character creator advertises petite, athletic, curvy, and hourglass](https://aigirlmates.com/reviews/kupid-ai/) with separate breast and butt size sliders. Candy.AI's [marketing copy](https://www.candy.ai/) uses similar language but doesn't show a public preview of the picker before signup.
 
@@ -114,6 +126,8 @@ The combination failure mode is where most regenerations get burned. Pair "Athle
 Visible muscle definition and high-volume soft tissue read as anatomically inconsistent. The model resolves the conflict by producing something that looks edited rather than rendered.
 
 Same story for "Slim" plus the Large butt card. The output looks wrong — you don't quite know why, you regenerate ten times, and nothing improves.
+
+![Grid compatibility matrix diagram: body-type presets vs breast-slash-butt size cards. Rows label the four body-type cards top-to-bottom: "Slim", "Athletic", "Voluptuous", "Curvy". Columns label the four size cards left-to-right: "Small", "Medium", "Large", "Athletic". Each cell is a small colored square with an icon: green checkmark for compatible pairings (Slim+Small, Slim+Medium, Athletic+Small, Athletic+Medium, Athletic+Athletic, Voluptuous+Medium, Voluptuous+Large, Curvy+Medium, Curvy+Large, Curvy+Athletic), red X for card-fighting pairings (Slim+Large, Slim+Athletic, Athletic+Large, Voluptuous+Small). A legend below: green = "Renders clean", red = "Card-fighting — avoid". Title above grid: "Preset Card Compatibility Matrix". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/build-a-girlfriend-body/image-5-grid-compatibility-matrix-diag.png)
 
 The fix is mechanical. Match the breast and butt card to the energy of the body-type card. If you want a high-volume look, pick Voluptuous or Curvy as the body type and a Medium or Large card on top — the body-type card does the heavy lifting the size card was overshooting alone.
 
@@ -143,7 +157,11 @@ Pick something that matches your archetype's energy. Don't agonize. The wrong ou
 
 The final preview generates a full-body render. This is your trust check. If your archetype reads wrong on the preview, do not swap cards one at a time.
 
+<!-- MANUAL CAPTURE PENDING: Companion Creator final character preview — full-body render before creation (action-shot, /capture-visuals) -->
+
 Go back to the archetype step. Change one or two words. Re-run. Five minutes saved over forty.
+
+![Flow diagram titled "Final Preview Trust Check". Four nodes connected by arrows in a decision loop. Node 1 (rounded rectangle, left side): label "Preview generates" with a render icon. Arrow pointing right to Node 2 (diamond decision shape): label "Archetype reads right?". Two arrow paths from Node 2: upper path with green label "Yes" points right to Node 3 (rounded rectangle): label "Create the character" with a green checkmark icon. Lower path with red label "No" points down to Node 4 (rounded rectangle): label "Change one or two archetype words" with a redo-arrow icon. A curved arrow from Node 4 loops back left to Node 1. Footer below all nodes: "Fight the archetype, not the sliders." No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/build-a-girlfriend-body/image-3-flow-diagram-titled-final-prev.png)
 
 After creation, your character lands in chat with persistent history. You pick up across sessions where you left off.
 
@@ -159,11 +177,17 @@ This is unclaimed territory. An honest pricing line looks like this — free tie
 
 ![How the top 10 disclose pricing on the create page](images/build-a-girlfriend-body/chart-4-how-the-top-10-disclose-pricin.png)
 
-Privacy reality is the second half. [Pew Research found 53% of US adults say AI is doing more to hurt than help people keep their personal information private](https://www.pewresearch.org/short-reads/2023/08/28/growing-public-concern-about-the-role-of-artificial-intelligence-in-daily-life/), and [81% expect company-collected information to be used in ways they aren't comfortable with](https://www.pewresearch.org/internet/2023/10/18/how-americans-view-data-privacy/). The discomfort with handing intimate preferences to a chatbot isn't paranoia — it's the modal view.
+Privacy reality is the second half. [Pew Research found 53% of US adults say AI is doing more to hurt than help people keep their personal information private](https://www.pewresearch.org/short-reads/2023/08/28/growing-public-concern-about-the-role-of-artificial-intelligence-in-daily-life/), and [81% expect company-collected information to be used in ways they aren't comfortable with](https://www.pewresearch.org/internet/2023/10/18/how-americans-view-data-privacy/).
+
+<!-- CAPTURE PENDING: Pew Research pullquote — 53% of US adults say AI hurts personal data privacy (external, /capture-visuals) -->
+
+The discomfort with handing intimate preferences to a chatbot isn't paranoia — it's the modal view.
 
 Companion-app usage is large enough that the discomfort matters. [Common Sense Media's 2025 national survey of 1,000+ US teens found 72% have used an AI companion at least once, with 30% citing entertainment as a primary use](https://www.commonsensemedia.org/research/talk-trust-and-trade-offs-how-and-why-teens-use-ai-companions) — the category is mainstream, not fringe.
 
 The honest move is to name what the platform stores. Chat history is stored by design, because memory is the feature. Payment data flows through standard processors. The contents of generated images are platform-dependent.
+
+![Three-box diagram labeled "What a companion platform stores". Three equal-width boxes in a horizontal row, each with a label, an icon, and a one-line description. LEFT box "Chat history" (speech-bubble icon, description "Stored by design — memory is the feature"). MIDDLE box "Payment data" (credit-card icon, description "Via standard processors — not platform-stored"). RIGHT box "Generated images" (photo-frame icon, description "Platform-dependent — check the privacy policy"). Beneath all three boxes a single footer row: "Ask for all three. If a builder won't say, that's the answer." No human figures. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/build-a-girlfriend-body/image-8-three-box-diagram-labeled-what.png)
 
 If a builder won't tell you those three things, that's the answer.
 
@@ -178,6 +202,8 @@ A good build is seven decisions made in order, written down before the creator o
 The breast or butt card that fights its own body-type card is the failure mode every other guide skips. The pricing line and privacy footprint are what the SERP refuses to disclose. The walkthrough is what's been missing.
 
 Open the [AI Companion Creator](https://pleasur.ai/create), keep your seven decisions on paper next to you, and go in order.
+
+![Compact horizontal reference card titled "The 7 decisions in order". A single-row pipeline with seven equal-width labeled boxes connected by right-pointing arrows. Box 1: "1. Art style" with smaller label below "Realistic or Anime". Box 2: "2. Archetype" with label below "2–3 words". Box 3: "3. Ethnicity" with label below "Match archetype". Box 4: "4. Hair" with label below "Color then length". Box 5: "5. Body type" with label below "4 preset cards". Box 6: "6. Breast & Butt" with label below "Match body card". Box 7: "7. Outfit" with label below "Most disposable". A horizontal bracket beneath boxes 5 and 6 with the label "Card-fight zone". Footer below the full pipeline: "Decide before you open the creator." No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.](images/build-a-girlfriend-body/image-4-compact-horizontal-reference-c.png)
 
 If you want broader category context first, [AI Girlfriend Simulator: What It Is and Best Options in 2026](https://pleasur.ai/blog/ai-girlfriend-simulator) covers what an AI girlfriend builder is and how it sits next to chat, voice, and image. Come back here for the body step.
 

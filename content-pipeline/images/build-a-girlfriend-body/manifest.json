@@ -2,7 +2,7 @@
   "slug": "build-a-girlfriend-body",
   "visuals": [
     {
-      "index": 1,
+      "index": "orig-1",
       "type": "chart",
       "attrs": {
         "type": "chart",
@@ -18,57 +18,35 @@
         "style": "bar",
         "data_points": 10
       },
-      "raw": "[VISUAL:type=chart;data=research.serp_traffic_top_10;style=bar;title=Where the \"build a girlfriend body\" SERP traffic actually goes]",
+      "raw": "",
       "legacy": false
     },
     {
-      "index": 2,
+      "index": "orig-2",
       "type": "action-shot",
-      "attrs": {
-        "type": "action-shot",
-        "url": "https://pleasur.ai/create",
-        "goal": "Log into Pleasur.AI with the saved session. Open the Companion Creator at /create. Dismiss any age-verification dialog. Pick the Realistic template. Click through to the Ethnicity selection step. Capture that screen with the five ethnicity presets visible (Caucasian, Asian, Latina, Black/Afro, Arab).",
-        "what": "Companion Creator Ethnicity selection step with five presets visible"
-      },
       "alt": "Companion Creator Ethnicity selection step with five preset cards visible",
       "status": "mockup_in_place",
       "result": {
         "status": "mockup_in_place",
-        "path": "content-pipeline/images/build-a-girlfriend-body/action-2-companion-creator-ethnicity.png",
-        "capture_method": "pillow_mockup",
-        "remote_path": "/home/blogagent/blog-agent/content-pipeline/images/build-a-girlfriend-body/action-2-companion-creator-ethnicity.png",
-        "navigation_verified_on_vps": true,
-        "ui_observed": "Five ethnicity preset cards (Caucasian, Asian, Latina, Black/Afro, Arab), Skin Tone swatches, Age block",
-        "note": "Mockup PNG generated from the navigation agent's verified UI observations and watermarked 'MOCKUP — real screenshot pending VPS sync'. Real screenshot exists on the VPS; sync_captures_from_vps.sh will overwrite this mockup with the real PNG."
+        "path": "content-pipeline/images/build-a-girlfriend-body/action-2-companion-creator-ethnicity.png"
       },
-      "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Log into Pleasur.AI with the saved session. Open the Companion Creator at /create. Dismiss any age-verification dialog. Pick the Realistic template. Click through to the Ethnicity selection step. Capture that screen with the five ethnicity presets visible.;what=Companion Creator Ethnicity selection step with five presets visible]",
+      "raw": "",
       "legacy": false
     },
     {
-      "index": 3,
+      "index": "orig-3",
       "type": "action-shot",
-      "attrs": {
-        "type": "action-shot",
-        "url": "https://pleasur.ai/create",
-        "goal": "Log into Pleasur.AI with the saved session. Open the Companion Creator at /create. Move through the wizard to the body-type and breast/butt step. Capture that screen with the Body Type cards (Slim/Athletic/Voluptuous/Curvy), Breast Size cards (Small/Medium/Large/Athletic), and Butt Size cards visible together.",
-        "what": "Companion Creator body-type and breast/butt step (preset cards, not sliders)"
-      },
       "alt": "Companion Creator body-type card plus breast/butt preset cards in the same step",
       "status": "mockup_in_place",
       "result": {
         "status": "mockup_in_place",
-        "path": "content-pipeline/images/build-a-girlfriend-body/action-3-companion-creator-body.png",
-        "capture_method": "pillow_mockup",
-        "remote_path": "/home/blogagent/blog-agent/content-pipeline/images/build-a-girlfriend-body/action-3-companion-creator-body.png",
-        "navigation_verified_on_vps": true,
-        "ui_observed": "Body Type cards (Slim/Athletic/Voluptuous/Curvy), Breast Size cards (Small/Medium/Large/Athletic), Butt Size cards — preset cards, not sliders",
-        "note": "Mockup PNG generated from the navigation agent's verified UI observations and watermarked 'MOCKUP — real screenshot pending VPS sync'. Real screenshot exists on the VPS; sync_captures_from_vps.sh will overwrite this mockup with the real PNG."
+        "path": "content-pipeline/images/build-a-girlfriend-body/action-3-companion-creator-body.png"
       },
-      "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Log into Pleasur.AI with the saved session. Open the Companion Creator at /create. Move through the wizard to the body-type and breast/butt step. Capture that screen with the Body Type cards (Slim/Athletic/Voluptuous/Curvy), Breast Size cards (Small/Medium/Large/Athletic), and Butt Size cards visible together.;what=Companion Creator body-type and breast/butt step (preset cards, not sliders)]",
+      "raw": "",
       "legacy": false
     },
     {
-      "index": 4,
+      "index": "orig-4",
       "type": "chart",
       "attrs": {
         "type": "chart",
@@ -84,7 +62,264 @@
         "style": "bar",
         "data_points": 3
       },
-      "raw": "[VISUAL:type=chart;data=research.competitor_pricing_disclosure;style=bar;title=How the top 10 disclose pricing on the create page]",
+      "raw": "",
+      "legacy": false
+    },
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Seven-step decision sequence flow diagram for building an AI girlfriend. A horizontal left-to-right pipeline with seven labeled boxes connected by arrows. Box 1: \"Art Style\" (palette icon, label below \"Realistic or Anime\"). Box 2: \"Archetype\" (pen icon, label below \"2\u20133 words\"). Box 3: \"Ethnicity\" (globe icon, label below \"5 presets\"). Box 4: \"Hair\" (scissors icon, label below \"Color + Length\"). Box 5: \"Body Type\" (figure icon, label below \"4 preset cards\"). Box 6: \"Breast & Butt\" (card icon, label below \"Match body type\"). Box 7: \"Outfit\" (hanger icon, label below \"Most disposable\"). Boxes 1 through 7 connected by simple right-pointing arrows. Below the pipeline a single footer label: \"Decide this order BEFORE opening the creator\". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Seven-step decision sequence flow diagram for building an AI girlfriend. A horizontal left-to-right pipeline with seven labeled boxes connected by arrows. Box 1: \"Art Style\" (palette icon, label below \"Realistic or Anime\"). Box 2: \"Archetype\" (pen icon, label below \"2\u20133 words\"). Box 3: \"Ethnicity\" (globe icon, label below \"5 presets\"). Box 4: \"Hair\" (scissors icon, label below \"Color + Length\"). Box 5: \"Body Type\" (figure icon, label below \"4 preset cards\"). Box 6: \"Breast & Butt\" (card icon, label below \"Match body type\"). Box 7: \"Outfit\" (hanger icon, label below \"Most disposable\"). Boxes 1 through 7 connected by simple right-pointing arrows. Below the pipeline a single footer label: \"Decide this order BEFORE opening the creator\". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/build-a-girlfriend-body/image-1-seven-step-decision-sequence-f.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Seven-step decision sequence flow diagram for building an AI girlfriend. A horizontal left-to-right pipeline with seven labeled boxes connected by arrows. Box 1: \"Art Style\" (palette icon, label below \"Realistic or Anime\"). Box 2: \"Archetype\" (pen icon, label below \"2\u20133 words\"). Box 3: \"Ethnicity\" (globe icon, label below \"5 presets\"). Box 4: \"Hair\" (scissors icon, label below \"Color + Length\"). Box 5: \"Body Type\" (figure icon, label below \"4 preset cards\"). Box 6: \"Breast & Butt\" (card icon, label below \"Match body type\"). Box 7: \"Outfit\" (hanger icon, label below \"Most disposable\"). Boxes 1 through 7 connected by simple right-pointing arrows. Below the pipeline a single footer label: \"Decide this order BEFORE opening the creator\". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Seven-step decision sequence flow diagram for building an AI girlfriend. A horizontal left-to-right pipeline with seven labeled boxes connected by arrows. Box 1: \"Art Style\" (palette icon, label below \"Realistic or Anime\"). Box 2: \"Archetype\" (pen icon, label below \"2\u20133 words\"). Box 3: \"Ethnicity\" (globe icon, label below \"5 presets\"). Box 4: \"Hair\" (scissors icon, label below \"Color + Length\"). Box 5: \"Body Type\" (figure icon, label below \"4 preset cards\"). Box 6: \"Breast & Butt\" (card icon, label below \"Match body type\"). Box 7: \"Outfit\" (hanger icon, label below \"Most disposable\"). Boxes 1 through 7 connected by simple right-pointing arrows. Below the pipeline a single footer label: \"Decide this order BEFORE opening the creator\". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Two-column concept illustration labeled \"How most people build\" vs \"How it should work\". LEFT column header \"Most people\" with a red X icon. Below it three steps with red arrows: Step 1 \"Open creator\", Step 2 \"Start picking randomly\", Step 3 \"40+ regenerations wasted\". RIGHT column header \"Decide first\" with a green checkmark icon. Below it three steps with green arrows: Step 1 \"Write 7 decisions on paper\", Step 2 \"Open creator\", Step 3 \"Build lands in one pass\". A dividing vertical line between the two columns. Footer label: \"The order you decide matters more than the tool\". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Two-column concept illustration labeled \"How most people build\" vs \"How it should work\". LEFT column header \"Most people\" with a red X icon. Below it three steps with red arrows: Step 1 \"Open creator\", Step 2 \"Start picking randomly\", Step 3 \"40+ regenerations wasted\". RIGHT column header \"Decide first\" with a green checkmark icon. Below it three steps with green arrows: Step 1 \"Write 7 decisions on paper\", Step 2 \"Open creator\", Step 3 \"Build lands in one pass\". A dividing vertical line between the two columns. Footer label: \"The order you decide matters more than the tool\". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/build-a-girlfriend-body/image-2-two-column-concept-illustratio.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Two-column concept illustration labeled \"How most people build\" vs \"How it should work\". LEFT column header \"Most people\" with a red X icon. Below it three steps with red arrows: Step 1 \"Open creator\", Step 2 \"Start picking randomly\", Step 3 \"40+ regenerations wasted\". RIGHT column header \"Decide first\" with a green checkmark icon. Below it three steps with green arrows: Step 1 \"Write 7 decisions on paper\", Step 2 \"Open creator\", Step 3 \"Build lands in one pass\". A dividing vertical line between the two columns. Footer label: \"The order you decide matters more than the tool\". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Two-column concept illustration labeled \"How most people build\" vs \"How it should work\". LEFT column header \"Most people\" with a red X icon. Below it three steps with red arrows: Step 1 \"Open creator\", Step 2 \"Start picking randomly\", Step 3 \"40+ regenerations wasted\". RIGHT column header \"Decide first\" with a green checkmark icon. Below it three steps with green arrows: Step 1 \"Write 7 decisions on paper\", Step 2 \"Open creator\", Step 3 \"Build lands in one pass\". A dividing vertical line between the two columns. Footer label: \"The order you decide matters more than the tool\". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "action-shot",
+      "attrs": {
+        "type": "action-shot",
+        "url": "https://pleasur.ai/create",
+        "goal": "Log into Pleasur.AI with the saved session. Open the Companion Creator at /create. Dismiss any age-verification dialog. Capture the first wizard step showing the Realistic vs Anime style selection cards.",
+        "what": "Companion Creator first step \u2014 Realistic vs Anime art style selection"
+      },
+      "alt": "Companion Creator first step \u2014 Realistic vs Anime art style selection",
+      "status": "manual",
+      "result": {
+        "status": "manual",
+        "reason": "action_shot_routed_to_editor",
+        "url": "https://pleasur.ai/create",
+        "goal": "Log into Pleasur.AI with the saved session. Open the Companion Creator at /create. Dismiss any age-verification dialog. Capture the first wizard step showing the Realistic vs Anime style selection cards.",
+        "filename": "action-3-log-into-pleasur-ai-with-the-s.png",
+        "hint": "Capture interactively via Claude in Chrome. Run `/capture-visuals build-a-girlfriend-body` and walk through this entry, or open the URL in Chrome and capture the moment described in 'goal' yourself."
+      },
+      "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Log into Pleasur.AI with the saved session. Open the Companion Creator at /create. Dismiss any age-verification dialog. Capture the first wizard step showing the Realistic vs Anime style selection cards.;what=Companion Creator first step \u2014 Realistic vs Anime art style selection]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Side-by-side comparison diagram of the four AI girlfriend body-type preset cards. Four equal-width columns with a header row and two descriptor rows each. Column headers: \"Slim\", \"Athletic\", \"Voluptuous\", \"Curvy\". First descriptor row for each: \"Model-thin proportions\", \"Visible muscle definition\", \"Fuller, higher-volume frame\", \"Hourglass, softer waist\". Second descriptor row: a small abstract silhouette icon for each (vertical rectangle for Slim, V-shaped torso for Athletic, fuller oval for Voluptuous, hourglass shape for Curvy). A red warning strip below the two right columns reads \"High-volume cards \u2014 match body type to avoid card-fighting\". No human faces or explicit anatomy. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Side-by-side comparison diagram of the four AI girlfriend body-type preset cards. Four equal-width columns with a header row and two descriptor rows each. Column headers: \"Slim\", \"Athletic\", \"Voluptuous\", \"Curvy\". First descriptor row for each: \"Model-thin proportions\", \"Visible muscle definition\", \"Fuller, higher-volume frame\", \"Hourglass, softer waist\". Second descriptor row: a small abstract silhouette icon for each (vertical rectangle for Slim, V-shaped torso for Athletic, fuller oval for Voluptuous, hourglass shape for Curvy). A red warning strip below the two right columns reads \"High-volume cards \u2014 match body type to avoid card-fighting\". No human faces or explicit anatomy. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/build-a-girlfriend-body/image-4-side-by-side-comparison-diagra.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Side-by-side comparison diagram of the four AI girlfriend body-type preset cards. Four equal-width columns with a header row and two descriptor rows each. Column headers: \"Slim\", \"Athletic\", \"Voluptuous\", \"Curvy\". First descriptor row for each: \"Model-thin proportions\", \"Visible muscle definition\", \"Fuller, higher-volume frame\", \"Hourglass, softer waist\". Second descriptor row: a small abstract silhouette icon for each (vertical rectangle for Slim, V-shaped torso for Athletic, fuller oval for Voluptuous, hourglass shape for Curvy). A red warning strip below the two right columns reads \"High-volume cards \u2014 match body type to avoid card-fighting\". No human faces or explicit anatomy. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Side-by-side comparison diagram of the four AI girlfriend body-type preset cards. Four equal-width columns with a header row and two descriptor rows each. Column headers: \"Slim\", \"Athletic\", \"Voluptuous\", \"Curvy\". First descriptor row for each: \"Model-thin proportions\", \"Visible muscle definition\", \"Fuller, higher-volume frame\", \"Hourglass, softer waist\". Second descriptor row: a small abstract silhouette icon for each (vertical rectangle for Slim, V-shaped torso for Athletic, fuller oval for Voluptuous, hourglass shape for Curvy). A red warning strip below the two right columns reads \"High-volume cards \u2014 match body type to avoid card-fighting\". No human faces or explicit anatomy. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Grid compatibility matrix diagram: body-type presets vs breast-slash-butt size cards. Rows label the four body-type cards top-to-bottom: \"Slim\", \"Athletic\", \"Voluptuous\", \"Curvy\". Columns label the four size cards left-to-right: \"Small\", \"Medium\", \"Large\", \"Athletic\". Each cell is a small colored square with an icon: green checkmark for compatible pairings (Slim+Small, Slim+Medium, Athletic+Small, Athletic+Medium, Athletic+Athletic, Voluptuous+Medium, Voluptuous+Large, Curvy+Medium, Curvy+Large, Curvy+Athletic), red X for card-fighting pairings (Slim+Large, Slim+Athletic, Athletic+Large, Voluptuous+Small). A legend below: green = \"Renders clean\", red = \"Card-fighting \u2014 avoid\". Title above grid: \"Preset Card Compatibility Matrix\". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Grid compatibility matrix diagram: body-type presets vs breast-slash-butt size cards. Rows label the four body-type cards top-to-bottom: \"Slim\", \"Athletic\", \"Voluptuous\", \"Curvy\". Columns label the four size cards left-to-right: \"Small\", \"Medium\", \"Large\", \"Athletic\". Each cell is a small colored square with an icon: green checkmark for compatible pairings (Slim+Small, Slim+Medium, Athletic+Small, Athletic+Medium, Athletic+Athletic, Voluptuous+Medium, Voluptuous+Large, Curvy+Medium, Curvy+Large, Curvy+Athletic), red X for card-fighting pairings (Slim+Large, Slim+Athletic, Athletic+Large, Voluptuous+Small). A legend below: green = \"Renders clean\", red = \"Card-fighting \u2014 avoid\". Title above grid: \"Preset Card Compatibility Matrix\". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/build-a-girlfriend-body/image-5-grid-compatibility-matrix-diag.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Grid compatibility matrix diagram: body-type presets vs breast-slash-butt size cards. Rows label the four body-type cards top-to-bottom: \"Slim\", \"Athletic\", \"Voluptuous\", \"Curvy\". Columns label the four size cards left-to-right: \"Small\", \"Medium\", \"Large\", \"Athletic\". Each cell is a small colored square with an icon: green checkmark for compatible pairings (Slim+Small, Slim+Medium, Athletic+Small, Athletic+Medium, Athletic+Athletic, Voluptuous+Medium, Voluptuous+Large, Curvy+Medium, Curvy+Large, Curvy+Athletic), red X for card-fighting pairings (Slim+Large, Slim+Athletic, Athletic+Large, Voluptuous+Small). A legend below: green = \"Renders clean\", red = \"Card-fighting \u2014 avoid\". Title above grid: \"Preset Card Compatibility Matrix\". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Grid compatibility matrix diagram: body-type presets vs breast-slash-butt size cards. Rows label the four body-type cards top-to-bottom: \"Slim\", \"Athletic\", \"Voluptuous\", \"Curvy\". Columns label the four size cards left-to-right: \"Small\", \"Medium\", \"Large\", \"Athletic\". Each cell is a small colored square with an icon: green checkmark for compatible pairings (Slim+Small, Slim+Medium, Athletic+Small, Athletic+Medium, Athletic+Athletic, Voluptuous+Medium, Voluptuous+Large, Curvy+Medium, Curvy+Large, Curvy+Athletic), red X for card-fighting pairings (Slim+Large, Slim+Athletic, Athletic+Large, Voluptuous+Small). A legend below: green = \"Renders clean\", red = \"Card-fighting \u2014 avoid\". Title above grid: \"Preset Card Compatibility Matrix\". No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "action-shot",
+      "attrs": {
+        "type": "action-shot",
+        "url": "https://pleasur.ai/create",
+        "goal": "Log into Pleasur.AI with the saved session. Open the Companion Creator at /create. Move through all wizard steps: Realistic style, any ethnicity preset, any hair, any body type, any size cards, any outfit. Reach the final character preview screen showing the full-body render. Capture that screen.",
+        "what": "Companion Creator final character preview \u2014 full-body render before creation"
+      },
+      "alt": "Companion Creator final character preview \u2014 full-body render before creation",
+      "status": "manual",
+      "result": {
+        "status": "manual",
+        "reason": "action_shot_routed_to_editor",
+        "url": "https://pleasur.ai/create",
+        "goal": "Log into Pleasur.AI with the saved session. Open the Companion Creator at /create. Move through all wizard steps: Realistic style, any ethnicity preset, any hair, any body type, any size cards, any outfit. Reach the final character preview screen showing the full-body render. Capture that screen.",
+        "filename": "action-6-log-into-pleasur-ai-with-the-s.png",
+        "hint": "Capture interactively via Claude in Chrome. Run `/capture-visuals build-a-girlfriend-body` and walk through this entry, or open the URL in Chrome and capture the moment described in 'goal' yourself."
+      },
+      "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Log into Pleasur.AI with the saved session. Open the Companion Creator at /create. Move through all wizard steps: Realistic style, any ethnicity preset, any hair, any body type, any size cards, any outfit. Reach the final character preview screen showing the full-body render. Capture that screen.;what=Companion Creator final character preview \u2014 full-body render before creation]",
+      "legacy": false
+    },
+    {
+      "index": 7,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://www.pewresearch.org/short-reads/2023/08/28/growing-public-concern-about-the-role-of-artificial-intelligence-in-daily-life/",
+        "selector": ".pullquote",
+        "crop": "padded",
+        "what": "Pew Research pullquote \u2014 53% of US adults say AI hurts personal data privacy"
+      },
+      "alt": "Pew Research pullquote \u2014 53% of US adults say AI hurts personal data privacy",
+      "status": "failed",
+      "result": {
+        "status": "failed",
+        "reason": "patchright_timeout",
+        "fallback": {
+          "method": "claude_in_chrome",
+          "note": "Pew Research external \u2014 retry via /capture-visuals"
+        }
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://www.pewresearch.org/short-reads/2023/08/28/growing-public-concern-about-the-role-of-artificial-intelligence-in-daily-life/;selector=.pullquote;crop=padded;what=Pew Research pullquote \u2014 53% of US adults say AI hurts personal data privacy]",
+      "legacy": false
+    },
+    {
+      "index": 8,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Three-box diagram labeled \"What a companion platform stores\". Three equal-width boxes in a horizontal row, each with a label, an icon, and a one-line description. LEFT box \"Chat history\" (speech-bubble icon, description \"Stored by design \u2014 memory is the feature\"). MIDDLE box \"Payment data\" (credit-card icon, description \"Via standard processors \u2014 not platform-stored\"). RIGHT box \"Generated images\" (photo-frame icon, description \"Platform-dependent \u2014 check the privacy policy\"). Beneath all three boxes a single footer row: \"Ask for all three. If a builder won't say, that's the answer.\" No human figures. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Three-box diagram labeled \"What a companion platform stores\". Three equal-width boxes in a horizontal row, each with a label, an icon, and a one-line description. LEFT box \"Chat history\" (speech-bubble icon, description \"Stored by design \u2014 memory is the feature\"). MIDDLE box \"Payment data\" (credit-card icon, description \"Via standard processors \u2014 not platform-stored\"). RIGHT box \"Generated images\" (photo-frame icon, description \"Platform-dependent \u2014 check the privacy policy\"). Beneath all three boxes a single footer row: \"Ask for all three. If a builder won't say, that's the answer.\" No human figures. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/build-a-girlfriend-body/image-8-three-box-diagram-labeled-what.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Three-box diagram labeled \"What a companion platform stores\". Three equal-width boxes in a horizontal row, each with a label, an icon, and a one-line description. LEFT box \"Chat history\" (speech-bubble icon, description \"Stored by design \u2014 memory is the feature\"). MIDDLE box \"Payment data\" (credit-card icon, description \"Via standard processors \u2014 not platform-stored\"). RIGHT box \"Generated images\" (photo-frame icon, description \"Platform-dependent \u2014 check the privacy policy\"). Beneath all three boxes a single footer row: \"Ask for all three. If a builder won't say, that's the answer.\" No human figures. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Three-box diagram labeled \"What a companion platform stores\". Three equal-width boxes in a horizontal row, each with a label, an icon, and a one-line description. LEFT box \"Chat history\" (speech-bubble icon, description \"Stored by design \u2014 memory is the feature\"). MIDDLE box \"Payment data\" (credit-card icon, description \"Via standard processors \u2014 not platform-stored\"). RIGHT box \"Generated images\" (photo-frame icon, description \"Platform-dependent \u2014 check the privacy policy\"). Beneath all three boxes a single footer row: \"Ask for all three. If a builder won't say, that's the answer.\" No human figures. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": "rev-1",
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Archetype anchor diagram titled \"Two or three words anchor everything else.\" Three horizontal rows, each a full-width band with a left label box and three downstream decision boxes connected by arrows. Row 1: Left box \"Athletic surfer\" in bold. Arrow right to three boxes: \"Ethnicity: Latina or White\" (globe icon), \"Hair: Warm blonde, long\" (scissors icon), \"Outfit: Casual beach\" (hanger icon). Row 2: Left box \"Soft librarian\". Arrow right to three boxes: \"Ethnicity: Asian or White\" (globe icon), \"Hair: Dark, medium length\" (scissors icon), \"Outfit: Cozy sweater\" (hanger icon). Row 3: Left box \"Club promoter\". Arrow right to three boxes: \"Ethnicity: Latina or Black\" (globe icon), \"Hair: Short dark bob\" (scissors icon), \"Outfit: Evening wear\" (hanger icon). Footer below all rows: \"Write the archetype first. Every picker after falls from it.\" No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Archetype anchor diagram titled \"Two or three words anchor everything else.\" Three horizontal rows, each a full-width band with a left label box and three downstream decision boxes connected by arrows. Row 1: Left box \"Athletic surfer\" in bold. Arrow right to three boxes: \"Ethnicity: Latina or White\" (globe icon), \"Hair: Warm blonde, long\" (scissors icon), \"Outfit: Casual beach\" (hanger icon). Row 2: Left box \"Soft librarian\". Arrow right to three boxes: \"Ethnicity: Asian or White\" (globe icon), \"Hair: Dark, medium length\" (scissors icon), \"Outfit: Cozy sweater\" (hanger icon). Row 3: Left box \"Club promoter\". Arrow right to three boxes: \"Ethnicity: Latina or Black\" (globe icon), \"Hair: Short dark bob\" (scissors icon), \"Outfit: Evening wear\" (hanger icon). Footer below all rows: \"Write the archetype first. Every picker after falls from it.\" No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/build-a-girlfriend-body/image-1-archetype-anchor-diagram-title.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Archetype anchor diagram titled \"Two or three words anchor everything else.\" Three horizontal rows, each a full-width band with a left label box and three downstream decision boxes connected by arrows. Row 1: Left box \"Athletic surfer\" in bold. Arrow right to three boxes: \"Ethnicity: Latina or White\" (globe icon), \"Hair: Warm blonde, long\" (scissors icon), \"Outfit: Casual beach\" (hanger icon). Row 2: Left box \"Soft librarian\". Arrow right to three boxes: \"Ethnicity: Asian or White\" (globe icon), \"Hair: Dark, medium length\" (scissors icon), \"Outfit: Cozy sweater\" (hanger icon). Row 3: Left box \"Club promoter\". Arrow right to three boxes: \"Ethnicity: Latina or Black\" (globe icon), \"Hair: Short dark bob\" (scissors icon), \"Outfit: Evening wear\" (hanger icon). Footer below all rows: \"Write the archetype first. Every picker after falls from it.\" No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Archetype anchor diagram titled \"Two or three words anchor everything else.\" Three horizontal rows, each a full-width band with a left label box and three downstream decision boxes connected by arrows. Row 1: Left box \"Athletic surfer\" in bold. Arrow right to three boxes: \"Ethnicity: Latina or White\" (globe icon), \"Hair: Warm blonde, long\" (scissors icon), \"Outfit: Casual beach\" (hanger icon). Row 2: Left box \"Soft librarian\". Arrow right to three boxes: \"Ethnicity: Asian or White\" (globe icon), \"Hair: Dark, medium length\" (scissors icon), \"Outfit: Cozy sweater\" (hanger icon). Row 3: Left box \"Club promoter\". Arrow right to three boxes: \"Ethnicity: Latina or Black\" (globe icon), \"Hair: Short dark bob\" (scissors icon), \"Outfit: Evening wear\" (hanger icon). Footer below all rows: \"Write the archetype first. Every picker after falls from it.\" No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": "rev-2",
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Two-panel comparison diagram. Left panel header \"Realistic\" with a camera icon. Five descriptor rows, each with a small icon: \"Photorealistic skin tone\" (skin-color swatch icon), \"Natural body proportions\" (abstract human silhouette with natural proportions), \"Photography-style color palette\" (muted color circles), \"Subtle texture rendering\" (texture icon), \"Error mode: uncanny valley if sliders pushed to extremes\" (warning triangle icon). Right panel header \"Anime\" with a pen-nib icon. Five matching rows: \"Cel-shaded outlines\" (outline stroke icon), \"Stylized proportions\" (abstract silhouette with larger head ratio), \"Saturated vivid palette\" (bright color circles), \"Flat color fills\" (flat paint icon), \"Error mode: inconsistent proportions across poses\" (warning triangle icon). Vertical dividing line between panels. Footer: \"Pick first \u2014 all other decisions render inside it. Don't switch mid-build.\" No human faces, no explicit anatomy. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Two-panel comparison diagram. Left panel header \"Realistic\" with a camera icon. Five descriptor rows, each with a small icon: \"Photorealistic skin tone\" (skin-color swatch icon), \"Natural body proportions\" (abstract human silhouette with natural proportions), \"Photography-style color palette\" (muted color circles), \"Subtle texture rendering\" (texture icon), \"Error mode: uncanny valley if sliders pushed to extremes\" (warning triangle icon). Right panel header \"Anime\" with a pen-nib icon. Five matching rows: \"Cel-shaded outlines\" (outline stroke icon), \"Stylized proportions\" (abstract silhouette with larger head ratio), \"Saturated vivid palette\" (bright color circles), \"Flat color fills\" (flat paint icon), \"Error mode: inconsistent proportions across poses\" (warning triangle icon). Vertical dividing line between panels. Footer: \"Pick first \u2014 all other decisions render inside it. Don't switch mid-build.\" No human faces, no explicit anatomy. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/build-a-girlfriend-body/image-2-two-panel-comparison-diagram-l.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Two-panel comparison diagram. Left panel header \"Realistic\" with a camera icon. Five descriptor rows, each with a small icon: \"Photorealistic skin tone\" (skin-color swatch icon), \"Natural body proportions\" (abstract human silhouette with natural proportions), \"Photography-style color palette\" (muted color circles), \"Subtle texture rendering\" (texture icon), \"Error mode: uncanny valley if sliders pushed to extremes\" (warning triangle icon). Right panel header \"Anime\" with a pen-nib icon. Five matching rows: \"Cel-shaded outlines\" (outline stroke icon), \"Stylized proportions\" (abstract silhouette with larger head ratio), \"Saturated vivid palette\" (bright color circles), \"Flat color fills\" (flat paint icon), \"Error mode: inconsistent proportions across poses\" (warning triangle icon). Vertical dividing line between panels. Footer: \"Pick first \u2014 all other decisions render inside it. Don't switch mid-build.\" No human faces, no explicit anatomy. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Two-panel comparison diagram. Left panel header \"Realistic\" with a camera icon. Five descriptor rows, each with a small icon: \"Photorealistic skin tone\" (skin-color swatch icon), \"Natural body proportions\" (abstract human silhouette with natural proportions), \"Photography-style color palette\" (muted color circles), \"Subtle texture rendering\" (texture icon), \"Error mode: uncanny valley if sliders pushed to extremes\" (warning triangle icon). Right panel header \"Anime\" with a pen-nib icon. Five matching rows: \"Cel-shaded outlines\" (outline stroke icon), \"Stylized proportions\" (abstract silhouette with larger head ratio), \"Saturated vivid palette\" (bright color circles), \"Flat color fills\" (flat paint icon), \"Error mode: inconsistent proportions across poses\" (warning triangle icon). Vertical dividing line between panels. Footer: \"Pick first \u2014 all other decisions render inside it. Don't switch mid-build.\" No human faces, no explicit anatomy. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": "rev-3",
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Flow diagram titled \"Final Preview Trust Check\". Four nodes connected by arrows in a decision loop. Node 1 (rounded rectangle, left side): label \"Preview generates\" with a render icon. Arrow pointing right to Node 2 (diamond decision shape): label \"Archetype reads right?\". Two arrow paths from Node 2: upper path with green label \"Yes\" points right to Node 3 (rounded rectangle): label \"Create the character\" with a green checkmark icon. Lower path with red label \"No\" points down to Node 4 (rounded rectangle): label \"Change one or two archetype words\" with a redo-arrow icon. A curved arrow from Node 4 loops back left to Node 1. Footer below all nodes: \"Fight the archetype, not the sliders.\" No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Flow diagram titled \"Final Preview Trust Check\". Four nodes connected by arrows in a decision loop. Node 1 (rounded rectangle, left side): label \"Preview generates\" with a render icon. Arrow pointing right to Node 2 (diamond decision shape): label \"Archetype reads right?\". Two arrow paths from Node 2: upper path with green label \"Yes\" points right to Node 3 (rounded rectangle): label \"Create the character\" with a green checkmark icon. Lower path with red label \"No\" points down to Node 4 (rounded rectangle): label \"Change one or two archetype words\" with a redo-arrow icon. A curved arrow from Node 4 loops back left to Node 1. Footer below all nodes: \"Fight the archetype, not the sliders.\" No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/build-a-girlfriend-body/image-3-flow-diagram-titled-final-prev.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Flow diagram titled \"Final Preview Trust Check\". Four nodes connected by arrows in a decision loop. Node 1 (rounded rectangle, left side): label \"Preview generates\" with a render icon. Arrow pointing right to Node 2 (diamond decision shape): label \"Archetype reads right?\". Two arrow paths from Node 2: upper path with green label \"Yes\" points right to Node 3 (rounded rectangle): label \"Create the character\" with a green checkmark icon. Lower path with red label \"No\" points down to Node 4 (rounded rectangle): label \"Change one or two archetype words\" with a redo-arrow icon. A curved arrow from Node 4 loops back left to Node 1. Footer below all nodes: \"Fight the archetype, not the sliders.\" No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Flow diagram titled \"Final Preview Trust Check\". Four nodes connected by arrows in a decision loop. Node 1 (rounded rectangle, left side): label \"Preview generates\" with a render icon. Arrow pointing right to Node 2 (diamond decision shape): label \"Archetype reads right?\". Two arrow paths from Node 2: upper path with green label \"Yes\" points right to Node 3 (rounded rectangle): label \"Create the character\" with a green checkmark icon. Lower path with red label \"No\" points down to Node 4 (rounded rectangle): label \"Change one or two archetype words\" with a redo-arrow icon. A curved arrow from Node 4 loops back left to Node 1. Footer below all nodes: \"Fight the archetype, not the sliders.\" No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": "rev-4",
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Compact horizontal reference card titled \"The 7 decisions in order\". A single-row pipeline with seven equal-width labeled boxes connected by right-pointing arrows. Box 1: \"1. Art style\" with smaller label below \"Realistic or Anime\". Box 2: \"2. Archetype\" with label below \"2\u20133 words\". Box 3: \"3. Ethnicity\" with label below \"Match archetype\". Box 4: \"4. Hair\" with label below \"Color then length\". Box 5: \"5. Body type\" with label below \"4 preset cards\". Box 6: \"6. Breast & Butt\" with label below \"Match body card\". Box 7: \"7. Outfit\" with label below \"Most disposable\". A horizontal bracket beneath boxes 5 and 6 with the label \"Card-fight zone\". Footer below the full pipeline: \"Decide before you open the creator.\" No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Compact horizontal reference card titled \"The 7 decisions in order\". A single-row pipeline with seven equal-width labeled boxes connected by right-pointing arrows. Box 1: \"1. Art style\" with smaller label below \"Realistic or Anime\". Box 2: \"2. Archetype\" with label below \"2\u20133 words\". Box 3: \"3. Ethnicity\" with label below \"Match archetype\". Box 4: \"4. Hair\" with label below \"Color then length\". Box 5: \"5. Body type\" with label below \"4 preset cards\". Box 6: \"6. Breast & Butt\" with label below \"Match body card\". Box 7: \"7. Outfit\" with label below \"Most disposable\". A horizontal bracket beneath boxes 5 and 6 with the label \"Card-fight zone\". Footer below the full pipeline: \"Decide before you open the creator.\" No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/build-a-girlfriend-body/image-4-compact-horizontal-reference-c.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Compact horizontal reference card titled \"The 7 decisions in order\". A single-row pipeline with seven equal-width labeled boxes connected by right-pointing arrows. Box 1: \"1. Art style\" with smaller label below \"Realistic or Anime\". Box 2: \"2. Archetype\" with label below \"2\u20133 words\". Box 3: \"3. Ethnicity\" with label below \"Match archetype\". Box 4: \"4. Hair\" with label below \"Color then length\". Box 5: \"5. Body type\" with label below \"4 preset cards\". Box 6: \"6. Breast & Butt\" with label below \"Match body card\". Box 7: \"7. Outfit\" with label below \"Most disposable\". A horizontal bracket beneath boxes 5 and 6 with the label \"Card-fight zone\". Footer below the full pipeline: \"Decide before you open the creator.\" No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Compact horizontal reference card titled \"The 7 decisions in order\". A single-row pipeline with seven equal-width labeled boxes connected by right-pointing arrows. Box 1: \"1. Art style\" with smaller label below \"Realistic or Anime\". Box 2: \"2. Archetype\" with label below \"2\u20133 words\". Box 3: \"3. Ethnicity\" with label below \"Match archetype\". Box 4: \"4. Hair\" with label below \"Color then length\". Box 5: \"5. Body type\" with label below \"4 preset cards\". Box 6: \"6. Breast & Butt\" with label below \"Match body card\". Box 7: \"7. Outfit\" with label below \"Most disposable\". A horizontal bracket beneath boxes 5 and 6 with the label \"Card-fight zone\". Footer below the full pipeline: \"Decide before you open the creator.\" No human figures, no faces. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts.;style=illustration;safety=sfw]",
       "legacy": false
     }
   ]
