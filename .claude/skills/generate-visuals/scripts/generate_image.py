@@ -108,8 +108,13 @@ def _coerce_url(item: Any) -> str | None:
                 return value
         except Exception:
             pass
-    # FileOutput stringifies to its URL on current SDKs.
-    text = str(item) if item is not None else ""
+    # FileOutput stringifies to its URL on current SDKs. Guard against a
+    # custom subclass that raises in __str__ — return None gracefully rather
+    # than letting the exception escape _extract_image_url.
+    try:
+        text = str(item) if item is not None else ""
+    except Exception:
+        return None
     if text.startswith("http"):
         return text
     return None
