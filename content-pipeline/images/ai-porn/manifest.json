@@ -3,23 +3,31 @@
   "visuals": [
     {
       "index": 1,
-      "type": "chart",
+      "type": "screenshot",
       "attrs": {
-        "type": "chart",
-        "data": "inline:image:860000,video:38000,chat:33000,apps_sites:11400",
-        "style": "bar",
-        "title": "Monthly US searches by AI-porn format"
+        "type": "screenshot",
+        "url": "https://pleasur.ai/create",
+        "what": "Pleasur.AI Companion Creator \u2014 templates grid showing character base options on first load",
+        "selector": "main",
+        "crop": "padded"
       },
-      "alt": "Monthly US searches by AI-porn format — image generators dominate at ~860K/mo, video at ~38K, chat at ~33K, apps/sites at ~11K",
+      "alt": "Pleasur.AI Companion Creator \u2014 templates grid showing character base options on first load",
       "status": "captured",
       "result": {
         "status": "captured",
-        "path": "content-pipeline/images/ai-porn/chart-1-ai-porn.png",
-        "style": "bar",
-        "data_points": 4,
-        "data_source": "Aggregated from research dossier cluster volumes (content-pipeline/1-research/ai-porn.md)"
+        "path": "content-pipeline/images/ai-porn/screenshot-1-pleasur-ai-companion-creator-t.png",
+        "url": "https://pleasur.ai/create",
+        "final_url": "https://pleasur.ai/create",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2456,
+          "height": 1800,
+          "stddev_normalized": 0.1653,
+          "bytes": 992000
+        }
       },
-      "raw": "[VISUAL:type=chart;data=research.cluster_volumes;style=bar;title=Search demand by AI-porn format (image, video, chat, voice)]",
+      "raw": "[VISUAL:type=screenshot;url=https://pleasur.ai/create;what=Pleasur.AI Companion Creator \u2014 templates grid showing character base options on first load;selector=main;crop=padded]",
       "legacy": false
     },
     {
@@ -38,10 +46,63 @@
         "reason": "action_shot_routed_to_editor",
         "url": "https://pleasur.ai/create",
         "goal": "Log into Pleasur.AI with the saved session. Open the AI Companion Creator at /create. Pick the Realistic template. Move through the wizard to the personality and backstory step. Capture that screen with the form fields visible.",
-        "filename": "action-2-ai-companion-creator-personality.png",
+        "filename": "action-2-log-into-pleasur-ai-with-the-s.png",
         "hint": "Capture interactively via Claude in Chrome. Run `/capture-visuals ai-porn` and walk through this entry, or open the URL in Chrome and capture the moment described in 'goal' yourself."
       },
       "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Log into Pleasur.AI with the saved session. Open the AI Companion Creator at /create. Pick the Realistic template. Move through the wizard to the personality and backstory step. Capture that screen with the form fields visible.;what=AI Companion Creator personality and backstory step, mid-flow]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "action-shot",
+      "attrs": {
+        "type": "action-shot",
+        "url": "https://pleasur.ai",
+        "goal": "Log into Pleasur.AI with the saved session. Open an existing character chat. Type the message \"Send me a selfie\" and send it. Wait for the AI to generate and return an image inline in the chat thread. Capture the full chat window showing the generated character image appearing as a message within the conversation.",
+        "what": "In-chat image generation \u2014 character-consistent selfie returned inline inside the conversation"
+      },
+      "alt": "In-chat image generation \u2014 character-consistent selfie returned inline inside the conversation",
+      "status": "manual",
+      "result": {
+        "status": "manual",
+        "reason": "action_shot_routed_to_editor",
+        "url": "https://pleasur.ai",
+        "goal": "Log into Pleasur.AI with the saved session. Open an existing character chat. Type the message \"Send me a selfie\" and send it. Wait for the AI to generate and return an image inline in the chat thread. Capture the full chat window showing the generated character image appearing as a message within the conversation.",
+        "filename": "action-3-log-into-pleasur-ai-with-the-s.png",
+        "hint": "Capture interactively via Claude in Chrome. Run `/capture-visuals ai-porn` and walk through this entry, or open the URL in Chrome and capture the moment described in 'goal' yourself."
+      },
+      "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai;goal=Log into Pleasur.AI with the saved session. Open an existing character chat. Type the message \"Send me a selfie\" and send it. Wait for the AI to generate and return an image inline in the chat thread. Capture the full chat window showing the generated character image appearing as a message within the conversation.;what=In-chat image generation \u2014 character-consistent selfie returned inline inside the conversation]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://www.cnbc.com/2026/03/24/musk-xai-sued-baltimore-grok-deepfake-porn.html",
+        "selector": "h1.ArticleHeader-headline",
+        "crop": "padded",
+        "what": "CNBC: City of Baltimore sues xAI and Grok over non-consensual deepfakes \u2014 live class action test of platform liability"
+      },
+      "alt": "CNBC: City of Baltimore sues xAI and Grok over non-consensual deepfakes \u2014 live class action test of platform liability",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-porn/external-4-cnbc-city-of-baltimore-sues-xa.png",
+        "url": "https://www.cnbc.com/2026/03/24/musk-xai-sued-baltimore-grok-deepfake-porn.html",
+        "final_url": "https://www.cnbc.com/2026/03/24/musk-xai-sued-baltimore-grok-deepfake-porn.html",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2112,
+          "height": 527,
+          "stddev_normalized": 0.3408,
+          "bytes": 63316
+        },
+        "sub": "news-quote"
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://www.cnbc.com/2026/03/24/musk-xai-sued-baltimore-grok-deepfake-porn.html;selector=h1.ArticleHeader-headline;crop=padded;what=CNBC: City of Baltimore sues xAI and Grok over non-consensual deepfakes \u2014 live class action test of platform liability]",
       "legacy": false
     }
   ]
