@@ -95,3 +95,13 @@ Pick auto-publish for the cron-driven `/auto-blog-loop` path. Pick draft mode fo
 ## Quality precondition (auto-publish only)
 
 Before issuing the Strapi POST when `--auto-publish` is set, the script re-reads `content-pipeline/quality-checks/{slug}.md` and parses the verdict line. If the verdict is FAIL OR if the file is missing, the script refuses to publish, exits non-zero, and prints the reason. The orchestrator will then quarantine the slug. This is a safety net — `/blog-pipeline` should never call `/format-for-publish --auto-publish` on a FAIL'd article, but the precondition makes a misconfigured orchestrator harmless.
+
+## Whiteboard staging (PLEAA-448)
+
+After the publish package is written (and any Strapi POST has run), the script bakes the GitHub-Pages whiteboard artifacts for the slug:
+
+1. Calls `scripts/bundle_viewer.py <slug>` → writes `docs/run-<slug>.html` (self-contained offline viewer with every stage's content inlined).
+2. Idempotently appends `"<slug>"` to the fallback runs array in `docs/index.html` (the `catch (e) { return [...] }` block at ~line 197). If the slug is already there, the file is not rewritten.
+3. Best-effort `git add docs/run-<slug>.html docs/index.html` so one `git commit && git push` from the operator surfaces the run at https://lionelndong.github.io/blog-agent-2/ within ~1 minute.
+
+This step is best-effort — any failure prints a warning and the operator can re-run `python scripts/bundle_viewer.py <slug>` manually. Set `BLOG_AGENT_SKIP_WHITEBOARD=1` to disable (e.g. for one-off non-board runs).
