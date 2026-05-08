@@ -50,16 +50,18 @@ A payload shaped for Strapi's v5 content-types API. The v5 article schema uses a
     "slug": "article-slug",
     "description": "≤80 char summary (truncated at word boundary).",
     "blocks": [
-      {
-        "__component": "shared.rich-text",
-        "body": "Full markdown body here..."
-      }
+      { "__component": "shared.rich-text", "body": "Intro prose..." },
+      { "__component": "shared.media", "file": 382 },
+      { "__component": "shared.rich-text", "body": "## Section heading\n..." },
+      { "__component": "shared.media", "file": 383 }
     ],
     "category": "<documentId-string>",
     "publishedAt": null
   }
 }
 ```
+
+PLEAA-499 follow-up (2026-05-08): image-only paragraphs in the source markdown lift out of the rich-text block and become standalone `shared.media` blocks. `file` is the numeric id returned by `/api/upload`. The frontend then renders each image as a full-width visual block instead of an `<img>` inside a `<p>`. When Strapi creds are absent (paste-mode / dry-runs), the script keeps the legacy single `shared.rich-text` block with the whole body so the editor can drag images in manually.
 
 `publishedAt: null` means the article enters Strapi as a draft. Editor flips it to a published date in the admin UI when ready (or pass `--auto-publish` to set it to `now`).
 

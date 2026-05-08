@@ -34,9 +34,17 @@ Emitted fields:
 - **`title`** — H1 of the cited draft
 - **`slug`** — file slug (already known)
 - **`description`** — first 1–2 sentences of the intro, hard-capped at 80 chars (truncated at last word boundary, trailing punctuation stripped). Replaces the v4 `excerpt` field. **This is also the SEO meta description** (DOD#4 resolution): the frontend renders `<meta name="description">` from this field.
-- **`blocks[]`** — array of components. Default is a single `shared.rich-text` block with the full markdown body in `body`. Replaces the v4 `content` string.
+- **`blocks[]`** — alternating `shared.rich-text` (markdown prose) and `shared.media` (numeric `file` id pointing at an uploaded media item). Image-only paragraphs in the source draft become standalone `shared.media` blocks so the frontend renders them as full-width visual blocks instead of inline `<img>` tags inside a `<p>` (PLEAA-499 follow-up, 2026-05-08 — human review flagged that inline-image rendering looked weak; the SEO agent's older articles like `best-nsfw-ai-2026` and `ai-relationship-app-review` already used `shared.media` per image). When Strapi creds are absent (paste-mode / dry-run) the script falls back to a single `shared.rich-text` block with the whole body so the editor can drag images in manually. Replaces the v4 `content` string.
 - **`category`** — Strapi v5 `documentId` STRING, resolved from category name via `/api/categories` and cached at module load. Replaces the v4 `categories[]` array. Omitted if no Strapi creds available so dry-runs still serialise.
 - **`publishedAt`** — `null` for draft, ISO timestamp for live publish (set by `--auto-publish`).
+
+`shared.media` block shape (verified 2026-05-08 by live POST/GET round-trip):
+
+```json
+{ "__component": "shared.media", "file": <numeric_media_id> }
+```
+
+`file` is the integer id returned by `/api/upload` (`upload_to_strapi_media()` already captures both `id` and `url`). The media's `alternativeText` and `caption` live on the uploaded media record, not on the block — set them via `/api/upload/files/{id}` if richer alt text is needed (out of scope for the auto-publish path; current run leaves them blank).
 
 **Forbidden / not-in-schema** (will 400 if sent):
 

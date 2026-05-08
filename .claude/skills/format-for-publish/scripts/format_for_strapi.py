@@ -268,6 +268,71 @@ def extract_cover_image_url(body_md: str, base_url: str | None) -> str | None:
     return f"{base_url.rstrip('/')}/uploads/{filename}"
 
 
+# Match a paragraph that is exactly one local-image markdown ref. Used by
+# split_into_blocks() to lift image-only paragraphs out of the rich-text body
+# and into standalone shared.media blocks (PLEAA-499 follow-up, 2026-05-08).
+IMAGE_PARA_RE = re.compile(
+    r"^\s*!\[([^\]]*)\]\((images/[^)]+\.(?:png|jpg|jpeg|webp|gif))\)\s*$",
+    re.DOTALL,
+)
+
+
+def split_into_blocks(body_md: str, media_map: dict[str, dict] | None) -> list[dict]:
+    """Split markdown body into alternating shared.rich-text + shared.media blocks.
+
+    Image-only paragraphs whose filename has been uploaded (i.e. ``media_map``
+    has an entry keyed by basename) become standalone ``shared.media`` blocks
+    referencing the numeric Strapi media id. Every other paragraph — including
+    inline images, image refs that didn't upload, callouts, tables, prose —
+    flows into a ``shared.rich-text`` block.
+
+    The Strapi frontend renders each block in document order, so this is what
+    gives images their own visual breathing room (caption, border, full-width
+    layout) instead of being squeezed through the markdown renderer's
+    ``<img>`` element inside a paragraph (PLEAA-499 follow-up: human review
+    flagged that image-as-rich-text-image looked weak — the SEO agent's older
+    articles like ``best-nsfw-ai-2026`` and ``ai-relationship-app-review``
+    used ``shared.media`` blocks per image).
+
+    Falls back to the legacy single ``shared.rich-text`` block when ``media_map``
+    is empty (paste-mode / dry-runs / articles with no images), so behaviour
+    stays identical for those callers.
+    """
+    media_map = media_map or {}
+    if not media_map:
+        return [{"__component": "shared.rich-text", "body": body_md.strip() + "\n"}]
+
+    blocks: list[dict] = []
+    text_buf: list[str] = []
+
+    def flush_text() -> None:
+        if not text_buf:
+            return
+        joined = "\n\n".join(p.strip() for p in text_buf if p.strip())
+        if joined:
+            blocks.append({"__component": "shared.rich-text", "body": joined + "\n"})
+        text_buf.clear()
+
+    paragraphs = re.split(r"\n\s*\n", body_md)
+    for para in paragraphs:
+        match = IMAGE_PARA_RE.fullmatch(para.strip())
+        if match:
+            filename = Path(match.group(2)).name
+            entry = media_map.get(filename)
+            if entry and entry.get("id"):
+                flush_text()
+                blocks.append({"__component": "shared.media", "file": int(entry["id"])})
+                continue
+        text_buf.append(para)
+    flush_text()
+
+    if not blocks:
+        # Body was empty / whitespace-only. Keep the contract that every
+        # article ships at least one block; an empty rich-text body is benign.
+        blocks.append({"__component": "shared.rich-text", "body": "\n"})
+    return blocks
+
+
 def build_payload(
     slug: str,
     title: str,
@@ -277,6 +342,7 @@ def build_payload(
     category_name: str = "AI Companions",
     author_name: str = "Pleasur.AI Team",  # noqa: ARG001 — kept for backwards compat with callers; not in v5 schema
     cover_image_url: str | None = None,    # noqa: ARG001 — same as above
+    media_map: dict[str, dict] | None = None,
 ) -> dict:
     """Build a Strapi v5 article payload.
 
@@ -286,8 +352,12 @@ def build_payload(
       - title:        string
       - slug:         string (unique)
       - description:  short summary, hard-capped at 80 chars
-      - blocks[]:     component array — at minimum one shared.rich-text with
-                      the full markdown body in `body`
+      - blocks[]:     component array — alternating ``shared.rich-text`` (markdown
+                      prose) and ``shared.media`` (numeric ``file`` id pointing
+                      at an uploaded media item). When ``media_map`` is empty
+                      we fall back to a single ``shared.rich-text`` block with
+                      the whole body, matching the pre-PLEAA-499 behaviour for
+                      paste-mode and dry-runs.
       - category:     documentId STRING (not array, not numeric id). Resolved
                       by name from Strapi when STRAPI_BASE_URL + STRAPI_API_TOKEN
                       are set; omitted otherwise so the package still serialises
@@ -323,12 +393,7 @@ def build_payload(
     description_source = extract_excerpt(body_md) or title
     description = truncate_description(description_source, limit=80)
 
-    blocks = [
-        {
-            "__component": "shared.rich-text",
-            "body": body_md.strip() + "\n",
-        }
-    ]
+    blocks = split_into_blocks(body_md, media_map)
 
     payload: dict = {
         "data": {
@@ -469,10 +534,16 @@ def write_outputs(slug: str, body_md: str, payload: dict) -> Path:
     (out_dir / "article.json").write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     data = payload["data"]
-    body_text = data["blocks"][0]["body"] if data.get("blocks") else ""
+    # Word-count over every shared.rich-text block; shared.media blocks
+    # contribute 0 words (PLEAA-499 follow-up: we now emit alternating
+    # rich-text + media blocks instead of one big rich-text block).
+    blocks_data = data.get("blocks") or []
+    rich_text_bodies = [b.get("body", "") for b in blocks_data if b.get("__component") == "shared.rich-text"]
+    body_text = "\n\n".join(rich_text_bodies)
     word_count = len(re.findall(r"\b\w+\b", body_text))
     category_value = data.get("category") or "(unresolved — set STRAPI_BASE_URL + STRAPI_API_TOKEN)"
     read_time_min = compute_read_time(body_text)
+    media_block_count = sum(1 for b in blocks_data if b.get("__component") == "shared.media")
     readme = f"""# Publish package — {data['title']}
 
 Generated by /format-for-publish. Strapi v5 schema (PLEAA-457). Two ways to use this:
@@ -502,7 +573,7 @@ Requires STRAPI_BASE_URL and STRAPI_API_TOKEN env vars.
 - Word count: {word_count}
 - Description length: {len(data['description'])} chars (cap 80)
 - Read time: ~{read_time_min} min (computed at 220 wpm; informational only — not in payload)
-- Blocks: {len(data.get('blocks', []))}
+- Blocks: {len(data.get('blocks', []))} ({len(rich_text_bodies)} shared.rich-text + {media_block_count} shared.media)
 """
     (out_dir / "README.md").write_text(readme, encoding="utf-8")
     return out_dir
@@ -794,9 +865,10 @@ def main() -> None:
         media_map = upload_to_strapi_media(copied_images, base_url, token)
         if media_map:
             print(f"uploaded {len(media_map)} images to Strapi media library")
-    body = rewrite_image_refs(body, base_url if (base_url and media_map) else None, media_map)
 
     published_at = datetime.now(timezone.utc).isoformat() if auto_publish else None
+    # Cover URL extraction needs to see the original (unrewritten) body so it
+    # can pick the first http URL or local image filename consistently.
     cover_image_url = extract_cover_image_url(body, base_url)
     payload = build_payload(
         args.slug,
@@ -804,7 +876,20 @@ def main() -> None:
         body,
         published_at=published_at,
         cover_image_url=cover_image_url,
+        media_map=media_map,
     )
+
+    # Image-only paragraphs are now their own shared.media blocks (handled by
+    # split_into_blocks). Any remaining inline images inside rich-text blocks
+    # still need their local paths rewritten to absolute Strapi URLs so the
+    # rendered <img> resolves on Strapi Cloud (PLEAA-499 follow-up).
+    if base_url and media_map:
+        for block in payload["data"].get("blocks", []):
+            if block.get("__component") == "shared.rich-text":
+                block["body"] = rewrite_image_refs(block["body"], base_url, media_map)
+
+    # write_outputs uses the raw body for article.md (paste-mode reference)
+    # and the payload for article.json + README stats.
     out_dir = write_outputs(args.slug, body, payload)
     print(f"wrote {out_dir}/article.md")
     print(f"wrote {out_dir}/article.json")
