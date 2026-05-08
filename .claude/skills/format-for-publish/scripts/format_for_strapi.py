@@ -76,7 +76,7 @@ def _slug_to_category_heuristic(slug: str) -> str:
         return "Reviews"
     if any(tok in s for tok in ("uncensored", "no-filter", "nofilter", "nsfw", "dirty")):
         return "Uncensored"
-    if "guide" in s or s.startswith("how-to-") or s.startswith("how-"):
+    if "guide" in s or s.startswith("how-to-"):
         return "Guides"
     return CATEGORY_DEFAULT
 
@@ -94,8 +94,12 @@ def resolve_category_name(slug: str, raw_md: str) -> str:
     m = CATEGORY_FRONTMATTER_RE.search(raw_md)
     if m:
         candidate = m.group(1).strip()
-        if candidate in CATEGORY_KNOWN:
-            return candidate
+        canonical = next(
+            (k for k in CATEGORY_KNOWN if k.casefold() == candidate.casefold()),
+            None,
+        )
+        if canonical:
+            return canonical
         sys.stderr.write(
             f"warning: cited draft requested unknown category {candidate!r}; "
             f"falling back to slug heuristic. Known: {sorted(CATEGORY_KNOWN)}\n"

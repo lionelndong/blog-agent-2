@@ -334,6 +334,7 @@ def check_category_resolver() -> str:
             # (label, slug, raw_md, expected_category)
             ("frontmatter wins",     "ai-girlfriend-foo",  "category: Reviews\n# Title\nbody",  "Reviews"),
             ("editor-notes section", "anything",           "# T\n\n## Editor notes\n\ncategory: Guides\n", "Guides"),
+            ("frontmatter case-insensitive", "ai-girlfriend-foo", "category: reviews\n# Title\nbody", "Reviews"),
             ("review heuristic",     "muah-ai-review",     "# Title\nbody",                     "Reviews"),
             ("guide heuristic",      "ai-chatbot-app-guide-2026", "# Title\nbody",              "Guides"),
             ("uncensored heuristic", "best-uncensored-ai-chatbot-free", "# Title\nbody",        "Uncensored"),
@@ -341,6 +342,8 @@ def check_category_resolver() -> str:
             ("default companions",   "ai-girlfriend-experience", "# Title\nbody",               "AI Companions"),
             ("unknown override drops to heuristic",
                                      "muah-ai-review",     "category: BogusCategory\n# T\nbody", "Reviews"),
+            ("priority-conflict: dirty+guide → Uncensored wins",
+                                     "dirty-ai-guide-2026", "# Title\nbody",                   "Uncensored"),
         ]
         problems: list[str] = []
         for label, slug, md, expected in cases:
