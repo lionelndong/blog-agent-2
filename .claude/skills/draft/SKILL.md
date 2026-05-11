@@ -59,7 +59,7 @@ For slug `{slug}`:
    - **`video`** → `[VISUAL:type=video;url=<youtube-or-loom URL>;what=<description>]`
    - **`external`** → `[VISUAL:type=external;sub=<reddit-comment|tweet|news-quote|competitor-ui|chart>;url=<source URL>;selector=<CSS selector>;crop=padded;what=<short caption>]` — **PLEAA-417: auto-captured by default.** When the section quotes a Reddit comment, embeds a tweet, or cites a chart in a news article, emit one of these so the pipeline produces a real cropped PNG of the cited element. Always pair with a `selector` that clips to the specific element (Reddit comment IDs are `#t1_<id>`, tweets are `article[data-testid="tweet"]`, news charts are commonly `figure.chart`). On Cloudflare/login walls the pipeline auto-falls-back to `/capture-visuals` (Claude-in-Chrome). See `templates/visual-types.md` for the selector cheatsheet.
    - **`gif`** → `[VISUAL:type=gif;what=<multi-step interaction description>]`
-   - **`table`** → write the markdown table inline. **No placeholder.**
+   - **`table`** → **DO NOT emit a GFM markdown table.** PLEAA-567 (2026-05-11): the Pleasur.ai frontend markdown renderer doesn't support GFM tables — pipes and `[text](url)` link syntax inside cells render as raw text on the live blog (verified on `is-having-an-ai-girlfriend-cheating`, 2026-05-09). Rewrite every table as a bullet list where each bullet is one row, each row leads with a **bold label** (the first column), and the remaining columns flow as a sentence ending with "Source: [Name](url)". Example: `- **AI sexting.** Not legally adultery. Possible recovery if subscription spend is large. Source: [Richmond JOLT](url).` **No placeholder.**
    - **`none`** → write prose only. No placeholder.
 
    **`action-shot` goal-writing tips:** the dispatcher routes the goal to `/capture-visuals`, where Claude — pinned to **Sonnet 4.6** (`claude-sonnet-4-6`), never Opus — drives the always-on Chrome browser through the Claude-in-Chrome MCP. Browser driving is high-throughput / low-reasoning, so Sonnet is faster and cheaper without quality loss. Write the goal like you'd brief a human assistant who has never seen the site. Specify the URL, every action in order, what to wait for, and which screen is the capture target. Example: "Navigate to pleasur.ai/create. Dismiss the age verification dialog. Click the Realistic template card. Wait for the Ethnicity selection step to load. Capture that screen." Keep it under 60 words; longer goals waste browser steps. No token billing — uses your subscription via the extension.
@@ -104,7 +104,7 @@ Before saving, confirm:
 - [ ] Product mentions follow show-don't-sell pattern (problem → manual way → product way → specific output)
 - [ ] Internal links from `2-reference/` woven in with descriptive anchor text (not "click here")
 - [ ] Stat placeholders use `[link]` markers for `verify-claims` to find later
-- [ ] Visual placeholders use typed `[VISUAL:type=...;...]` format (per `templates/visual-types.md`); tables written inline as markdown
+- [ ] Visual placeholders use typed `[VISUAL:type=...;...]` format (per `templates/visual-types.md`); **no GFM tables** — every table rewritten as a bullet list (PLEAA-567)
 - [ ] No forbidden phrases (from `brand-config.md`)
 - [ ] Conclusion: restated thesis + one next step
 - [ ] Reads aloud naturally — try reading the intro and one H2 out loud
