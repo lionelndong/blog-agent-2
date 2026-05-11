@@ -104,7 +104,7 @@ Before saving, confirm:
 - [ ] Product mentions follow show-don't-sell pattern (problem → manual way → product way → specific output)
 - [ ] Internal links from `2-reference/` woven in with descriptive anchor text (not "click here")
 - [ ] Stat placeholders use `[link]` markers for `verify-claims` to find later
-- [ ] Visual placeholders use typed `[VISUAL:type=...;...]` format (per `templates/visual-types.md`); tables written inline as markdown
+- [ ] Visual placeholders use typed `[VISUAL:type=...;...]` format (per `templates/visual-types.md`); **no GFM tables** — every table rewritten as a bullet list (PLEAA-567)
 - [ ] No forbidden phrases (from `brand-config.md`)
 - [ ] Conclusion: restated thesis + one next step
 - [ ] Reads aloud naturally — try reading the intro and one H2 out loud

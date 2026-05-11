@@ -624,7 +624,14 @@ def write_outputs(slug: str, body_md: str, payload: dict) -> Path:
     (out_dir / "article.json").write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     data = payload["data"]
-    body_text = data["blocks"][0]["body"] if data.get("blocks") else ""
+    # PLEAA-567: blocks may start with a `shared.media` (when the draft opens
+    # with an uploaded image), which has no `body`. Pull stats from the first
+    # `shared.rich-text` block instead of indexing position 0 blindly.
+    first_rt = next(
+        (b for b in data.get("blocks", []) if b.get("__component") == "shared.rich-text"),
+        None,
+    )
+    body_text = first_rt.get("body", "") if first_rt else ""
     word_count = len(re.findall(r"\b\w+\b", body_text))
     category_value = data.get("category") or "(unresolved — set STRAPI_BASE_URL + STRAPI_API_TOKEN)"
     read_time_min = compute_read_time(body_text)
