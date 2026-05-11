@@ -262,6 +262,38 @@ def check_strapi_v5_payload_shape() -> str:
         if len(single) != 1 or single[0].get("__component") != "shared.rich-text":
             block_problems.append(f"no-media-map fallback shape: {[b.get('__component') for b in single]}")
 
+        # PLEAA-570 (2026-05-11): the article-level ``cover`` relation must be
+        # emitted as a bare integer (Strapi v5 single-media field) when a
+        # cover_file_id is supplied, and omitted otherwise. resolve_cover_file_id
+        # must surface the upload id of the first uploaded image referenced in
+        # the body — the same asset extract_cover_image_url would pick.
+        cover_id = mod.resolve_cover_file_id(body_with_imgs, media_map)
+        if cover_id != 100:
+            block_problems.append(f"resolve_cover_file_id got {cover_id!r} (want 100)")
+        if mod.resolve_cover_file_id(body_with_imgs, None) is not None:
+            block_problems.append("resolve_cover_file_id should return None when media_map is empty")
+        cover_payload = mod.build_payload(
+            "smoke-slug",
+            "Smoke Title",
+            body_with_imgs,
+            published_at=None,
+            media_map=media_map,
+            cover_file_id=cover_id,
+        )
+        cd = (cover_payload.get("data") or {})
+        if cd.get("cover") != 100:
+            block_problems.append(f"payload.data.cover={cd.get('cover')!r} (want 100)")
+        no_cover_payload = mod.build_payload(
+            "smoke-slug",
+            "Smoke Title",
+            body_with_imgs,
+            published_at=None,
+            media_map=media_map,
+            cover_file_id=None,
+        )
+        if "cover" in (no_cover_payload.get("data") or {}):
+            block_problems.append("payload.data must omit 'cover' when cover_file_id is None")
+
         if block_problems:
             return "STRAPI_V5_SHAPE FAIL — " + "; ".join(block_problems)
 
