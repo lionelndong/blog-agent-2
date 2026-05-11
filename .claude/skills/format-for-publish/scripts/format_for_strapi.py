@@ -352,10 +352,14 @@ def resolve_cover_file_id(body_md: str, media_map: dict[str, dict] | None) -> in
 
     Selection mirrors :func:`build_blocks`: the body has already been
     rewritten by :func:`rewrite_image_refs` by the time we get here, so
-    image refs are absolute Strapi URLs. Index ``media_map`` by URL and look
-    up the first absolute image ref in the body. Returns None when the body
-    has no images we uploaded (dry-run, unconfigured Strapi, or article with
-    only inline cover URLs we didn't upload) — caller should then omit
+    image refs are absolute Strapi URLs. Index ``media_map`` by URL and walk
+    every absolute image ref in body order, returning the first one we
+    uploaded ourselves. PLEAA-570 Greptile P2 (2026-05-11): scanning every
+    ref (not just the first) means an article whose first ref is an
+    external CDN image still picks up a later uploaded image as the cover,
+    instead of silently leaving the relation null. Returns None when no
+    body image matches ``media_map`` (dry-run, unconfigured Strapi, or
+    article with only inline external URLs) — caller should then omit
     ``cover`` from the payload.
     """
     if not media_map:
@@ -368,8 +372,7 @@ def resolve_cover_file_id(body_md: str, media_map: dict[str, dict] | None) -> in
             by_url[url] = fid
     if not by_url:
         return None
-    abs_match = re.search(r"!\[[^\]]*\]\((https?://[^)\s]+)\)", body_md)
-    if abs_match:
+    for abs_match in re.finditer(r"!\[[^\]]*\]\((https?://[^)\s]+)\)", body_md):
         fid = by_url.get(abs_match.group(1))
         if isinstance(fid, int):
             return fid

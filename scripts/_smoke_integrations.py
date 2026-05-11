@@ -272,6 +272,37 @@ def check_strapi_v5_payload_shape() -> str:
             block_problems.append(f"resolve_cover_file_id got {cover_id!r} (want 100)")
         if mod.resolve_cover_file_id(body_with_imgs, None) is not None:
             block_problems.append("resolve_cover_file_id should return None when media_map is empty")
+        # PLEAA-570 Greptile P2 (2026-05-11): when the FIRST body image is an
+        # external CDN URL that isn't in media_map, resolve_cover_file_id must
+        # fall through to subsequent body images instead of returning None.
+        # Otherwise an article whose intro paragraph quotes a competitor's
+        # screenshot (external) silently ships with cover=null even though
+        # later images in the same article were uploaded.
+        body_external_first = (
+            "Intro paragraph long enough that the description extractor has "
+            "more than eighty characters of usable prose before truncation.\n\n"
+            "![external hero](https://external.cdn/promo.png)\n\n"
+            "## A heading\n\nMore body text below the image.\n\n"
+            "![alt two](https://example.cdn/bar.png)\n\n"
+            "Closing paragraph.\n"
+        )
+        cover_id_fallthrough = mod.resolve_cover_file_id(body_external_first, media_map)
+        if cover_id_fallthrough != 101:
+            block_problems.append(
+                f"resolve_cover_file_id external-first got {cover_id_fallthrough!r} (want 101 from second image)"
+            )
+        # And when EVERY image is external, the function must still return None
+        # so build_payload omits the cover relation entirely.
+        body_all_external = (
+            "Intro paragraph long enough that the description extractor has "
+            "more than eighty characters of usable prose before truncation.\n\n"
+            "![one](https://external.cdn/a.png)\n\n"
+            "![two](https://external.cdn/b.png)\n"
+        )
+        if mod.resolve_cover_file_id(body_all_external, media_map) is not None:
+            block_problems.append(
+                "resolve_cover_file_id all-external must return None (no uploaded ref to attach)"
+            )
         cover_payload = mod.build_payload(
             "smoke-slug",
             "Smoke Title",
