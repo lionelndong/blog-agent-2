@@ -248,9 +248,13 @@ def check_strapi_v5_payload_shape() -> str:
             kinds = [b.get("__component") for b in mb if isinstance(b, dict)]
             if kinds.count("shared.media") != 2:
                 block_problems.append(f"multiblock media count={kinds.count('shared.media')} (want 2)")
-            file_ids = [b.get("file") for b in mb if isinstance(b, dict) and b.get("__component") == "shared.media"]
-            if file_ids != [100, 101]:
-                block_problems.append(f"multiblock file ids={file_ids} (want [100, 101])")
+            # PLEAA-567 (2026-05-11): the relation must be the OBJECT form
+            # ``{"id": <int>}`` — Strapi v5 silently drops the relation when
+            # a bare integer is sent inside a component, leaving file:null
+            # on the live record and no <img> on the rendered page.
+            files = [b.get("file") for b in mb if isinstance(b, dict) and b.get("__component") == "shared.media"]
+            if files != [{"id": 100}, {"id": 101}]:
+                block_problems.append(f"multiblock file shape={files} (want [{{'id': 100}}, {{'id': 101}}])")
 
         # Without a media_map the emitter must fall back to a single rich-text
         # block (preserves dry-run / no-API parity with pre-PLEAA-528 behaviour).

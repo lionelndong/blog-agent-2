@@ -402,7 +402,16 @@ def build_blocks(body_md: str, media_map: dict[str, dict] | None = None) -> list
             buf.append(line)
             continue
         flush_text()
-        blocks.append({"__component": "shared.media", "file": file_id})
+        # PLEAA-567 (2026-05-11): Strapi v5 silently drops a component-scoped
+        # media relation when ``file`` is sent as a bare integer — the row is
+        # created but ``file`` populates as null on the next read, so the
+        # frontend has nothing to <img>. The fix is to send the relation as
+        # ``{"id": <fileId>}`` (the object form Strapi's connect resolver
+        # accepts on PUT and POST alike). Verified live by PUTting
+        # is-having-an-ai-girlfriend-cheating (documentId
+        # ur4ey6i9cuewnfpa9ygx2egb) — all 7 media blocks went from file:null
+        # to fully populated after the shape switch.
+        blocks.append({"__component": "shared.media", "file": {"id": file_id}})
 
     flush_text()
 
