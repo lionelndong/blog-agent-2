@@ -338,6 +338,47 @@ def extract_cover_image_url(body_md: str, base_url: str | None) -> str | None:
     return f"{base_url.rstrip('/')}/uploads/{filename}"
 
 
+def resolve_cover_file_id(body_md: str, media_map: dict[str, dict] | None) -> int | None:
+    """Return the Strapi upload id for the article's hero image, or None.
+
+    PLEAA-570 (2026-05-11): on auto-publish, ``article.cover`` was being left
+    null because the payload only carried images inside dynamic-zone
+    ``shared.media`` blocks. The public blog page kept rendering because
+    Next.js resolves the hero from a slug-derived CDN URL convention, but
+    every other consumer of ``cover`` (RSS, OG tags, social cards, admin
+    preview) saw nothing. We pick the same asset ``extract_cover_image_url``
+    would surface — the first uploaded image referenced in the body — and
+    attach it as the article's cover relation in :func:`build_payload`.
+
+    Selection mirrors :func:`build_blocks`: the body has already been
+    rewritten by :func:`rewrite_image_refs` by the time we get here, so
+    image refs are absolute Strapi URLs. Index ``media_map`` by URL and walk
+    every absolute image ref in body order, returning the first one we
+    uploaded ourselves. PLEAA-570 Greptile P2 (2026-05-11): scanning every
+    ref (not just the first) means an article whose first ref is an
+    external CDN image still picks up a later uploaded image as the cover,
+    instead of silently leaving the relation null. Returns None when no
+    body image matches ``media_map`` (dry-run, unconfigured Strapi, or
+    article with only inline external URLs) — caller should then omit
+    ``cover`` from the payload.
+    """
+    if not media_map:
+        return None
+    by_url: dict[str, int] = {}
+    for entry in media_map.values():
+        url = entry.get("url")
+        fid = entry.get("id")
+        if url and isinstance(fid, int):
+            by_url[url] = fid
+    if not by_url:
+        return None
+    for abs_match in re.finditer(r"!\[[^\]]*\]\((https?://[^)\s]+)\)", body_md):
+        fid = by_url.get(abs_match.group(1))
+        if isinstance(fid, int):
+            return fid
+    return None
+
+
 def build_blocks(body_md: str, media_map: dict[str, dict] | None = None) -> list[dict]:
     """Split body markdown into alternating ``shared.rich-text`` and ``shared.media`` blocks.
 
@@ -433,6 +474,7 @@ def build_payload(
     author_name: str = "Pleasur.AI Team",  # noqa: ARG001 — kept for backwards compat with callers; not in v5 schema
     cover_image_url: str | None = None,    # noqa: ARG001 — same as above
     media_map: dict[str, dict] | None = None,
+    cover_file_id: int | None = None,
 ) -> dict:
     """Build a Strapi v5 article payload.
 
@@ -455,10 +497,19 @@ def build_payload(
     looked plausible but are NOT in the schema and would fail every POST:
     ``author_name``, ``read_time``, ``readTime``, ``cover_image_url``,
     ``coverImage``, ``tags``, ``excerpt``, ``content``. ``author`` and
-    ``cover`` exist as relations to the Author / Media content-types but
-    require numeric/documentId references (not strings) and are out of
-    scope for the auto-publish path — they're set manually in the admin
-    when needed.
+    ``cover`` exist as relations to the Author / Media content-types and
+    require numeric upload ids (not strings).
+
+    Cover relation (PLEAA-570, 2026-05-11): when ``cover_file_id`` is set,
+    the article-level ``cover`` relation is included in the payload so
+    consumers that read ``article.cover`` directly (RSS feed, social cards,
+    OG tags, admin preview UI) resolve the same hero image the public page
+    renders. Before PLEAA-570, auto-published articles left ``cover`` null
+    and the public page only worked because Next.js synthesized the hero
+    URL from a slug-derived CDN convention. ``cover`` is emitted as a bare
+    integer (Strapi v5 single-media field), matching the upload response's
+    ``id`` from :func:`upload_to_strapi_media`. Author is still out of
+    scope and set manually in admin.
 
     SEO metadata (DOD#4, resolved 2026-05-07): the Article content-type
     does NOT expose a ``seo`` field, ``seo`` component, or separate
@@ -498,6 +549,16 @@ def build_payload(
     category_document_id = resolve_category_document_id(category_name)
     if category_document_id:
         payload["data"]["category"] = category_document_id
+
+    # PLEAA-570 (2026-05-11): attach the article-level cover relation so
+    # admin preview / RSS / OG tags / social cards resolve the hero from the
+    # canonical ``article.cover`` field instead of relying on the brittle
+    # slug-derived URL convention the public page falls back to. Emit only
+    # when we have a real upload id — Strapi v5 rejects unknown relations
+    # silently (would store null) but accepts a bare integer for single
+    # media fields.
+    if isinstance(cover_file_id, int) and cover_file_id > 0:
+        payload["data"]["cover"] = cover_file_id
 
     return payload
 
@@ -646,7 +707,7 @@ Generated by /format-for-publish. Strapi v5 schema (PLEAA-457). Two ways to use 
 4. Description (≤80 chars): {data['description']}
 5. Blocks: paste the contents of `article.md` into a `shared.rich-text` block
 6. Category (documentId): {category_value}
-7. Author / cover: attach manually in admin if desired (relations, not strings)
+7. Author: attach manually in admin if desired. Cover relation auto-attached on `--auto-publish` to the first uploaded image (PLEAA-570)
 8. Save as draft, review, then publish
 
 ## Option B — direct API publish (when Doppler creds are wired)
@@ -960,6 +1021,13 @@ def main() -> None:
 
     published_at = datetime.now(timezone.utc).isoformat() if auto_publish else None
     cover_image_url = extract_cover_image_url(body, base_url)
+    # PLEAA-570: pick the upload id of the hero image so build_payload can
+    # set the top-level ``cover`` relation. Mirrors extract_cover_image_url's
+    # selection (first absolute image ref) so the cover stays in sync with
+    # what the body shows.
+    cover_file_id = resolve_cover_file_id(body, media_map)
+    if cover_file_id is not None:
+        print(f"cover relation resolved: upload id {cover_file_id}")
     # PLEAA-524: resolve category from the raw cited draft (frontmatter wins,
     # slug-heuristic fallback). `raw` carries the editor-notes block intact —
     # we resolve before strip_editor_notes() above already ran (`raw` is
@@ -974,6 +1042,7 @@ def main() -> None:
         category_name=category_name,
         cover_image_url=cover_image_url,
         media_map=media_map,
+        cover_file_id=cover_file_id,
     )
     out_dir = write_outputs(args.slug, body, payload)
     print(f"wrote {out_dir}/article.md")
