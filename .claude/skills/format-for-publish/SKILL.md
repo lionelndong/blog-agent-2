@@ -96,6 +96,34 @@ Pick auto-publish for the cron-driven `/auto-blog-loop` path. Pick draft mode fo
 
 Before issuing the Strapi POST when `--auto-publish` is set, the script re-reads `content-pipeline/quality-checks/{slug}.md` and parses the verdict line. If the verdict is FAIL OR if the file is missing, the script refuses to publish, exits non-zero, and prints the reason. The orchestrator will then quarantine the slug. This is a safety net — `/blog-pipeline` should never call `/format-for-publish --auto-publish` on a FAIL'd article, but the precondition makes a misconfigured orchestrator harmless.
 
+## Publish gate (PLEAA-581) — artifact must be on `origin/main`
+
+`--publish` and `--auto-publish` both run an artifact precondition before any HTTP write to Strapi (`POST /api/articles`, `PUT /api/articles/{id}`, `POST /api/upload`). The script verifies:
+
+1. `content-pipeline/8-publish/{slug}/article.json` exists locally, AND
+2. The same path is present in `origin/main` HEAD (`git ls-tree -r origin/main -- <path>` returns a non-empty line).
+
+Both must hold. If either check fails the script exits non-zero with a `publish gate REJECT` message that names the missing artifact and links `/blog-pipeline`. This is a HARD gate, not a warning — `--auto-publish` is no longer allowed to write to Strapi for a slug whose package isn't committed and pushed.
+
+### Override: `--human-approved "<reason>"`
+
+The only escape hatch is `--human-approved "<reason>"` (required, non-empty). When set, the script:
+
+- skips the artifact check,
+- appends one tab-separated line to `content-pipeline/audit/publish-overrides.log` with: ISO timestamp, slug, reason, `git config user.email`, current branch, HEAD sha,
+- prints `publish gate OVERRIDDEN — reason=...` to stderr,
+- proceeds with the publish flow.
+
+Use the override only for legitimate one-off operations like a manual unpublish/reseed or a hotfix where the package can't be committed first. Every override is forensically recoverable from the audit log. The log file is gitignored (per-environment append-only); rotate it to long-term storage via your own retention policy if you need an organization-wide trail.
+
+### Why this exists
+
+PLEAA-577 (root cause + audit) traced an incident where eight Strapi articles went live without ever passing through `/blog-pipeline` — the Strapi UI / API token had publish authority with nothing local to gate against. Layer 1 of [PLEAA-581](https://github.com/lionelndong/blog-agent-2/blob/main/.claude/skills/format-for-publish/SKILL.md#publish-gate-pleaa-581) is the client-side belt: a `--publish` call without an artifact in `origin/main` is now refused at the script level. Layers 2 (Supabase approval registry + edge-function gate) and 3 (Strapi token surface reduction) live server-side and continue to enforce the same rule even when this script is bypassed.
+
+### `manifest.json` (Layer 2 hook)
+
+Every run of `format_for_strapi.py` writes `content-pipeline/8-publish/{slug}/manifest.json` alongside `article.md` / `article.json` / `README.md`. The file is small (`slug`, `title`, `pipeline_run_id`, `approved_by`, `generated_at`) and is the source-of-truth artifact that the `sync-publish-approvals.yml` GitHub Action upserts into the Supabase `blog_publish_approvals` registry on push to `main`. The edge function (`sync-blog-posts`) then refuses any Strapi `entry.publish` webhook whose slug has no registry row.
+
 ## Whiteboard staging (PLEAA-448)
 
 After the publish package is written (and any Strapi POST has run), the script bakes the GitHub-Pages whiteboard artifacts for the slug:

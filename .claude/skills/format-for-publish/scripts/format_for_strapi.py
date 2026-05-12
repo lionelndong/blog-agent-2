@@ -29,6 +29,8 @@ DRAFT_DIR = ROOT / "content-pipeline" / "6-drafts-cited"
 OUT_DIR = ROOT / "content-pipeline" / "8-publish"
 IMAGES_DIR = ROOT / "content-pipeline" / "images"
 QC_DIR = ROOT / "content-pipeline" / "quality-checks"
+AUDIT_DIR = ROOT / "content-pipeline" / "audit"
+OVERRIDE_LOG = AUDIT_DIR / "publish-overrides.log"
 DOCS_DIR = ROOT / "docs"
 BUNDLE_VIEWER = ROOT / "scripts" / "bundle_viewer.py"
 INDEX_HTML = DOCS_DIR / "index.html"
@@ -105,6 +107,136 @@ def resolve_category_name(slug: str, raw_md: str) -> str:
             f"falling back to slug heuristic. Known: {sorted(CATEGORY_KNOWN)}\n"
         )
     return _slug_to_category_heuristic(slug)
+
+
+def _git_run(args: list[str], *, timeout: int = 15) -> tuple[int, str, str]:
+    """Run a git subcommand inside ROOT. Never raises; returns (rc, stdout, stderr)."""
+    try:
+        proc = subprocess.run(
+            ["git", *args],
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        return proc.returncode, proc.stdout, proc.stderr
+    except Exception as exc:  # FileNotFoundError, TimeoutExpired, etc.
+        return -1, "", f"{type(exc).__name__}: {exc}"
+
+
+def verify_publish_artifact(slug: str) -> tuple[bool, str]:
+    """PLEAA-581 Layer 1: hard gate before any HTTP write to Strapi.
+
+    Verifies the publish artifact for ``slug``:
+
+      1. ``content-pipeline/8-publish/{slug}/article.json`` exists locally, AND
+      2. The same path is present in ``origin/main`` HEAD — i.e.
+         ``git ls-tree -r origin/main -- <path>`` returns a non-empty line.
+
+    Returns ``(allow_publish, reason)``. Caller hard-exits on a False unless
+    the operator passed ``--human-approved "<reason>"``. See PLEAA-577 for the
+    audit + root cause; gate spec lives on PLEAA-581.
+    """
+    rel_path = f"content-pipeline/8-publish/{slug}/article.json"
+    local = ROOT / rel_path
+    if not local.exists():
+        return False, (
+            f"publish gate REJECT — local artifact missing: {rel_path}\n"
+            f"  fix: run /blog-pipeline through stage 8 (format-for-publish without --publish)\n"
+            f"       before retrying with --publish.\n"
+            f"  see: https://lionelndong.github.io/blog-agent-2/ (/blog-pipeline)\n"
+            f"  override (last resort): --human-approved \"<reason>\""
+        )
+    rc, stdout, stderr = _git_run(["ls-tree", "-r", "origin/main", "--", rel_path])
+    if rc != 0:
+        return False, (
+            f"publish gate REJECT — git ls-tree origin/main failed (rc={rc}): "
+            f"{stderr.strip()[:200]}.\n"
+            f"  fix: run `git fetch origin main` and re-try.\n"
+            f"  override (last resort): --human-approved \"<reason>\""
+        )
+    if not stdout.strip():
+        return False, (
+            f"publish gate REJECT — artifact NOT in origin/main HEAD: {rel_path}\n"
+            f"  fix: commit + push the publish package on main, then re-run --publish.\n"
+            f"  see: https://lionelndong.github.io/blog-agent-2/ (/blog-pipeline)\n"
+            f"  override (last resort): --human-approved \"<reason>\""
+        )
+    return True, f"publish gate OK — artifact present in origin/main ({rel_path})"
+
+
+def _git_user_email() -> str:
+    rc, stdout, _ = _git_run(["config", "user.email"], timeout=10)
+    if rc == 0 and stdout.strip():
+        return stdout.strip()
+    return os.environ.get("USER", "unknown") + "@local"
+
+
+def _git_head_sha() -> str:
+    rc, stdout, _ = _git_run(["rev-parse", "HEAD"], timeout=10)
+    return stdout.strip() if rc == 0 else "unknown"
+
+
+def _git_current_branch() -> str:
+    rc, stdout, _ = _git_run(["rev-parse", "--abbrev-ref", "HEAD"], timeout=10)
+    return stdout.strip() if rc == 0 else "unknown"
+
+
+def log_publish_override(slug: str, reason: str) -> Path:
+    """Append one tab-separated line to ``content-pipeline/audit/publish-overrides.log``.
+
+    Schema: ``timestamp\\tslug\\treason\\tuser.email\\tbranch\\tHEAD-sha``.
+
+    Tabs and newlines inside ``reason`` are flattened to spaces so the log
+    stays line-oriented. The directory is created lazily — first override on a
+    fresh checkout creates ``content-pipeline/audit/`` as a side-effect.
+    """
+    AUDIT_DIR.mkdir(parents=True, exist_ok=True)
+    safe_reason = re.sub(r"[\t\r\n]+", " ", reason or "").strip() or "(no reason given)"
+    line = "\t".join([
+        datetime.now(timezone.utc).isoformat(),
+        slug,
+        safe_reason,
+        _git_user_email(),
+        _git_current_branch(),
+        _git_head_sha(),
+    ]) + "\n"
+    with OVERRIDE_LOG.open("a", encoding="utf-8") as f:
+        f.write(line)
+    return OVERRIDE_LOG
+
+
+def write_manifest(out_dir: Path, slug: str, title: str) -> Path:
+    """PLEAA-581 Layer 2 hook: write ``content-pipeline/8-publish/{slug}/manifest.json``.
+
+    The ``sync-publish-approvals.yml`` GitHub Action scans
+    ``content-pipeline/8-publish/*/manifest.json`` on every push to ``main`` and
+    upserts one row per slug into the Supabase ``blog_publish_approvals``
+    registry. The edge function ``sync-blog-posts`` then refuses any Strapi
+    ``entry.publish`` webhook whose ``documentId`` has no approval row.
+
+    Minimum required field: ``slug``. ``title`` and ``pipeline_run_id`` are
+    convenience fields for human triage. ``approved_by`` is intentionally a
+    placeholder here (``"pending-ci"``) — the action overwrites it with
+    ``github-actions[bot]`` at merge time, which is the moment the artifact
+    actually becomes "approved" (committed to ``main`` by a reviewed PR).
+    """
+    pipeline_run_id = (
+        os.environ.get("BLOG_AGENT_PIPELINE_RUN_ID")
+        or os.environ.get("GITHUB_RUN_ID")
+        or os.environ.get("PAPERCLIP_RUN_ID")
+        or ""
+    )
+    manifest = {
+        "slug": slug,
+        "title": title,
+        "pipeline_run_id": pipeline_run_id,
+        "approved_by": "pending-ci",
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+    }
+    path = out_dir / "manifest.json"
+    path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return path
 
 
 def quality_precondition(slug: str) -> tuple[bool, str]:
@@ -970,10 +1102,50 @@ def main() -> None:
     parser.add_argument("--publish", action="store_true", help="Direct API publish (requires STRAPI_BASE_URL + STRAPI_API_TOKEN)")
     parser.add_argument("--auto-publish", action="store_true", help="Set publishedAt = now (live publish, not draft). Implies --publish. Requires quality-check verdict != FAIL.")
     parser.add_argument("--update", action="store_true", help="PUT the existing Strapi article by slug instead of POST (full-replacement semantics — fields absent from the payload get wiped). For /update-pipeline runs.")
+    parser.add_argument(
+        "--human-approved",
+        default=None,
+        metavar="REASON",
+        help=(
+            "PLEAA-581 escape hatch: bypass the artifact-in-origin/main gate "
+            "with a written rationale (required, non-empty). Appends an audit "
+            "line to content-pipeline/audit/publish-overrides.log. Use only "
+            "when a manual unpublish/reseed or hotfix needs to run before the "
+            "publish package has been committed to main."
+        ),
+    )
     args = parser.parse_args()
 
     auto_publish = args.auto_publish or os.environ.get("BLOG_AGENT_AUTO_PUBLISH") == "1"
     publish_via_api = args.publish or auto_publish  # auto-publish implies --publish
+
+    # PLEAA-581 Layer 1: hard gate before any HTTP write to Strapi (upload OR
+    # publish). The check is artifact-side: the slug's publish package must be
+    # committed to origin/main. A --human-approved override is the only escape
+    # hatch and logs a tab-separated audit line. Local-only runs (no --publish /
+    # no --auto-publish) still write the package to disk and bypass the gate —
+    # that's the explicit "generate, review, commit, then publish" workflow.
+    human_override_reason: str | None = None
+    if publish_via_api:
+        if args.human_approved is not None:
+            reason = (args.human_approved or "").strip()
+            if not reason:
+                sys.exit(
+                    "error: --human-approved requires a non-empty reason string. "
+                    "Quote the reason: --human-approved \"manual unpublish reseed\""
+                )
+            log_path = log_publish_override(args.slug, reason)
+            human_override_reason = reason
+            sys.stderr.write(
+                f"publish gate OVERRIDDEN — reason={reason!r}; "
+                f"audit appended to {log_path.relative_to(ROOT) if log_path.is_relative_to(ROOT) else log_path}\n"
+            )
+        else:
+            allow, reason_msg = verify_publish_artifact(args.slug)
+            if not allow:
+                sys.exit(f"error: {reason_msg}")
+            else:
+                print(reason_msg)
 
     if auto_publish:
         allow, reason = quality_precondition(args.slug)
@@ -1045,9 +1217,11 @@ def main() -> None:
         cover_file_id=cover_file_id,
     )
     out_dir = write_outputs(args.slug, body, payload)
+    manifest_path = write_manifest(out_dir, args.slug, title)
     print(f"wrote {out_dir}/article.md")
     print(f"wrote {out_dir}/article.json")
     print(f"wrote {out_dir}/README.md")
+    print(f"wrote {manifest_path.relative_to(ROOT) if manifest_path.is_relative_to(ROOT) else manifest_path}")
     if copied_images:
         print(f"copied {len(copied_images)} image(s) to {out_dir / 'media'}")
 

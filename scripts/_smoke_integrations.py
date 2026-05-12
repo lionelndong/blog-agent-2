@@ -471,6 +471,91 @@ def check_category_resolver() -> str:
         return f"CATEGORY_RESOLVER FAIL — {type(e).__name__}: {e}"
 
 
+def check_strapi_publish_gate() -> str:
+    """PLEAA-581 Layer 1 smoke: prove ``format_for_strapi.py --publish`` refuses
+    a slug that has no committed publish artifact, and that ``--human-approved
+    "<reason>"`` bypasses the refusal.
+
+    No network is needed. The check shells out to ``format_for_strapi.py`` with
+    a deliberately fake slug, asserts:
+
+      1. Plain ``--publish`` exits non-zero AND the gate-reject message
+         (``publish gate REJECT``) appears in combined output. The message must
+         name the missing artifact path so an operator knows which
+         ``content-pipeline/8-publish/<slug>/`` directory to fix.
+      2. ``--human-approved "<reason>"`` bypasses the gate — combined output
+         contains ``publish gate OVERRIDDEN`` and the per-slug audit log line
+         is appended to ``content-pipeline/audit/publish-overrides.log``.
+         (The subprocess still exits non-zero because the fake slug has no
+         cited draft — that's the next stage's failure, not ours.)
+      3. An empty override reason (``--human-approved ""``) is rejected with
+         a clear error message — empty reason is the gate's anti-shrug case.
+
+    Failure modes return a single-line FAIL string. Success returns OK with
+    counts so a reader can see which sub-cases passed.
+    """
+    import subprocess as _sp
+    from pathlib import Path as _P
+    import uuid as _uuid
+
+    here = _P(__file__).resolve()
+    repo_root = here.parents[1]
+    script = repo_root / ".claude" / "skills" / "format-for-publish" / "scripts" / "format_for_strapi.py"
+    if not script.exists():
+        return f"STRAPI_PUBLISH_GATE FAIL — script missing at {script}"
+
+    fake_slug = f"_smoke_strapi_publish_gate_{_uuid.uuid4().hex[:8]}"
+
+    def _run(*extra: str) -> _sp.CompletedProcess[str]:
+        return _sp.run(
+            [sys.executable, str(script), fake_slug, "--publish", *extra],
+            cwd=str(repo_root),
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+
+    # Case 1 — plain --publish must REJECT.
+    r1 = _run()
+    combined1 = (r1.stdout or "") + (r1.stderr or "")
+    if r1.returncode == 0:
+        return "STRAPI_PUBLISH_GATE FAIL — plain --publish exited 0 (gate did not reject)"
+    if "publish gate REJECT" not in combined1:
+        return f"STRAPI_PUBLISH_GATE FAIL — reject path missing gate message; got: {combined1[:240]!r}"
+    if "content-pipeline/8-publish" not in combined1:
+        return f"STRAPI_PUBLISH_GATE FAIL — reject message missing artifact path; got: {combined1[:240]!r}"
+
+    # Case 2 — --human-approved bypasses the gate and writes an audit line.
+    audit_log = repo_root / "content-pipeline" / "audit" / "publish-overrides.log"
+    pre_size = audit_log.stat().st_size if audit_log.exists() else 0
+    reason = "manual unpublish reseed"
+    r2 = _run("--human-approved", reason)
+    combined2 = (r2.stdout or "") + (r2.stderr or "")
+    if "publish gate OVERRIDDEN" not in combined2:
+        return f"STRAPI_PUBLISH_GATE FAIL — override path missing OVERRIDDEN message; got: {combined2[:240]!r}"
+    if not audit_log.exists():
+        return f"STRAPI_PUBLISH_GATE FAIL — audit log not created at {audit_log}"
+    post_size = audit_log.stat().st_size
+    if post_size <= pre_size:
+        return "STRAPI_PUBLISH_GATE FAIL — audit log not appended on override"
+    tail = audit_log.read_text(encoding="utf-8").splitlines()[-1] if post_size else ""
+    if fake_slug not in tail or reason not in tail:
+        return f"STRAPI_PUBLISH_GATE FAIL — audit log tail missing slug/reason: {tail!r}"
+
+    # Case 3 — empty reason must be rejected.
+    r3 = _run("--human-approved", "")
+    combined3 = (r3.stdout or "") + (r3.stderr or "")
+    if r3.returncode == 0:
+        return "STRAPI_PUBLISH_GATE FAIL — empty --human-approved reason exited 0"
+    if "non-empty reason" not in combined3:
+        return f"STRAPI_PUBLISH_GATE FAIL — empty-reason path missing rejection message; got: {combined3[:240]!r}"
+
+    return (
+        "STRAPI_PUBLISH_GATE OK — reject/override/empty-reason all enforced; "
+        f"audit log appended ({post_size - pre_size} bytes for fake slug)"
+    )
+
+
 CHECKS = {
     "openrouter": check_openrouter,
     "replicate": check_replicate,
@@ -480,6 +565,10 @@ CHECKS = {
     "strapi_update_guard": check_strapi_update_guard,
     "category_resolver": check_category_resolver,
     "github": check_github,
+    "strapi_publish_gate": check_strapi_publish_gate,
+    # Alias the spec's UPPERCASE label so operators can run it with the exact
+    # target name from PLEAA-581's acceptance criteria.
+    "STRAPI_PUBLISH_GATE": check_strapi_publish_gate,
 }
 
 

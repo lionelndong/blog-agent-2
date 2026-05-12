@@ -1,0 +1,160 @@
+# PLEAA-581 Layer 2 — Strapi publish-approval registry sync
+#
+# On every push to ``main``, enumerate every ``content-pipeline/8-publish/*/manifest.json``
+# file and upsert one row per slug into the Supabase ``blog_publish_approvals``
+# table. The edge function ``sync-blog-posts`` reads this registry and refuses
+# any Strapi ``entry.publish`` webhook whose ``documentId`` has no approval row
+# (see PLEAA-577 root cause + audit thread).
+#
+# The merge commit SHA is recorded as ``approved_commit_sha`` so we can answer
+# "who/what approved this slug for publish" forensically. ``approved_by`` is
+# always ``github-actions[bot]`` for CI-driven rows; manual operator inserts
+# (e.g. backfill for legacy slugs) set their own email.
+
+name: sync-publish-approvals
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content-pipeline/8-publish/**/manifest.json"
+  workflow_dispatch:
+    # Allow operators to force a full re-sync after a manual backfill.
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Resolve approved commit sha
+        id: sha
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Sync manifest.json files to blog_publish_approvals
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GITHUB_SHA_RESOLVED: ${{ steps.sha.outputs.sha }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          """PLEAA-581: upsert one row per 8-publish manifest into Supabase.
+
+          The ``blog_publish_approvals`` schema (migration in lionelndong/pleasurai
+          under ``supabase/migrations/<ts>_blog_publish_approvals.sql``):
+
+              document_id            text primary key
+              slug                   text not null
+              pipeline_artifact_url  text not null
+              approved_commit_sha    text not null
+              approved_by            text not null
+              approved_at            timestamptz default now()
+
+          ``document_id`` is the Strapi v5 documentId for the slug. For now we
+          do not have it at PR-merge time (the article may not yet exist in
+          Strapi when the package is committed), so we upsert by SLUG with a
+          synthetic ``document_id = "slug:<slug>"`` placeholder. The edge
+          function looks up by ``slug`` first; the placeholder document_id is
+          replaced by Strapi's real documentId on the first successful webhook
+          resolve.
+
+          Errors per-row are logged but do not fail the workflow — the goal is
+          best-effort sync; a missed row blocks the next ``entry.publish`` for
+          that slug until the operator re-runs the workflow.
+          """
+          import json
+          import os
+          import pathlib
+          import sys
+          import urllib.error
+          import urllib.request
+
+          supabase_url = os.environ.get("SUPABASE_URL", "").rstrip("/")
+          service_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
+          sha = os.environ.get("GITHUB_SHA_RESOLVED", "")
+          repo = os.environ.get("GITHUB_REPOSITORY", "lionelndong/blog-agent-2")
+
+          if not supabase_url or not service_key:
+              print("ERROR: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set in repo secrets", file=sys.stderr)
+              sys.exit(1)
+
+          publish_dir = pathlib.Path("content-pipeline/8-publish")
+          manifests = sorted(publish_dir.glob("*/manifest.json"))
+          if not manifests:
+              print("No content-pipeline/8-publish/*/manifest.json found — nothing to sync.")
+              sys.exit(0)
+
+          endpoint = f"{supabase_url}/rest/v1/blog_publish_approvals"
+          headers = {
+              "apikey": service_key,
+              "Authorization": f"Bearer {service_key}",
+              "Content-Type": "application/json",
+              # Upsert on conflict: replace pipeline_artifact_url + approved_commit_sha
+              # + approved_at with the latest CI values. We never want to lose the
+              # earliest approval, but we DO want the most recent commit sha so a
+              # re-merge of the same slug refreshes the row.
+              "Prefer": "resolution=merge-duplicates,return=minimal",
+          }
+
+          ok = 0
+          failed = 0
+          for manifest_path in manifests:
+              try:
+                  manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+              except Exception as exc:
+                  print(f"SKIP {manifest_path}: bad JSON ({exc})", file=sys.stderr)
+                  failed += 1
+                  continue
+              slug = (manifest.get("slug") or "").strip()
+              if not slug:
+                  print(f"SKIP {manifest_path}: manifest missing 'slug'", file=sys.stderr)
+                  failed += 1
+                  continue
+              artifact_url = (
+                  f"https://github.com/{repo}/blob/{sha}/content-pipeline/8-publish/{slug}/manifest.json"
+              )
+              # Upsert keyed on document_id. See module docstring for the
+              # slug-as-document-id rationale; real documentIds get reconciled
+              # by the edge function on first successful webhook.
+              row = {
+                  "document_id": f"slug:{slug}",
+                  "slug": slug,
+                  "pipeline_artifact_url": artifact_url,
+                  "approved_commit_sha": sha,
+                  "approved_by": "github-actions[bot]",
+              }
+              req = urllib.request.Request(
+                  endpoint,
+                  data=json.dumps([row]).encode("utf-8"),
+                  headers=headers,
+                  method="POST",
+              )
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      status = resp.status
+                  if 200 <= status < 300:
+                      print(f"OK    slug={slug} sha={sha[:8]} status={status}")
+                      ok += 1
+                  else:
+                      print(f"FAIL  slug={slug} status={status}", file=sys.stderr)
+                      failed += 1
+              except urllib.error.HTTPError as exc:
+                  body = exc.read().decode("utf-8", errors="replace")[:300]
+                  print(f"FAIL  slug={slug} HTTP {exc.code}: {body}", file=sys.stderr)
+                  failed += 1
+              except Exception as exc:
+                  print(f"FAIL  slug={slug} {type(exc).__name__}: {exc}", file=sys.stderr)
+                  failed += 1
+
+          print(f"\nsync-publish-approvals: ok={ok} failed={failed} total={len(manifests)}")
+          # Best-effort: exit 0 even if some rows fail so a single bad manifest
+          # doesn't block the rest of the deploy. The sync-blog-posts edge
+          # function will simply refuse publish for any slug that didn't make
+          # it in, which is the safe-by-default outcome.
+          PY

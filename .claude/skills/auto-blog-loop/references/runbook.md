@@ -2,6 +2,24 @@
 
 Production-ready operating notes for running `/auto-blog-loop` autonomously on the user's VPS.
 
+## PLEAA-581 publish gate — required reading
+
+`/format-for-publish --publish` (and `--auto-publish`) now refuse to write to Strapi for any slug whose `content-pipeline/8-publish/{slug}/article.json` is not present in `origin/main` HEAD. The loop's normal path — `format-for-publish` writes the package locally, the commit is pushed to `main`, then a follow-up `--publish` is issued — satisfies this; no behaviour change for the happy path. The gate fires when:
+
+- The loop is run on a branch that has not been pushed (e.g. mid-PR review).
+- An operator runs `--publish` against a slug whose `8-publish/<slug>/` is uncommitted (forgotten `git push`).
+- The cron job is invoked against a checkout that's behind `origin/main`.
+
+**Override only for legitimate operations** (manual unpublish/reseed, hotfix):
+
+```bash
+doppler run -- python .claude/skills/format-for-publish/scripts/format_for_strapi.py \
+  "<slug>" --publish \
+  --human-approved "manual unpublish reseed for legacy slug"
+```
+
+Every override appends one tab-separated audit line to `content-pipeline/audit/publish-overrides.log`: ISO timestamp, slug, reason, `git config user.email`, current branch, HEAD sha. The log is gitignored (per-environment) — capture it to long-term storage if you need an org-wide trail. See [`.claude/skills/format-for-publish/SKILL.md`](../../format-for-publish/SKILL.md#publish-gate-pleaa-581) for the full design rationale and the Layer 2 (Supabase registry) + Layer 3 (token rotation) gates that back this up server-side.
+
 ## One-time setup
 
 ### 1. Doppler env vars
