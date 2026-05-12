@@ -21,3 +21,6 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# PLEAA-581: per-environment publish-override audit log
+content-pipeline/audit/publish-overrides.log
