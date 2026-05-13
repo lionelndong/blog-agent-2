@@ -1,0 +1,71 @@
+{
+  "traffic_top_pages": {
+    "scribehow.com": 119,
+    "washingtonpost.com": 63,
+    "play.google.com - Botify AI": 39,
+    "reddit.com - r/ios": 31,
+    "mashable.com": 21,
+    "theresanaiforthat.com": 16,
+    "suffescom.com": 14,
+    "myanima.ai": 11,
+    "instagram.com": 11,
+    "whatsthebigdata.com": 10
+  },
+  "pricing_comparison": {
+    "Candy.AI": "gated",
+    "OurDream.AI": 19.99,
+    "Nastia AI": "free-tier-only-public",
+    "Pleasur.AI": 27.99
+  },
+  "pricing_comparison_meta": {
+    "Candy.AI": "Homepage live but no flat USD figure published; tiers + tokens gated behind 7-day trial activation. Third-party reviewers cluster the annual plan around $5.99/mo equivalent, but we do not assert a live monthly USD because the source page does not.",
+    "OurDream.AI": "Live-verified $19.99/mo or $119.88/yr at ourdream.ai/pricing.",
+    "Nastia AI": "Free tier with daily message limits live on homepage (no card required); paid-tier monthly USD is not published on the public homepage.",
+    "Pleasur.AI": "Standard tier $27.99/mo or $11.20/mo annual at pleasur.ai/upgrade; Starter $12.99/mo ($5.20 annual); Ultimate $49.99/mo ($20 annual); 7-day money-back."
+  },
+  "feature_matrix": {
+    "Candy.AI": {"chat": true, "image": true, "voice": true, "video": true, "custom_character": true},
+    "OurDream.AI": {"chat": true, "image": true, "voice": true, "video": true, "custom_character": true},
+    "Nastia AI": {"chat": true, "image": true, "voice": true, "video": true, "custom_character": true},
+    "Pleasur.AI": {"chat": true, "image": true, "voice": true, "video": false, "custom_character": true}
+  },
+  "cluster_volumes": {
+    "ai sex chat (parent)": 40500,
+    "botify ai": 18100,
+    "sexting ai": 14800,
+    "ai sex bot": 12100,
+    "ai sexting": 12100,
+    "free ai sex chat": 9900,
+    "sexting apps": 6600,
+    "ai sexting app (primary)": 480
+  },
+  "privacy_signals": {
+    "Mozilla PNI 2024 - chatbots that may share or sell data (%)": 90,
+    "Mozilla PNI 2024 - failed minimum security standards (%)": 90,
+    "Mozilla PNI 2024 - lack clear encryption info (%)": 64,
+    "Mozilla PNI 2024 - have not published vulnerability process (%)": 73,
+    "Mozilla PNI 2024 - allow users to delete personal data (%)": 54,
+    "Muah AI breach Sept 2024 - accounts exposed (millions)": 1.9
+  },
+  "_meta": {
+    "source": "Semrush phrase_this + phrase_related + phrase_organic (us, 2026-05-13); live WebFetch of candy.ai, ourdream.ai/pricing, pleasur.ai/upgrade, nastia.ai, crushon.ai (all paths), botify.ai (all paths); Mozilla Privacy Not Included Feb 2024; HIBP PwnedWebsites Muah.AI record.",
+    "generated_at": "2026-05-13",
+    "pricing_verification": {
+      "candy_ai": {"source_url": "https://candy.ai/", "fetched_at": "2026-05-13", "verdict": "live-but-pricing-gated", "notes": "Homepage 200 OK. /pricing returns 404. No flat USD published; trial/tier details gated behind signup."},
+      "candy_ai_pricing_path": {"source_url": "https://candy.ai/pricing", "fetched_at": "2026-05-13", "verdict": "404"},
+      "candy_ai_upgrade_path": {"source_url": "https://candy.ai/upgrade", "fetched_at": "2026-05-13", "verdict": "404"},
+      "ourdream_ai": {"source_url": "https://ourdream.ai/pricing", "fetched_at": "2026-05-13", "verdict": "live", "monthly_usd": 19.99, "annual_usd": 119.88},
+      "pleasur_ai": {"source_url": "https://pleasur.ai/upgrade", "fetched_at": "2026-05-13", "verdict": "live", "starter_monthly": 12.99, "standard_monthly": 27.99, "ultimate_monthly": 49.99},
+      "crushon_ai": {"source_url": "https://crushon.ai/", "fetched_at": "2026-05-13", "verdict": "403"},
+      "crushon_ai_pricing_path": {"source_url": "https://crushon.ai/pricing", "fetched_at": "2026-05-13", "verdict": "403"},
+      "crushon_ai_plans_path": {"source_url": "https://crushon.ai/plans", "fetched_at": "2026-05-13", "verdict": "403"},
+      "crushon_ai_billing_path": {"source_url": "https://crushon.ai/billing", "fetched_at": "2026-05-13", "verdict": "403"},
+      "botify_ai": {"source_url": "https://botify.ai/", "fetched_at": "2026-05-13", "verdict": "live-but-content-not-extractable", "notes": "Homepage 200 OK but WebFetch returned only the H1; full feature/pricing page content not retrievable without a real browser. /pricing reachable but empty."},
+      "nastia_ai": {"source_url": "https://nastia.ai/", "fetched_at": "2026-05-13", "verdict": "live", "notes": "Free tier with daily caps verified on homepage; paid tier USD not published. Privacy statement: 'we never share or sell your information to third parties... you can delete your account and data at any time.'"}
+    },
+    "privacy_anchor_urls": {
+      "mozilla_pni": {"url": "https://www.mozillafoundation.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/", "fetched_at": "2026-05-13", "verdict": "live", "headline": "Romantic AI Chatbots Don't Have Your Privacy at Heart", "published": "2024-02-14"},
+      "hibp_muah": {"url": "https://haveibeenpwned.com/PwnedWebsites", "fetched_at": "2026-05-13", "verdict": "live", "record": "Muah.AI | 1.9M | Added 08-Oct-2024 | Breach Date Sep-2024"}
+    }
+  }
+}

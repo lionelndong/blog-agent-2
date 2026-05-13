@@ -3,63 +3,208 @@
   "visuals": [
     {
       "index": 1,
-      "type": "image",
+      "type": "table",
       "attrs": {
-        "type": "image",
-        "sub": "hero",
-        "what": "warm dim phone screen at night on a bedside table, soft amber lamp glow, intimate private mood, no people, no UI screens visible, no text",
-        "prompt": "A modern smartphone resting on a wooden bedside table at night, screen glowing softly with warm amber light, a small lamp blurred in the background, cozy private bedroom atmosphere, photorealistic, shallow depth of field, no people visible, no text, no UI elements, no logos"
+        "type": "table",
+        "subject": "feature-pricing-privacy-matrix",
+        "data": "research.feature_matrix+research.pricing_comparison"
       },
-      "alt": "warm dim phone screen at night on a bedside table, soft amber lamp glow, intimate private mood, no people, no UI screens visible, no text",
+      "alt": "AI sexting apps feature, pricing, and privacy matrix comparing Candy.AI, OurDream.AI, Nastia AI, and Pleasur.AI",
       "status": "captured",
       "result": {
         "status": "captured",
-        "path": "content-pipeline/images/ai-sexting-app/image-1-a-modern-smartphone-resting-on.png",
-        "model": "openai/gpt-image-2",
-        "prompt": "A modern smartphone resting on a wooden bedside table at night, screen glowing softly with warm amber light, a small lamp blurred in the background, cozy private bedroom atmosphere, photorealistic, shallow depth of field, no people visible, no text, no UI elements, no logos. photorealistic, soft natural lighting, no people"
+        "path": "content-pipeline/images/ai-sexting-app/table-1-feature-pricing-matrix.png",
+        "renderer": "scripts/_render_ai_sexting_table.py",
+        "data_sources": ["research.feature_matrix", "research.pricing_comparison", "research.privacy_signals"],
+        "note": "Dispatcher skips type=table (type_table_not_an_asset). Rendered manually via matplotlib Table with live-fetched pricing + Mozilla PNI privacy posture column."
       },
-      "raw": "[VISUAL:type=image;sub=hero;what=warm dim phone screen at night on a bedside table, soft amber lamp glow, intimate private mood, no people, no UI screens visible, no text;prompt=A modern smartphone resting on a wooden bedside table at night, screen glowing softly with warm amber light, a small lamp blurred in the background, cozy private bedroom atmosphere, photorealistic, shallow depth of field, no people visible, no text, no UI elements, no logos]",
+      "raw": "[VISUAL:type=table;subject=feature-pricing-privacy-matrix;data=research.feature_matrix+research.pricing_comparison]",
       "legacy": false
     },
     {
       "index": 2,
-      "type": "image",
+      "type": "screenshot",
       "attrs": {
-        "type": "image",
-        "sub": "concept",
-        "what": "four softly glowing card-shapes arranged in a row on a dark surface, suggesting choice and comparison, abstract, no logos, no text",
-        "prompt": "Four softly glowing rectangular cards floating in a row over a dark velvet surface, each card lit a slightly different warm color (amber, rose, violet, teal), suggesting a careful editorial comparison, abstract minimalist composition, photorealistic, no text, no logos, no people"
+        "type": "screenshot",
+        "target": "https://pleasur.ai/create",
+        "subject": "AI Companion Creator UI showing appearance+personality+kink setup",
+        "safety": "adult-context-route-via-manual-capture"
       },
-      "alt": "four softly glowing card-shapes arranged in a row on a dark surface, suggesting choice and comparison, abstract, no logos, no text",
-      "status": "captured",
+      "alt": "Pleasur.AI Create flow showing the appearance picker - the first step in building a custom companion",
+      "status": "stripped",
+      "reason": "visuals-adversarial-critical-2-adult-imagery",
       "result": {
-        "status": "captured",
-        "path": "content-pipeline/images/ai-sexting-app/image-2-four-softly-glowing-rectangula.png",
-        "model": "openai/gpt-image-2",
-        "prompt": "Four softly glowing rectangular cards floating in a row over a dark velvet surface, each card lit a slightly different warm color (amber, rose, violet, teal), suggesting a careful editorial comparison, abstract minimalist composition, photorealistic, no text, no logos, no people. photorealistic, soft natural lighting, no people"
+        "status": "stripped",
+        "path": "content-pipeline/images/ai-sexting-app/screenshot-2-stripped.png",
+        "url": "https://pleasur.ai/create",
+        "final_url": "https://pleasur.ai/create",
+        "auth_used": true,
+        "note": "REPLACED ON REVISION 1: original capture of /create included explicit imagery from the authenticated logged-in view, which is an SFW publish blocker. Removed from the cited draft, renamed PNG out of publish path (screenshot-2-stripped.png). Pleasur.AI walkthrough now backed by image-9-pleasurai-creator-flow.png (concept illustration, SFW)."
       },
-      "raw": "[VISUAL:type=image;sub=concept;what=four softly glowing card-shapes arranged in a row on a dark surface, suggesting choice and comparison, abstract, no logos, no text;prompt=Four softly glowing rectangular cards floating in a row over a dark velvet surface, each card lit a slightly different warm color (amber, rose, violet, teal), suggesting a careful editorial comparison, abstract minimalist composition, photorealistic, no text, no logos, no people]",
+      "raw": "[VISUAL:type=screenshot;target=https://pleasur.ai/create;subject=AI Companion Creator UI showing appearance+personality+kink setup;safety=adult-context-route-via-manual-capture]",
       "legacy": false
     },
     {
       "index": 3,
-      "type": "image",
+      "type": "chart",
       "attrs": {
-        "type": "image",
-        "sub": "concept",
-        "what": "a hand half-lit holding a smartphone with a blurred warm interior behind, evocative of private adult chat, no face, no UI visible",
-        "prompt": "Close-up of a person's hand half-lit by warm window light, holding a modern smartphone with the screen turned away from camera, soft blurred warm interior background, intimate quiet mood, photorealistic, shallow depth of field, no face visible, no text, no UI elements, no logos"
+        "type": "chart",
+        "subject": "Mozilla 2024 audit results across 5 metrics",
+        "data": "research.privacy_signals"
       },
-      "alt": "a hand half-lit holding a smartphone with a blurred warm interior behind, evocative of private adult chat, no face, no UI visible",
+      "alt": "Mozilla Privacy Not Included 2024 audit of romantic AI chatbots, 5 privacy metrics",
       "status": "captured",
       "result": {
         "status": "captured",
-        "path": "content-pipeline/images/ai-sexting-app/image-3-close-up-of-a-person-s-hand-ha.png",
-        "model": "openai/gpt-image-2",
-        "prompt": "Close-up of a person's hand half-lit by warm window light, holding a modern smartphone with the screen turned away from camera, soft blurred warm interior background, intimate quiet mood, photorealistic, shallow depth of field, no face visible, no text, no UI elements, no logos. photorealistic, soft natural lighting, no people"
+        "path": "content-pipeline/images/ai-sexting-app/chart-3-mozilla-pni-2024.png",
+        "renderer": "scripts/_render_ai_sexting_chart.py",
+        "style": "bar",
+        "data_points": 5,
+        "note": "Re-rendered from auto-output. Auto chart mashed percentages with the 1.9M Muah breach value on one y-axis. Replacement shows only the 5 Mozilla PNI percentages on a 0-100 scale with value labels and source caption; Muah breach kept in caption as a reference point."
       },
-      "raw": "[VISUAL:type=image;sub=concept;what=a hand half-lit holding a smartphone with a blurred warm interior behind, evocative of private adult chat, no face, no UI visible;prompt=Close-up of a person's hand half-lit by warm window light, holding a modern smartphone with the screen turned away from camera, soft blurred warm interior background, intimate quiet mood, photorealistic, shallow depth of field, no face visible, no text, no UI elements, no logos]",
+      "raw": "[VISUAL:type=chart;subject=Mozilla 2024 audit results across 5 metrics;data=research.privacy_signals]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "subject": "concept-diagram comparing generic chatbot vs one-shot NSFW chatbot vs AI sexting app",
+        "style": "infographic",
+        "safety": "sfw"
+      },
+      "alt": "Concept diagram comparing generic chatbot vs one-shot NSFW chatbot vs AI sexting app",
+      "status": "captured",
+      "section": "Intro",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting-app/image-4-category-concept-diagram.png",
+        "model": "openai/gpt-image-2",
+        "renderer": "replicate.generate_image",
+        "note": "Revision-1 backfill. Three labeled boxes side-by-side: Generic chatbot / One-shot NSFW chatbot / AI sexting app. SFW infographic."
+      },
+      "raw": "[VISUAL:type=image;subject=concept-diagram comparing generic chatbot vs one-shot NSFW chatbot vs AI sexting app;style=infographic;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "subject": "phone-mockup illustration showing chat+image+voice bundled in one thread",
+        "style": "ui-mockup",
+        "safety": "sfw"
+      },
+      "alt": "Phone mockup illustration showing chat reply, image generation request, and voice in a single bundled thread",
+      "status": "captured",
+      "section": "What an AI sexting app actually is",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting-app/image-5-bundled-chat-mockup.png",
+        "model": "openai/gpt-image-2",
+        "renderer": "replicate.generate_image",
+        "note": "Revision-1 backfill. Smartphone UI mockup illustrating the modern bundled shape (chat reply + image gen + voice icon). No real avatars, SFW."
+      },
+      "raw": "[VISUAL:type=image;subject=phone-mockup illustration showing chat+image+voice bundled in one thread;style=ui-mockup;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "subject": "Candy.AI app-card",
+        "style": "app-card",
+        "safety": "sfw"
+      },
+      "alt": "Candy.AI app card showing polished default tagline, gated pricing band, and chat/image/voice feature dots",
+      "status": "captured",
+      "section": "Candy.AI H3",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting-app/image-6-candy-app-card.png",
+        "model": "openai/gpt-image-2",
+        "renderer": "replicate.generate_image",
+        "note": "Revision-1 backfill. Synthetic app-store-style card; generic heart icon, no real brand marks."
+      },
+      "raw": "[VISUAL:type=image;subject=Candy.AI app-card;style=app-card;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 7,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "subject": "OurDream.AI app-card",
+        "style": "app-card",
+        "safety": "sfw"
+      },
+      "alt": "OurDream.AI app card showing visual-led tagline, $19.99/mo flat pricing, and image/video/dreamcoins feature dots",
+      "status": "captured",
+      "section": "OurDream.AI H3",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting-app/image-7-ourdream-app-card.png",
+        "model": "openai/gpt-image-2",
+        "renderer": "replicate.generate_image",
+        "note": "Revision-1 backfill. Synthetic app-card; generic dream-cloud icon, no real brand marks."
+      },
+      "raw": "[VISUAL:type=image;subject=OurDream.AI app-card;style=app-card;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 8,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "subject": "Nastia AI app-card",
+        "style": "app-card",
+        "safety": "sfw"
+      },
+      "alt": "Nastia AI app card showing full-feature value tagline, free tier plus paid, and chat/voice/image feature dots",
+      "status": "captured",
+      "section": "Nastia AI H3",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting-app/image-8-nastia-app-card.png",
+        "model": "openai/gpt-image-2",
+        "renderer": "replicate.generate_image",
+        "note": "Revision-1 backfill. Synthetic app-card; generic star icon, no real brand marks."
+      },
+      "raw": "[VISUAL:type=image;subject=Nastia AI app-card;style=app-card;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 9,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "subject": "Pleasur.AI Companion Creator 4-step process flow",
+        "style": "process-flow",
+        "safety": "sfw"
+      },
+      "alt": "Pleasur.AI Companion Creator 4-step flow shown as a horizontal numbered sequence: Appearance, Voice, Personality + backstory, Kinks & boundaries",
+      "status": "captured",
+      "section": "Pleasur.AI H3 (backfills stripped screenshot)",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting-app/image-9-pleasurai-creator-flow.png",
+        "model": "openai/gpt-image-2",
+        "renderer": "replicate.generate_image",
+        "note": "Revision-1 backfill. Replaces stripped /create screenshot. Horizontal 4-step icon-card sequence: Appearance / Voice / Personality + backstory / Kinks & boundaries. SFW concept illustration."
+      },
+      "raw": "[VISUAL:type=image;subject=Pleasur.AI Companion Creator 4-step process flow;style=process-flow;safety=sfw]",
       "legacy": false
     }
-  ]
+  ],
+  "totals": {
+    "captured": 8,
+    "stripped": 1,
+    "manual": 0,
+    "failed": 0,
+    "total": 9
+  },
+  "revision_pass": 1,
+  "revision_notes": "visuals-adversarial revision 1: stripped index-2 /create screenshot (explicit imagery SFW publish blocker); added 6 SFW Replicate gpt-image-2 images to hit visual density floor (8 visuals for ~2,470 words, band 2,000-3,000)."
 }
