@@ -1,0 +1,65 @@
+{
+  "slug": "ai-sexting-app",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "hero",
+        "what": "warm dim phone screen at night on a bedside table, soft amber lamp glow, intimate private mood, no people, no UI screens visible, no text",
+        "prompt": "A modern smartphone resting on a wooden bedside table at night, screen glowing softly with warm amber light, a small lamp blurred in the background, cozy private bedroom atmosphere, photorealistic, shallow depth of field, no people visible, no text, no UI elements, no logos"
+      },
+      "alt": "warm dim phone screen at night on a bedside table, soft amber lamp glow, intimate private mood, no people, no UI screens visible, no text",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting-app/image-1-a-modern-smartphone-resting-on.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "A modern smartphone resting on a wooden bedside table at night, screen glowing softly with warm amber light, a small lamp blurred in the background, cozy private bedroom atmosphere, photorealistic, shallow depth of field, no people visible, no text, no UI elements, no logos. photorealistic, soft natural lighting, no people"
+      },
+      "raw": "[VISUAL:type=image;sub=hero;what=warm dim phone screen at night on a bedside table, soft amber lamp glow, intimate private mood, no people, no UI screens visible, no text;prompt=A modern smartphone resting on a wooden bedside table at night, screen glowing softly with warm amber light, a small lamp blurred in the background, cozy private bedroom atmosphere, photorealistic, shallow depth of field, no people visible, no text, no UI elements, no logos]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept",
+        "what": "four softly glowing card-shapes arranged in a row on a dark surface, suggesting choice and comparison, abstract, no logos, no text",
+        "prompt": "Four softly glowing rectangular cards floating in a row over a dark velvet surface, each card lit a slightly different warm color (amber, rose, violet, teal), suggesting a careful editorial comparison, abstract minimalist composition, photorealistic, no text, no logos, no people"
+      },
+      "alt": "four softly glowing card-shapes arranged in a row on a dark surface, suggesting choice and comparison, abstract, no logos, no text",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting-app/image-2-four-softly-glowing-rectangula.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Four softly glowing rectangular cards floating in a row over a dark velvet surface, each card lit a slightly different warm color (amber, rose, violet, teal), suggesting a careful editorial comparison, abstract minimalist composition, photorealistic, no text, no logos, no people. photorealistic, soft natural lighting, no people"
+      },
+      "raw": "[VISUAL:type=image;sub=concept;what=four softly glowing card-shapes arranged in a row on a dark surface, suggesting choice and comparison, abstract, no logos, no text;prompt=Four softly glowing rectangular cards floating in a row over a dark velvet surface, each card lit a slightly different warm color (amber, rose, violet, teal), suggesting a careful editorial comparison, abstract minimalist composition, photorealistic, no text, no logos, no people]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept",
+        "what": "a hand half-lit holding a smartphone with a blurred warm interior behind, evocative of private adult chat, no face, no UI visible",
+        "prompt": "Close-up of a person's hand half-lit by warm window light, holding a modern smartphone with the screen turned away from camera, soft blurred warm interior background, intimate quiet mood, photorealistic, shallow depth of field, no face visible, no text, no UI elements, no logos"
+      },
+      "alt": "a hand half-lit holding a smartphone with a blurred warm interior behind, evocative of private adult chat, no face, no UI visible",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting-app/image-3-close-up-of-a-person-s-hand-ha.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Close-up of a person's hand half-lit by warm window light, holding a modern smartphone with the screen turned away from camera, soft blurred warm interior background, intimate quiet mood, photorealistic, shallow depth of field, no face visible, no text, no UI elements, no logos. photorealistic, soft natural lighting, no people"
+      },
+      "raw": "[VISUAL:type=image;sub=concept;what=a hand half-lit holding a smartphone with a blurred warm interior behind, evocative of private adult chat, no face, no UI visible;prompt=Close-up of a person's hand half-lit by warm window light, holding a modern smartphone with the screen turned away from camera, soft blurred warm interior background, intimate quiet mood, photorealistic, shallow depth of field, no face visible, no text, no UI elements, no logos]",
+      "legacy": false
+    }
+  ]
+}
