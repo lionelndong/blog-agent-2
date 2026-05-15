@@ -6,7 +6,7 @@ Nobody on the page asks the one question that matters. Are you here to build, or
 
 This guide tells you which path matches your situation. Then it walks both. You get a real 2026 DIY recipe instead of the 2022 stack the only ranking tutorial still cites ([gmongaras, "Coding a Virtual AI Girlfriend," Feb 2023](https://gmongaras.medium.com/coding-a-virtual-ai-girlfriend-f951e648aa46)). You get an off-the-shelf walkthrough with the prices the product pages won't surface. Read the first section, pick a lane, skip the other half.
 
-![Side-by-side decision diagram labeled "DIY path" on the left and "Off-the-shelf path" on the right. Left panel shows three stacked boxes top-to-bottom: "Rent A100 GPU ($0.72/hr)", "Fine-tune Llama-3-8B with LoRA", "Wire voice + image gen". Right panel shows three stacked boxes: "Pick an app", "Design appearance + personality (10 min)", "Chat / voice / images included". A single labeled arrow at the top says "Choose one." Clean editorial illustration, white background, sans-serif labels, warm accent palette.](images/how-to-make-an-ai-girlfriend/image-1-side-by-side-decision-diagram.png)
+![Side-by-side decision diagram labeled "DIY path" on the left and "Off-the-shelf path" on the right. Left panel shows three stacked boxes top-to-bottom: "Rent A100 GPU ($0.72/hr)", "Fine-tune Llama-3-8B with LoRA", "Wire voice + image gen". Right panel shows three stacked boxes: "Pick an app", "Design appearance + personality (10 min)", "Chat / voice / images included". A single labeled arrow at the top says "Choose one." Clean editorial illustration, white background, sans-serif labels, warm accent palette.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_side_by_side_decision_diagram_580c8421f9.png)
 
 ## First decide which "make" you mean
 
@@ -61,7 +61,7 @@ Personality drift inside a managed app is the same failure as memory drift insid
 
 For the power-user end of DIY — community character cards, sampler tweaks, multi-bot orchestration — start with our [Tavern AI Review 2026](https://pleasur.ai/blog/tavern-ai-review-2026). It's the open-source layer most DIY builders graduate into once their LoRA is working.
 
-![Four-layer architecture diagram for a DIY AI girlfriend build. Stack from bottom to top: "Compute layer — rented A100 GPU"](images/how-to-make-an-ai-girlfriend/image-2-four-layer-architecture-diagra.png)
+![Four-layer architecture diagram for a DIY AI girlfriend build. Stack from bottom to top: "Compute layer — rented A100 GPU"](https://elegant-cactus-c693703b28.media.strapiapp.com/image_2_four_layer_architecture_diagra_1bc0030a73.png)
 
 If reading the last bullet made you tired, the DIY path is not for you. That is fine.
 
@@ -117,7 +117,7 @@ Our [AI Girlfriend Experience: 90 Seconds to Week Three](https://pleasur.ai/blog
 
 The clearest public artifact of week-three failure is Replika's 2023 ERP rollback. When Luka shipped a model patch that pulled erotic roleplay, longtime users on r/replika reported that their companions started replying like strangers ([Vice's coverage of the rollback](https://www.vice.com/en/article/n7ezkm/replika-ai-erotic-roleplay-restored-but-it-feels-different)). Same character name, same backstory, different soul. That's personality drift at platform scale.
 
-![Vice on the Replika 2023 ERP rollback — users reporting their long-running companions felt like different characters after the model patch](images/how-to-make-an-ai-girlfriend/external-4-vice-on-the-replika-2023-erp-r.png)
+![Vice on the Replika 2023 ERP rollback — users reporting their long-running companions felt like different characters after the model patch](https://elegant-cactus-c693703b28.media.strapiapp.com/external_4_vice_on_the_replika_2023_erp_r_9c097d0972.png)
 
 What separates platforms here is the memory layer, not the model. A 70B model with no memory plays worse than an 8B model with a working vector store and a tight re-injection prompt. This is also where DIY builders plateau most often. The retrieval pipeline is the part you're least likely to enjoy writing.
 

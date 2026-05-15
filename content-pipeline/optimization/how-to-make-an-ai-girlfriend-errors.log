@@ -1,0 +1,11 @@
+2026-05-15 — /optimize-content how-to-make-an-ai-girlfriend
+contentshake: action=optimize slug=how-to-make-an-ai-girlfriend draft=how-to-make-an-ai-girlfriend.md (23917 chars) endpoint=/articles/analyze
+error: ContentShake API HTTP 400 Bad Request: query type not found
+
+This is the same script/API contract mismatch hit on sibling slugs
+(ai-boyfriend 2026-04, what-is-an-ai-girlfriend 2026-05-05, ai-sexting-app 2026-05-05).
+Doppler auth + secret presence + network reach all OK. The script POSTs to
+`https://api.semrush.com/contentshake/v1/articles/analyze`; Semrush returns
+"query type not found", which matches the classic Reports API dispatch style
+(top-level `type` param). The live ContentShake API does not accept the script's
+REST shape. Fix required in contentshake_optimize.py — not a per-slug issue.

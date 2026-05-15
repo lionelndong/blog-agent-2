@@ -1,0 +1,75 @@
+{
+  "cluster_volumes": {
+    "what is an ai girlfriend": 210,
+    "how to create an ai girlfriend": 140,
+    "how to make an ai girlfriend": 110,
+    "how to get an ai girlfriend": 90,
+    "how to make an ai girlfriend for free": 10
+  },
+  "format_share": {
+    "diy_tutorials": 0.27,
+    "product_landers": 0.40,
+    "forums_social": 0.27,
+    "video": 0.07
+  },
+  "path_comparison": {
+    "diy_build_phrase": "a few weeks",
+    "diy_gpu_hourly_usd_a100_marketplace": 0.72,
+    "off_the_shelf_minutes": 10,
+    "off_the_shelf_monthly_usd_low": 12.99,
+    "off_the_shelf_monthly_usd_high": 15.99
+  },
+  "serp_top_domains": [
+    ["reddit.com", 1],
+    ["nomi.ai", 2],
+    ["youtube.com", 3],
+    ["gmongaras.medium.com", 4],
+    ["kupid.ai", 5],
+    ["quora.com", 6],
+    ["romanticai.com", 7],
+    ["perfectcorp.com", 8],
+    ["techbrite.com", 10],
+    ["candy.ai", 13]
+  ],
+  "primary_keyword_metrics": {
+    "volume": 110,
+    "kd": 27,
+    "cpc_usd": 0.50,
+    "competition": 0.02
+  },
+  "category_stats": {
+    "replika_play_store_installs_millions": 10,
+    "characterai_series_a_usd_millions": 150,
+    "characterai_series_a_year": 2023,
+    "stanford_replika_sample_n": 1006,
+    "stanford_any_loneliness_share": 0.90,
+    "stanford_severely_lonely_share": 0.43
+  },
+  "_meta": {
+    "source": "Aggregated from research dossier; primary keyword metrics from Semrush phrase_this (live 2026-05-15, US); SERP positions from phrase_organic; cluster volumes per context-file and Semrush.",
+    "generated_at": "2026-05-15",
+    "revision": "2026-05-15 revision pass after adversarial FAIL — three CRITICAL items addressed: (1) path_comparison numbers replaced with sourced values; diy_build_weeks dropped (gmongaras says 'a few weeks', no exact number); diy_gpu_cost_usd:400 dropped (no source) and replaced with hourly marketplace rate; off_the_shelf_monthly_usd:20 replaced with verified range $12.99–$15.99. (2) category_stats added with PRIMARY sources for Replika 10M, Character.AI $150M, Stanford study; sibling claim of '48% loneliness' was incorrect — paper actually says 90% any-loneliness / 43% Severely Lonely; Character.AI was Series A March 2023, not Series B Feb 2024. (3) Surprising-findings block in prose now contains 3 SERP-derived insights with URLs.",
+    "notes": "phrase_related and phrase_questions remain quota-blocked; deep research (Perplexity) returned empty briefing — see -deep.md. Quora/Reddit/Kupid still 403'd on direct fetch.",
+    "sources": {
+      "primary_keyword_metrics.volume": "Semrush phrase_this (live 2026-05-15, US)",
+      "primary_keyword_metrics.kd": "Semrush phrase_this (live 2026-05-15, US)",
+      "path_comparison.diy_build_phrase": "https://gmongaras.medium.com/coding-a-virtual-ai-girlfriend-f951e648aa46 (author's own phrase)",
+      "path_comparison.diy_gpu_hourly_usd_a100_marketplace": "https://medium.com/@velinxs/vast-ai-vs-runpod-pricing-in-2026-which-gpu-cloud-is-cheaper-bd4104aa591b (Vast.ai A100 80GB marketplace avg, early 2026)",
+      "path_comparison.off_the_shelf_minutes": "Nomi.ai / RomanticAI / Candy.ai signup-flow inspection (5-step character creation, ~10 min total)",
+      "path_comparison.off_the_shelf_monthly_usd_low": "https://aitipsters.com/candy-ai-pricing-2/ (Candy.ai monthly $12.99)",
+      "path_comparison.off_the_shelf_monthly_usd_high": "https://autogpt.net/nomi-ai-pricing/ (Nomi.ai monthly $15.99)",
+      "category_stats.replika_play_store_installs_millions": "https://app.sensortower.com/news-feed/ai-friend-app-replika-reaches-10-million-on-google-play/62bc87140d41df403960eb59 (Sensor Tower) reinforced by https://x.com/ETtech/status/1863423564004602074 (ETtech Nov 2024 — 10M downloads + $25M H1 2024 revenue)",
+      "category_stats.characterai_series_a_usd_millions": "https://www.cnbc.com/2023/03/23/characterai-valued-at-1-billion-after-150-million-round-from-a16z.html",
+      "category_stats.characterai_series_a_year": "https://www.cnbc.com/2023/03/23/characterai-valued-at-1-billion-after-150-million-round-from-a16z.html",
+      "category_stats.stanford_replika_sample_n": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10955814/ (Cerit et al., Stanford Graduate School of Education, npj Mental Health Research, Jan 2024)",
+      "category_stats.stanford_any_loneliness_share": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10955814/ ('90% of the participant population experienced loneliness')",
+      "category_stats.stanford_severely_lonely_share": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10955814/ ('43% qualified as Severely or Very Severely Lonely')"
+    },
+    "dropped_for_lack_of_source": [
+      "diy_build_weeks:3 — gmongaras only says 'a few weeks'; replaced with verbatim phrase rather than fabricated integer",
+      "diy_gpu_cost_usd:400 — no source could be located for a $400 figure; replaced with hourly marketplace rate ($0.72/hr A100 80GB Vast.ai)",
+      "off_the_shelf_monthly_usd:20 — no top-5 SERP product publishes $20/mo; replaced with verified range $12.99–$15.99 from Candy.ai and Nomi.ai",
+      "stanford_increased_loneliness_share:0.48 — does not appear in the actual paper; replaced with the paper's real numbers (0.90 any-loneliness, 0.43 severely-lonely)"
+    ]
+  }
+}

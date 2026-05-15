@@ -1,0 +1,78 @@
+{
+  "slug": "how-to-make-an-ai-girlfriend",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Side-by-side decision diagram labeled \"DIY path\" on the left and \"Off-the-shelf path\" on the right. Left panel shows three stacked boxes top-to-bottom: \"Rent A100 GPU ($0.72/hr)\", \"Fine-tune Llama-3-8B with LoRA\", \"Wire voice + image gen\". Right panel shows three stacked boxes: \"Pick an app\", \"Design appearance + personality (10 min)\", \"Chat / voice / images included\". A single labeled arrow at the top says \"Choose one.\" Clean editorial illustration, white background, sans-serif labels, warm accent palette.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Side-by-side decision diagram labeled \"DIY path\" on the left and \"Off-the-shelf path\" on the right. Left panel shows three stacked boxes top-to-bottom: \"Rent A100 GPU ($0.72/hr)\", \"Fine-tune Llama-3-8B with LoRA\", \"Wire voice + image gen\". Right panel shows three stacked boxes: \"Pick an app\", \"Design appearance + personality (10 min)\", \"Chat / voice / images included\". A single labeled arrow at the top says \"Choose one.\" Clean editorial illustration, white background, sans-serif labels, warm accent palette.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/how-to-make-an-ai-girlfriend/image-1-side-by-side-decision-diagram.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Side-by-side decision diagram labeled \"DIY path\" on the left and \"Off-the-shelf path\" on the right. Left panel shows three stacked boxes top-to-bottom: \"Rent A100 GPU ($0.72/hr)\", \"Fine-tune Llama-3-8B with LoRA\", \"Wire voice + image gen\". Right panel shows three stacked boxes: \"Pick an app\", \"Design appearance + personality (10 min)\", \"Chat / voice / images included\". A single labeled arrow at the top says \"Choose one.\" Clean editorial illustration, white background, sans-serif labels, warm accent palette.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Side-by-side decision diagram labeled \"DIY path\" on the left and \"Off-the-shelf path\" on the right. Left panel shows three stacked boxes top-to-bottom: \"Rent A100 GPU ($0.72/hr)\", \"Fine-tune Llama-3-8B with LoRA\", \"Wire voice + image gen\". Right panel shows three stacked boxes: \"Pick an app\", \"Design appearance + personality (10 min)\", \"Chat / voice / images included\". A single labeled arrow at the top says \"Choose one.\" Clean editorial illustration, white background, sans-serif labels, warm accent palette.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Four-layer architecture diagram for a DIY AI girlfriend build. Stack from bottom to top: \"Compute layer \u2014 rented A100 GPU\"",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Four-layer architecture diagram for a DIY AI girlfriend build. Stack from bottom to top: \"Compute layer \u2014 rented A100 GPU\"",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/how-to-make-an-ai-girlfriend/image-2-four-layer-architecture-diagra.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Four-layer architecture diagram for a DIY AI girlfriend build. Stack from bottom to top: \"Compute layer \u2014 rented A100 GPU\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Four-layer architecture diagram for a DIY AI girlfriend build. Stack from bottom to top: \"Compute layer \u2014 rented A100 GPU\"; \"Model layer \u2014 Llama-3-8B-Instruct + LoRA fine-tune\"; \"Memory layer \u2014 vector store (embed / retrieve / rerank)\" (this layer rendered with a colored accent badge labeled \"the part every guide skips\"); \"Interface layer \u2014 voice (ElevenLabs) + image (SDXL) + chat UI (Gradio)\". Arrows show data flow upward; a feedback loop arrow returns from interface back to memory. Clean editorial illustration, white background, sans-serif labels, cool accent palette.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://www.vice.com/en/article/n7ezkm/replika-ai-erotic-roleplay-restored-but-it-feels-different",
+        "selector": "article",
+        "crop": "padded",
+        "what": "Vice on the Replika 2023 ERP rollback \u2014 users reporting their long-running companions felt like different characters after the model patch"
+      },
+      "alt": "Vice on the Replika 2023 ERP rollback \u2014 users reporting their long-running companions felt like different characters after the model patch",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/how-to-make-an-ai-girlfriend/external-4-vice-on-the-replika-2023-erp-r.png",
+        "url": "https://www.vice.com/en/article/n7ezkm/replika-ai-erotic-roleplay-restored-but-it-feels-different",
+        "final_url": "https://www.vice.com/en/article/n7ezkm/replika-ai-erotic-roleplay-restored-but-it-feels-different",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 462,
+          "stddev_normalized": 0.2966,
+          "bytes": 45874
+        },
+        "sub": "news-quote"
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://www.vice.com/en/article/n7ezkm/replika-ai-erotic-roleplay-restored-but-it-feels-different;selector=article;crop=padded;what=Vice on the Replika 2023 ERP rollback \u2014 users reporting their long-running companions felt like different characters after the model patch]",
+      "legacy": false
+    }
+  ]
+}

@@ -24,7 +24,7 @@ Requires STRAPI_BASE_URL and STRAPI_API_TOKEN env vars.
 - `README.md` — this file
 
 ## Stats
-- Word count: 3317
+- Word count: 201
 - Description length: 75 chars (cap 80)
-- Read time: ~15 min (computed at 220 wpm; informational only — not in payload)
-- Blocks: 1
+- Read time: ~1 min (computed at 220 wpm; informational only — not in payload)
+- Blocks: 7
