@@ -1,0 +1,22 @@
+slug,target_keyword,cluster,published_at,strapi_id,indexed,gsc_clicks_7d,gsc_impressions_7d,gsc_avg_position,rank_dataforseo,ai_overview_present,ai_cited,last_checked,status,last_action
+ai-girlfriend-simulator,ai girlfriend simulator,ai-girlfriend-core,2026-06-10,clym73j0nrwsik3taapf5xki,yes,8,78,38.2,>20,no,no,2026-06-10,baseline,visual+dedication redo republished 2026-06-10
+ai-girlfriend-apps,ai girlfriend apps,ai-girlfriend-core,2026-06-10,,pending,0,0,,pending,pending,pending,2026-06-10,baseline,baseline 2026-06-10
+ai-girlfriend-experience,ai girlfriend experience,ai-girlfriend-core,2026-06-10,,pending,0,0,,pending,pending,pending,2026-06-10,baseline,baseline 2026-06-10
+how-to-make-an-ai-girlfriend,how to make an ai girlfriend,ai-girlfriend-core,2026-06-10,,pending,0,0,,pending,pending,pending,2026-06-10,baseline,baseline 2026-06-10
+yandere-ai-girlfriend-simulator,yandere ai girlfriend simulator,ai-girlfriend-core,2026-05-07,,yes,11,75,42.2,>20,no,no,2026-06-10,baseline,baseline 2026-06-10
+is-having-an-ai-girlfriend-cheating,is having an ai girlfriend cheating,ai-girlfriend-core,2026-05-11,,yes,0,0,,pending,pending,pending,2026-06-10,baseline,baseline 2026-06-10
+character-ai-alternative,character ai alternative,ai-girlfriend-core,2026-06-10,,pending,0,0,,pending,pending,pending,2026-06-10,baseline,baseline 2026-06-10
+best-uncensored-ai-chatbot-free,best uncensored ai chatbot,uncensored-nofilter-chat,2026-05-08,,yes,6,17,29.6,>20,no,no,2026-06-10,baseline,baseline 2026-06-10
+ai-chatbot-no-filter-2026,ai chatbot no filter,uncensored-nofilter-chat,2026-06-10,,yes,5,5,19.8,>20,no,no,2026-06-10,baseline,baseline 2026-06-10
+ai-chatbot-app-guide-2026,ai chatbot app,uncensored-nofilter-chat,2026-06-10,,pending,0,0,,pending,pending,pending,2026-06-10,baseline,baseline 2026-06-10
+tavern-ai-review-2026,tavern ai,uncensored-nofilter-chat,2026-06-10,,pending,0,0,,pending,pending,pending,2026-06-10,baseline,baseline 2026-06-10
+crushon-ai-review-2026,crushon ai review,uncensored-nofilter-chat,2026-05-08,,yes,0,0,,pending,pending,pending,2026-06-10,baseline,baseline 2026-06-10
+muah-ai-review,muah ai review,uncensored-nofilter-chat,2026-05-11,,yes,0,0,,pending,pending,pending,2026-06-10,baseline,baseline 2026-06-10
+dirty-ai-guide-2026,dirty ai,adult-nsfw-interaction,2026-06-10,,yes,14,245,7.4,>20,no,no,2026-06-10,baseline,baseline 2026-06-10
+ai-sexting-app,ai sexting app,adult-nsfw-interaction,2026-06-10,,pending,0,0,,>20,no,no,2026-06-10,baseline,baseline 2026-06-10
+ai-companion-safety-checklist,ai companion safety checklist,trust-safety,2026-05-24,,yes,0,0,5.0,pending,unknown,no,2026-06-10,flat,PLE-55 post-publish verify DONE 2026-06-10: HTTP200 H1 ok; canonical+BlogPosting+FAQPage(5Q)+OG/Twitter all PASS; indexed(crawl 2026-06-02); 28d GSC 1impr/0clk/pos5(junk) ~0 organic; cadence +14(06-24)/+30(07-10)/+60(08-09); lever=build trust-safety cluster
+ai-boyfriend,ai boyfriend,ai-girlfriend-core,2026-06-10,mea34w3986r38h6i674p0x5e,no,0,0,,pending,no,no,2026-06-10,baseline,published live verified 2026-06-10 (quality 88) HTTP200 H1 ok
+dirty-talking,dirty talking,adult-nsfw-interaction,2026-06-10,u1m4s58rabjw5bvnbcxf4ul3,no,0,0,,pending,no,no,2026-06-10,baseline,published live verified 2026-06-10 (quality 90) HTTP200 H1 ok
+ai-sexting,ai sexting,adult-nsfw-interaction,2026-06-10,g0ktv85eeosy1ddocogy8yxb,no,0,0,,pending,no,no,2026-06-10,baseline,published live verified 2026-06-10 (quality 91) HTTP200 H1 ok concept-guide distinct from ai-sexting-app roundup
+ai-companion-best-memory,best ai companion app with memory,ai-girlfriend-core,2026-06-10,h3rsjsd2ztsjo1iftycjcujn,no,0,0,,pending,yes,no,2026-06-10,baseline,"Published+LIVE verified 2026-06-10 HTTP200 H1 ok (Strapi id1372/Supabase id1371); 404 was Strapi->Supabase poller leaving row draft -> self-fixed via data-flip (MEMORY.md standing step, PLE-1334 systemic); gates quality PASS 88/claims 7-7/compliance clean; AIO present cites Nomi = baseline gap"
+janitorai-alternatives-2026,janitorai alternatives,competitor-alternatives,2026-06-10,lmjvwf4t9e74s2ewlu4m7icn,pending,0,0,,pending,yes,pending,2026-06-10,baseline,"PLE-1451/PLE-1448#2 compliant publish — no-ID hook removed per content-policy Part 3; Strapi PUT 200 publishedAt set live in CMS; quality 95 all gates PASS; HARD-STOP grep clean; auto_publish_check FAIL = public render pending frontend rebuild + checker host=strapiapp.com not pleasur.ai (BLOG_PUBLIC_BASE_URL unset) -> 9-needs-review; re-verify pleasur.ai/blog/janitorai-alternatives-2026 after rebuild"
