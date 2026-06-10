@@ -2,7 +2,7 @@ The best JanitorAI alternatives in 2026 are SpicyChat for a genuinely free optio
 
 JanitorAI's [April 2026 age-verification rollout](https://www.roborhythms.com/janitor-ai-age-verification-rollout/) sent its own subreddit looking for the exit. The replacement lists mostly read the same — ten apps, a few badges, not much honesty. This one is different. You get the shortlist, a clean comparison, a fair verdict on each app, and answers to the questions people actually ask.
 
-![Clean editorial flow illustration titled "Pick by what you want". A single labeled box on the left "Leaving JanitorAI?" with four arrows pointing right to four labeled outcome boxes: "Free -> SpicyChat", "Budget -> CrushOn", "Emotional depth -> Nomi", "Memory + NSFW -> Pleasur.ai". Minimal, white background, sans-serif labels, no people, brand-neutral colors.](images/janitorai-alternatives-2026/image-1-clean-editorial-flow-illustrat.png)
+![Clean editorial flow illustration titled "Pick by what you want". A single labeled box on the left "Leaving JanitorAI?" with four arrows pointing right to four labeled outcome boxes: "Free -> SpicyChat", "Budget -> CrushOn", "Emotional depth -> Nomi", "Memory + NSFW -> Pleasur.ai". Minimal, white background, sans-serif labels, no people, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_clean_editorial_flow_illustrat_43b2170cc2.png)
 
 ## What changed at JanitorAI in 2026
 
@@ -35,7 +35,7 @@ CrushOn.ai is the budget pick. It holds context better than JanitorAI did across
 
 Nomi is the one to beat on feeling. If long-term emotional continuity is what you're after — a companion that remembers your life and grows with you — Nomi does that better than we do. We'd rather say so plainly than pretend otherwise.
 
-![Monthly price by app (USD)](images/janitorai-alternatives-2026/chart-2-monthly-price-by-app-usd.png)
+![Monthly price by app (USD)](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_2_monthly_price_by_app_usd_cb1624f8e5.png)
 
 ## Where Pleasur.ai fits — memory, NSFW, and honest pricing
 
@@ -77,4 +77,4 @@ The best JanitorAI alternative in 2026 is the one that matches your priority: Sp
 
 Start with what you care about most. If you're still weighing options, our guide to the [Best AI Girlfriend Apps: Choose Safely in 2026](https://pleasur.ai/blog/ai-girlfriend-apps) walks through the same decision with more room to breathe.
 
-![Clean editorial diagram titled "Memory that carries across chats". Three labeled stages left-to-right: "Session 1: you tell it something" (speech bubble), "Stored profile" (folder icon labeled "remembered details"), "Session 2: it remembers" (speech bubble referencing the detail). Arrows connect the stages, a loop arrow returns from Session 2 to Stored profile. White background, sans-serif labels, no people, brand-neutral colors.](images/janitorai-alternatives-2026/image-3-clean-editorial-diagram-titled.png)
+![Clean editorial diagram titled "Memory that carries across chats". Three labeled stages left-to-right: "Session 1: you tell it something" (speech bubble), "Stored profile" (folder icon labeled "remembered details"), "Session 2: it remembers" (speech bubble referencing the detail). Arrows connect the stages, a loop arrow returns from Session 2 to Stored profile. White background, sans-serif labels, no people, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_3_clean_editorial_diagram_titled_e71c691dd3.png)
