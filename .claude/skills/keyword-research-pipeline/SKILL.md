@@ -6,11 +6,34 @@ allowed-tools: Read, Write, Bash, Agent, Glob
 
 # Keyword Research Pipeline (Master Orchestrator)
 
+## DataForSEO migration note (2026-06-10)
+
+Semrush is retired for this pipeline. The operational data layer is DataForSEO, with the
+endpoint and threshold mapping pinned in
+`.claude/skills/keyword-research-pipeline/references/dataforseo-metric-translation.md`.
+
+For the current autonomous run path, execute:
+
+```bash
+DOPPLER_TOKEN="$DOPPLER_KEY" doppler run --project pleasurai --config dev -- \
+  python3 scripts/dataforseo_keyword_pipeline.py --per-seed-limit 35 --serp-limit 70
+```
+
+That script performs the mapped endpoint smoke test, logs DataForSEO spend, builds
+`content-pipeline/0-keywords/keyword-ideas.csv`, applies deterministic BID/AIO gates,
+and writes the top-50 vetted `content-pipeline/0-keywords/keyword-queue.csv`.
+
+Layer 1c (`keyword-aio-gap`) is **SKIPPED** under DataForSEO because there is no
+multi-engine ChatGPT/Gemini/Perplexity/Copilot citation-share equivalent. Do not
+fake `aio_gap` rows or `aio_sov_competitor_top`. ContentShake-style external scoring
+is optional soft-fail; keep the deterministic quality, judgment rewrite, and
+voice-drift rollback gates.
+
 Take a brand and produce a *vetted* keyword queue (`keyword-queue.csv`) ready for the autonomous blog loop. Layered chain (0 → 1a → 1b → 1c → 1d → 2 → 3 → 4 → 5), each rejecting candidates with reasons logged, each dispatched as a fresh Agent.
 
 This is the upstream of `auto-blog-loop`. The blog loop reads the queue this orchestrator emits — never the raw `keyword-ideas.csv`.
 
-> **Threshold reminder.** Every layer in this chain is recalibrated against `.claude/skills/keyword-research-pipeline/references/semrush-metric-translation.md`. If a brief tells a layer to apply a numeric threshold, the underlying skill's gate should already match the metric-translation doc — do not let an Agent invent its own threshold from training data. **`mcp__ahrefs__*` is retired**; if any sub-agent reaches for an Ahrefs tool, that's a migration leftover bug, not a fallback.
+> **Threshold reminder.** Every layer in this chain is recalibrated against `.claude/skills/keyword-research-pipeline/references/dataforseo-metric-translation.md`. If a brief tells a layer to apply a numeric threshold, the underlying skill's gate should already match the metric-translation doc — do not let an Agent invent its own threshold from training data. **`mcp__semrush__*` and `mcp__ahrefs__*` are retired for keyword research**; if any sub-agent reaches for either provider, that's a migration leftover bug, not a fallback.
 
 ## Invocation
 

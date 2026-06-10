@@ -1,0 +1,134 @@
+{
+  "endpoints": [
+    {
+      "cost_usd": 0.0101,
+      "endpoint": "/dataforseo_labs/google/keyword_overview/live",
+      "endpoint_key": "keyword_overview",
+      "observed_at": "2026-06-10T01:39:20Z",
+      "observed_fields": [
+        "avg_backlinks_info",
+        "clickstream_keyword_info",
+        "keyword",
+        "keyword_info",
+        "keyword_info_normalized_with_bing",
+        "keyword_info_normalized_with_clickstream",
+        "keyword_properties",
+        "language_code",
+        "location_code",
+        "se_type",
+        "search_intent_info",
+        "search_partners",
+        "keyword_info.categories,competition,competition_level,cpc,high_top_of_page_bid,last_updated_time",
+        "keyword_properties.core_keyword,detected_language,is_another_language,keyword_difficulty,se_type,synonym_clustering_algorithm",
+        "search_intent_info.foreign_intent,last_updated_time,main_intent,se_type"
+      ],
+      "provider": "DataForSEO",
+      "status_code": 200,
+      "task_count": 1
+    },
+    {
+      "cost_usd": 0.0101,
+      "endpoint": "/dataforseo_labs/google/keyword_suggestions/live",
+      "endpoint_key": "keyword_suggestions",
+      "observed_at": "2026-06-10T01:39:21Z",
+      "observed_fields": [
+        "avg_backlinks_info",
+        "clickstream_keyword_info",
+        "keyword",
+        "keyword_info",
+        "keyword_info_normalized_with_bing",
+        "keyword_info_normalized_with_clickstream",
+        "keyword_properties",
+        "language_code",
+        "location_code",
+        "se_type",
+        "search_intent_info",
+        "serp_info",
+        "keyword_info.categories,competition,competition_level,cpc,high_top_of_page_bid,last_updated_time",
+        "keyword_properties.core_keyword,detected_language,is_another_language,keyword_difficulty,se_type,synonym_clustering_algorithm",
+        "search_intent_info.foreign_intent,last_updated_time,main_intent,se_type"
+      ],
+      "provider": "DataForSEO",
+      "status_code": 200,
+      "task_count": 1
+    },
+    {
+      "cost_usd": 0.0101,
+      "endpoint": "/dataforseo_labs/google/keyword_ideas/live",
+      "endpoint_key": "keyword_ideas",
+      "observed_at": "2026-06-10T01:39:22Z",
+      "observed_fields": [
+        "avg_backlinks_info",
+        "clickstream_keyword_info",
+        "keyword",
+        "keyword_info",
+        "keyword_info_normalized_with_bing",
+        "keyword_info_normalized_with_clickstream",
+        "keyword_properties",
+        "language_code",
+        "location_code",
+        "se_type",
+        "search_intent_info",
+        "serp_info",
+        "keyword_info.categories,competition,competition_level,cpc,high_top_of_page_bid,last_updated_time",
+        "keyword_properties.core_keyword,detected_language,is_another_language,keyword_difficulty,se_type,synonym_clustering_algorithm",
+        "search_intent_info.foreign_intent,last_updated_time,main_intent,se_type"
+      ],
+      "provider": "DataForSEO",
+      "status_code": 200,
+      "task_count": 1
+    },
+    {
+      "cost_usd": 0.0101,
+      "endpoint": "/dataforseo_labs/google/competitors_domain/live",
+      "endpoint_key": "competitors_domain",
+      "observed_at": "2026-06-10T01:39:23Z",
+      "observed_fields": [
+        "avg_position",
+        "competitor_metrics",
+        "domain",
+        "full_domain_metrics",
+        "intersections",
+        "metrics",
+        "se_type",
+        "sum_position"
+      ],
+      "provider": "DataForSEO",
+      "status_code": 200,
+      "task_count": 1
+    },
+    {
+      "cost_usd": 0.0101,
+      "endpoint": "/dataforseo_labs/google/domain_intersection/live",
+      "endpoint_key": "domain_intersection",
+      "observed_at": "2026-06-10T01:39:24Z",
+      "observed_fields": [
+        "first_domain_serp_element",
+        "keyword_data",
+        "se_type",
+        "second_domain_serp_element",
+        "keyword_data.avg_backlinks_info,clickstream_keyword_info,keyword,keyword_info,keyword_info_normalized_with_bing,keyword_info_normalized_with_clickstream"
+      ],
+      "provider": "DataForSEO",
+      "status_code": 200,
+      "task_count": 1
+    },
+    {
+      "cost_usd": 0.002,
+      "endpoint": "/serp/google/organic/live/advanced",
+      "endpoint_key": "serp_advanced",
+      "observed_at": "2026-06-10T01:39:26Z",
+      "observed_fields": [
+        "items.type=images,organic,perspectives,short_videos"
+      ],
+      "provider": "DataForSEO",
+      "status_code": 200,
+      "task_count": 1
+    }
+  ],
+  "language_code": "en",
+  "location_code": 2840,
+  "observed_at": "2026-06-10T01:39:20Z",
+  "run_total_cost_usd": 0.6469,
+  "total_cost_usd": 0.0525
+}

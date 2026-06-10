@@ -1,6 +1,8 @@
 # Blog Agent — Project Instructions for Claude Code
 
-This is a content engineering pipeline that turns a keyword into a publish-ready blog article. It adapts Ryan Law's content-engineering method (originally described [here](https://ahrefs.com/blog/how-i-do-content-engineering-with-claude-code/)) to **Semrush's Power 1 MCP** as the single source of SEO + AI-search data. The Ryan Law method (BID, AIO cannibalization, redteam, prioritization) is preserved verbatim — only the data source changes, and the keyword research pipeline is enhanced with Semrush capabilities Ahrefs lacked (Topic Research, .Trends, Keyword Strategy Builder, AI Toolkit, ContentShake AI).
+This is a content engineering pipeline that turns a keyword into a publish-ready blog article. It adapts Ryan Law's content-engineering method (originally described [here](https://ahrefs.com/blog/how-i-do-content-engineering-with-claude-code/)) to **DataForSEO** as the source of SEO, keyword, SERP, and AI Overview data. The Ryan Law method (BID, AIO cannibalization, redteam, prioritization) is preserved, but all provider-specific metrics must be interpreted through `.claude/skills/keyword-research-pipeline/references/dataforseo-metric-translation.md`.
+
+**2026-06-10 provider ruling:** Semrush MCP is retired for keyword research. Do not call `mcp__semrush__*` or `mcp__ahrefs__*` as a fallback. The runnable path is `scripts/dataforseo_keyword_pipeline.py` through Doppler.
 
 ## How this project works
 
@@ -32,19 +34,19 @@ Every drafting/editing skill must:
 ## The pipeline
 
 ### Keyword research (top of funnel — fills `keyword-queue.csv`)
-0. `/topic-discovery` — Semrush Topic Research + .Trends category-level idea graph & trending topics (Layer 0; idempotent)
+0. `/topic-discovery` — DataForSEO-backed seed/category discovery where available; otherwise brand-config seeds (Layer 0; idempotent)
 1. `/seed-modifier-prompt` — generate seeds + modifiers, grounded in Layer 0's topic graph
-2. `/content-gap-analysis` — Semrush Organic Competitors + multi-mode Keyword Gap (common/missing/weak/strong/unique)
-3. `/keyword-aio-gap` — Semrush AI Toolkit (multi-engine: AIO, ChatGPT, Gemini, Perplexity, Copilot)
-4. `/keyword-question-mining` — Keyword Magic "Questions" filter + PAA mining (Layer 1d)
-5. `/keyword-vet-bid` — BID method (Business / Intent / Difficulty); Semrush AS + KD% + intent classifier
-6. `/keyword-vet-aio` — AIO cannibalization check via AI Toolkit AI Response
+2. `/content-gap-analysis` — DataForSEO Competitors Domain + Domain Intersection + keyword suggestions/ideas
+3. `/keyword-aio-gap` — SKIPPED under DataForSEO; no multi-engine citation-share equivalent
+4. `/keyword-question-mining` — DataForSEO keyword suggestions question filter + SERP People Also Ask mining (Layer 1d)
+5. `/keyword-vet-bid` — BID method (Business / Intent / Difficulty); DataForSEO keyword difficulty + `search_intent_info` + SERP shape
+6. `/keyword-vet-aio` — AIO cannibalization check via DataForSEO SERP Advanced `ai_overview` item
 7. `/keyword-redteam` — adversarial sub-agent challenges survivors
 8. `/keyword-prioritization` — emit `keyword-queue.csv` (top 50 ranked)
 9. `/keyword-research-pipeline` — run all of the above end-to-end
 
 ### Creation (keyword → publish-ready article)
-1. `/research` — Semrush Keyword Magic Tool + Topic Research + SERP analysis + top-page summaries + **deep web research via Perplexity (OpenRouter)**
+1. `/research` — DataForSEO keyword/SERP metrics + top-page summaries + **deep web research via Perplexity (OpenRouter)**
 4. `/brand-reference` — find existing articles on your blog covering this topic
 5. `/outline` — H2/H3 structure with BLUFs
 6. `/product-mentions` — annotate where to mention which products
