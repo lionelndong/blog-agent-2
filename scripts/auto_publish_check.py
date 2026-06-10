@@ -85,10 +85,11 @@ def main() -> None:
     parser.add_argument("--blog-path", default="/blog", help="Path prefix on the public site (default /blog)")
     args = parser.parse_args()
 
-    base = os.environ.get("STRAPI_BASE_URL") or os.environ.get("BLOG_PUBLIC_BASE_URL")
-    if not base:
-        print("error: STRAPI_BASE_URL (or BLOG_PUBLIC_BASE_URL) env var required", file=sys.stderr)
-        sys.exit(2)
+    # The PUBLIC reader site is pleasur.ai, NOT the Strapi CMS host (STRAPI_BASE_URL =
+    # *.strapiapp.com 404s for every blog slug). Prefer the public host; default to the
+    # known reader site so a missing env var never false-quarantines a live article.
+    # (PLE-1334/PLE-1448: STRAPI_BASE_URL precedence caused the post-publish 404 false alarm.)
+    base = os.environ.get("BLOG_PUBLIC_BASE_URL") or "https://pleasur.ai"
 
     expected = args.expected_title or expected_title_from_payload(args.slug)
     public_url = f"{base.rstrip('/')}{args.blog_path}/{args.slug}"

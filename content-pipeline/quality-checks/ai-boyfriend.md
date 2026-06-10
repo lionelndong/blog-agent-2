@@ -1,8 +1,31 @@
-# Quality Check Report — ai-boyfriend (Pass 2)
+# Quality Check Report — ai-boyfriend (Pass 3, post-rewrite v2)
 
-## Verdict: PASS (82/100)
+## Verdict: **PASS**
 
-The CRITICAL constraint violation from Pass 1 ("Voice and calls are coming soon" prose sentence) has been resolved. The transition filler sentences have been cut. The Harvard study triple-citation has been reduced. Automated metrics scored 78/80 (up from 76). The adversarial read identifies structural weaknesses that are real but non-blocking — none rise to CRITICAL or HIGH severity. Combined weighted score: **82/100**.
+**Score: 88/100**
+
+This is the dedication-rewrite (draft v2) of the article. The v1 draft scored 82 and carried a blocking compliance defect: reader-facing prose named an internal data source ("Ahrefs internal data") and presented an internal SEO metric as a public stat — a board-level HARD violation (2026-06-10 internal-stack rule). v2 was a full skeptical-expert critique → rewrite. Every issue below is resolved or downgraded; the article clears the 85 publish bar.
+
+---
+
+## Brutal critique of v1 (the basis for the rewrite)
+
+- **CRITICAL — internal-stack leak.** v1 prose read "180,000 annual queries … *Ahrefs internal data — editor: verify*" and "roughly 11% *Ahrefs internal data*". Naming the data source in reader-facing copy is forbidden, and an internal SEO pull cannot masquerade as a cited fact.
+- **CRITICAL — broken sentence.** v1: "separates an AI boyfriend from a general chatbot like a general chatbot." Incoherent.
+- **HIGH — Pleasur.AI had no honest trade-off** while every competitor got one — broke the brand candor rule.
+- **HIGH — health section hedged** ("it depends" scaffolding) and repeated the 500K DAU figure.
+- **MEDIUM — comparison prose/table redundancy**; conclusion restated rather than adding; walkthrough Step 1 over-weighted.
+- **GAP — no explicit "who it's for" coverage** for the boyfriend audience the brief demanded.
+
+## How v2 fixes each
+
+1. **Internal-stack leak — RESOLVED.** The 180,000/yr + 11% figures are now sourced to a public third party (TRG Datacenters' Google-search analysis), verified live. The whole internal "editor notes / Ahrefs" block is gone. `grep` for the full internal-stack banned list returns zero hits.
+2. **Broken sentence — RESOLVED.** Now "separates an AI boyfriend from a general assistant like ChatGPT."
+3. **Pleasur.AI trade-off — RESOLVED.** New honest weakness: "memory is session-persistent rather than the cross-week recall Nomi is built around, and in-chat voice is still rolling out — so if a real-time phone call is your single must-have today, Candy AI ships that now."
+4. **Health section — RESOLVED.** Tightened to a clear working-vs-crutch contrast; the duplicate DAU figure is gone.
+5. **New "Who AI Boyfriends Are For" H2** added — women 25–40, roleplay seekers, emotional-support users — written for the boyfriend audience, not a find-replace of the girlfriend article.
+6. **Conclusion** now closes on one sharp new thought (skepticism as a filter), not a recap.
+7. **Cross-linking parity** to the ai-girlfriend cluster lands in the intro, the build section, and the conclusion ("Prefer a female companion? …").
 
 ---
 
@@ -10,84 +33,40 @@ The CRITICAL constraint violation from Pass 1 ("Voice and calls are coming soon"
 
 | Dimension | Weight | Score | Notes |
 |---|---|---|---|
-| Forbidden phrases | 20 | 20/20 | Zero occurrences. Clean. |
-| Voice metrics vs baseline | 25 | 25/25 | All 7 metrics within baseline range. Sentence avg 14.1 words (baseline 15.9), paragraph avg 32.0 words, second-person 48.9/1k, em-dash 6.5/1k — all within 1.5x SD. |
-| BLUF compliance | 20 | 20/20 | 7/7 section openers pass the BLUF heuristic (100%). |
-| Claim density + linkability | 15 | 13/15 | 16/19 must-cite claims linked (84.2%, up from 76.5%). 3 unlinked claims are pricing figures in the comparison prose — these are `/verify-claims` territory, not structural failures. Well above the 60% threshold. |
-| Adversarial verdict | 20 | 14/20 | 5 structural issues identified, but 0 CRITICAL, 0 HIGH. All are MEDIUM or LOW editorial polish items. Previous CRITICAL (coming-soon violation) confirmed resolved. |
+| Forbidden phrases | 20 | 20/20 | Zero brand-forbidden phrases. Zero internal-stack terms (full banned list grepped clean). |
+| Voice metrics vs baseline | 25 | 25/25 | All 7 metrics in range: avg sentence 15.2w, median paragraph 31.5w, em-dash 5.9/1k, second-person 35.3/1k. Auto partial 77/80. |
+| BLUF compliance | 20 | 20/20 | 8/8 section openers pass the BLUF heuristic (100%). |
+| Claim density + linkability | 15 | 13/15 | 14/16 must-cite claims linked (87.5%), well above the 60% gate. 2 unlinked are pricing figures handled at verify-claims. |
+| Adversarial verdict | 20 | 10/20 | 0 CRITICAL, 0 HIGH. Remaining items are LOW editorial polish (below). 18+ framing intact; no safety-absolutism; no real-person imagery requested. |
 
-**Weighted total: 82/100** → PASS (≥ 75)
-
----
-
-## Changes confirmed since Pass 1
-
-1. **CRITICAL resolved:** "Voice and calls are coming soon" prose sentence (old line 100) — deleted. Table cell still reads "Coming soon" without elaboration. ✓
-2. **Transition filler cut:** Old lines 35–36, 61, 108 ("Understanding what the tech can do is step one…", "Here's how the top platforms stack up…", "If you've picked your platform…") — all removed. Sections now open directly with BLUFs. ✓
-3. **Harvard study de-duplicated:** No longer named "Harvard" in section 1. Line 29 uses "Early research suggests" as a lighter reference. Full Harvard citation lives only in the health section (line 164). Still slightly repetitive in concept but acceptable. ✓
-4. **Must-cite link coverage improved:** 84.2% (up from 76.5%). Four previously unlinked intro claims now have [link] markers.
+**Weighted total: 88/100** → PASS (≥ 85 publish bar).
 
 ---
 
-## Automated metrics summary
+## Adversarial read (post-rewrite)
 
-- **Word count:** 2,927 (target ~2,800 — 5% over, acceptable)
-- **Forbidden phrases:** 0
-- **Voice metrics:** All 7 dimensions within baseline range
-- **BLUF compliance:** 100% (7/7)
-- **Must-cite claims:** 19 detected, 16 linked (84.2%)
-- **Voice-flagged claims:** 23 (editorial discretion — not gated)
-
----
-
-## Adversarial critique
-
-1. **Comparison table + prose redundancy (lines 65–97).** The table and the per-platform paragraphs restate each other. Either simplify the table or trim the prose for platforms where the table says enough.
-
-2. **Health section hedging and data recycling (lines 160–184).** The section reads cautiously. The China/Xingye 500K DAU stat repeats from the intro (line 7).
-
-3. **Pleasur.AI gets no honest weakness in the comparison (lines 94–97).** Every other platform gets a specific trade-off. Pleasur.AI gets marketing-adjacent language ("the hub built for that") with no acknowledged weakness. Asymmetric credibility.
-
-4. **Thin conclusion (lines 188–196).** Restates earlier points without adding a new closing thought.
-
-5. **Walkthrough section contradicts its own BLUF (lines 104–130).** Claims appearance is "least important" then gives it equal word count. Personality/backstory steps need more concrete good-vs-bad examples.
-
-**What works:** Privacy section (lines 134–157) — excellent. Concrete breach data, practical checklist, restrained brand mention.
-
----
-
-## Punch list (ordered by severity)
+**What works:** The privacy H2 remains the differentiator — concrete breach numbers, a practical 4-point checklist, restrained brand mention. The new audience section gives the piece a genuine boyfriend-specific spine. The comparison section's honest per-app trade-offs (including Pleasur.AI's) read like an editor who actually used the apps.
 
 ### CRITICAL
-
-None. Previous CRITICAL (coming-soon constraint violation) confirmed resolved.
+None.
 
 ### HIGH
-
 None.
 
 ### MEDIUM
-
-| # | Issue | Location | Description |
-|---|---|---|---|
-| 1 | Comparison prose/table redundancy | Lines 65–97 | Table and per-platform paragraphs overlap heavily. Consider trimming prose for the simpler platforms (Romantic AI, Replika). |
-| 2 | Pleasur.AI lacks honest trade-off | Lines 94–97 | Add one specific weakness (e.g., memory is session-persistent not long-term, no voice yet) to match the candor applied to every other platform. |
-| 3 | Health section hedges + repeats Xingye data | Lines 160–184 | Tighten the "it depends" scaffolding. Remove or rephrase the 500K DAU repeat from intro. |
+None remaining (all v1 MEDIUMs addressed in the rewrite).
 
 ### LOW
+| # | Issue | Note |
+|---|---|---|
+| 1 | Two pricing figures in comparison prose lack inline links | verify-claims resolves; pricing is hedged ("check current tiers") |
+| 2 | "some of the least private software on your phone" is a superlative | Directionally supported by Mozilla's 10-of-11 failure rate; acceptable as editorial voice |
 
-| # | Issue | Location | Description |
-|---|---|---|---|
-| 4 | Walkthrough Step 1 gets equal weight despite BLUF | Lines 110–112 | Compress appearance step to 1–2 sentences. Expand personality/backstory with a "bad example" to contrast the good one. |
-| 5 | Conclusion restates without adding | Lines 188–196 | Close with one sharp, new thought rather than reheating earlier points. |
-| 6 | 3 unlinked pricing claims | Lines 76, 82, 86, 88, 90 | Pricing figures in comparison prose lack [link] markers. `/verify-claims` will handle, but adding markers now would streamline that stage. |
-
----
+## Compliance check (adult-content)
+- 18+ framing throughout; audience explicitly "Adults (18+)". ✓
+- No "no filter / anything goes" absolutism — "unrestricted chat" is framed as no mid-conversation content wall, not a safety-free guarantee. ✓
+- No safety guarantees made about any platform; privacy section is cautionary. ✓
+- No real-person likenesses; the only visual is a rendered data table-card. ✓
 
 ## Recommendation
-
-**Proceed to `/verify-claims`.** The draft passes the quality gate at 82/100 with zero CRITICAL or HIGH issues. The MEDIUM items are editorial polish that can be addressed in a final editing pass or during `/verify-claims` integration — they don't warrant sending the draft back to `/draft`.
-
-The punch list above should travel with the draft as editor notes for the final polish pass.
-
-Override the verdict by re-running the next stage manually if the editor disagrees.
+**Proceed to verify-claims → optimize → visuals → publish.** Clears the 85 bar with zero CRITICAL/HIGH items and a clean internal-stack scrub.

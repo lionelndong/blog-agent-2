@@ -16,7 +16,7 @@ It sits inside the broader [AI chatbot app](https://pleasur.ai/blog/ai-chatbot-a
 
 ChatGPT writes you a marketing email. An AI girlfriend asks how your day went and remembers you mentioned a cat named Mitzi.
 
-It's not the same as ChatGPT or Claude with a flirty system prompt. Those models hard-block adult content and have no continuous memory of you across sessions. You can coax them into a single playful reply; you can't build a relationship with them.
+It's not the same as a general chatbot with a flirty prompt. Those models hard-block adult content and have no continuous memory of you across sessions. You can coax them into a single playful reply; you can't build a relationship with them.
 
 It's also not the same as an "AI companion" in the Replika-style platonic sense. And it's not a one-off NSFW chatbot with no character behind it.
 

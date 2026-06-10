@@ -42,7 +42,7 @@ Pleasur.AI's [AI Companion Creator](https://pleasur.ai/create) is one example of
 
 Open the Companion Creator and you're walked through fields most chatbots never expose. Appearance presets. A personality slider. A backstory text box. A voice profile picker. By the time you hit chat, the character has a spec sheet.
 
-The 90-second magic is real and reproducible. The character introduces herself, references a detail you set up minutes ago, asks a follow-up. People who've only used ChatGPT or Claude with a flirty system prompt feel the difference immediately.
+The 90-second magic is real and reproducible. The character introduces herself, references a detail you set up minutes ago, asks a follow-up. People who've only used a general chatbot with a flirty prompt feel the difference immediately.
 
 There's no safety lecture. No "as an AI language model." No flat affect. The character stays in scene because the platform was built to let her.
 

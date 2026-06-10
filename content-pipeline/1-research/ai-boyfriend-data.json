@@ -49,9 +49,20 @@
     "Europe": 18.0,
     "Rest of World": 11.8
   },
+  "app_comparison": {
+    "columns": ["App", "Memory", "Voice/Calls", "Image Gen", "Customization", "Uncensored", "Free Tier", "Start Price"],
+    "rows": [
+      ["Candy AI", "Within-session", "Yes (sub-1.5s)", "Yes", "Moderate", "Yes", "Limited", "$5.99/mo"],
+      ["Nomi AI", "Best: weeks-long", "Yes", "Limited", "Deep personality", "Yes", "Limited", "$16.99/mo"],
+      ["Kindroid", "Good + key-memory", "Yes", "Yes", "Deep", "Yes", "Limited", "~$14/mo"],
+      ["Replika", "Improves over time", "Yes (Pro)", "No", "Moderate", "Pro only", "Generous", "$19.99/mo"],
+      ["Romantic AI", "Moderate", "No", "Limited", "Moderate", "Yes", "Yes", "~$7/mo"],
+      ["Pleasur.AI", "Session-persistent", "Rolling out", "Yes", "Deep (full)", "Yes, full", "Limited", "Free to start"]
+    ]
+  },
   "_meta": {
-    "source": "Aggregated from WebSearch results: SNS Insider, ArtSmart, AllAboutAI, ChinaTalk, StartupHub, AndroidHeadlines, CompanionGuide, various 2025-2026 market reports and review sites",
+    "source": "Aggregated from public WebSearch results: TRG Datacenters (search volume), SNS Insider, ArtSmart, AllAboutAI, ChinaTalk, Sixth Tone, Roborhythms, Mozilla, Cybernews, Malwarebytes, various 2025-2026 market reports and review sites",
     "generated_at": "2026-05-04",
-    "notes": "Ahrefs MCP unavailable; keyword metrics are estimates from industry reports. Voice call pricing is per-month for the voice tier where known; null means pricing not confirmed. Market size figures vary by source; we used SNS Insider's valuation."
+    "notes": "Keyword metrics sourced to TRG Datacenters' public Google-search analysis. Voice call pricing is per-month for the voice tier where known; null means pricing not confirmed. Market size figures vary by source; we used SNS Insider's valuation. app_comparison feeds the table-card visual."
   }
 }

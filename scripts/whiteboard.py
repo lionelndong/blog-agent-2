@@ -26,7 +26,7 @@ import re
 import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 PIPELINE = ROOT / "content-pipeline"
@@ -43,8 +43,9 @@ STAGES = [
     ("outline", "Outline", "outline", "3-outlines", "{slug}.md", "Structured H2/H3 outline with BLUFs", "md"),
     ("annotated", "Product Mentions", "product-mentions", "4-outlines-annotated", "{slug}.md", "Outline annotated with product touchpoints", "md"),
     ("draft", "Draft", "draft", "5-drafts", "{slug}.md", "Full article prose", "md"),
-    ("quality-check", "Quality Check", "quality-check", "quality-checks", "{slug}-metrics.md", "Voice metrics, BLUF, forbidden phrases, claim density", "md"),
+    ("quality-check", "Quality Check", "quality-check", "quality-checks", "{slug}-metrics.md|{slug}.md", "Voice metrics, BLUF, forbidden phrases, claim density", "md"),
     ("cited", "Verify Claims", "verify-claims", "6-drafts-cited", "{slug}.md", "Claims with real source links", "md"),
+    ("visuals", "Visuals", "generate-visuals", "images/{slug}", "manifest.json", "Generated images/charts for [VISUAL] placeholders", "md"),
     ("screenshots", "Screenshots", "generate-screenshot", "images/{slug}", "screenshot-urls.md", "Tool URLs for each screenshot placeholder", "md"),
     ("preview", "Preview", "preview", "7-preview", "{slug}.html", "Ahrefs-styled HTML preview", "html"),
     ("publish", "Publish", "format-for-publish", "8-publish/{slug}", "article.md", "Strapi-ready markdown + JSON payload", "md"),
@@ -56,8 +57,12 @@ CORE_STAGES = {"research", "reference", "outline", "annotated", "draft", "cited"
 
 def stage_path(slug: str, stage: dict) -> Path:
     rel_dir = stage["dir"].format(slug=slug)
-    file = stage["file"].format(slug=slug)
-    return PIPELINE / rel_dir / file
+    candidates = [f.format(slug=slug) for f in stage["file"].split("|")]
+    for file in candidates:
+        p = PIPELINE / rel_dir / file
+        if p.exists():
+            return p
+    return PIPELINE / rel_dir / candidates[0]
 
 
 def stage_dict(t: tuple) -> dict:
@@ -104,13 +109,31 @@ def list_slugs() -> list[str]:
     return sorted(slugs)
 
 
+IMAGE_EXTS = (".png", ".jpg", ".jpeg", ".webp", ".gif")
+
+
+def slug_images(slug: str) -> list:
+    """Generated images for a slug (underscore-prefixed test files excluded)."""
+    img_dir = PIPELINE / "images" / slug
+    if not img_dir.is_dir():
+        return []
+    return sorted(
+        p for p in img_dir.iterdir()
+        if p.suffix.lower() in IMAGE_EXTS and not p.name.startswith("_")
+    )
+
+
 def slug_status(slug: str) -> dict:
     """For each stage, return (done bool, file path)."""
     out = {}
     for stage in STAGE_DICTS:
         path = stage_path(slug, stage)
+        done = path.exists()
+        # Visuals count as done when images exist, even before manifest.json lands.
+        if stage["key"] == "visuals" and not done:
+            done = bool(slug_images(slug))
         out[stage["key"]] = {
-            "done": path.exists(),
+            "done": done,
             "path": str(path.relative_to(ROOT)),
         }
     return out
@@ -171,8 +194,22 @@ def _basic_md_to_html(md: str) -> str:
     return "\n".join(out)
 
 
+def _img_src(src: str) -> str:
+    """Map article-relative image paths onto the /pipeline/ static route."""
+    if src.startswith(("http://", "https://", "data:", "/pipeline/")):
+        return src
+    if "images/" in src:
+        return "/pipeline/images/" + src.split("images/", 1)[1]
+    return "/pipeline/" + src.lstrip("./")
+
+
 def _inline(text: str) -> str:
     text = re.sub(r"\[SCREENSHOT:\s*(.+?)\]", r'<span class="screenshot-placeholder">[Screenshot: \1]</span>', text)
+    text = re.sub(
+        r"!\[(.*?)\]\((.+?)\)",
+        lambda m: '<img src="%s" alt="%s" style="max-width:100%%;border-radius:8px;">' % (_img_src(m.group(2)), html.escape(m.group(1))),
+        text,
+    )
     text = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)
     text = re.sub(r"(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)", r"<em>\1</em>", text)
     text = re.sub(r"\[(.+?)\]\((.+?)\)", r'<a href="\2" target="_blank" rel="noopener">\1</a>', text)
@@ -571,10 +608,27 @@ def render_stage_panel(slug: str, stage_key: str, stage_status: dict) -> str:
     try:
         raw = file_path.read_text(encoding="utf-8")
     except Exception as e:
-        raw = f"(error reading file: {e})"
+        raw = f"(no file yet: {file_path.name})" if stage_key == "visuals" else f"(error reading file: {e})"
 
-    if stage["kind"] == "html":
-        preview_html = f'<iframe class="preview-iframe" srcdoc="{html.escape(raw)}"></iframe>'
+    if stage_key == "visuals":
+        imgs = slug_images(slug)
+        if imgs:
+            cells = "".join(
+                f'<figure style="margin:0;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px;">'
+                f'<a href="/pipeline/images/{html.escape(slug)}/{html.escape(p.name)}" target="_blank">'
+                f'<img src="/pipeline/images/{html.escape(slug)}/{html.escape(p.name)}" style="width:100%;border-radius:6px;" loading="lazy"></a>'
+                f'<figcaption style="font-size:12px;color:var(--muted);margin-top:6px;word-break:break-all;">{html.escape(p.name)}</figcaption></figure>'
+                for p in imgs
+            )
+            preview_html = (
+                f'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;">{cells}</div>'
+            )
+        else:
+            preview_html = '<div class="empty"><h2>No images generated yet</h2></div>'
+    elif stage["kind"] == "html":
+        rel = stage_status["path"].replace("\\", "/")
+        rel = rel.split("content-pipeline/", 1)[1] if "content-pipeline/" in rel else rel
+        preview_html = f'<iframe class="preview-iframe" src="/pipeline/{html.escape(rel)}"></iframe>'
     else:
         preview_html = f'<div class="preview-box">{md_to_html(raw)}</div>'
 
@@ -646,6 +700,30 @@ class WhiteboardHandler(BaseHTTPRequestHandler):
                 done_stages = [s["key"] for s in STAGE_DICTS if status[s["key"]]["done"]]
                 stage_key = done_stages[0] if done_stages else "research"
             return self._send(200, render_slug_page(slug, status, stage_key))
+
+        if path.startswith("/pipeline/"):
+            rel = unquote(path[len("/pipeline/"):])
+            target = (PIPELINE / rel).resolve()
+            try:
+                target.relative_to(PIPELINE.resolve())
+            except ValueError:
+                return self._send(403, "forbidden", "text/plain")
+            if not target.is_file():
+                return self._send(404, "not found", "text/plain")
+            mime = {
+                ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
+                ".webp": "image/webp", ".gif": "image/gif", ".svg": "image/svg+xml",
+                ".html": "text/html; charset=utf-8", ".css": "text/css",
+                ".json": "application/json", ".md": "text/plain; charset=utf-8",
+                ".csv": "text/plain; charset=utf-8",
+            }.get(target.suffix.lower(), "application/octet-stream")
+            data = target.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", mime)
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+            return
 
         return self._send(404, "<h1>Not found</h1>")
 

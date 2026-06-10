@@ -1,0 +1,17 @@
+{
+  "howto_cluster_volumes": {
+    "dirty talking": 27100,
+    "how to talk dirty": 4400,
+    "how to dirty talk": 3600
+  },
+  "intensity_ladder": {
+    "Level 1 — Warm-up (compliments)": 1,
+    "Level 2 — Suggestive (anticipation)": 2,
+    "Level 3 — Direct (in the moment)": 3,
+    "Level 4 — Bold (explicit, if you both want it)": 4
+  },
+  "_meta": {
+    "source": "How-to cluster volumes from current US search-volume data; song-lyric intent excluded. Intensity ladder is an editorial framework derived from competitor do's/don'ts structures.",
+    "generated_at": "2026-06-10"
+  }
+}

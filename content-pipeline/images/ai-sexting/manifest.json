@@ -1,0 +1,161 @@
+{
+  "slug": "ai-sexting",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "lifestyle",
+        "prompt": "Editorial hero image for a blog explainer about AI sexting. A single smartphone resting screen-up on a dark walnut bedside table at night, lit by one warm amber lamp out of frame to the upper-left. The phone screen glows softly and shows three abstract rounded chat bubbles stacked vertically \u2014 NO readable text, just smooth bubble shapes in a warm coral tint. A pair of reading glasses and a closed paperback book sit beside the phone for a calm, private, grown-up mood. Photorealistic still-life, no people anywhere in frame.",
+        "style": "photorealistic",
+        "safety": "sfw"
+      },
+      "alt": "A phone glowing with chat bubbles on a dark night-table beside reading glasses and a book, illustrating private late-night AI sexting",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting/image-1-editorial-hero-image-for-a-blo.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Editorial hero image for a blog explainer about AI sexting. A single smartphone resting screen-up on a dark walnut bedside table at night, lit by one warm amber lamp out of frame to the upper-left. The phone screen glows softly and shows three abstract rounded chat bubbles stacked vertically \u2014 NO readable text, just smooth bubble shapes in a warm coral tint. A pair of reading glasses and a closed paperback book sit beside the phone for a calm, private, grown-up mood. Photorealistic still-life, no people anywhere in frame.. Editorial photorealistic style, natural lighting, no people unless prompt specifies, no readable text on screens."
+      },
+      "raw": "[VISUAL:type=image;sub=lifestyle;prompt=Editorial hero image for a blog explainer about AI sexting. A single smartphone resting screen-up on a dark walnut bedside table at night, lit by one warm amber lamp out of frame to the upper-left. The phone screen glows softly and shows three abstract rounded chat bubbles stacked vertically \u2014 NO readable text, just smooth bubble shapes in a warm coral tint. A pair of reading glasses and a closed paperback book sit beside the phone for a calm, private, grown-up mood. Photorealistic still-life, no people anywhere in frame.;style=photorealistic;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Clean editorial flow diagram for a tech blog, white background (#FFFFFF), no people. Four labeled stages arranged left-to-right, evenly spaced, connected by thin coral (#FF6B6B) arrows pointing right. Stage 1: a simple outlined speech-bubble icon with the label \"Your message\" beneath it. Stage 2: a simple outlined document icon with the label \"Persona + memory\" beneath it. Stage 3: a simple outlined microchip icon with the label \"Model writes reply\" beneath it. Stage 4: a simple outlined chat-bubble icon with the label \"In-character reply\" beneath it. One curved coral feedback arrow loops from Stage 4 back to Stage 2, with a small label \"saved to memory\" along its path. All labels in a clean sans-serif, dark charcoal (#222222), sentence case, no other text anywhere. Flat two-color vector illustration, generous whitespace, thin consistent line weight. Awwwards-clean editorial diagram quality.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Flow diagram of how an AI sexting reply is generated: your message feeds the character persona and memory, the model writes an in-character reply, and the exchange is saved back to memory",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting/image-2-clean-editorial-flow-diagram-f.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Clean editorial flow diagram for a tech blog, white background (#FFFFFF), no people. Four labeled stages arranged left-to-right, evenly spaced, connected by thin coral (#FF6B6B) arrows pointing right. Stage 1: a simple outlined speech-bubble icon with the label \"Your message\" beneath it. Stage 2: a simple outlined document icon with the label \"Persona + memory\" beneath it. Stage 3: a simple outlined microchip icon with the label \"Model writes reply\" beneath it. Stage 4: a simple outlined chat-bubble icon with the label \"In-character reply\" beneath it. One curved coral feedback arrow loops from Stage 4 back to Stage 2, with a small label \"saved to memory\" along its path. All labels in a clean sans-serif, dark charcoal (#222222), sentence case, no other text anywhere. Flat two-color vector illustration, generous whitespace, thin consistent line weight. Awwwards-clean editorial diagram quality.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Clean editorial flow diagram for a tech blog, white background (#FFFFFF), no people. Four labeled stages arranged left-to-right, evenly spaced, connected by thin coral (#FF6B6B) arrows pointing right. Stage 1: a simple outlined speech-bubble icon with the label \"Your message\" beneath it. Stage 2: a simple outlined document icon with the label \"Persona + memory\" beneath it. Stage 3: a simple outlined microchip icon with the label \"Model writes reply\" beneath it. Stage 4: a simple outlined chat-bubble icon with the label \"In-character reply\" beneath it. One curved coral feedback arrow loops from Stage 4 back to Stage 2, with a small label \"saved to memory\" along its path. All labels in a clean sans-serif, dark charcoal (#222222), sentence case, no other text anywhere. Flat two-color vector illustration, generous whitespace, thin consistent line weight. Awwwards-clean editorial diagram quality.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.search_trend_monthly",
+        "style": "line",
+        "title": "US monthly search interest for \"ai sexting\"",
+        "what": "Line chart of US monthly searches for the term ai sexting over the past six months, in the tens of thousands"
+      },
+      "alt": "Line chart of US monthly searches for the term ai sexting over the past six months, in the tens of thousands",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting/chart-1-us-monthly-search-interest-for.png",
+        "style": "line",
+        "data_points": 6
+      },
+      "raw": "[VISUAL:type=chart;data=research.search_trend_monthly;style=line;title=US monthly search interest for \"ai sexting\";what=Line chart of US monthly searches for the term ai sexting over the past six months, in the tens of thousands]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.intent_cluster_volumes",
+        "style": "bar",
+        "title": "Monthly US searches by intent cluster",
+        "what": "Bar chart showing the ai sexting head term far outweighs the commercial app cluster and the is-it-cheating cluster"
+      },
+      "alt": "Bar chart: the ai sexting head term draws far more monthly US searches than the commercial app cluster or the is-it-cheating cluster",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting/chart-1-monthly-us-searches-by-intent.png",
+        "style": "bar",
+        "data_points": 4
+      },
+      "raw": "[VISUAL:type=chart;data=research.intent_cluster_volumes;style=bar;title=Monthly US searches by intent cluster;what=Bar chart showing the ai sexting head term far outweighs the commercial app cluster and the is-it-cheating cluster]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.serp_page_types",
+        "style": "bar",
+        "title": "What ranks for \"ai sexting\" today (top-10 page types)",
+        "what": "Bar chart of the page types that rank for ai sexting, dominated by product landing pages and app roundups with one forum result"
+      },
+      "alt": "Bar chart of what ranks for ai sexting today: seven product landing pages, two app roundups, and one forum result in the top ten",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting/chart-2-what-ranks-for-ai-sexting-toda.png",
+        "style": "bar",
+        "data_points": 3
+      },
+      "raw": "[VISUAL:type=chart;data=research.serp_page_types;style=bar;title=What ranks for \"ai sexting\" today (top-10 page types);what=Bar chart of the page types that rank for ai sexting, dominated by product landing pages and app roundups with one forum result]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "table",
+      "attrs": {
+        "type": "table",
+        "sub": "comparison"
+      },
+      "alt": "Comparison card: an AI sexting app vs a general chatbot across explicit content, persistent character, memory across sessions, voice and image features, and pricing",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting/table-comparison-ai-sexting.png",
+        "renderer": "table-card"
+      },
+      "raw": "[VISUAL:type=table;sub=comparison] (rendered free via table-card renderer)",
+      "legacy": false
+    },
+    {
+      "index": 7,
+      "type": "table",
+      "attrs": {
+        "type": "table",
+        "sub": "checklist"
+      },
+      "alt": "Checklist card titled Before you share anything explicit: use a dedicated email, no real name or face, read the privacy policy, and watch for payment red flags",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting/table-privacy-ai-sexting.png",
+        "renderer": "table-card"
+      },
+      "raw": "[VISUAL:type=table;sub=checklist] (rendered free via table-card renderer)",
+      "legacy": false
+    },
+    {
+      "index": 8,
+      "type": "table",
+      "attrs": {
+        "type": "table",
+        "sub": "steps"
+      },
+      "alt": "Four-step card for how to start AI sexting: pick the tool, build the character, set the scene, and lead with what you like",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-sexting/table-start-ai-sexting.png",
+        "renderer": "table-card"
+      },
+      "raw": "[VISUAL:type=table;sub=steps] (rendered free via table-card renderer)",
+      "legacy": false
+    }
+  ]
+}

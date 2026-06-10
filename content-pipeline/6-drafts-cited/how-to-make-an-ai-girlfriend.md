@@ -22,7 +22,7 @@ How do you tell which you are? If "fine-tune," "LoRA," and "inference cost" don'
 
 There is no middle path. The no-code "AI girlfriend builders" on the SERP are off-the-shelf apps with a sign-up form on top. Calling them DIY is marketing.
 
-The query carries informational intent on Semrush (`In=1`), volume 110 a month, KD 27 [(Semrush, 2026-05-15)]. The SERP shows three formats fighting for that intent: DIY tutorials, product landers, and forum threads. None bridge them. The closely-related "how to get an ai girlfriend" at 90 a month confirms the same audience asks the question both ways [(Semrush, 2026-05-15)].
+The May 15, 2026 keyword baseline shows informational intent, about 110 searches a month, and moderate difficulty. The SERP shows three formats fighting for that intent: DIY tutorials, product landers, and forum threads. None bridge them. The closely-related "how to get an ai girlfriend" at 90 a month confirms the same audience asks the question both ways.
 
 Six dimensions separate the two paths. Use this as your pre-flight check before you read further:
 
@@ -151,7 +151,7 @@ Here is the trap. "No-code AI girlfriend builders" advertised as a middle path a
 
 The search data confirms most readers self-select correctly once the choice is named. The DIY cluster ("how to make an ai girlfriend app," "for free") is small and trending up.
 
-The off-the-shelf cluster ("how to get," "best ai girlfriend") is large and stable [(Semrush, 2026-05-15)]. Both are real audiences. They just need to know which one they're in before they pick a tool.
+The off-the-shelf cluster ("how to get," "best ai girlfriend") is large and stable. Both are real audiences. They just need to know which one they're in before they pick a tool.
 
 If you arrived here from a Character.AI filter that blocked the conversation you wanted, the off-the-shelf section above is the answer. Our [Best Character AI Alternative for You in 2026](https://pleasur.ai/blog/character-ai-alternative) breakdown is the next read.
 
@@ -187,9 +187,9 @@ Two-tier check at save time.
 
 - Must-cite claims (numbers, %, named studies, year-anchored facts, "according to X"): 10
   - 2022 stack / GPT-Neo / waifu-diffusion → gmongaras Medium (linked, x2 occurrences)
-  - Semrush KD 27 / vol 110 → editor-note `(Semrush, 2026-05-15)`
-  - "how to get an ai girlfriend" vol 90 → editor-note `(Semrush, 2026-05-15)`
-  - DIY cluster vs off-the-shelf cluster trend → editor-note `(Semrush, 2026-05-15)`
+  - keyword baseline KD 27 / vol 110 → editor-note `keyword baseline, 2026-05-15`
+  - "how to get an ai girlfriend" vol 90 → editor-note `keyword baseline, 2026-05-15`
+  - DIY cluster vs off-the-shelf cluster trend → editor-note `keyword baseline, 2026-05-15`
   - $0.72/hr A100 → Vast.ai vs RunPod 2026 comparison (linked)
   - Replika ERP rollback → Vice (linked, x2 occurrences)
   - Nomi $15.99 → AutoGPT pricing review (linked, x2 occurrences)

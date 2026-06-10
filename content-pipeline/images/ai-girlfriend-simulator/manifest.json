@@ -1,0 +1,310 @@
+{
+  "slug": "ai-girlfriend-simulator",
+  "visuals": [
+    {
+      "index": 0,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "hero",
+        "style": "photoreal",
+        "safety": "sfw"
+      },
+      "alt": "A woman relaxing on a sofa at night, using an AI companion chat app on her phone lit by a warm glow, while deciding which AI girlfriend simulator experience fits her",
+      "status": "captured",
+      "regenerated_2026_06_10": true,
+      "retries": 0,
+      "art_director_verdict": "New cinematic hero (article previously had none). Tasteful 18+ AI-generated subject, warm rose phone-glow, abstract no-text chat UI, candle bokeh. No real-person likeness. STRONG.",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-simulator/hero-0-ai-girlfriend-simulator-companion-scene.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "9-part structured photoreal hero prompt (visual-prompt-craft) \u2014 see prompts.md HERO section"
+      },
+      "raw": "[VISUAL:type=image;sub=hero;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "comparison",
+        "prompt": "Bullet-list comparison graphic for AI girlfriend simulator types. Rows: chat companion, character creator, mobile app, dating-sim game, mixed-media product. Columns: what it means, best fit, what to verify, internal next step. Clean editorial layout, no explicit imagery",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "Bullet-list comparison graphic for AI girlfriend simulator types. Rows: chat companion, character creator, mobile app, dating-sim game, mixed-media product. Columns: what it means, best fit, what to verify, internal next step. Clean editorial layout, no explicit imagery",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-simulator/image-1-bullet-list-comparison-graphic.png",
+        "model": "matplotlib-table-card",
+        "prompt": "Table spec in prompts.md (TABLE-CARD SPECS) \u2014 content sourced from article body."
+      },
+      "raw": "[VISUAL:type=image;sub=comparison;prompt=Bullet-list comparison graphic for AI girlfriend simulator types. Rows: chat companion, character creator, mobile app, dating-sim game, mixed-media product. Columns: what it means, best fit, what to verify, internal next step. Clean editorial layout, no explicit imagery;style=flat-vector;safety=sfw]",
+      "legacy": false,
+      "regenerated_2026_06_10": true,
+      "render_method": "matplotlib table-card (render_table_card.py)",
+      "art_director_verdict": "Converted from gibberish-prone generative infographic to a legible brand-styled table-card (crisp real text, answer-engine friendly, accessible). PASS.",
+      "retries": 0
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Clean editorial diagram showing AI girlfriend simulator as an umbrella term branching into chat companion, character creator, mobile app, dating-sim game, yandere niche, and mixed-media product",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "Clean editorial diagram showing AI girlfriend simulator as an umbrella term branching into chat companion, character creator, mobile app, dating-sim game, yandere niche, and mixed-media product",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-simulator/image-2-clean-editorial-diagram-showin.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "9-part structured prompt (visual-prompt-craft) \u2014 see images/ai-girlfriend-simulator/prompts.md"
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Clean editorial diagram showing AI girlfriend simulator as an umbrella term branching into chat companion, character creator, mobile app, dating-sim game, yandere niche, and mixed-media product; include a verification gate labeled privacy, pricing, boundaries, exit controls; no explicit imagery;style=flat-vector;safety=sfw]",
+      "legacy": false,
+      "regenerated_2026_06_10": true,
+      "art_director_verdict": "Icon-driven umbrella diagram; 5 single-word labels all legible & correctly spelled (Chat/Creator/App/Game/Mixed), correct icons, on-brand aubergine+blush+gold. STRONG.",
+      "retries": 0
+    },
+    {
+      "index": 3,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "PLE-153 DataForSEO observed SERP surfaces for ai girlfriend simulator on 2026-05-25",
+        "style": "bar",
+        "title": "SERP surface mix for AI girlfriend simulator searches"
+      },
+      "alt": "SERP surface mix for AI girlfriend simulator searches",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-simulator/chart-3-serp-surface-mix-for-ai-girlfr.png",
+        "style": "bar",
+        "data_points": 8,
+        "data_source": "content-pipeline/1-research/ai-girlfriend-simulator-data.json:serp_surface_counts"
+      },
+      "raw": "[VISUAL:type=chart;data=PLE-153 DataForSEO observed SERP surfaces for ai girlfriend simulator on 2026-05-25;style=bar;title=SERP surface mix for AI girlfriend simulator searches]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "comparison",
+        "prompt": "Simulator vs app vs creator vs game comparison as bullet-list infographic. Include format, searcher intent, example surface, what to verify, internal route. No GFM table. Clean editorial labels, no explicit imagery",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "Simulator vs app vs creator vs game comparison as bullet-list infographic. Include format, searcher intent, example surface, what to verify, internal route. No GFM table. Clean editorial labels, no explicit imagery",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-simulator/image-4-simulator-vs-app-vs-creator-vs.png",
+        "model": "matplotlib-table-card",
+        "prompt": "Table spec in prompts.md (TABLE-CARD SPECS) \u2014 content sourced from article body."
+      },
+      "raw": "[VISUAL:type=image;sub=comparison;prompt=Simulator vs app vs creator vs game comparison as bullet-list infographic. Include format, searcher intent, example surface, what to verify, internal route. No GFM table. Clean editorial labels, no explicit imagery;style=flat-vector;safety=sfw]",
+      "legacy": false,
+      "regenerated_2026_06_10": true,
+      "render_method": "matplotlib table-card (render_table_card.py)",
+      "art_director_verdict": "Converted from gibberish-prone generative infographic to a legible brand-styled table-card (crisp real text, answer-engine friendly, accessible). PASS.",
+      "retries": 0
+    },
+    {
+      "index": 5,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "hub-and-spoke-diagram",
+        "prompt": "Hub-and-spoke diagram with AI Girlfriend Simulator as the canonical guide connected to how to make an AI girlfriend, yandere AI girlfriend simulator, AI girlfriend apps route marked link pending, and safety checklist",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "Hub-and-spoke diagram with AI Girlfriend Simulator as the canonical guide connected to how to make an AI girlfriend, yandere AI girlfriend simulator, AI girlfriend apps route marked link pending, and safety checklist",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-simulator/image-5-hub-and-spoke-diagram-with-ai.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "9-part structured prompt (visual-prompt-craft) \u2014 see images/ai-girlfriend-simulator/prompts.md"
+      },
+      "raw": "[VISUAL:type=image;sub=hub-and-spoke-diagram;prompt=Hub-and-spoke diagram with AI Girlfriend Simulator as the canonical guide connected to how to make an AI girlfriend, yandere AI girlfriend simulator, AI girlfriend apps route marked link pending, and safety checklist; clean editorial labels; no explicit imagery;style=flat-vector;safety=sfw]",
+      "legacy": false,
+      "regenerated_2026_06_10": true,
+      "art_director_verdict": "Hub-and-spoke; center 'AI Girlfriend Simulator' legible, 4 spokes correct, dashed pending Apps line + gold Safety shield rendered as specified. STRONG.",
+      "retries": 0
+    },
+    {
+      "index": 6,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "comparison",
+        "prompt": "AI girlfriend simulator evaluation checklist. Rows: customization, conversation style, memory transparency, media features, browser vs app access, game mechanics, pricing, privacy, deletion, support. Columns: question to ask, where to verify, citation needed. Calm editorial design, no explicit imagery",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "AI girlfriend simulator evaluation checklist. Rows: customization, conversation style, memory transparency, media features, browser vs app access, game mechanics, pricing, privacy, deletion, support. Columns: question to ask, where to verify, citation needed. Calm editorial design, no explicit imagery",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-simulator/image-6-ai-girlfriend-simulator-evalua.png",
+        "model": "matplotlib-table-card",
+        "prompt": "Table spec in prompts.md (TABLE-CARD SPECS) \u2014 content sourced from article body."
+      },
+      "raw": "[VISUAL:type=image;sub=comparison;prompt=AI girlfriend simulator evaluation checklist. Rows: customization, conversation style, memory transparency, media features, browser vs app access, game mechanics, pricing, privacy, deletion, support. Columns: question to ask, where to verify, citation needed. Calm editorial design, no explicit imagery;style=flat-vector;safety=sfw]",
+      "legacy": false,
+      "regenerated_2026_06_10": true,
+      "render_method": "matplotlib table-card (render_table_card.py)",
+      "art_director_verdict": "Converted from gibberish-prone generative infographic to a legible brand-styled table-card (crisp real text, answer-engine friendly, accessible). PASS.",
+      "retries": 0
+    },
+    {
+      "index": 7,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "decision-tree",
+        "prompt": "Neutral adult AI companion decision tree: choose chat, creator, app, game, or mixed media, then pass checks for pricing, privacy, boundaries, and exit controls before trying",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "Neutral adult AI companion decision tree: choose chat, creator, app, game, or mixed media, then pass checks for pricing, privacy, boundaries, and exit controls before trying",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-simulator/image-7-neutral-adult-ai-companion-dec.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "9-part structured prompt (visual-prompt-craft) \u2014 see images/ai-girlfriend-simulator/prompts.md"
+      },
+      "raw": "[VISUAL:type=image;sub=decision-tree;prompt=Neutral adult AI companion decision tree: choose chat, creator, app, game, or mixed media, then pass checks for pricing, privacy, boundaries, and exit controls before trying; editorial style, no explicit imagery;style=flat-vector;safety=sfw]",
+      "legacy": false,
+      "regenerated_2026_06_10": true,
+      "art_director_verdict": "Decision flow Choose->gate(Pricing/Privacy/Boundaries/Exit)->Ready; all labels legible & correct, gold shields + rose arrows on-brand. STRONG.",
+      "retries": 0
+    },
+    {
+      "index": 8,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "create",
+        "what": "Pleasur.ai public Create page showing basics and Realistic/Anime style choices if accessible without login",
+        "annotate": "style choice area",
+        "safety": "sfw"
+      },
+      "alt": "Pleasur.ai public Create page showing basics and Realistic/Anime style choices if accessible without login",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-simulator/screenshot-8-pleasur-ai-public-create-page.png",
+        "url": "https://pleasur.ai/create",
+        "final_url": "https://pleasur.ai/create",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.1369,
+          "bytes": 1428444
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;target=create;what=Pleasur.ai public Create page showing basics and Realistic/Anime style choices if accessible without login;annotate=style choice area;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 9,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "comparison",
+        "prompt": "Supported versus needs-source versus prohibited Pleasur.ai claims. Bullets under can say: supports AI companion and AI character experiences, users can create and chat with AI characters, public product includes create chat explore image-generation surfaces. Bullets under needs source: pricing, account requirements, platform availability, media rights, deletion. Bullets under do not say: best, free, safer, private, unrestricted, most realistic, therapy replacement. Clean editorial checklist, no explicit imagery",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "Supported versus needs-source versus prohibited Pleasur.ai claims. Bullets under can say: supports AI companion and AI character experiences, users can create and chat with AI characters, public product includes create chat explore image-generation surfaces. Bullets under needs source: pricing, account requirements, platform availability, media rights, deletion. Bullets under do not say: best, free, safer, private, unrestricted, most realistic, therapy replacement. Clean editorial checklist, no explicit imagery",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-simulator/image-9-supported-versus-needs-source.png",
+        "model": "matplotlib-table-card",
+        "prompt": "Table spec in prompts.md (TABLE-CARD SPECS) \u2014 content sourced from article body."
+      },
+      "raw": "[VISUAL:type=image;sub=comparison;prompt=Supported versus needs-source versus prohibited Pleasur.ai claims. Bullets under can say: supports AI companion and AI character experiences, users can create and chat with AI characters, public product includes create chat explore image-generation surfaces. Bullets under needs source: pricing, account requirements, platform availability, media rights, deletion. Bullets under do not say: best, free, safer, private, unrestricted, most realistic, therapy replacement. Clean editorial checklist, no explicit imagery;style=flat-vector;safety=sfw]",
+      "legacy": false,
+      "regenerated_2026_06_10": true,
+      "render_method": "matplotlib table-card (render_table_card.py)",
+      "art_director_verdict": "Converted from gibberish-prone generative infographic to a legible brand-styled table-card (crisp real text, answer-engine friendly, accessible). PASS.",
+      "retries": 0
+    },
+    {
+      "index": 10,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "comparison",
+        "prompt": "Pre-chat safety and privacy checklist for AI girlfriend simulator users. Rows: age rules, fictional framing, content boundaries, sensitive-data warning, privacy policy, deletion and retention, pricing, support path. Columns: question, why it matters, where to verify. Calm editorial design, no explicit imagery",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "Pre-chat safety and privacy checklist for AI girlfriend simulator users. Rows: age rules, fictional framing, content boundaries, sensitive-data warning, privacy policy, deletion and retention, pricing, support path. Columns: question, why it matters, where to verify. Calm editorial design, no explicit imagery",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-girlfriend-simulator/image-10-pre-chat-safety-and-privacy-ch.png",
+        "model": "matplotlib-table-card",
+        "prompt": "Table spec in prompts.md (TABLE-CARD SPECS) \u2014 content sourced from article body."
+      },
+      "raw": "[VISUAL:type=image;sub=comparison;prompt=Pre-chat safety and privacy checklist for AI girlfriend simulator users. Rows: age rules, fictional framing, content boundaries, sensitive-data warning, privacy policy, deletion and retention, pricing, support path. Columns: question, why it matters, where to verify. Calm editorial design, no explicit imagery;style=flat-vector;safety=sfw]",
+      "legacy": false,
+      "regenerated_2026_06_10": true,
+      "render_method": "matplotlib table-card (render_table_card.py)",
+      "art_director_verdict": "Converted from gibberish-prone generative infographic to a legible brand-styled table-card (crisp real text, answer-engine friendly, accessible). PASS.",
+      "retries": 0
+    },
+    {
+      "index": 11,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "support-page",
+        "what": "Pleasur.ai public AI companion safety checklist blog page if accessible",
+        "annotate": "checklist section",
+        "safety": "sfw"
+      },
+      "alt": "Pleasur.ai public AI companion safety checklist blog page if accessible",
+      "status": "stripped",
+      "result": {
+        "status": "stripped",
+        "path": "content-pipeline/images/ai-girlfriend-simulator/screenshot-11-pleasur-ai-public-ai-companion.png",
+        "reason": "visuals_adversarial_precheck: target mapping used /support-page instead of the cited /blog/ai-companion-safety-checklist route; stripped as non-essential because the safety checklist section already has a captured checklist visual.",
+        "url": "https://pleasur.ai/support-page",
+        "final_url": "https://pleasur.ai/support-page",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.0932,
+          "bytes": 63083
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;target=support-page;what=Pleasur.ai public AI companion safety checklist blog page if accessible;annotate=checklist section;safety=sfw]",
+      "legacy": false
+    }
+  ],
+  "visual_redo_2026_06_10": {
+    "board_addendum": "PLE-1329 Addendum 3 (D5)",
+    "skill": "visual-prompt-craft (9-part anatomy)",
+    "summary": "Added cinematic hero; regenerated 3 concept diagrams with structured minimal-text prompts (all labels legible, zero gibberish); converted 5 text-table infographics to legible matplotlib table-cards. All art-director PASS."
+  }
+}

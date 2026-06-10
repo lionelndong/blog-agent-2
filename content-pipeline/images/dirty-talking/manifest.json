@@ -1,0 +1,87 @@
+{
+  "slug": "dirty-talking",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "A four-rung intensity ladder for dirty talk, labeled bottom to top: Warm-up, Suggestive, Direct, Bold, with an upward arrow marked Intensity",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/dirty-talking/image-1-horizontal-editorial-illustrat.png",
+        "model": "openai/gpt-image-2"
+      }
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Vertical-leaning editorial illustration for a relationships blog section about building a slow-burn over text. Minimalist flat-design layout with a warm, playful, low-pressure mood. Canvas is 3:2 landscape on a clean warm off-white background (hex #FAF7F4) with a barely-there soft paper grain. Composition map - a single stylized smartphone stands upright and centered, occupying roughly 40 percent of the frame width, its screen showing a vertical stack of four chat message bubbles ascending from bottom to top, and a thin upward-curving dotted line runs up the right side of the phone suggesting rising warmth. Per-element specification - the phone is a clean flat-vector device with a soft slate-blue body (hex #4A5568) and rounded corners, a simple status bar with abstract dots and no readable numbers. Inside the screen, four chat bubbles climb in a deepening dusty-rose tint to signal escalation - the lowest bubble is pale blush (hex #F4D9DD) reading the short string Hey, the next a touch deeper (hex #ECB8C0) reading Thinking about you, the next deeper still (hex #DD8E9B) reading Wait till later, and the top bubble the most saturated rose (hex #C9697A) showing only three small heart-dot glyphs and no words. Each bubble is a rounded speech shape with a small tail. Character and emotion - no people, no faces, no hands, purely an abstract device-and-bubbles diagram whose feeling is flirtatious anticipation building one step at a time, friendly and tasteful, never explicit. Style triangulation - modern flat editorial infographic, clean Scandinavian vector design meets a tasteful wellness-brand illustration, NOT skeuomorphic, NOT 3D, NOT photoreal, NOT anime, no glossy gradients beyond the deliberate bubble-tint progression. Lighting and render spec - flat even lighting with one subtle soft contact shadow beneath the phone as if gently grounded, crisp clean edges. Palette block - background off-white #FAF7F4, phone slate #4A5568, bubbles graduated dusty rose #F4D9DD through #ECB8C0 and #DD8E9B to #C9697A, any glyphs in dark slate #2D3748. Typography block - clean geometric sans-serif like Inter or Poppins, sentence case, only these exact short strings appear in the image - Hey, Thinking about you, Wait till later - and no other text, no numbers, no watermark. Mood line and quality anchor - warm, playful, encouraging, tasteful, premium editorial, Awwwards / Behance site-of-the-day quality, 4k.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "A stylized phone showing a slow-burn text thread escalating from Hey to Thinking about you to Wait till later to heart glyphs",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/dirty-talking/image-1-vertical-leaning-editorial-ill.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Vertical-leaning editorial illustration for a relationships blog section about building a slow-burn over text. Minimalist flat-design layout with a warm, playful, low-pressure mood. Canvas is 3:2 landscape on a clean warm off-white background (hex #FAF7F4) with a barely-there soft paper grain. Composition map - a single stylized smartphone stands upright and centered, occupying roughly 40 percent of the frame width, its screen showing a vertical stack of four chat message bubbles ascending from bottom to top, and a thin upward-curving dotted line runs up the right side of the phone suggesting rising warmth. Per-element specification - the phone is a clean flat-vector device with a soft slate-blue body (hex #4A5568) and rounded corners, a simple status bar with abstract dots and no readable numbers. Inside the screen, four chat bubbles climb in a deepening dusty-rose tint to signal escalation - the lowest bubble is pale blush (hex #F4D9DD) reading the short string Hey, the next a touch deeper (hex #ECB8C0) reading Thinking about you, the next deeper still (hex #DD8E9B) reading Wait till later, and the top bubble the most saturated rose (hex #C9697A) showing only three small heart-dot glyphs and no words. Each bubble is a rounded speech shape with a small tail. Character and emotion - no people, no faces, no hands, purely an abstract device-and-bubbles diagram whose feeling is flirtatious anticipation building one step at a time, friendly and tasteful, never explicit. Style triangulation - modern flat editorial infographic, clean Scandinavian vector design meets a tasteful wellness-brand illustration, NOT skeuomorphic, NOT 3D, NOT photoreal, NOT anime, no glossy gradients beyond the deliberate bubble-tint progression. Lighting and render spec - flat even lighting with one subtle soft contact shadow beneath the phone as if gently grounded, crisp clean edges. Palette block - background off-white #FAF7F4, phone slate #4A5568, bubbles graduated dusty rose #F4D9DD through #ECB8C0 and #DD8E9B to #C9697A, any glyphs in dark slate #2D3748. Typography block - clean geometric sans-serif like Inter or Poppins, sentence case, only these exact short strings appear in the image - Hey, Thinking about you, Wait till later - and no other text, no numbers, no watermark. Mood line and quality anchor - warm, playful, encouraging, tasteful, premium editorial, Awwwards / Behance site-of-the-day quality, 4k.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Vertical-leaning editorial illustration for a relationships blog section about building a slow-burn over text. Minimalist flat-design layout with a warm, playful, low-pressure mood. Canvas is 3:2 landscape on a clean warm off-white background (hex #FAF7F4) with a barely-there soft paper grain. Composition map - a single stylized smartphone stands upright and centered, occupying roughly 40 percent of the frame width, its screen showing a vertical stack of four chat message bubbles ascending from bottom to top, and a thin upward-curving dotted line runs up the right side of the phone suggesting rising warmth. Per-element specification - the phone is a clean flat-vector device with a soft slate-blue body (hex #4A5568) and rounded corners, a simple status bar with abstract dots and no readable numbers. Inside the screen, four chat bubbles climb in a deepening dusty-rose tint to signal escalation - the lowest bubble is pale blush (hex #F4D9DD) reading the short string Hey, the next a touch deeper (hex #ECB8C0) reading Thinking about you, the next deeper still (hex #DD8E9B) reading Wait till later, and the top bubble the most saturated rose (hex #C9697A) showing only three small heart-dot glyphs and no words. Each bubble is a rounded speech shape with a small tail. Character and emotion - no people, no faces, no hands, purely an abstract device-and-bubbles diagram whose feeling is flirtatious anticipation building one step at a time, friendly and tasteful, never explicit. Style triangulation - modern flat editorial infographic, clean Scandinavian vector design meets a tasteful wellness-brand illustration, NOT skeuomorphic, NOT 3D, NOT photoreal, NOT anime, no glossy gradients beyond the deliberate bubble-tint progression. Lighting and render spec - flat even lighting with one subtle soft contact shadow beneath the phone as if gently grounded, crisp clean edges. Palette block - background off-white #FAF7F4, phone slate #4A5568, bubbles graduated dusty rose #F4D9DD through #ECB8C0 and #DD8E9B to #C9697A, any glyphs in dark slate #2D3748. Typography block - clean geometric sans-serif like Inter or Poppins, sentence case, only these exact short strings appear in the image - Hey, Thinking about you, Wait till later - and no other text, no numbers, no watermark. Mood line and quality anchor - warm, playful, encouraging, tasteful, premium editorial, Awwwards / Behance site-of-the-day quality, 4k.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "table",
+      "attrs": {
+        "type": "table",
+        "columns": "[Rung, What it does, Example line]"
+      },
+      "alt": "Table mapping each dirty-talk rung to what it does and an example line",
+      "status": "inline",
+      "result": {
+        "status": "inline",
+        "reason": "authored_as_markdown_table_in_cited_draft"
+      }
+    },
+    {
+      "index": 4,
+      "type": "table",
+      "attrs": {
+        "type": "table",
+        "columns": "[Common misfire, Why it lands wrong, The fix]"
+      },
+      "alt": "Table of common dirty-talk misfires, why they land wrong, and the fix",
+      "status": "inline",
+      "result": {
+        "status": "inline",
+        "reason": "authored_as_markdown_table_in_cited_draft"
+      }
+    },
+    {
+      "index": 5,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.intensity_ladder",
+        "style": "barh"
+      },
+      "alt": "(cut)",
+      "status": "cut",
+      "result": {
+        "status": "cut",
+        "reason": "editorial_redundant_with_concept_illustration",
+        "note": "Ordinal 1-4 rank-as-length encoded no measurable quantity and duplicated the four-rung ladder illustration + inline rung table. Cut per visuals-adversarial earn-its-place rule; PNG removed."
+      }
+    }
+  ]
+}

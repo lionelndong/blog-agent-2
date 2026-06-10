@@ -1,0 +1,25 @@
+{
+  "search_trend_monthly": {
+    "Nov 2025": 33100,
+    "Dec 2025": 27100,
+    "Jan 2026": 22200,
+    "Feb 2026": 22200,
+    "Mar 2026": 22200,
+    "Apr 2026": 18100
+  },
+  "intent_cluster_volumes": {
+    "ai sexting / sexting ai (head)": 66200,
+    "response generator cluster": 360,
+    "is-it-cheating/sin/haram cluster": 160,
+    "sexting ai apps (commercial)": 210
+  },
+  "serp_page_types": {
+    "Product landing pages": 7,
+    "App roundups": 2,
+    "Forum / Reddit": 1
+  },
+  "_meta": {
+    "source": "Aggregated from research dossier: keyword overview (search_volume + monthly_searches), keyword suggestions, and SERP advanced (page-type classification of top 10). Volumes are current-search-results estimates.",
+    "generated_at": "2026-06-10"
+  }
+}

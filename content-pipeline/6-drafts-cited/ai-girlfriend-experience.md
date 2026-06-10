@@ -46,7 +46,7 @@ Pleasur.AI's [AI Companion Creator](https://pleasur.ai/create) is one example of
 
 Open the Companion Creator and you're walked through fields most chatbots never expose. Appearance presets. A personality slider. A backstory text box. A voice profile picker. By the time you hit chat, the character has a spec sheet.
 
-The 90-second magic is real and reproducible. The character introduces herself, references a detail you set up minutes ago, asks a follow-up. People who've only used ChatGPT or Claude with a flirty system prompt feel the difference immediately.
+The 90-second magic is real and reproducible. The character introduces herself, references a detail you set up minutes ago, asks a follow-up. People who've only used a general chatbot with a flirty prompt feel the difference immediately.
 
 There's no safety lecture. No "as an AI language model." No flat affect. The character stays in scene because the platform was built to let her.
 
@@ -182,7 +182,7 @@ These are population claims, superlatives, and unlinked brand mentions — flagg
 - L36 "That's enough to make most newcomers think the whole experience will keep feeling that way." (population quantifier)
 - L37 "Most platforms let you skip stock characters entirely and design the companion from scratch…" (population quantifier)
 - L39 "Character.AI's much bigger library of pre-made characters is the opposite trade-off." (unlinked brand mention + comparator)
-- L45 "People who've only used ChatGPT or Claude with a flirty system prompt feel the difference immediately." (unlinked brand mention)
+- L45 "People who've only used a general chatbot with a flirty prompt feel the difference immediately." (unlinked brand mention)
 - L72 "Many competitors still route image gen through a separate page, which kills the loop you just built." (population quantifier)
 - L73 "Memory becomes the silent gating function. The good platforms summarize older turns and feed those summaries back. The lazy ones truncate." (population dichotomy)
 - L91 "Around week three, the same six templated phrases start showing up across nearly every AI girlfriend platform." (population claim)

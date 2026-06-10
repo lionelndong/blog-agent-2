@@ -22,7 +22,7 @@
   - Use cases:
     - Design a companion from scratch (appearance, personality, scenario)
     - Pick from community-shared characters and remix them
-    - Chat in unrestricted, judgment-free conversations including roleplay and adult themes
+    - Chat in adult roleplay and fantasy conversations within platform rules and safety boundaries
     - Save chat history and resume conversations across sessions
 
 - **AI Image Generation** — Generate adult-oriented images on demand. Style presets, character consistency, prompt-driven creation.
@@ -144,3 +144,8 @@ The `/generate-visuals` skill produces real assets (PNGs) for typed `[VISUAL:...
 - **Default screenshot viewport:** 1440×900 at 2× device pixel ratio
 - **Screenshot auth:** Pleasur.AI app pages require login. Run `python .claude/skills/generate-visuals/scripts/setup_auth.py` once to log in and save cookies to `.claude/skills/generate-visuals/auth/state.json` (gitignored). Future headless captures replay that session.
 - **Strapi media upload:** when `STRAPI_BASE_URL` and `STRAPI_API_TOKEN` are set and `--publish` is passed, `/format-for-publish` uploads each captured image to Strapi's `/api/upload` endpoint and rewrites the article markdown to reference the hosted URLs. Without those env vars, images are copied to `content-pipeline/8-publish/{slug}/media/` for the editor to drag into Strapi manually.
+
+
+## Forbidden in reader-facing copy: INTERNAL STACK (hard rule, board 2026-06-10)
+
+NEVER name internal tools, vendors, or data sources in article prose, captions, alt text, or metadata. Cite public sources or use neutral phrasing ("current search results", "our analysis"). Banned terms include: DataForSEO, SemRush, Strapi, Doppler, PostHog, OpenRouter, Firecrawl, Paperclip, TrafficStars, AgentMail, Trackdesk, Civitai, ComfyUI, Replicate, ContentShake, codex, gpt-5.5, Claude (as our tool). Ahrefs only as an editorially-justified product reference, never as our data source. Naming these leaks our stack and reads machine-generated. quality-check must FAIL any draft containing them.

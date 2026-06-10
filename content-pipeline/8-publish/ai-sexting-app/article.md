@@ -14,7 +14,7 @@ That's the affiliate playbook. List everything, pick nothing, get paid per click
 
 Four apps are worth your time in 2026. Each for a different reason. One of them is ours, and we'll say so up front the moment we get there.
 
-![Concept diagram comparing generic chatbot vs one-shot NSFW chatbot vs AI sexting app](images/ai-sexting-app/image-4-category-concept-diagram.png)
+![Concept diagram comparing generic chatbot vs one-shot NSFW chatbot vs AI sexting app](https://elegant-cactus-c693703b28.media.strapiapp.com/image_4_category_concept_diagram_609e910f01.png)
 
 Below: what an AI sexting app is and isn't, the four picks ordered by who each is for, and an honest read on privacy. [Mozilla flagged this entire category in 2024](https://www.mozillafoundation.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/), and one app on every "best of" list [leaked 1.9 million accounts shortly after](https://haveibeenpwned.com/PwnedWebsites).
 
@@ -24,7 +24,7 @@ Then: what "free" means in 2026, and quick answers to the questions readers ask 
 
 An AI sexting app is a chat app where a character built to flirt with you stays in the scene. No safety lectures. No "as an AI language model."
 
-That's the load-bearing difference from a mainstream chatbot. ChatGPT, Claude, and Replika all filter adult content, break character on contact, or both.
+That's the load-bearing difference from a mainstream chatbot. general-purpose assistants and Replika all filter adult content, break character on contact, or both.
 
 The apps in this category don't. They're built so the character keeps her tone, her name, and her thread of memory across days, not just inside a single session.
 
@@ -32,7 +32,7 @@ It's also distinct from a one-shot NSFW chatbot. Those are a single conversation
 
 The modern shape bundles three things into one chat: text replies, in-conversation image generation, and voice. Older apps split these across separate tabs.
 
-![Phone mockup illustration showing chat reply, image generation request, and voice in a single bundled thread](images/ai-sexting-app/image-5-bundled-chat-mockup.png)
+![Phone mockup illustration showing chat reply, image generation request, and voice in a single bundled thread](https://elegant-cactus-c693703b28.media.strapiapp.com/image_5_bundled_chat_mockup_5c9c951609.png)
 
 Pleasur.AI's [AI Companion Creator](https://pleasur.ai/create) is one example of the bundled shape. The [AI Girlfriend Experience](https://pleasur.ai/blog/ai-girlfriend-experience) piece walks a worked example across the first three weeks.
 
@@ -44,11 +44,11 @@ With the category defined, the next question is which four — and why those fou
 
 Four apps made the cut: Candy.AI (polished default), OurDream.AI (visual-led), Nastia AI (full-feature value pick), and Pleasur.AI (build-your-own — and yes, ours). CrushOn and Botify get a one-line answer at the end.
 
-![AI sexting apps feature, pricing, and privacy matrix comparing Candy.AI, OurDream.AI, Nastia AI, and Pleasur.AI](images/ai-sexting-app/table-1-feature-pricing-matrix.png)
+![AI sexting apps feature, pricing, and privacy matrix comparing Candy.AI, OurDream.AI, Nastia AI, and Pleasur.AI](https://elegant-cactus-c693703b28.media.strapiapp.com/table_1_feature_pricing_matrix_c5854658de.png)
 
 ### Candy.AI — the polished default
 
-![Candy.AI app card showing polished default tagline, gated pricing band, and chat/image/voice feature dots](images/ai-sexting-app/image-6-candy-app-card.png)
+![Candy.AI app card showing polished default tagline, gated pricing band, and chat/image/voice feature dots](https://elegant-cactus-c693703b28.media.strapiapp.com/image_6_candy_app_card_a955e4f86b.png)
 
 Candy.AI is the pick if you want the most polished app in the category and don't want to think about the choice. It's why every listicle leads with it.
 
@@ -64,7 +64,7 @@ If chat-first polish is the wrong axis, the next pick optimizes the opposite end
 
 ### OurDream.AI — the visual-led pick
 
-![OurDream.AI app card showing visual-led tagline, $19.99/mo flat pricing, and image/video/dreamcoins feature dots](images/ai-sexting-app/image-7-ourdream-app-card.png)
+![OurDream.AI app card showing visual-led tagline, $19.99/mo flat pricing, and image/video/dreamcoins feature dots](https://elegant-cactus-c693703b28.media.strapiapp.com/image_7_ourdream_app_card_bef072ac5a.png)
 
 OurDream.AI is the pick if image and video generation matter more to you than chat depth. It's the only app in this set whose pricing page publishes a flat monthly USD, and the only one optimized around dreamcoins rather than message count.
 
@@ -80,7 +80,7 @@ If you'd rather not commit money before testing, the next pick is the only one w
 
 ### Nastia AI — the full-feature value pick
 
-![Nastia AI app card showing full-feature value tagline, free tier plus paid, and chat/voice/image feature dots](images/ai-sexting-app/image-8-nastia-app-card.png)
+![Nastia AI app card showing full-feature value tagline, free tier plus paid, and chat/voice/image feature dots](https://elegant-cactus-c693703b28.media.strapiapp.com/image_8_nastia_app_card_49b1c3ef39.png)
 
 Nastia AI is the pick if you want every feature on the matrix with a real free tier and a privacy statement you can quote.
 
@@ -98,7 +98,7 @@ That's three picks each for a single axis. The fourth — ours — collapses the
 
 ### Pleasur.AI — the build-your-own pick (this is our app)
 
-![Pleasur.AI Companion Creator 4-step flow shown as a horizontal numbered sequence: Appearance, Voice, Personality + backstory, Kinks & boundaries](images/ai-sexting-app/image-9-pleasurai-creator-flow.png)
+![Pleasur.AI Companion Creator 4-step flow shown as a horizontal numbered sequence: Appearance, Voice, Personality + backstory, Kinks & boundaries](https://elegant-cactus-c693703b28.media.strapiapp.com/image_9_pleasurai_creator_flow_9a91fa2951.png)
 
 Pleasur.AI is our app, and the pick if you want to design the character yourself: appearance, personality, backstory, voice, kinks, the whole spec sheet. We've put it last on purpose — read about the other three first, then decide if our angle fits you.
 
@@ -148,7 +148,7 @@ Two public, dated, almost-never-cited sources should decide whether you trust an
 
 [Mozilla tested 11 romantic AI chatbots](https://www.mozillafoundation.org/en/privacynotincluded/articles/happy-valentines-day-romantic-ai-chatbots-dont-have-your-privacy-at-heart/). 90% may share or sell personal data, and only one (Genesia AI Friend & Partner) passed minimum security standards. All 11 earned the *Privacy Not Included* warning label.
 
-![Mozilla Privacy Not Included 2024 audit of romantic AI chatbots, 5 privacy metrics](images/ai-sexting-app/chart-3-mozilla-pni-2024.png)
+![Mozilla Privacy Not Included 2024 audit of romantic AI chatbots, 5 privacy metrics](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_3_mozilla_pni_2024_31f6d515b7.png)
 
 The Muah.AI breach is the abstract risk made concrete. [1.9 million accounts exposed, added to HaveIBeenPwned on October 8, 2024](https://haveibeenpwned.com/PwnedWebsites).
 

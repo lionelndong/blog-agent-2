@@ -1,0 +1,17 @@
+{
+  "query_demand": {
+    "uncensored ai chatbot": 12100,
+    "ai chatbot no filter": 4400,
+    "dirty ai": 3600
+  },
+  "serp_feature_presence": {
+    "ai_overview_primary_query": 1,
+    "people_also_ask_support_query": 1,
+    "video_primary_query": 1,
+    "forums_support_query": 1
+  },
+  "_meta": {
+    "source": "DataForSEO Google Ads search volume and Google organic live advanced SERP artifacts from PLE-66, US/English, captured 2026-05-25; synthesized in PLE-93 research",
+    "generated_at": "2026-05-25"
+  }
+}

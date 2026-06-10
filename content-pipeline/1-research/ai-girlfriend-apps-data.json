@@ -1,0 +1,54 @@
+{
+  "issue": "PLE-196",
+  "stage": "research",
+  "target": "/blog/ai-girlfriend-apps",
+  "date": "2026-05-25",
+  "market": "US / English",
+  "gateResult": "PASS",
+  "queries": [
+    {
+      "query": "ai girlfriend apps",
+      "searchVolume": 1300,
+      "competition": "LOW",
+      "cpc": null,
+      "aioPresent": true,
+      "source": "DataForSEO, observed 2026-05-25"
+    },
+    {
+      "query": "best ai girlfriend app",
+      "searchVolume": 2400,
+      "competition": "LOW",
+      "cpc": 3.99,
+      "aioPresent": true,
+      "source": "DataForSEO, observed 2026-05-25"
+    },
+    {
+      "query": "are ai girlfriend apps safe",
+      "searchVolume": 40,
+      "competition": "LOW",
+      "cpc": null,
+      "aioPresent": null,
+      "source": "DataForSEO, observed 2026-05-25"
+    }
+  ],
+  "serpFeatures": {
+    "ai girlfriend apps": ["ai_overview", "organic", "discussions_and_forums", "people_also_ask", "perspectives", "video", "related_searches"],
+    "best ai girlfriend app": ["ai_overview", "organic", "people_also_ask", "perspectives", "related_searches"]
+  },
+  "canonicalDecision": "Refresh /blog/ai-girlfriend-apps and fold best ai girlfriend app into the same page.",
+  "routeStatus": "Production URL still returns 404 until the blog-pipeline approval record exists; PLE-79 fixed the Strapi category bug.",
+  "recommendedAngle": "Criteria-first adult comparison guide with source-backed privacy/safety caveats.",
+  "requiredInternalLinks": [
+    "/blog/ai-girlfriend-simulator",
+    "/blog/how-to-make-an-ai-girlfriend",
+    "/blog/ai-sexting-app",
+    "/blog/ai-companion-safety-checklist"
+  ],
+  "claimBoundaries": [
+    "No unsupported best/top/#1/safest/private/market-leader claims",
+    "No free/unlimited/pricing/platform claims without current official sources",
+    "No therapeutic or relationship-outcome claims",
+    "No competitor inferiority claims",
+    "No Pleasur.ai mobile-app availability claim without official app-store evidence"
+  ]
+}

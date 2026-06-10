@@ -23,7 +23,7 @@ Then: what "free" means in 2026, and quick answers to the questions readers ask 
 
 An AI sexting app is a chat app where a character built to flirt with you stays in the scene. No safety lectures. No "as an AI language model."
 
-That's the load-bearing difference from a mainstream chatbot. ChatGPT, Claude, and Replika all filter adult content, break character on contact, or both.
+That's the load-bearing difference from a mainstream chatbot. general-purpose assistants and Replika all filter adult content, break character on contact, or both.
 
 The apps in this category don't. They're built so the character keeps her tone, her name, and her thread of memory across days, not just inside a single session.
 

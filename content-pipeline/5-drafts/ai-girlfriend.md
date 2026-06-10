@@ -14,7 +14,7 @@ An AI girlfriend is a customizable AI character built specifically for ongoing c
 
 That distinction matters more than most reviews acknowledge.
 
-ChatGPT and Claude are tools. You ask them a question, you get an answer, you close the tab. They have no opinions of their own. They don't remember you between sessions in any meaningful way. They are not characters.
+General-purpose chatbots are tools. You ask them a question, you get an answer, you close the tab. They have no opinions of their own. They don't remember you between sessions in any meaningful way. They are not characters.
 
 Replika and Character.AI are companions. You can build relationships with characters there. But both platforms apply heavy content moderation, which means anything that veers into adult territory — flirting, roleplay, NSFW chat — gets shut down or watered into corporate-friendly mush. Useful for some people. Not useful for the conversations most people in this category actually want.
 
@@ -36,7 +36,7 @@ The honest reasons are broader than the lonely-guy stereotype suggests, and unde
 
 **Creative expression.** Designing a character — picking the personality, the backstory, the voice, the look — is itself a creative outlet. So is building scenarios with them. Some users spend more time on character design than chatting.
 
-**Frustration with mainstream chatbots.** ChatGPT and Claude refuse a lot. Even normal adult conversation — about relationships, sexuality, complicated emotions — runs into safety filters. Users come to AI girlfriend platforms partly because they're tired of fighting the model.
+**Frustration with mainstream chatbots.** General-purpose chatbots refuse a lot. Even normal adult conversation — about relationships, sexuality, complicated emotions — runs into safety filters. Users come to AI girlfriend platforms partly because they're tired of fighting the model.
 
 If you check [the Reddit threads where users actually compare AI girlfriend apps](https://www.reddit.com/r/AIToolTesting/comments/1m8fv1u/what_is_the_best_ai_girlfriend_looking_for/), the recurring pattern isn't loneliness. It's curiosity, comparison-shopping, and frustration with platforms that promised more than they delivered. People are not despairing. They are evaluating. Which means they're going to read this next section closely.
 

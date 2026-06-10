@@ -320,7 +320,10 @@ def extract_excerpt(body_md: str) -> str:
     paragraphs = [p.strip() for p in re.split(r"\n\s*\n", body_md) if p.strip()]
     intro = ""
     for p in paragraphs:
-        if p.startswith("#") or p.startswith(":::") or p.startswith("|") or p.startswith("```"):
+        if (p.startswith("#") or p.startswith(":::") or p.startswith("|")
+                or p.startswith("```") or p.startswith("![") or p.startswith("!")):
+            # skip headings, callouts, tables, code, and image-only lines
+            # (an image's alt text must never become the meta description)
             continue
         intro = p
         break

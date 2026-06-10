@@ -4,6 +4,9 @@ description: Realize every typed [VISUAL:...] placeholder in the cited draft int
 allowed-tools: Read, Write, Edit, Bash
 ---
 
+> **MANDATORY (board 2026-06-10):** build every generation prompt with the `visual-prompt-craft` skill (9-part anatomy, references/example-prompts.md) BEFORE calling any image model. Write prompts to `images/{slug}/prompts.md`. One-line prompts are a gate failure.
+
+
 # Generate Visuals Skill
 
 Take every `[VISUAL:type=...;...]` placeholder in the cited draft and produce a real asset on disk for the types we can automate, plus a `manual-capture.md` to-do for the rest. Update the draft to reference the local images so subsequent stages (preview, format-for-publish) treat them as ordinary markdown images.
