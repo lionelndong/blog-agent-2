@@ -1,0 +1,21 @@
+{
+  "competitor_monthly_price_usd": {
+    "CrushOn.ai (from)": 5.99,
+    "SpicyChat (paid)": 9.99,
+    "Pleasur.ai (Starter)": 12.99,
+    "Nomi": 16.99,
+    "Pleasur.ai (Standard)": 27.99
+  },
+  "keyword_cluster_volume": {
+    "chub ai": 110000,
+    "hammer ai": 49500,
+    "janitor ai reddit": 12100,
+    "xoul ai": 8100,
+    "janitor ai alternatives": 1900
+  },
+  "_meta": {
+    "source": "Monthly prices from each platform's public pricing pages and current third-party reviews (June 2026); keyword cluster volumes from current keyword research data, US, June 2026.",
+    "generated_at": "2026-06-10",
+    "notes": "Pricing chart supports the pricing-transparency angle. No memory-retention figures included: the mariavibe.com 82%/33% and genfindr 7.6/10 claims could not be confirmed and were dropped."
+  }
+}
