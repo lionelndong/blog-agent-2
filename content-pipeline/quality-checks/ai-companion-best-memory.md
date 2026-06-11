@@ -3,6 +3,8 @@
 **VERDICT: PASS**
 **Score: 88 / 100** (auto metrics 72/80 + editorial/adversarial 16/20)
 
+> **Re-review 2026-06-11 (PLE-1607 GEO refresh — EO):** Added DarLink AI to the comparison table, an honest DarLink paragraph, and two comparison-query FAQs ("Does Candy AI remember past conversations?", "Is DarLink AI better than Pleasur.AI for memory?"). Skeptical-editor read PASS: both FAQ answers are answer-first; every claim is sourced (roborhythms / genfindr 7.6/10) except statements of *absence of testing*, which are framed as unverified marketing, not measured fact. **Rejected the PLE-1604/1607 brief's "82% 7-day retention" lead/table-column: refuted by primary product data (PostHog 7-day retention ≈0.7–1% by session:start and chat:message_send across mature Apr cohorts, ~100× below the briefed figure; the 82% traces to the unconfirmed `mariavibe` Reddit number, gate-rejected twice in PLE-1605).** No internal-stack terms, no naked link placeholders, 18+ retained. Score unchanged (additions are in-voice and consistent with the body); publishing this refresh, not a new fabricated-stat page (cannibalization lens → consolidate on the canonical memory URL).
+
 Target keyword: "best ai companion app with memory" (GEO brief PLE-1449). Intent: commercial / comparison investigation. Page shape delivered: comparison table + use-case recommendations + FAQ. Correct shape for the intent.
 
 ## Auto metrics (deterministic)
