@@ -1,0 +1,78 @@
+{
+  "slug": "best-replika-alternative-2026",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://www.vice.com/en/article/ai-companion-replika-erotic-roleplay-updates/",
+        "selector": "article",
+        "crop": "padded",
+        "what": "Vice headline on Replika ERP-removal user distress (2023)"
+      },
+      "alt": "Vice headline on Replika ERP-removal user distress (2023)",
+      "status": "failed",
+      "result": {
+        "status": "failed",
+        "reason": "navigation_failed",
+        "error": "Timeout 15000ms exceeded.",
+        "url": "https://www.vice.com/en/article/ai-companion-replika-erotic-roleplay-updates/",
+        "sub": "news-quote",
+        "fallback": {
+          "method": "claude_in_chrome",
+          "skill": "/capture-visuals",
+          "url": "https://www.vice.com/en/article/ai-companion-replika-erotic-roleplay-updates/",
+          "selector": "article",
+          "what": "Vice headline on Replika ERP-removal user distress (2023)",
+          "sub": "news-quote"
+        },
+        "hint": "Playwright blocked (navigation_failed). Run `/capture-visuals best-replika-alternative-2026` to retry this entry via Claude-in-Chrome (real Chrome session bypasses the wall). The skill picks up `failed` external entries automatically in unattended mode."
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://www.vice.com/en/article/ai-companion-replika-erotic-roleplay-updates/;selector=article;crop=padded;what=Vice headline on Replika ERP-removal user distress (2023)]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Flow diagram titled \"Persistent chat memory\". Three labeled boxes left-to-right: \"Earlier sessions\" (stack of chat bubbles), \"Saved chat history\" (database cylinder icon), \"New session resumes context\" (single chat bubble with a return arrow from the history box). Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, no text inside bubbles.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Flow diagram titled \"Persistent chat memory\". Three labeled boxes left-to-right: \"Earlier sessions\" (stack of chat bubbles), \"Saved chat history\" (database cylinder icon), \"New session resumes context\" (single chat bubble with a return arrow from the history box). Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, no text inside bubbles.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/best-replika-alternative-2026/image-2-flow-diagram-titled-persistent.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Flow diagram titled \"Persistent chat memory\". Three labeled boxes left-to-right: \"Earlier sessions\" (stack of chat bubbles), \"Saved chat history\" (database cylinder icon), \"New session resumes context\" (single chat bubble with a return arrow from the history box). Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, no text inside bubbles.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Flow diagram titled \"Persistent chat memory\". Three labeled boxes left-to-right: \"Earlier sessions\" (stack of chat bubbles), \"Saved chat history\" (database cylinder icon), \"New session resumes context\" (single chat bubble with a return arrow from the history box). Clean editorial illustration, white background, sans-serif labels, brand-neutral colors, no text inside bubbles.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.competitor_entry_price_usd_monthly",
+        "style": "bar",
+        "title": "Entry price per month by app (USD)"
+      },
+      "alt": "Entry price per month by app (USD)",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/best-replika-alternative-2026/chart-3-entry-price-per-month-by-app-u.png",
+        "style": "bar",
+        "data_points": 4
+      },
+      "raw": "[VISUAL:type=chart;data=research.competitor_entry_price_usd_monthly;style=bar;title=Entry price per month by app (USD)]",
+      "legacy": false
+    }
+  ]
+}
