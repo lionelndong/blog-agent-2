@@ -76,7 +76,7 @@ The tiers are easy to read. Starter is $5.20, Standard is $11.20 (the Most Popul
 
 [Every tier includes unlimited messages, AI image generation, voice notes, and Spicy 18+ messages; Standard and Ultimate add in-chat phone calls](https://pleasur.ai/pricing). A 7-day money-back guarantee and cancel-anytime billing mean switching from Replika costs you nothing to try.
 
-![Entry price per month by app (USD)](images/best-replika-alternative-2026/chart-3-entry-price-per-month-by-app-u.png)
+![Entry price per month by app (USD)](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_3_entry_price_per_month_by_app_u_47f2fe7b5c.png)
 
 Be honest about what "free" means here, because the category abuses the word. Pleasur.ai is free to sign up and explore; the full experience needs a paid plan from $5.20/mo. There's no feature-rich free chat tier, and you should be wary of any rival that implies one.
 
