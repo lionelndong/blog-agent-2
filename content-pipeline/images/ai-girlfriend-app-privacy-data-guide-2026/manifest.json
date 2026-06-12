@@ -1,0 +1,19 @@
+{
+  "slug": "ai-girlfriend-app-privacy-data-guide-2026",
+  "visuals": [
+    {
+      "id": "image-1-data-collection-comparison",
+      "type": "infographic/table-card",
+      "status": "captured",
+      "path": "images/ai-girlfriend-app-privacy-data-guide-2026/image-1-data-collection-comparison.png",
+      "renderer": "render_table_card.py",
+      "model": "deterministic (matplotlib, no AI image model — real legible text)",
+      "retries": 0,
+      "art_director_verdict": "PASS — clean brand palette (plum/rose/cream), legible real text, no people, SFW, answer-engine-friendly comparison",
+      "role": "hero/cover",
+      "alt": "Comparison table: what data typical AI girlfriend apps collect versus what Pleasur.ai's published privacy policy commits to.",
+      "width_px": 1600,
+      "compliance": "SFW, no people, no explicit content, no real-person likeness"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "title": "What AI Girlfriend Apps Collect — and How Pleasur.ai Compares",
+  "subtitle": "Per published privacy policies and 2026 breach findings. Verify any app against its own policy.",
+  "columns": ["Data type", "Typical AI girlfriend apps", "Pleasur.ai (per published policy)"],
+  "col_weights": [0.9, 1.25, 1.25],
+  "rows": [
+    ["Conversation messages", "Collected, often stored indefinitely", "Collected; kept while active, up to 3 yrs after deletion"],
+    ["Photos / generated images", "Often stored on vendor servers", "Same retention and deletion terms"],
+    ["IP address + device ID", "Standard telemetry", "Collected (IP, browser, OS, device IDs)"],
+    ["Selling your data", "Common via ad / analytics partners", "\"We do not sell your personal information\""],
+    ["Financial data", "In-app purchase records", "Payment records kept up to 10 yrs (tax law)"],
+    ["Encryption", "Varies; many fail basic standards", "In transit (TLS/SSL) and at rest"],
+    ["Age policy", "Varies widely", "18+ only; age verification required"]
+  ]
+}
