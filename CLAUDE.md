@@ -4,6 +4,33 @@ This is a content engineering pipeline that turns a keyword into a publish-ready
 
 **2026-06-12 provider ruling (supersedes 2026-06-10):** Semrush MCP is the primary data provider — the paid plan now has full MCP data access (verified live: `phrase_this`, `phrase_related`, `phrase_organic`, `domain_organic_organic`, `domain_domains` all return data with plain `Apikey` auth, no OAuth). DataForSEO is **retired** from the main path; its scripts live on only as an archived fallback (`scripts/_archive/`). Do not call DataForSEO in any skill. Firecrawl handles full-page extraction of ranking content; Perplexity (OpenRouter) handles deep web research.
 
+## Operating context: this engine runs inside Paperclip (read this first if you are the EO agent)
+
+This repo is operated by the **EO agent** of the Pleasur.AI company on the Paperclip platform — not by a human at a terminal. That changes four things:
+
+1. **Secrets & launch.** All credentials flow through Doppler with the company key:
+   `DOPPLER_TOKEN="$DOPPLER_KEY" doppler run --project pleasurai --config dev -- <cmd>`.
+   Launching via `scripts/run_pipeline.sh` loads the Semrush **MCP** from `.mcp.json`. In a plain
+   heartbeat session (no repo MCP loaded), call the **classic Semrush API** instead — same report
+   names, same CSV: `curl "https://api.semrush.com/?type=phrase_this&key=$SEMRUSH_API_KEY&phrase=...&database=us"`.
+   Both paths are sanctioned; the cheatsheet's task→report table applies to either.
+2. **Coordination.** One Paperclip issue per article run (never per stage). Every touch leaves a
+   comment: status, what changed, next action. Stage state lives on disk in `content-pipeline/`
+   and the board watches it on the whiteboard (http://100.73.44.58:8770/). Report each article's
+   BEAT-SPEC numbers + final scorecard on the run issue.
+3. **Publishing reality (two-layer).** `format-for-publish` pushes to Strapi, but the public site
+   reads Supabase `blog_posts`, mirrored by a buggy poller (PLE-1334), AND the mirror only holds
+   `status='published'` when an approval-registry row exists (PLEAA-581) — which is created by
+   **committing `content-pipeline/8-publish/<slug>/manifest.json` to this repo's `main`**. So the
+   durable publish step is: publish to Strapi → commit the publish package to main → verify the
+   public URL. A manual Supabase status flip is an emergency unblock only, not durable.
+4. **Autonomy.** Fully autonomous within the gates (`BLOG_AGENT_AUTONOMOUS=1 UNATTENDED=1
+   BLOG_AGENT_AUTO_PUBLISH=1`): when gates pass, publish — no human review. Escalate only
+   legal/privacy/brand-risk copy or hard tool failures. The agent-level operating docs
+   (AGENTS.md / PIPELINE.md / TOOLS.md in the agent's Paperclip instructions bundle) cover cadence
+   and escalation; **this repo is canonical for pipeline mechanics** — on contradiction, the repo
+   wins and the contradiction gets reported on the run issue.
+
 ## How this project works
 
 The pipeline is decomposed into small, single-purpose **skills** under `.claude/skills/`. Each skill produces a file in a numbered subdirectory under `content-pipeline/`. You can run skills individually or chain them via the master orchestrator skills (`/blog-pipeline`, `/update-pipeline`).

@@ -16,18 +16,19 @@ no approval gate, no human in the loop. The board reads the whiteboard + audit l
 
 ---
 
-## 1. Cadence — 3 articles/week (Mon/Wed/Fri)
+## 1. Cadence — 5 articles/week (Mon/Tue/Wed/Fri/Sat; board 2026-06-10)
 
-The drumbeat is the Paperclip routine **"SEO Publishing Pipeline — 3 posts/week"**
+The drumbeat is the Paperclip routine **"SEO Publishing Pipeline"**
 (`0adb85a8-a76a-44bc-afd9-865f7a075ce7`), assigned to EO:
 
-- **Schedule trigger:** `30 9 * * 1,3,5` America/New_York (Mon/Wed/Fri 09:30 ET = 13:30 UTC).
-- **Optional 4th post:** a manual `api` trigger, fired only when explicitly wanted.
+- **Schedule trigger:** `0 9 * * 1,2,3,5,6` America/New_York (Mon/Tue/Wed/Fri/Sat 09:00 ET;
+  trigger `32e5612c` — the old Mon/Wed/Fri 09:30 trigger `b3e07eed` is disabled).
 - Each scheduled fire creates one execution issue assigned to EO. EO advances the engine by
-  ~1 article that run (or more, if a run has budget) via the auto-blog-loop semantics.
+  ~1 article that run via the auto-blog-loop semantics.
 
-**Target throughput:** 3 articles/week minimum, 4 max without board sign-off. That is the
-sustainable rate at the dedication quality bar (≥2 drafts/article, score ≥85, real visuals).
+**Target throughput: 5 articles/week is the CAP** — the only exception is a board-flagged
+product/feature announcement (may ship same-day as a 6th). That is the sustainable rate at the
+quality bar (≥2 drafts/article, benchmark-relative score ≥85, real visuals).
 
 If a scheduled run is missed (downtime), the catch-up policy is `skip_missed` — we do not
 double-publish to catch up; we resume the next scheduled slot. Cadence is a floor, not a debt.
