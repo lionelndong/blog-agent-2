@@ -1,0 +1,22 @@
+{
+  "competitor_entry_price_usd_monthly": {
+    "Pleasur.ai (Starter, annual)": 5.20,
+    "Candy AI (Premium, annual)": 5.99,
+    "Candy AI (Premium, monthly)": 12.99,
+    "Nomi (monthly)": 14.99
+  },
+  "pleasurai_tier_price_usd_monthly": {
+    "Starter": 5.20,
+    "Standard (Most Popular)": 11.20,
+    "Ultimate": 20.00
+  },
+  "replika_user_growth": {
+    "Aug 2024 (30M+)": 30000000,
+    "2025 (40M+)": 40000000
+  },
+  "_meta": {
+    "source": "Pleasur.ai pricing from live pleasur.ai/pricing + brand-config (annual billing, observed 2026-06-11). Candy AI and Nomi prices from current public third-party reviews (2026). Replika user-count figures from public sources cited in the locked context file (30M+ Aug 2024, 40M+ 2025). All figures trace to verified facts in 0-context/best-replika-alternative-2026.md.",
+    "generated_at": "2026-06-11",
+    "notes": "Replika entry price intentionally omitted (Pro pricing varies / not pinned to a single verified figure). No memory-retention numbers included — Pleasur.ai publishes no numeric retention window and none was fabricated. Keyword volume/KD omitted: metered SERP call skipped (doppler unavailable); AIO presence unconfirmed at research."
+  }
+}

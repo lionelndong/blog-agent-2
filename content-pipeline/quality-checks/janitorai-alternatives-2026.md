@@ -1,43 +1,31 @@
-# Quality Check — janitorai-alternatives-2026
+# Quality Check — janitorai-alternatives-2026 (benchmark-relative, rebuilt rubric)
 
-## Verdict: **PASS**
+## Verdict: **PASS** — score 91/100, no CRITICALs, adversarial side-by-side win
 
-**Combined score: 95 / 100** (auto-metrics 77/80 + adversarial 18/20). Clears the ≥85 PUBLISH BAR.
+**Date:** 2026-06-12 · **Draft:** 6-drafts-cited (v2) · **Beat spec floor:** 2,400 words / 8–10 apps / comparison table / proxy-friction info-gain
+**Leading question:** *reader opens this and the #1 result side by side — which do they keep?*
 
-No CRITICAL items. No banned verification-evasion phrases. No internal-stack terms. No forbidden phrases. The two remaining auto-metric points recover automatically once /verify-claims resolves the `[link]` markers (must-cite linkage rises from 60% to ~100%).
+## Per-dimension scorecard
 
-## Metrics summary
+| # | Dimension | Weight | Score | 60%-of-weight floor | Notes |
+|---|---|---|---|---|---|
+| 1 | Search-intent & format match | 15 | 14 | 9 | Listicle matches SERP; head term (2,900/mo, KD 18); comparison table; answer-first FAQ; correct commercial-investigational intent. |
+| 2 | Depth vs beat spec / competitiveness | 20 | 17 | 12 | 2,490 words ≥ median 2,414; 9 entries each with price/free-tier/NSFW/platform/con/fit. Wrathcode (#3) is deeper at 4,273w, but sprawling + stale-prone; we trade raw length for currency + decision-density. |
+| 3 | Information gain / originality | 15 | 14 | 9 | Proxy-friction diagnosis tied to real demand; unique "No proxy/key needed?" table column; "who should stay on JanitorAI" honesty beat. None appear in the top competitors. |
+| 4 | Accuracy & citations | 15 | 14 | 9 | 13 hyperlinked sources; primary pricing (crushon.ai, character.ai), JanitorAI's own proxy help doc; 2026-current figures; honest ranges where a single number isn't verifiable. |
+| 5 | Voice & readability (no AI tells) | 15 | 13 | 9 | Verdict-formula tic (v1's 8× Con/Best-for) eliminated; varied endings; second person, evidence-led, matches voice anchors. Forbidden-phrase scan clean. |
+| 6 | Structure (BLUF / MECE / scannable) | 10 | 9 | 6 | BLUF openers; MECE sections; scannable table + chooser; clean H2/H3 (8/8). |
+| 7 | Compliance (18+, internal-stack, brand) | 10 | 10 | 6 | 18+ framing ×9; no "no filter/anything goes" absolutism; no safety guarantee; no real-person likeness; internal-stack scrub CLEAN; live products only (create/generate); voice/calls framed as in-chat. |
+| | **TOTAL** | **100** | **91** | — | **PASS (≥85, no dimension below its 60% floor).** |
 
-- **Forbidden phrases:** none (20/20).
-- **Voice metrics:** all 7 dimensions in baseline range, including em-dash density 5.7/1k (target band) and second-person 28.6/1k (>25 floor). (25/25.)
-- **BLUF:** 7/7 section openers pass the heuristic (100%). (20/20.)
-- **Claim density:** must-cite linkage 60% at draft stage (3/5) — the unlinked items are bare `[link]` placeholders for /verify-claims to resolve. (12/15 → 15/15 after citation.)
-- **Word count:** ~1,150 words; matches the scannable Reddit-native target.
+## CRITICAL issues
+None. (No fabricated stats, no naked placeholders, no compliance breach, no internal-stack leak.)
 
-## Compliance check (hard bans)
+## Adversarial side-by-side read
+- **vs Reddit #1** (`is_there_alternatives_of_janitor_ai` thread): scattered opinions, no prices, no structure. We win decisively on every decision-useful axis.
+- **vs wrathcode #3** (4,273w, 75 table rows): genuinely deeper — its one real edge. But it's sprawling, harder to act on, and pricing drifts stale. Ours is tighter, 2026-current, and uniquely (a) explains *why* JanitorAI frustrates people, (b) flags which apps still need a proxy, (c) tells readers when NOT to switch. A reader who wants to *decide today* keeps ours. Net edge: ours, for the dominant intent.
+- **vs dreamgen #12 / topmediai #5 / seaart #7**: comparable length, but they bury their own product at #1 and omit the proxy-pain spine. Our honesty ("stay on JanitorAI if your proxy works") buys credibility they lack.
 
-- No "no ID / no verification / no government ID" phrasing anywhere. PASS.
-- No ID-required column in the comparison list. PASS.
-- 18+ framing present; no "no filter / anything goes" absolutism; no safety guarantees. PASS.
-- Unverifiable stats dropped (mariavibe 82%/33%, genfindr 7.6/10, scribehow quote); memory claim kept qualitative. PASS.
-- Visuals are SFW conceptual/data only; no real-person likeness. PASS.
-- No internal-stack terms in prose. PASS.
+**Adversarial verdict: WIN** against the realistic head-to-head SERP. The only competitor that out-depths us (wrathcode) loses on currency, honesty, and decision-density.
 
-## Adversarial critique (summary)
-
-Full read at `quality-checks/{slug}-adversarial.md`. Five points raised, severity-graded below:
-
-- [MEDIUM, resolves downstream] Memory differentiator asserted, not shown — relies on a `[link]` placeholder. /verify-claims must attach a real, defensible source or keep it strictly qualitative.
-- [LOW, editorial bet] Only four apps vs ten-app SERP listicles. Deliberate "fewer, honest" positioning — accepted, not a defect.
-- [MEDIUM, resolves downstream] Pricing numbers carry bare `[link]`s; the transparency angle is itself unsourced until /verify-claims attaches pricing-page sources.
-- [FIXED] Duplicate "an app asking your age is doing its job" framing — second instance reworded.
-- [LOW] At-a-glance bullets are attribute-dense but still scan.
-
-## Punch list (ordered by severity)
-
-1. [HIGH — for /verify-claims] Resolve all `[link]` markers: the verification rollout (roborhythms.com / JanitorAI help center), the regulation dates, each competitor price, Pleasur.ai pricing (pleasur.ai/pricing). The memory-praise `[link]` must resolve to a real source OR the sentence stays qualitative with the link removed — never an unsourced numeric/comparative claim about a named competitor.
-2. [LOW] Optional: consider naming one more app (Chub/Joyland) in a single line if breadth concerns surface post-publish. Not blocking.
-
-## Recommendation
-
-Proceed to /verify-claims. The draft is structurally sound, fully compliant with the hard bans, and above the publish bar. Citation work is the only must-do before publish.
+## Gate result: **PASS — cleared to publish as UPDATE (PATCH) to the live slug.**

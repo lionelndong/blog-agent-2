@@ -1,101 +1,88 @@
-# Research: JanitorAI alternatives 2026
+# Research Dossier — "janitor ai alternatives" (slug: janitorai-alternatives-2026)
 
-## Keyword metrics
+**Run date:** 2026-06-12 · **Pipeline:** rebuilt engine (Semrush API reports + Firecrawl + Perplexity) · **Mode:** UPDATE to existing live article
+**Provider note:** Semrush MCP is not wired into this operator session (no `doppler run -- claude` / `.mcp.json`), so the documented reports (`phrase_this`, `phrase_kdi`, `phrase_organic`, `phrase_related`, `phrase_fullsearch`, `phrase_questions`) were called against the underlying Semrush API directly with `SEMRUSH_API_KEY` — identical report names, params, semicolon-CSV output, and per-line units as the MCP. Contradiction reported on PLE-1775.
 
-- **Primary keyword:** janitorai alternatives 2026 (writeable as "JanitorAI alternatives in 2026")
-- **Search volume (US):** "janitor ai alternatives" = 1,900/mo; "janitor ai alternatives 2026" = ~10/mo (the dated long-tail is tiny; the head term carries the volume). Source: live keyword data, US, June 2026.
-- **Keyword difficulty:** LOW paid competition on the cluster; organic SERP is mid-difficulty (forums + SEO listicles, no single dominant brand). 
-- **Parent topic:** JanitorAI alternatives / NSFW AI companion comparison
-- **Intent:** Commercial-investigation (people choosing a replacement app), with a strong news-driven spike from the April 2026 age-verification rollout.
+## 1. Keyword metrics (Semrush)
 
-## Long-tail variations (same parent topic)
+| Metric | Value | Source |
+|---|---|---|
+| Primary keyword | **janitor ai alternatives** | — |
+| Search volume (US) | **2,900 / mo** | `phrase_this` |
+| Keyword Difficulty | **18** (low — very winnable) | `phrase_kdi` |
+| CPC | $1.04 | `phrase_this` |
+| Competition | 0.02 | `phrase_this` |
+| Trend (12 mo) | flat/steady (0.06–0.12) | `phrase_this` Td |
 
-- chub ai (110,000) — navigational/brand, a named alternative
-- hammer ai (49,500) — navigational/brand, local-model alternative
-- janitor ai reddit (12,100) — community signal; where the audience actually is
-- xoul ai (8,100) — named alternative (world-building)
-- craveu ai (6,600) — named alternative
-- janitor ai alternatives (1,900) — head comparison term
-- janitor ai alternatives reddit (170) — comparison + community
-- best janitor ai alternatives reddit (10) — comparison + community
-- janitor ai alternatives 2026 (10) — dated long-tail (our exact target)
+Note: task brief said "1,900/mo head term." Live `phrase_this` returns **2,900/mo** — used the live figure. The dated long-tail "best free uncensored alternatives to janitor ai 2026" returns **0** volume; correct to target the head term.
 
-Note: a "no filter" long-tail variant exists at ~10/mo. We deliberately do NOT target or use that framing (see compliance bans) — it is negligible volume and off-brand.
+### Secondary keywords to fold in (same intent, `phrase_fullsearch`)
+- janitor ai alternative (720), alternatives to janitor ai (170), janitor ai alternatives reddit (140), janitor ai alternatives free (70), best janitor ai alternatives (40)
+- deepseek alternative janitor ai (20), janitor ai nsfw alternatives (10), janitor ai proxy alternatives (10), openrouter alternatives janitor ai (10) → **the proxy/DeepSeek angle is a real sub-demand**
 
-## Questions people ask
+### Adjacent-intent cluster (`phrase_related`, fold as context not target)
+character ai alternative (4,400), ai chat no filter (3,600), free nsfw ai chatbot (1,900), best nsfw ai chatbot (1,300), nsfw ai chat no message limit (1,000)
 
-Pulled from live People-Also-Ask on the target SERP, grouped into themes.
+## 2. The "why" — question demand (`phrase_questions`)
 
-### Theme: Is there something better than JanitorAI?
-- Is there anything better than Janitor AI?
-- What are the alternatives to JanitorAI in 2026?
-- Is JanitorAI still down?
+The questions reveal **why people leave JanitorAI**, the article's information-gain spine:
+- **is janitor ai down — 14,800 / mo** (!!) + "why is janitor ai not working" (260), "why is janitor ai so slow" (210), "what happened to janitor ai" (210) → **reliability/downtime is the #1 pain**
+- "how to set up deepseek on janitor ai" (5,400), "how to use deepseek on janitor ai" (880), "what is a proxy on janitor ai" (480), "how to use proxy janitor ai" (320), "what do proxies do in janitor ai" (390) → **proxy/API-key setup friction is pain #2**
+- "is janitor ai safe" (480), "does janitor ai read your chats" (590), "is janitor ai nsfw" (170), "is janitor ai free" (390), "does janitor ai have an app" (260)
 
-### Theme: Restrictions and filters
-- What is the most unrestricted AI chat? / Which AI is the most unrestricted?
-- Is Character AI 18+ now?
+## 3. SERP benchmark (`phrase_organic` top 20 + Firecrawl)
 
-### Theme: Privacy and verification
-- Which AI is 100% private?
-- (Age-verification questions dominate Reddit threads since the April 2026 rollout)
+SERP shape: Reddit #1, forums (ditchnet) #2/#8, YouTube #4/#9, then listicle articles. **Listicle is the dominant article format** for the click — match it.
 
-## SERP overview
+Article competitors extracted via Firecrawl (full-page):
 
-- **Dominant intent:** Commercial-investigation (comparison/listicle), heavily news-influenced.
-- **Dominant content type:** "At a glance" comparison table + category-grouped picks + FAQ. Listicles of 7–10 apps.
-- **SERP features:** AI Overview present (GEO target confirmed), People Also Ask box, Reddit + forum threads ranking #1–2.
-- **Brand presence:** No single dominant brand. Top organic: reddit.com, ditchnet.org (forum), topmediai.com, seaart.ai, timtis.com, ninjachat.ai, aijourn.com, dreamgen.com, roborhythms.com. The SERP is owned by SEO listicles and community threads — beatable with an honest, tightly-scannable, answer-first piece.
+| Rank | Domain | Words | Headings | Table rows | # Apps listed |
+|---|---|---|---|---|---|
+| #3 | wrathcode.com | 4,273 | 69 | 75 | ~12 (very deep, per-app tables) |
+| #5 | topmediai.com | 2,327 | 12 | 9 | 7 |
+| #7 | seaart.ai | 2,414 | 24 | 10 | 8 |
+| #10 | ninjachat.ai | 1,410 | 19 | 12 | ~7 |
+| #12 | dreamgen.com | 3,118 | 23 | 12 | 10 |
+| #13 | techverdi.com | (blocked) | — | — | — |
 
-## Top-ranking pages — summaries
+**Median word count (5 valid):** 2,414. **Median of top-3 article ranks (#3/#5/#7):** 2,414.
+**Table usage:** 5/5 valid competitors carry a comparison table. **Non-negotiable.**
+**App count:** 7–12; consensus ≥8.
 
-### #1–2: Reddit + ditchnet.org forum threads
-- Real users asking for JanitorAI replacements; most-named: CrushOn AI, SpicyChat, Joyland.ai, Chub AI.
-- **What's missing:** structure, fairness, current pricing, a clean table.
+### Consensus apps (appear in ≥2 competitors)
+Character AI, CrushOn.ai, Replika, Botify AI, Chai, Talkie AI, SpicyChat, Pephop, SillyTavern (DIY).
+Common "why leave JanitorAI" section in seaart/topmediai/dreamgen.
 
-### roborhythms.com — "10 Janitor AI Alternatives That Still Work Without ID"
-- **H2s:** What happened to JanitorAI in 2025/2026; All 10 at a glance; best for roleplay; best for companion relationships; best for full control; how to choose; FAQs.
-- **Picks + pricing:** CrushOn AI $5.99; Joyland $9.99; SpicyChat $9.99; Candy AI $12.99; Nectar $19.99; Nomi $16.99; Venice $8; PepHop $4.99; Xoul $10; Chub/SillyTavern.
-- **Framing:** Leans hard on a "No ID required" column and verification-evasion angle.
-- **What's missing / what we must NOT copy:** the entire "no ID / works without verification" framing — banned for us. Their gap is honesty about trade-offs and a responsible 18+ stance.
+## 4. Information gain (what the top 10 lack)
+1. **Diagnose the real JanitorAI pain with search evidence** — competitors list apps but few explain *why* JanitorAI frustrates people (it's an interface that needs your own uncensored proxy / DeepSeek / OpenRouter API key → downtime + setup friction). Backed by "is janitor ai down" = 14,800/mo.
+2. **A "no proxy/API key needed?" column in the comparison table** — directly answers the #2 pain. No competitor table has it.
+3. **Honest "if you actually liked JanitorAI's flexibility, use SillyTavern" nuance** + a "who should NOT switch" note. Most listicles just rank; we route by need.
+4. **Current 2026 prices from primary sources**, not stale 2023/2024 figures several competitors still show.
 
-### topmediai.com / ninjachat.ai / aijourn.com — "Best 7 JanitorAI alternatives 2026"
-- Standard listicle structure, app + pros/cons, light on current pricing accuracy.
-- **What's missing:** transparent, current pricing; an honest "where each app actually wins" verdict; a named memory comparison.
+## 5. Deep-research support (Perplexity)
+Confirms JanitorAI's friction is structural: it's a front-end requiring your own API key/proxy → downtime, rate limits, unpredictable usage cost; turnkey hosted alternatives bundle their own model + flat pricing. Saved: `raw-janitor/deep-apps.json`.
 
-## News hook (verified)
+---
 
-- JanitorAI rolled out **mandatory face/ID age verification** in April 2026 (selfie or government ID), driven by Australia's Age-Restricted Material Codes (effective 9 Mar 2026) and Brazil's Digital ECA (17 Mar 2026). Confirmed by roborhythms.com reporting + JanitorAI's own help-center announcements.
-- **Wait/processing problems:** widely reported on r/JanitorAI_Official — uploads stuck on "processing" for an hour or more, failed camera permissions, no resolution path; users threatening to leave. The specific "days to weeks" duration is NOT cleanly confirmable on topai.tools (403 / not stated as a figure), so we frame this as **"users report delays"** without a hard duration. This is factual context, NOT a reason to evade verification.
+# BEAT SPEC (binds outline + draft)
 
-## Attributed-stat verification status (CRITICAL for verify-claims)
+**To deserve the #1 click, this article must:**
+- **Word count: 2,400–2,800** (≥ median 2,414; head-room for our extra angle). Old article was 1,138 — roughly DOUBLE it.
+- **Apps: 8 alternatives + Pleasur.ai = 9 entries**, each with: one-line BLUF verdict, what it's best for, free tier reality, cheapest paid price (cited), NSFW policy, memory, platform, honest con.
+- **Comparison table: REQUIRED** — columns: App · Best for · Free tier · Cheapest paid · NSFW? · **No proxy/API key needed?** · Platform.
+- **Cover every consensus topic:** what JanitorAI is / what changed, *why* people leave it (downtime + proxy friction — lead with the 14,800/mo evidence), the app roundup, how to choose, FAQ.
+- **≥1 genuine information gain** (see §4).
+- **Answer-first FAQ** targeting: free JanitorAI alternative, best JanitorAI alternative for NSFW, why is JanitorAI down/slow, do alternatives need a proxy, is JanitorAI safe.
+- **Sections (H2):** intro (PAS) → What changed with JanitorAI / why people leave (with evidence) → at-a-glance comparison table → the 8 alternatives (H3 each) → Where Pleasur.ai fits → How to choose by need → FAQ → bottom line. ~9–11 H2s.
+- **Voice:** evidence-led, second person, concrete cited prices, honest trade-offs, BLUF openers. No verdict-formula tic, no internal-stack terms, 18+ framing.
 
-- **mariavibe.com "~82% 7-day memory retention vs Aimour ~33%":** source FETCHED — page exists but does **NOT** contain this Pleasur.ai/Aimour comparison or any such figure. → **DROP the numeric stat.** Replace with a non-numeric, defensible statement (e.g., "independent reviewers single out memory retention as Pleasur.ai's strongest dimension").
-- **topai.tools JanitorAI wait times:** page exists (29 alternatives, age-verification topic) but does not state a specific wait-time figure; WebFetch 403. → **Soften to "users report delays"** with no specific duration; attribute to general user reports, not a precise topai.tools figure.
-- **genfindr.com "7.6/10 best memory system tested":** a genfindr.com Pleasur.ai review exists ("Reliable NSFW Companion, No Surprises") but the specific 7.6/10 "best memory system tested" numeric claim is **NOT confirmable.** → **DROP the number.** May reference, non-numerically, that independent reviewers rate memory as a strength.
-- **scribehow.com "personas maintain context across conversations":** not confirmable as a Pleasur.ai-specific quote. → **DROP** as a named/quoted stat; fold into the qualitative statement.
-
-Net rule for the draft: **NO unsourced numeric comparative claim about a named competitor.** The memory differentiator must be qualitative and honest.
-
-## Competitor facts for the comparison table (current pricing, verified)
-
-- **SpicyChat** — strongest genuinely FREE option; large character library; community bots. Weakness: weak/short memory. Free tier: yes. Paid ~$9.99/mo.
-- **CrushOn.ai** — best budget option; better memory than JanitorAI in long chats; NSFW. Free tier: limited; paid from ~$5.99/mo.
-- **Nomi** — best for pure emotional depth and long-term companion continuity (rank it ABOVE us on emotional depth — honest). Paid ~$16.99/mo.
-- **Pleasur.ai** — best memory-retention + NSFW combo; transparent pricing; responsible, non-predatory 18+ stance. Pricing (from pleasur.ai/pricing): Starter $12.99/mo, Standard $27.99/mo (most popular), Ultimate $49.99/mo; yearly billing cuts effective monthly cost substantially; 7-day money-back guarantee. Account sign-up is free but there is no fully-featured free tier (state this plainly — honesty is the angle).
-
-## Content gaps and opportunities
-
-- **Topics covered by all (must include):** the news hook (JanitorAI verification change), an at-a-glance comparison table, category picks, an FAQ.
-- **Covered by some, differentiate with depth:** current/accurate pricing; honest "best for" per app including ranking Nomi above us on emotional depth.
-- **Covered by none — angle to own:** an HONEST comparison that does NOT lean on verification-evasion; pricing transparency as the differentiator; a responsible 18+ framing. The whole SERP screams "no ID required" — being the fair, transparent, non-predatory voice is the open lane.
-- **Format opportunities:** answer-first 50-word lede (GEO), ~5-row comparison table, FAQPage-mappable FAQ, ~1 attributed stat per 150–200 words.
-
-## Recommended angle
-
-**Thesis:** An honest, scannable shortlist of the best JanitorAI alternatives in 2026 — SpicyChat (best free), CrushOn.ai (best budget), Nomi (best emotional depth), and Pleasur.ai (best memory + NSFW combo with transparent pricing) — written for users hit by JanitorAI's new age-verification rollout, framed responsibly and without verification-evasion hype.
-
-**Why this angle wins:** The SERP is saturated with "no ID required" listicles that mirror each other and skip current pricing. An answer-first, fair, transparently-priced comparison that ranks competitors honestly (including putting Nomi above us where it deserves it) is the gap — and it maps cleanly to Article + FAQPage schema for AI Overview / Perplexity / ChatGPT citation.
-
-## Deep web research findings
-
-The OpenRouter/Perplexity deep pass (knowledge-limited to late 2024) added macro context rather than 2026 specifics: the EU AI Act's transparency + synthetic-content labeling obligations now touch companion/NSFW providers; the FTC has signaled enforcement against deceptive generative-AI practices; the UK Online Safety Act and GDPR govern intimate-data handling. Useful as a backdrop for the "responsible / not predatory" framing, but the live news hook and competitor facts above come from current (June 2026) search, not the deep pass.
+## Featured lineup + citable facts
+1. **SpicyChat** — best genuinely-free uncensored. Free: ~100 msg/day (ads + queue); Premium $14.95/mo unlimited. NSFW: yes. Web. No proxy needed.
+2. **CrushOn.ai** — biggest uncensored character library. Free / Standard **$4.90/mo** / Premium $7.90/mo. NSFW: yes. Web. No proxy. [crushon.ai/pricing — primary]
+3. **Character.AI** — best mainstream/SFW (honest contrast: censored). Free / c.ai+ **$9.99/mo**. NSFW: **no**. Web/iOS/Android. No proxy.
+4. **Replika** — best long-term companion. Free / Pro **$19.99/mo** ($69.99/yr). NSFW: limited (romance, not explicit RP). iOS/Android/web. No proxy.
+5. **Nomi AI** — best memory + emotional depth + voice/calls, uncensored. Free trial / **$15.99–16.99/mo** (~$8.33/mo annual). NSFW: yes. iOS/Android/web. No proxy.
+6. **Chai** — best mobile-first. Free (~50–100 msg/day; 2026 paywall rollout) / Premium **$13.99/mo**. NSFW: within guidelines. iOS/Android. No proxy.
+7. **Talkie AI** — best for voice-led roleplay. Free + paid. NSFW-tolerant. iOS/Android/web. No proxy. [claims modest]
+8. **SillyTavern** — the JanitorAI-flexibility pick for power users. Free, open-source front-end, **bring your own model/API** (so yes, it needs a proxy/API key — the honest caveat). NSFW: model-dependent. Self-hosted.
++ **Pleasur.ai** — all-in-one adult companion universe: create a custom companion (appearance/personality/kinks), in-chat image generation; voice replies + phone calls landing in-chat. Live: /create, /generate.
