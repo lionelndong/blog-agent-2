@@ -6,6 +6,8 @@ allowed-tools: Read, Write, Edit, Bash, mcp__semrush__keyword-magic-questions, m
 
 # Keyword Question Mining Skill (Layer 1d)
 
+> **DATA LAYER RULING (2026-06-12).** Every `mcp__semrush__<kebab-name>` tool named below is FICTIONAL (never existed on the live server), and DataForSEO is retired. Before making any data call, read [`../keyword-research-pipeline/references/semrush-data-layer.md`](./../keyword-research-pipeline/references/semrush-data-layer.md) — it maps this layer's old calls to the real Semrush MCP pattern (`get_report_schema` -> `execute_report`). The logic below (filters, thresholds, output schema) remains binding; only the data calls changed.
+
 Extract question-form keywords from the brand's category and the existing candidate pool. Question-form keywords have less competition, higher informational intent, and map cleanly to PAA-driven SERP real estate. Ryan Law explicitly flags the under-delivery of question keywords as a gap in the legacy method — Layer 1d closes it.
 
 This is a **first-class source**, not a bolt-on. The rows it appends become regular candidates that flow through Layer 2 (BID), Layer 3 (AIO), Layer 4 (redteam), and Layer 5 (prioritization) like any other.

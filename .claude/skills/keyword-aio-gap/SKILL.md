@@ -6,6 +6,8 @@ allowed-tools: Read, Write, Bash, mcp__semrush__ai-toolkit-prompts, mcp__semrush
 
 # Keyword AI-Overview Gap Skill (Semrush AI Toolkit)
 
+> **DATA LAYER RULING (2026-06-12).** Every `mcp__semrush__<kebab-name>` tool named below is FICTIONAL (never existed on the live server), and DataForSEO is retired. Before making any data call, read [`../keyword-research-pipeline/references/semrush-data-layer.md`](./../keyword-research-pipeline/references/semrush-data-layer.md) — it maps this layer's old calls to the real Semrush MCP pattern (`get_report_schema` -> `execute_report`). The logic below (filters, thresholds, output schema) remains binding; only the data calls changed.
+
 Find prompts where competitors appear in AI search (Google AI Overview, ChatGPT, Gemini, Perplexity, Copilot) but the brand doesn't. These are "AI-search citation gaps" — queries where the goal isn't traditional ranking, it's getting cited by the AI when someone asks about the topic.
 
 This is the fifth piece of Ryan Law's keyword-research strategy: instead of asking "what keywords should I rank for?", ask "what queries do I want my brand associated with in AI search?" Then work backwards.

@@ -88,7 +88,9 @@ product-mentions → draft → quality-check → verify-claims → optimize-cont
 visuals-adversarial → preview → format-for-publish → `auto_publish_check.py`.
 
 ### Non-negotiable publish gates
-1. **Quality ≥ 85** (the dedication bar, not the 75 PASS floor). Min 2 full drafts: v1 → brutal
+1. **Quality ≥ 85** (since 2026-06-12 this IS the PASS floor — the rubric is benchmark-relative:
+   depth vs the dossier's BEAT SPEC, consensus-topic coverage, AI-tell scan, side-by-side
+   adversarial read; a compliant-but-thin article cannot pass). Min 2 full drafts: v1 → brutal
    self-critique → full rewrite v2. Still < 85 after the revision budget → **quarantine**.
 2. **Claims verified** — no naked `[link]` placeholders.
 3. **Internal-stack scrub (HARD)** — reader-facing prose must never name internal tools/vendors/data
@@ -143,5 +145,15 @@ Report a one-line status per article on the run issue. The whiteboard
   measurement) is EO-owned and autonomous.
 
 ## 5. Spend guardrail
-DataForSEO + image-generation calls are metered real money. Stay ≤ **$20/week** combined without
-board approval. Log notable spend in the run ledger; report monthly to the CFO (PLE-333).
+Semrush API units (drawn from the paid plan's bundle), Firecrawl scrapes, and image-generation
+calls are metered real money. Stay ≤ **$20/week** combined incremental spend without board
+approval. Keep `display_limit` ≤ 50 on Semrush reports (see the cheatsheet's budget table —
+`domain_domains` at 80 u/line and `phrase_kdi` at 50 u/line are the expensive ones). Log notable
+spend in the run ledger; report monthly to the CFO (PLE-333).
+
+## 6. Self-improvement cadence (2026-06-12)
+- **Example promotion:** when the board grades a published article 9+/10, promote its final
+  markdown into `examples/voice/` and rotate out the weakest anchor (see `examples/README.md`).
+- **Skill evals:** run `/skill-eval` on one core stage per week (rotate research → outline →
+  draft → quality-check), and immediately after any board complaint that names a stage. Proposed
+  skill diffs are applied only after operator/EO review.

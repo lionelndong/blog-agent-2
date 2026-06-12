@@ -70,7 +70,7 @@ For slug `{slug}`:
 - `content-pipeline/6-drafts-cited/{slug}.md` (preferred — the cited draft)
 - `content-pipeline/5-drafts/{slug}.md` (fallback if not cited yet)
 - `content-pipeline/1-research/{slug}.md` (for the target keyword and SERP context)
-- `brand-config.md` + 2 `examples/*.md` (voice anchors for the rewrite step)
+- `brand-config.md` + 2 `examples/voice/*.md` (voice anchors for the rewrite step; read `examples/README.md` first)
 
 The Python script auto-discovers the draft path (cited → uncited preference); the skill only needs to pass `--slug` and `--keyword`.
 

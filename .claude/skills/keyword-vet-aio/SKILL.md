@@ -6,6 +6,8 @@ allowed-tools: Read, Write, Edit, Bash, WebFetch, mcp__semrush__serp-overview, m
 
 # Keyword Vet — AI Overview Cannibalization Check
 
+> **DATA LAYER RULING (2026-06-12).** Every `mcp__semrush__<kebab-name>` tool named below is FICTIONAL (never existed on the live server), and DataForSEO is retired. Before making any data call, read [`../keyword-research-pipeline/references/semrush-data-layer.md`](./../keyword-research-pipeline/references/semrush-data-layer.md) — it maps this layer's old calls to the real Semrush MCP pattern (`get_report_schema` -> `execute_report`). The logic below (filters, thresholds, output schema) remains binding; only the data calls changed.
+
 For every keyword that passed BID (Layer 2), check:
 1. Does the SERP show an AI Overview?
 2. If yes, how completely does it answer the query?

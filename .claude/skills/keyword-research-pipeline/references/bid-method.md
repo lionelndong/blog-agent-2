@@ -1,5 +1,7 @@
 # BID Method — Distilled Reference (Semrush edition)
 
+> **2026-06-12:** Tool names in this file that look like `mcp__semrush__<kebab-name>` are HISTORICAL and never existed on the live server. The real call pattern and per-layer mapping live in `.claude/skills/keyword-research-pipeline/references/semrush-data-layer.md`. Metrics/threshold logic in this file remains valid.
+
 > Source: Ryan Law's keyword-research method, adapted to Semrush's data surface. Codified here as the operational checklist `/keyword-vet-bid` applies. Read this when the BID gate's behavior is unclear or thresholds need tuning. Recalibration math lives in [`semrush-metric-translation.md`](./semrush-metric-translation.md) — read that first if you're touching any threshold.
 
 The BID method is the second-to-last layer of defense before a keyword reaches the writing pipeline. It's mechanical (heuristics + Semrush metrics, no judgment), cheap, and deterministic. Layer 4 (redteam) handles the judgment-heavy challenges.

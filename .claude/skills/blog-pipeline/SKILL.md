@@ -116,13 +116,15 @@ You are running stage 1 of the blog-agent content pipeline at {ROOT}. Keyword: "
 Your job: produce a research dossier at content-pipeline/1-research/{SLUG}.md per .claude/skills/research/SKILL.md. Read the SKILL.md first and follow it end-to-end.
 
 Critical requirements:
-- Use the Semrush MCP for keyword/SERP data + Topic Research
-- WebFetch the top 5 SERP URLs (note Cloudflare blocks; don't crash)
+- Read .claude/skills/research/references/semrush-mcp-cheatsheet.md FIRST — only the get_report_schema → execute_report pattern exists; kebab-name Semrush tools are fictional
+- Pull keyword data per the cheatsheet (phrase_this, phrase_kdi, phrase_fullsearch, phrase_related, phrase_questions, phrase_organic)
+- Extract the top 5–8 ranking pages via Firecrawl (FIRECRAWL_API_KEY; WebFetch fallback) and build the SERP benchmark: per-page word counts, H2 lists, formats, item counts, table/visual counts
 - Run deep research via OpenRouter: doppler run -- python .claude/skills/research/scripts/openrouter_research.py --keyword "{KEYWORD}" --slug "{SLUG}"
-- ALSO emit content-pipeline/1-research/{SLUG}-data.json with chartable numbers from the dossier (cluster_volumes, format_share, traffic_distribution, whatever the dossier surfaces) — schema described in the research SKILL
-- 800–1500 words
+- ALSO emit content-pipeline/1-research/{SLUG}-data.json with chartable numbers from the dossier — schema described in the research SKILL
+- The dossier MUST end with the "## BEAT SPEC" section (target word count, format + item count, table requirement, must-cover topics, information gain, secondary keywords, beatability) — the outline and quality gate are bound by it
+- 1200–2500 words
 
-Return: word count, recommended angle (one sentence), 3 most surprising findings from deep research, any failures encountered. Under 400 words.
+Return: word count, recommended angle (one sentence), the BEAT SPEC's headline numbers (target words / format / item count / table), 3 most surprising findings from deep research, any failures encountered. Under 400 words.
 ```
 
 ### Stage 1b — Research adversarial (PLEAA-418)
@@ -174,16 +176,18 @@ Inputs to read in order:
 7. content-pipeline/1-research/{SLUG}-deep.md (if present)
 8. content-pipeline/2-reference/{SLUG}.md
 9. brand-config.md
-10. 2 articles from examples/ for structural anchoring
+10. examples/README.md + 1 structure or niche example matching the content type
 
 Editorial requirements:
-- 4–7 H2s, MECE, BLUF on every opener
-- Each H2 has BLUF + 2–4 key points + evidence + transition + typed Visual + word target
-- Default Visual is `none` — most sections should have none. AI-content's #1 failure mode is sprinkling visuals
-- Run the visual sanity check + structural self-check before saving
+- **The outline is bound by the dossier's BEAT SPEC** — restate it at the top of the outline file; section count sized by the SERP (listicles get one section per item, item count ≥ the spec — the 4–7 cap applies only to non-list guides); per-section word targets sum to the spec total ±10%
+- Coverage map at the bottom: every must-cover (consensus) topic → which H2 covers it; one section marked [GAIN]
+- Comparison table specced as a markdown skeleton when the beat spec requires one
+- Each H2 has BLUF + 2–4 key points + evidence source + transition + typed Visuals + word target; MECE across sections
+- Visual density per templates/editorial-principles-visuals.md (non-trivial sections default to "what kind?", not "none")
+- Run the visual sanity check + structural self-check + beat-spec self-check before saving
 - Title under 60 chars, includes primary keyword
 
-Return: title, one-sentence thesis, H2 list with one-line description each, count of non-`none` Visuals (and which type), any structural concerns. Under 350 words.
+Return: title, one-sentence thesis, H2 list with one-line description each, beat-spec compliance line (sections / items / total words / table Y-N), count of Visuals by type, any structural concerns. Under 350 words.
 ```
 
 ### Stage 3b — Outline adversarial (PLEAA-418)
@@ -226,13 +230,14 @@ Return: number of sections annotated, the H2-by-H2 product plan as a table, any 
 ```
 You are running stage 5 at {ROOT}. Slug: {SLUG}. Brand: see brand-config.md.
 
-Your job: produce content-pipeline/5-drafts/{SLUG}.md per .claude/skills/draft/SKILL.md. Read the SKILL first — particularly the voice metrics targets at the top.
+Your job: produce content-pipeline/5-drafts/{SLUG}.md per .claude/skills/draft/SKILL.md. Read the SKILL first — particularly the three commitments (depth / specificity / voice-from-examples).
 
-Voice metrics targets (HARD — these are not soft self-edit suggestions):
-- Avg paragraph length: 24–35 words
-- Em-dash density: 6–8 per 1000 words
-- Second-person words ("you", "your") per 1000 words: 25+
-- Sentence-length variance: matches examples baseline within 1.5 SD
+Depth targets (HARD — these gate the save):
+- Hit each section's word target from the annotated outline ±20%
+- Article total within ±15% of the BEAT SPEC target (restated at the top of the outline)
+- Listicle item count per the outline — never compress
+- Comparison table authored as real GFM markdown when the outline specs one
+- No crutch word/phrase used 3+ times; paragraph rhythm varied (mix one-line punches with developed 4–6 sentence passages)
 
 Read these references in order before drafting:
 1. .claude/skills/draft/SKILL.md
@@ -243,7 +248,7 @@ Read these references in order before drafting:
 6. content-pipeline/4-outlines-annotated/{SLUG}.md
 7. content-pipeline/2-reference/{SLUG}.md
 8. content-pipeline/1-research/{SLUG}.md (+ {SLUG}-deep.md)
-9. At least 2 articles from examples/
+9. examples/README.md, then 2 articles from examples/voice/ + 1 from examples/structure/ or examples/niche/ per content type
 
 Editorial requirements:
 - Every section opens with a BLUF
@@ -256,12 +261,13 @@ Editorial requirements:
 - Visual placeholders use typed [VISUAL:type=...;...] syntax per visual-types.md
 - For chart placeholders: use data=research.<key> where <key> is a key in {SLUG}-data.json (the research stage emits it). Don't write data=research.X with a placeholder X — pick a real key.
 
-Self-check before save:
-- Run a quick metrics check: count em-dashes, count "you/your", measure avg paragraph length. If any metric is more than 1.5x off the targets above, REVISE before saving rather than saving and letting quality-check fail.
+Self-check before save (the depth gate from draft/SKILL.md step 8):
+- Count words per section vs the outline targets; any section <80% → go back to the dossier and add concrete material (never pad).
+- Scan for crutch repetition (any distinctive word/move 3+ times) and uniform paragraph rhythm; fix before saving rather than letting quality-check fail.
 
-Save to content-pipeline/5-drafts/{SLUG}.md. Word target: per outline.
+Save to content-pipeline/5-drafts/{SLUG}.md. Word target: per outline/BEAT SPEC.
 
-Return: word count, voice metrics (em-dash/1k, you-words/1k, avg paragraph), [link] count, [VISUAL] count, confirmation no forbidden phrases or out-of-slot product mentions. Under 400 words.
+Return: word count vs target, section count vs outline, table present (Y/N if specced), [link] count, [VISUAL] count, confirmation no forbidden phrases or out-of-slot product mentions. Under 400 words.
 ```
 
 ### Stage 6 — Quality check (gate)
@@ -273,13 +279,14 @@ Your job: produce content-pipeline/quality-checks/{SLUG}.md per .claude/skills/q
 
 Steps:
 1. Run python .claude/skills/quality-check/scripts/quality_check.py {SLUG}
-2. Spawn a Task sub-agent for the adversarial read with the brief specified in the SKILL
-3. Combine into a verdict report with:
-   - Verdict at top: PASS (≥75) / BORDERLINE (60–74) / FAIL (<60)
+2. Do the voice + judgment read per the SKILL (read examples/voice/ first; your judgment is 40% of the final score)
+3. Spawn a Task sub-agent for the adversarial read with the benchmark-armed brief specified in the SKILL (it must answer the side-by-side question first)
+4. Combine into a verdict report with:
+   - Verdict at top: PASS (final ≥85 AND no CRITICAL AND no mechanical dimension <60% AND adversarial doesn't pick the competitor) / BORDERLINE (70–84) / FAIL (<70 or any CRITICAL)
    - Metrics summary
    - Adversarial critique
    - Punch list ordered by severity (CRITICAL / HIGH / MEDIUM / LOW)
-   - Recommendation
+   - Recommendation — route structural deficits (depth/coverage) back to /outline, prose issues back to /draft
 
 Specifically check for constraint violations like coming-soon products appearing in walkthrough sections — these are CRITICAL even if the score is 75+.
 
@@ -301,7 +308,7 @@ Inputs:
 
 Apply each CRITICAL and HIGH item using Edit calls (not Write). Preserve all [link] markers, all typed [VISUAL] placeholders, all internal links. Save back to content-pipeline/5-drafts/{SLUG}.md.
 
-Return: each fix applied (Y/N), key metric deltas (em-dashes before/after, paragraph length before/after), confirmation any CRITICAL constraint violations are resolved.
+Return: each fix applied (Y/N), word-count delta vs beat-spec target, confirmation any CRITICAL constraint violations are resolved. If the punch list calls for structural work (missing topics, item shortfall, missing table), say so explicitly — that goes back through /outline, not a surgical edit.
 ```
 
 After 6b, the orchestrator re-dispatches stage 6 (quality-check) once. If still BORDERLINE without CRITICAL, continue to stage 7. If FAIL or CRITICAL still present, halt and surface to user.
@@ -476,9 +483,9 @@ Audit log row appended (action=quarantined).
 
 ## Quality-check gating
 
-- **PASS (≥75):** advance silently
-- **BORDERLINE (60–74), no CRITICAL:** advance, flag in final report
-- **BORDERLINE (60–74), CRITICAL present:** dispatch one targeted-revision pass, re-run quality-check, then advance only if CRITICAL is resolved
+- **PASS (final ≥85, no CRITICAL, no dimension floor breach, adversarial doesn't pick the competitor):** advance silently
+- **BORDERLINE (70–84), no CRITICAL:** advance only in interactive mode with the flag surfaced; in autonomous mode treat as FAIL (the publish gate is 85)
+- **BORDERLINE/FAIL with CRITICAL present:** structural CRITICALs (word-count ratio, item shortfall, missing table, missing consensus topics) → revision routes through /outline then re-draft of affected sections; prose CRITICALs → targeted draft revision. Re-run quality-check after, within the revision budget
 - **FAIL (<60):** stop, surface punch list, do not advance
 
 ## When a stage's agent fails

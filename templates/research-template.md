@@ -37,14 +37,27 @@ Grouped into themes (not flat FAQ spam):
 ## Top-ranking pages — summaries
 
 ### #1: {{TITLE}} — {{URL}}
-- **DR / UR:** {{DR}} / {{UR}}
+- **Authority (AS) / est. traffic:** {{AS}} / {{TRAFFIC}}
 - **Word count:** {{WORDS}}
+- **Format / item count:** {{guide|listicle|comparison}} / {{N items, if list-shaped}}
+- **Tables / images:** {{N_TABLES}} / {{N_IMAGES}}
 - **Headers:** {{H2_LIST}}
 - **Key arguments:** {{BULLET}}, {{BULLET}}
-- **Evidence used:** {{STAT/QUOTE/SCREENSHOT}}
+- **Evidence used:** {{STAT/QUOTE/SCREENSHOT/HANDS-ON}}
 - **What's missing:** {{GAP}}
 
-(repeat for top 5-10 results)
+(repeat for top 5-8 results — extracted via Firecrawl, not summarized from snippets)
+
+## SERP benchmark
+
+| Metric | Value |
+|---|---|
+| Median word count (top 3) | {{N}} |
+| Max word count (top 5) | {{N}} |
+| Modal format | {{format}} |
+| Item count range (if list-shaped) | {{min–max}} |
+| Pages with a comparison table | {{N of 5}} |
+| Typical image/visual count | {{N}} |
 
 ## Content gaps and opportunities
 
@@ -58,3 +71,16 @@ Grouped into themes (not flat FAQ spam):
 **Thesis:** {{ONE_SENTENCE_THESIS}}
 
 **Why this angle wins:** {{REASONING — what does it offer that the SERP currently doesn't}}
+
+## BEAT SPEC (binding on outline + quality gate)
+
+- Target word count: {{max(1.1 × median top-3, 1800)}} (±20%)
+- Format: {{modal SERP format}}; item count: {{max items on SERP + 1, if list-shaped}}
+- Comparison table: {{required iff ≥2 of top 5 have one — list required columns}}
+- Must-cover topics (consensus):
+  - {{TOPIC}}
+  - {{TOPIC}}
+- Differentiation topics: {{partial-coverage topics we go deeper on}}
+- Information gain (≥1 REQUIRED): {{the thing nobody on page 1 has}}
+- Secondary keywords to work in naturally: {{from url_organic + variations}}
+- Beatability: {{honest read — authority spread, incumbent content quality}}

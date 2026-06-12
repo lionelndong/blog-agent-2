@@ -1,32 +1,27 @@
-# Voice anchoring examples
+# Examples — the anchor set (restructured 2026-06-12)
 
-This directory contains reference articles that the `/draft` skill reads before writing prose. The voice in these files is the source of truth for how articles in this pipeline should sound.
+Reference articles the pipeline reads before outlining and drafting. LLMs infer quality from real text far more reliably than from rules — this is the core insight of [Ryan Law's process](https://ahrefs.com/blog/how-i-do-content-engineering-with-claude-code/). But an anchor only works if it anchors the *right thing*. The old setup used five Ahrefs B2B-SEO articles as the *voice* anchor for a consumer adult-AI blog — the model got conflicting signals and fell back to generic AI prose. Each subfolder now anchors exactly one thing:
 
-## Why we use examples instead of just rules
+## `voice/` — how we sound (THE voice spec)
 
-A distilled style guide ("be conversational", "use second person") is a guardrail, not a spec. Large language models infer voice patterns more reliably from real text than from rules. This is the core insight from [Ryan Law's process](https://ahrefs.com/blog/how-i-do-content-engineering-with-claude-code/): give the model the actual writing you want it to imitate.
+The brand's own best published work. `/draft` and `/quality-check` read 2 of these every run. Also read `_voice-notes.md` — it lists what to keep and what to avoid from these specific pieces (they are good anchors, not perfect ones).
 
-## What's here
+**Promotion rule:** when the board grades a published article 9+/10, its final markdown gets added here (and the weakest existing anchor rotated out). The anchor set is supposed to get better over time. Never let it exceed ~5 files.
 
-5 publicly available articles from the Ahrefs blog covering different content types:
+## `niche/` — what winning consumer content looks like (depth + structure, NOT voice)
 
-- `ahrefs-keyword-research.md` — definitive guide format
-- `ahrefs-content-gap.md` — methodology / how-to format
-- `ahrefs-link-building.md` — comprehensive resource format
-- `ahrefs-seo-basics.md` — beginner-friendly explainer format
-- `ahrefs-rank-tracking.md` — tactical/practical format
+Best-in-class consumer comparison/listicle content. Currently: Zapier's "best AI chatbot" roundup (~6,800 words — note the per-item depth: hands-on detail, screenshots, pricing specifics, a real comparison table, honest cons). Read for *how much substance a winning listicle carries*, never for voice (different brand, different audience).
 
-Each file is the markdown text of the article (no images, no shortcodes), captured for voice reference only.
+## `structure/` — explainer/guide mechanics (NOT voice)
+
+Ahrefs articles kept for their structural craft: BLUF section openers, MECE coverage, evidence placement, product-led demonstrations. Read when writing definitive guides and explainers.
 
 ## How the pipeline uses these
 
-The `/draft` skill reads at least 2 of these (preferring topical adjacency) before drafting any new article. The `/outline` skill reads them when deciding section structure.
+- `/outline` — 1 structure or niche example closest to the content type
+- `/draft` — 2 from `voice/` (full read, every run) + 1 from `structure/` or `niche/` per content type
+- `/quality-check` — 1–2 from `voice/` as the judgment baseline
 
 ## Customizing
 
-To shift voice toward your own brand:
-1. Replace one or more files here with your own articles (in `.md` format, prose only)
-2. Update the file list above
-3. Optionally add a `_voice-notes.md` describing what's distinctive about your brand voice
-
-The pipeline favors examples over rules. If you want different output, change the examples.
+Replace files freely — the pipeline favors examples over rules. If output should change, change the anchors.

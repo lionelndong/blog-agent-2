@@ -6,6 +6,8 @@ allowed-tools: Read, Write, Edit, Bash, mcp__semrush__keyword-overview, mcp__sem
 
 # Keyword Vet — BID Method
 
+> **DATA LAYER RULING (2026-06-12).** Every `mcp__semrush__<kebab-name>` tool named below is FICTIONAL (never existed on the live server), and DataForSEO is retired. Before making any data call, read [`../keyword-research-pipeline/references/semrush-data-layer.md`](./../keyword-research-pipeline/references/semrush-data-layer.md) — it maps this layer's old calls to the real Semrush MCP pattern (`get_report_schema` -> `execute_report`). The logic below (filters, thresholds, output schema) remains binding; only the data calls changed.
+
 For every candidate in `keyword-ideas.csv`, run three tests:
 1. **B**usiness potential — would ranking #1 actually move the needle for this brand?
 2. **I**ntent — does the keyword's intent match what we'd publish (a blog post)?

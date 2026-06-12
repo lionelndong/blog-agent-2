@@ -6,28 +6,22 @@ allowed-tools: Read, Write, Bash, Agent, Glob
 
 # Keyword Research Pipeline (Master Orchestrator)
 
-## DataForSEO migration note (2026-06-10)
+## Provider ruling (2026-06-12 — supersedes the 2026-06-10 DataForSEO note)
 
-Semrush is retired for this pipeline. The operational data layer is DataForSEO, with the
-endpoint and threshold mapping pinned in
-`.claude/skills/keyword-research-pipeline/references/dataforseo-metric-translation.md`.
+**Semrush MCP is the data layer.** The paid plan has full MCP data access (verified live).
+DataForSEO is retired; `scripts/dataforseo_keyword_pipeline.py` is archived and must not run.
 
-For the current autonomous run path, execute:
+Every layer's real data calls are pinned in
+[`references/semrush-data-layer.md`](./references/semrush-data-layer.md) — read it before
+dispatching any layer. The server has 13 tools and exactly one call pattern
+(`get_report_schema` → `execute_report`); any `mcp__semrush__<kebab-name>` mention in the
+layer briefs below is a historical fiction that the data-layer file overrides. Metric
+thresholds still go through `references/semrush-metric-translation.md`.
 
-```bash
-DOPPLER_TOKEN="$DOPPLER_KEY" doppler run --project pleasurai --config dev -- \
-  python3 scripts/dataforseo_keyword_pipeline.py --per-seed-limit 35 --serp-limit 70
-```
-
-That script performs the mapped endpoint smoke test, logs DataForSEO spend, builds
-`content-pipeline/0-keywords/keyword-ideas.csv`, applies deterministic BID/AIO gates,
-and writes the top-50 vetted `content-pipeline/0-keywords/keyword-queue.csv`.
-
-Layer 1c (`keyword-aio-gap`) is **SKIPPED** under DataForSEO because there is no
-multi-engine ChatGPT/Gemini/Perplexity/Copilot citation-share equivalent. Do not
-fake `aio_gap` rows or `aio_sov_competitor_top`. ContentShake-style external scoring
-is optional soft-fail; keep the deterministic quality, judgment rewrite, and
-voice-drift rollback gates.
+Layer 1c (`keyword-aio-gap`) remains **SKIPPED** — this MCP server exposes no AI-visibility
+toolkit. Do not fake `aio_gap` rows or `aio_sov_competitor_top`. Layer 3's AIO check is
+presence-only via the `Fk` SERP-features column (see the data-layer file). Keep the
+deterministic quality, judgment rewrite, and voice-drift rollback gates.
 
 Take a brand and produce a *vetted* keyword queue (`keyword-queue.csv`) ready for the autonomous blog loop. Layered chain (0 → 1a → 1b → 1c → 1d → 2 → 3 → 4 → 5), each rejecting candidates with reasons logged, each dispatched as a fresh Agent.
 

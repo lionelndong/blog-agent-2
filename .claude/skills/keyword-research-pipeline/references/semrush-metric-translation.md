@@ -1,5 +1,7 @@
 # Semrush Metric Translation (the "be careful" gotcha doc)
 
+> **2026-06-12:** Tool names in this file that look like `mcp__semrush__<kebab-name>` are HISTORICAL and never existed on the live server. The real call pattern and per-layer mapping live in `.claude/skills/keyword-research-pipeline/references/semrush-data-layer.md`. Metrics/threshold logic in this file remains valid.
+
 > **Read this before touching any threshold in Layer 2 (BID) or Layer 5 (prioritization).** Ryan Law's method was tuned against Ahrefs' metric formulas. Semrush returns superficially-similar numbers that are scaled and computed differently. Transplanting Ahrefs thresholds without translation will silently degrade the gates — too lenient (everything passes) or too strict (everything fails).
 
 Single source of truth for: Ahrefs ↔ Semrush metric mapping, threshold deltas, calibration math, and the "do not transplant" warning. Every BID / AIO / prioritization skill links here.

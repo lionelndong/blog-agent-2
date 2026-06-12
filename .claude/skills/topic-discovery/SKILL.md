@@ -6,6 +6,8 @@ allowed-tools: Read, Write, Bash, mcp__semrush__topic-research, mcp__semrush__tr
 
 # Topic Discovery Skill (Layer 0)
 
+> **DATA LAYER RULING (2026-06-12).** Every `mcp__semrush__<kebab-name>` tool named below is FICTIONAL (never existed on the live server), and DataForSEO is retired. Before making any data call, read [`../keyword-research-pipeline/references/semrush-data-layer.md`](./../keyword-research-pipeline/references/semrush-data-layer.md) — it maps this layer's old calls to the real Semrush MCP pattern (`get_report_schema` -> `execute_report`). The logic below (filters, thresholds, output schema) remains binding; only the data calls changed.
+
 Take `brand-config.md` and produce two artefacts that downstream layers consume as enrichment:
 
 1. **`content-pipeline/0-keywords/topic-graph.json`** — the Semrush Topic Research idea-cluster tree rooted at the brand's category. Layer 1a (`/seed-modifier-prompt`) reads the top 5 cluster names so the seed agent grounds its output in Semrush's actual topic graph rather than brand-config alone. Layer 5 (`/keyword-prioritization`) reads cluster-level metrics to compute the `cluster_authority_gap` boost.

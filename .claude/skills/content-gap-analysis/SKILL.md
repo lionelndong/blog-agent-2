@@ -6,6 +6,8 @@ allowed-tools: Read, Write, mcp__semrush__organic-competitors, mcp__semrush__key
 
 # Content Gap Analysis Skill
 
+> **DATA LAYER RULING (2026-06-12).** Every `mcp__semrush__<kebab-name>` tool named below is FICTIONAL (never existed on the live server), and DataForSEO is retired. Before making any data call, read [`../keyword-research-pipeline/references/semrush-data-layer.md`](./../keyword-research-pipeline/references/semrush-data-layer.md) — it maps this layer's old calls to the real Semrush MCP pattern (`get_report_schema` -> `execute_report`). The logic below (filters, thresholds, output schema) remains binding; only the data calls changed.
+
 Use Semrush's multi-mode Keyword Gap and Keyword Magic Tool to surface keywords competitors rank for that the brand doesn't, plus seed-modifier expansion of the brand's own keyword universe. The output feeds `/keyword-prioritization`, which then feeds `/blog-pipeline` for the chosen keywords.
 
 > **Threshold reminder.** All KD% thresholds in this skill are recalibrated for Semrush per `.claude/skills/keyword-research-pipeline/references/semrush-metric-translation.md`. Semrush KD% is materially stricter than Ahrefs KD — do not transplant Ahrefs thresholds. Read the metric-translation doc before tuning any number here.

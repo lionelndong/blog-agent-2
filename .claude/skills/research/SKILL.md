@@ -1,89 +1,91 @@
 ---
 name: research
-description: Gather keyword metrics, related terms, questions, SERP analysis, top-page summaries, and Topic Research idea-cluster context for a target keyword. Triggered when the user runs /research <keyword> or as the first content stage of /blog-pipeline.
+description: Gather keyword metrics, related terms, questions, full SERP benchmark, top-page extractions, and deep web research for a target keyword, then emit a beat spec the outline must satisfy. Triggered by /research <keyword> or as the first content stage of /blog-pipeline.
 allowed-tools: Read, Write, WebFetch, mcp__semrush__*, Bash
 ---
 
 # Research Skill
 
-Produce a research dossier that the `outline` skill can turn into a structured outline. The dossier consolidates Semrush MCP data (Keyword Magic Tool, Topic Research, SERP, Domain Organic Pages), SERP intelligence, and competitor content gaps into a single file the next stage will read.
+Produce a research dossier that ends in a **beat spec** — a quantified statement of what this article must do to deserve the top of this SERP. The outline is bound by the beat spec; the quality gate scores against it. If the research is thin, everything downstream is thin: this is the most leverage-dense stage of the pipeline.
 
-> Read [`references/semrush-mcp-cheatsheet.md`](./references/semrush-mcp-cheatsheet.md) before constructing tool calls — it pins the actual tool names and parameter shapes. Tool-name discrepancies trace back to [`../keyword-research-pipeline/references/semrush-mcp-tool-inventory.md`](../keyword-research-pipeline/references/semrush-mcp-tool-inventory.md) (the live inventory).
+> Tool calls: read [`references/semrush-mcp-cheatsheet.md`](./references/semrush-mcp-cheatsheet.md) first — it pins the REAL tool/report names and parameter shapes (the only pattern is `get_report_schema` → `execute_report`). Never call `mcp__semrush__keyword-overview`, `topic-research`, `serp-results` or other invented names; they don't exist.
 
 ## Input
 
-A target keyword as a string. Example: `keyword cannibalization`.
+A target keyword as a string. Example: `ai girlfriend app`.
 
 If invoked with no argument, read the most recent context file in `content-pipeline/0-context/` and prompt the user for the keyword.
 
 ## Process
 
-1. **Slugify the keyword.** Run `python scripts/slugify.py "<keyword>"` and store the slug.
-2. **Read brand context.** Read `brand-config.md` for audience, products, voice — research framing should consider what this brand can credibly own.
-3. **Pull keyword metrics via Semrush MCP.** Use the playbook in `references/semrush-mcp-cheatsheet.md`:
-   - Keyword Overview (volume, KD%, CPC, **`intents` array**, trend, parent cluster) via `mcp__semrush__keyword-overview`
-   - Related keywords (broad + phrase + related; aim for 50+ candidates, filter to ~10–15 sharing the same Keyword Strategy Builder cluster — fall back to `first_keyword_group` if KSB cluster unavailable)
-   - Questions report — merge `mcp__semrush__keyword-magic-questions` results with Topic Research's questions tab; group into 3–5 themes
-   - SERP results / SERP overview for top 10 via `mcp__semrush__serp-results` (or `mcp__semrush__serp-overview`)
-   - **Topic Research idea-cluster tree** via `mcp__semrush__topic-research` — root keyword = primary; pull headlines + questions + related searches per top cluster (this is the audience-question landscape the Ahrefs pipeline didn't have)
-4. **Analyze the SERP.** Classify dominant intent and content type (guide/listicle/comparison/etc.). Note brand presence. The Semrush per-keyword `intents` array is the primary intent signal — only fall back to URL-pattern heuristics if `intents` is empty or mixed.
-5. **Read the top-ranking pages.** WebFetch each of the top 5 URLs. For each, extract: title, H2 list, key arguments, evidence used, what's missing. Be systematic, not summarizing — name the actual structures.
-6. **Run deep web research via OpenRouter (Perplexity).** This is the voice-of-customer + community-signals pass that fills gaps WebFetch can't reach (Reddit, Cloudflare-blocked sites, forums, review sites). Call:
+1. **Slugify.** `python scripts/slugify.py "<keyword>"`; store the slug.
+2. **Read brand context.** `brand-config.md` — audience, products, voice. Research framing should consider what this brand can credibly own.
+3. **Pull keyword data via Semrush MCP** (cheatsheet steps 1–4):
+   - `phrase_this` + `phrase_kdi` → volume, CPC, competition, KD%
+   - `phrase_fullsearch` + `phrase_related` (limit 40–50) → variation pool; keep 10–15 same-intent keywords with volumes
+   - `phrase_questions` (limit 30–40) → group into 3–5 question themes; drop spam
+   - `phrase_organic` (limit 10–20) → the ranking URLs, in order
+4. **Build the SERP benchmark (MANDATORY — the heart of this skill).**
+   Extract the full content of the top 5–8 ranking pages (skip ads, skip our own domain): for each page, POST to Firecrawl (`https://api.firecrawl.dev/v1/scrape`, body `{"url": <url>, "formats": ["markdown"]}`, header `Authorization: Bearer $FIRECRAWL_API_KEY`); fall back to WebFetch on error. From each extraction record:
+   - Word count (of article body, excluding nav/boilerplate — estimate honestly)
+   - Title + full H2/H3 list
+   - Format (guide / listicle / comparison / how-to / explainer) and **item count** if list-shaped ("9 apps reviewed")
+   - Evidence types used: tables (count them), screenshots/images (count), original data, expert quotes, hands-on detail
+   - What it does well; where it's thin or generic
+   Then compute the benchmark table:
+   - Median + max word count of the top 3
+   - Modal format and item-count range
+   - Table/visual usage across the SERP ("4 of 5 pages have a comparison table")
+   - **Consensus topics** — covered by 3+ of the extracted pages (the article MUST cover all of these)
+   - **Partial topics** — covered by 1–2 (differentiate with more depth)
+   - **Gaps** — asked by searchers (question themes, deep research) but covered by nobody (the information-gain opportunity)
+5. **Authority check.** `domain_ranks` for the top-3 domains, `url_organic` (limit 10) for the top-3 URLs → is this SERP beatable, and what secondary keywords do winning pages also rank for (fold the good ones into the outline's subtopics).
+6. **Deep web research via OpenRouter (Perplexity).** Voice-of-customer + community signals (Reddit, forums, review sites):
 
    ```bash
    doppler run -- python .claude/skills/research/scripts/openrouter_research.py \
      --keyword "<keyword>" --slug "<slug>"
    ```
 
-   The script defaults to `perplexity/sonar-reasoning-pro` and falls back to `openai/o4-mini` if Perplexity errors. Output lands at `content-pipeline/1-research/{slug}-deep.md`.
+   Output lands at `content-pipeline/1-research/{slug}-deep.md`. If `OPENROUTER_API_KEY_BLOG_AGENT` isn't set, skip and note it in the dossier — don't fail the pipeline.
+7. **Recommend an angle.** One-sentence thesis that wins against the current SERP, with justification grounded in the benchmark's gaps + what this brand can credibly demonstrate first-hand.
+8. **Write the beat spec** — the dossier's final section, in exactly this shape:
 
-   **If `OPENROUTER_API_KEY_BLOG_AGENT` isn't set** (Doppler not configured yet), skip this step and note in the dossier that deep research wasn't available. Don't fail the pipeline.
-
-7. **Identify content gaps.** Cross-reference: Semrush top-page coverage + Topic Research's idea-cluster headlines + WebFetch findings + Perplexity deep research:
-   - Topics covered by all → must include
-   - Topics covered by some → differentiate with depth
-   - Topics covered by none but in Topic Research's questions tab / Semrush questions filter / Perplexity's "voice of customer" → angle to own
-   - Direct user quotes from Perplexity → ammunition for the article
-8. **Recommend an angle.** A one-sentence thesis for the article that wins against the current SERP. Explain why this angle wins.
-9. **Write the dossier.** Save to `content-pipeline/1-research/{slug}.md` using the structure in `../../templates/research-template.md`. Replace template placeholders with real content; do not leave any `{{VAR}}` markers. Add a section called **"Deep web research findings"** that summarizes (not duplicates) the most actionable signals from `{slug}-deep.md` — the deep file stays available for the drafting stage to reference directly.
-
-10. **Emit chartable data.** If the dossier surfaces any numeric breakdown that downstream stages might chart (search-volume clusters, format share, traffic distribution, top-page rankings), also write `content-pipeline/1-research/{slug}-data.json` containing the structured numbers. This is the data file `/generate-visuals` resolves when a chart placeholder uses `data=research.<key>`. Schema:
-
-    ```json
-    {
-      "cluster_volumes": {"Image / generator": 860000, "Video": 38000, "Chat": 33000, "Apps / sites": 11400},
-      "format_share": {"image": 0.85, "video": 0.05, "chat": 0.06, "apps": 0.04},
-      "traffic_top_pages": {"page-1-domain.com": 125000, "page-2-domain.com": 95000, "page-3-domain.com": 47000},
-      "_meta": {
-        "source": "Aggregated from research dossier; cluster volumes from Semrush Keyword Magic Tool + Topic Research",
-        "generated_at": "2026-05-03"
-      }
-    }
-    ```
-
-    Each top-level key maps to either a `{label: number}` dict or a `[[label, number], ...]` list of pairs — both are acceptable inputs to `render_chart.py`. Use snake_case keys; the outline / draft skills reference them as `data=research.cluster_volumes` etc. Include a `_meta.source` field so the editor can audit where the numbers came from. Don't fabricate — if a breakdown only has 2 data points, emit 2; if you don't have chartable data, omit the JSON entirely (the chart placeholder will fall back to manual-capture with a clear hint).
+   ```markdown
+   ## BEAT SPEC (binding on outline + quality gate)
+   - Target word count: <max(1.1 × median of top 3, 1800)> (±20%)
+   - Format: <modal SERP format>; item count: <max items on SERP + 1, if list-shaped>
+   - Comparison table: <required iff ≥2 of top 5 have one — list required columns>
+   - Must-cover topics (consensus): <bulleted list — every one becomes outline coverage>
+   - Differentiation topics: <partial-coverage topics we go deeper on>
+   - Information gain (≥1 REQUIRED): <the thing nobody on page 1 has — original comparison, first-hand product walkthrough, fresh data, better explanation>
+   - Secondary keywords to work in naturally: <from url_organic + variations>
+   - Beatability: <honest read — authority spread, content quality of incumbents>
+   ```
+9. **Write the dossier** to `content-pipeline/1-research/{slug}.md` per `templates/research-template.md`. No `{{VAR}}` markers left. Include a "Deep web research findings" summary section (the `-deep.md` file stays available to `/draft`).
+10. **Emit chartable data** (unchanged): if the dossier surfaces numeric breakdowns worth charting, write `content-pipeline/1-research/{slug}-data.json` (`{label: number}` dicts, snake_case keys, `_meta.source` for auditability). Don't fabricate; omit if nothing chartable.
 
 ## Output
 
-`content-pipeline/1-research/{slug}.md`
-
-The file should be 800–1500 words. Dense, scannable, no fluff. The `outline` skill will read this end-to-end.
+`content-pipeline/1-research/{slug}.md` — 1,200–2,500 words. Dense, scannable, no fluff. The `outline` skill reads it end-to-end.
 
 ## Quality checklist
 
 Before saving, verify:
 
-- [ ] Primary keyword has volume, KD%, intents array, KSB cluster id (or first_keyword_group fallback)
-- [ ] At least 8 related keywords sharing the same KSB cluster (or first_keyword_group), with their volumes
-- [ ] At least 10 questions grouped into 3+ themes
-- [ ] Top 5 SERP results summarized — each has H2 list + key arguments + what's missing
-- [ ] Content gaps explicitly listed (must-include / differentiate / own)
+- [ ] Primary keyword has volume, KD%, CPC (real Semrush numbers, not guesses)
+- [ ] 10–15 same-intent related keywords with volumes
+- [ ] 10+ questions grouped into 3+ themes
+- [ ] **Top 5+ pages extracted with word count, H2 list, format, item count, table/visual counts**
+- [ ] **Benchmark table computed (median/max words, modal format, table usage)**
+- [ ] **Consensus / partial / gap topics explicitly listed**
+- [ ] **BEAT SPEC section present, complete, and numerically specific**
 - [ ] One-sentence recommended angle with justification
-- [ ] No raw JSON dumped; everything is synthesized prose or tidy bullets
-- [ ] Brand context is reflected — angle considers what THIS brand can credibly say
-- [ ] Deep web research findings section present (or explicit note that OpenRouter wasn't configured)
-- [ ] At least 3 verbatim user quotes from Perplexity included (when deep research ran)
+- [ ] Deep-research section present (or explicit note that OpenRouter wasn't configured)
+- [ ] At least 3 verbatim user quotes when deep research ran
+- [ ] No raw CSV/JSON dumps; everything synthesized
+- [ ] Brand context reflected — the angle is something THIS brand can credibly own
 
 ## When to re-run
 
-If the SERP has shifted significantly (new competitor ranking, Ahrefs metrics changed) or the recommended angle no longer holds. The `outline` skill depends entirely on this file's quality — re-running here is cheaper than reworking later stages.
+If the SERP shifts (new competitor, format change) or the angle stops holding. Re-running here is cheaper than reworking any later stage.

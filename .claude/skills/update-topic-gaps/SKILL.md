@@ -6,6 +6,8 @@ allowed-tools: Read, Write, WebFetch, mcp__semrush__*
 
 # Update Topic Gaps Skill
 
+> **DATA LAYER RULING (2026-06-12).** Fictional `mcp__semrush__*` kebab-name tools below are overridden by `.claude/skills/keyword-research-pipeline/references/semrush-data-layer.md`. For this skill: current SERP = `keyword_research/phrase_organic`; page content = Firecrawl scrape (`FIRECRAWL_API_KEY`); topic landscape = `phrase_related` + `phrase_questions`. Logic below remains binding.
+
 Articles don't get out-of-date in a vacuum — they get out-of-date because the SERP shifts and because the broader topic landscape grows new clusters around the seed term. New competitors rank with new sections, new angles, new evidence; Semrush Topic Research surfaces idea-clusters real publishers are writing about that may not yet be in the SERP top 5. This skill re-pulls both signals and finds what the existing article is missing.
 
 ## Input

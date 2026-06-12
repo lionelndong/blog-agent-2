@@ -1,76 +1,74 @@
 ---
 name: quality-check
-description: Score the draft on voice match, BLUF compliance, forbidden phrases, claim density, and run an adversarial read. Inserted between /draft and /verify-claims so quality issues get caught before citation work.
+description: Benchmark-relative quality gate. Scores the draft against the research dossier's beat spec (depth, consensus coverage, evidence) plus AI-tell and voice signals, runs an adversarial read armed with the SERP benchmark, and emits the verdict that gates the pipeline.
 allowed-tools: Read, Write, Bash, Task
 ---
 
 # Quality Check Skill
 
-Reads the draft and produces a quality scorecard + a punch list of specific fixes. The scorecard catches AI tells, voice drift, weak structure, and unsupported claims BEFORE the editor or `/verify-claims` reads it.
+Reads the draft and produces a quality scorecard + a punch list of specific fixes. **The question this skill answers is not "does the draft comply with our rules" — it's "a reader opens this article and the #1 ranking result side by side: which one do they keep?"** A draft can be perfectly compliant and still lose; that's a FAIL.
+
+History (why this skill looks the way it does): the previous rubric weighted forbidden phrases + voice metrics + BLUF heuristics and let a 1,100-word, 4-item, no-table listicle score 95 against a SERP of 2,500-word, 9-item, table-bearing competitors. Benchmark-relative dimensions now dominate the score.
 
 ## Input
 
 For slug `{slug}`:
 - `content-pipeline/5-drafts/{slug}.md` (the draft to score)
-- `brand-config.md` (forbidden phrases, voice config)
-- `examples/*.md` (voice baseline)
-- `.claude/skills/draft/references/voice-guide.md` (voice rules)
+- `content-pipeline/1-research/{slug}.md` (**the BEAT SPEC + benchmark — required**; if it lacks a BEAT SPEC section, flag the dossier as legacy and recommend re-running /research)
+- `content-pipeline/3-outlines/{slug}.md` (coverage map, word targets)
+- `brand-config.md` (forbidden phrases, audience)
+- `examples/voice/*.md` (voice baseline)
+- `.claude/skills/draft/references/voice-guide.md`
 
 ## Process
 
-1. **Run the automated metrics script:**
+1. **Run the mechanical metrics script:**
    ```bash
    python .claude/skills/quality-check/scripts/quality_check.py "<slug>"
    ```
-   This produces `content-pipeline/quality-checks/{slug}-metrics.md` with:
-   - Forbidden phrase scan (regex against the brand-config list)
-   - Voice metrics (sentence length, paragraph length, em-dash density, second-person frequency) compared against the `examples/` baseline
-   - BLUF heuristic check (do section openers throat-clear?)
-   - Claim density (factual/numerical claims, hyperlink ratio)
-   - A 0–100 weighted quality score
+   (Use `--stage cited` when re-running after /verify-claims.) This writes `content-pipeline/quality-checks/{slug}-metrics.md` with subscores for: depth vs benchmark (25), consensus coverage (20), AI tells (25), evidence (15), structure (15) — plus CRITICAL findings and a mechanical score.
 
-2. **Run the adversarial read.** Spawn a Task sub-agent with this brief:
-   > Read the draft at `content-pipeline/5-drafts/{slug}.md` as a skeptical industry expert who has seen 100 AI-generated articles on this topic and is sick of them. The brand is {brand from brand-config}. The audience is {audience from brand-config}. Your job: write a critique under 400 words listing the 5 weakest things about this draft. Be specific — point at sentences, sections, and structural choices, not vague impressions. Include 1 thing that genuinely works (so you stay calibrated, not contrarian for its own sake). Do NOT rewrite, suggest fixes, or be polite.
-   
-   The agent's output is the adversarial review. Save it to `content-pipeline/quality-checks/{slug}-adversarial.md`.
+2. **Voice + judgment read (your 0–100, worth 40% of the final).** Read 1–2 articles from `examples/voice/` and then the draft, as an editor. Judge:
+   - Would the byline survive on a serious blog? Does it sound like the examples or like an AI?
+   - Specificity: does every section teach something concrete, or does it gesture?
+   - Product mentions: demonstrated naturally, or bolted on?
+   - Information gain: is the `[GAIN]` section genuinely not on page 1 (check against the dossier's top-page summaries)?
 
-3. **Combine into a single report** at `content-pipeline/quality-checks/{slug}.md` with:
-   - **Verdict** at the top: `PASS` (score ≥ 75), `BORDERLINE` (60–74), `FAIL` (< 60)
-   - The metrics summary (numbers, not raw data)
-   - The adversarial critique
-   - **Punch list** — specific fixes ordered by severity, each with file path + line reference
-   - **Recommendation** — proceed to `/verify-claims`, send back to `/draft`, or hand to human editor
+3. **Run the adversarial read — armed with the benchmark.** Spawn a Task sub-agent:
+   > Read `content-pipeline/1-research/{slug}.md` (note the BEAT SPEC and the top-page summaries), then read the draft at `content-pipeline/5-drafts/{slug}.md` as a skeptical industry expert who has read every page-1 result for "{keyword}". The brand is {brand}; the audience is {audience}. Answer first: **if this draft and the current #1 were side by side, which would you keep, and why — in 3 sentences.** Then list the 5 weakest things about the draft relative to what's ranking. Be specific — sentences, sections, missing material. Include 1 thing that genuinely works. Do NOT rewrite or be polite.
 
-4. **On FAIL verdict — behavior depends on mode:**
-   - **Autonomous mode (`BLOG_AGENT_AUTONOMOUS=1`)**: do NOT stop. Emit the verdict + punch list to disk and return cleanly. The orchestrator (`/blog-pipeline`) reads the verdict and dispatches a targeted-revision Agent, then re-runs this skill. The skill itself does not loop — the orchestrator owns the retry budget (default 2 passes via `BLOG_AGENT_REVISION_BUDGET`).
-   - **Interactive mode**: stop the pipeline. Tell the user what failed and recommend either `/draft` regeneration or hand-editing. Don't silently advance to the next stage.
+   Save to `content-pipeline/quality-checks/{slug}-adversarial.md`. Be skeptical of all-praise critiques shorter than 200 words — re-run with a sharper brief.
+
+4. **Combine into the report** at `content-pipeline/quality-checks/{slug}.md`:
+   - **Verdict** at top: final score = 0.6 × mechanical + 0.4 × judgment. `PASS` (≥85 **and** no CRITICAL finding **and** no mechanical dimension below 60% of its weight **and** the adversarial read doesn't conclude "keep the competitor"), `BORDERLINE` (70–84 or adversarial-negative), `FAIL` (<70 or any CRITICAL).
+   - Metrics summary (numbers, not raw dumps)
+   - Adversarial critique
+   - **Punch list** — specific fixes ordered by severity, each pointing at a section
+   - **Recommendation** — proceed to `/verify-claims`, send back to `/draft` (voice/prose problems), or send back to `/outline` / `/research` (depth/coverage problems — do NOT ask /draft to fix a structural deficit)
+
+5. **On FAIL:**
+   - **Autonomous mode (`BLOG_AGENT_AUTONOMOUS=1`)**: don't stop; emit verdict + punch list and return cleanly. The orchestrator owns the retry budget (`BLOG_AGENT_REVISION_BUDGET`). Route matters: depth/coverage CRITICALs → the revision brief targets the **outline** and re-drafts affected sections; prose CRITICALs → the revision brief targets the draft.
+   - **Interactive mode**: stop and tell the user what failed and where to re-enter the pipeline.
 
 ## Output
 
-`content-pipeline/quality-checks/{slug}.md` (combined report)
-`content-pipeline/quality-checks/{slug}-metrics.md` (raw metrics)
-`content-pipeline/quality-checks/{slug}-adversarial.md` (adversarial read)
+- `content-pipeline/quality-checks/{slug}.md` (combined report, verdict at top)
+- `content-pipeline/quality-checks/{slug}-metrics.md` (mechanical)
+- `content-pipeline/quality-checks/{slug}-adversarial.md` (adversarial)
 
-## Quality scoring weights
+## Scoring dimensions
 
-| Dimension | Weight | Pass threshold |
+| Dimension | Weight | What kills it |
 |---|---|---|
-| Forbidden phrases (zero present) | 20 | 0 occurrences |
-| Voice metrics within baseline range | 25 | All metrics within 1.5x SD of examples baseline |
-| BLUF compliance | 20 | At least 80% of H2 openers pass the BLUF heuristic |
-| Claim density + linkability | 15 | At least 60% of factual claims have a link or `[link]` placeholder |
-| Adversarial verdict | 20 | Critique identifies fewer than 3 "weak" structural issues |
+| Depth vs benchmark | 25 (mech) | <70% of target words; item shortfall; missing required table |
+| Consensus coverage | 20 (mech) | any must-cover topic absent |
+| AI tells | 25 (mech) | forbidden phrases; crutch phrase ≥4×; uniform rhythm; throat-clearing openers |
+| Evidence | 15 (mech) | low claim density; <8 real links; naked `[link]` post-citation |
+| Structure | 15 (mech) | flat H2 structure; missing intro/conclusion |
+| Judgment overlay | 40% of final | sounds AI; no information gain; salesy mentions; loses the side-by-side |
 
-Weighted total → final score 0–100.
-
-## When to override the verdict
-
-The score is a heuristic. The adversarial critique is judgment-based. The editor (human) can override and proceed. The skill prints "Override the verdict by re-running the next stage manually" rather than gating hard.
-
-## When the adversarial sub-agent says everything is fine
-
-Be skeptical of all-praise critiques — they usually mean the agent isn't being adversarial enough. Re-run the sub-agent with a stronger brief if the critique is shorter than 200 words or has zero specific complaints.
+**A perfect-compliance thin article cannot pass.** Depth floors bind no matter how clean the prose is.
 
 ## Why this skill exists
 
-Without it, voice drift and AI tells get caught at the editor's review pass — which is the most expensive place to catch them. Catching them here means `/draft` gets the chance to regenerate before `/verify-claims` does expensive citation work on prose that was going to be rewritten anyway.
+Without it, thinness and AI tells get caught at the board's review — the most expensive place. Catching them here means the orchestrator can regenerate before `/verify-claims` spends citation work on prose that was going to be rewritten anyway.

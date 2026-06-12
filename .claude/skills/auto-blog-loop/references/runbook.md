@@ -1,5 +1,7 @@
 # Auto Blog Loop — VPS Operational Runbook
 
+> **2026-06-12:** Tool names in this file that look like `mcp__semrush__<kebab-name>` are HISTORICAL and never existed on the live server. The real call pattern and per-layer mapping live in `.claude/skills/keyword-research-pipeline/references/semrush-data-layer.md`. Metrics/threshold logic in this file remains valid.
+
 Production-ready operating notes for running `/auto-blog-loop` autonomously on the user's VPS.
 
 ## PLEAA-581 publish gate — required reading
