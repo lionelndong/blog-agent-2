@@ -20,6 +20,7 @@ No external dependencies (stdlib only).
 from __future__ import annotations
 
 import argparse
+import datetime
 import html
 import json
 import re
@@ -446,12 +447,51 @@ textarea.editor {
 """
 
 
+def slug_last_activity(slug: str) -> float:
+    """Most recent mtime across all of this slug's stage outputs + images (0 if none)."""
+    latest = 0.0
+    for stage in STAGE_DICTS:
+        p = stage_path(slug, stage)
+        try:
+            if p.exists():
+                latest = max(latest, p.stat().st_mtime)
+        except OSError:
+            pass
+    for img in slug_images(slug):
+        try:
+            latest = max(latest, img.stat().st_mtime)
+        except OSError:
+            pass
+    return latest
+
+
+def _fmt_when(mtime: float) -> str:
+    """Absolute date + relative age, e.g. '2026-06-12 07:03 · 2h ago'."""
+    if not mtime:
+        return "no output yet"
+    dt = datetime.datetime.fromtimestamp(mtime)
+    secs = (datetime.datetime.now() - dt).total_seconds()
+    if secs < 90:
+        rel = "just now"
+    elif secs < 3600:
+        rel = f"{int(secs // 60)}m ago"
+    elif secs < 86400:
+        rel = f"{int(secs // 3600)}h ago"
+    elif secs < 7 * 86400:
+        rel = f"{int(secs // 86400)}d ago"
+    else:
+        rel = dt.strftime("%b %d")
+    return f'{dt.strftime("%Y-%m-%d %H:%M")} · {rel}'
+
+
 def render_index(slugs: list[str]) -> str:
     if not slugs:
         body = '<div class="empty"><h2>No articles yet</h2><p>Run <code>/blog-pipeline &lt;keyword&gt;</code> in Claude Code to start one.</p></div>'
     else:
+        # most-recently-touched first, so the latest run is always on top
+        dated = sorted(((slug, slug_last_activity(slug)) for slug in slugs), key=lambda x: x[1], reverse=True)
         cards = []
-        for slug in slugs:
+        for slug, mtime in dated:
             status = slug_status(slug)
             done_count = sum(1 for k, v in status.items() if v["done"] and k in CORE_STAGES)
             total = len(CORE_STAGES)
@@ -462,9 +502,10 @@ def render_index(slugs: list[str]) -> str:
                 <div class="progress">{done_count} / {total} stages
                   <span class="bar"><span class="fill" style="width:{pct}%"></span></span>
                 </div>
+                <div class="when" style="color:var(--muted);font-size:12px;margin-top:6px">{html.escape(_fmt_when(mtime))}</div>
               </a>
             ''')
-        body = f'<h2 style="margin-top:0">Articles</h2><div class="slug-list">{"".join(cards)}</div>'
+        body = f'<h2 style="margin-top:0">Articles <span style="color:var(--muted);font-weight:400;font-size:14px">— newest first</span></h2><div class="slug-list">{"".join(cards)}</div>'
 
     return f"""<!DOCTYPE html>
 <html><head>
