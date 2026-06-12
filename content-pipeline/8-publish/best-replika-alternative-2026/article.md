@@ -4,6 +4,8 @@ Replika took away the two things its users wanted most: adult conversation, cut 
 
 Below you get the honest reasons people are leaving, a verified feature-by-feature comparison of the top four apps, and a clear pick you can act on today.
 
+_Last updated: June 2026._
+
 ## Why people are leaving Replika in 2026
 
 If you're shopping for a replacement, you're probably leaving for one of three documented reasons: Replika removed adult roleplay in 2023, users say it forgets them, and the Pro paywall stopped feeling worth your money.
@@ -41,6 +43,18 @@ Given the regulator history across this category, you also want privacy-first de
 Across memory, adult chat, privacy, free access, and entry price, Pleasur.ai is the most complete fit if you're switching off Replika — and the cheapest for you to start.
 
 Here's how the four leading apps line up against each test:
+
+| App | NSFW-friendly | Long-term memory | Entry price | Best for |
+| --- | --- | --- | --- | --- |
+| **Pleasur.ai** | Yes — every paid tier, within platform rules | Persistent chat history that resumes across sessions | **$5.20/mo** (annual) | Getting back adult chat *and* memory at the lowest entry price |
+| Nomi | Not a focus | Strong long-term, emotional recall | $14.99/mo | Users who put memory above everything else |
+| Candy AI | Paid tiers only (not on free) | Window-based | $12.99/mo ($5.99 annual) | AI image generation |
+| Replika | Legacy pre-2023 accounts only | Limited, summary-style | Pro plan (price varies) | People who already had it before the 2023 cutoff |
+| Character.AI | No — strict content filters | Holds character context | Free tier + paid | Safe, mainstream, no-cost chat |
+| Kindroid | Yes | Customizable, voice-first | Paid (see site) | Voice-first, highly customizable companions |
+
+Pricing and feature cells reflect each app's publicly listed plans and documented policies as of June 2026; the per-app detail and sources are below.
+
 
 - **Long-term memory.** Pleasur.ai keeps a persistent chat history that resumes across sessions, a quality [independent reviewers single out](https://genfindr.com/blog/pleasur-ai-review-2026). Replika is user-reported as limited and summary-style. Nomi has a genuinely strong long-term and emotional memory. Candy AI is window-based.
 - **Adult (18+) chat.** Pleasur.ai [includes it on all paid tiers](https://pleasur.ai/pricing), within platform rules. Replika [removed it in 2023 and restored it for legacy users only](https://futurism.com/the-byte/replika-users-erotic-roleplay-back). Nomi doesn't make it a focus. Candy AI offers it on paid tiers, [not on free](https://scribehow.com/page/Candy_AI_Free_vs_Premium_2026_What_You_Get_Without_Paying_and_Whats_Behind_the_Paywall__vGcz5qC3TYyAAuIGVJnFMA).
