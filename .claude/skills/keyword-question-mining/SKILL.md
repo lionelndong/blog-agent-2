@@ -1,7 +1,7 @@
 ---
 name: keyword-question-mining
-description: Layer 1d of the keyword research pipeline. Mines question-shaped keywords from two sources Ahrefs underdelivered — Semrush Keyword Magic's Questions filter (per surviving seed) and People-Also-Ask strings parsed from SERP results' serp_features (top 30 candidates by current priority). Appends rows to keyword-ideas.csv with source=question_mining (or merges to source=both when the keyword already exists). Adds the question_subtype column (paa / km_question / both). Cap of 100 rows per run.
-allowed-tools: Read, Write, Edit, Bash, mcp__semrush__keyword-magic-questions, mcp__semrush__serp-results
+description: Layer 1d of the keyword research pipeline. Mines question-shaped keywords from Semrush phrase_questions (per surviving seed) plus People-Also-Ask strings from the SERP. Appends rows to keyword-ideas.csv with source=question_mining (or merges to source=both when the keyword already exists) and a question_subtype column. Cap of 100 rows per run.
+allowed-tools: Read, Write, Edit, Bash, mcp__semrush__*
 ---
 
 # Keyword Question Mining Skill (Layer 1d)

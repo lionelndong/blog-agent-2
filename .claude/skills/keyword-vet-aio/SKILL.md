@@ -1,7 +1,7 @@
 ---
 name: keyword-vet-aio
-description: Layer 3 of the keyword research pipeline. For every BID-passing keyword, detects whether Google shows an AI Overview and rates how completely the AIO answers the query. Rejects "AIO-cannibalized" keywords where the AIO is so thorough nobody clicks through. The single most important defense against writing AI-traffic-dead content.
-allowed-tools: Read, Write, Edit, Bash, WebFetch, mcp__semrush__serp-overview, mcp__semrush__serp-results, mcp__semrush__ai-toolkit-response, mcp__semrush__ai-toolkit-mentions, Task
+description: Layer 3 of the keyword research pipeline. For every BID-passing keyword, detects whether Google shows an AI Overview (presence, via the Semrush SERP-features column) and rejects "AIO-cannibalized" keywords where a thorough AIO leaves no click reason. The single most important defense against writing AI-traffic-dead content.
+allowed-tools: Read, Write, Edit, Bash, WebFetch, mcp__semrush__*, Task
 ---
 
 # Keyword Vet — AI Overview Cannibalization Check

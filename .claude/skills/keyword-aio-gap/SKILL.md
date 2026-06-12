@@ -1,7 +1,7 @@
 ---
 name: keyword-aio-gap
-description: Layer 1c of the keyword research pipeline. Uses Semrush AI Toolkit (multi-engine — AIO / ChatGPT / Gemini / Perplexity / Copilot) to find PROMPTS where competitors are cited and the brand isn't. Surfaces "AI-search citation opportunities" — queries where being cited beats ranking.
-allowed-tools: Read, Write, Bash, mcp__semrush__ai-toolkit-prompts, mcp__semrush__ai-toolkit-mentions, mcp__semrush__ai-toolkit-response, mcp__semrush__keyword-overview, mcp__semrush__organic-competitors
+description: Layer 1c of the keyword research pipeline — SKIPPED on the current Semrush MCP (it exposes no AI-visibility / AI-toolkit reports, so there is no multi-engine citation-gap source). Retained as a logged no-op pass-through; never fabricate aio_gap rows. Revisit only if Semrush ships AI-toolkit reports on MCP.
+allowed-tools: Read, Write, Bash
 ---
 
 # Keyword AI-Overview Gap Skill (Semrush AI Toolkit)

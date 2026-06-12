@@ -1,7 +1,7 @@
 ---
 name: content-gap-analysis
-description: Layer 1b of the keyword research pipeline. Finds keyword opportunities by comparing the brand's blog against competitors AND by expanding seed keywords + modifiers via Semrush Keyword Magic. Auto-discovers competitors when none are provided. Runs Semrush's multi-mode Keyword Gap (common / missing / weak / strong / unique) and tags every row with `gap_mode`. Outputs a CSV of candidate keywords with metrics, ready for downstream BID/AIO vetting.
-allowed-tools: Read, Write, mcp__semrush__organic-competitors, mcp__semrush__keyword-gap, mcp__semrush__keyword-magic-broad, mcp__semrush__keyword-magic-phrase, mcp__semrush__keyword-magic-related, mcp__semrush__keyword-magic-exact, mcp__semrush__keyword-overview
+description: Layer 1b of the keyword research pipeline. Finds keyword opportunities by comparing the brand's blog against competitors AND by expanding seeds + modifiers via Semrush (phrase_fullsearch / phrase_related). Auto-discovers competitors via domain_organic_organic when none are provided, derives the keyword gap via domain_domains, tags every row with `gap_mode`, and outputs a candidate-keyword CSV ready for downstream BID/AIO vetting.
+allowed-tools: Read, Write, Bash, mcp__semrush__*
 ---
 
 # Content Gap Analysis Skill

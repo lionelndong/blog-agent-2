@@ -1,7 +1,7 @@
 ---
 name: topic-discovery
-description: Layer 0 of the keyword research pipeline. Builds a topic-graph + market-trends snapshot for the brand's category before any seed work happens. Calls Semrush Topic Research (idea-cluster tree rooted at the brand category) and Semrush .Trends (search-volume momentum + competitor traffic shifts at the brand domain). Idempotent on brand-config hash; never blocks the pipeline. Cheap layer — two MCP calls, no per-row cost.
-allowed-tools: Read, Write, Bash, mcp__semrush__topic-research, mcp__semrush__trends-overview
+description: Layer 0 of the keyword research pipeline. Builds a topic-graph snapshot for the brand's category before any seed work, approximated from Semrush phrase_related + phrase_questions on the category seeds plus the brand's own ranking footprint (domain_organic_unique). Idempotent on brand-config hash; never blocks the pipeline; cheap.
+allowed-tools: Read, Write, Bash, mcp__semrush__*
 ---
 
 # Topic Discovery Skill (Layer 0)

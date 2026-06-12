@@ -1,7 +1,7 @@
 ---
 name: keyword-vet-bid
 description: Layer 2 of the keyword research pipeline. Runs the BID method (Business potential / Intent / Difficulty) on every candidate keyword. Rejects keywords that don't pass all three tests, with reason logged. The mechanical filter that drops obvious bad fits before downstream layers spend tokens on them.
-allowed-tools: Read, Write, Edit, Bash, mcp__semrush__keyword-overview, mcp__semrush__serp-overview, mcp__semrush__serp-results, mcp__semrush__domain-overview
+allowed-tools: Read, Write, Edit, Bash, mcp__semrush__*
 ---
 
 # Keyword Vet — BID Method

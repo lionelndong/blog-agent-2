@@ -1,6 +1,6 @@
 ---
 name: update-topic-gaps
-description: Compare an existing article's section coverage to the current SERP and to Semrush Topic Research's idea-cluster tree. Find topics other ranking pages cover (and clusters the topic graph already knows about) that the article doesn't, and propose new sections.
+description: Compare an existing article's section coverage to the current SERP (Semrush phrase_organic + Firecrawl page extraction) and to the related-term / question landscape (phrase_related + phrase_questions). Find topics ranking pages cover that the article doesn't, and propose new sections.
 allowed-tools: Read, Write, WebFetch, mcp__semrush__*
 ---
 
