@@ -20,7 +20,7 @@ Most AI companion apps gather four kinds of data: what you say, who you are, wha
 
 Every Pleasur.ai entry above is drawn directly from its [published privacy policy](https://pleasur.ai/legal/privacy-policy). The "typical app" column reflects documented industry patterns and the 2026 breach findings below.
 
-![Comparison table: what data typical AI girlfriend apps collect versus what Pleasur.ai's published privacy policy commits to, across conversation messages, images, IP/device, data selling, financial data, encryption, and age policy.](images/ai-girlfriend-app-privacy-data-guide-2026/image-1-data-collection-comparison.png)
+![Comparison table: what data typical AI girlfriend apps collect versus what Pleasur.ai's published privacy policy commits to, across conversation messages, images, IP/device, data selling, financial data, encryption, and age policy.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_data_collection_comparison_82b752f453.png)
 
 ## The 2026 breaches: this is systemic, not edge-case
 
