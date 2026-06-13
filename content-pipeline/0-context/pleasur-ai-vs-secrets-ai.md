@@ -1,10 +1,10 @@
 # Context for pleasur-ai-vs-secrets-ai
 
-## ⛔ SCHEDULING — HARD STOP THIS RUN
-This run is SCOPED TO RESEARCH + OUTLINE ONLY. Run, in order:
-1. /research  2. /brand-reference  3. /research-adversarial  4. /outline  5. /outline-adversarial
-Then STOP and report. **Do NOT run product-mentions, draft, quality-check, verify-claims, optimize-content, generate-visuals, preview, or format-for-publish.** Do NOT publish.
-Reason: the weekly publish cap (5/wk) is already reached for the week of 2026-06-09. This article's publish slot is **Mon 2026-06-15 09:30 ET** (cap resets). The draft→publish portion runs in that slot, not now.
+## ✅ SCHEDULING — FULL RUN (Mon 2026-06-15+ slot, cap reset)
+Research + outline stages are **complete and gated** (all adversarial reviews PASS, commit `cfaeab4`).
+Resume from **product-mentions → draft (min 2 drafts) → quality-check → verify-claims → optimize → visuals → preview → format-for-publish → publish**.
+The weekly 5/wk cap resets Mon 2026-06-15; this is the priority pick for that slot (queue rank updated to 1).
+**Do NOT re-run research or outline** — their artifacts exist and stages are skipped automatically.
 
 ## Article
 Branded comparison: **pleasur.ai vs Secrets AI** (head term ≈ "pleasur ai vs secrets ai"). Commercial / comparison intent. One canonical page for this branded query — no cannibalization with the memory roundup or candy-ai-vs page. Confirm volume + AI-Overview presence at the research stage via Semrush (`Fk` SERP-features column; record `unknown` if rejected, never guess).
