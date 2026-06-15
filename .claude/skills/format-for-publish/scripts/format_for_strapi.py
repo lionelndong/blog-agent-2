@@ -21,6 +21,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -970,6 +971,92 @@ def publish_to_strapi(payload: dict, *, update: bool = False) -> None:
         sys.exit(f"error: Strapi {method} failed: {e}")
 
 
+def _supabase_url_from_env() -> str | None:
+    return (
+        os.environ.get("SUPABASE_URL")
+        or os.environ.get("NEXT_PUBLIC_SUPABASE_URL")
+        or os.environ.get("PUBLIC_SUPABASE_URL")
+    )
+
+
+def _supabase_service_key_from_env() -> str | None:
+    return (
+        os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+        or os.environ.get("SUPABASE_SERVICE_KEY")
+        or os.environ.get("SUPABASE_SERVICE_ROLE")
+    )
+
+
+def assert_blog_post_mirrored(slug: str, *, max_attempts: int = 6, sleep_seconds: float = 2.0) -> None:
+    """Fail the publish run unless the public-site mirror contains the slug.
+
+    Strapi can return 2xx while the public site still 404s: the Next.js blog
+    reads Supabase ``blog_posts``, and ``sync-blog-posts`` refuses a publish
+    unless ``blog_publish_approvals`` has a row for the slug/documentId. After a
+    direct API publish, trigger the existing sync function and then poll the
+    public mirror row so a missing approval writer fails at publish time.
+    """
+    supabase_url = (_supabase_url_from_env() or "").rstrip("/")
+    service_key = _supabase_service_key_from_env() or ""
+    if not supabase_url or not service_key:
+        sys.exit(
+            "error: post-publish mirror assertion requires SUPABASE_URL "
+            "(or NEXT_PUBLIC_SUPABASE_URL) and SUPABASE_SERVICE_ROLE_KEY"
+        )
+
+    import urllib.error
+    import urllib.parse
+    import urllib.request
+
+    headers = {
+        "apikey": service_key,
+        "Authorization": f"Bearer {service_key}",
+    }
+
+    sync_endpoint = f"{supabase_url}/functions/v1/sync-blog-posts"
+    sync_req = urllib.request.Request(sync_endpoint, headers=headers, method="GET")
+    try:
+        with urllib.request.urlopen(sync_req, timeout=60) as resp:
+            sync_body = resp.read().decode("utf-8", errors="replace")[:500]
+            print(f"sync-blog-posts — {resp.status} {resp.reason}: {sync_body}")
+    except urllib.error.HTTPError as exc:
+        body = exc.read().decode("utf-8", errors="replace")[:500]
+        sys.exit(f"error: sync-blog-posts failed HTTP {exc.code}: {body}")
+    except Exception as exc:
+        sys.exit(f"error: sync-blog-posts failed: {type(exc).__name__}: {exc}")
+
+    query = urllib.parse.urlencode(
+        {
+            "slug": f"eq.{slug}",
+            "select": "slug,status,title,published_at",
+            "limit": "1",
+        }
+    )
+    endpoint = f"{supabase_url}/rest/v1/blog_posts?{query}"
+    req = urllib.request.Request(endpoint, headers={**headers, "Accept": "application/json"}, method="GET")
+    last_seen = "no row"
+    for attempt in range(1, max_attempts + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                rows = json.loads(resp.read().decode("utf-8"))
+        except Exception as exc:
+            last_seen = f"{type(exc).__name__}: {exc}"
+        else:
+            row = rows[0] if isinstance(rows, list) and rows else None
+            if isinstance(row, dict):
+                status = row.get("status")
+                last_seen = json.dumps(row, ensure_ascii=False)
+                if status == "published":
+                    print(f"public mirror OK — blog_posts slug={slug!r} status=published")
+                    return
+        if attempt < max_attempts:
+            time.sleep(sleep_seconds)
+    sys.exit(
+        f"error: public mirror missing or not published for slug={slug!r} "
+        f"after {max_attempts} attempt(s); last_seen={last_seen}"
+    )
+
+
 # ---------- GitHub-Pages whiteboard staging (PLEAA-448) ----------
 # After format-for-publish writes the Strapi package, also bake a static
 # `docs/run-<slug>.html` viewer and append the slug to the fallback runs
@@ -1230,6 +1317,7 @@ def main() -> None:
 
     if publish_via_api:
         publish_to_strapi(payload, update=args.update)
+        assert_blog_post_mirrored(args.slug)
 
     # PLEAA-448: bake the static GitHub-Pages viewer + index entry so the run
     # surfaces at https://lionelndong.github.io/blog-agent-2/ as soon as the

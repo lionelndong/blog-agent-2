@@ -75,6 +75,23 @@ Common causes:
 
 When `--publish` fails the script keeps the local files so you can paste manually.
 
+## Post-publish mirror assertion
+
+After any direct Strapi publish (`--publish` or `--auto-publish`) succeeds, the
+script calls the Supabase `sync-blog-posts` edge function and then reads
+`blog_posts` by slug. The run fails unless the row exists with
+`status='published'`. This is intentional: the public site reads Supabase, not
+Strapi directly, so a Strapi 2xx without a mirrored `blog_posts` row is still a
+public 404.
+
+Required env vars:
+
+- `SUPABASE_URL` or `NEXT_PUBLIC_SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+If the approval registry is not fed, the sync function returns the failure and
+the publish run stops immediately instead of leaving the article silently 404ing.
+
 ## Auto-publish vs draft modes
 
 The skill supports two publish modes:
