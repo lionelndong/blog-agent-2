@@ -16,7 +16,7 @@ The job these apps do is specific: adult roleplay, a persona that stays consiste
 
 Once you know what the category is for, comparing apps stops being a ranking problem and becomes a scoring one.
 
-![Side-by-side concept diagram titled "Mainstream chatbot vs NSFW AI companion." Left panel labeled "General assistant": broad tasks icon, a strict general-audience-limits shield icon, a crossed-out continuity loop. Right panel labeled "Adult companion app": adult-roleplay-within-rules icon, a persistent-memory loop icon, companion-plus-media (chat bubble + image frame) icon. Clean editorial illustration, white background, sans-serif labels, no people.](images/how-to-choose-an-nsfw-ai-companion/image-1-side-by-side-concept-diagram-t.png)
+![Side-by-side concept diagram titled "Mainstream chatbot vs NSFW AI companion." Left panel labeled "General assistant": broad tasks icon, a strict general-audience-limits shield icon, a crossed-out continuity loop. Right panel labeled "Adult companion app": adult-roleplay-within-rules icon, a persistent-memory loop icon, companion-plus-media (chat bubble + image frame) icon. Clean editorial illustration, white background, sans-serif labels, no people.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_side_by_side_concept_diagram_t_3dd249ecd3.png)
 
 ## The 8-criteria scorecard (use it before you compare apps)
 
@@ -47,7 +47,7 @@ Memory means continuity. It recalls what you told it earlier and carries that fo
 
 You can break both in five minutes. Tell it one concrete preference early — a name you like to be called, a detail about the scenario, a boundary. Change the subject completely for a few exchanges. Then ask a follow-up that depends on that earlier detail. A companion with real continuity weaves it back in without being reminded. A weak one asks you to repeat yourself, or worse, contradicts what you just said. When the illusion breaks like that, it tends not to come back, and you'll feel it inside the opening session.
 
-![Split-panel illustration showing memory in AI companion chat. Left panel labeled "Real memory — AI remembers": a chat conversation where the user said "I told you my name is Alex last week" and the AI reply seamlessly uses "Alex" naturally in context, with a small memory-bank icon highlighted. Right panel labeled "No memory — AI forgets": the same user message but the AI replies generically without using the name, with a broken-link or empty memory icon. Abstract/illustrative style, not a real chat screenshot — use stylized speech bubble shapes and clean iconography. White background, sans-serif labels, editorial illustration style, brand-neutral colors, no real people.](images/how-to-choose-an-nsfw-ai-companion/image-1-split-panel-illustration-showi.png)
+![Split-panel illustration showing memory in AI companion chat. Left panel labeled "Real memory — AI remembers": a chat conversation where the user said "I told you my name is Alex last week" and the AI reply seamlessly uses "Alex" naturally in context, with a small memory-bank icon highlighted. Right panel labeled "No memory — AI forgets": the same user message but the AI replies generically without using the name, with a broken-link or empty memory icon. Abstract/illustrative style, not a real chat screenshot — use stylized speech bubble shapes and clean iconography. White background, sans-serif labels, editorial illustration style, brand-neutral colors, no real people.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_split_panel_illustration_showi_154a49d814.png)
 
 And a companion that holds its persona is still only as good as how much of it you got to design in the first place.
 
@@ -59,7 +59,7 @@ Deep customization is the difference between a companion that's yours and a stoc
 
 The test: build a trial companion and count how many controls actually change the opening chat. If picking "sarcastic" versus "sweet" produces the same flat replies, the depth was cosmetic. Pleasur.AI's [AI Companion Creator](https://pleasur.ai/create) is a fair illustration of the explicit version — you set appearance, then a backstory field, then personality traits, kinks, and a conversation style, and each of those visibly steers how the companion talks back. Candy AI takes a similar approach but leans on preset personality archetypes, which gets you to first conversation faster if you'd rather pick than build. That's the bar to hold any platform to: controls that change how the companion talks, down to its sense of humor and the way it handles a kink you set — cosmetic sliders move the picture and nothing else. For the full build flow, our [honest 2026 guide to making an AI girlfriend](https://pleasur.ai/blog/how-to-make-an-ai-girlfriend) walks it step by step.
 
-![Pleasur.AI Companion Creator customization controls — appearance, personality, backstory, and conversation-style panel](images/how-to-choose-an-nsfw-ai-companion/screenshot-2-pleasur-ai-companion-creator-c.png)
+![Pleasur.AI Companion Creator customization controls — appearance, personality, backstory, and conversation-style panel](https://elegant-cactus-c693703b28.media.strapiapp.com/screenshot_2_pleasur_ai_companion_creator_c_a4682a827e.png)
 
 ## Criterion 3 — Images, voice, and media
 
@@ -71,7 +71,7 @@ Pleasur.AI's [AI Image Generation](https://pleasur.ai/generate) is a useful exam
 
 Capable media still tells you nothing about how far the content itself is allowed to go, which is a separate question worth its own test.
 
-![Pleasur.AI image-generation surface showing style presets and prompt controls](images/how-to-choose-an-nsfw-ai-companion/screenshot-3-pleasur-ai-image-generation-su.png)
+![Pleasur.AI image-generation surface showing style presets and prompt controls](https://elegant-cactus-c693703b28.media.strapiapp.com/screenshot_3_pleasur_ai_image_generation_su_be0dfde2cc.png)
 
 ## Criterion 4 — Adult-content range within real limits
 
@@ -85,7 +85,7 @@ Consent and emotional realism are their own axis in 2026, and worth weighing del
 
 The test is simple. Read the content policy, then run one normal adult scenario and watch whether the behavior matches what's stated. Mismatch in either direction — refusing what it allows, or allowing what it bans — tells you the policy is decoration.
 
-![Horizontal content-range spectrum infographic. A single gradient bar spans the full width from left to right. Left end labeled "SFW" with a shield icon — tame, suggestive-only content zone, shown in a calm blue. Middle section labeled "NSFW-lite" — mature themes, partial nudity, light adult content, shown in amber/orange. Right end labeled "Fully explicit" — unrestricted adult content within legal limits, shown in a deep red. Each zone has 2-3 example descriptors as small text below the bar. Above the bar, a vertical line with an arrow points to the right edge with text "Clear prohibited line here — no minors, no real people." Clean infographic style, white background, sans-serif labels, editorial illustration.](images/how-to-choose-an-nsfw-ai-companion/image-2-horizontal-content-range-spect.png)
+![Horizontal content-range spectrum infographic. A single gradient bar spans the full width from left to right. Left end labeled "SFW" with a shield icon — tame, suggestive-only content zone, shown in a calm blue. Middle section labeled "NSFW-lite" — mature themes, partial nudity, light adult content, shown in amber/orange. Right end labeled "Fully explicit" — unrestricted adult content within legal limits, shown in a deep red. Each zone has 2-3 example descriptors as small text below the bar. Above the bar, a vertical line with an arrow points to the right edge with text "Clear prohibited line here — no minors, no real people." Clean infographic style, white background, sans-serif labels, editorial illustration.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_2_horizontal_content_range_spect_939aafd280.png)
 
 And once you trust what an app will let you do, the next thing it tends to be vague about is what doing it actually costs. That's where most of the deception lives.
 
@@ -101,7 +101,7 @@ So the test runs in three steps: find the monthly price, not the annual hero num
 
 A platform that hides its real price is usually just as vague about your data. Privacy gets the same scrutiny.
 
-![Advertised vs real monthly cost, example NSFW companion apps](images/how-to-choose-an-nsfw-ai-companion/chart-4-advertised-vs-real-monthly-cos.png)
+![Advertised vs real monthly cost, example NSFW companion apps](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_4_advertised_vs_real_monthly_cos_f3163b665c.png)
 
 ## Criterion 6 — Privacy and data controls
 
@@ -117,7 +117,7 @@ The test: open the privacy policy and use your browser's find function (Ctrl-F o
 
 Where privacy protects your data, age verification protects the platform's legitimacy — and counterintuitively, the harder it is to get past, the better the sign.
 
-![Pleasur.AI AI Companion Safety Checklist article header as the deeper safety resource](images/how-to-choose-an-nsfw-ai-companion/external-5-pleasur-ai-ai-companion-safety.png)
+![Pleasur.AI AI Companion Safety Checklist article header as the deeper safety resource](https://elegant-cactus-c693703b28.media.strapiapp.com/external_5_pleasur_ai_ai_companion_safety_2d882c1056.png)
 
 ## Criterion 7 — Age verification and clear ToS (a green flag)
 
@@ -131,7 +131,7 @@ The terms of service work the same way. Good ToS are findable from the footer, d
 
 Hold our own platform to the same bar: Pleasur.AI is an 18+ product that gates the adult tier behind an explicit 18+ confirmation on signup, and the subscription step itself — which requires a card before any adult content unlocks — adds a second hard wall that an anonymous checkbox does not. That's the two-step pattern this criterion rewards, stated plainly rather than promised; run the same check on it that you'd run on anyone else. The test follows directly: confirm a real gate stops you on entry, skim the terms for a prohibited-content section and a cancellation clause, and if "no verification" is anywhere in the pitch, close the tab.
 
-![Side-by-side diagram comparing age verification approaches. Left panel labeled "Real age gate (green flag)": shows a hard-wall UI step with an ID-card icon or credit-card verification icon, a bold "18+ Verification Required" heading, and sub-labels "Hard wall", "ID or card step", "Blocks entry until verified". Right panel labeled "Checkbox theater (red flag)": shows a simple checkbox with text "I confirm I am 18+" and nothing else, sub-labels "No hard wall", "One dismissible click", "Nothing verified". Each panel has a color-coded border — green on left, red on right. Clean diagram style, white background, sans-serif labels, no real people, editorial illustration.](images/how-to-choose-an-nsfw-ai-companion/image-3-side-by-side-diagram-comparing.png)
+![Side-by-side diagram comparing age verification approaches. Left panel labeled "Real age gate (green flag)": shows a hard-wall UI step with an ID-card icon or credit-card verification icon, a bold "18+ Verification Required" heading, and sub-labels "Hard wall", "ID or card step", "Blocks entry until verified". Right panel labeled "Checkbox theater (red flag)": shows a simple checkbox with text "I confirm I am 18+" and nothing else, sub-labels "No hard wall", "One dismissible click", "Nothing verified". Each panel has a color-coded border — green on left, red on right. Clean diagram style, white background, sans-serif labels, no real people, editorial illustration.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_3_side_by_side_diagram_comparing_581bf1ced0.png)
 
 With safety and legitimacy settled, the last test is fit — does the app match how you'll actually use it?
 
