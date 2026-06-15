@@ -16,7 +16,7 @@ Cross-session recall is the behavior Pleasur.ai's [AI Companion Creator](https:/
 
 There's a second thing to keep straight, and it shapes this entire comparison: how a memory claim reaches you. Either the company says it — self-reported marketing — or an outside reviewer measures or reports it. Both can be true. They don't carry the same weight. If you want the wider field rather than this one pairing, our [AI companion memory roundup](https://pleasur.ai/blog/ai-companion-best-memory) breaks down the four types of companion memory across more apps. With the bar set, start with how OpenMind says it clears it.
 
-![MariaVibe line that memory drives nearly every positive review](images/openmind-ai-vs-pleasurai/external-1-mariavibe-line-that-memory-dri.png)
+![MariaVibe line that memory drives nearly every positive review](https://elegant-cactus-c693703b28.media.strapiapp.com/external_1_mariavibe_line_that_memory_dri_5d3567ecca.png)
 
 ## How OpenMind AI handles memory: Conditional Field Subtraction
 
@@ -26,11 +26,11 @@ In plain English: vector retrieval is the common approach. The system stores pas
 
 Give OpenMind its due here. That dedup layer is real engineering, not a marketing label, and the reviewer treats it as a step up from the baseline most apps ship. OpenMind's strongest card, though, isn't the architecture — it's access. Free-tier users can, [in the reviewer's words, "genuinely test whether the platform remembers them over weeks before paying anything"](https://roborhythms.com/openmind-ai-review/). You get to kick the tires on the one feature that decides retention, at no cost, for as long as you want to test it. Not many companions let you do that.
 
-![Diagram explaining "Conditional Field Subtraction" memory. Left to right: a "Conversation History" box feeding a "Vector Retrieval" box (labeled "pulls relevant past details"), then an arrow into a "Conditional Field Subtraction" filter box (labeled "trims redundant & contradictory details"), then an arrow to a "Consistent Reply" chat-bubble box. Show one discarded/struck-through detail card dropping out of the filter to illustrate the dedup. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.](images/openmind-ai-vs-pleasurai/image-2-diagram-explaining-conditional.png)
+![Diagram explaining "Conditional Field Subtraction" memory. Left to right: a "Conversation History" box feeding a "Vector Retrieval" box (labeled "pulls relevant past details"), then an arrow into a "Conditional Field Subtraction" filter box (labeled "trims redundant & contradictory details"), then an arrow to a "Consistent Reply" chat-bubble box. Show one discarded/struck-through detail card dropping out of the filter to illustrate the dedup. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_2_diagram_explaining_conditional_e8b46bc969.png)
 
 Now the caveat the marketing won't volunteer. OpenMind's *long-duration* continuity claims — the months-long, "remembers you forever" positioning — are self-reported. No independent source measured them, and the one in-depth review describes memory in terms of weeks, not years. So treat "it remembers for a year" as a claim the company makes, not a confirmed spec. We're not saying it's false; we're saying nobody outside OpenMind has put a number to it.
 
-![Reviewer line that CFS survives weeks of conversation but is not the radical leap the marketing implies](images/openmind-ai-vs-pleasurai/external-3-reviewer-line-that-cfs-survive.png)
+![Reviewer line that CFS survives weeks of conversation but is not the radical leap the marketing implies](https://elegant-cactus-c693703b28.media.strapiapp.com/external_3_reviewer_line_that_cfs_survive_78ce460d24.png)
 
 One more orientation note: [OpenMind runs at OpenMind.design, web-only](https://roborhythms.com/openmind-ai-review/) — the review found no native mobile app — and it's positioned squarely as an adults-only Character.AI alternative. OpenMind's memory story, then, is one it tells about itself. Pleasur.ai's headline number comes from somewhere else.
 
@@ -42,7 +42,7 @@ The figure is specific. MariaVibe's piece, *"Aimour AI vs Pleasur AI 2026,"* [ru
 
 Here's the disclaimer that keeps this honest, and it's a hard line, not a hedge: MariaVibe discloses no methodology and no sample size. The page attributes the data to "top reviews and site specs" and "Q1 2026 tests," and stops there. So this is an independent *reviewer's reported* figure — not an independently *validated* benchmark run under stated conditions. Its strength is that it's third-party: a number from outside the company, in print, that you can read for yourself. Its limit is that you can't see how it was produced. Both things are true at once, and saying so is what keeps the figure trustworthy instead of inflated.
 
-![MariaVibe "Memory After 7 Days" benchmark row showing 33% vs 82%](images/openmind-ai-vs-pleasurai/external-4-mariavibe-memory-after-7-days.png)
+![MariaVibe "Memory After 7 Days" benchmark row showing 33% vs 82%](https://elegant-cactus-c693703b28.media.strapiapp.com/external_4_mariavibe_memory_after_7_days_ae42ff0647.png)
 
 What does that 82% feel like in practice? [Per MariaVibe, Pleasur.ai tracks emotional context and history points across sessions](https://mariavibe.com/blog/aimour-ai-vs-pleasur-ai-2026/), so the relationship reads as continuous rather than starting over each visit. The concrete product behavior behind that is the [AI Companion Creator's](https://pleasur.ai/create) saved, resumable chat history: close the app, come back tomorrow, and the companion still holds the thread from yesterday — the name you mentioned, the scenario you set, the thing you were upset about. That's the mechanism turning a retention number into the "ongoing, not reset-based" experience users describe. For a deeper look at how companion memory works across the field, the [memory roundup](https://pleasur.ai/blog/ai-companion-best-memory) covers it without us re-explaining the plumbing here.
 
@@ -76,9 +76,9 @@ Pleasur.ai's pricing is coin-metered across three tiers, verified on its [pricin
 
 That difference — unlimited chat, metered media — is the worked example of how a coin economy actually behaves. You don't ration conversation. You budget the extras.
 
-![Pleasur.ai's three coin-metered tiers (Starter/Standard/Ultimate) with monthly and annual prices](images/openmind-ai-vs-pleasurai/screenshot-5-pleasur-ai-s-three-coin-metere.png)
+![Pleasur.ai's three coin-metered tiers (Starter/Standard/Ultimate) with monthly and annual prices](https://elegant-cactus-c693703b28.media.strapiapp.com/screenshot_5_pleasur_ai_s_three_coin_metere_a9d04c6bc3.png)
 
-![OpenMind AI pricing tiers (Free / $9.99 / $19.99 / $29.99) as reported by the independent review](images/openmind-ai-vs-pleasurai/external-6-openmind-ai-pricing-tiers-free.png)
+![OpenMind AI pricing tiers (Free / $9.99 / $19.99 / $29.99) as reported by the independent review](https://elegant-cactus-c693703b28.media.strapiapp.com/external_6_openmind_ai_pricing_tiers_free_d96f6210de.png)
 
 Which raises the thing a free or cheap headline number hides: the sticker price isn't the cost. The cost is whether the thing keeps being worth opening — the memory you're paying to keep, the continuity that earns month two. A $0 tier you abandon in a week is more expensive, in time, than a paid tier you actually use. If you're weighing that trade-off across more than these two apps, our guide on [how to choose an NSFW AI companion](https://pleasur.ai/blog/how-to-choose-an-nsfw-ai-companion) runs the full decision framework. Price sets the floor; fit decides the pick.
 
@@ -92,7 +92,7 @@ Pleasur.ai fits the user who weights evidenced continuity and wants one hub inst
 
 If you're shopping the wider Character.AI-alternative category before committing to either, our [best Character AI alternatives guide](https://pleasur.ai/blog/character-ai-alternative) sorts the options by use case. Both apps here are adults-only and serious about the companion experience; the choice is mostly about how much you'll pay to find out, and whose word you'll take on memory.
 
-![Decision-split diagram, single fork. Center: a question box labeled "What do you weight most?". Two branches. Left branch labeled "Free testing & budget-first" points to a box "OpenMind AI" with sub-labels "Free $0 tier", "Test memory for weeks", "Web-only". Right branch labeled "Evidenced memory & one hub" points to a box "Pleasur.ai" with sub-labels "Third-party 82% figure", "Unlimited chat", "Create + image gen". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.](images/openmind-ai-vs-pleasurai/image-7-decision-split-diagram-single.png)
+![Decision-split diagram, single fork. Center: a question box labeled "What do you weight most?". Two branches. Left branch labeled "Free testing & budget-first" points to a box "OpenMind AI" with sub-labels "Free $0 tier", "Test memory for weeks", "Web-only". Right branch labeled "Evidenced memory & one hub" points to a box "Pleasur.ai" with sub-labels "Third-party 82% figure", "Unlimited chat", "Create + image gen". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_7_decision_split_diagram_single_7560715c65.png)
 
 ## FAQ
 
