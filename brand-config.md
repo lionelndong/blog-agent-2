@@ -70,6 +70,27 @@
     - Generate short clips of your companion in chosen scenarios
     - Convert image-gen prompts into motion
 
+## Canonical pricing (single source of truth — PLE-2330)
+
+> **This block is the ONLY in-repo authority for our own prices/tiers/metering. It is NOT a substitute for live verification.** Any downstream stage that states a Pleasur.AI price, tier name, coin allowance, or media-metering fact must (a) re-confirm it against the live `pleasur.ai/pricing` page during the run and (b) if it differs from this block, trust the LIVE page and flag the drift so this block gets refreshed. Stale-by-default: treat figures here as expired once `Verified live` is older than 30 days.
+>
+> **Verified live:** 2026-06-15 — source: https://pleasur.ai/pricing (first-party, fetched this date).
+
+| Tier | Monthly | Annual equiv. (billed yearly) | Coin allowance / mo |
+| --- | --- | --- | --- |
+| Starter | $12.99/mo | $5.20/mo (saves $93/yr) | 1,500 coins |
+| Standard | $27.99/mo | $11.20/mo (saves $201/yr) | 5,000 coins |
+| Ultimate | $49.99/mo | $20.00/mo (saves $360/yr) | 10,000 coins |
+
+**Media is metered by coins on EVERY tier — no tier is unlimited.** Per-action costs (as of 2026-06-15):
+- AI image generation — 10 coins each
+- Voice notes — 10 coins each
+- Phone calls — 50 coins/min
+
+**Hard facts that have burned us before (do NOT assert the opposite):**
+- There is **no** "$19/mo" tier and never has been. Any brief/queue/memory figure other than the three tiers above is stale or wrong — trust the live page.
+- We are **not** an unlimited / no-credit-metering product. The price-concession or "no credit meter" angle is FALSE for our product; never let it become a load-bearing pillar.
+
 ## Target Reader
 
 - **Primary persona:** Adults (18+) interested in AI companionship, generative AI for adult content, character chat, and immersive interactive experiences. Mostly digitally fluent, varies from curious newcomers ("what is an AI girlfriend / boyfriend") to experienced users comparing platforms (Candy.ai, Ourdream.ai, createporn.com, and alternatives).

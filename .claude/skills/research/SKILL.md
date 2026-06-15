@@ -40,7 +40,12 @@ If invoked with no argument, read the most recent context file in `content-pipel
    - **Partial topics** — covered by 1–2 (differentiate with more depth)
    - **Gaps** — asked by searchers (question themes, deep research) but covered by nobody (the information-gain opportunity)
 5. **Authority check.** `domain_ranks` for the top-3 domains, `url_organic` (limit 10) for the top-3 URLs → is this SERP beatable, and what secondary keywords do winning pages also rank for (fold the good ones into the outline's subtopics).
-6. **Deep web research via OpenRouter (Perplexity).** Voice-of-customer + community signals (Reddit, forums, review sites):
+6. **First-party fact lock (MANDATORY — added 2026-06-15, PLE-2330).** Before writing any pricing/feature claim into the dossier, fetch the LIVE pages and record exact figures as first-party facts:
+   - **Our product (always):** `WebFetch https://pleasur.ai/pricing` and capture every tier name, monthly price, annual-equivalent price, coin/credit allowance, and per-action media metering (image / voice / call costs). Cross-check against the **Canonical pricing** block in `brand-config.md`: if the live page and the block disagree, **trust the live page**, use it in the dossier, and note in the dossier that `brand-config.md` canonical pricing needs a refresh (so the drift gets fixed). If `pleasur.ai/pricing` 404s or the path moved, try `pleasur.ai` nav / `pleasur.ai/plans` and record the working URL.
+   - **The competitor (for any comparison/`X vs Y`/alternatives keyword):** fetch the named competitor's live pricing/feature page the same way and record exact tiers/prices/metering. Do not infer competitor prices from reviews or the brief when a live page exists.
+   - **Override rule:** any pricing/tier/feature-metering figure supplied by the brief, keyword-queue, memory, or a reviewer is **stale by default**. The live first-party (or live competitor) page wins on conflict. When they conflict, keep BOTH in the dossier WITH their sources and explicitly flag which one is load-bearing (the live one). A dossier that asserts an own-product price/feature with no `pleasur.ai`-live source recorded this run is INCOMPLETE — do not proceed to the beat spec.
+   - Record each captured figure inline with `source: <live URL> (fetched <YYYY-MM-DD>)` so `research-adversarial` and `verify-claims` can trace it.
+7. **Deep web research via OpenRouter (Perplexity).** Voice-of-customer + community signals (Reddit, forums, review sites):
 
    ```bash
    doppler run -- python .claude/skills/research/scripts/openrouter_research.py \
@@ -48,8 +53,8 @@ If invoked with no argument, read the most recent context file in `content-pipel
    ```
 
    Output lands at `content-pipeline/1-research/{slug}-deep.md`. If `OPENROUTER_API_KEY_BLOG_AGENT` isn't set, skip and note it in the dossier — don't fail the pipeline.
-7. **Recommend an angle.** One-sentence thesis that wins against the current SERP, with justification grounded in the benchmark's gaps + what this brand can credibly demonstrate first-hand.
-8. **Write the beat spec** — the dossier's final section, in exactly this shape:
+8. **Recommend an angle.** One-sentence thesis that wins against the current SERP, with justification grounded in the benchmark's gaps + what this brand can credibly demonstrate first-hand. The angle must NOT rest on an own-product pricing/feature claim that step 6 did not confirm live (this is exactly how PLE-2320 built a false "price-concession" + "no credit meter" thesis).
+9. **Write the beat spec** — the dossier's final section, in exactly this shape:
 
    ```markdown
    ## BEAT SPEC (binding on outline + quality gate)
@@ -62,8 +67,8 @@ If invoked with no argument, read the most recent context file in `content-pipel
    - Secondary keywords to work in naturally: <from url_organic + variations>
    - Beatability: <honest read — authority spread, content quality of incumbents>
    ```
-9. **Write the dossier** to `content-pipeline/1-research/{slug}.md` per `templates/research-template.md`. No `{{VAR}}` markers left. Include a "Deep web research findings" summary section (the `-deep.md` file stays available to `/draft`).
-10. **Emit chartable data** (unchanged): if the dossier surfaces numeric breakdowns worth charting, write `content-pipeline/1-research/{slug}-data.json` (`{label: number}` dicts, snake_case keys, `_meta.source` for auditability). Don't fabricate; omit if nothing chartable.
+10. **Write the dossier** to `content-pipeline/1-research/{slug}.md` per `templates/research-template.md`. No `{{VAR}}` markers left. Include a "Deep web research findings" summary section (the `-deep.md` file stays available to `/draft`).
+11. **Emit chartable data** (unchanged): if the dossier surfaces numeric breakdowns worth charting, write `content-pipeline/1-research/{slug}-data.json` (`{label: number}` dicts, snake_case keys, `_meta.source` for auditability). Don't fabricate; omit if nothing chartable.
 
 ## Data-integrity rules (HARD — added 2026-06-15, PLE-2334)
 
@@ -94,7 +99,9 @@ Before saving, verify:
 - [ ] No raw CSV/JSON dumps; everything synthesized
 - [ ] Brand context reflected — the angle is something THIS brand can credibly own
 - [ ] **No unsourced figure overrides a sourced one; conflicting sourced figures both surfaced with sources (Data-integrity rule 1–2)**
-- [ ] **Every own-product fact (pricing, tiers, feature gating) re-verified against the live first-party page this run — not the brief/memory (Data-integrity rule 3)**
+- [ ] **Step 6 ran: `pleasur.ai/pricing` fetched LIVE this run; every own-product price/tier/coin-metering fact in the dossier carries a `source: <live URL> (fetched <date>)` and matches the live page (not the brief/memory) — Data-integrity rule 3 + step 6**
+- [ ] **For a comparison/vs/alternatives keyword: the competitor's pricing/feature page was also fetched live and its figures sourced inline (step 6)**
+- [ ] **Any conflict between live figures and brief/queue/`brand-config.md` is surfaced with both sources and the live one flagged load-bearing; `brand-config.md` refresh noted if its canonical block drifted**
 
 ## When to re-run
 

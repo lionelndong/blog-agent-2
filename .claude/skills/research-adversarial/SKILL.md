@@ -72,14 +72,31 @@ For slug `{slug}`:
 >    *own* (Pleasur.AI-specific data, internal modules from
 >    `2-reference/{slug}.md`, the 4 product pillars from brand-config) — or is
 >    it a generic survey?
+> 6. **First-party fact trace (PLE-2330 — added 2026-06-15).** List EVERY
+>    Pleasur.AI pricing, tier-name, coin/credit allowance, or media-metering
+>    claim in the dossier. For each, confirm it carries a `source: <live URL>
+>    (fetched <date>)` pointing at `pleasur.ai/pricing` (or the live product
+>    page) **from this run** — NOT the brief, the keyword-queue, memory, or
+>    `brand-config.md` alone. Any own-product price/feature claim with no live
+>    first-party source recorded this run is `CRITICAL` (this is the exact
+>    PLE-2320 failure: the dossier asserted a non-existent "$19/mo,
+>    authoritative" price and an implied "no credit meter" model from the
+>    brief; both contradicted the live `pleasur.ai/pricing` page where all tiers
+>    meter media via coins). Same standard for any competitor price/feature
+>    claim in a comparison article — it must trace to the competitor's live
+>    page, not a reviewer or the brief. If `brand-config.md`'s canonical pricing
+>    block is cited but the dossier never re-confirmed it live this run, that is
+>    still `CRITICAL` — the block is stale-by-default.
 >
 > Output:
 >
-> - 5–8 specific findings tagged `CRITICAL`, `HIGH`, `MEDIUM`, `LOW`.
->   - `CRITICAL` = drafting on this will produce a citation-thin or
->     wrong-angle article. Examples: load-bearing stat with no source, a
+> - 6–9 specific findings tagged `CRITICAL`, `HIGH`, `MEDIUM`, `LOW`.
+>   - `CRITICAL` = drafting on this will produce a citation-thin, wrong-angle,
+>     or factually-wrong article. Examples: load-bearing stat with no source, a
 >     dressed-up "surprise" that's actually a 5-year-old fact, missing the
->     strongest competitor angle entirely, JSON keys that contradict the prose.
+>     strongest competitor angle entirely, JSON keys that contradict the prose,
+>     **any own-product (or competitor) price/feature claim with no live
+>     first-party source recorded this run (question 6).**
 >   - `HIGH` = the dossier is correct but thin in a way that will hurt the
 >     draft.
 > - 1 thing that works.
