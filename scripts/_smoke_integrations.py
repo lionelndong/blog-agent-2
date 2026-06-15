@@ -556,6 +556,112 @@ def check_strapi_publish_gate() -> str:
     )
 
 
+def check_post_publish_mirror_assertion_retry() -> str:
+    """PLE-2371: post-publish mirror assertion must tolerate approval-sync lag.
+
+    No network is needed. The check monkeypatches urlopen so the first mirror
+    read is still draft, then the second is published. Success proves the helper
+    reruns sync-blog-posts instead of failing after one early sync.
+    """
+    try:
+        import importlib.util
+        from pathlib import Path
+
+        repo_root = Path(__file__).resolve().parents[1]
+        target = (
+            repo_root
+            / ".claude"
+            / "skills"
+            / "format-for-publish"
+            / "scripts"
+            / "format_for_strapi.py"
+        )
+        spec = importlib.util.spec_from_file_location("format_for_strapi", target)
+        if spec is None or spec.loader is None:
+            return f"POST_PUBLISH_MIRROR_ASSERTION_RETRY FAIL — cannot load {target}"
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+
+        class FakeResponse:
+            def __init__(self, body: bytes):
+                self.status = 200
+                self.reason = "OK"
+                self._body = body
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+            def read(self) -> bytes:
+                return self._body
+
+        calls: list[tuple[str, str]] = []
+        sleeps: list[float] = []
+        mirror_reads = 0
+
+        def fake_urlopen(req, timeout=None):  # noqa: ANN001 - mirrors urllib signature.
+            nonlocal mirror_reads
+            url = getattr(req, "full_url", str(req))
+            method = getattr(req, "get_method", lambda: "GET")()
+            calls.append((method, url))
+            if "/functions/v1/sync-blog-posts" in url:
+                auth = dict(req.header_items()).get("Authorization")
+                if auth != "Bearer fake-webhook-secret":
+                    raise AssertionError(f"sync auth header used {auth!r}")
+                return FakeResponse(b'{"synced":1}')
+            if "/rest/v1/blog_posts" in url:
+                mirror_reads += 1
+                status = "draft" if mirror_reads == 1 else "published"
+                return FakeResponse(json.dumps([{"slug": "demo", "status": status}]).encode("utf-8"))
+            raise AssertionError(f"unexpected URL: {url}")
+
+        original_urlopen = urllib.request.urlopen
+        original_sleep = mod.time.sleep
+        original_url = os.environ.get("SUPABASE_URL")
+        original_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+        original_webhook_secret = os.environ.get("STRAPI_WEBHOOK_SECRET")
+        try:
+            os.environ["SUPABASE_URL"] = "https://example.supabase.co"
+            os.environ["SUPABASE_SERVICE_ROLE_KEY"] = "fake-service-role-key"
+            os.environ["STRAPI_WEBHOOK_SECRET"] = "fake-webhook-secret"
+            urllib.request.urlopen = fake_urlopen
+            mod.time.sleep = lambda seconds: sleeps.append(seconds)
+
+            mod.assert_blog_post_mirrored("demo", max_attempts=3, sleep_seconds=0.01)
+        finally:
+            urllib.request.urlopen = original_urlopen
+            mod.time.sleep = original_sleep
+            if original_url is None:
+                os.environ.pop("SUPABASE_URL", None)
+            else:
+                os.environ["SUPABASE_URL"] = original_url
+            if original_key is None:
+                os.environ.pop("SUPABASE_SERVICE_ROLE_KEY", None)
+            else:
+                os.environ["SUPABASE_SERVICE_ROLE_KEY"] = original_key
+            if original_webhook_secret is None:
+                os.environ.pop("STRAPI_WEBHOOK_SECRET", None)
+            else:
+                os.environ["STRAPI_WEBHOOK_SECRET"] = original_webhook_secret
+
+        sync_calls = [c for c in calls if "/functions/v1/sync-blog-posts" in c[1]]
+        if len(sync_calls) != 2:
+            return f"POST_PUBLISH_MIRROR_ASSERTION_RETRY FAIL — expected 2 sync calls, got {len(sync_calls)}"
+        if any(method != "GET" for method, _url in sync_calls):
+            return f"POST_PUBLISH_MIRROR_ASSERTION_RETRY FAIL — sync call methods were {sync_calls!r}"
+        if mirror_reads != 2 or sleeps != [0.01]:
+            return (
+                "POST_PUBLISH_MIRROR_ASSERTION_RETRY FAIL — "
+                f"mirror_reads={mirror_reads} sleeps={sleeps!r}"
+            )
+
+        return "POST_PUBLISH_MIRROR_ASSERTION_RETRY OK — sync retried via GET until blog_posts status=published"
+    except Exception as e:
+        return f"POST_PUBLISH_MIRROR_ASSERTION_RETRY FAIL — {type(e).__name__}: {e}"
+
+
 CHECKS = {
     "openrouter": check_openrouter,
     "replicate": check_replicate,
@@ -566,9 +672,11 @@ CHECKS = {
     "category_resolver": check_category_resolver,
     "github": check_github,
     "strapi_publish_gate": check_strapi_publish_gate,
+    "post_publish_mirror_assertion_retry": check_post_publish_mirror_assertion_retry,
     # Alias the spec's UPPERCASE label so operators can run it with the exact
     # target name from PLEAA-581's acceptance criteria.
     "STRAPI_PUBLISH_GATE": check_strapi_publish_gate,
+    "POST_PUBLISH_MIRROR_ASSERTION_RETRY": check_post_publish_mirror_assertion_retry,
 }
 
 

@@ -64,9 +64,9 @@ jobs:
           replaced by Strapi's real documentId on the first successful webhook
           resolve.
 
-          Errors per-row are logged but do not fail the workflow — the goal is
-          best-effort sync; a missed row blocks the next ``entry.publish`` for
-          that slug until the operator re-runs the workflow.
+          Any per-row error fails the workflow. A missed approval row would
+          block the next ``entry.publish`` for that slug, so this job must go
+          red until the operator fixes the manifest or reruns the workflow.
           """
           import json
           import os

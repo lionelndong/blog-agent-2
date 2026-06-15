@@ -987,14 +987,18 @@ def _supabase_service_key_from_env() -> str | None:
     )
 
 
-def assert_blog_post_mirrored(slug: str, *, max_attempts: int = 6, sleep_seconds: float = 2.0) -> None:
+def _strapi_webhook_secret_from_env() -> str | None:
+    return os.environ.get("STRAPI_WEBHOOK_SECRET")
+
+
+def assert_blog_post_mirrored(slug: str, *, max_attempts: int = 30, sleep_seconds: float = 10.0) -> None:
     """Fail the publish run unless the public-site mirror contains the slug.
 
     Strapi can return 2xx while the public site still 404s: the Next.js blog
     reads Supabase ``blog_posts``, and ``sync-blog-posts`` refuses a publish
     unless ``blog_publish_approvals`` has a row for the slug/documentId. After a
-    direct API publish, trigger the existing sync function and then poll the
-    public mirror row so a missing approval writer fails at publish time.
+    direct API publish, keep triggering the existing sync function and polling
+    the public mirror row long enough for the approval workflow to finish.
     """
     supabase_url = (_supabase_url_from_env() or "").rstrip("/")
     service_key = _supabase_service_key_from_env() or ""
@@ -1012,19 +1016,14 @@ def assert_blog_post_mirrored(slug: str, *, max_attempts: int = 6, sleep_seconds
         "apikey": service_key,
         "Authorization": f"Bearer {service_key}",
     }
+    sync_headers = {
+        "apikey": service_key,
+        "Authorization": f"Bearer {_strapi_webhook_secret_from_env() or service_key}",
+    }
 
     sync_endpoint = f"{supabase_url}/functions/v1/sync-blog-posts"
-    sync_req = urllib.request.Request(sync_endpoint, headers=headers, method="GET")
-    try:
-        with urllib.request.urlopen(sync_req, timeout=60) as resp:
-            sync_body = resp.read().decode("utf-8", errors="replace")[:500]
-            print(f"sync-blog-posts — {resp.status} {resp.reason}: {sync_body}")
-    except urllib.error.HTTPError as exc:
-        body = exc.read().decode("utf-8", errors="replace")[:500]
-        sys.exit(f"error: sync-blog-posts failed HTTP {exc.code}: {body}")
-    except Exception as exc:
-        sys.exit(f"error: sync-blog-posts failed: {type(exc).__name__}: {exc}")
-
+    # The Supabase edge function explicitly supports GET as its manual full-sync trigger.
+    sync_req = urllib.request.Request(sync_endpoint, headers=sync_headers, method="GET")
     query = urllib.parse.urlencode(
         {
             "slug": f"eq.{slug}",
@@ -1036,6 +1035,16 @@ def assert_blog_post_mirrored(slug: str, *, max_attempts: int = 6, sleep_seconds
     req = urllib.request.Request(endpoint, headers={**headers, "Accept": "application/json"}, method="GET")
     last_seen = "no row"
     for attempt in range(1, max_attempts + 1):
+        try:
+            with urllib.request.urlopen(sync_req, timeout=60) as resp:
+                sync_body = resp.read().decode("utf-8", errors="replace")[:500]
+                print(f"sync-blog-posts — {resp.status} {resp.reason}: {sync_body}")
+        except urllib.error.HTTPError as exc:
+            body = exc.read().decode("utf-8", errors="replace")[:500]
+            sys.exit(f"error: sync-blog-posts failed HTTP {exc.code}: {body}")
+        except Exception as exc:
+            sys.exit(f"error: sync-blog-posts failed: {type(exc).__name__}: {exc}")
+
         try:
             with urllib.request.urlopen(req, timeout=30) as resp:
                 rows = json.loads(resp.read().decode("utf-8"))

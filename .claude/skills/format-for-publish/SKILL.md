@@ -88,6 +88,7 @@ Required env vars:
 
 - `SUPABASE_URL` or `NEXT_PUBLIC_SUPABASE_URL`
 - `SUPABASE_SERVICE_ROLE_KEY`
+- `STRAPI_WEBHOOK_SECRET` when the `sync-blog-posts` edge function requires webhook auth
 
 If the approval registry is not fed, the sync function returns the failure and
 the publish run stops immediately instead of leaving the article silently 404ing.
