@@ -65,6 +65,14 @@ If invoked with no argument, read the most recent context file in `content-pipel
 9. **Write the dossier** to `content-pipeline/1-research/{slug}.md` per `templates/research-template.md`. No `{{VAR}}` markers left. Include a "Deep web research findings" summary section (the `-deep.md` file stays available to `/draft`).
 10. **Emit chartable data** (unchanged): if the dossier surfaces numeric breakdowns worth charting, write `content-pipeline/1-research/{slug}-data.json` (`{label: number}` dicts, snake_case keys, `_meta.source` for auditability). Don't fabricate; omit if nothing chartable.
 
+## Data-integrity rules (HARD — added 2026-06-15, PLE-2334)
+
+A research dossier nearly published a false own-price claim because it asserted an "authoritative $19/mo" pleasur.ai figure that does not exist and **overrode** the accurate reviewer prices ($12.99 / $27.99) the deep-research step had captured. Never again:
+
+1. **No unsourced figure may override sourced data.** Every number in the dossier carries its source inline. If a figure has no live source, it is a hypothesis, not a fact — label it `[UNVERIFIED]` and never let it displace a figure that *does* have a source. The word "authoritative" is not a source; do not use it to launder a guess.
+2. **Conflicting sourced figures both stay.** If deep-research, reviewers, and the brief disagree on a number, surface **all of them with their sources** in the dossier and flag the conflict for downstream resolution (`verify-claims` resolves to the live page). Do not silently pick one and present it as settled.
+3. **Own-product facts trace to the first party, live.** Any claim about pleasur.ai's OWN pricing, plan names, tiers, or feature gating (e.g. "no credit metering") must be sourced to the live first-party page (`pleasur.ai/pricing`, product/docs pages) checked during this run — not to the brief, not to memory, not to a reviewer. Brief/keyword-queue figures about our own product are stale by default and must be re-verified live before they enter the dossier. A wrong own-product fact is a trust catastrophe (we are the source of truth for it) and a publish-blocker downstream.
+
 ## Output
 
 `content-pipeline/1-research/{slug}.md` — 1,200–2,500 words. Dense, scannable, no fluff. The `outline` skill reads it end-to-end.
@@ -85,6 +93,8 @@ Before saving, verify:
 - [ ] At least 3 verbatim user quotes when deep research ran
 - [ ] No raw CSV/JSON dumps; everything synthesized
 - [ ] Brand context reflected — the angle is something THIS brand can credibly own
+- [ ] **No unsourced figure overrides a sourced one; conflicting sourced figures both surfaced with sources (Data-integrity rule 1–2)**
+- [ ] **Every own-product fact (pricing, tiers, feature gating) re-verified against the live first-party page this run — not the brief/memory (Data-integrity rule 3)**
 
 ## When to re-run
 

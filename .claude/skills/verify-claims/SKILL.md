@@ -19,6 +19,7 @@ For slug `{slug}`:
 
 1. **Read the draft.**
 2. **Extract every claim that needs a source:**
+   - **First-party facts about OUR OWN product (HIGHEST PRIORITY — verify these FIRST).** Any claim about pleasur.ai's pricing, plan names/tiers, or feature gating ("no credit metering", "unlimited X"). We are the source of truth for these, so a wrong one is the worst possible error and the most likely to slip through — the brief/dossier may carry a stale or fabricated figure (this is exactly how PLE-2320's false "$19/mo authoritative" price reached stage 7). Verify EVERY own-product fact against the **live first-party page** (`pleasur.ai/pricing`, product/docs pages) regardless of whether the draft already cites a number. Do not trust the dossier's own-price figures.
    - Numerical claims ("90% of pages get no traffic")
    - Specific assertions about how things work ("Google's PageRank algorithm uses...")
    - Quoted figures from people or studies
@@ -54,6 +55,7 @@ The draft, with every numerical claim citing a real source and every appropriate
 
 ## Quality checklist
 
+- [ ] **Every first-party fact (our own pricing/tiers/feature gating) verified against the live `pleasur.ai` page this run — not the dossier; any contradiction corrected AND flagged in a `## CRITICAL: false first-party fact` block**
 - [ ] Every numerical claim has a `[descriptive anchor](real-url)` link
 - [ ] No remaining `[link]` placeholders from drafting
 - [ ] No fabricated sources (sources that don't exist or don't say what's claimed)
@@ -70,6 +72,8 @@ If a stat in the draft is **wrong** (no source supports it), don't paper over it
 - Cut the claim and rewrite the sentence to make the same argument without the disputed number
 
 The draft was wrong before; making it look correct without fixing it is worse.
+
+**A false first-party fact is a publish-blocker, not an editor note.** If a claim about our OWN product (price, tier, feature gating) is contradicted by the live first-party page, the article does not go to preview/publish on a corrected-in-place basis alone — correct it AND emit a `## CRITICAL: false first-party fact` block at the top of the cited file naming the false claim, the live correct value, and its source URL. This forces the quality gate / editor to confirm the rest of the article's thesis still holds (a wrong own-price can invert a comparison's entire argument, as it did in PLE-2320). Never silently rewrite-and-pass a false own-product claim.
 
 ## Common source patterns to prefer
 
