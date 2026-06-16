@@ -1,0 +1,98 @@
+{
+  "slug": "ai-companion-pricing-guide-2026",
+  "_note": "Reconciled 2026-06-16 after the surgical visuals revision pass. The generate-visuals dispatcher rewrites this file with only the placeholders it processes per run; this consolidated record restores the full asset set (9 captured) plus the stripped Candy AI external for audit. Order follows the cited draft.",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {"type": "image", "sub": "concept-illustration", "style": "flat-vector", "safety": "sfw"},
+      "alt": "Editorial concept illustration contrasting two price tags for the same \"$9.99/mo\" AI companion: a flat plan (pay once, use freely) versus a metered plan ($9.99 buys a coin allowance that runs out).",
+      "status": "captured",
+      "result": {"status": "captured", "path": "content-pipeline/images/ai-companion-pricing-guide-2026/image-1-editorial-concept-illustration.png", "model": "openai/gpt-image-2"},
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "chart",
+      "attrs": {"type": "chart", "data": "research.competitor_entry_monthly_usd", "style": "bar", "title": "Entry monthly price by AI companion platform (2026)"},
+      "alt": "Entry monthly price by AI companion platform (2026)",
+      "status": "captured",
+      "result": {"status": "captured", "path": "content-pipeline/images/ai-companion-pricing-guide-2026/chart-2-entry-monthly-price-by-ai-comp.png", "style": "bar", "data_points": 15},
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "external",
+      "attrs": {"type": "external", "sub": "competitor-ui", "url": "https://candy.ai/pricing", "selector": ".pricing-table", "crop": "padded", "what": "Candy AI's published pricing tiers"},
+      "alt": "Candy AI's published pricing tiers",
+      "status": "stripped",
+      "stripped_reason": "visuals-adversarial ruling 2026-06-16: decorative duplication of the master-table Candy AI row (its pricing is already in the 16-row comparison table). Placeholder removed from cited draft; record retained for audit. Not routed to manual capture.",
+      "result": {"status": "failed", "reason": "bounding_box_failed", "url": "https://candy.ai/pricing", "sub": "competitor-ui"},
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "image",
+      "attrs": {"type": "image", "sub": "diagram", "style": "flat-vector", "safety": "sfw"},
+      "alt": "Side-by-side editorial diagram: a flat plan (pay once, use freely) versus a metered plan ($9.99 = 1,500 credits that drain as media is used).",
+      "status": "captured",
+      "result": {"status": "captured", "path": "content-pipeline/images/ai-companion-pricing-guide-2026/image-4-side-by-side-editorial-diagram.png", "model": "openai/gpt-image-2"},
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "image",
+      "attrs": {"type": "image", "sub": "concept-illustration", "style": "flat-vector", "safety": "sfw"},
+      "alt": "Worked-calculation infographic: 5,000 coins divided by 10 coins per image equals 500 images; unlimited text costs 0 coins.",
+      "status": "captured",
+      "result": {"status": "captured", "path": "content-pipeline/images/ai-companion-pricing-guide-2026/image-5-editorial-worked-calculation-i.png", "model": "openai/gpt-image-2"},
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "chart",
+      "attrs": {"type": "chart", "data": "research.hidden_cost_ranges", "style": "bar", "title": "Hidden monthly add-ons that aren't on the pricing page"},
+      "alt": "Hidden monthly add-ons that aren't on the pricing page",
+      "status": "captured",
+      "result": {"status": "captured", "path": "content-pipeline/images/ai-companion-pricing-guide-2026/chart-6-hidden-monthly-add-ons-that-ar.png", "style": "bar", "data_points": 5},
+      "legacy": false
+    },
+    {
+      "index": 7,
+      "type": "screenshot",
+      "attrs": {"type": "screenshot", "target": "pricing", "what": "pleasur.ai's three coin tiers (Starter / Standard / Ultimate) with their published coin allowances"},
+      "alt": "pleasur.ai's three coin tiers (Starter / Standard / Ultimate) with their published coin allowances",
+      "status": "captured",
+      "result": {"status": "captured", "path": "content-pipeline/images/ai-companion-pricing-guide-2026/screenshot-1-pleasur-ai-s-three-coin-tiers.png", "url": "https://pleasur.ai/pricing", "final_url": "https://pleasur.ai/pricing", "auth_used": true, "quality": {"status": "ok", "width": 2880, "height": 1800, "stddev_normalized": 0.1822, "bytes": 228353}},
+      "raw": "[VISUAL:type=screenshot;target=pricing;what=pleasur.ai's three coin tiers (Starter / Standard / Ultimate) with their published coin allowances]",
+      "legacy": false
+    },
+    {
+      "index": 8,
+      "type": "chart",
+      "attrs": {"type": "chart", "data": "research.billing_model_distribution", "style": "bar", "title": "How the 16 tracked platforms bill (by paid-tier model)"},
+      "alt": "How the 16 tracked platforms bill (by paid-tier model)",
+      "status": "captured",
+      "result": {"status": "captured", "path": "content-pipeline/images/ai-companion-pricing-guide-2026/chart-1-how-the-16-tracked-platforms-b.png", "style": "bar", "data_points": 4},
+      "legacy": false
+    },
+    {
+      "index": 9,
+      "type": "image",
+      "attrs": {"type": "image", "sub": "concept-illustration", "style": "flat-vector", "safety": "sfw"},
+      "alt": "Diagram of the four places an AI-companion bill grows after signup: token top-ups, trial-to-renewal price jump, currency and conversion fees, and multi-platform stacking.",
+      "status": "captured",
+      "result": {"status": "captured", "path": "content-pipeline/images/ai-companion-pricing-guide-2026/image-3-horizontal-editorial-diagram-t.png", "model": "openai/gpt-image-2"},
+      "legacy": false
+    },
+    {
+      "index": 10,
+      "type": "chart",
+      "attrs": {"type": "chart", "data": "research.annual_vs_monthly_savings", "style": "bar", "title": "Annual billing discount off the monthly price (%)"},
+      "alt": "Annual billing discount off the monthly price (%)",
+      "status": "captured",
+      "result": {"status": "captured", "path": "content-pipeline/images/ai-companion-pricing-guide-2026/chart-4-annual-billing-discount-off-th.png", "style": "bar", "data_points": 4},
+      "legacy": false
+    }
+  ]
+}
