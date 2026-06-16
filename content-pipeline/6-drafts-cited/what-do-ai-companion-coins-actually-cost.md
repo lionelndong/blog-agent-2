@@ -1,10 +1,12 @@
+# What Do AI Companion Coins Actually Cost? (2026)
+
 A coin is a metered unit of media. On Pleasur.ai an AI image or voice note costs 10 coins, a phone call costs 50 coins per minute, and text chat is unlimited — and the tiers run $12.99/mo for 1,500 coins, $27.99/mo for 5,000, and $49.99/mo for 10,000 ([pricing — pleasur.ai/pricing](https://pleasur.ai/pricing)). Those published numbers let you price out a month before you ever enter a card.
 
 That is the part the category hides. Every "how much does Candy AI cost" review you read ends with the same shrug: tokens, roughly 2–5 per image, confirm in the app. Nobody can tell you what you'll pay, because [Candy.ai publishes no canonical per-action token spec](https://www.roborhythms.com/candy-ai-pricing/). So you sign up, start spending, and find out the price by watching a counter drop. It doesn't have to work that way — once a platform publishes both its coin allowance *and* the cost of each action, you can do the arithmetic up front instead of discovering it after.
 
 This page defines a coin, gives you the exact numbers, shows the math for every tier, compares published metering against the estimated kind, and walks you through pricing out your own month. A short FAQ at the end covers trials, billing, and cancellation. If you want the wider buying decision first, the [AI Girlfriend Apps hub](https://pleasur.ai/blog/ai-girlfriend-apps) maps the whole category.
 
-![Diagram: how one in-app companion coin is spent — 10 coins per image or voice note, 50 coins per call-minute, text unlimited](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_horizontal_editorial_vector_hu_09647a55d2.png)
+![Diagram: how one in-app companion coin is spent — 10 coins per image or voice note, 50 coins per call-minute, text unlimited](images/what-do-ai-companion-coins-actually-cost/image-1-horizontal-editorial-vector-hu.png)
 
 ## What an AI companion "coin" actually is
 
@@ -14,7 +16,7 @@ An AI companion coin is a prepaid credit that pays for one piece of generated me
 
 Why meter media at all? Text is cheap to generate. Images, voice synthesis, and live calls run real compute, so platforms charge per action instead of folding the cost into a flat fee. Take [AI Image Generation](https://pleasur.ai/generate) — every picture you create draws on a model that costs money to run, which is exactly why it lands at 10 coins each rather than free. Per-action metering is now the category norm: competing apps from Candy.ai to its rivals all [bill media against a token or credit balance](https://www.startuphub.ai/ai-news/reviews/2026/candy-ai-review-2026).
 
-![Concept illustration contrasting a transparent metered coin (published per-action rate) against an opaque token with a hidden rate](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_horizontal_editorial_vector_co_e57c3be500.png)
+![Concept illustration contrasting a transparent metered coin (published per-action rate) against an opaque token with a hidden rate](images/what-do-ai-companion-coins-actually-cost/image-1-horizontal-editorial-vector-co.png)
 
 The thing that varies between platforms isn't *whether* they meter. It's whether they tell you the rate. Some publish a clear per-action price you can multiply. Others bury it, and you only learn the cost by spending. That gap is the whole story — and we unpack it in our [guide to choosing an NSFW AI companion](https://pleasur.ai/blog/how-to-choose-an-nsfw-ai-companion), where pricing transparency is one of the eight criteria.
 
@@ -30,15 +32,15 @@ The mix is where it gets real. A coin spent on a call is a coin not spent on an 
 
 You can watch this happen live. Build a character in the [AI Companion Creator](https://pleasur.ai/create), then generate images of them right inside the chat. Each picture ticks the coin counter down by exactly 10, so "150 images = 1,500 coins" stops being abstract the moment you see the balance move. (For the build-a-companion setup itself, the [companion-choosing guide](https://pleasur.ai/blog/how-to-choose-an-nsfw-ai-companion) walks the create flow step by step.)
 
-![in-chat coin balance decrementing by 10 after an image generation](https://elegant-cactus-c693703b28.media.strapiapp.com/screenshot_2_in_chat_coin_balance_decrement_72a905dae0.png)
+![in-chat coin balance decrementing by 10 after an image generation](images/what-do-ai-companion-coins-actually-cost/screenshot-2-in-chat-coin-balance-decrement.png)
 
 Here is every tier at a glance.
 
-![Tier table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_1_d411e96866.png)
-
-- **Starter** — $12.99 — $5.20 (saves $93/yr) — 1,500 — ~150 — ~150 — ~30
-- **Standard** — $27.99 — $11.20 (saves $201/yr) — 5,000 — ~500 — ~500 — ~100
-- **Ultimate** — $49.99 — $20.00 (saves $360/yr) — 10,000 — ~1,000 — ~1,000 — ~200
+| Tier | Monthly | Annual (per-mo) | Coins/mo | ≈ Images (10 ea) | ≈ Voice notes (10 ea) | ≈ Call-minutes (50/min) |
+|---|---|---|---|---|---|---|
+| Starter | $12.99 | $5.20 (saves $93/yr) | 1,500 | ~150 | ~150 | ~30 |
+| Standard | $27.99 | $11.20 (saves $201/yr) | 5,000 | ~500 | ~500 | ~100 |
+| Ultimate | $49.99 | $20.00 (saves $360/yr) | 10,000 | ~1,000 | ~1,000 | ~200 |
 
 *Text messages are unlimited on every tier; only images, voice notes, and calls spend coins. Prices and rates published at [pleasur.ai/pricing](https://pleasur.ai/pricing).*
 
@@ -60,7 +62,7 @@ And the sticker isn't the whole bill. On opaque platforms, the monthly allowance
 
 That gap between sticker and reality gets widest when a platform won't publish its per-action rate — which is exactly where transparent and opaque metering split apart.
 
-![Monthly vs annual-billed price per tier (Pleasur.ai)](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_3_monthly_vs_annual_billed_price_2b3f081103.png)
+![Monthly vs annual-billed price per tier (Pleasur.ai)](images/what-do-ai-companion-coins-actually-cost/chart-3-monthly-vs-annual-billed-price.png)
 
 ## Transparent vs opaque metering: the difference that decides your bill
 
@@ -70,14 +72,14 @@ A transparent model publishes two things: the allowance *and* the per-action cos
 
 An opaque model publishes the allowance but not the rate. So reviewers fill the gap with estimates — ~2–5 tokens an image, ~3 tokens a call-minute, always flagged "indicative only, confirm in-app" — and you find out the real cost by spending. Every competitor token figure in the table below is **reviewer-estimated, not vendor-published** ([reviewer token estimates](https://www.roborhythms.com/candy-ai-pricing/)). Candy.ai, by a [2026 review's own account](https://www.roborhythms.com/candy-ai-pricing/), publishes its subscription price but not a canonical per-action spec.
 
-![Concept illustration contrasting two billing paths: a transparent published-rate path with a known itemized total versus an opaque hidden-rate path ending in an unknown bill](https://elegant-cactus-c693703b28.media.strapiapp.com/image_2_horizontal_editorial_vector_co_58f847b225.png)
+![Concept illustration contrasting two billing paths: a transparent published-rate path with a known itemized total versus an opaque hidden-rate path ending in an unknown bill](images/what-do-ai-companion-coins-actually-cost/image-2-horizontal-editorial-vector-co.png)
 
-![What you pay for table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_2_0962189f5f.png)
-
-- **AI image** — 10 coins (published) — ~2–5 tokens, reviewer-estimated, "confirm in-app" — You can't budget a number you have to guess
-- **Voice note** — 10 coins (published) — Not published; estimated per use — Voice burns credits fast at unknown rates
-- **Call (per minute)** — 50 coins/min (published) — ~3 tokens/min, reviewer-estimated, indicative only — Calls are the fastest spend — guessing hurts most
-- **Text messages** — 0 coins (unlimited, published) — Usually unlimited, but rarely stated plainly — The free part should be in writing
+| What you pay for | Published per-action cost (transparent model) | Typical opaque/estimated competitor cost | Why it matters |
+|---|---|---|---|
+| AI image | 10 coins (published) | ~2–5 tokens, reviewer-estimated, "confirm in-app" | You can't budget a number you have to guess |
+| Voice note | 10 coins (published) | Not published; estimated per use | Voice burns credits fast at unknown rates |
+| Call (per minute) | 50 coins/min (published) | ~3 tokens/min, reviewer-estimated, indicative only | Calls are the fastest spend — guessing hurts most |
+| Text messages | 0 coins (unlimited, published) | Usually unlimited, but rarely stated plainly | The free part should be in writing |
 
 *Competitor figures are reviewer estimates, not vendor-published specs ([reviewer token estimates](https://www.roborhythms.com/candy-ai-pricing/)).*
 
@@ -103,7 +105,7 @@ Three quick profiles, all run on published numbers rather than estimates:
 
 Pro tip: on a platform with published rates, you can run this whole calculation from the price page before you enter a card. On a platform that hides the per-action rate, step 2 is a guess — and a guess is exactly what you're trying to avoid. For the wider "is this the right platform for me" decision, the [NSFW companion-choosing guide](https://pleasur.ai/blog/how-to-choose-an-nsfw-ai-companion) runs the same three-step discipline across every buying criterion.
 
-![Three-step flow diagram showing how to calculate your own monthly AI-companion coin cost](https://elegant-cactus-c693703b28.media.strapiapp.com/image_4_horizontal_three_step_editoria_6be18fbca4.png)
+![Three-step flow diagram showing how to calculate your own monthly AI-companion coin cost](images/what-do-ai-companion-coins-actually-cost/image-4-horizontal-three-step-editoria.png)
 
 One thing the math can't tell you is what shows up on your statement. So the trust questions are worth a quick pass.
 
@@ -146,3 +148,25 @@ Trials require a card and cancel anytime. Check the live statement descriptor an
 The price of a coin isn't the mystery the category makes it out to be. It's a published number you can multiply: 10 coins an image, 50 coins a call-minute, text unlimited. The only real question is whether a platform shows you that number before you pay — or makes you discover it after.
 
 Run your own monthly use through the three-step math, then check the live price page for current rates. For the wider buying decision, our [guide to choosing an NSFW AI companion](https://pleasur.ai/blog/how-to-choose-an-nsfw-ai-companion) takes the same honest-math approach across every criterion that matters.
+
+## Editor notes / Citation verification
+
+**First-party facts (verified live against [pleasur.ai/pricing](https://pleasur.ai/pricing) on 2026-06-16):** all Pleasur.ai prices ($12.99/1,500, $27.99/5,000, $49.99/10,000; annual $5.20/$11.20/$20.00 with $93/$201/$360 savings), per-action rates (image 10, voice 10, call 50/min), unlimited text, and the 7-day money-back guarantee match the live page exactly. No correction needed.
+
+**Candy.ai prices reconciled (the quality-gate flag):** the live `candy.ai/pricing` page returned 404 to automated fetch, so figures are sourced to the most consistent recent third-party reviews. Two independent 2026 reviews — [StartupHub (2026)](https://www.startuphub.ai/ai-news/reviews/2026/candy-ai-review-2026) and [RoboRhythms (April 2026)](https://www.roborhythms.com/candy-ai-pricing/) — both put Candy.ai at **~$12.99/mo month-to-month** and **~$5.99/mo on the annual plan** (billed ~$71.88 upfront). One outlier ([aigirlfriendguide.net](https://aigirlfriendguide.net/candy-ai-pricing/)) lists $13.99/$8.99/$3.99, likely a regional/A-B variant; the draft uses the corroborated $12.99/$5.99 cluster. The earlier draft's "$5.99 annual" stands; the confusing duplicate framing was kept but every Candy figure is now explicitly labeled reviewer-cited with the source + date.
+
+**Candy.ai per-action token rates:** kept as reviewer-estimated. Collapsed the draft's two ranges (earlier "~2–4" and "2–5") to a single consistent **2–5 tokens/image** range, traced to [RoboRhythms (April 2026)](https://www.roborhythms.com/candy-ai-pricing/) ("2 to 5 tokens per image") and corroborated by StartupHub ("4 tokens"). Call estimate (~3 tokens/min) traces to the same RoboRhythms source ("voice synthesis runs about 3 tokens per minute"). All framed as estimates, not Candy-published fact.
+
+**Top-up pack range ($9.99–$299.99):** sourced to [RoboRhythms (April 2026)](https://www.roborhythms.com/candy-ai-pricing/) (100 tokens / $9.99 up to 3,500 tokens / $299.99). Labeled reviewer-cited.
+
+## Editor notes / Voice-flagged statements (review)
+
+These are opinionated/house-voice statements, NOT auto-linked. Editor decides per case:
+
+- "Every 'how much does Candy AI cost' review you read ends with the same shrug" (intro) — rhetorical population claim.
+- "This is information no page-1 result has" — superlative comparative; defensible but unverifiable as an absolute.
+- "Per-action metering is now the category norm" — population/trend claim (linked to a supporting review, but the "norm" framing is editorial).
+- "Most AI companion platforms — Pleasur.ai included — are paid services with a trial, not free apps" — population quantifier.
+- "There's no permanent free tier" / "That's the category pattern" — category-wide generalizations.
+- "the number reviews love to quote" — generalization about reviewer behavior.
+- "Trial-to-subscription is the norm across the category" — population claim (Candy free-tier-with-card behavior supports it, but stated as category-wide).
