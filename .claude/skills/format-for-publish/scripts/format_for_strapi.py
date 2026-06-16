@@ -699,6 +699,88 @@ def build_payload(
     return payload
 
 
+RENDER_TABLE_CARD = (
+    ROOT / ".claude" / "skills" / "generate-visuals" / "scripts" / "render_table_card.py"
+)
+GFM_TABLE_RE = re.compile(
+    r"(?m)^\|.*\|[ \t]*\n\|[ \t:|-]+\|[ \t]*\n(?:\|.*\|[ \t]*\n?)+"
+)
+
+
+def _split_gfm_row(line: str) -> list[str]:
+    """Split a GFM table row into trimmed cell strings."""
+    s = line.strip()
+    if s.startswith("|"):
+        s = s[1:]
+    if s.endswith("|"):
+        s = s[:-1]
+    return [c.strip() for c in s.split("|")]
+
+
+def convert_gfm_tables(body_md: str, slug: str) -> str:
+    """PLEAA-567 publish-boundary workaround: the public Next.js renderer can't
+    render GFM tables, so replace each markdown table with (a) a brand table-card
+    PNG via render_table_card.py and (b) a crawlable bulleted text fallback (one
+    bullet per row, bold first-column label). When the renderer ships GFM support,
+    delete this step — nothing upstream changes (the draft keeps real tables).
+    """
+    if not GFM_TABLE_RE.search(body_md):
+        return body_md
+    if not RENDER_TABLE_CARD.exists():
+        sys.stderr.write(
+            f"warning: render_table_card.py not found at {RENDER_TABLE_CARD}; "
+            "leaving GFM tables inline (public renderer can't display them)\n"
+        )
+        return body_md
+
+    img_dir = IMAGES_DIR / slug
+    img_dir.mkdir(parents=True, exist_ok=True)
+    counter = {"n": 0}
+
+    def _replace(m: re.Match) -> str:
+        block = m.group(0)
+        lines = [ln for ln in block.splitlines() if ln.strip().startswith("|")]
+        if len(lines) < 3:
+            return block  # not a real table (header + separator + >=1 row)
+        cols = _split_gfm_row(lines[0])
+        rows = [_split_gfm_row(ln) for ln in lines[2:] if ln.strip()]
+        ncol = len(cols)
+        rows = [r + [""] * (ncol - len(r)) if len(r) < ncol else r[:ncol] for r in rows]
+
+        counter["n"] += 1
+        out_png = img_dir / f"table-pub-{counter['n']}.png"
+        spec = {
+            "title": "",
+            "columns": cols,
+            "rows": rows,
+            "col_weights": [1.0] * ncol,
+        }
+        spec_path = img_dir / f".table-pub-{counter['n']}-spec.json"
+        spec_path.write_text(json.dumps(spec), encoding="utf-8")
+        try:
+            subprocess.run(
+                [sys.executable, str(RENDER_TABLE_CARD),
+                 "--spec", str(spec_path), "--out", str(out_png)],
+                check=True, capture_output=True, text=True,
+            )
+        except (subprocess.CalledProcessError, OSError) as e:
+            sys.stderr.write(f"warning: table-card render failed ({e}); leaving table inline\n")
+            return block
+        finally:
+            spec_path.unlink(missing_ok=True)
+
+        alt = (cols[0] if cols else "comparison") + " table"
+        rel = f"images/{slug}/{out_png.name}"
+        bullets = []
+        for r in rows:
+            label = r[0]
+            rest = " — ".join(c for c in r[1:] if c)
+            bullets.append(f"- **{label}** — {rest}" if rest else f"- **{label}**")
+        return f"![{alt}]({rel})\n\n" + "\n".join(bullets) + "\n"
+
+    return GFM_TABLE_RE.sub(_replace, body_md)
+
+
 def find_image_refs(md: str) -> list[tuple[str, str]]:
     """Return list of (alt, relative-path-from-content-pipeline)."""
     return [(m.group(1), m.group(2)) for m in IMAGE_REF_RE.finditer(md)]
@@ -1257,6 +1339,9 @@ def main() -> None:
     no_notes = strip_editor_notes(raw)
     title, body = extract_title(no_notes)
     body = transform_callouts(body)
+    # PLEAA-567 publish-boundary workaround: convert GFM tables to table-cards +
+    # bulleted fallback so the public renderer (no GFM support yet) shows them.
+    body = convert_gfm_tables(body, args.slug)
 
     # Hard-fail gate: never ship a publish package containing raw [VISUAL:...] /
     # [SCREENSHOT:...] template syntax. Neo, PLEAA-392 (2026-05-06): the visuals
