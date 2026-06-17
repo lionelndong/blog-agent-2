@@ -19,6 +19,7 @@ For slug `{slug}`:
 
 1. **Read the cited draft.** Make a working copy in memory; don't edit the source.
 2. **Strip the editor-notes section** if present (everything from `## Editor notes` onward). That's internal pipeline metadata, not for publishing.
+2a. **Scrub QA/research scaffolding (PLE-2646, hard).** `strip_editor_notes` only catches a literal `## Editor notes` heading; other leak shapes slip past it. The formatter now (a) auto-removes HTML comments (`<!-- VOICE-FLAGGED -->`, `<!-- CITATION DENSITY -->`) and `_Visual asset: … Target section: …_` manifest caption lines, and (b) **hard-fails** the publish if any high-precision inline production vocabulary survives to the body — "Anchor URLs resolution status", "Must-cite claims identified", "keyword baseline", "research dossier", "research/SERP artifact captured", "sampled SERP", "source review", "before publication", "approved draft language/wording", "$X CPC", `content-pipeline/` paths, `PLEAA-`/`PLE-` ticket refs, editor-note anchors. On a hit, fix the prose in the cited draft and re-run — the gate will not silently rewrite reader copy.
 3. **Extract the H1 as the title** and remove it from the body. Strapi renders the title separately; an H1 in the body causes duplicate-title bugs.
 4. **Apply callout transformations** per `references/strapi-format.md`:
    - `**Tip:** ...` and `**Pro tip:** ...` → `:::tip ... :::`
