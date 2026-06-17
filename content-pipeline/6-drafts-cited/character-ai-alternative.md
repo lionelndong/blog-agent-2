@@ -12,7 +12,7 @@ The best Character.AI alternative depends on what you want that Character.AI no 
 
 [VISUAL:type=image;sub=comparison;prompt=Bullet-list comparison graphic for Character.AI alternatives by use case. Rows: adult companion creation, no-filter roleplay, local control, emotional continuity, stay with Character.AI. Columns: shortlist, best fit, watch-out. Clean editorial layout, neutral colors, no explicit content;style=flat-vector;safety=sfw]
 
-- **Adult companion creation.** Shortlist Pleasur.ai, CrushOn AI, and Muah AI. Pleasur.ai fits adults who want character creation, chat, and generated visuals close together. Watch-out: do not treat adult positioning as a safety or privacy guarantee. Source: Pleasur.ai homepage and Terms ([homepage](https://pleasur.ai/), [Terms](https://pleasur.ai/legal/terms-of-service)).
+- **Adult companion creation.** Shortlist Pleasur.ai, CrushOn AI, and Muah AI. Pleasur.ai fits adults who want character creation, chat, and generated visuals close together — see our [OpenMind AI vs Pleasur.ai comparison](/blog/openmind-ai-vs-pleasurai) for a head-to-head on one newer rival. Watch-out: do not treat adult positioning as a safety or privacy guarantee. Source: Pleasur.ai homepage and Terms ([homepage](https://pleasur.ai/), [Terms](https://pleasur.ai/legal/terms-of-service)).
 
 - **No-filter or roleplay intent.** Shortlist Janitor AI and Chub AI, with Pleasur.ai already covered in the adult companion lane. These are relevant when your main friction is roleplay flexibility. Watch-out: "no filter" is search intent and provider positioning, not proof of safety, legality, privacy, or quality. Source: Janitor AI public page and Chub AI docs ([Janitor AI](https://janitorai.ai/), [Chub AI docs](https://docs.chub.ai/docs)).
 
