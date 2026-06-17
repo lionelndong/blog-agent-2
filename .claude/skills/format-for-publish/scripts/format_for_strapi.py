@@ -39,6 +39,61 @@ INDEX_HTML = DOCS_DIR / "index.html"
 IMAGE_REF_RE = re.compile(r"!\[([^\]]*)\]\((images/[^)]+\.(?:png|jpg|jpeg|webp|gif))\)")
 QC_VERDICT_RE = re.compile(r"\b(PASS|BORDERLINE|FAIL)\b", re.IGNORECASE)
 
+# ── PLE-2646: QA / research-scaffolding scrub at the publish boundary ──────────
+# Background: the live /blog/ai-sexting-app page (and, on sweep, five other
+# published articles) rendered internal pipeline metadata in the body — citation-
+# density tallies, "Anchor URLs resolution status", `_Visual asset: … Target
+# section: …_` manifest captions, an `<a id="editor-note-serp">` editor note,
+# raw keyword-research dumps ("keyword baseline", "33,100 searches at $3.08 CPC"),
+# and self-referential production vocabulary ("our source review", "before
+# publication", "the approved draft language is narrow"). `strip_editor_notes`
+# only caught a literal `## Editor notes` heading, so every other shape leaked.
+#
+# Two-tier defense, mirroring the existing [VISUAL:…] gate:
+#   1. AUTO_STRIP_* — structural scaffolding that is NEVER legitimate reader copy
+#      and is safe to delete in place (HTML comments, manifest caption lines).
+#   2. PIPELINE_LEAK_PATTERNS — high-precision inline production vocabulary that
+#      a machine should not silently rewrite. If any survives to publish, HALT
+#      and make a human/agent fix the prose (same posture as the visuals gate).
+# Patterns are deliberately high-precision: none of them appears in clean,
+# reader-facing prose in this niche, so the gate does not false-positive on real
+# articles. Add new markers here when a new leak class is found in the wild.
+
+# Whole-line `_Visual asset: … Target section: …._` manifest captions emitted by
+# the visuals manifest — pure pipeline metadata, safe to delete in place.
+VISUAL_ASSET_CAPTION_RE = re.compile(r"(?m)^[ \t]*_Visual asset:[^\n]*_[ \t]*$\n?")
+# HTML comments (`<!-- … -->`). The pipeline uses these for QA annotations
+# (`<!-- VOICE-FLAGGED -->`, `<!-- CITATION DENSITY -->`); they are never meant
+# for the published rich-text block.
+HTML_COMMENT_RE = re.compile(r"<!--.*?-->", re.DOTALL)
+
+# Inline production vocabulary that must NEVER reach a published block. Each
+# entry is (compiled_regex, human_label). Kept high-precision on purpose.
+PIPELINE_LEAK_PATTERNS: list[tuple[re.Pattern, str]] = [
+    (re.compile(r"_Visual asset:", re.IGNORECASE), "visual-asset manifest caption"),
+    (re.compile(r"Target section:", re.IGNORECASE), "visual-asset manifest caption"),
+    (re.compile(r"Anchor URLs? resolution status", re.IGNORECASE), "anchor-resolution QA note"),
+    (re.compile(r"research revision pass", re.IGNORECASE), "research-stage QA note"),
+    (re.compile(r"CITATION DENSITY", re.IGNORECASE), "citation-density QA note"),
+    (re.compile(r"VOICE-FLAGGED", re.IGNORECASE), "voice-flag QA note"),
+    (re.compile(r"Must-cite claims? identified", re.IGNORECASE), "citation-density QA note"),
+    (re.compile(r"BEAT SPEC", re.IGNORECASE), "research beat-spec marker"),
+    (re.compile(r"keyword baseline", re.IGNORECASE), "raw keyword-research dump"),
+    (re.compile(r"research dossier", re.IGNORECASE), "internal pipeline reference"),
+    (re.compile(r"(?:research|SERP) artifact captured", re.IGNORECASE), "internal research-artifact reference"),
+    (re.compile(r"sampled SERPs?\b", re.IGNORECASE), "internal SERP-methodology reference"),
+    (re.compile(r"SERP-observed", re.IGNORECASE), "internal SERP-methodology reference"),
+    (re.compile(r"\b(?:our |the |current )?source review\b", re.IGNORECASE), "internal source-review reference"),
+    (re.compile(r"\bbefore publication\b", re.IGNORECASE), "editorial-process instruction"),
+    (re.compile(r"approved (?:draft language|wording|factual placement)", re.IGNORECASE), "editorial-process instruction"),
+    (re.compile(r"this packet (?:does not|provides)", re.IGNORECASE), "research-packet reference"),
+    (re.compile(r"editor[- ]note[- ]serp", re.IGNORECASE), "editor-note anchor"),
+    (re.compile(r"\$[0-9.]+ ?CPC\b", re.IGNORECASE), "raw keyword-research CPC metric"),
+    (re.compile(r"content-pipeline/", re.IGNORECASE), "internal pipeline file path"),
+    (re.compile(r"\bPLEAA-\d", re.IGNORECASE), "internal ticket reference"),
+    (re.compile(r"\bPLE-\d", re.IGNORECASE), "internal ticket reference"),
+]
+
 # PLEAA-524: editorial category taxonomy. Strapi is the source of truth for the
 # `name` strings — keep this list aligned with /api/categories. The publisher
 # pipeline routes a cited draft to a category via three signals (in order):
@@ -275,6 +330,55 @@ def strip_editor_notes(md: str) -> str:
     if m:
         return md[:m.start()].rstrip() + "\n"
     return md
+
+
+def scrub_pipeline_scaffolding(md: str) -> str:
+    """PLE-2646: auto-remove structural QA scaffolding that is never reader copy.
+
+    Deletes HTML comments (``<!-- … -->`` — the pipeline's QA annotations) and
+    whole-line ``_Visual asset: … Target section: …_`` manifest captions in
+    place, then collapses the blank-line runs the deletions leave behind. This
+    is the SAFE tier: these shapes carry zero reader value, so removing them
+    cannot damage an article. Inline production vocabulary is handled separately
+    by :func:`assert_no_pipeline_leak`, which HALTS rather than guessing a
+    rewrite.
+    """
+    md = HTML_COMMENT_RE.sub("", md)
+    md = VISUAL_ASSET_CAPTION_RE.sub("", md)
+    # Collapse 3+ newlines (left by removed standalone lines) down to a blank line.
+    md = re.sub(r"\n{3,}", "\n\n", md)
+    return md
+
+
+def assert_no_pipeline_leak(md: str, slug: str) -> None:
+    """PLE-2646 hard gate: refuse to ship inline QA/research scaffolding.
+
+    Scans the publish-ready body for high-precision production vocabulary that
+    must never reach a ``shared.rich-text`` block (see ``PIPELINE_LEAK_PATTERNS``).
+    On any hit, exits non-zero with the matched marker + a context snippet —
+    same posture as the leftover-``[VISUAL:…]`` gate. The fix is editorial (clean
+    the prose in the cited draft), not mechanical, so we stop rather than mangle.
+    """
+    hits: list[tuple[str, str]] = []
+    for pattern, label in PIPELINE_LEAK_PATTERNS:
+        m = pattern.search(md)
+        if m:
+            start = max(0, m.start() - 60)
+            end = min(len(md), m.end() + 60)
+            snippet = re.sub(r"\s+", " ", md[start:end]).strip()
+            hits.append((label, snippet))
+    if hits:
+        lines = "\n".join(f"  - {label}: …{snippet}…" for label, snippet in hits)
+        sys.exit(
+            f"error: refusing to write publish package for {slug!r} — "
+            f"{len(hits)} QA/research-scaffolding leak(s) in the body:\n{lines}\n"
+            f"  These are internal pipeline notes (citation tallies, keyword-research\n"
+            f"  dumps, '_Visual asset:' captions, editor notes, source-review/\n"
+            f"  'before publication' vocabulary, ticket refs, content-pipeline/ paths)\n"
+            f"  and must not reach readers. Fix: edit the cited draft\n"
+            f"  (content-pipeline/6-drafts-cited/{slug}.md) to remove the leaked text,\n"
+            f"  then re-run /format-for-publish. See PLE-2646."
+        )
 
 
 def extract_title(md: str) -> tuple[str, str]:
@@ -1337,6 +1441,9 @@ def main() -> None:
 
     raw = read_draft(args.slug)
     no_notes = strip_editor_notes(raw)
+    # PLE-2646: auto-remove structural QA scaffolding (HTML comments, manifest
+    # captions) before anything else looks at the body.
+    no_notes = scrub_pipeline_scaffolding(no_notes)
     title, body = extract_title(no_notes)
     body = transform_callouts(body)
     # PLEAA-567 publish-boundary workaround: convert GFM tables to table-cards +
@@ -1358,6 +1465,11 @@ def main() -> None:
             f"  fix: re-run /generate-visuals (or /capture-visuals for action-shots) "
             f"so every placeholder produces a real asset and the draft references it via ![alt](path)."
         )
+
+    # PLE-2646 hard gate: never ship inline QA/research scaffolding to readers.
+    # Runs after auto-strip + callout/table transforms so it judges the exact
+    # text that would land in the published block.
+    assert_no_pipeline_leak(body, args.slug)
 
     # Always copy referenced images into the publish folder so the editor can paste manually
     image_refs = find_image_refs(body)
