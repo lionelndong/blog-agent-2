@@ -2,15 +2,17 @@
 
 ## TL;DR
 
-`.mcp.json` does **not** set an `Authorization` header. On first use, Claude Code triggers the Semrush OAuth flow itself, completes consent in a browser, and persists the tokens under `/paperclip/.claude/` for all future headless runs.
+`.mcp.json` sets `Authorization: Apikey ${SEMRUSH_API_KEY}`. Load it from the company Doppler config before running Semrush MCP or classic Semrush API calls:
 
-This works because the SEO agent (the only agent that calls Semrush MCP) runs with `chrome: true` and the `agent-browser` skill, so it can drive the consent screen autonomously.
+```bash
+DOPPLER_TOKEN="$DOPPLER_KEY" doppler run --project pleasurai --config dev -- <cmd>
+```
 
-## Why two paths exist
+Do not use the archived OAuth/bootstrap flow for routine runs. The active Paperclip runner already has `DOPPLER_KEY`, and Doppler `pleasurai/dev` includes `SEMRUSH_API_KEY`, `SEMRUSH_API_KEY_BLOG_AGENT`, `SEMRUSH_API_KEY_CONTENTSHAKE`, and `SEMRUSH_MCP_URL`.
 
-`scripts/auth_semrush_mcp.py`, `scripts/refresh_semrush_mcp_token.py`, and `scripts/run_pipeline.sh` implement a fully **headless** PKCE bootstrap that stores a refresh token in Doppler. They are kept for the day a Paperclip routine without browser capability needs Semrush MCP, but they require **write access to Doppler `pleasurai/dev`**, which the current agent service token does not have.
+## Current auth path
 
-When Neo rotates the Doppler token to one with write scope, switch `.mcp.json` back to:
+The Semrush MCP server is a single HTTP endpoint at `https://mcp.semrush.com/v1/mcp`.
 
 ```json
 {
@@ -18,20 +20,29 @@ When Neo rotates the Doppler token to one with write scope, switch `.mcp.json` b
     "semrush": {
       "type": "http",
       "url": "https://mcp.semrush.com/v1/mcp",
-      "headers": { "Authorization": "Bearer ${SEMRUSH_MCP_ACCESS_TOKEN}" }
+      "headers": { "Authorization": "Apikey ${SEMRUSH_API_KEY}" }
     }
   }
 }
 ```
 
-…and use `scripts/run_pipeline.sh` as the entrypoint instead of bare `claude`.
+In a plain heartbeat session where MCP tools are not loaded, call the classic Semrush API under the same Doppler wrapper. The report names and Semrush CSV output are equivalent for pipeline keyword/SERP pulls:
 
-## Recovery: if OAuth gets revoked or the token cache wipes
+```bash
+DOPPLER_TOKEN="$DOPPLER_KEY" doppler run --project pleasurai --config dev -- \
+  curl "https://api.semrush.com/?type=phrase_this&key=$SEMRUSH_API_KEY&phrase=ai+girlfriend&database=us"
+```
 
-1. Make sure the SEO agent (or any chrome-enabled agent) is the one running.
-2. Trigger any Semrush MCP call. Claude Code will pop a Semrush authorize URL in chrome.
-3. The agent uses agent-browser to log in (creds: `SEMRUSH_USERNAME` / `SEMRUSH_PASSWORD` from Doppler) and click "Authorize".
-4. Claude captures the redirect, persists tokens, the original MCP call resumes.
-5. Subsequent headless runs reuse the cached tokens.
+## API-unit exhaustion
 
-If chrome is not available on the runtime, fall back to running `scripts/auth_semrush_mcp.py` from a laptop with a browser.
+Semrush API units are account-level. If MCP or classic API calls return:
+
+```text
+ERROR 132 :: API UNITS BALANCE IS ZERO
+```
+
+or the MCP unit message pointing to `https://www.semrush.com/mcp-access`, treat this as real Semrush API-unit exhaustion after verifying the Doppler names are present. Switching between `SEMRUSH_API_KEY` and `SEMRUSH_API_KEY_BLOG_AGENT` will not help when they resolve to the same key.
+
+## Archived OAuth scripts
+
+`scripts/_archive/auth_semrush_mcp.py` and `scripts/_archive/refresh_semrush_mcp_token.py` are retained only as historical fallback material. They are not part of the current routine path.
