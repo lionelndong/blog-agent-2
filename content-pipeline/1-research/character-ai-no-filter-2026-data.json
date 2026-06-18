@@ -48,34 +48,64 @@
       "source_url": "https://candy.ai/",
       "price_status": "unconfirmed_reviewer_sourced",
       "price_note": "candy.ai/pricing returned 404; ~$12.99/mo is reviewer-sourced, not vendor-confirmed",
-      "filter_free": "yes", "memory": "yes", "setup": "minimal", "image_gen": "yes"
+      "filter_free": "yes",
+      "memory": "yes",
+      "setup": "minimal",
+      "image_gen": "yes"
     },
     "crushon_ai": {
       "source_url": "https://crushon.ai/pricing",
       "price_status": "confirmed",
-      "tiers_usd_monthly": {"free": 0, "standard": 4.90, "premium": 7.90},
-      "tiers_usd_annual": {"standard": 58.88, "premium": 94.88},
-      "filter_free": "yes", "memory": "yes (8K free / 16K paid)", "setup": "low", "image_gen": "not_confirmed"
+      "tiers_usd_monthly": {
+        "free": 0,
+        "standard": 4.9,
+        "premium": 7.9
+      },
+      "tiers_usd_annual": {
+        "standard": 58.88,
+        "premium": 94.88
+      },
+      "filter_free": "yes",
+      "memory": "yes (8K free / 16K paid)",
+      "setup": "low",
+      "image_gen": "not_confirmed"
     },
     "joyland_ai": {
       "source_url": "https://www.joyland.ai/",
       "price_status": "unconfirmed_reviewer_sourced",
       "price_note": "joyland.ai/pricing redirects to homepage; no public tier exposed",
-      "filter_free": "partial_adult_leaning", "memory": "yes", "setup": "low", "image_gen": "not_confirmed"
+      "filter_free": "partial_adult_leaning",
+      "memory": "yes",
+      "setup": "low",
+      "image_gen": "not_confirmed"
     },
     "dreamgen": {
       "source_url": "https://v2.dreamgen.com/pricing",
       "price_status": "confirmed",
-      "tiers_usd_monthly_regular": {"starter": 7.83, "advanced": 19.35, "pro": 48.30},
-      "context_window_tokens": {"starter": 5000, "advanced": 15000, "pro": 30000},
-      "filter_free": "yes", "memory": "context_window_based", "setup": "moderate", "image_gen": "no"
+      "tiers_usd_monthly_regular": {
+        "starter": 7.83,
+        "advanced": 19.35,
+        "pro": 48.3
+      },
+      "context_window_tokens": {
+        "starter": 5000,
+        "advanced": 15000,
+        "pro": 30000
+      },
+      "filter_free": "yes",
+      "memory": "context_window_based",
+      "setup": "moderate",
+      "image_gen": "no"
     },
     "janitor_ai": {
       "source_url": "https://janitorai.com/",
       "price_status": "unconfirmed_reviewer_sourced",
       "price_note": "no public price tier on live site",
       "byo_api_key_status": "unconfirmed_reviewer_sourced (in setup docs, not a single fetchable page)",
-      "filter_free": "yes", "memory": "token_context_based", "setup": "high_byo_api_key", "image_gen": "no"
+      "filter_free": "yes",
+      "memory": "token_context_based",
+      "setup": "high_byo_api_key",
+      "image_gen": "no"
     }
   },
   "competitor_domain_authority_rank": {
@@ -104,5 +134,11 @@
     "starter": 1500,
     "standard": 5000,
     "ultimate": 10000
-  }
+  },
+  "entry_paid_tier_usd_monthly": {
+    "Pleasur.ai (Starter)": 12.99,
+    "CrushOn AI (Standard)": 4.9,
+    "DreamGen (Starter)": 7.83
+  },
+  "entry_paid_tier_usd_monthly_note": "Entry paid monthly tier, platforms with vendor-confirmed public pricing only (2026-06-18). Candy AI / Joyland / Janitor publish no public price tier and are excluded."
 }
