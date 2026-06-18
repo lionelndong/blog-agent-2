@@ -1,6 +1,6 @@
 # ContentShake AI — monthly API call budget
 
-month: 2026-05
+month: 2026-06
 calls: 0
 
 Each `--action optimize` or `--action score` call increments `calls`. Cap is read from
@@ -12,3 +12,7 @@ The month line auto-rolls over on the first call of a new calendar month (UTC).
 
 | date (UTC) | slug | action | iteration | seo_before | seo_after | quality_before | quality_after | budget_after |
 |---|---|---|---|---|---|---|---|---|
+| 2026-06-15 | how-to-choose-an-nsfw-ai-companion | optimize+score | — | — | — | — | — | 0 (HTTP 400 endpoint down; no slot consumed) |
+| 2026-06-15 | openmind-ai-vs-pleasurai | optimize+score | — | — | — | — | — | 0 (HTTP 400 "query type not found"; endpoint still down; no slot consumed) |
+| 2026-06-16 | what-do-ai-companion-coins-actually-cost | optimize | — | — | — | — | — | 0 (HTTP 400 "query type not found"; endpoint still down; no slot consumed) |
+| 2026-06-16 | ai-companion-pricing-guide-2026 | optimize | — | — | — | — | — | 0 (HTTP 400 "query type not found"; endpoint still down 4th run; no slot consumed) |

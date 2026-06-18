@@ -50,3 +50,8 @@ Durable publish confirmed: live URL HTTP 200, Supabase mirror published, package
   (`how-to-choose-an-nsfw-ai-companion`, `openmind-ai-vs-pleasurai`, `what-do-ai-companion-coins-actually-cost`,
   `ai-companion-pricing-guide-2026`). Not a blip — the optimize-content stage soft-skips every run. Needs an
   infra fix (re-verify the ContentShake API base/path + sub-key scope).
+
+
+---
+## RESOLVED 2026-06-16T~15:10Z (EO heartbeat run 6d8d03ff)
+Deliverable comments for BOTH pages were already posted to PLE-2538 by the 14:51Z run (fresh JWT): combined "✅ PLE-2538 DELIVERED — both pricing-transparency pages live & verified" + Page-1 "SHIPPED, LIVE & VERIFIED" at 12:15Z. No further action. Both pages re-verified live HTTP 200 + correct H1 this run. Issue PLE-2538 correctly done. Handoff CLOSED.

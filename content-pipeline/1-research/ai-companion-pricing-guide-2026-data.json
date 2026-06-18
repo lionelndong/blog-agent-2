@@ -1,0 +1,76 @@
+{
+  "_meta": {
+    "slug": "ai-companion-pricing-guide-2026",
+    "source": "Competitor prices: aicompanionguides.com/blog/ai-companion-pricing-guide-2026 (Firecrawl, current as of March 2026 per that page). pleasur.ai tiers: pleasur.ai/pricing (live, fetched 2026-06-16). All competitor figures are platform-stated entry/premium monthly prices; treat as dated, not independently re-verified per-vendor this run.",
+    "generated": "2026-06-16"
+  },
+  "competitor_entry_monthly_usd": {
+    "replika_pro": 19.99,
+    "character_ai_plus": 9.99,
+    "nomi_ai": 12.99,
+    "chai_ai": 13.99,
+    "candy_ai": 12.99,
+    "spicychat_ai": 9.99,
+    "crushon_ai": 5.99,
+    "kindroid": 9.99,
+    "talkie_ai": 9.99,
+    "pi_ai": 0.00,
+    "dreamgf": 9.99,
+    "anima_ai": 9.99,
+    "muah_ai": 9.99,
+    "dream_companion": 12.99,
+    "chatfai": 9.99
+  },
+  "competitor_annual_per_month_usd": {
+    "replika_pro": 5.83,
+    "chai_ai": 11.25,
+    "candy_ai": 5.99
+  },
+  "pleasurai_tier_monthly_usd": {
+    "starter": 12.99,
+    "standard": 27.99,
+    "ultimate": 49.99
+  },
+  "pleasurai_tier_annual_per_month_usd": {
+    "starter": 5.20,
+    "standard": 11.20,
+    "ultimate": 20.00
+  },
+  "pleasurai_tier_coins_per_month": {
+    "starter": 1500,
+    "standard": 5000,
+    "ultimate": 10000
+  },
+  "pleasurai_per_action_coin_cost": {
+    "ai_image": 10,
+    "voice_note": 10,
+    "phone_call_per_minute": 50
+  },
+  "pleasurai_images_per_tier_if_all_coins_on_images": {
+    "starter": 150,
+    "standard": 500,
+    "ultimate": 1000
+  },
+  "billing_model_distribution": {
+    "Flat": 7,
+    "Metered": 3,
+    "Freemium": 5,
+    "Free": 1
+  },
+  "_billing_model_distribution_note": "Counted directly from the 16-row master table's Model column (cited draft). Flat (paid tier is the ceiling): Replika, Character.AI, Nomi, Chai, Candy, SpicyChat, Kindroid = 7. Metered (coin/credit/token meter): CrushOn.ai, DreamGF, pleasur.ai = 3. Freemium (model not further specified): Talkie, Anima, Muah, Dream Companion, ChatFAI = 5. Free: Pi AI = 1. Source: aicompanionguides.com Mar 2026 + pleasur.ai/pricing 2026.",
+  "annual_vs_monthly_savings": {
+    "Replika Pro": 71,
+    "Candy AI": 54,
+    "pleasur.ai Starter": 60,
+    "Chai AI": 20
+  },
+  "_annual_vs_monthly_savings_note": "Annual-billing discount off the stated monthly price, percent, computed from competitor_annual_per_month_usd and pleasurai_tier_annual_per_month_usd. Replika 19.99->5.83 (71%), Candy 12.99->5.99 (54%), pleasur.ai Starter 12.99->5.20 (60%), Chai 13.99->11.25 (20%). Dossier cites a typical 40-60% annual lever. Source: aicompanionguides.com Mar 2026 (competitors) + pleasur.ai/pricing 2026 (pleasur.ai).",
+  "hidden_cost_ranges": {
+    "token_top_ups_per_month_usd_low": 5,
+    "token_top_ups_per_month_usd_high": 20,
+    "multi_platform_stack_extra_per_month_usd_low": 20,
+    "multi_platform_stack_extra_per_month_usd_high": 30,
+    "conversion_fee_percent": 3,
+    "_note": "Token top-ups $5-20/mo, multi-platform stacking adds ~$20-30/mo extra, conversion fees a few percent; per aicompanionguides.com pricing guide, Mar 2026."
+  }
+}

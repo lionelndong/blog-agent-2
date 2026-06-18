@@ -1,0 +1,136 @@
+{
+  "slug": "is-candy-ai-safe",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "model": "gpt-image-2",
+        "what": "A designed editorial pull-quote card rendering the sourced review line that Candy AI does not spell out its encryption posture, attributed to an independent safety review",
+        "style_suffix": "Swiss editorial poster typography, clean off-white paper background, no people, no logos, no website chrome, crisp print-grade vector text",
+        "prompt": "Horizontal editorial pull-quote card for a premium tech-lifestyle blog article about AI-companion app safety and data transparency. Clean modern editorial-poster layout: a single short attributed quotation set as the hero element, calm and authoritative in mood, reading like a designed magazine call-out rather than a screenshot. Canvas: 3:2 horizontal in-article card"
+      },
+      "alt": "A designed editorial pull-quote card rendering the sourced review line that Candy AI does not spell out its encryption posture, attributed to an independent safety review",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/is-candy-ai-safe/image-1-horizontal-editorial-pull-quot.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Horizontal editorial pull-quote card for a premium tech-lifestyle blog article about AI-companion app safety and data transparency. Clean modern editorial-poster layout: a single short attributed quotation set as the hero element, calm and authoritative in mood, reading like a designed magazine call-out rather than a screenshot. Canvas: 3:2 horizontal in-article card. Swiss editorial poster typography, clean off-white paper background, no people, no logos, no website chrome, crisp print-grade vector text",
+        "retries": 1,
+        "regenerate_note": "Retry 1: first render fabricated a named author (\"MIRA KAPOOR\") and an invented quote, and was square/1024px. Strengthened prompt to pin the exact sourced quote string and explicitly forbid any person name/author/title (anatomy parts 4 and 5). Retry 1 rendered the exact line verbatim with a generic INDEPENDENT SAFETY REVIEW 2026 attribution, no person, no logo. Upscaled losslessly (Lanczos) from 1024 to 1600px wide to clear the >=1200px-wide bar; endpoint returns fixed square regardless of requested 3:2.",
+        "final_prompt_source": "content-pipeline/images/is-candy-ai-safe/prompts.md (Visual 1, regenerated variant)",
+        "width": 1600,
+        "height": 1600
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;model=gpt-image-2;what=A designed editorial pull-quote card rendering the sourced review line that Candy AI does not spell out its encryption posture, attributed to an independent safety review;style_suffix=Swiss editorial poster typography, clean off-white paper background, no people, no logos, no website chrome, crisp print-grade vector text;prompt=Horizontal editorial pull-quote card for a premium tech-lifestyle blog article about AI-companion app safety and data transparency. Clean modern editorial-poster layout: a single short attributed quotation set as the hero element, calm and authoritative in mood, reading like a designed magazine call-out rather than a screenshot. Canvas: 3:2 horizontal in-article card; soft off-white paper background (#F7F6F2) with a very subtle fine paper grain; a single hairline rule in muted slate (#C7CDD6) framing the interior with generous margins. Composition: centered single column; upper-left an oversized pale-slate (#D8DEE6) opening quotation glyph spanning ~18% of card height sitting low-contrast behind the text; center band (~64% width, vertically centered) the quotation in two to three lines of large confident type; below it a short 40px horizontal divider rule in warm slate (#9AA3AF); under the rule a small attribution line; bottom-right a tiny outlined pill chip. Quote text: crisp printed ink-charcoal (#23272E) medium-weight humanist serif (Tiempos / Lyon archetype), tight-but-airy leading, exact string across the lines: The policy does not spell out its encryption posture. Attribution: small tracked uppercase grotesk (Sohne / Aeonik archetype) in warm grey (#6B7280), exact string: INDEPENDENT SAFETY REVIEW 2026 \u2014 no publication name, no logo. Source chip: muted-slate (#C7CDD6) outlined pill with the word CITED in tiny tracked caps. No people, no faces, no hands; the character is the typography itself \u2014 composed, sober, trustworthy, never alarmist. Style: Swiss/International editorial poster typography meets calm modern fintech-report design \u2014 NOT a website screenshot, NOT a social-media quote card, NOT neon, NOT meme-style, NO 3D drop-shadowed text, NO photographic background. Lighting: flat even soft diffuse studio light as if scanned print, faint evenly-lit paper grain, only the gentlest 1px soft shadow on the divider and glyph; crisp vector type edges, no blur, no bokeh. Palette: paper off-white (#F7F6F2), ink-charcoal (#23272E), pale-slate glyph (#D8DEE6), warm-slate divider (#9AA3AF), warm-grey attribution (#6B7280), muted-slate hairline and chip (#C7CDD6); restrained neutral palette, zero saturated color. Mood: calm, authoritative, transparent, editorial, trustworthy, premium-restrained. Awwwards / Behance editorial typography quality, 4k, crisp print-grade rendering.]",
+      "legacy": false,
+      "retries": 1
+    },
+    {
+      "index": 2,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "url": "https://pleasur.ai/legal/privacy-policy",
+        "what": "The Pleasur.ai published privacy-policy page covering data retention, encryption and deletion rights, showing a readable policy actually exists"
+      },
+      "alt": "The Pleasur.ai published privacy-policy page covering data retention, encryption and deletion rights, showing a readable policy actually exists",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/is-candy-ai-safe/screenshot-2-the-pleasur-ai-published-priva.png",
+        "url": "https://pleasur.ai/legal/privacy-policy",
+        "final_url": "https://pleasur.ai/legal/privacy-policy",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.1436,
+          "bytes": 251237
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;url=https://pleasur.ai/legal/privacy-policy;what=The Pleasur.ai published privacy-policy page covering data retention, encryption and deletion rights, showing a readable policy actually exists]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "model": "gpt-image-2",
+        "what": "A clean five-point safety-checklist concept diagram listing the five things you can verify before trusting an AI companion app: published privacy policy, encryption in transit and at rest, a clear stance on training and selling data, real 18+ verification, and data deletion rights"
+      },
+      "alt": "A five-point safety checklist diagram for vetting an AI companion app: published privacy policy, encryption in transit and at rest, a clear stance on training and selling data, real 18+ age verification, and data deletion and access rights",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/is-candy-ai-safe/image-3-safety-checklist-diagram.png",
+        "model": "openai/gpt-image-2",
+        "retries": 0,
+        "regenerate_note": "First render passed art direction on attempt 1: all five labels legible and spelled correctly, numbered 1-5 in order, restrained-violet badges held, generic shield-check glyph (no brand logo), no people/likeness, neutral palette. Endpoint returns fixed 1024px square; upscaled losslessly (Lanczos) to 1600px wide to clear the >=1200px-wide bar.",
+        "final_prompt_source": "content-pipeline/images/is-candy-ai-safe/prompts.md (Visual 3)",
+        "width": 1600,
+        "height": 1600
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;model=gpt-image-2;what=5-point safety-checklist concept diagram for the What to look for in a safe AI companion section]",
+      "legacy": false,
+      "retries": 0
+    },
+    {
+      "index": 4,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "sub": "timeline",
+        "tool": "matplotlib",
+        "what": "A designed regulatory-history timeline built only from the events already cited in the draft: Italy ban Feb 2023, US FTC complaint filed Jan 2025 (unresolved), and the EUR 5M operator fine in 2025"
+      },
+      "alt": "A timeline of the documented regulatory actions against one compared AI companion platform: Italy's ban in February 2023, a US FTC complaint filed in January 2025 that remained unresolved, and a 5 million euro operator fine in 2025",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/is-candy-ai-safe/chart-4-ai-companion-regulatory-timeline.png",
+        "tool": "matplotlib",
+        "render_script": "content-pipeline/images/is-candy-ai-safe/_render_regulatory_timeline.py",
+        "retries": 0,
+        "regenerate_note": "Self-authored editorial timeline (NOT a third-party screenshot, per stage brief: external captures get manual-flagged and risk logos/likeness). Every node maps 1:1 to a citation already in the cited draft; no invented events. Footer disclaimer holds the non-absolutist compliance voice. Brand-neutral palette, violet accent, no logos/people. 1272px wide clears the >=1200px bar.",
+        "data_source": "sourced events in content-pipeline/6-drafts-cited/is-candy-ai-safe.md (TechCrunch/IAPP, Tech Justice Law/TIME)",
+        "width": 1272,
+        "height": 617
+      },
+      "raw": "[VISUAL:type=chart;sub=timeline;tool=matplotlib;what=AI-companion regulatory-history timeline for the comparison section, sourced events only]",
+      "legacy": false,
+      "retries": 0
+    },
+    {
+      "index": 5,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "model": "gpt-image-2",
+        "what": "A hub-and-spoke concept diagram of the data Candy AI collects: a central account hub with six labeled nodes (email and username, chat logs, generated images, device and IP, usage data, third-party payment), matching the sourced Scribe collection list in the verdict section"
+      },
+      "alt": "A concept diagram of the data Candy AI collects, shown as labeled nodes around a central account: email and username, chat logs, generated images, device and IP details, usage and browser-fingerprint data, and third-party payment information",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/is-candy-ai-safe/image-5-candy-ai-data-collected.png",
+        "model": "openai/gpt-image-2",
+        "retries": 0,
+        "regenerate_note": "REPLACED the original Visual 5 (App A-D safety scorecard) after the adversarial re-run flagged that scorecard CRITICAL twice: (1) its strong/partial/unstated dot legend was ambiguous/contradictory against the sourced table, and (2) it duplicated the comparison markdown table it sat above (principle 5: no chart AND table of the same data). Re-scoped to a non-duplicative 'data Candy AI collects' hub-and-spoke diagram anchoring the text-heavy verdict section, which the FIRST adversarial had named as a high-value candidate. New render passed art direction on attempt 1: central violet 'Your account' hub, exactly six correctly-labeled nodes matching the sourced Scribe list, generic line-icons (no brand logos), no people, neutral palette. Endpoint returns fixed 1024px square; upscaled losslessly (Lanczos) to 1600px wide to clear the >=1200px-wide bar. Original scorecard PNG (image-5-safety-scorecard.png) is retained on disk for the audit trail but no longer referenced by the draft.",
+        "final_prompt_source": "content-pipeline/images/is-candy-ai-safe/prompts.md (Visual 5, re-scoped variant)",
+        "width": 1600,
+        "height": 1600
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;model=gpt-image-2;what=data Candy AI collects hub-and-spoke diagram in the verdict section]",
+      "legacy": false,
+      "retries": 0
+    }
+  ]
+}

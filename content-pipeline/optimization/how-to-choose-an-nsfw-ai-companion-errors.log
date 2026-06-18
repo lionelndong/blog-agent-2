@@ -1,0 +1,6 @@
+contentshake: action=optimize slug=how-to-choose-an-nsfw-ai-companion draft=how-to-choose-an-nsfw-ai-companion.md (27128 chars) endpoint=/articles/analyze
+error: ContentShake API HTTP 400 Bad Request: query type not found
+
+contentshake: action=score slug=how-to-choose-an-nsfw-ai-companion draft=how-to-choose-an-nsfw-ai-companion.md (27128 chars) endpoint=/articles/score
+error: ContentShake API HTTP 400 Bad Request: query type not found
+

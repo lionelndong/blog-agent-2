@@ -6,7 +6,7 @@ The platforms you can budget are the ones that put both numbers on the table: ho
 
 This guide gives you a 16-platform price table with the one column other guides leave out — the billing model — plus per-platform breakdowns, the hidden costs that aren't on any pricing page, and the math for working out what a metered plan will cost you.
 
-![Editorial concept illustration contrasting two price tags for the same "$9.99/mo" AI companion. Left tag labeled "Flat plan — you pay $9.99, use freely". Right tag labeled "Metered plan — $9.99 buys a coin allowance that runs out". A small calculator icon sits between them with the caption "real cost = allowance ÷ per-action price". Clean flat-vector style, white background, sans-serif labels, no people, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_editorial_concept_illustration_634fc94f41.png)
+![Editorial concept illustration contrasting two price tags for the same "$9.99/mo" AI companion. Left tag labeled "Flat plan — you pay $9.99, use freely". Right tag labeled "Metered plan — $9.99 buys a coin allowance that runs out". A small calculator icon sits between them with the caption "real cost = allowance ÷ per-action price". Clean flat-vector style, white background, sans-serif labels, no people, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_editorial_concept_illustration_b06bdb94b0.png)
 
 ## What an AI Companion Actually Costs in 2026
 
@@ -20,7 +20,7 @@ Free tiers exist nearly everywhere, but "free" means three different things. It 
 
 So the spread you see across this category isn't really about price. A $9.99 app and a $12.99 app are closer than they look; the gap that actually matters is the billing model sitting behind the sticker. That's what the next section makes visible.
 
-![Entry monthly price by AI companion platform (2026)](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_2_entry_monthly_price_by_ai_comp_3385a0c67f.png)
+![Entry monthly price by AI companion platform (2026)](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_2_entry_monthly_price_by_ai_comp_1d3ef4cd2d.png)
 
 ## The Master Comparison Table: 16 Platforms, Side by Side
 
@@ -30,7 +30,7 @@ The Model column is the point. It tells you whether the entry price is the whole
 
 Every competitor figure below is that platform's stated entry price as tracked by an independent review ([as of March 2026, per aicompanionguides.com pricing guide](https://aicompanionguides.com/blog/ai-companion-pricing-guide-2026/)). pleasur.ai's row comes from its live [pricing page](https://pleasur.ai/pricing), and it appears honestly as what it is: coin-metered, with text unlimited and media priced in coins. Where a cell can't be sourced cleanly, it's marked rather than guessed.
 
-![Platform table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_1_7b91ea712f.png)
+![Platform table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_1_63dd7362a5.png)
 
 - **Replika Pro** — Freemium + flat — $19.99 — $5.83 ($69.99/yr); $299.99 lifetime — Voice, AR, all relationship modes; only mainstream lifetime deal — Limited — aicompanionguides.com, Mar 2026
 - **Character.AI Plus** — Freemium + flat — $9.99 — ~$6.67 ($79.99/yr) — Faster replies, priority access; generous free tier; no token system — No — aicompanionguides.com, Mar 2026
@@ -63,13 +63,13 @@ There are really three models, and it's worth pinning them down:
 
 Across the 16 platforms in the master table, the split lands like this: most charge a flat paid fee, a handful are openly metered, and the rest only advertise a freemium tier without saying which mechanic sits underneath.
 
-![How the 16 tracked platforms bill (by paid-tier model)](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_1_how_the_16_tracked_platforms_b_00d103a17f.png)
+![How the 16 tracked platforms bill (by paid-tier model)](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_1_how_the_16_tracked_platforms_b_4bab2d59d9.png)
 
 Here's why the model matters more than the price. On a metered plan, the advertised number is a floor, not a ceiling. Light users stay under it; heavy image, voice, or call use can multiply it. On a flat plan, the price is the price no matter how much you use.
 
 But "metered" splits into two very different experiences, and this is the part that decides whether you can trust the number. Some metered platforms tell you the size of the allowance and the cost of each action, so you can do the math before you pay. Others sell you a vague pack of "tokens" that burns at a rate you only discover after the balance hits zero. No major platform in this space offers truly unlimited media — every one of them meters at some level, pleasur.ai included ([as of March 2026, per aicompanionguides.com pricing guide](https://aicompanionguides.com/blog/ai-companion-pricing-guide-2026/)). The honest difference between the two metered experiences isn't an absence of metering; it's whether the platform shows its math. pleasur.ai does, which is the only reason the worked example in the next section is possible at all.
 
-![Side-by-side editorial diagram. Left panel titled "Flat plan": one coin dropping into a box labeled "$9.99", then an infinity symbol over icons for chat, image, voice — "pay once, use freely". Right panel titled "Metered plan": one coin into a box labeled "$9.99 = 1,500 credits", then a draining gauge feeding icons for image (−10), voice (−10), call (−50/min) — "credits run down as you use media". Clean flat-vector, white background, sans-serif labels, no people.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_4_side_by_side_editorial_diagram_21ca2c68c3.png)
+![Side-by-side editorial diagram. Left panel titled "Flat plan": one coin dropping into a box labeled "$9.99", then an infinity symbol over icons for chat, image, voice — "pay once, use freely". Right panel titled "Metered plan": one coin into a box labeled "$9.99 = 1,500 credits", then a draining gauge feeding icons for image (−10), voice (−10), call (−50/min) — "credits run down as you use media". Clean flat-vector, white background, sans-serif labels, no people.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_4_side_by_side_editorial_diagram_22a2feb3f5.png)
 
 ## How to Calculate Your Real Monthly Cost on a Metered Plan
 
@@ -88,7 +88,7 @@ The whole method hinges on one thing: the platform has to tell you both the allo
 
 If you want the full per-tier breakdown — what each plan's coins buy across every action, and how the annual discount changes the picture — we walk through [the full coin-cost math](/blog/what-do-ai-companion-coins-actually-cost) separately so this guide can stay at the level of "here's the method." On pleasur.ai, images come from the on-platform [image generator](https://pleasur.ai/generate) and chat happens in the [Companion Creator](https://pleasur.ai/create); both draw from the same coin balance, which is why the math above is the same math whether you're generating or chatting.
 
-![Editorial "worked calculation" infographic titled "Real cost of a metered plan". Top row (largest): "5,000 coins ÷ 10 coins per image = 500 images". Second row: "unlimited text = 0 coins". A small footnote band reads "voice and calls priced too (10 / 50-per-min) — same math when they arrive". A formula band at the bottom reads "allowance ÷ per-action price = how far it stretches". Clean flat-vector, white background, large sans-serif numbers, no people, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_5_editorial_worked_calculation_i_8b887aecdb.png)
+![Editorial "worked calculation" infographic titled "Real cost of a metered plan". Top row (largest): "5,000 coins ÷ 10 coins per image = 500 images". Second row: "unlimited text = 0 coins". A small footnote band reads "voice and calls priced too (10 / 50-per-min) — same math when they arrive". A formula band at the bottom reads "allowance ÷ per-action price = how far it stretches". Clean flat-vector, white background, large sans-serif numbers, no people, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_5_editorial_worked_calculation_i_4dd1de69bd.png)
 
 ## Platform-by-Platform: What the Most-Searched Names Cost
 
@@ -114,7 +114,7 @@ DreamGF is a textbook metered plan, and a useful one to study before you commit 
 
 pleasur.ai runs three tiers: **Starter at $12.99 (1,500 coins), Standard at $27.99 (5,000 coins), and Ultimate at $49.99 (10,000 coins)**, with annual billing cutting each by roughly 60% ([per pleasur.ai/pricing](https://pleasur.ai/pricing)). Text is unlimited on every tier; media is coin-priced — an image is 10 coins, with voice notes (10 coins) and calls (50 coins/min) listed at the same rates. Because every one of those numbers is on the pricing page, you can size a tier to your real usage before paying, using the method in the section above — there's no "find out when it runs out" surprise. It's 18+, NSFW-friendly, cancel-anytime, with a 7-day money-back window ([per pleasur.ai/pricing](https://pleasur.ai/pricing)).
 
-![pleasur.ai's three coin tiers (Starter / Standard / Ultimate) with their published coin allowances](https://elegant-cactus-c693703b28.media.strapiapp.com/screenshot_1_pleasur_ai_s_three_coin_tiers_046639cc06.png)
+![pleasur.ai's three coin tiers (Starter / Standard / Ultimate) with their published coin allowances](https://elegant-cactus-c693703b28.media.strapiapp.com/screenshot_1_pleasur_ai_s_three_coin_tiers_1e6bc2968a.png)
 
 ### The rest, at a glance
 
@@ -138,7 +138,7 @@ Sticker prices aside, a few costs hit your card that none of these plan pages ad
 
 The four costs most likely to wreck an AI-companion budget never appear on a pricing page: token top-ups, forgotten trial renewals, currency and conversion fees, and the multi-platform trap.
 
-![Horizontal editorial diagram titled "4 places an AI-companion bill grows after signup". A single price-tag icon labeled "advertised price" sits on the left](https://elegant-cactus-c693703b28.media.strapiapp.com/image_3_horizontal_editorial_diagram_t_12121dac88.png)
+![Horizontal editorial diagram titled "4 places an AI-companion bill grows after signup". A single price-tag icon labeled "advertised price" sits on the left](https://elegant-cactus-c693703b28.media.strapiapp.com/image_3_horizontal_editorial_diagram_t_a1925ccc69.png)
 
 **Token top-ups are the big one.** On metered platforms like DreamGF and CrushOn.ai, refilling a drained allowance adds **$5–20 a month** for active users ([as of March 2026, per aicompanionguides.com pricing guide](https://aicompanionguides.com/blog/ai-companion-pricing-guide-2026/)) — more than the base subscription in some cases. This is the single largest hidden cost in the category, and it's exactly why the calculate-your-cost method earlier matters: size your tier to your usage and you avoid the top-up spiral entirely.
 
@@ -150,7 +150,7 @@ The four costs most likely to wreck an AI-companion budget never appear on a pri
 
 One honest note on our own pricing: pleasur.ai *is* coin-metered, so heavy media users should size their tier with the math above rather than assume the entry price is the ceiling. The difference between us and an opaque token plan isn't that there's no meter — it's that you can see the meter and do that sizing before you pay instead of after.
 
-![Hidden monthly add-ons that aren't on the pricing page](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_6_hidden_monthly_add_ons_that_ar_42a7846681.png)
+![Hidden monthly add-ons that aren't on the pricing page](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_6_hidden_monthly_add_ons_that_ar_096d5250ee.png)
 
 ## How to Pay the Least (Without Picking the Wrong App)
 
@@ -158,7 +158,7 @@ The cheapest real cost comes from three moves — pay annually, match the model 
 
 **Pay annually if you'll stay past a month or two.** A 40–60% discount is the biggest single saving in the category, far bigger than the gap between any two apps' monthly prices ([per aicompanionguides.com pricing guide, Mar 2026](https://aicompanionguides.com/blog/ai-companion-pricing-guide-2026/)). Candy AI goes from $12.99 to $5.99 a month; pleasur.ai's Starter from $12.99 to $5.20. If you already know you'll use the thing, paying monthly is the expensive choice.
 
-![Annual billing discount off the monthly price (%)](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_4_annual_billing_discount_off_th_de79224509.png)
+![Annual billing discount off the monthly price (%)](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_4_annual_billing_discount_off_th_3945848244.png)
 
 **Match the model to your usage.** If you mostly want to text, a flat plan caps your cost and you're done. If you want a lot of images, voice, or calls, you want a metered plan with *published* numbers you can budget against — otherwise a cheap-looking sticker quietly overshoots once the media adds up.
 

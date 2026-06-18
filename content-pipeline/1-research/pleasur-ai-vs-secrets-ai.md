@@ -1,3 +1,6 @@
+> # 🛑 PRICING / GENFINDR / CREDIT-METER CORRECTION (2026-06-15, EO — OVERRIDES every conflicting line below)
+> Verify-claims (PLE-2320) found this dossier's "pleasur.ai = $19/mo" to be FABRICATED — there is no $19/mo plan. Live-verified pleasur.ai/pricing (corroborated by the MariaVibe figures in the deep-research file): **Starter $12.99/mo ($5.20 annual), Standard $27.99/mo ($11.20 annual), Ultimate $49.99/mo ($20 annual); all tiers include adult chat + image gen + voice.** Secrets AI = $19.99/mo ($13.33 annual). So at the matched entry tier **pleasur.ai is CHEAPER than Secrets AI on both cycles** — do NOT concede Secrets is cheaper. Use **genfindr 7.3/10** (live), not 7.6. pleasur.ai is NOT credit-free: text chat is unlimited but media/voice/calls use coins — both apps meter media. Every "$19", "7.6", and "no credit metering" line below is SUPERSEDED by this block and by content-pipeline/0-context/pleasur-ai-vs-secrets-ai.md.
+
 # Research Dossier: pleasur ai vs secrets ai
 
 **Slug:** pleasur-ai-vs-secrets-ai
@@ -46,7 +49,7 @@ From the variation pool and category neighbors (real volumes):
 5. **How it compares** — vs Candy AI, vs OurDream AI, vs alternatives (the comparison intent we own).
 
 **Brief-mandated FAQ set (must appear on page):**
-- "Is pleasur.ai cheaper than Secrets AI?" — honest: Secrets AI's $13.33/mo annual undercuts pleasur.ai $19/mo; roughly level monthly ($19 vs $19.99). Counter on value.
+- "Is pleasur.ai cheaper than Secrets AI?" — honest TRUE answer: at the entry Starter tier ($12.99 mo / $5.20 annual) pleasur.ai is cheaper than Secrets AI ($19.99 / $13.33) on both cycles; at Standard ($27.99 / $11.20) it's cheaper annually, pricier monthly. Then pivot to value. Do NOT concede Secrets is cheaper.
 - "Which has better memory, pleasur.ai or Secrets AI?" — pleasur.ai's persistent persona + shared-history continuity vs Secrets AI's *claimed* (unbenchmarked) enhanced memory. No fabricated counter-number.
 - "Does Secrets AI have NSFW?" — yes; then state pleasur.ai's specific advantages.
 
@@ -87,7 +90,7 @@ No data-provider SERP existed for the head term, so the ranking set was identifi
 ### Gaps (asked by searchers / implied, covered by nobody — our information gain)
 - **A true side-by-side pleasur.ai vs Secrets AI table** with every cell traceable to a citable/qualitative fact. Nobody has it.
 - **The crypto-payment-friction angle** — Eternal AI is crypto-only (one-time credit packs); pleasur.ai and Secrets AI both take normal cards. No SERP page frames payment friction as a buying axis.
-- **Honest price-loses / value-wins framing** — every incumbent is affiliate-led and avoids conceding the competitor's cheaper annual price. We concede it openly and counter on value (credibility = citability).
+- **Honest, precise price framing** — every incumbent is affiliate-led and fuzzes the actual tier-by-tier numbers. We lay out the true matched-tier comparison openly (entry tier cheaper on both cycles; Standard cheaper annually, pricier monthly) and anchor on value (credibility = citability). We do NOT boast "cheapest"; we state the real picture and let it stand.
 
 ---
 
@@ -100,13 +103,14 @@ From companionguide extraction + deep research + brief (every figure attributed,
 - **Memory:** **"6x adaptive-memory recall"** — *their marketing claim*. **Confirmed live (2026-06-13 Firecrawl of secrets.ai/store):** Secrets AI's own store lists **"6x Memory Recall (vs Free)"** as the Ultimate-tier label and **"4x Memory Recall (vs Free)"** for Premium. So "6x" is literally Secrets AI's self-described tier feature, not an independently benchmarked figure — present strictly as Secrets' own claim, do NOT counter with a fabricated number.
 - **Group chat:** up to two companions, each with its own memory thread (added Mar 2026).
 - **"Time Travel":** rewind/edit a conversation to a prior point for narrative coherence (**single affiliate source (companionguide), NOT corroborated by deep research; UNVERIFIED — present as Secrets AI's described feature, verify-claims must confirm before it enters the page as fact**).
-- **genfindr rating: 7.6/10** (per brief; also the figure our own live memory + Replika pages already cite for Secrets AI, so not invented — but **the dossier carries no resolvable genfindr URL; this is the page's load-bearing trust anchor, so verify-claims MUST resolve it to a live genfindr Secrets AI page before the trust section ships**). Note companionguide's own affiliate review rates it 9.6/10 — cite genfindr's independent 7.6/10.
+- **genfindr rating: 7.3/10** (verified live 2026-06-15 — supersedes the brief's stale 7.6/10). **verify-claims MUST resolve it to a live genfindr Secrets AI page before the trust section ships.** Note companionguide's own affiliate review rates it 9.6/10 — cite genfindr's independent 7.3/10.
 - **Positioning:** "#1 realistic AI girlfriend," 100+ fantasy scenarios, voice notes/calls, 18+ gated, privacy/anonymity emphasis.
 
-### pleasur.ai (our side — verifiable axes only)
-- **Pricing:** **$19/mo** Premium (unlimited messages, NSFW enabled). Free tier (limited messages, censored). *(Note: third-party reviews report widely divergent pleasur.ai pricing — $5.20–$27.99/mo depending on source. These are reviewer figures and conflict; the page uses our authoritative $19/mo and does not cite reviewer pricing.)*
-- **Strengths to compare on (verifiable / qualitative):** content freedom within stated rules; **persistent persona + shared-history continuity** for ongoing adult RP; **transparent card payment, no credit-metering friction for core chat** (core text chat isn't gated behind a depleting currency the way Moments gates Secrets' media); AI Companion Creator (build appearance/personality/voice/kinks); on-demand AI image generation incl. in-chat; voice replies + phone call landing this week (in-chat).
-- Do NOT counter on price (Secrets' annual is genuinely cheaper). Counter on value.
+### pleasur.ai (our side — verifiable axes only) — CORRECTED 2026-06-15 (live pleasur.ai/pricing)
+- **Pricing (verified live):** Starter **$12.99/mo ($5.20 annual)**, Standard **$27.99/mo ($11.20 annual)**, Ultimate **$49.99/mo ($20 annual)**. All three tiers include adult chat + AI image generation + voice. Free tier (limited messages, censored). **There is NO $19/mo plan — never state one.** The entry Starter tier already matches Secrets AI's compared feature set.
+- **Price comparison (honest):** at the matched entry tier, pleasur.ai Starter ($12.99 / $5.20) is **cheaper than Secrets AI ($19.99 / $13.33) on BOTH cycles**; Standard ($27.99 / $11.20) is cheaper annually, pricier monthly. **Do NOT concede that Secrets AI is cheaper — that is false.** Present price as a fair, accurate supporting point, not the headline.
+- **Strengths to compare on (verifiable / qualitative):** content freedom within stated rules; **persistent persona + shared-history continuity** for ongoing adult RP; **unlimited core text chat** (text isn't coin-gated, though media/voice/calls DO consume coins — so the honest contrast is "both apps meter media; pleasur.ai's text chat is unlimited," NOT "pleasur.ai has no credit meter"); transparent card payment; AI Companion Creator (build appearance/personality/voice/kinks); on-demand AI image generation incl. in-chat; voice replies + phone calls (in-chat).
+- Counter on value (persona continuity, content freedom, unlimited text, card payment) AND present the true, favorable price honestly.
 
 ---
 
@@ -128,9 +132,9 @@ No direct user quotes are reproduced here: the deep-research pass surfaced exper
 
 ## 6. Recommended angle
 
-**Be the one honest, citable head-to-head that nobody on the SERP has written: concede Secrets AI's cheaper annual price and rich Moments-based media engine up front, then win on the value axes pleasur.ai can actually defend — content freedom within stated rules, persistent persona + shared-history continuity, and transparent card payment with no credit-metering friction on core chat.**
+**Be the one honest, citable head-to-head that nobody on the SERP has written: acknowledge Secrets AI's rich Moments-based media engine and its cheaper *monthly* rate at the Standard tier up front, present the true price picture (pleasur.ai's entry Starter tier is cheaper on both cycles; Standard is cheaper annually), then win on the value axes pleasur.ai defends — content freedom within stated rules, persistent persona + shared-history continuity, unlimited core text chat, and transparent card payment.**
 
-Justification: the exact-match comparison page is *unoccupied* (only single-product reviews and 9-app listicles exist); the niche's #1 question is trust, which rewards honesty over hype; and conceding price while countering on value is both the credible position and the AI-citable one.
+Justification: the exact-match comparison page is *unoccupied* (only single-product reviews and 9-app listicles exist); the niche's #1 question is trust, which rewards honesty over hype; and presenting an accurate, favorable-but-not-boastful price picture while countering on value is both the credible position and the AI-citable one. NOTE: do NOT falsely concede that Secrets AI is cheaper overall — that was the phantom-$19/mo error that quarantined run 1.
 
 ---
 
@@ -140,16 +144,16 @@ Justification: the exact-match comparison page is *unoccupied* (only single-prod
 - **Format:** head-to-head **comparison** (two-product). Not list-shaped, so no item-count target — instead, 7–9 tight H2 sections.
 - **Comparison table: REQUIRED** (3 of 5 SERP pages have one; the exact two-column pleasur.ai vs Secrets AI table is absent on the SERP). Columns/axes: **pricing (monthly + annual)**, **memory approach**, **NSFW capability**, **image generation**, **voice**, **free tier**. Every cell traces to a citable or qualitative fact — NO invented numbers; Secrets AI's "6x recall" enters only as *their claim*.
 - **Must-cover topics (consensus + brief-mandated):**
-  1. BLUF direct answer in first 40–60 words (both are premium NSFW companions ~$13–19/mo; lead with the key differentiator).
+  1. BLUF direct answer in first 40–60 words (both are premium NSFW companions; pleasur.ai's entry Starter tier — $12.99 mo / $5.20 annual — is priced at or below Secrets AI ($19.99 / $13.33) while matching its core feature set; lead with the key value differentiator, persona continuity).
   2. Side-by-side comparison table (the six axes above).
-  3. Pricing honesty — Secrets AI $13.33/mo annual undercuts pleasur.ai $19/mo; ~level monthly ($19 vs $19.99); counter on value.
+  3. Pricing honesty (CORRECTED) — true tiers: pleasur.ai Starter $12.99/$5.20, Standard $27.99/$11.20, Ultimate $49.99/$20; Secrets AI $19.99/$13.33. At the matched entry tier pleasur.ai is cheaper on BOTH cycles; Standard is cheaper annually, pricier monthly. **Do NOT concede Secrets is cheaper (false — phantom $19/mo error).** Present price accurately and fairly, then anchor on value.
   4. NSFW capability (chat + image/video) on both.
-  5. Memory & continuity — pleasur.ai persistent persona + shared-history continuity vs Secrets AI's *claimed* enhanced memory / "6x recall" (no counter-number) + Moments System, group chat, Time Travel. **NOTE: group chat, Time Travel, and the 100+-Moments trait persistence are single-affiliate-sourced (companionguide), UNVERIFIED, and uncorroborated by deep research — the draft must frame each as "Secrets AI describes / says it offers…", NOT as established fact, and verify-claims must confirm each before it ships.**
-  6. Trust / legitimacy framing (the niche's #1 question) — cite genfindr 7.6/10 for Secrets AI.
+  5. Memory & continuity — pleasur.ai persistent persona + shared-history continuity vs Secrets AI's *claimed* enhanced memory / "6x recall" (no counter-number) + Moments System, group chat, Time Travel. **NOTE: group chat, Time Travel, and the 100+-Moments trait persistence are single-affiliate-sourced (companionguide), UNVERIFIED, and uncorroborated by deep research — the draft must frame each as "Secrets AI describes / says it offers…", NOT as established fact, and verify-claims must confirm each before it ships.** On metering, the honest contrast is **"both apps meter media via credits; pleasur.ai's core text chat is unlimited (not coin-gated)"** — do NOT claim pleasur.ai is credit-free or has "no credit meter."
+  6. Trust / legitimacy framing (the niche's #1 question) — cite genfindr **7.3/10** (live-verified) for Secrets AI.
   7. **"NSFW AI companion without crypto payment required"** subsection — Eternal AI is crypto-only (one-time credit packs); pleasur.ai + Secrets AI take normal cards. Frame as payment-friction differentiator.
   8. FAQ section answering the three brief-mandated questions (cheaper?, better memory?, NSFW?).
 - **Differentiation topics (go deeper than SERP):** Moments credit-metering as a friction axis; persistent-persona continuity for adult RP; payment transparency.
-- **Information gain (≥1 REQUIRED):** the **only** honest, exact-match pleasur.ai-vs-Secrets-AI side-by-side on the SERP — concedes the competitor's cheaper annual price and Moments media engine, then differentiates on no-credit-metering core chat + persistent persona, plus the crypto-payment-friction axis no incumbent frames.
+- **Information gain (≥1 REQUIRED):** the **only** honest, exact-match pleasur.ai-vs-Secrets-AI side-by-side on the SERP — presents the true price picture (entry tier cheaper on both cycles; Standard split), acknowledges Secrets AI's Moments media engine, then differentiates on **unlimited core text chat** (not coin-gated) + persistent persona + shared-history continuity, plus the crypto-payment-friction axis (Eternal AI) no incumbent frames. (The old "[GAIN] = no credit metering" framing is RETIRED — pleasur.ai meters media via coins too; the defensible gain is unlimited text + honest exact-match comparison.)
 - **Secondary keywords to work in naturally:** secrets ai alternative (2026), secrets ai vs pleasurai, secrets ai review, what is secrets ai, secret ai girlfriend, secrets ai free, nsfw ai companion.
 - **Internal link (REQUIRED):** to `/blog/ai-companion-best-memory` (descriptive anchor, e.g. "best AI companion memory").
-- **Beatability:** **HIGH.** No incumbent occupies the exact comparison query; the strongest page (companionguide, 9.6/10, ~9.5k words) is a single-product affiliate review with no pleasur.ai depth; the genfindr pleasur.ai review is only ~590 words. A focused, honest, table-led 2k-word head-to-head beats the SERP on relevance (exact match), trust (concedes price), and citability (clean answer + table + FAQ). Compliance is the real gate, not authority.
+- **Beatability:** **HIGH.** No incumbent occupies the exact comparison query; the strongest page (companionguide, 9.6/10, ~9.5k words) is a single-product affiliate review with no pleasur.ai depth; the genfindr pleasur.ai review is only ~590 words. A focused, honest, table-led 2k-word head-to-head beats the SERP on relevance (exact match), trust (precise, honest pricing), and citability (clean answer + table + FAQ). Compliance is the real gate, not authority.

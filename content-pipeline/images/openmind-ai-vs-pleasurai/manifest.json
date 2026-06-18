@@ -1,0 +1,199 @@
+{
+  "slug": "openmind-ai-vs-pleasurai",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://mariavibe.com/blog/aimour-ai-vs-pleasur-ai-2026/",
+        "selector": "figure",
+        "crop": "padded",
+        "what": "MariaVibe line that memory drives nearly every positive review"
+      },
+      "alt": "MariaVibe line that memory drives nearly every positive review",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/openmind-ai-vs-pleasurai/external-1-mariavibe-line-that-memory-dri.png",
+        "url": "https://mariavibe.com/blog/aimour-ai-vs-pleasur-ai-2026/",
+        "final_url": "https://mariavibe.com/blog/aimour-ai-vs-pleasur-ai-2026/",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 1558,
+          "height": 2029,
+          "stddev_normalized": 0.2466,
+          "bytes": 1637550
+        },
+        "sub": "news-quote"
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://mariavibe.com/blog/aimour-ai-vs-pleasur-ai-2026/;selector=figure;crop=padded;what=MariaVibe line that memory drives nearly every positive review]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Diagram explaining \"Conditional Field Subtraction\" memory. Left to right: a \"Conversation History\" box feeding a \"Vector Retrieval\" box (labeled \"pulls relevant past details\"), then an arrow into a \"Conditional Field Subtraction\" filter box (labeled \"trims redundant & contradictory details\"), then an arrow to a \"Consistent Reply\" chat-bubble box. Show one discarded/struck-through detail card dropping out of the filter to illustrate the dedup. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Diagram explaining \"Conditional Field Subtraction\" memory. Left to right: a \"Conversation History\" box feeding a \"Vector Retrieval\" box (labeled \"pulls relevant past details\"), then an arrow into a \"Conditional Field Subtraction\" filter box (labeled \"trims redundant & contradictory details\"), then an arrow to a \"Consistent Reply\" chat-bubble box. Show one discarded/struck-through detail card dropping out of the filter to illustrate the dedup. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/openmind-ai-vs-pleasurai/image-2-diagram-explaining-conditional.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Diagram explaining \"Conditional Field Subtraction\" memory. Left to right: a \"Conversation History\" box feeding a \"Vector Retrieval\" box (labeled \"pulls relevant past details\"), then an arrow into a \"Conditional Field Subtraction\" filter box (labeled \"trims redundant & contradictory details\"), then an arrow to a \"Consistent Reply\" chat-bubble box. Show one discarded/struck-through detail card dropping out of the filter to illustrate the dedup. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Diagram explaining \"Conditional Field Subtraction\" memory. Left to right: a \"Conversation History\" box feeding a \"Vector Retrieval\" box (labeled \"pulls relevant past details\"), then an arrow into a \"Conditional Field Subtraction\" filter box (labeled \"trims redundant & contradictory details\"), then an arrow to a \"Consistent Reply\" chat-bubble box. Show one discarded/struck-through detail card dropping out of the filter to illustrate the dedup. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://roborhythms.com/openmind-ai-review/",
+        "selector": "figure",
+        "crop": "padded",
+        "what": "Reviewer line that CFS survives weeks of conversation but is not the radical leap the marketing implies"
+      },
+      "alt": "Reviewer line that CFS survives weeks of conversation but is not the radical leap the marketing implies",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/openmind-ai-vs-pleasurai/external-3-reviewer-line-that-cfs-survive.png",
+        "url": "https://roborhythms.com/openmind-ai-review/",
+        "final_url": "https://www.roborhythms.com/openmind-ai-review/",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 1840,
+          "height": 1187,
+          "stddev_normalized": 0.161,
+          "bytes": 175639
+        },
+        "sub": "news-quote"
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://roborhythms.com/openmind-ai-review/;selector=figure;crop=padded;what=Reviewer line that CFS survives weeks of conversation but is not the radical leap the marketing implies]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://mariavibe.com/blog/aimour-ai-vs-pleasur-ai-2026/",
+        "selector": "table",
+        "crop": "padded",
+        "what": "MariaVibe \"Memory After 7 Days\" benchmark row showing 33% vs 82%"
+      },
+      "alt": "MariaVibe \"Memory After 7 Days\" benchmark row showing 33% vs 82%",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/openmind-ai-vs-pleasurai/external-4-mariavibe-memory-after-7-days.png",
+        "url": "https://mariavibe.com/blog/aimour-ai-vs-pleasur-ai-2026/",
+        "final_url": "https://mariavibe.com/blog/aimour-ai-vs-pleasur-ai-2026/",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 1652,
+          "height": 1193,
+          "stddev_normalized": 0.2759,
+          "bytes": 1565898
+        },
+        "sub": "news-quote"
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://mariavibe.com/blog/aimour-ai-vs-pleasur-ai-2026/;selector=table;crop=padded;what=MariaVibe \"Memory After 7 Days\" benchmark row showing 33% vs 82%]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "pricing",
+        "url": "https://pleasur.ai/pricing",
+        "what": "Pleasur.ai's three coin-metered tiers (Starter/Standard/Ultimate) with monthly and annual prices"
+      },
+      "alt": "Pleasur.ai's three coin-metered tiers (Starter/Standard/Ultimate) with monthly and annual prices",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/openmind-ai-vs-pleasurai/screenshot-5-pleasur-ai-s-three-coin-metere.png",
+        "url": "https://pleasur.ai/pricing",
+        "final_url": "https://pleasur.ai/pricing",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.1822,
+          "bytes": 228353
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;target=pricing;url=https://pleasur.ai/pricing;what=Pleasur.ai's three coin-metered tiers (Starter/Standard/Ultimate) with monthly and annual prices]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "competitor-ui",
+        "url": "https://roborhythms.com/openmind-ai-review/",
+        "selector": "table",
+        "crop": "padded",
+        "what": "OpenMind AI pricing tiers (Free / $9.99 / $19.99 / $29.99) as reported by the independent review"
+      },
+      "alt": "OpenMind AI pricing tiers (Free / $9.99 / $19.99 / $29.99) as reported by the independent review",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/openmind-ai-vs-pleasurai/external-6-openmind-ai-pricing-tiers-free.png",
+        "url": "https://roborhythms.com/openmind-ai-review/",
+        "final_url": "https://www.roborhythms.com/openmind-ai-review/",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 1840,
+          "height": 955,
+          "stddev_normalized": 0.1659,
+          "bytes": 153625
+        },
+        "sub": "competitor-ui"
+      },
+      "raw": "[VISUAL:type=external;sub=competitor-ui;url=https://roborhythms.com/openmind-ai-review/;selector=table;crop=padded;what=OpenMind AI pricing tiers (Free / $9.99 / $19.99 / $29.99) as reported by the independent review]",
+      "legacy": false
+    },
+    {
+      "index": 7,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Decision-split diagram, single fork. Center: a question box labeled \"What do you weight most?\". Two branches. Left branch labeled \"Free testing & budget-first\" points to a box \"OpenMind AI\" with sub-labels \"Free $0 tier\", \"Test memory for weeks\", \"Web-only\". Right branch labeled \"Evidenced memory & one hub\" points to a box \"Pleasur.ai\" with sub-labels \"Third-party 82% figure\", \"Unlimited chat\", \"Create + image gen\". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Decision-split diagram, single fork. Center: a question box labeled \"What do you weight most?\". Two branches. Left branch labeled \"Free testing & budget-first\" points to a box \"OpenMind AI\" with sub-labels \"Free $0 tier\", \"Test memory for weeks\", \"Web-only\". Right branch labeled \"Evidenced memory & one hub\" points to a box \"Pleasur.ai\" with sub-labels \"Third-party 82% figure\", \"Unlimited chat\", \"Create + image gen\". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/openmind-ai-vs-pleasurai/image-7-decision-split-diagram-single.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Decision-split diagram, single fork. Center: a question box labeled \"What do you weight most?\". Two branches. Left branch labeled \"Free testing & budget-first\" points to a box \"OpenMind AI\" with sub-labels \"Free $0 tier\", \"Test memory for weeks\", \"Web-only\". Right branch labeled \"Evidenced memory & one hub\" points to a box \"Pleasur.ai\" with sub-labels \"Third-party 82% figure\", \"Unlimited chat\", \"Create + image gen\". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Decision-split diagram, single fork. Center: a question box labeled \"What do you weight most?\". Two branches. Left branch labeled \"Free testing & budget-first\" points to a box \"OpenMind AI\" with sub-labels \"Free $0 tier\", \"Test memory for weeks\", \"Web-only\". Right branch labeled \"Evidenced memory & one hub\" points to a box \"Pleasur.ai\" with sub-labels \"Third-party 82% figure\", \"Unlimited chat\", \"Create + image gen\". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.;style=illustration;safety=sfw]",
+      "legacy": false
+    }
+  ]
+}

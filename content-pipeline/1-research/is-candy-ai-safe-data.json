@@ -1,0 +1,14 @@
+{
+  "_meta": {
+    "source": "Semrush phrase_this / phrase_these / phrase_questions, database=us, 2026-06-15",
+    "metric": "monthly_us_search_volume",
+    "note": "Safety/trust-intent query demand for the answer page's target cluster"
+  },
+  "is_candy_ai_safe": 1600,
+  "is_candy_ai_legit": 590,
+  "is_candy_ai_a_scam": 210,
+  "is_candy_ai_safe_to_use": 110,
+  "is_candy_ai_trustworthy": 90,
+  "is_replika_safe": 210,
+  "is_nomi_ai_safe": 50
+}

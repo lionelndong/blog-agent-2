@@ -1,0 +1,93 @@
+{
+  "slug": "how-to-choose-an-nsfw-ai-companion",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Split-panel illustration showing memory in AI companion chat. Left panel labeled \"Real memory \u2014 AI remembers\": a chat conversation where the user said \"I told you my name is Alex last week\" and the AI reply seamlessly uses \"Alex\" naturally in context, with a small memory-bank icon highlighted. Right panel labeled \"No memory \u2014 AI forgets\": the same user message but the AI replies generically without using the name, with a broken-link or empty memory icon. Abstract/illustrative style, not a real chat screenshot \u2014 use stylized speech bubble shapes and clean iconography. White background, sans-serif labels, editorial illustration style, brand-neutral colors, no real people.",
+        "style": "illustration",
+        "safety": "sfw",
+        "alt": "Split-panel concept illustration contrasting AI companion with real persistent memory vs one that forgets user details across sessions"
+      },
+      "alt": "Split-panel illustration showing memory in AI companion chat. Left panel labeled \"Real memory \u2014 AI remembers\": a chat conversation where the user said \"I told you my name is Alex last week\" and the AI reply seamlessly uses \"Alex\" naturally in context, with a small memory-bank icon highlighted. Right panel labeled \"No memory \u2014 AI forgets\": the same user message but the AI replies generically without using the name, with a broken-link or empty memory icon. Abstract/illustrative style, not a real chat screenshot \u2014 use stylized speech bubble shapes and clean iconography. White background, sans-serif labels, editorial illustration style, brand-neutral colors, no real people.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/how-to-choose-an-nsfw-ai-companion/image-1-split-panel-illustration-showi.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Split-panel illustration showing memory in AI companion chat. Left panel labeled \"Real memory \u2014 AI remembers\": a chat conversation where the user said \"I told you my name is Alex last week\" and the AI reply seamlessly uses \"Alex\" naturally in context, with a small memory-bank icon highlighted. Right panel labeled \"No memory \u2014 AI forgets\": the same user message but the AI replies generically without using the name, with a broken-link or empty memory icon. Abstract/illustrative style, not a real chat screenshot \u2014 use stylized speech bubble shapes and clean iconography. White background, sans-serif labels, editorial illustration style, brand-neutral colors, no real people.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Split-panel illustration showing memory in AI companion chat. Left panel labeled \"Real memory \u2014 AI remembers\": a chat conversation where the user said \"I told you my name is Alex last week\" and the AI reply seamlessly uses \"Alex\" naturally in context, with a small memory-bank icon highlighted. Right panel labeled \"No memory \u2014 AI forgets\": the same user message but the AI replies generically without using the name, with a broken-link or empty memory icon. Abstract/illustrative style, not a real chat screenshot \u2014 use stylized speech bubble shapes and clean iconography. White background, sans-serif labels, editorial illustration style, brand-neutral colors, no real people.;style=illustration;safety=sfw;alt=Split-panel concept illustration contrasting AI companion with real persistent memory vs one that forgets user details across sessions]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Horizontal content-range spectrum infographic. A single gradient bar spans the full width from left to right. Left end labeled \"SFW\" with a shield icon \u2014 tame, suggestive-only content zone, shown in a calm blue. Middle section labeled \"NSFW-lite\" \u2014 mature themes, partial nudity, light adult content, shown in amber/orange. Right end labeled \"Fully explicit\" \u2014 unrestricted adult content within legal limits, shown in a deep red. Each zone has 2-3 example descriptors as small text below the bar. Above the bar, a vertical line with an arrow points to the right edge with text \"Clear prohibited line here \u2014 no minors, no real people.\" Clean infographic style, white background, sans-serif labels, editorial illustration.",
+        "style": "illustration",
+        "safety": "sfw",
+        "alt": "Infographic spectrum from SFW through NSFW-lite to fully explicit adult content, with labeled zones and a note marking the legal prohibited-content line"
+      },
+      "alt": "Horizontal content-range spectrum infographic. A single gradient bar spans the full width from left to right. Left end labeled \"SFW\" with a shield icon \u2014 tame, suggestive-only content zone, shown in a calm blue. Middle section labeled \"NSFW-lite\" \u2014 mature themes, partial nudity, light adult content, shown in amber/orange. Right end labeled \"Fully explicit\" \u2014 unrestricted adult content within legal limits, shown in a deep red. Each zone has 2-3 example descriptors as small text below the bar. Above the bar, a vertical line with an arrow points to the right edge with text \"Clear prohibited line here \u2014 no minors, no real people.\" Clean infographic style, white background, sans-serif labels, editorial illustration.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/how-to-choose-an-nsfw-ai-companion/image-2-horizontal-content-range-spect.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Horizontal content-range spectrum infographic. A single gradient bar spans the full width from left to right. Left end labeled \"SFW\" with a shield icon \u2014 tame, suggestive-only content zone, shown in a calm blue. Middle section labeled \"NSFW-lite\" \u2014 mature themes, partial nudity, light adult content, shown in amber/orange. Right end labeled \"Fully explicit\" \u2014 unrestricted adult content within legal limits, shown in a deep red. Each zone has 2-3 example descriptors as small text below the bar. Above the bar, a vertical line with an arrow points to the right edge with text \"Clear prohibited line here \u2014 no minors, no real people.\" Clean infographic style, white background, sans-serif labels, editorial illustration.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Horizontal content-range spectrum infographic. A single gradient bar spans the full width from left to right. Left end labeled \"SFW\" with a shield icon \u2014 tame, suggestive-only content zone, shown in a calm blue. Middle section labeled \"NSFW-lite\" \u2014 mature themes, partial nudity, light adult content, shown in amber/orange. Right end labeled \"Fully explicit\" \u2014 unrestricted adult content within legal limits, shown in a deep red. Each zone has 2-3 example descriptors as small text below the bar. Above the bar, a vertical line with an arrow points to the right edge with text \"Clear prohibited line here \u2014 no minors, no real people.\" Clean infographic style, white background, sans-serif labels, editorial illustration.;style=illustration;safety=sfw;alt=Infographic spectrum from SFW through NSFW-lite to fully explicit adult content, with labeled zones and a note marking the legal prohibited-content line]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "comparison",
+        "prompt": "Side-by-side diagram comparing age verification approaches. Left panel labeled \"Real age gate (green flag)\": shows a hard-wall UI step with an ID-card icon or credit-card verification icon, a bold \"18+ Verification Required\" heading, and sub-labels \"Hard wall\", \"ID or card step\", \"Blocks entry until verified\". Right panel labeled \"Checkbox theater (red flag)\": shows a simple checkbox with text \"I confirm I am 18+\" and nothing else, sub-labels \"No hard wall\", \"One dismissible click\", \"Nothing verified\". Each panel has a color-coded border \u2014 green on left, red on right. Clean diagram style, white background, sans-serif labels, no real people, editorial illustration.",
+        "style": "illustration",
+        "safety": "sfw",
+        "alt": "Side-by-side diagram contrasting a real age gate with hard ID verification step versus checkbox theater with a single dismissible tick box"
+      },
+      "alt": "Side-by-side diagram comparing age verification approaches. Left panel labeled \"Real age gate (green flag)\": shows a hard-wall UI step with an ID-card icon or credit-card verification icon, a bold \"18+ Verification Required\" heading, and sub-labels \"Hard wall\", \"ID or card step\", \"Blocks entry until verified\". Right panel labeled \"Checkbox theater (red flag)\": shows a simple checkbox with text \"I confirm I am 18+\" and nothing else, sub-labels \"No hard wall\", \"One dismissible click\", \"Nothing verified\". Each panel has a color-coded border \u2014 green on left, red on right. Clean diagram style, white background, sans-serif labels, no real people, editorial illustration.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/how-to-choose-an-nsfw-ai-companion/image-3-side-by-side-diagram-comparing.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Side-by-side diagram comparing age verification approaches. Left panel labeled \"Real age gate (green flag)\": shows a hard-wall UI step with an ID-card icon or credit-card verification icon, a bold \"18+ Verification Required\" heading, and sub-labels \"Hard wall\", \"ID or card step\", \"Blocks entry until verified\". Right panel labeled \"Checkbox theater (red flag)\": shows a simple checkbox with text \"I confirm I am 18+\" and nothing else, sub-labels \"No hard wall\", \"One dismissible click\", \"Nothing verified\". Each panel has a color-coded border \u2014 green on left, red on right. Clean diagram style, white background, sans-serif labels, no real people, editorial illustration.. Clean editorial side-by-side comparison illustration, white background, sans-serif labels, balanced left/right layout, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=comparison;prompt=Side-by-side diagram comparing age verification approaches. Left panel labeled \"Real age gate (green flag)\": shows a hard-wall UI step with an ID-card icon or credit-card verification icon, a bold \"18+ Verification Required\" heading, and sub-labels \"Hard wall\", \"ID or card step\", \"Blocks entry until verified\". Right panel labeled \"Checkbox theater (red flag)\": shows a simple checkbox with text \"I confirm I am 18+\" and nothing else, sub-labels \"No hard wall\", \"One dismissible click\", \"Nothing verified\". Each panel has a color-coded border \u2014 green on left, red on right. Clean diagram style, white background, sans-serif labels, no real people, editorial illustration.;style=illustration;safety=sfw;alt=Side-by-side diagram contrasting a real age gate with hard ID verification step versus checkbox theater with a single dismissible tick box]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Use-case-to-platform match diagram for choosing where to use an AI companion. Two columns connected by arrows. Left column headed \"Your situation\": three stacked scenario cards with simple line glyphs \u2014 (1) a phone icon labeled \"Phone, in private\", (2) a two-people-sharing-one-screen icon labeled \"Shared device\", (3) a padlock/fingerprint icon labeled \"Discretion first\". Right column headed \"Best-fit platform type\": three target cards \u2014 \"Polished mobile app\", \"Web-only browser login\", \"Light account + vague billing\". Color-matched curved arrows connect each scenario to its best fit: phone-in-private to mobile app, shared device to web-only login, discretion-first to light account. A small green footnote chip at the bottom reads \"Test the exit: find cancel + delete first\". Clean editorial flat-vector infographic, white background, sans-serif labels, brand-neutral palette (slate, calm blue, green accent), no people depicted \u2014 icon glyphs only, no photoreal, no real logos, no text artifacts.",
+        "style": "illustration",
+        "safety": "sfw",
+        "alt": "Use-case to platform-type match diagram pairing phone-private with a mobile app, shared-device with web-only login, and discretion-first with a light account and vague billing"
+      },
+      "alt": "Use-case-to-platform match diagram for choosing where to use an AI companion. Two columns connected by arrows. Left column headed \"Your situation\": three stacked scenario cards with simple line glyphs \u2014 (1) a phone icon labeled \"Phone, in private\", (2) a two-people-sharing-one-screen icon labeled \"Shared device\", (3) a padlock/fingerprint icon labeled \"Discretion first\". Right column headed \"Best-fit platform type\": three target cards \u2014 \"Polished mobile app\", \"Web-only browser login\", \"Light account + vague billing\". Color-matched curved arrows connect each scenario to its best fit: phone-in-private to mobile app, shared device to web-only login, discretion-first to light account. A small green footnote chip at the bottom reads \"Test the exit: find cancel + delete first\". Clean editorial flat-vector infographic, white background, sans-serif labels, brand-neutral palette (slate, calm blue, green accent), no people depicted \u2014 icon glyphs only, no photoreal, no real logos, no text artifacts.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/how-to-choose-an-nsfw-ai-companion/image-4-use-case-to-platform-match-dia.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Use-case-to-platform match diagram for choosing where to use an AI companion. Two columns connected by arrows. Left column headed \"Your situation\": three stacked scenario cards with simple line glyphs \u2014 (1) a phone icon labeled \"Phone, in private\", (2) a two-people-sharing-one-screen icon labeled \"Shared device\", (3) a padlock/fingerprint icon labeled \"Discretion first\". Right column headed \"Best-fit platform type\": three target cards \u2014 \"Polished mobile app\", \"Web-only browser login\", \"Light account + vague billing\". Color-matched curved arrows connect each scenario to its best fit: phone-in-private to mobile app, shared device to web-only login, discretion-first to light account. A small green footnote chip at the bottom reads \"Test the exit: find cancel + delete first\". Clean editorial flat-vector infographic, white background, sans-serif labels, brand-neutral palette (slate, calm blue, green accent), no people depicted \u2014 icon glyphs only, no photoreal, no real logos, no text artifacts.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Use-case-to-platform match diagram for choosing where to use an AI companion. Two columns connected by arrows. Left column headed \"Your situation\": three stacked scenario cards with simple line glyphs \u2014 (1) a phone icon labeled \"Phone, in private\", (2) a two-people-sharing-one-screen icon labeled \"Shared device\", (3) a padlock/fingerprint icon labeled \"Discretion first\". Right column headed \"Best-fit platform type\": three target cards \u2014 \"Polished mobile app\", \"Web-only browser login\", \"Light account + vague billing\". Color-matched curved arrows connect each scenario to its best fit: phone-in-private to mobile app, shared device to web-only login, discretion-first to light account. A small green footnote chip at the bottom reads \"Test the exit: find cancel + delete first\". Clean editorial flat-vector infographic, white background, sans-serif labels, brand-neutral palette (slate, calm blue, green accent), no people depicted \u2014 icon glyphs only, no photoreal, no real logos, no text artifacts.;style=illustration;safety=sfw;alt=Use-case to platform-type match diagram pairing phone-private with a mobile app, shared-device with web-only login, and discretion-first with a light account and vague billing]",
+      "legacy": false
+    }
+  ]
+}

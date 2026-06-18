@@ -1,0 +1,17 @@
+2026-06-16 — /optimize-content what-do-ai-companion-coins-actually-cost
+
+Action: optimize (--action optimize), endpoint /articles/analyze
+Draft: content-pipeline/6-drafts-cited/what-do-ai-companion-coins-actually-cost.md (20245 chars)
+Keyword: "what do ai companion coins actually cost"
+
+Result: HTTP 400 Bad Request: query type not found
+
+This is the same non-retryable endpoint failure recorded for how-to-choose-an-nsfw-ai-companion
+and openmind-ai-vs-pleasurai on 2026-06-15 (see api-budget.md per-slug log). The Semrush
+ContentShake API endpoint (SEMRUSH_CONTENTSHAKE_API_BASE=https://api.semrush.com/contentshake/v1
+/articles/analyze) is returning HTTP 400 "query type not found" — the endpoint is unavailable,
+not a quota issue. No budget slot consumed (400 returned before request was accepted).
+
+Per SKILL.md Phase B step 8: save stderr, write stub report, exit 0. Pipeline continues
+without the ContentShake optimization step. Re-run /optimize-content once the endpoint is
+restored.

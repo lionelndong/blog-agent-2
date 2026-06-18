@@ -1,0 +1,108 @@
+{
+  "_meta": {
+    "slug": "character-ai-no-filter-2026",
+    "base_phrase": "character ai no filter",
+    "source": "Semrush phrase_this/phrase_kdi/phrase_organic + Firecrawl page extractions, fetched 2026-06-18 (us database)"
+  },
+  "keyword_metrics": {
+    "search_volume_us": 1600,
+    "keyword_difficulty": 42,
+    "cpc_usd": 0.32,
+    "competition": 0.08
+  },
+  "serp_competitor_word_counts": {
+    "theknowledgeacademy": 4105,
+    "dreamgen": 2718,
+    "aiseesoft": 2293,
+    "medium_socialclimb": 1090,
+    "channelai": 599
+  },
+  "serp_competitor_item_counts": {
+    "theknowledgeacademy": 18,
+    "dreamgen": 10,
+    "aiseesoft": 8,
+    "medium_socialclimb": 0,
+    "channelai": 0
+  },
+  "serp_competitor_image_counts": {
+    "theknowledgeacademy": 29,
+    "dreamgen": 13,
+    "aiseesoft": 31,
+    "medium_socialclimb": 5,
+    "channelai": 7
+  },
+  "serp_benchmark": {
+    "median_word_count_top3": 2718,
+    "median_word_count_top3_basis": "true median of the three article-format page-one results: theknowledgeacademy 4105 / dreamgen 2718 / aiseesoft 2293 (threads, homepages, YouTube excluded). 2718 is the middle value, a genuine 3-page median.",
+    "max_word_count": 4105,
+    "pages_with_comparison_table": 0,
+    "pages_extracted": 5,
+    "target_word_count_min": 2700,
+    "target_word_count_max": 3100,
+    "target_word_count_basis": "anchored to true top-3 median 2718; 4105 outlier is padded and not the bar",
+    "target_item_count": 6
+  },
+  "competitor_first_party_facts": {
+    "_fetch_note": "Each vendor checked against its own live domain 2026-06-18 (WebFetch/Firecrawl). price_status='confirmed' traces to source_url; 'unconfirmed_reviewer_sourced' must NOT be stated as fact in the draft.",
+    "candy_ai": {
+      "source_url": "https://candy.ai/",
+      "price_status": "unconfirmed_reviewer_sourced",
+      "price_note": "candy.ai/pricing returned 404; ~$12.99/mo is reviewer-sourced, not vendor-confirmed",
+      "filter_free": "yes", "memory": "yes", "setup": "minimal", "image_gen": "yes"
+    },
+    "crushon_ai": {
+      "source_url": "https://crushon.ai/pricing",
+      "price_status": "confirmed",
+      "tiers_usd_monthly": {"free": 0, "standard": 4.90, "premium": 7.90},
+      "tiers_usd_annual": {"standard": 58.88, "premium": 94.88},
+      "filter_free": "yes", "memory": "yes (8K free / 16K paid)", "setup": "low", "image_gen": "not_confirmed"
+    },
+    "joyland_ai": {
+      "source_url": "https://www.joyland.ai/",
+      "price_status": "unconfirmed_reviewer_sourced",
+      "price_note": "joyland.ai/pricing redirects to homepage; no public tier exposed",
+      "filter_free": "partial_adult_leaning", "memory": "yes", "setup": "low", "image_gen": "not_confirmed"
+    },
+    "dreamgen": {
+      "source_url": "https://v2.dreamgen.com/pricing",
+      "price_status": "confirmed",
+      "tiers_usd_monthly_regular": {"starter": 7.83, "advanced": 19.35, "pro": 48.30},
+      "context_window_tokens": {"starter": 5000, "advanced": 15000, "pro": 30000},
+      "filter_free": "yes", "memory": "context_window_based", "setup": "moderate", "image_gen": "no"
+    },
+    "janitor_ai": {
+      "source_url": "https://janitorai.com/",
+      "price_status": "unconfirmed_reviewer_sourced",
+      "price_note": "no public price tier on live site",
+      "byo_api_key_status": "unconfirmed_reviewer_sourced (in setup docs, not a single fetchable page)",
+      "filter_free": "yes", "memory": "token_context_based", "setup": "high_byo_api_key", "image_gen": "no"
+    }
+  },
+  "competitor_domain_authority_rank": {
+    "theknowledgeacademy": 5151,
+    "aiseesoft": 54523,
+    "dreamgen": 120568
+  },
+  "related_keyword_volumes": {
+    "character_ai_alternative_no_filter": 260,
+    "ai_character_chat_no_filter": 140,
+    "character_ai_no_filter_dotai": 140,
+    "ai_chat_character_no_filter": 110,
+    "no_filter_character_ai": 110,
+    "character_ai_alternatives_no_filter": 90,
+    "character_ai_chatbot_no_filter": 70,
+    "character_ai_no_filter_free": 50,
+    "character_ai_no_filter_reddit": 50,
+    "best_character_ai_no_filter": 40
+  },
+  "pleasurai_pricing_usd_monthly": {
+    "starter": 12.99,
+    "standard": 27.99,
+    "ultimate": 49.99
+  },
+  "pleasurai_coin_allowance_monthly": {
+    "starter": 1500,
+    "standard": 5000,
+    "ultimate": 10000
+  }
+}

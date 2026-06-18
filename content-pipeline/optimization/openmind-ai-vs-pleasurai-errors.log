@@ -1,0 +1,19 @@
+2026-06-15 — /optimize-content openmind-ai-vs-pleasurai
+
+ContentShake API unreachable. Both endpoints return HTTP 400 on the same key path:
+
+  optimize → POST https://api.semrush.com/contentshake/v1/articles/analyze
+    error: ContentShake API HTTP 400 Bad Request: query type not found
+  score    → POST https://api.semrush.com/contentshake/v1/articles/score
+    error: ContentShake API HTTP 400 Bad Request: query type not found
+
+Diagnosis: server-side endpoint error ("query type not found" is the classic
+Semrush API unrecognized-report-type response). Keys (SEMRUSH_API_KEY_CONTENTSHAKE
+and SEMRUSH_API_KEY_BLOG_AGENT) are both present in env — this is not an auth or
+key problem. Same failure was logged for slug how-to-choose-an-nsfw-ai-companion
+earlier today (2026-06-15) in api-budget.md — the ContentShake endpoint is down /
+not exposed under this path. No budget slot consumed (API rejected before work).
+
+Per SKILL.md Phase B step 8: non-zero, non-quota error → save stderr, write stub
+report, exit 0. Pipeline continues without the optimization step. Draft left
+unmodified at content-pipeline/6-drafts-cited/openmind-ai-vs-pleasurai.md.

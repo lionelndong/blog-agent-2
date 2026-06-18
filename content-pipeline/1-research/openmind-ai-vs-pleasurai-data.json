@@ -1,0 +1,66 @@
+{
+  "memory_retention_7day_pct": {
+    "pleasur_ai": 82,
+    "rival_aimour_ai": 33,
+    "_meta": {
+      "source": "MariaVibe, 'Aimour AI vs Pleasur AI 2026' — https://mariavibe.com/blog/aimour-ai-vs-pleasur-ai-2026/ (re-verified live 2026-06-15). Verbatim row 'Memory After 7 Days | 33% | 82%'.",
+      "note": "INDEPENDENT REVIEWER'S reported figure, NOT a validated benchmark — no disclosed methodology/sample size. Attribute to MariaVibe with URL; never 'validated', never first-person. OpenMind has NO comparable third-party memory number (its duration claims are self-reported) — do not invent one for OpenMind."
+    }
+  },
+  "pleasur_ai_pricing_monthly_usd": {
+    "starter": 12.99,
+    "standard": 27.99,
+    "ultimate": 49.99,
+    "_meta": {
+      "source": "https://pleasur.ai/pricing (first-party, live-verified 2026-06-15); matches brand-config.md canonical block, no drift.",
+      "note": "Text chat UNLIMITED all tiers; media/voice/calls coin-metered. NO $19/mo flat plan, NO unlimited-everything plan, NO two-way video. Third-party reviews claiming $19/mo or a lifetime plan are FALSE/stale."
+    }
+  },
+  "pleasur_ai_pricing_annual_effective_monthly_usd": {
+    "starter": 5.20,
+    "standard": 11.20,
+    "ultimate": 20.00,
+    "_meta": { "source": "https://pleasur.ai/pricing live 2026-06-15 (billed annually)." }
+  },
+  "pleasur_ai_coin_grants_monthly_by_tier": {
+    "starter": 1500,
+    "standard": 5000,
+    "ultimate": 10000,
+    "_meta": { "source": "https://pleasur.ai/pricing live 2026-06-15. Per-action: image gen 10 coins, voice note 10 coins, phone call 50 coins/min." }
+  },
+  "openmind_ai_pricing_monthly_usd": {
+    "free": 0,
+    "starter": 9.99,
+    "premium": 19.99,
+    "ultra": 29.99,
+    "_meta": {
+      "source": "roborhythms.com/openmind-ai-review/ (independent review, fetched 2026-06-15). OpenMind.design own pricing page not independently re-pulled.",
+      "note": "Free tier = unlimited messages with a 50/hour cap. Present as 'per independent review', NOT first-party. This OpenMind is the NSFW Character.AI alternative at OpenMind.design — NOT Google DeepMind / OpenMind robotics."
+    }
+  },
+  "openmind_ai_free_tier_message_cap_per_hour": {
+    "openmind_free": 50,
+    "_meta": { "source": "roborhythms.com/openmind-ai-review/ (fetched 2026-06-15). Messages 'unlimited' but capped at 50/hour on free." }
+  },
+  "keyword_volume_monthly_us": {
+    "openmind_ai": 140,
+    "pleasur_ai": 20,
+    "openmind_ai_vs_pleasurai_head": null,
+    "_meta": {
+      "source": "Semrush phrase_this / phrase_fullsearch (us database, 2026-06-15).",
+      "note": "'openmind ai' 140/mo collides with Google DeepMind / OpenMind robotics entity. Head-to-head query + 'openmind ai review' SERP returned ERROR 50 NOTHING FOUND. GEO citation play, not a ranking play."
+    }
+  },
+  "reference_page_word_counts": {
+    "roborhythms_openmind_review": 2400,
+    "mariavibe_aimour_vs_pleasur": 3200,
+    "roborhythms_memory_roundup": 2050,
+    "_meta": { "source": "Firecrawl body-text word counts (nav/boilerplate excluded, estimated), fetched 2026-06-15." }
+  },
+  "serp_table_usage": {
+    "reference_pages_with_comparison_table": 3,
+    "reference_pages_extracted": 3,
+    "openmind_vs_pleasur_headtohead_pages_existing": 0,
+    "_meta": { "source": "SERP benchmark, this dossier. No OpenMind-vs-Pleasur comparison exists anywhere (corroborated by deep research)." }
+  }
+}

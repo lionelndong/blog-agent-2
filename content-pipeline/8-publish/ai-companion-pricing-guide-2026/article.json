@@ -11,7 +11,7 @@
       {
         "__component": "shared.media",
         "file": {
-          "id": 571
+          "id": 593
         }
       },
       {
@@ -21,7 +21,7 @@
       {
         "__component": "shared.media",
         "file": {
-          "id": 572
+          "id": 594
         }
       },
       {
@@ -31,7 +31,7 @@
       {
         "__component": "shared.media",
         "file": {
-          "id": 573
+          "id": 595
         }
       },
       {
@@ -41,7 +41,7 @@
       {
         "__component": "shared.media",
         "file": {
-          "id": 574
+          "id": 596
         }
       },
       {
@@ -51,7 +51,7 @@
       {
         "__component": "shared.media",
         "file": {
-          "id": 575
+          "id": 597
         }
       },
       {
@@ -61,7 +61,7 @@
       {
         "__component": "shared.media",
         "file": {
-          "id": 576
+          "id": 598
         }
       },
       {
@@ -71,7 +71,7 @@
       {
         "__component": "shared.media",
         "file": {
-          "id": 577
+          "id": 599
         }
       },
       {
@@ -81,7 +81,7 @@
       {
         "__component": "shared.media",
         "file": {
-          "id": 578
+          "id": 600
         }
       },
       {
@@ -91,7 +91,7 @@
       {
         "__component": "shared.media",
         "file": {
-          "id": 579
+          "id": 601
         }
       },
       {
@@ -101,7 +101,7 @@
       {
         "__component": "shared.media",
         "file": {
-          "id": 580
+          "id": 602
         }
       },
       {
@@ -109,8 +109,8 @@
         "body": "**Match the model to your usage.** If you mostly want to text, a flat plan caps your cost and you're done. If you want a lot of images, voice, or calls, you want a metered plan with *published* numbers you can budget against — otherwise a cheap-looking sticker quietly overshoots once the media adds up.\n\n**Start free, then right-size.** Use free tiers to test fit before paying — Pi AI is fully free, and most others gate enough to give you a feel. Then pick the smallest paid tier the math says covers your month, and only move up if you hit the ceiling.\n\nBy category, the genuine cheap picks are Pi AI ($0, no NSFW), CrushOn.ai (from $5.99 metered), and Candy AI ($5.99 a month on annual billing) — there's no single \"winner,\" just the cheapest option for what you need. Past price, the right app is a fit question: our guides on [how to choose an NSFW AI companion](/blog/how-to-choose-an-nsfw-ai-companion) and the [best AI companion for memory](/blog/ai-companion-best-memory) help you weigh that.\n\n## AI Companion Pricing FAQ\n\nShort, direct answers to the pricing questions people search for most.\n\n**How much does an AI companion cost per month?** About $10–20 at the entry tier — the most common price is $9.99, the average lands around $12–13 — or roughly $5–8 a month if you pay annually ([as of March 2026, per aicompanionguides.com pricing guide](https://aicompanionguides.com/blog/ai-companion-pricing-guide-2026/)). Metered plans can run higher than the sticker with heavy media use.\n\n**What's the cheapest AI companion?** Pi AI is free, but it won't do adult chat. Among paid options, the floor is annual billing on Candy AI (about $5.99 a month) or CrushOn.ai (from $5.99 metered).\n\n**Is there a good free AI companion?** Yes for general chat — Pi AI is fully free, and Character.AI's free tier is generous. Free NSFW tiers exist but are usually hard-capped, often around 30 messages a day, so they're for testing fit, not daily use.\n\n**What's the difference between a subscription and a coin/credit model?** A flat subscription means you pay once and use the features freely. A coin or credit model means your fee buys an allowance that depletes per image, voice note, or call. Same sticker price, very different real cost.\n\n**How do I calculate my real monthly cost on a metered plan?** Allowance ÷ per-action cost tells you how many actions you get; expected usage × per-action cost tells you your true spend. It only works where the platform lists both figures — see the method above, or [the full coin-cost math](/blog/what-do-ai-companion-coins-actually-cost) for a per-tier walkthrough.\n\n**Does pleasur.ai have a flat unlimited plan?** No. pleasur.ai is coin-metered: text is unlimited, but media draws from a monthly coin allowance — images at 10 coins, with voice notes and calls priced too. Because those rates are listed up front, you can calculate your real cost before you pay — the one thing a vague \"unlimited\" promise never actually lets you check.\n\n## The Bottom Line\n\nThe price on the plan page is a starting point, not your bill. What you actually pay is decided by the billing model — flat or metered — and the only platforms you can budget honestly are the ones that publish both their allowance and their per-action prices, so you can run the numbers before you commit.\n\nSo run the arithmetic before you subscribe. For the full per-tier walkthrough, read [what AI companion coins actually cost](/blog/what-do-ai-companion-coins-actually-cost), then pick by fit rather than by sticker. If you want a platform where you can calculate your cost upfront, see how pleasur.ai's published coin tiers map to real usage on its [companion creator](https://pleasur.ai/create).\n"
       }
     ],
-    "publishedAt": "2026-06-16T13:38:34.894550+00:00",
+    "publishedAt": null,
     "category": "yag4m24dvtcutfrz1mykfbso",
-    "cover": 571
+    "cover": 593
   }
 }

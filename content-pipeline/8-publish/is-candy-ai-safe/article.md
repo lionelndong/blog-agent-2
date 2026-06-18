@@ -8,7 +8,7 @@ The real question behind "is Candy AI safe to use" isn't whether it's a scam. It
 
 Here is what Candy AI collects, according to a [Scribe safety breakdown of Candy AI](https://scribehow.com/page/Is_CandyAI_Safe_Everything_You_Need_to_Know_2026__8KRt1iUFRIqgLS2D_C8wmg): your email and username, chat logs, the images you generate, your device and IP details, usage and browser-fingerprint data, and payment information processed through a third party. That's a wide net, though not unusual for the category — an [AI Companion Guides privacy review](https://aicompanionguides.com/blog/ai-companion-privacy-guide-2026/) reaches a similar read, noting Candy.ai stores image-generation data and is vague on deletion.
 
-![A concept diagram of the data Candy AI collects, shown as labeled nodes around a central account: email and username, chat logs, generated images, device and IP details, usage and browser-fingerprint data, and third-party payment information](images/is-candy-ai-safe/image-5-candy-ai-data-collected.png)
+![A concept diagram of the data Candy AI collects, shown as labeled nodes around a central account: email and username, chat logs, generated images, device and IP details, usage and browser-fingerprint data, and third-party payment information](https://elegant-cactus-c693703b28.media.strapiapp.com/image_5_candy_ai_data_collected_b3d05ddd7d.png)
 
 On the question people ask most — does it sell or train on your chats? — the [same breakdown](https://scribehow.com/page/Is_CandyAI_Safe_Everything_You_Need_to_Know_2026__8KRt1iUFRIqgLS2D_C8wmg) reports that Candy AI does not sell data "in the traditional sense," but may use aggregated, anonymized conversation data to train its models. State that plainly, because it's normal for the category and worth knowing, not a gotcha.
 
@@ -16,7 +16,7 @@ The gap reviewers flag is transparency. One [AI Top Tools safety guide](https://
 
 None of that makes Candy AI unsafe in any documented sense. It makes it a platform whose data practices you partly have to take on trust. Whether that's acceptable is easier to judge against alternatives, so here are four side by side.
 
-![A designed editorial pull-quote card rendering the sourced review line that Candy AI does not spell out its encryption posture, attributed to an independent safety review](images/is-candy-ai-safe/image-1-horizontal-editorial-pull-quot.png)
+![A designed editorial pull-quote card rendering the sourced review line that Candy AI does not spell out its encryption posture, attributed to an independent safety review](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_horizontal_editorial_pull_quot_f03ff727e1.png)
 
 ## Candy AI vs Replika vs Nomi AI vs Pleasur.ai: a safety comparison
 
@@ -31,7 +31,7 @@ Across data storage, a published privacy policy, regulatory history, and age ver
 
 A quick read of each, attributed and without spin. **Candy AI** is legitimate, with data handling that reviewers find under-documented. **Replika** carries a real regulatory history — it remains a working service, but Italy's action is on the record, and our take on switching lives in our guide to the [best Replika alternative in 2026](https://pleasur.ai/blog/best-replika-alternative-2026). **Nomi AI** has a thin public paper trail; no regulator has acted against it in our sources, but the burden is on you to read its policy before you sign up. **Pleasur.ai** is the one platform here that puts its own data practices on the table for you to verify — that's a transparency point, not a claim that it's the "safest."
 
-![A timeline of the documented regulatory actions against one compared AI companion platform: Italy's ban in February 2023, a US FTC complaint filed in January 2025 that remained unresolved, and a 5 million euro operator fine in 2025](images/is-candy-ai-safe/chart-4-ai-companion-regulatory-timeline.png)
+![A timeline of the documented regulatory actions against one compared AI companion platform: Italy's ban in February 2023, a US FTC complaint filed in January 2025 that remained unresolved, and a 5 million euro operator fine in 2025](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_4_ai_companion_regulatory_timeline_a2c004b486.png)
 
 A table tells you where each platform stands today. The more useful skill is being able to vet any companion app yourself, which is what the next section is for.
 
@@ -45,11 +45,11 @@ A safer AI companion app does five things you can verify before you sign up: it 
 - **Real 18+ age verification.** An explicit adult-only gate, not a checkbox you tick on the way in.
 - **Data deletion and access rights.** You can request a copy of, or the erasure of, your data and conversations.
 
-![A five-point safety checklist diagram for vetting an AI companion app: published privacy policy, encryption in transit and at rest, a clear stance on training and selling data, real 18+ age verification, and data deletion and access rights](images/is-candy-ai-safe/image-3-safety-checklist-diagram.png)
+![A five-point safety checklist diagram for vetting an AI companion app: published privacy policy, encryption in transit and at rest, a clear stance on training and selling data, real 18+ age verification, and data deletion and access rights](https://elegant-cactus-c693703b28.media.strapiapp.com/image_3_safety_checklist_diagram_7c92e92b60.png)
 
 If you want the longer version, with what to look for in each policy clause, our [AI companion safety checklist](https://pleasur.ai/blog/ai-companion-safety-checklist) walks through it. Those same five points also answer the questions people ask most.
 
-![The Pleasur.ai published privacy-policy page covering data retention, encryption and deletion rights, showing a readable policy actually exists](images/is-candy-ai-safe/screenshot-2-the-pleasur-ai-published-priva.png)
+![The Pleasur.ai published privacy-policy page covering data retention, encryption and deletion rights, showing a readable policy actually exists](https://elegant-cactus-c693703b28.media.strapiapp.com/screenshot_2_the_pleasur_ai_published_priva_71712e96e7.png)
 
 ## Frequently asked questions
 

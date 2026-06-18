@@ -105,7 +105,7 @@ def parse_beat_spec(dossier: str) -> dict:
         return {}
     block = m.group(0)
     spec: dict = {}
-    wc = re.search(r"[Tt]arget word count:?\s*\*{0,2}([\d,]{3,6})", block)
+    wc = re.search(r"[Tt]arget word count:?\s*\*{0,2}\s*([\d,]{3,6})", block)
     if wc:
         spec["target_words"] = int(wc.group(1).replace(",", ""))
     items = re.search(r"item count:?\s*\*{0,2}(\d{1,2})", block, re.IGNORECASE)
@@ -113,11 +113,17 @@ def parse_beat_spec(dossier: str) -> dict:
         spec["item_count"] = int(items.group(1))
     table = re.search(r"[Cc]omparison table:?\s*\*{0,2}(required|yes)", block)
     spec["table_required"] = bool(table)
-    topics_m = re.search(r"Must-cover topics[^\n]*\n((?:\s*[-*] .+\n?)+)", block)
+    # Capture only the Must-cover sub-list; stop at the next bolded sibling bullet
+    # (e.g. "- **Differentiation topics:**") so it doesn't swallow later sections.
+    topics_m = re.search(
+        r"Must-cover topics[^\n]*\n(.*?)(?=\n\s*[-*]\s+\*\*|\Z)",
+        block, re.DOTALL,
+    )
     if topics_m:
+        items = re.findall(r"^\s*(?:[-*]|\d+\.)\s+(.+)$", topics_m.group(1), re.MULTILINE)
         spec["must_cover"] = [
-            re.sub(r"\s*\(.*?\)\s*$", "", t.strip("-* ").strip())
-            for t in topics_m.group(1).strip().splitlines()
+            re.sub(r"\s*\(.*?\)\s*$", "", re.sub(r"^\*+|\*+$", "", t).strip())
+            for t in items
         ]
     return spec
 

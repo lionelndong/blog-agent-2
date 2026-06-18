@@ -1,0 +1,81 @@
+{
+  "_meta": {
+    "slug": "what-do-ai-companion-coins-actually-cost",
+    "generated": "2026-06-16",
+    "source": "pleasur.ai/pricing (live 2026-06-16); candy.ai/subscriptions + candy.ai/ (live 2026-06-16); skywork.ai candy review; scrile.com candy-ai-cost; Semrush US",
+    "note": "pleasur.ai figures are live first-party. Candy.ai sub price + 100 tokens/mo are live first-party; per-action token rates are reviewer estimates because Candy.ai publishes no canonical spec."
+  },
+  "pleasurai_monthly_price_usd": {
+    "starter": 12.99,
+    "standard": 27.99,
+    "ultimate": 49.99
+  },
+  "pleasurai_annual_equiv_monthly_usd": {
+    "starter": 5.20,
+    "standard": 11.20,
+    "ultimate": 20.00
+  },
+  "pleasurai_annual_savings_usd_per_year": {
+    "starter": 93,
+    "standard": 201,
+    "ultimate": 360
+  },
+  "pleasurai_coins_per_month": {
+    "starter": 1500,
+    "standard": 5000,
+    "ultimate": 10000
+  },
+  "pleasurai_per_action_coin_cost": {
+    "ai_image": 10,
+    "voice_note": 10,
+    "phone_call_per_minute": 50
+  },
+  "what_1500_coins_buys": {
+    "ai_images_max": 150,
+    "voice_notes_max": 150,
+    "call_minutes_max": 30
+  },
+  "what_5000_coins_buys": {
+    "ai_images_max": 500,
+    "voice_notes_max": 500,
+    "call_minutes_max": 100
+  },
+  "what_10000_coins_buys": {
+    "ai_images_max": 1000,
+    "voice_notes_max": 1000,
+    "call_minutes_max": 200
+  },
+  "starter_effective_cost_per_image_usd_annual": {
+    "_note": "$5.20/mo annual divided across 150 images if spent only on images",
+    "value": 0.035
+  },
+  "candy_ai_monthly_price_usd": {
+    "one_month": 13.99,
+    "three_month_per_mo": 8.99,
+    "twelve_month_per_mo": 3.99
+  },
+  "candy_ai_included_tokens_per_month": 100,
+  "candy_ai_token_pack_price_range_usd": {
+    "low": 9.99,
+    "high": 299.99
+  },
+  "candy_ai_reviewer_estimated_per_action_tokens": {
+    "_note": "Reviewer estimates only; Candy.ai publishes no canonical per-action spec",
+    "image_tokens_low": 2,
+    "image_tokens_high": 4,
+    "call_tokens_per_minute": 3
+  },
+  "candy_ai_estimated_monthly_addon_spend_usd": {
+    "light_user": 10,
+    "moderate_user_low": 30,
+    "moderate_user_high": 60,
+    "heavy_user_min": 100
+  },
+  "keyword_volume_us": {
+    "candy_ai_pricing": 390,
+    "ai_girlfriend_cost": 20,
+    "candy_ai_review": 2400,
+    "is_candy_ai_safe": 1600,
+    "candy_ai": 90500
+  }
+}

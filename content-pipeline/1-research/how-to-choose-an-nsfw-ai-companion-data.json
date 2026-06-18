@@ -1,0 +1,70 @@
+{
+  "_meta": {
+    "slug": "how-to-choose-an-nsfw-ai-companion",
+    "stage": "research",
+    "date": "2026-06-13",
+    "market": "US / English",
+    "source": "Semrush keyword_research (phrase_these/phrase_kdi/phrase_fullsearch/phrase_related/phrase_questions/phrase_organic), us db, observed 2026-06-13; SERP word counts via Firecrawl scrape 2026-06-13"
+  },
+  "cluster_volumes": {
+    "nsfw_ai": 22200,
+    "nsfw_ai_chatbot": 12100,
+    "best_nsfw_ai": 4400,
+    "ai_companion": 9900,
+    "ai_companion_app": 1600,
+    "nsfw_ai_girlfriend": 1600,
+    "grok_ai_companion_nsfw": 880,
+    "nsfw_ai_companion": 260
+  },
+  "keyword_difficulty": {
+    "nsfw_ai_chatbot": 64,
+    "nsfw_ai_companion": 50,
+    "ai_companion_app": 44,
+    "best_nsfw_ai": 37,
+    "nsfw_ai_girlfriend": 16
+  },
+  "serp_word_counts": {
+    "theresanaiforthat_directory": 5110,
+    "chicagoreader_listicle": 4460,
+    "nastia_product": 2190,
+    "mydreamcompanion_product": 1815,
+    "whatsthebigdata_listicle": 805
+  },
+  "serp_word_counts_meta": {
+    "note": "scribehow and reddit r/agi blocked the scraper; theresanaiforthat is a tool directory (outlier, excluded from editorial benchmark math)."
+  },
+  "benchmark": {
+    "editorial_median_top3_words": 2190,
+    "editorial_max_words": 4460,
+    "target_word_count": 2400,
+    "serp_item_count_range_low": 4,
+    "serp_item_count_range_high": 12,
+    "beat_spec_criteria_count": 8,
+    "editorial_pages_with_comparison_table": 1,
+    "editorial_pages_extracted": 5
+  },
+  "pricing_observed_2026": {
+    "_note": "Sourced live 2026-06-13 (WebSearch/WebFetch); illustrates the advertised-vs-real-cost gap and cross-category price spread. Chartable.",
+    "candy_ai_monthly_usd": 12.99,
+    "candy_ai_quarterly_per_month_usd": 9.99,
+    "candy_ai_annual_per_month_usd": 5.99,
+    "candy_ai_annual_vs_monthly_multiple": 2.2,
+    "candy_ai_premium_monthly_tokens": 100,
+    "candy_ai_typical_extra_token_spend_usd_low": 15,
+    "candy_ai_typical_extra_token_spend_usd_high": 25,
+    "replika_pro_monthly_usd": 19.99,
+    "replika_pro_annual_per_month_usd": 5.83,
+    "digital_girlfriend_monthly_usd": 19.99,
+    "privee_ai_monthly_usd": 12.0,
+    "crushon_ai_monthly_usd": 5.99,
+    "real_cost_understated_multiple_low": 3,
+    "real_cost_understated_multiple_high": 4
+  },
+  "question_theme_volumes": {
+    "does_character_ai_allow_nsfw": 3600,
+    "which_ai_allow_you_to_generate_nsfw": 1900,
+    "is_character_ai_nsfw": 1600,
+    "is_claude_ai_nsfw_friendly": 880,
+    "how_to_generate_nsfw_ai_images": 720
+  }
+}

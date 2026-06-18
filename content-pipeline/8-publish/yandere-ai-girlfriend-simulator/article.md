@@ -1,6 +1,8 @@
-Search for "yandere AI girlfriend simulator" and you'll get two completely different things: an escape room game where an AI tries to psychologically trap you inside a locked room, and a category of AI companion apps selling the "obsessive girlfriend" fantasy as a feature.
+The Yandere AI Girlfriend Simulator is a free indie escape-room game where you wake up locked in a room with an AI-powered "yandere" girlfriend — an obsessive, possessive anime archetype — and have to talk your way out. Her dialogue runs on a large language model, so she improvises in real time instead of following a script.
 
-These are not the same product. Most content about this topic treats them like they are.
+But search for the phrase and you'll actually get two different things: that original escape-room game, and a category of AI companion apps that sell the "obsessive girlfriend" fantasy as a persona you build a relationship with. These are not the same product, and most content about this topic treats them like they are. The free game alone has drawn [970+ comments and 286 ratings (3.8/5)](https://helixngc7293.itch.io/yandere-ai-girlfriend-simulator) on its itch.io page, and the term now pulls several thousand monthly searches — most of it from people who don't realize they're looking at two things.
+
+If what you actually want is a persistent AI girlfriend that remembers you between sessions rather than a puzzle to escape, that's a companion app — and [Pleasur.AI](https://pleasur.ai/create) lets you build a yandere-style character from scratch with full memory across sessions.
 
 This piece covers both. You'll find out what the original Yandere AI Girlfriend Simulator game actually is and how to play it, what "yandere" means as an archetype and why people find it compelling, and which AI companion apps let you explore yandere-style roleplay if the game isn't what you were looking for.
 
@@ -133,3 +135,23 @@ If you want better production quality and no API setup, buy AI2U on Steam for $1
 If you want an ongoing yandere companion with persistent memory and a relationship that builds over time — that's a companion app, not a game. You can build one at [pleasur.ai/create](https://pleasur.ai/create) with the exact personality profile you want. Or look at the [broader AI girlfriend simulator guide](https://www.pleasur.ai/blog/ai-girlfriend-simulator) if you're still deciding on the right platform.
 
 The archetype is the same either way. What changes is whether you're trying to escape her or spend time with her.
+
+---
+
+## Frequently Asked Questions
+
+**What is a yandere AI girlfriend simulator?**
+
+A yandere AI girlfriend simulator is an AI chat game or companion experience built around the "yandere" archetype from anime — a character who is sweet and devoted on the surface but obsessive, possessive, and intensely jealous underneath. In the original itch.io game she's an antagonist who traps you in a room; in AI companion apps she's a persona devoted to you that you can talk to over time.
+
+**Is the Yandere AI Girlfriend Simulator free?**
+
+The original itch.io game is name-your-price, so you can download it for free — you only need a free OpenAI API key to power the AI. The Steam version, AI2U, is a one-time $14.99. AI companion apps vary: [Pleasur.AI](https://pleasur.ai/pricing) is a paid subscription starting at $12.99/month, with no separate app purchase required.
+
+**What AI girlfriend game has the best memory?**
+
+Standalone yandere games like the itch.io title and AI2U don't remember you between sessions — they're escape-room puzzles, not relationships. If persistent memory matters, an AI companion app is the better fit. [Pleasur.AI](https://pleasur.ai/create) is built around persistent memory: your companion keeps your name, preferences, and past conversations across sessions, so the dynamic builds over time instead of resetting every time you open it.
+
+**Can I play an AI girlfriend game on my phone?**
+
+The original Yandere AI Girlfriend Simulator is a desktop download (Windows, macOS, Linux), so it doesn't run on a phone. AI companion apps are more flexible — Pleasur.AI runs in any modern browser on desktop or mobile, with no app-store download required.
