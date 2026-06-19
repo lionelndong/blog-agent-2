@@ -25,6 +25,7 @@ import re
 import sys
 import urllib.error
 import urllib.request
+from html import unescape as html_unescape
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -75,6 +76,10 @@ def first_h1(html: str) -> str | None:
     if not m:
         return None
     text = TAG_RE.sub("", m.group(1))
+    # HTML-unescape so entity-encoded chars (&#x27; -> ', &amp; -> &, &quot; -> ")
+    # don't false-quarantine a live, correct page. Readers see the decoded char;
+    # the literal expected title carries the raw char. (PLE-2771 false-quarantine fix.)
+    text = html_unescape(text)
     return re.sub(r"\s+", " ", text).strip() or None
 
 
