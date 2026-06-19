@@ -4,7 +4,7 @@ Here's the thing most "SpicyChat alternatives" lists get wrong: SpicyChat doesn'
 
 Its uncensored character library is genuinely good, so this isn't a takedown. It's a continuity problem. Below: what SpicyChat actually is, where it breaks, how we tested, five alternatives ranked, a readable price-and-feature table, and a straight answer on whether any of this is safe.
 
-![Clean editorial flow illustration titled "Why long SpicyChat stories drift". Left: a long vertical stack of chat bubbles labeled "Your full conversation". A dashed sliding-window box labeled "Context window (4K-16K tokens)" covers only the last few bubbles](images/spicychat-alternative-2026/image-1-clean-editorial-flow-illustrat.png)
+![Clean editorial flow illustration titled "Why long SpicyChat stories drift". Left: a long vertical stack of chat bubbles labeled "Your full conversation". A dashed sliding-window box labeled "Context window (4K-16K tokens)" covers only the last few bubbles](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_clean_editorial_flow_illustrat_1c3a17ac5f.png)
 
 ## What is SpicyChat?
 
@@ -28,7 +28,7 @@ There's a quieter fourth annoyance on the free tier. On a busy day, free users h
 
 If the uncensored-chat landscape is what you're shopping for, our roundup of [Character AI No Filter alternatives](https://pleasur.ai/blog/character-ai-no-filter-2026) covers that ground separately. The memory symptom, though, is the one everyone gets wrong — so here's the mechanism behind it.
 
-![Clean editorial illustration titled "The 3 reasons stories drift on SpicyChat": three labeled rows with simple icons — "Short context window" (sliding-window box), "Robotic per-message voice" (speaker with sound-wave), "Characters fall out of character" (theater-mask icon). Minimal, white background, sans-serif labels, no people, brand-neutral colors.](images/spicychat-alternative-2026/image-1-clean-editorial-illustration-t.png)
+![Clean editorial illustration titled "The 3 reasons stories drift on SpicyChat": three labeled rows with simple icons — "Short context window" (sliding-window box), "Robotic per-message voice" (speaker with sound-wave), "Characters fall out of character" (theater-mask icon). Minimal, white background, sans-serif labels, no people, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_clean_editorial_illustration_t_c5b900e95a.png)
 
 ## Memory vs context window: why SpicyChat forgets
 
@@ -42,7 +42,7 @@ SpicyChat's tiers map straight onto the short-term half. The free and Get-a-Tast
 
 That distinction is the whole point of this article. The alternatives worth switching to aren't the ones with a slightly larger window — they're the ones that add persistent memory on top of a usable window. Pleasur.ai's [AI Companion Creator](https://pleasur.ai/create), for example, keeps a memory store that carries across sessions, so a companion you build resumes where you left off days later rather than re-reading a shrinking transcript. We won't re-derive the taxonomy here; our [guide to the best AI girlfriend with memory](https://pleasur.ai/blog/ai-companion-best-memory) breaks down the four types of companion memory in full. With the mechanism clear, here's how we tested the apps that fix it.
 
-![Side-by-side comparison labeled "Context window" (left) vs "Persistent memory" (right). Left panel: a fixed-size box labeled "last ~4K-16K tokens" with recent chat bubbles inside and older bubbles spilling out the top into a fade/trash icon labeled "forgotten". Right panel: the same chat plus a separate labeled store "Memory profile (kept across sessions)" with arrows feeding key facts back into a new session bubble labeled "Day 2: still remembers". Clean editorial illustration, white background, sans-serif labels, no people, brand-neutral colors.](images/spicychat-alternative-2026/image-3-side-by-side-comparison-labele.png)
+![Side-by-side comparison labeled "Context window" (left) vs "Persistent memory" (right). Left panel: a fixed-size box labeled "last ~4K-16K tokens" with recent chat bubbles inside and older bubbles spilling out the top into a fade/trash icon labeled "forgotten". Right panel: the same chat plus a separate labeled store "Memory profile (kept across sessions)" with arrows feeding key facts back into a new session bubble labeled "Day 2: still remembers". Clean editorial illustration, white background, sans-serif labels, no people, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_3_side_by_side_comparison_labele_ebebc5793b.png)
 
 ## How we tested
 
@@ -54,7 +54,7 @@ That last point needs a caveat, because it's where most listicles quietly invent
 
 One disclosure, up front. Pleasur.ai is our product. We rank it first on the memory-plus-voice combination this article is about — but the table and the per-app notes show exactly where rivals beat us: Kindroid on raw memory size, CrushOn on its free tier. You can disagree with the order and still use the data. Here's the shortlist, ranked.
 
-![Clean editorial method-criteria matrix illustration titled "How we scored every app". A simple table-style illustration with four labeled row-criteria down the left — "Cross-session memory", "Voice (TTS vs two-way)", "NSFW support & policy", "Price clarity (live page vs dated review)" — each with a small icon, and a right-hand column header "Tested on every app". Minimal, white background, sans-serif labels, no people, no brand logos, brand-neutral colors.](images/spicychat-alternative-2026/image-4-clean-editorial-method-criteri.png)
+![Clean editorial method-criteria matrix illustration titled "How we scored every app". A simple table-style illustration with four labeled row-criteria down the left — "Cross-session memory", "Voice (TTS vs two-way)", "NSFW support & policy", "Price clarity (live page vs dated review)" — each with a small icon, and a right-hand column header "Tested on every app". Minimal, white background, sans-serif labels, no people, no brand logos, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_4_clean_editorial_method_criteri_64d7da8f81.png)
 
 ## The 5 best SpicyChat alternatives in 2026
 
@@ -78,7 +78,7 @@ Pricing is published openly and metered by coins, not unlimited. Starter is $12.
 
 Where it falls short: there's no permanent free tier, so you create an account before you chat. Media is coin-metered, which means heavy image or call use eats your allowance. And voice is still rolling out rather than shipped everywhere — if a real-time call is your single must-have today, weigh that. Candy AI is the closest all-in-one rival.
 
-![AI Companion Creator showing personality/backstory and voice-profile selection](images/spicychat-alternative-2026/screenshot-5-ai-companion-creator-showing-p.png)
+![AI Companion Creator showing personality/backstory and voice-profile selection](https://elegant-cactus-c693703b28.media.strapiapp.com/screenshot_5_ai_companion_creator_showing_p_c35b3f23c7.png)
 
 ### 2. Candy AI — best all-in-one (memory + voice + image + video)
 
@@ -104,7 +104,7 @@ It's the pick for someone who wants the widest media mix — including video, wh
 
 One caveat, and it's the same discipline we applied to SpicyChat: Muah's pricing routes sit behind a login and captcha wall, so no dollar figure is exposed on the site itself. We pin the table cell to a dated third-party review instead of guessing — a [Feb 2026 review](https://www.aigirlfriendscout.com/reviews/muah-ai) puts Muah's paid entry (VIP) at $19.99/mo — and flag it as not first-party-verified. We won't invent a number, and you shouldn't trust a list that does. Our [Muah AI review](https://pleasur.ai/blog/muah-ai-review) goes deeper on the experience. Kindroid wins outright on one axis: raw memory size.
 
-![Clean editorial icon row titled "Muah AI: media in one app" — four labeled tiles left to right: Chat (speech-bubble), Photos (image frame), Voice (speaker), Video (play button). Minimal, white background, sans-serif labels, no people, brand-neutral colors.](images/spicychat-alternative-2026/image-2-clean-editorial-icon-row-title.png)
+![Clean editorial icon row titled "Muah AI: media in one app" — four labeled tiles left to right: Chat (speech-bubble), Photos (image frame), Voice (speaker), Video (play button). Minimal, white background, sans-serif labels, no people, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_2_clean_editorial_icon_row_title_e1903bd43b.png)
 
 ### 5. Kindroid — best for raw memory size
 
@@ -122,7 +122,7 @@ Read across the Pleasur.ai row and you get the whole pitch in one line. Memory i
 
 Two cells carry a caveat. Muah AI and Kindroid both gate their pricing behind login or captcha walls, so their price cells show a dated-review figure flagged "not first-party-verified" rather than a number read off the live page — their feature cells are first-party confirmed, their dollar figures are pinned to third-party reviews.
 
-![Platform table](images/spicychat-alternative-2026/table-pub-1.png)
+![Platform table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_1_eb5c6d41d1.png)
 
 - ****Pleasur.ai**** — Persistent, cross-session — In-chat voice replies + calls (rolling out) — Yes (18+, policy-bound) — From $12.99/mo (coin-metered) — No (account required)
 - **Candy AI** — Persistent ("remembers what matters") — Voice notes + conversations — Yes (18+) — From $13.99/mo — Trial only
@@ -143,7 +143,7 @@ The data question is where almost every "SpicyChat alternatives" article goes qu
 
 That advice generalizes. Before you type anything private into any companion app, check whether it gates content at 18+, whether it publishes a real privacy policy you can read, whether its pricing is clear without hidden metering surprises, and whether its memory does what it claims. Our [AI girlfriend app privacy and data guide](https://pleasur.ai/blog/ai-girlfriend-app-privacy-data-guide-2026) walks that vetting in detail, and [how to choose an NSFW AI companion](https://pleasur.ai/blog/how-to-choose-an-nsfw-ai-companion) covers the rest of the decision. Quick answers to the questions people ask most are below.
 
-![Clean editorial checklist illustration titled "What to check before you switch". Four labeled rows with simple icons: "18+ & policy-bound" (shield), "Reads its own privacy policy" (document), "Clear pricing, no hidden meter surprises" (price tag), "Memory you can verify" (folder). Minimal, white background, sans-serif labels, no people, brand-neutral colors.](images/spicychat-alternative-2026/image-10-clean-editorial-checklist-illu.png)
+![Clean editorial checklist illustration titled "What to check before you switch". Four labeled rows with simple icons: "18+ & policy-bound" (shield), "Reads its own privacy policy" (document), "Clear pricing, no hidden meter surprises" (price tag), "Memory you can verify" (folder). Minimal, white background, sans-serif labels, no people, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_10_clean_editorial_checklist_illu_cd077f1762.png)
 
 ## FAQ
 
