@@ -1,0 +1,78 @@
+{
+  "_meta": {
+    "slug": "spicychat-alternative-2026",
+    "generated": "2026-06-19",
+    "revised": "2026-06-19 (research-adversarial remediation: first-party competitor + SpicyChat pricing re-fetch; banned-stat quarantine)",
+    "source": "Live FIRST-PARTY pages fetched 2026-06-19 via Firecrawl where reachable (pleasur.ai/pricing; candy.ai/subscriptions; crushon.ai/pricing). SpicyChat first-party pricing is login-gated ('Get Premium' wall on /pricing, /subscription, /premium) so SpicyChat tiers are PINNED to a dated third-party review (aigirlfriendscout.com 2026-06-19). Muah AI and Kindroid first-party pricing pages are auth/captcha-gated (no dollar figures exposed) so their prices are marked UNVERIFIED; their feature flags ARE first-party-confirmed (muah.ai home; kindroid.ai docs). Semrush volume/KD unavailable this run (0 API units on both MCP and classic API keys).",
+    "notes": "Prices in USD/month, monthly billing unless noted. SpicyChat context = rolling token window, not persistent cross-session memory. Each price below carries a source_kind: first_party | third_party_pinned | unverified_first_party_gated. Do NOT publish any price marked unverified without pinning it to a dated third-party review downstream."
+  },
+  "price_sources": {
+    "pleasur_ai": {"url": "https://pleasur.ai/pricing", "fetched": "2026-06-19", "kind": "first_party"},
+    "candy_ai": {"url": "https://candy.ai/subscriptions", "fetched": "2026-06-19", "kind": "first_party"},
+    "crushon_ai": {"url": "https://crushon.ai/pricing", "fetched": "2026-06-19", "kind": "first_party"},
+    "spicychat": {"url": "https://www.aigirlfriendscout.com/reviews/spicychat-ai", "fetched": "2026-06-19", "kind": "third_party_pinned", "reason": "spicychat.ai/pricing,/subscription,/premium all login-gated ('Get Premium'); no first-party dollar figures"},
+    "muah_ai": {"url": "https://muah.ai/ (pricing routes login/captcha-gated)", "fetched": "2026-06-19", "kind": "unverified_first_party_gated"},
+    "kindroid": {"url": "https://kindroid.ai/ (pricing routes Chargebee/hCaptcha-gated; docs confirm features only)", "fetched": "2026-06-19", "kind": "unverified_first_party_gated"}
+  },
+  "pricing_monthly_usd": {
+    "spicychat_free": 0,
+    "spicychat_get_a_taste": 4.95,
+    "spicychat_true_supporter": 13.95,
+    "spicychat_im_all_in": 23.95,
+    "pleasur_ai_starter": 12.99,
+    "pleasur_ai_standard": 27.99,
+    "pleasur_ai_ultimate": 49.99,
+    "candy_ai_monthly": 13.99,
+    "candy_ai_annual_per_month": 3.99,
+    "crushon_ai_free": 0,
+    "crushon_ai_standard": 4.9,
+    "crushon_ai_premium": 7.9,
+    "crushon_ai_luxe": 25.0,
+    "muah_ai": "[UNVERIFIED — first-party page unreachable]",
+    "kindroid": "[UNVERIFIED — first-party page unreachable]"
+  },
+  "feature_matrix": {
+    "_legend": "memory/voice/nsfw/free_tier verified true unless noted; source_kind as in price_sources",
+    "pleasur_ai": {"memory": "persistent cross-session", "voice": "in-chat voice replies + phone calls (coming this week / beta)", "nsfw": true, "free_tier": false, "source_kind": "first_party"},
+    "spicychat": {"memory": "rolling context window 4K/8K/16K tokens (not persistent cross-session)", "voice": "per-message text-to-speech on top tier (no two-way calls)", "nsfw": true, "free_tier": true, "source_kind": "feature first_party (spicychat.ai nav); price third_party_pinned"},
+    "candy_ai": {"memory": "persistent (remembers preferences)", "voice": "voice notes + voice conversations", "nsfw": true, "free_tier": "7-day free trial only", "source_kind": "first_party"},
+    "crushon_ai": {"memory": "8K free, 16K/24K paid; history kept during membership", "voice": "voice messages + unlimited AI voice replies (free tier included)", "nsfw": true, "free_tier": true, "source_kind": "first_party"},
+    "muah_ai": {"memory": "yes (first-party home confirms)", "voice": true, "photos": true, "video": true, "nsfw": true, "free_tier": "no-login demo", "source_kind": "features first_party (muah.ai home); price unverified_first_party_gated"},
+    "kindroid": {"memory": "very large context (500K-2.8M chars total) + long-term memory/journals", "voice": "complimentary monthly audio credits", "nsfw": true, "free_tier": false, "source_kind": "features first_party (kindroid.ai docs); price unverified_first_party_gated"}
+  },
+  "pleasur_ai_annual_equiv_monthly_usd": {
+    "starter": 5.20,
+    "standard": 11.20,
+    "ultimate": 20.00
+  },
+  "pleasur_ai_coins_per_month": {
+    "starter": 1500,
+    "standard": 5000,
+    "ultimate": 10000
+  },
+  "pleasur_ai_action_cost_coins": {
+    "image_generation": 10,
+    "voice_note": 10,
+    "phone_call_per_minute": 50
+  },
+  "spicychat_context_window_tokens": {
+    "free_and_basic": 4000,
+    "true_supporter": 8000,
+    "im_all_in": 16000
+  },
+  "serp_word_counts": {
+    "weavai": 2350,
+    "kalon": 3162,
+    "ohgirlfriend": 3246,
+    "devtechnosys": 4428,
+    "theborderlessmind": 2073,
+    "nuder": 2334
+  },
+  "serp_benchmark": {
+    "median_word_count_top3": 3162,
+    "max_word_count": 4428,
+    "pages_with_comparison_table_of_6": 4,
+    "pages_with_faq_of_6": 5,
+    "modal_item_count_listicle": 10
+  }
+}

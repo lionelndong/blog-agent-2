@@ -1,0 +1,162 @@
+{
+  "slug": "spicychat-alternative-2026",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Clean editorial flow illustration titled \"Why long SpicyChat stories drift\". Left: a long vertical stack of chat bubbles labeled \"Your full conversation\". A dashed sliding-window box labeled \"Context window (4K-16K tokens)\" covers only the last few bubbles",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Clean editorial flow illustration titled \"Why long SpicyChat stories drift\". Left: a long vertical stack of chat bubbles labeled \"Your full conversation\". A dashed sliding-window box labeled \"Context window (4K-16K tokens)\" covers only the last few bubbles",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/spicychat-alternative-2026/image-1-clean-editorial-flow-illustrat.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Clean editorial flow illustration titled \"Why long SpicyChat stories drift\". Left: a long vertical stack of chat bubbles labeled \"Your full conversation\". A dashed sliding-window box labeled \"Context window (4K-16K tokens)\" covers only the last few bubbles. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Clean editorial flow illustration titled \"Why long SpicyChat stories drift\". Left: a long vertical stack of chat bubbles labeled \"Your full conversation\". A dashed sliding-window box labeled \"Context window (4K-16K tokens)\" covers only the last few bubbles; the older bubbles above it are greyed out and labeled \"falls out of context\". A right arrow leads to a single bubble labeled \"Persistent memory: kept across sessions\". White background, sans-serif labels, no people, brand-neutral colors.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Clean editorial illustration titled \"The 3 reasons stories drift on SpicyChat\": three labeled rows with simple icons — \"Short context window\" (sliding-window box), \"Robotic per-message voice\" (speaker with sound-wave), \"Characters fall out of character\" (theater-mask icon). Minimal, white background, sans-serif labels, no people, brand-neutral colors.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Clean editorial illustration titled \"The 3 reasons stories drift on SpicyChat\": three labeled rows with simple icons — \"Short context window\" (sliding-window box), \"Robotic per-message voice\" (speaker with sound-wave), \"Characters fall out of character\" (theater-mask icon). Minimal, white background, sans-serif labels, no people, brand-neutral colors.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/spicychat-alternative-2026/image-1-clean-editorial-illustration-t.png",
+        "model": "google/nano-banana",
+        "primary_failed": "replicate_error",
+        "prompt": "Clean editorial illustration titled \"The 3 reasons stories drift on SpicyChat\": three labeled rows with simple icons — \"Short context window\" (sliding-window box), \"Robotic per-message voice\" (speaker with sound-wave), \"Characters fall out of character\" (theater-mask icon). Minimal, white background, sans-serif labels, no people, brand-neutral colors.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Clean editorial illustration titled \"The 3 reasons stories drift on SpicyChat\": three labeled rows with simple icons — \"Short context window\" (sliding-window box), \"Robotic per-message voice\" (speaker with sound-wave), \"Characters fall out of character\" (theater-mask icon). Minimal, white background, sans-serif labels, no people, brand-neutral colors.;style=illustration;safety=sfw]",
+      "legacy": false,
+      "remediation": "Replaced failed external (Reddit) per visuals-adversarial verdict 2026-06-19; SFW concept-illustration."
+    },
+    {
+      "index": 3,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Side-by-side comparison labeled \"Context window\" (left) vs \"Persistent memory\" (right). Left panel: a fixed-size box labeled \"last ~4K-16K tokens\" with recent chat bubbles inside and older bubbles spilling out the top into a fade/trash icon labeled \"forgotten\". Right panel: the same chat plus a separate labeled store \"Memory profile (kept across sessions)\" with arrows feeding key facts back into a new session bubble labeled \"Day 2: still remembers\". Clean editorial illustration, white background, sans-serif labels, no people, brand-neutral colors.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Side-by-side comparison labeled \"Context window\" (left) vs \"Persistent memory\" (right). Left panel: a fixed-size box labeled \"last ~4K-16K tokens\" with recent chat bubbles inside and older bubbles spilling out the top into a fade/trash icon labeled \"forgotten\". Right panel: the same chat plus a separate labeled store \"Memory profile (kept across sessions)\" with arrows feeding key facts back into a new session bubble labeled \"Day 2: still remembers\". Clean editorial illustration, white background, sans-serif labels, no people, brand-neutral colors.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/spicychat-alternative-2026/image-3-side-by-side-comparison-labele.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Side-by-side comparison labeled \"Context window\" (left) vs \"Persistent memory\" (right). Left panel: a fixed-size box labeled \"last ~4K-16K tokens\" with recent chat bubbles inside and older bubbles spilling out the top into a fade/trash icon labeled \"forgotten\". Right panel: the same chat plus a separate labeled store \"Memory profile (kept across sessions)\" with arrows feeding key facts back into a new session bubble labeled \"Day 2: still remembers\". Clean editorial illustration, white background, sans-serif labels, no people, brand-neutral colors.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Side-by-side comparison labeled \"Context window\" (left) vs \"Persistent memory\" (right). Left panel: a fixed-size box labeled \"last ~4K-16K tokens\" with recent chat bubbles inside and older bubbles spilling out the top into a fade/trash icon labeled \"forgotten\". Right panel: the same chat plus a separate labeled store \"Memory profile (kept across sessions)\" with arrows feeding key facts back into a new session bubble labeled \"Day 2: still remembers\". Clean editorial illustration, white background, sans-serif labels, no people, brand-neutral colors.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Clean editorial method-criteria matrix illustration titled \"How we scored every app\". A simple table-style illustration with four labeled row-criteria down the left — \"Cross-session memory\", \"Voice (TTS vs two-way)\", \"NSFW support & policy\", \"Price clarity (live page vs dated review)\" — each with a small icon, and a right-hand column header \"Tested on every app\". Minimal, white background, sans-serif labels, no people, no brand logos, brand-neutral colors.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Clean editorial method-criteria matrix illustration titled \"How we scored every app\". A simple table-style illustration with four labeled row-criteria down the left — \"Cross-session memory\", \"Voice (TTS vs two-way)\", \"NSFW support & policy\", \"Price clarity (live page vs dated review)\" — each with a small icon, and a right-hand column header \"Tested on every app\". Minimal, white background, sans-serif labels, no people, no brand logos, brand-neutral colors.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/spicychat-alternative-2026/image-4-clean-editorial-method-criteri.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Clean editorial method-criteria matrix illustration titled \"How we scored every app\". A simple table-style illustration with four labeled row-criteria down the left — \"Cross-session memory\", \"Voice (TTS vs two-way)\", \"NSFW support & policy\", \"Price clarity (live page vs dated review)\" — each with a small icon, and a right-hand column header \"Tested on every app\". Minimal, white background, sans-serif labels, no people, no brand logos, brand-neutral colors.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Clean editorial method-criteria matrix illustration titled \"How we scored every app\". A simple table-style illustration with four labeled row-criteria down the left — \"Cross-session memory\", \"Voice (TTS vs two-way)\", \"NSFW support & policy\", \"Price clarity (live page vs dated review)\" — each with a small icon, and a right-hand column header \"Tested on every app\". Minimal, white background, sans-serif labels, no people, no brand logos, brand-neutral colors.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "create",
+        "what": "AI Companion Creator showing personality/backstory and voice-profile selection",
+        "annotate": "highlight the voice-profile selector and the saved-history / resume control"
+      },
+      "alt": "AI Companion Creator showing personality/backstory and voice-profile selection",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/spicychat-alternative-2026/screenshot-5-ai-companion-creator-showing-p.png",
+        "url": "https://pleasur.ai/create",
+        "final_url": "https://pleasur.ai/create",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.142,
+          "bytes": 1437353
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;target=create;what=AI Companion Creator showing personality/backstory and voice-profile selection;annotate=highlight the voice-profile selector and the saved-history / resume control]",
+      "legacy": false
+    },
+    {
+      "index": 9,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Clean editorial icon row titled \"Muah AI: media in one app\" — four labeled tiles left to right: Chat (speech-bubble), Photos (image frame), Voice (speaker), Video (play button). Minimal, white background, sans-serif labels, no people, brand-neutral colors.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Clean editorial icon row titled \"Muah AI: media in one app\" — four labeled tiles left to right: Chat (speech-bubble), Photos (image frame), Voice (speaker), Video (play button). Minimal, white background, sans-serif labels, no people, brand-neutral colors.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/spicychat-alternative-2026/image-2-clean-editorial-icon-row-title.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Clean editorial icon row titled \"Muah AI: media in one app\" — four labeled tiles left to right: Chat (speech-bubble), Photos (image frame), Voice (speaker), Video (play button). Minimal, white background, sans-serif labels, no people, brand-neutral colors.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Clean editorial icon row titled \"Muah AI: media in one app\" — four labeled tiles left to right: Chat (speech-bubble), Photos (image frame), Voice (speaker), Video (play button). Minimal, white background, sans-serif labels, no people, brand-neutral colors.;style=illustration;safety=sfw]",
+      "legacy": false,
+      "remediation": "Replaced failed external (Muah media-breadth UI) per visuals-adversarial verdict 2026-06-19; SFW concept-illustration."
+    },
+    {
+      "index": 10,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Clean editorial checklist illustration titled \"What to check before you switch\". Four labeled rows with simple icons: \"18+ & policy-bound\" (shield), \"Reads its own privacy policy\" (document), \"Clear pricing, no hidden meter surprises\" (price tag), \"Memory you can verify\" (folder). Minimal, white background, sans-serif labels, no people, brand-neutral colors.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Clean editorial checklist illustration titled \"What to check before you switch\". Four labeled rows with simple icons: \"18+ & policy-bound\" (shield), \"Reads its own privacy policy\" (document), \"Clear pricing, no hidden meter surprises\" (price tag), \"Memory you can verify\" (folder). Minimal, white background, sans-serif labels, no people, brand-neutral colors.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/spicychat-alternative-2026/image-10-clean-editorial-checklist-illu.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Clean editorial checklist illustration titled \"What to check before you switch\". Four labeled rows with simple icons: \"18+ & policy-bound\" (shield), \"Reads its own privacy policy\" (document), \"Clear pricing, no hidden meter surprises\" (price tag), \"Memory you can verify\" (folder). Minimal, white background, sans-serif labels, no people, brand-neutral colors.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Clean editorial checklist illustration titled \"What to check before you switch\". Four labeled rows with simple icons: \"18+ & policy-bound\" (shield), \"Reads its own privacy policy\" (document), \"Clear pricing, no hidden meter surprises\" (price tag), \"Memory you can verify\" (folder). Minimal, white background, sans-serif labels, no people, brand-neutral colors.;style=illustration;safety=sfw]",
+      "legacy": false
+    }
+  ]
+}
