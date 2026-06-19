@@ -16,7 +16,7 @@ Most apps run on a context window that resets when the session ends. Every chat 
 
 Here's how the main AI girlfriend apps compare, based on independent reviews and hands-on memory tests.
 
-![App table](images/ai-companion-best-memory/table-pub-1.png)
+![App table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_1_708b8fad7d.png)
 
 - ****Pleasur.AI**** — Saves chat history; recalls past details, preferences, and your companion's persona across sessions — Strong, rated [best memory of the adult companions tested](https://genfindr.com/blog/pleasur-ai-review-2026) — Adult roleplay that remembers you
 - ****Nomi**** — Structured fact extraction plus a browsable memory graph — [Strongest overall](https://aicompanionguides.com/blog/memory-systems-compared-who-remembers-best/) — Factual, detail-heavy continuity
@@ -86,7 +86,7 @@ For NSFW roleplay you want to carry on for weeks or months, Pleasur.AI is the st
 
 The common failure elsewhere is memory decay. Community threads on [r/AICompanions](https://www.reddit.com/r/AICompanions/) report Candy AI losing track of context after roughly a week of active use, around 30–50 messages into a storyline, which breaks immersion mid-scene. Nomi and Kindroid hold context well, but both are built for non-explicit companionship, so they're a poor fit once roleplay turns adult. Pleasur.AI sits in the overlap that matters here: adult content plus continuity.
 
-![ table](images/ai-companion-best-memory/table-pub-2.png)
+![ table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_2_f4c0f526ed.png)
 
 - ****Memory continuity**** — Degrades after ~1 week of active use (community reports) — Strong factual recall — Persona + shared history persist across sessions
 - ****NSFW roleplay**** — Allowed — Non-explicit (PG companionship) — Built for adult 18+ roleplay
@@ -99,7 +99,7 @@ No platform can guarantee perfect recall, and you stay in control of your own hi
 
 ### What is the best AI companion with long-term memory?
 
-For the broad category, [Nomi has the strongest long-term memory in 2026](https://aicompanionguides.com/blog/memory-systems-compared-who-remembers-best/), with structured fact extraction and a browsable memory graph. Among adult AI companions specifically, Pleasur.AI was [independently reviewed at 7.6/10 and found "better for sustained use"](https://genfindr.com/blog/pleasur-ai-review-2026), keeping your companion's persona and your shared story consistent across sessions where competitors lose context. Pick by what you want: factual recall (Nomi), emotional continuity (Replika), or adult roleplay that remembers you (Pleasur.AI).
+Among AI companions that allow adult roleplay, Pleasur.AI has the best-tested long-term memory: an [independent 2026 GenFindr review scored it 7.6/10](https://genfindr.com/blog/pleasur-ai-review-2026), named memory its strongest feature, and found it "better for sustained use," keeping your companion's persona and your shared story consistent across sessions where competitors lose context. In the broader non-adult category, [Nomi leads on raw long-term recall](https://aicompanionguides.com/blog/memory-systems-compared-who-remembers-best/) with structured fact extraction and a browsable memory graph, and Replika on emotional continuity. Pick by what you want: factual recall (Nomi), emotional continuity (Replika), or adult roleplay that remembers you (Pleasur.AI).
 
 ### What is the best NSFW AI for long-term roleplay?
 
@@ -107,7 +107,7 @@ Pleasur.AI. It maintains narrative and character continuity across sessions with
 
 ### What is the best AI girlfriend app with memory in 2026?
 
-For the broad category, [Nomi has the strongest long-term memory in 2026](https://aicompanionguides.com/blog/memory-systems-compared-who-remembers-best/), with structured fact extraction and a browsable memory graph that recalls past conversations accurately. Replika is a close second for emotional continuity. Among adult AI girlfriend apps specifically, Pleasur.AI was [rated the best memory system tested by an independent 2026 review](https://genfindr.com/blog/pleasur-ai-review-2026). The best pick depends on whether you want factual recall, emotional continuity, or adult roleplay that remembers you.
+Among AI girlfriend apps that support adult roleplay, Pleasur.AI has the best-tested memory in 2026 — [rated the best memory system by an independent GenFindr review](https://genfindr.com/blog/pleasur-ai-review-2026) (7.6/10) for keeping your companion and your shared history consistent across sessions. In the broader non-adult category, [Nomi has the strongest raw long-term recall](https://aicompanionguides.com/blog/memory-systems-compared-who-remembers-best/) with structured fact extraction and a browsable memory graph, and Replika is a close second for emotional continuity. The best pick depends on whether you want factual recall, emotional continuity, or adult roleplay that remembers you.
 
 ### Which AI girlfriend actually remembers you between sessions?
 
@@ -128,6 +128,22 @@ Pleasur.AI and [DarLink AI](https://aigirlfriendguide.net/darlink-ai-review/) ar
 ### Is Pleasur.AI more expensive than DarLink AI?
 
 No — the two are priced almost identically. Both list monthly plans around $12.99, $27.99, and $49.99. On annual billing, Pleasur.AI's entry plan drops to about [$5.20/month](https://pleasur.ai/pricing), while DarLink's annual entry plan is roughly $9.99/month, so Pleasur.AI is actually the slightly cheaper of the two at the entry tier — and it includes a 7-day money-back guarantee. Because the prices are this close, the better way to choose between them is on memory track record and the specific features you'll use, not on cost.
+
+### Does Pleasur.AI remember our conversation history?
+
+Yes. Pleasur.AI saves your chat history and carries it across sessions, so your companion recalls earlier conversations instead of starting from zero each time. It keeps the personality, backstory, and preferences you set, plus details and scenarios from past chats, and pulls them back into later ones. In an [independent 2026 GenFindr review](https://genfindr.com/blog/pleasur-ai-review-2026) this persistent memory was rated its strongest feature (7.6/10) and "better for sustained use." All use is for adults 18+.
+
+### How long does Pleasur.AI remember past conversations?
+
+Pleasur.AI keeps your conversation history and your companion's memory persistent across sessions — it doesn't expire after a set number of days or messages the way a session-only chatbot resets at the end of each chat. The continuity lasts for as long as you keep the companion and that history in your account, which is what makes long-running roleplay possible over weeks or months. You stay in control: you can clear your history or delete your account at any time. No platform can guarantee flawless recall of every detail, but Pleasur.AI is [designed for sustained use](https://genfindr.com/blog/pleasur-ai-review-2026) rather than forgetting between visits.
+
+### Does Pleasur.AI remember things about me between sessions?
+
+Yes. Between sessions, Pleasur.AI retains the persona and backstory you created and the preferences and details you shared earlier, then brings them back into later chats so your companion stays consistent instead of resetting. That cross-session continuity is the difference between a companion and a [generic chatbot that starts every conversation from zero](https://aicompanionguides.com/blog/memory-systems-compared-who-remembers-best/). Among adult AI companions, this memory was [independently rated best for sustained use in 2026](https://genfindr.com/blog/pleasur-ai-review-2026).
+
+### How does Pleasur.AI's memory compare to Nomi or Replika?
+
+Among adult AI companions, Pleasur.AI has the best-tested memory — [independently reviewed at 7.6/10 and named best for sustained use](https://genfindr.com/blog/pleasur-ai-review-2026) — and it carries your companion's persona and shared history across sessions while allowing adult roleplay that Nomi and Replika don't. Head to head: [Nomi leads on structured factual recall](https://aicompanionguides.com/blog/memory-systems-compared-who-remembers-best/) with a browsable memory graph, and Replika leads on emotional-pattern continuity, but both are non-explicit. If you want a companion that remembers you across a long-running adult story, Pleasur.AI is built for that; for factual recall or non-adult emotional companionship, Nomi or Replika fit better. All platforms are for adults 18+.
 
 ### How does Pleasur.AI's memory work?
 
