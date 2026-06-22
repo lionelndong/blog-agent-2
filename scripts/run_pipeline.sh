@@ -27,9 +27,21 @@ PROMPT="$*"
 REPO_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"
 
-if ! command -v doppler >/dev/null 2>&1; then
-  echo "ERROR: doppler CLI not found on PATH." >&2
+# Resolve doppler: prefer PATH, fall back to known Paperclip install location.
+if command -v doppler >/dev/null 2>&1; then
+  DOPPLER_BIN="doppler"
+elif [[ -x "/paperclip/.local/bin/doppler" ]]; then
+  DOPPLER_BIN="/paperclip/.local/bin/doppler"
+else
+  echo "ERROR: doppler CLI not found on PATH or at /paperclip/.local/bin/doppler." >&2
   exit 1
 fi
 
-exec doppler run --project pleasurai --config dev -- claude --dangerously-skip-permissions "$PROMPT"
+# Allow DOPPLER_KEY as a fallback token name (Paperclip runner injects DOPPLER_KEY).
+export DOPPLER_TOKEN="${DOPPLER_TOKEN:-${DOPPLER_KEY:-}}"
+if [[ -z "$DOPPLER_TOKEN" ]]; then
+  echo "ERROR: neither DOPPLER_TOKEN nor DOPPLER_KEY is set." >&2
+  exit 1
+fi
+
+exec "$DOPPLER_BIN" run --project pleasurai --config dev -- claude --dangerously-skip-permissions "$PROMPT"
