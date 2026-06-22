@@ -4,7 +4,7 @@ That's the short answer. The longer one is that there's no single "best" here, b
 
 This list ranks seven apps against those pains, with a no-hype at-a-glance table, a privacy axis the other roundups skip, and quick answers at the end. We've covered the neighboring clusters too — [the best Character AI alternatives](https://pleasur.ai/blog/character-ai-alternative) and [the best JanitorAI alternatives in 2026](https://pleasur.ai/blog/janitorai-alternatives-2026) — if Joi isn't the only app you're weighing.
 
-![Clean editorial flow illustration titled "Leaving Joi AI? Pick by what you want". A single labeled box on the left reading "Joi AI: 115-char cap + separate image credits" with three arrows pointing right to three labeled outcome boxes: "Visuals -> Candy AI", "Flat-rate multimedia -> OurDream AI", "Memory + no cap -> Pleasur.ai". Minimal layout, white background, sans-serif labels, no people, brand-neutral colors.](images/joi-ai-alternative-2026/image-1-clean-editorial-flow-illustrat.png)
+![Clean editorial flow illustration titled "Leaving Joi AI? Pick by what you want". A single labeled box on the left reading "Joi AI: 115-char cap + separate image credits" with three arrows pointing right to three labeled outcome boxes: "Visuals -> Candy AI", "Flat-rate multimedia -> OurDream AI", "Memory + no cap -> Pleasur.ai". Minimal layout, white background, sans-serif labels, no people, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_clean_editorial_flow_illustrat_84926e94b0.png)
 
 ## Why people are leaving Joi AI in 2026
 
@@ -18,9 +18,9 @@ None of this makes Joi a bad app. Its appeal is a genuinely low base price — r
 
 Here's the whole field at a glance before the detail on each.
 
-![AICompanions discussion page](images/joi-ai-alternative-2026/external-1-a-user-describing-the-joi-ai-m.png)
+![AICompanions discussion page](https://elegant-cactus-c693703b28.media.strapiapp.com/external_1_a_user_describing_the_joi_ai_m_6e794e497f.png)
 
-![Side-by-side editorial diagram. Left panel labeled "Subscription" shown as one solid box. Right panel labeled "Separate Neurons credits" containing three small icons labeled "Images", "Video clips", "Extra companions", each marked with a coin symbol. A dotted line shows the credits sitting ON TOP of the subscription box, not inside it. White background, sans-serif labels, no people, brand-neutral colors.](images/joi-ai-alternative-2026/image-3-side-by-side-editorial-diagram.png)
+![Side-by-side editorial diagram. Left panel labeled "Subscription" shown as one solid box. Right panel labeled "Separate Neurons credits" containing three small icons labeled "Images", "Video clips", "Extra companions", each marked with a coin symbol. A dotted line shows the credits sitting ON TOP of the subscription box, not inside it. White background, sans-serif labels, no people, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_3_side_by_side_editorial_diagram_7710c745e2.png)
 
 ## The best Joi AI alternatives at a glance
 
@@ -28,7 +28,7 @@ Seven apps cover almost everyone leaving Joi AI, and the table below shows where
 
 For context, the row Joi users are leaving [reportedly sits at a ~115-character message cap and around $17.77/mo before Neurons add-ons](https://www.aigirlfriendscout.com/reviews/joi-ai) (reviewer figures, not Joi-published). Here's the field against that baseline.
 
-![App table](images/joi-ai-alternative-2026/table-pub-1.png)
+![App table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_1_10885893fe.png)
 
 - **Candy AI** — Visual quality and video — None stated — Per-character — In-plan plus add-ons — Adult, 18+ — ~$12.99/mo
 - **OurDream AI** — Flat-rate multimedia — None stated — Holds past ~100 messages — Bundle plan + in-app coins — Adult, 18+ — ~$9.99/mo annual (~$19.99/mo)
@@ -54,7 +54,7 @@ For the price and feature specifics, check Candy's official pages — they shift
 
 If you'd rather pay one flat rate for everything instead of stacking add-ons, OurDream is built for that.
 
-![Candy AI pricing page](images/joi-ai-alternative-2026/external-2-candy-ai-plan-tiers-verify-cur.png)
+![Candy AI pricing page](https://elegant-cactus-c693703b28.media.strapiapp.com/external_2_candy_ai_plan_tiers_verify_cur_e357551e60.png)
 
 ## 2. OurDream AI — best all-in-one flat-rate multimedia
 
@@ -70,7 +70,7 @@ Content stance is adult and 18+. Best-for, memory behavior, and price all sit on
 
 OurDream fixes the billing. The next pick fixes memory and the message cap together, and it's the one missing from every other Joi-alternatives list.
 
-![OurDream AI pricing page](images/joi-ai-alternative-2026/external-3-ourdream-ai-flat-rate-plan-ver.png)
+![OurDream AI pricing page](https://elegant-cactus-c693703b28.media.strapiapp.com/external_3_ourdream_ai_flat_rate_plan_ver_9ee81a7159.png)
 
 ## 3. Pleasur.ai — best for persistent memory and no message cap
 
@@ -86,9 +86,9 @@ On privacy, the data stays yours and isn't sold to third parties, per the [publi
 
 If pure emotional warmth matters more to you than memory mechanics, LoveScape leans that way.
 
-![Clean editorial diagram titled "Memory that carries across chats". Three labeled stages left-to-right: "Session 1: you tell it something" (speech bubble), "Stored profile" (folder icon labeled "remembered details"), "Session 2: it remembers" (speech bubble referencing the earlier detail). Arrows connect the stages](images/joi-ai-alternative-2026/image-7-clean-editorial-diagram-titled.png)
+![Clean editorial diagram titled "Memory that carries across chats". Three labeled stages left-to-right: "Session 1: you tell it something" (speech bubble), "Stored profile" (folder icon labeled "remembered details"), "Session 2: it remembers" (speech bubble referencing the earlier detail). Arrows connect the stages](https://elegant-cactus-c693703b28.media.strapiapp.com/image_7_clean_editorial_diagram_titled_ddf1b06243.png)
 
-![First-hand proof of the no-cap and persistent-memory claims — an existing companion chat showing one long multi-sentence message over 115 characters accepted and answered in a single send, with a follow-up reply that references a detail set in an earlier session](images/joi-ai-alternative-2026/screenshot-8-first-hand-proof-of-the-no-cap.png)
+![First-hand proof of the no-cap and persistent-memory claims — an existing companion chat showing one long multi-sentence message over 115 characters accepted and answered in a single send, with a follow-up reply that references a detail set in an earlier session](https://elegant-cactus-c693703b28.media.strapiapp.com/screenshot_8_first_hand_proof_of_the_no_cap_20bcc82a73.png)
 
 ## 4. LoveScape AI — best for emotional depth
 
@@ -162,7 +162,7 @@ Be honest with yourself, though: every app here is an 18+ adult product, and non
 
 Privacy decided, here's how to move off Joi without losing your setup.
 
-![Clean editorial checklist illustration titled "Privacy: what to check before you trust an app". A vertical checklist with four labeled rows, each with a checkbox icon: "Published privacy policy you can read", "Data not sold to third parties", "You can delete your data", "Clear 18+ adult stance". White background, sans-serif labels, no people, brand-neutral colors.](images/joi-ai-alternative-2026/image-9-clean-editorial-checklist-illu.png)
+![Clean editorial checklist illustration titled "Privacy: what to check before you trust an app". A vertical checklist with four labeled rows, each with a checkbox icon: "Published privacy policy you can read", "Data not sold to third parties", "You can delete your data", "Clear 18+ adult stance". White background, sans-serif labels, no people, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_9_clean_editorial_checklist_illu_78842db455.png)
 
 ## How to switch off Joi AI without losing your setup
 
