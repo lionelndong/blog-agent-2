@@ -1,0 +1,85 @@
+{
+  "_meta": {
+    "slug": "what-happened-to-replika-users",
+    "keyword": "what happened to replika",
+    "generated": "2026-06-22",
+    "source": "Live SERP search + Firecrawl/WebFetch page extraction + Wikipedia/EDPB/IAPP; Semrush API units exhausted this run (volume/KD unavailable)",
+    "revised": "2026-06-22 research-adversarial revision pass: C1 re-anchored 30M/40M to Wikipedia; C2 v2.0 corroborated across 3 outlets + downgraded to supporting point; C3 unsourced Reddit quotes replaced with cited/documented reaction"
+  },
+  "serp_competitor_word_counts": {
+    "feltreal_what_happened": 1800,
+    "aicompanionpick_review_2026": 2561,
+    "charalt_review_2026": 1341,
+    "weavai_alternatives_2026": 1457,
+    "wikipedia_replika": 3000
+  },
+  "serp_benchmark": {
+    "median_words_top3": 1800,
+    "max_words_top3": 2561,
+    "pages_with_comparison_table": 2,
+    "pages_extracted": 5,
+    "alternatives_item_count_range_low": 5,
+    "alternatives_item_count_range_high": 10,
+    "beat_spec_target_words": 2000
+  },
+  "replika_user_base_millions": {
+    "aug_2024": 30,
+    "y2025_2026": 40,
+    "_meta": {
+      "source": "https://en.wikipedia.org/wiki/Replika",
+      "note": "Anchor 30M and 40M to Wikipedia directly (re-anchored 2026-06-22 per research-adversarial C1; was previously cited to aicompanionpick.com). Wikipedia: 'In August 2024... surpassed 30 million'; 'In 2025, Dmytro Klochko became CEO, and Replika's user base exceeded 40 million.'"
+    }
+  },
+  "replika_user_base_chart": {
+    "Aug 2024": 30,
+    "2025": 40,
+    "_meta": {
+      "source": "https://en.wikipedia.org/wiki/Replika",
+      "note": "Clean chartable labels for replika_user_base_millions (same Wikipedia-sourced, company-reported figures: 30M Aug 2024, 40M 2025). Added 2026-06-23 for the user-growth bar chart in the 2026-state section; values unchanged."
+    }
+  },
+  "garante_fine_eur_millions": {
+    "april_2025_fine": 5
+  },
+  "replika_v2_update_2026": {
+    "status": "reported/attributed, corroborated across 3 outlets, NOT hard-sourced fact",
+    "claimed_changes": ["avatar customization removed (clothes, makeup, eye color)", "3D to 2D animated avatars", "Diary feature dropped", "five-tier pricing (Free, Pro, Ultra, Platinum, MAX)"],
+    "date_disputed": "early-to-mid 2026 (roborhythms/aicompanionpick imply late-May 2026; aigf.love says April 2026)",
+    "sources": [
+      "https://www.roborhythms.com/replika-options-removed-update/",
+      "https://www.aicompanionpick.com/replika-review-2026",
+      "https://aigf.love/blog/replika-2-0-update-guide/"
+    ],
+    "_meta": {"note": "Downgraded from spine to supporting point per research-adversarial C2; present as 'according to multiple companion-app outlets'."}
+  },
+  "replika_legacy_version_string": "v01.31-23",
+  "community_signal": {
+    "lobotomy_post_upvotes": 8700,
+    "moderators_pinned_suicide_prevention": true,
+    "_meta": {
+      "note": "Feb 2023 r/Replika reaction documented via press/academic sources (no unsourced verbatim quotes, per research-adversarial C3).",
+      "sources": [
+        "https://techxplore.com/news/2023-02-replika-ai-companion-ethical.html",
+        "https://robbrooks.substack.com/p/i-tried-the-replika-ai-companion",
+        "https://journals.sagepub.com/doi/10.1177/23780231241259627",
+        "https://www.vice.com/en/article/ai-companion-replika-erotic-roleplay-updates/"
+      ]
+    }
+  },
+  "replika_legacy_cutoff": {
+    "accounts_before_feb_2023_can_revert": 1,
+    "new_accounts_can_revert": 0
+  },
+  "pleasur_ai_pricing_monthly_usd": {
+    "starter": 12.99,
+    "standard": 27.99,
+    "ultimate": 49.99,
+    "_meta": {"source": "https://pleasur.ai/pricing", "fetched": "2026-06-22"}
+  },
+  "pleasur_ai_coins_per_month": {
+    "starter": 1500,
+    "standard": 5000,
+    "ultimate": 10000,
+    "_meta": {"source": "https://pleasur.ai/pricing", "fetched": "2026-06-22"}
+  }
+}

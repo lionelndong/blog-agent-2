@@ -1,0 +1,196 @@
+{
+  "slug": "what-happened-to-replika-users",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Simple editorial timeline illustration, horizontal axis left-to-right with four labeled milestone dots: \"2017 Launch\", \"Feb 2023 ERP removed\", \"May 2023 Legacy reversal\", \"2025 New CEO, 40M users\". Clean line, white background, sans-serif labels, brand-neutral muted colors, no text beyond the four labels.",
+        "style": "illustration",
+        "model": "black-forest-labs/flux-schnell",
+        "safety": "sfw"
+      },
+      "alt": "Simple editorial timeline illustration, horizontal axis left-to-right with four labeled milestone dots: \"2017 Launch\", \"Feb 2023 ERP removed\", \"May 2023 Legacy reversal\", \"2025 New CEO, 40M users\". Clean line, white background, sans-serif labels, brand-neutral muted colors, no text beyond the four labels.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-happened-to-replika-users/image-1-simple-editorial-timeline-illu.png",
+        "model": "black-forest-labs/flux-schnell",
+        "retries": 2,
+        "dimensions": [
+          1200,
+          1200
+        ],
+        "prompt": "Full 9-part structured prompt in images/what-happened-to-replika-users/prompts.md (VISUAL 1). Final landed render used a text-suppressed variant: 'Minimalist flat-vector horizontal timeline graphic, Swiss editorial style, off-white #FAF8F5, thin grey baseline with arrowhead, four/five small evenly-spaced solid colored dots (teal/clay/sage/navy), completely textless, no writing/labels/numbers, flat no-shadow vector, 4k.'",
+        "art_director": "Attempt 0 (original placeholder prompt): FAIL \u2014 flux-schnell rendered garbled illegible captions and only 3 dots. Diagnosis: anatomy part 9 (typography) \u2014 flux-schnell cannot render multi-label in-image text. Fix: regenerate textless (captions added downstream). Retry1: cleaner 4-dot line but one stray word + oversized terminal dot. Retry2: even dots but model leaked color-names as text. Landed a clean fully-textless variant (even dots, baseline, arrowhead, no garbled text). ACCEPTABLE for a brand-neutral editorial timeline motif."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Simple editorial timeline illustration, horizontal axis left-to-right with four labeled milestone dots: \"2017 Launch\", \"Feb 2023 ERP removed\", \"May 2023 Legacy reversal\", \"2025 New CEO, 40M users\". Clean line, white background, sans-serif labels, brand-neutral muted colors, no text beyond the four labels.;style=illustration;model=black-forest-labs/flux-schnell;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://www.vice.com/en/article/replika-ceo-ai-erotic-roleplay-chatgpt3-rep/",
+        "selector": "article",
+        "crop": "padded",
+        "what": "Vice headline and lede documenting Replika removing erotic roleplay"
+      },
+      "alt": "Vice headline and lede documenting Replika removing erotic roleplay",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-happened-to-replika-users/external-2-vice-headline-and-lede-documen.png",
+        "url": "https://www.vice.com/en/article/replika-ceo-ai-erotic-roleplay-chatgpt3-rep/",
+        "final_url": "https://www.vice.com/en/article/replika-ceo-ai-erotic-roleplay-chatgpt3-rep/",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 16936,
+          "stddev_normalized": 0.3318,
+          "bytes": 2264198
+        },
+        "sub": "news-quote",
+        "review_note": "Capture is the full article column (2880x16936, very tall) rather than a tight headline+lede clip. Decorative external news-quote; visuals-adversarial may strip or the editor may re-crop to the headline. Content captured successfully."
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://www.vice.com/en/article/replika-ceo-ai-erotic-roleplay-chatgpt3-rep/;selector=article;crop=padded;what=Vice headline and lede documenting Replika removing erotic roleplay]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://techxplore.com/news/2023-02-replika-ai-companion-ethical.html",
+        "selector": "article",
+        "crop": "padded",
+        "what": "Press coverage documenting users' grief and moderators pinning support resources"
+      },
+      "alt": "Press coverage documenting users' grief and moderators pinning support resources",
+      "status": "stripped",
+      "result": {
+        "status": "stripped",
+        "stripped_by": "visuals-adversarial",
+        "stripped_reason": "Decorative/redundant external news-quote. The fact it would show (r/Replika moderators pinning suicide-prevention resources + user grief) is already stated and inline-cited in the same paragraph via Vice, and the preceding section already carries a captured external news-quote (external-2 Vice headline). A second external press-screenshot violates MECE (no near-duplicate visual types back-to-back) and carries no unique information. Auto-capture also failed (bounding_box_failed) and cannot be realized this run (no Chrome/Playwright MCP). Placeholder removed from cited draft.",
+        "prior_status": "failed",
+        "prior_reason": "bounding_box_failed"
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://techxplore.com/news/2023-02-replika-ai-companion-ethical.html;selector=article;crop=padded;what=Press coverage documenting users' grief and moderators pinning support resources]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "competitor-ui",
+        "url": "https://en.wikipedia.org/wiki/Replika",
+        "selector": "table.infobox",
+        "crop": "padded",
+        "what": "Wikipedia infobox anchoring Replika's user count and CEO facts"
+      },
+      "alt": "Wikipedia infobox anchoring Replika's user count and CEO facts",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-happened-to-replika-users/external-4-wikipedia-infobox-anchoring-re.png",
+        "url": "https://en.wikipedia.org/wiki/Replika",
+        "final_url": "https://en.wikipedia.org/wiki/Replika",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 812,
+          "height": 812,
+          "stddev_normalized": 0.1728,
+          "bytes": 123532
+        },
+        "sub": "competitor-ui"
+      },
+      "raw": "[VISUAL:type=external;sub=competitor-ui;url=https://en.wikipedia.org/wiki/Replika;selector=table.infobox;crop=padded;what=Wikipedia infobox anchoring Replika's user count and CEO facts]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Vertical editorial checklist illustration titled \"Feature-stability check\". Five labeled checkbox rows: \"Removed features before?\", \"Adult chat for all paid users?\", \"Persistent memory?\", \"Changes announced first?\", \"Regulator actions?\". Clean flat-vector style, white background, sans-serif labels, muted brand-neutral palette, no people.",
+        "style": "flat-vector",
+        "model": "black-forest-labs/flux-schnell",
+        "safety": "sfw"
+      },
+      "alt": "Vertical editorial checklist illustration titled \"Feature-stability check\". Five labeled checkbox rows: \"Removed features before?\", \"Adult chat for all paid users?\", \"Persistent memory?\", \"Changes announced first?\", \"Regulator actions?\". Clean flat-vector style, white background, sans-serif labels, muted brand-neutral palette, no people.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-happened-to-replika-users/image-5-vertical-editorial-checklist-i.png",
+        "model": "black-forest-labs/flux-schnell",
+        "retries": 2,
+        "dimensions": [
+          1200,
+          1200
+        ],
+        "prompt": "Full 9-part structured prompt in images/what-happened-to-replika-users/prompts.md (VISUAL 2). Final landed render used a text-suppressed variant: 'Minimalist flat-vector checklist card, Swiss editorial UI, white rounded card on off-white #FAF8F5 with soft drop shadow, slim indigo #3D4A7A header band, rows with rounded-square checkboxes + teal #3E7C84 checkmarks, completely textless (no words/letters/numbers), flat vector, 4k.'",
+        "art_director": "Attempt 0 (original placeholder prompt): FAIL \u2014 flux-schnell rendered garbled title 'Feature-stblitt check' and 5 nonsense row labels, 6 boxes. Diagnosis: anatomy part 9 (typography) \u2014 flux-schnell cannot render 5 text rows. Fix: regenerate textless card (labels added downstream). Landed a clean premium checklist card: indigo/teal header band, 4 checkbox rows (2 checked teal, 2 empty), soft drop shadow, fully textless. ACCEPTABLE as a brand-neutral feature-stability checklist motif."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Vertical editorial checklist illustration titled \"Feature-stability check\". Five labeled checkbox rows: \"Removed features before?\", \"Adult chat for all paid users?\", \"Persistent memory?\", \"Changes announced first?\", \"Regulator actions?\". Clean flat-vector style, white background, sans-serif labels, muted brand-neutral palette, no people.;style=flat-vector;model=black-forest-labs/flux-schnell;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "create",
+        "what": "AI Companion Creator showing a saved companion with persistent chat history",
+        "annotate": ".chat-history-panel"
+      },
+      "alt": "AI Companion Creator showing a saved companion with persistent chat history",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-happened-to-replika-users/screenshot-6-ai-companion-creator-showing-a.png",
+        "url": "https://pleasur.ai/create",
+        "final_url": "https://pleasur.ai/create",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.1415,
+          "bytes": 1450608
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;target=create;what=AI Companion Creator showing a saved companion with persistent chat history;annotate=.chat-history-panel]",
+      "legacy": false
+    },
+    {
+      "index": 7,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.replika_user_base_chart",
+        "style": "bar",
+        "title": "Replika reported user base, 2024-2025 (millions)",
+        "y_label": "Users (millions)"
+      },
+      "alt": "Replika reported user base, 2024-2025 (millions)",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-happened-to-replika-users/chart-1-replika-reported-user-base-202.png",
+        "style": "bar",
+        "data_points": 2
+      },
+      "raw": "[VISUAL:type=chart;data=research.replika_user_base_chart;style=bar;title=Replika reported user base, 2024-2025 (millions);y_label=Users (millions)]",
+      "legacy": false
+    }
+  ]
+}
