@@ -4,7 +4,7 @@ Replika isn't dead. But the company has twice changed the product out from under
 
 This piece lays out exactly what changed and when, in a clean timeline you can check against the sources yourself. Then it gives a clear-eyed read on whether Replika is worth it in 2026, and a short checklist for spotting a companion app that won't strip features overnight. The dates carry the argument. We'll let them.
 
-![Simple editorial timeline illustration, horizontal axis left-to-right with four labeled milestone dots: "2017 Launch", "Feb 2023 ERP removed", "May 2023 Legacy reversal", "2025 New CEO, 40M users". Clean line, white background, sans-serif labels, brand-neutral muted colors, no text beyond the four labels.](images/what-happened-to-replika-users/image-1-simple-editorial-timeline-illu.png)
+![Simple editorial timeline illustration, horizontal axis left-to-right with four labeled milestone dots: "2017 Launch", "Feb 2023 ERP removed", "May 2023 Legacy reversal", "2025 New CEO, 40M users". Clean line, white background, sans-serif labels, brand-neutral muted colors, no text beyond the four labels.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_simple_editorial_timeline_illu_9fdc8db02f.png)
 
 ## What Happened to Replika in February 2023
 
@@ -20,7 +20,7 @@ The scope is what made it sting. A regulator in one country had raised concerns 
 
 That's the documented event, [sourced and dated](https://en.wikipedia.org/wiki/Replika). Removing the feature was one thing. The scale of the human reaction is what turned a policy change into a cautionary tale.
 
-![Vice headline and lede documenting Replika removing erotic roleplay](images/what-happened-to-replika-users/external-2-vice-headline-and-lede-documen.png)
+![Vice headline and lede documenting Replika removing erotic roleplay](https://elegant-cactus-c693703b28.media.strapiapp.com/external_2_vice_headline_and_lede_documen_8b56d4537e.png)
 
 ## Why Users Felt Betrayed — and What the Backlash Looked Like
 
@@ -40,14 +40,14 @@ The reversal came with a catch built into the account system. Members who joined
 
 So, is Replika dead? No. The user base [passed 30 million in August 2024 and exceeded 40 million in 2025](https://en.wikipedia.org/wiki/Replika). [Kuyda stepped down and Dmytro Klochko took over as CEO](https://en.wikipedia.org/wiki/Replika). By the numbers, the company is healthier than it was during the saga.
 
-![Replika reported user base, 2024-2025 (millions)](images/what-happened-to-replika-users/chart-1-replika-reported-user-base-202.png)
+![Replika reported user base, 2024-2025 (millions)](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_1_replika_reported_user_base_202_f37f609f85.png)
 *Replika's user base grew from over 30 million (August 2024) to over 40 million (2025). Figures are company-reported, [per Wikipedia](https://en.wikipedia.org/wiki/Replika).*
 
 Is it the same app? Also no. According to multiple companion-app outlets, a [reported 2026 "version 2.0" update trimmed avatar customization, swapped 3D avatars for 2D ones, and dropped the Diary feature](https://www.roborhythms.com/replika-options-removed-update/). The outlets agree a disruptive update shipped; they disagree on the exact month and the precise feature list, so treat this as reported rather than confirmed. It rhymes with 2023 either way — a product changing under its users, with the details surfacing after the fact.
 
 There was a legal coda too. In April 2025, the Garante [fined Luka €5 million for GDPR violations, citing an inadequate legal basis for processing and a lack of age verification](https://www.edpb.europa.eu/news/national-news/2025/ai-italian-supervisory-authority-fines-company-behind-chatbot-replika_en). No compensation reached the users who'd lost their companions two years earlier. Strip the narrative down to dates and one pattern stands out — which is easier to see in a table than in prose.
 
-![Wikipedia infobox anchoring Replika's user count and CEO facts](images/what-happened-to-replika-users/external-4-wikipedia-infobox-anchoring-re.png)
+![Wikipedia infobox anchoring Replika's user count and CEO facts](https://elegant-cactus-c693703b28.media.strapiapp.com/external_4_wikipedia_infobox_anchoring_re_a2bacbe63d.png)
 
 ## Replika Timeline: Every Major Change, Dated and Sourced
 
@@ -55,7 +55,7 @@ Here is the full Replika story as a single scannable timeline — every date, ev
 
 Read top to bottom and the shape is hard to miss: a feature added, then removed without warning, then restored for some users but not others — and the pattern repeats. Every cell below is a documented event with a public source behind it.
 
-![Date table](images/what-happened-to-replika-users/table-pub-1.png)
+![Date table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_1_4c087778ae.png)
 
 - **2017** — Replika launches (Luka Inc., founded by Eugenia Kuyda) — [Wikipedia](https://en.wikipedia.org/wiki/Replika)
 - **Feb 3, 2023** — Italy's Garante orders Luka to stop processing Italian users' data — [EDPB](https://www.edpb.europa.eu/news/national-news/2025/ai-italian-supervisory-authority-fines-company-behind-chatbot-replika_en) / [TechCrunch](https://techcrunch.com/2023/02/03/replika-italy-data-processing-ban/)
@@ -84,7 +84,7 @@ Run any app you're considering through five questions. Each one maps to a docume
 
 We've broken down how to weigh memory and the rest of these criteria in our [guide to choosing an NSFW AI companion](https://pleasur.ai/blog/how-to-choose-an-nsfw-ai-companion) and our [rundown of the best AI companion memory](https://pleasur.ai/blog/ai-companion-best-memory), so we won't re-explain the mechanics here. With the criteria in hand, here's where ex-Replika users went.
 
-![Vertical editorial checklist illustration titled "Feature-stability check". Five labeled checkbox rows: "Removed features before?", "Adult chat for all paid users?", "Persistent memory?", "Changes announced first?", "Regulator actions?". Clean flat-vector style, white background, sans-serif labels, muted brand-neutral palette, no people.](images/what-happened-to-replika-users/image-5-vertical-editorial-checklist-i.png)
+![Vertical editorial checklist illustration titled "Feature-stability check". Five labeled checkbox rows: "Removed features before?", "Adult chat for all paid users?", "Persistent memory?", "Changes announced first?", "Regulator actions?". Clean flat-vector style, white background, sans-serif labels, muted brand-neutral palette, no people.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_5_vertical_editorial_checklist_i_5c4f620963.png)
 
 ## Where Replika Users Went: 7 Alternatives Compared
 
@@ -92,7 +92,7 @@ A real share of the AI-companion market's growth since 2023 traces back to ex-Re
 
 The timing is its own tell. Kindroid [launched in June 2023 — four months after the saga — straight into the gap Replika had opened](https://findaiboyfriend.com/blog/replika-vs-kindroid/). Nomi, Character.AI, Candy.ai, CrushOn.AI, and Soulkyn [recur across the alternatives coverage as the other names migrants settled on](https://www.aicompanionpick.com/replika-alternatives-2026). They split along clear lines: some lead on memory, some on unfiltered roleplay, some on image generation, one (Character.AI) on raw audience size with the heaviest moderation of the group.
 
-![App table](images/what-happened-to-replika-users/table-pub-2.png)
+![App table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_2_4bd59b84ab.png)
 
 - **Pleasur.AI** — Adult companion + image hub — Yes — every paying tier — Has not stripped a romantic feature from paying users — Persistent memory via the Companion Creator
 - **Kindroid** — Personal AI companion — Yes — — — Launched Jun 2023, into the post-saga gap
@@ -106,7 +106,7 @@ The Pleasur.AI row earns its place on the two things migrants said they wanted b
 
 The right pick depends less on any single feature and more on which app you trust not to change the deal later.
 
-![AI Companion Creator showing a saved companion with persistent chat history](images/what-happened-to-replika-users/screenshot-6-ai-companion-creator-showing-a.png)
+![AI Companion Creator showing a saved companion with persistent chat history](https://elegant-cactus-c693703b28.media.strapiapp.com/screenshot_6_ai_companion_creator_showing_a_cdb273aeda.png)
 
 ## Frequently Asked Questions
 
