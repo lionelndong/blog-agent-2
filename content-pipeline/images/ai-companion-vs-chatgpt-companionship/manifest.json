@@ -1,0 +1,42 @@
+{
+  "slug": "ai-companion-vs-chatgpt-companionship",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "table",
+      "attrs": {
+        "type": "table",
+        "what": "ChatGPT vs specialized companion app comparison across six capabilities"
+      },
+      "alt": "ChatGPT vs specialized companion app comparison across six capabilities",
+      "status": "skip",
+      "result": {
+        "status": "skip",
+        "reason": "type_table_not_an_asset"
+      },
+      "raw": "[VISUAL:type=table;what=ChatGPT vs specialized companion app comparison across six capabilities]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Side-by-side comparison labeled \"ChatGPT\" (left) vs \"Companion app\" (right). Left: three separate chat-bubble icons with a small reset loop arrow between each, captioned \"starts fresh each session\". Right: three chat-bubble icons connected by a continuous arrow into a labeled \"Memory store\" box with sub-labels \"saved facts\" and \"long-term understanding\", captioned \"carries history forward\". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Side-by-side comparison labeled \"ChatGPT\" (left) vs \"Companion app\" (right). Left: three separate chat-bubble icons with a small reset loop arrow between each, captioned \"starts fresh each session\". Right: three chat-bubble icons connected by a continuous arrow into a labeled \"Memory store\" box with sub-labels \"saved facts\" and \"long-term understanding\", captioned \"carries history forward\". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-companion-vs-chatgpt-companionship/image-2-side-by-side-comparison-labele.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Side-by-side comparison labeled \"ChatGPT\" (left) vs \"Companion app\" (right). Left: three separate chat-bubble icons with a small reset loop arrow between each, captioned \"starts fresh each session\". Right: three chat-bubble icons connected by a continuous arrow into a labeled \"Memory store\" box with sub-labels \"saved facts\" and \"long-term understanding\", captioned \"carries history forward\". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Side-by-side comparison labeled \"ChatGPT\" (left) vs \"Companion app\" (right). Left: three separate chat-bubble icons with a small reset loop arrow between each, captioned \"starts fresh each session\". Right: three chat-bubble icons connected by a continuous arrow into a labeled \"Memory store\" box with sub-labels \"saved facts\" and \"long-term understanding\", captioned \"carries history forward\". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.;style=illustration;safety=sfw]",
+      "legacy": false
+    }
+  ]
+}

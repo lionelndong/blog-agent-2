@@ -1,0 +1,55 @@
+{
+  "serp_page_word_counts": {
+    "sitepoint_ai_companion_apps": 1360,
+    "straight_best_ai_girlfriends": 3540,
+    "genies_best_ai_companion_apps": 5510,
+    "apa_ai_mental_health_care": 1796,
+    "_meta": {
+      "source": "Firecrawl body-word-count of live ranking pages, fetched 2026-06-24",
+      "note": "Listicles; our target is a 1000-1400-word answer-first comparison, not length parity"
+    }
+  },
+  "serp_listicle_item_counts": {
+    "sitepoint": 5,
+    "straight": 8,
+    "genies": 6,
+    "_meta": {"source": "Firecrawl H2/H3 app-entry counts, 2026-06-24"}
+  },
+  "serp_comparison_table_usage": {
+    "pages_with_chatgpt_vs_companion_table": 0,
+    "pages_benchmarked": 3,
+    "_meta": {"source": "Firecrawl table-detection across sitepoint/straight/genies, 2026-06-24; none has a head-to-head table"}
+  },
+  "pleasur_ai_pricing_monthly_usd": {
+    "starter": 12.99,
+    "standard": 27.99,
+    "ultimate": 49.99,
+    "_meta": {"source": "https://pleasur.ai/pricing (fetched 2026-06-24); coin-metered, not flat"}
+  },
+  "pleasur_ai_monthly_coins": {
+    "starter": 1500,
+    "standard": 5000,
+    "ultimate": 10000,
+    "_meta": {"source": "https://pleasur.ai/pricing (fetched 2026-06-24)"}
+  },
+  "pleasur_ai_coin_costs": {
+    "image_generation_coins": 10,
+    "voice_note_coins": 10,
+    "phone_call_coins_per_min": 50,
+    "_meta": {"source": "https://pleasur.ai/pricing (fetched 2026-06-24); phone calls Standard+Ultimate only"}
+  },
+  "beat_spec_targets": {
+    "target_words_min": 1000,
+    "target_words_max": 1400,
+    "prescribed_h2_count": 6,
+    "faq_question_count": 4,
+    "recommended_table_rows": 6,
+    "_meta": {"source": "GEO brief PLE-2959; word target overrides SKILL default per brief"}
+  },
+  "sentiment_stats": {
+    "pew_2023_more_concerned_than_excited_pct": 52,
+    "companions_reliably_recall_month_old_chat_count": 3,
+    "companions_tested": 9,
+    "_meta": {"source": "deep research -deep.md: Pew 2023 [11]; hands-on 9-app recall test"}
+  }
+}

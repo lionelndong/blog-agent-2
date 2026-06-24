@@ -1,3 +1,5 @@
+# Why Specialized AI Companions Beat ChatGPT for Emotional Depth
+
 ChatGPT is a general-purpose assistant. It resets every conversation, has no fixed persona, and is not designed for emotional connection. AI companion apps like Pleasur.ai are purpose-built: they maintain relationship memory across sessions, have a consistent companion personality, offer real-time voice, and develop relationship context over time — capabilities ChatGPT does not provide by default.
 
 They feel different because they're engineered for a different job. ChatGPT runs conservative, task-oriented tuning. Companion apps wrap memory, persona, and voice around the same kind of model and aim the whole stack at emotional continuity. Same class of model, opposite intent.
@@ -12,14 +14,16 @@ A general assistant optimizes for accuracy and breadth; a companion app optimize
 
 Here's the part most write-ups miss: the gap isn't the underlying model, it's the layer wrapped around it. Companion apps stack persistent memory, a stored persona, and voice on top of an LLM, then tune the result for connection. ChatGPT ships task-focused defaults and is positioned away from romance and roleplay — Sam Altman has said OpenAI [made ChatGPT "pretty restrictive" to be careful with mental-health issues](https://techcrunch.com/2025/10/14/sam-altman-says-chatgpt-will-soon-allow-erotica-for-adult-users/), and OpenAI's own [Model Spec](https://model-spec.openai.com/2025-12-18.html) frames it as an assistant for users and developers, not a partner. Same engine, different car.
 
-![Capability table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_1_5e030d6b29.png)
 
-- **Persistent cross-session memory** — Lightly summarizes or siloes chat history; no relationship narrative — Built to carry relationship history across sessions
-- **Fixed companion persona** — Promptable, but not durable — resets between chats — A consistent companion identity that persists
-- **Real-time voice (audio)** — General assistant voice, not built for intimacy — In-chat voice notes plus real-time audio calls (audio only)
-- **Relationship arc over time** — No arc — every session starts fresh — Companion context develops over weeks and months
-- **Designed for emotional connection** — No — [positioned for info and assistance](https://model-spec.openai.com/2025-12-18.html) — Yes — purpose-built for companionship
-- **Pricing model** — Not coin-metered: [Free $0 / Plus $20/mo / Pro $200/mo](https://www.cloudzero.com/blog/how-much-does-chatgpt-cost/) — Coin-metered, three tiers [$12.99 / $27.99 / $49.99](https://pleasur.ai/pricing)
+
+| Capability | ChatGPT (general-purpose) | Specialized companion app (e.g. Pleasur.ai) |
+|---|---|---|
+| Persistent cross-session memory | Lightly summarizes or siloes chat history; no relationship narrative | Built to carry relationship history across sessions |
+| Fixed companion persona | Promptable, but not durable — resets between chats | A consistent companion identity that persists |
+| Real-time voice (audio) | General assistant voice, not built for intimacy | In-chat voice notes plus real-time audio calls (audio only) |
+| Relationship arc over time | No arc — every session starts fresh | Companion context develops over weeks and months |
+| Designed for emotional connection | No — [positioned for info and assistance](https://model-spec.openai.com/2025-12-18.html) | Yes — purpose-built for companionship |
+| Pricing model | Not coin-metered: [Free $0 / Plus $20/mo / Pro $200/mo](https://www.cloudzero.com/blog/how-much-does-chatgpt-cost/) | Coin-metered, three tiers [$12.99 / $27.99 / $49.99](https://pleasur.ai/pricing) |
 
 For the full breakdown of how a companion differs from a regular chatbot, see [What Is an AI Companion Chatbot?](https://pleasur.ai/blog/ai-companion-chatbot-explained). The clearest place that split shows up is memory.
 
@@ -29,7 +33,7 @@ The biggest gap is memory: ChatGPT effectively resets between conversations, whi
 
 Think of memory in layers: the context window (what fits inside a single chat), a saved fact list and pinned notes, and persistent long-term understanding that survives across sessions. A ChatGPT session without its memory feature on is mostly that first layer — the structural reason it "starts fresh" each time you return.
 
-![Side-by-side comparison labeled "ChatGPT" (left) vs "Companion app" (right). Left: three separate chat-bubble icons with a small reset loop arrow between each, captioned "starts fresh each session". Right: three chat-bubble icons connected by a continuous arrow into a labeled "Memory store" box with sub-labels "saved facts" and "long-term understanding", captioned "carries history forward". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_2_side_by_side_comparison_labele_6791d17a63.png)
+![Side-by-side comparison labeled "ChatGPT" (left) vs "Companion app" (right). Left: three separate chat-bubble icons with a small reset loop arrow between each, captioned "starts fresh each session". Right: three chat-bubble icons connected by a continuous arrow into a labeled "Memory store" box with sub-labels "saved facts" and "long-term understanding", captioned "carries history forward". Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.](images/ai-companion-vs-chatgpt-companionship/image-2-side-by-side-comparison-labele.png)
 
 A companion app centers on the deeper layers. Saved facts and long-term understanding resume when you reopen the app, so the conversation picks up where it left off. Pleasur.ai's memory layer is designed this way — saved details and history meant to carry across sessions; the [Best AI Girlfriend With Memory (2026)](https://pleasur.ai/blog/ai-companion-best-memory) guide covers the full four-types framework and a hands-on recall test.
 
@@ -100,3 +104,14 @@ It's designed to carry conversation history and saved details across sessions, s
 ChatGPT and a companion app aren't better or worse in the abstract — they're designed for different jobs. Want quick answers, research, or code? ChatGPT wins. Want emotional depth and continuity? A purpose-built companion wins by design, because memory, persona, voice, and a real relationship arc are the product rather than things you re-prompt each time.
 
 Want the definitional deep-dive first? Start with [What Is an AI Companion Chatbot?](https://pleasur.ai/blog/ai-companion-chatbot-explained). Or build one in the [AI Companion Creator](https://pleasur.ai/create) and see persistent persona and memory for yourself.
+
+## Editor notes / Voice-flagged statements (review)
+
+These are opinionated-voice statements (population quantifiers, superlatives, comparative absolutes), flagged for editorial judgment — NOT auto-linked:
+
+- "the part most write-ups miss" (intro to Core Difference) — comparative claim about competing coverage.
+- "Here's the part most write-ups miss: the gap isn't the underlying model" — framing claim.
+- "a companion app a reader keeps talking to" / "a tool you open and close" — characterization, brand voice metaphor.
+- "the large majority shared or sold user data" — softened from Mozilla's specific 90% figure; the linked Mozilla review supports "90% may share or sell," so "large majority" is conservative and within source. Editor may tighten to "90%" with the same link if desired.
+- "regular users describe a companion app as 'knowing them'" — unattributed user-sentiment generalization; kept as voice, not cited.
+- "some companions deliver well and others fake" — comparative absolute about the category; voice, not a citable metric.

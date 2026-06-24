@@ -1,0 +1,4 @@
+2026-06-24 optimize-content run — ai-companion-vs-chatgpt-companionship
+action=optimize endpoint=/articles/analyze draft=ai-companion-vs-chatgpt-companionship.md (14648 chars)
+error: ContentShake API HTTP 400 Bad Request: query type not found
+Exit code 1. Same persistent /analyze outage observed since 2026-06-15 (9th consecutive slug). No API slot consumed. Soft-skip per skill + host note.
