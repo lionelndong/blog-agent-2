@@ -1,0 +1,81 @@
+{
+  "slug": "what-breaks-immersion-ai-roleplay",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://feltreal.org/blog/what-happened-to-replika",
+        "selector": "blockquote",
+        "crop": "padded",
+        "what": "A Replika user describing the post-update personality change they called \"the lobotomy\""
+      },
+      "alt": "A Replika user describing the post-update personality change they called \"the lobotomy\"",
+      "status": "stripped",
+      "strip_reason": "visuals-adversarial: DECORATIVE. The 'lobotomy' quote and community term are already quoted-and-cited inline in the prose (verbatim user quote hyperlinked to scroll.in in §3; 'lobotomy' term hyperlinked to feltreal.org in §1). An external screenshot of the same blockquote carries no concrete information the prose doesn't already carry (editorial rule #2/#3 + earns-its-place test). Capture would require Claude-in-Chrome (unreachable this session); decorative, so stripped rather than chased.",
+      "result": {
+        "status": "failed",
+        "reason": "bounding_box_failed",
+        "error": "Locator.bounding_box: Timeout 30000ms exceeded.\nCall log:\n  2 \u00d7 waiting for locator(\"blockquote\").first\n",
+        "url": "https://feltreal.org/blog/what-happened-to-replika",
+        "sub": "news-quote",
+        "fallback": {
+          "method": "claude_in_chrome",
+          "skill": "/capture-visuals",
+          "url": "https://feltreal.org/blog/what-happened-to-replika",
+          "selector": "blockquote",
+          "what": "A Replika user describing the post-update personality change they called \"the lobotomy\"",
+          "sub": "news-quote"
+        },
+        "hint": "Playwright blocked (bounding_box_failed). Run `/capture-visuals what-breaks-immersion-ai-roleplay` to retry this entry via Claude-in-Chrome (real Chrome session bypasses the wall). The skill picks up `failed` external entries automatically in unattended mode."
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://feltreal.org/blog/what-happened-to-replika;selector=blockquote;crop=padded;what=A Replika user describing the post-update personality change they called \"the lobotomy\"]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "action-shot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "create",
+        "what": "a companion chat showing the speaker icon on a reply bubble and the Call button on the character header",
+        "annotate": "#voice-button"
+      },
+      "alt": "a companion chat showing the speaker icon on a reply bubble and the Call button on the character header",
+      "status": "stripped",
+      "strip_reason": "visuals-adversarial: DECORATIVE. The §4 prose already explains the voice UI fully in words — 'tap the speaker icon next to a reply' (Voice Replies) and 'tap the Call button on the character's profile' (Phone Call) — naming both controls, their locations, and their behavior. Two clearly-named, clearly-located buttons convey no non-obvious UI information a screenshot would add (editorial rule #3: an action-shot that merely illustrates a feature the prose already explains is decorative). Capture would require a logged-in Claude-in-Chrome session (unreachable this session); decorative, so stripped rather than flagged CRITICAL.",
+      "result": {
+        "status": "manual",
+        "reason": "wrong_ui_state_action_shot",
+        "note": "Headless capture of /create landed on the Create wizard step 1 (Basics, Step 1 of 6) with explicit imagery and an unauthenticated header (Login/Join Free visible) — NOT the in-chat post-interaction state the placeholder requires (populated chat, reply bubble, speaker icon, Call button). This is an ACTION-SHOT (multi-step interactive state), not a static page capture. Routed to /capture-visuals for a real Chrome session that logs in, opens a chat, and captures the voice UI. Misleading headless PNG discarded.",
+        "fallback": {
+          "method": "claude_in_chrome",
+          "skill": "/capture-visuals",
+          "target": "chat",
+          "what": "a companion chat showing the speaker icon on a reply bubble and the Call button on the character header",
+          "annotate": "#voice-button"
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;target=create;what=a companion chat showing the speaker icon on a reply bubble and the Call button on the character header;annotate=#voice-button]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "table",
+      "attrs": {
+        "type": "table",
+        "columns": "[App, Persistent cross-session memory, Real-time voice, Built for"
+      },
+      "alt": "table visual",
+      "status": "skip",
+      "result": {
+        "status": "skip",
+        "reason": "type_table_not_an_asset"
+      },
+      "raw": "[VISUAL:type=table;columns=[App, Persistent cross-session memory, Real-time voice, Built for]",
+      "legacy": false
+    }
+  ]
+}

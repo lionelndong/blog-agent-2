@@ -1,0 +1,44 @@
+{
+  "serp_word_counts": {
+    "jenova_ai": 2547,
+    "questie_ai": 3936,
+    "indiehackers": 3213,
+    "medium_guide": 5075,
+    "_meta": {
+      "source": "Firecrawl markdown extraction 2026-06-24; body-word estimate including some boilerplate",
+      "note": "Reddit and Quora SERP entries excluded (bot-walled / forum boilerplate)"
+    }
+  },
+  "serp_structure": {
+    "median_words_top3": 3213,
+    "max_words_top3": 3936,
+    "pages_with_comparison_table": 3,
+    "pages_extracted": 4,
+    "_meta": {
+      "source": "Firecrawl 2026-06-24; top3 = jenova/questie/indiehackers by content-page rank, excluding forum/video results"
+    }
+  },
+  "immersion_break_drivers": {
+    "memory_loss_context_truncation": 1,
+    "character_personality_drift": 1,
+    "text_only_lack_of_voice": 1,
+    "safety_filter_refusals": 1,
+    "_meta": {
+      "source": "Synthesis of deep research (Perplexity 2026-06-24) + SERP H2 consensus; values are presence flags, not magnitudes"
+    }
+  },
+  "pleasurai_pricing_usd": {
+    "starter_monthly": 12.99,
+    "standard_monthly": 27.99,
+    "ultimate_monthly": 49.99,
+    "starter_coins_month": 1500,
+    "standard_coins_month": 5000,
+    "ultimate_coins_month": 10000,
+    "image_coins_each": 10,
+    "voice_note_coins_each": 10,
+    "phone_call_coins_per_min": 50,
+    "_meta": {
+      "source": "https://pleasur.ai/pricing (fetched 2026-06-24)"
+    }
+  }
+}
