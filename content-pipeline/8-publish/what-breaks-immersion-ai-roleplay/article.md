@@ -58,7 +58,7 @@ In practice, that means she picks the thread back up — your name, the story yo
 
 Put the two together and you get the stack that fixes all three breaks: persistent cross-session memory closes the memory gap and steadies the character, and real-time audio voice closes the flatness gap — built for companionship. That pairing is what almost no competitor states plainly.
 
-![App table](images/what-breaks-immersion-ai-roleplay/table-pub-1.png)
+![App table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_1_ec9c22ad5e.png)
 
 - **Pleasur.ai** — Yes — Yes (real-time audio: voice notes + calls) — Companionship / relationship roleplay
 - **Jenova.ai** — Yes (long context retention) — Not found on its roleplay page — Roleplay text, memory-first
