@@ -1,14 +1,14 @@
 ---
 name: research
 description: Gather keyword metrics, related terms, questions, full SERP benchmark, top-page extractions, and deep web research for a target keyword, then emit a beat spec the outline must satisfy. Triggered by /research <keyword> or as the first content stage of /blog-pipeline.
-allowed-tools: Read, Write, WebFetch, mcp__semrush__*, Bash
+allowed-tools: Read, Write, WebFetch, mcp__ahrefs__*, Bash
 ---
 
 # Research Skill
 
 Produce a research dossier that ends in a **beat spec** — a quantified statement of what this article must do to deserve the top of this SERP. The outline is bound by the beat spec; the quality gate scores against it. If the research is thin, everything downstream is thin: this is the most leverage-dense stage of the pipeline.
 
-> Tool calls: read [`references/semrush-mcp-cheatsheet.md`](./references/semrush-mcp-cheatsheet.md) first — it pins the REAL tool/report names and parameter shapes (the only pattern is `get_report_schema` → `execute_report`). Never call `mcp__semrush__keyword-overview`, `topic-research`, `serp-results` or other invented names; they don't exist.
+> Tool calls: read [`references/ahrefs-mcp-cheatsheet.md`](./references/ahrefs-mcp-cheatsheet.md) first — it maps each research task to the real Ahrefs MCP tools and pins the param rules. Two rules that bite: params are comma-separated **strings**, not JSON arrays (`keywords:"ai girlfriend app"`, not `["ai girlfriend app"]`), and `select` + `country` are required on most endpoints. For any tool you haven't used this run, call the `doc` tool first (e.g. `doc {tool:"keywords-explorer-overview"}`) to get its exact input/output schema. Never invent tool names.
 
 ## Input
 
@@ -20,11 +20,11 @@ If invoked with no argument, read the most recent context file in `content-pipel
 
 1. **Slugify.** `python scripts/slugify.py "<keyword>"`; store the slug.
 2. **Read brand context.** `brand-config.md` — audience, products, voice. Research framing should consider what this brand can credibly own.
-3. **Pull keyword data via Semrush MCP** (cheatsheet steps 1–4):
-   - `phrase_this` + `phrase_kdi` → volume, CPC, competition, KD%
-   - `phrase_fullsearch` + `phrase_related` (limit 40–50) → variation pool; keep 10–15 same-intent keywords with volumes
-   - `phrase_questions` (limit 30–40) → group into 3–5 question themes; drop spam
-   - `phrase_organic` (limit 10–20) → the ranking URLs, in order
+3. **Pull keyword data via Ahrefs MCP** (cheatsheet "Research workflow"):
+   - `keywords-explorer-overview` (`select:"keyword,volume,difficulty,cpc,parent_topic,traffic_potential,global_volume,intents"`) → volume, KD (`difficulty`), CPC, **parent topic** (write to the parent, not the long-tail), traffic potential, intent flags
+   - `keywords-explorer-matching-terms` (`match_mode:"phrase"`, limit ~50) + `keywords-explorer-related-terms` ("also rank for" / "also talk about") → variation pool; keep 10–15 same-intent keywords with volumes
+   - **Questions → 3–5 FAQ themes (there is NO dedicated questions tool):** pull `keywords-explorer-matching-terms` (`match_mode:"terms"`, limit ~100) and keep keywords starting with what/how/is/are/can/does/do/why/which/who/where, AND read `serp-overview`'s `serp_features` for People-Also-Ask entries. Group into 3–5 themes; drop spam. (Downstream, the FAQ caps at ~5 crisp Q&As — no 12-question dumps, no near-duplicates.)
+   - `serp-overview` (`keyword` required) → the ranking URLs, in order, with positions
 4. **Build the SERP benchmark (MANDATORY — the heart of this skill).**
    Extract the full content of the top 5–8 ranking pages (skip ads, skip our own domain): for each page, POST to Firecrawl (`https://api.firecrawl.dev/v1/scrape`, body `{"url": <url>, "formats": ["markdown"]}`, header `Authorization: Bearer $FIRECRAWL_API_KEY`); fall back to WebFetch on error. From each extraction record:
    - Word count (of article body, excluding nav/boilerplate — estimate honestly)
@@ -39,7 +39,7 @@ If invoked with no argument, read the most recent context file in `content-pipel
    - **Consensus topics** — covered by 3+ of the extracted pages (the article MUST cover all of these)
    - **Partial topics** — covered by 1–2 (differentiate with more depth)
    - **Gaps** — asked by searchers (question themes, deep research) but covered by nobody (the information-gain opportunity)
-5. **Authority check.** `domain_ranks` for the top-3 domains, `url_organic` (limit 10) for the top-3 URLs → is this SERP beatable, and what secondary keywords do winning pages also rank for (fold the good ones into the outline's subtopics).
+5. **Authority check.** `site-explorer-domain-rating` (or `site-explorer-metrics`) for the top-3 domains, `site-explorer-organic-keywords` (limit 10) for the top-3 URLs → is this SERP beatable, and what secondary keywords do winning pages also rank for (fold the good ones into the outline's subtopics).
 6. **First-party fact lock (MANDATORY — added 2026-06-15, PLE-2330).** Before writing any pricing/feature claim into the dossier, fetch the LIVE pages and record exact figures as first-party facts:
    - **Our product (always):** `WebFetch https://pleasur.ai/pricing` and capture every tier name, monthly price, annual-equivalent price, coin/credit allowance, and per-action media metering (image / voice / call costs). Cross-check against the **Canonical pricing** block in `brand-config.md`: if the live page and the block disagree, **trust the live page**, use it in the dossier, and note in the dossier that `brand-config.md` canonical pricing needs a refresh (so the drift gets fixed). If `pleasur.ai/pricing` 404s or the path moved, try `pleasur.ai` nav / `pleasur.ai/plans` and record the working URL.
    - **The competitor (for any comparison/`X vs Y`/alternatives keyword):** fetch the named competitor's live pricing/feature page the same way and record exact tiers/prices/metering. Do not infer competitor prices from reviews or the brief when a live page exists.
@@ -64,7 +64,7 @@ If invoked with no argument, read the most recent context file in `content-pipel
    - Must-cover topics (consensus): <bulleted list — every one becomes outline coverage>
    - Differentiation topics: <partial-coverage topics we go deeper on>
    - Information gain (≥1 REQUIRED): <the thing nobody on page 1 has — original comparison, first-hand product walkthrough, fresh data, better explanation>
-   - Secondary keywords to work in naturally: <from url_organic + variations>
+   - Secondary keywords to work in naturally: <from site-explorer-organic-keywords + variations>
    - Beatability: <honest read — authority spread, content quality of incumbents>
    ```
 10. **Write the dossier** to `content-pipeline/1-research/{slug}.md` per `templates/research-template.md`. No `{{VAR}}` markers left. Include a "Deep web research findings" summary section (the `-deep.md` file stays available to `/draft`).
@@ -86,7 +86,7 @@ A research dossier nearly published a false own-price claim because it asserted 
 
 Before saving, verify:
 
-- [ ] Primary keyword has volume, KD%, CPC (real Semrush numbers, not guesses)
+- [ ] Primary keyword has volume, KD (difficulty), CPC (real Ahrefs numbers, not guesses)
 - [ ] 10–15 same-intent related keywords with volumes
 - [ ] 10+ questions grouped into 3+ themes
 - [ ] **Top 5+ pages extracted with word count, H2 list, format, item count, table/visual counts**

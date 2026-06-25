@@ -1,6 +1,6 @@
 # Auto Blog Loop — VPS Operational Runbook
 
-> **2026-06-12:** Tool names in this file that look like `mcp__semrush__<kebab-name>` are HISTORICAL and never existed on the live server. The real call pattern and per-layer mapping live in `.claude/skills/keyword-research-pipeline/references/semrush-data-layer.md`. Metrics/threshold logic in this file remains valid.
+> **2026-06-24 (supersedes the 2026-06-12 Semrush note):** the data layer is the **Ahrefs MCP** (`mcp__ahrefs__*`). Semrush and DataForSEO are retired; any `mcp__semrush__*` name in older notes is historical and must not be called. The real tool mapping + param rules live in `.claude/skills/research/references/ahrefs-mcp-cheatsheet.md`. Metrics/threshold logic in this file remains valid (now Ahrefs KD, recalibrated inline in `keyword-research-pipeline/references/bid-method.md`).
 
 Production-ready operating notes for running `/auto-blog-loop` autonomously on the user's VPS.
 
@@ -49,7 +49,11 @@ doppler run -- python -c "import os; [print(k, '=', '***' if 'TOKEN' in k or 'KE
 
 ### 2. Ahrefs MCP auth
 
-OAuth flow runs once on first invocation. Approve when prompted. After that, the token persists.
+The Ahrefs MCP authenticates with a Bearer key, not OAuth: it's configured in `.mcp.json` at
+`https://api.ahrefs.com/mcp/mcp` with header `Authorization: Bearer ${AHREFS_MCP_KEY}` (env-expanded
+from Doppler). No browser approval, no token-refresh dance — launch via `doppler run -- claude` so the
+key is present and the MCP loads. The same 400k-units/month workspace pool is shared with the REST
+`AHREFS_API_KEY`; check remaining units any time with the `subscription-info-limits-and-usage` tool.
 
 ### 3. Chrome + extension (for capture-visuals)
 
@@ -187,8 +191,8 @@ The loop won't crash if Strapi rejects auto-publish — it'll quarantine and con
 ### "queue empty, can't refresh"
 
 `/keyword-research-pipeline` failed. Check:
-- Semrush MCP auth still valid? (`doppler run -- claude -p "use mcp__semrush__domain-overview with target=pleasur.ai"`)
-- Brand Radar quota? (`cat content-pipeline/0-keywords/cache/brand-radar-quota.log`)
+- Ahrefs MCP auth still valid? (`doppler run -- claude -p "use mcp__ahrefs__site-explorer-metrics with target=pleasur.ai, country=US"`)
+- Ahrefs units / Brand Radar quota? (`cat content-pipeline/0-keywords/cache/brand-radar-quota.log`, or run the `subscription-info-limits-and-usage` tool)
 - Network: VPS can reach api.ahrefs.com / openrouter.ai / replicate.com?
 
 ### "every article gets quarantined"

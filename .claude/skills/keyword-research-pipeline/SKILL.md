@@ -6,28 +6,35 @@ allowed-tools: Read, Write, Bash, Agent, Glob
 
 # Keyword Research Pipeline (Master Orchestrator)
 
-## Provider ruling (2026-06-12 — supersedes the 2026-06-10 DataForSEO note)
+## Provider ruling (2026-06-24 — supersedes the 2026-06-12 Semrush note and the 2026-06-10 DataForSEO note)
 
-**Semrush MCP is the data layer.** The paid plan has full MCP data access (verified live).
-DataForSEO is retired; `scripts/dataforseo_keyword_pipeline.py` is archived and must not run.
+**Ahrefs MCP is the data layer.** Both Semrush and DataForSEO are retired:
+`scripts/dataforseo_keyword_pipeline.py` is archived and must not run, and no layer calls
+`mcp__semrush__*` any more.
 
-Every layer's real data calls are pinned in
-[`references/semrush-data-layer.md`](./references/semrush-data-layer.md) — read it before
-dispatching any layer. The server has 13 tools and exactly one call pattern
-(`get_report_schema` → `execute_report`); any `mcp__semrush__<kebab-name>` mention in the
-layer briefs below is a historical fiction that the data-layer file overrides. Metric
-thresholds still go through `references/semrush-metric-translation.md`.
+Every layer's real data calls map to the **Ahrefs MCP tools** pinned in
+[`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) — read it
+before dispatching any layer. Two param rules bite: params are comma-separated **strings**, not
+JSON arrays (`keywords:"ai girlfriend app"`, not `["ai girlfriend app"]`), and `select` + `country`
+are required on most endpoints. For any tool a layer hasn't used this run, call the `doc` tool first
+(e.g. `doc {tool:"keywords-explorer-overview"}`) to get its exact schema; never invent tool names.
+Metric thresholds still go through [`references/bid-method.md`](./references/bid-method.md) — the
+recalibration math now lives inline there (the old `*-metric-translation.md` doc is retired).
 
-Layer 1c (`keyword-aio-gap`) remains **SKIPPED** — this MCP server exposes no AI-visibility
-toolkit. Do not fake `aio_gap` rows or `aio_sov_competitor_top`. Layer 3's AIO check is
-presence-only via the `Fk` SERP-features column (see the data-layer file). Keep the
-deterministic quality, judgment rewrite, and voice-drift rollback gates.
+Layer 1c (`keyword-aio-gap`) stays **SKIPPED by default** for now — this is a methodology decision,
+not a data-availability one. NOTE: unlike Semrush/DataForSEO, Ahrefs MCP *does* ship a Brand Radar
+AI-citation toolkit (`brand-radar-ai-responses`, `brand-radar-cited-pages`, `brand-radar-sov-overview`,
+`site-explorer-ai-responses-count`), so the multi-engine citation gap is now technically sourceable.
+Un-skipping 1c is a deliberate pipeline change to make separately — until then keep it a logged
+no-op and do **not** fabricate `aio_gap` rows or `aio_sov_competitor_top`. Layer 3's AIO check stays
+presence-only via `serp-overview`'s `serp_features` (the `ai_overview` key). Keep the deterministic
+quality, judgment rewrite, and voice-drift rollback gates.
 
 Take a brand and produce a *vetted* keyword queue (`keyword-queue.csv`) ready for the autonomous blog loop. Layered chain (0 → 1a → 1b → 1c → 1d → 2 → 3 → 4 → 5), each rejecting candidates with reasons logged, each dispatched as a fresh Agent.
 
 This is the upstream of `auto-blog-loop`. The blog loop reads the queue this orchestrator emits — never the raw `keyword-ideas.csv`.
 
-> **Threshold reminder.** Every layer in this chain is recalibrated against `.claude/skills/keyword-research-pipeline/references/dataforseo-metric-translation.md`. If a brief tells a layer to apply a numeric threshold, the underlying skill's gate should already match the metric-translation doc — do not let an Agent invent its own threshold from training data. **`mcp__semrush__*` and `mcp__ahrefs__*` are retired for keyword research**; if any sub-agent reaches for either provider, that's a migration leftover bug, not a fallback.
+> **Threshold reminder.** Every layer in this chain is recalibrated against the thresholds in `.claude/skills/keyword-research-pipeline/references/bid-method.md` (Ahrefs edition). If a brief tells a layer to apply a numeric threshold, the underlying skill's gate should already match the BID doc — do not let an Agent invent its own threshold from training data. **`mcp__semrush__*` and DataForSEO are retired for keyword research; `mcp__ahrefs__*` is the only sanctioned provider**; if any sub-agent reaches for Semrush or DataForSEO, that's a migration leftover bug, not a fallback.
 
 ## Invocation
 
@@ -54,9 +61,9 @@ Same constraint as `/blog-pipeline` (line 22-24 of `blog-pipeline/SKILL.md`): th
 
    Your job: produce content-pipeline/0-keywords/topic-graph.json plus content-pipeline/0-keywords/trends.md per .claude/skills/topic-discovery/SKILL.md. Read the SKILL.md first.
 
-   Read brand-config.md. Pull mcp__semrush__topic-research for the brand's category-level seeds and mcp__semrush__trends-overview for the brand domain (or category URL). Synthesize the top 5 KSB clusters per category and the trending vs. declining queries. Save the JSON + markdown atomically.
+   Read brand-config.md. Pull keywords-explorer-related-terms + keywords-explorer-matching-terms (mcp__ahrefs__*) for the brand's category-level seeds to approximate topic clusters, and site-explorer-organic-keywords on the brand domain for its ranking footprint / trending vs. declining queries (cross-check with gsc-performance-history when available). Remember the Ahrefs param rules: comma-separated string params, `select` + `country` required, `doc` the tool first if unused this run. Synthesize the top 5 KSB clusters per category and the trending vs. declining queries. Save the JSON + markdown atomically.
 
-   Idempotent: if topic-graph.json exists and the brand-config hash is unchanged AND --regen was not passed, exit without re-generating. Never block the pipeline — if Topic Research / .Trends both error, log to cache/topic-discovery-failed.log and exit cleanly with topic-graph.json containing only the brand-config seeds.
+   Idempotent: if topic-graph.json exists and the brand-config hash is unchanged AND --regen was not passed, exit without re-generating. Never block the pipeline — if the Ahrefs calls error, log to cache/topic-discovery-failed.log and exit cleanly with topic-graph.json containing only the brand-config seeds.
 
    Return: top 5 cluster names, count of trending-up / trending-down queries, idempotency status (regenerated vs. skipped). Under 250 words.
    ```
@@ -70,7 +77,7 @@ Same constraint as `/blog-pipeline` (line 22-24 of `blog-pipeline/SKILL.md`): th
 
    Your job: produce content-pipeline/0-keywords/seeds.json per .claude/skills/seed-modifier-prompt/SKILL.md. Read the SKILL.md first.
 
-   Read brand-config.md AND content-pipeline/0-keywords/topic-graph.json (from Layer 0). Pre-feed the top 5 KSB clusters from topic-graph.json into the seed-generation prompt so seeds anchor in real Semrush clusters, not just brand-config alone. Generate 10 seeds + 10+ modifiers (with at least 3 AI-resistant: calculator/checker/generator/tool/template/examples). No word overlap between seeds and modifiers.
+   Read brand-config.md AND content-pipeline/0-keywords/topic-graph.json (from Layer 0). Pre-feed the top 5 KSB clusters from topic-graph.json into the seed-generation prompt so seeds anchor in real Ahrefs-sourced topic clusters, not just brand-config alone. Generate 10 seeds + 10+ modifiers (with at least 3 AI-resistant: calculator/checker/generator/tool/template/examples). No word overlap between seeds and modifiers.
 
    Idempotent: if seeds.json exists and brand-config hash unchanged, exit without re-generating. Force re-gen only if --regen passed.
 
@@ -86,16 +93,16 @@ Same constraint as `/blog-pipeline` (line 22-24 of `blog-pipeline/SKILL.md`): th
 
    Your job: produce content-pipeline/0-keywords/keyword-ideas.csv per .claude/skills/content-gap-analysis/SKILL.md. Read the SKILL.md first.
 
-   Auto-discover competitors via mcp__semrush__organic-competitors if brand-config doesn't list any; cache to cache/competitors.json so Layer 1c reuses the same set. Read seeds.json from Layer 1a — for each seed, expand via mcp__semrush__keyword-magic-broad (and -phrase / -related where breadth is thin) with modifiers as `include` filter. Pull intents array via mcp__semrush__keyword-overview for each row.
+   Auto-discover competitors via mcp__ahrefs__site-explorer-organic-competitors if brand-config doesn't list any; cache to cache/competitors.json so Layer 1c reuses the same set. Read seeds.json from Layer 1a — for each seed, expand via mcp__ahrefs__keywords-explorer-matching-terms (`match_mode:"phrase"` or `"terms"`) plus keywords-explorer-related-terms / keywords-explorer-search-suggestions where breadth is thin; filter to the modifiers. Pull the intents flags + metrics via mcp__ahrefs__keywords-explorer-overview for each row (`select:"keyword,volume,difficulty,cpc,parent_topic,traffic_potential,intents"`, `country:"US"`). Remember: comma-separated string params, NOT arrays.
 
-   Run multi-mode Keyword Gap via mcp__semrush__keyword-gap — all five modes (missing / weak / unique / common / strong). Tag every row with `gap_mode`. Route `strong`-mode rows to cache/strong-positions.csv (NOT the writing pool). Merge competitor-gap + seed-modifier sources, dedupe on keyword. Add `source` and `gap_mode` columns.
+   Content gap = a competitor's ranking keywords (mcp__ahrefs__site-explorer-organic-keywords on each competitor URL; consensus across 3+ top pages) MINUS the brand's. Ahrefs has no Semrush five-mode Keyword Gap labels — derive gap_mode yourself: a keyword a competitor ranks for and the brand does not → `missing`; both rank but the brand sits outside the top 10 → `weak`; brand-only ranking → `strong` (route those to cache/strong-positions.csv, NOT the writing pool); approximate `unique`/`common` from how many competitors share the term. Tag every row with `gap_mode`. Merge competitor-gap + seed-modifier sources, dedupe on keyword. Add `source` and `gap_mode` columns.
 
-   Apply Semrush KD% threshold ≤ 70 (default) — DO NOT transplant Ahrefs KD ≤ 60. The metric-translation doc has the recalibration math.
+   Apply the difficulty (KD) collection ceiling ≤ 70 (Ahrefs `difficulty` column) as the default — see references/bid-method.md for the recalibration math; do not let a sub-agent invent its own threshold.
 
    Return: total candidates, breakdown by source (competitor_gap / seed_modifier / both), breakdown by gap_mode (missing / weak / unique / common), strong-positions count, top 5 candidates by traffic_potential. Under 300 words.
    ```
 
-   On failure: stop. Layer 1b failures usually mean a Semrush auth issue (401/OAuth) or quota exhaustion (429).
+   On failure: stop. Layer 1b failures usually mean an Ahrefs auth issue (401 / bad `AHREFS_MCP_KEY`) or units exhaustion on the 400k/mo pool.
 
 5. **Layer 1c — `/keyword-aio-gap`** (Agent dispatch). Brief:
 
@@ -104,9 +111,9 @@ Same constraint as `/blog-pipeline` (line 22-24 of `blog-pipeline/SKILL.md`): th
 
    Your job: append AI-search gap candidates to content-pipeline/0-keywords/keyword-ideas.csv per .claude/skills/keyword-aio-gap/SKILL.md. Read the SKILL.md first.
 
-   Use the Semrush AI Toolkit's prompt-centric model (NOT the legacy Ahrefs Brand Radar keyword-centric model). For each brand + competitor, register the relevant prompts via mcp__semrush__ai-toolkit-prompts and call mcp__semrush__ai-toolkit-mentions across the multi-engine panel (AIO, ChatGPT, Gemini, Perplexity, Copilot). Compute the gap (competitor-cited prompts where brand isn't). Enrich with mcp__semrush__keyword-overview metrics. Append rows with source=aio_gap (or merge to existing rows as source=both). Add aio_engines and aio_sov_competitor_top columns for Layer 5 prioritization.
+   DEFAULT: this layer is a logged no-op (see the Provider ruling). Only run the data path below if 1c has been explicitly un-skipped for this run. When run: use the Ahrefs Brand Radar AI-citation toolkit (mcp__ahrefs__brand-radar-ai-responses, brand-radar-cited-pages, brand-radar-sov-overview, site-explorer-ai-responses-count) across the engines Ahrefs reports (e.g. ChatGPT, Perplexity, Google AI Overviews). For each brand + competitor, find prompts/queries where a competitor is cited and the brand isn't. Compute the gap. Enrich with mcp__ahrefs__keywords-explorer-overview metrics (string params, `select`+`country` required). Append rows with source=aio_gap (or merge to existing rows as source=both). Add aio_engines and aio_sov_competitor_top columns for Layer 5 prioritization. Never fabricate rows when the toolkit returns nothing.
 
-   If AI Toolkit returns 429, exit code 75 — orchestrator retries on next cron cycle. Don't crash.
+   If Brand Radar returns 429, exit code 75 — orchestrator retries on next cron cycle. Don't crash.
 
    Return: brand mentions, total competitor mentions across the engine panel, gap-prompt count, top 5 gap keywords with their dominant engine. Under 300 words.
    ```
@@ -120,7 +127,7 @@ Same constraint as `/blog-pipeline` (line 22-24 of `blog-pipeline/SKILL.md`): th
 
    Your job: append question-shaped keyword candidates to content-pipeline/0-keywords/keyword-ideas.csv per .claude/skills/keyword-question-mining/SKILL.md. Read the SKILL.md first.
 
-   For every primary seed in seeds.json, call mcp__semrush__keyword-magic-questions to pull the question-form variants Semrush exposes. Then call mcp__semrush__serp-results per top seed and parse the People Also Ask block for additional questions Keyword Magic missed. Cap the merged pool at 100 rows per pipeline run; dedupe against existing keyword-ideas.csv. Tag every appended row with source=question_mining and a question_subtype field (`paa` / `km_question` / `both`). Pull intents via mcp__semrush__keyword-overview for each new row.
+   There is NO dedicated "questions" tool on Ahrefs. For every primary seed in seeds.json, call mcp__ahrefs__keywords-explorer-matching-terms with `match_mode:"terms"` and client-filter to keywords starting with what/how/is/are/can/does/do/why/which/who/where/will/should. Then call mcp__ahrefs__serp-overview per top seed and read its `serp_features` for People-Also-Ask entries the matching-terms pass missed. Cap the merged pool at 100 rows per pipeline run; dedupe against existing keyword-ideas.csv. Tag every appended row with source=question_mining and a question_subtype field (`paa` / `km_question` / `both`). Pull intents + metrics via mcp__ahrefs__keywords-explorer-overview for each new row (string params, `select`+`country` required).
 
    On 429: persist progress, exit 75. The orchestrator handles retry.
 
@@ -136,18 +143,18 @@ Same constraint as `/blog-pipeline` (line 22-24 of `blog-pipeline/SKILL.md`): th
 
    Your job: enrich content-pipeline/0-keywords/keyword-ideas.csv with BID verdicts per .claude/skills/keyword-vet-bid/SKILL.md. Read the SKILL.md first.
 
-   Resolve brand AS via mcp__semrush__domain-overview, cache to cache/brand-as.json (7-day TTL). Delete any leftover cache/brand-dr.json — its DR-shaped payload is incompatible.
+   Resolve brand DR via mcp__ahrefs__site-explorer-domain-rating, cache to cache/brand-dr.json (7-day TTL). Delete any leftover cache/brand-as.json — its Semrush Authority-Score payload is incompatible.
 
-   For each row: compute brand_fit + product_fit; classify intent — PRIMARY signal is the Semrush `intents` array from mcp__semrush__keyword-overview (informational/commercial = PASS; transactional/navigational = FAIL); fall back to URL-pattern heuristic on mcp__semrush__serp-results only when `intents` is empty/mixed. Pull per-URL Authority Score for the SERP top-10 via mcp__semrush__serp-overview / mcp__semrush__domain-overview. Apply the BID gate (recalibrated for Semrush — as_top10_median ≤ brand_AS + 12; weak_link_count of pages with AS < brand_AS + 4; KD% ≤ 70 baseline).
+   For each row: compute brand_fit + product_fit; classify intent — PRIMARY signal is the Ahrefs `intents` flags from mcp__ahrefs__keywords-explorer-overview (informational/commercial = PASS; transactional/navigational = FAIL); fall back to URL-pattern heuristic on mcp__ahrefs__serp-overview only when `intents` is empty/mixed. Pull per-URL Domain Rating for the SERP top-10 via mcp__ahrefs__serp-overview (`select` includes DR) or batch-analysis over the top-10 URLs. Apply the BID gate (Ahrefs DR-native — dr_top10_median ≤ brand_DR + 15; weak_link_count of pages with DR < brand_DR + 5; difficulty (KD) ≤ 70 baseline). All Ahrefs params are comma-separated strings with `select`+`country`.
 
-   Persist columns: brand_fit, product_fit, serp_intent, as_top10_median, weak_link_count, bid_verdict, bid_reason.
+   Persist columns: brand_fit, product_fit, serp_intent, dr_top10_median, weak_link_count, bid_verdict, bid_reason.
 
    Calibration check: if all rows pass OR all fail, log to cache/bid-calibration.log and adjust thresholds per the SKILL's "Calibration" section.
 
-   Return: total vetted, B/I/D pass rates, share of intent decisions made via `intents` array vs URL fallback, overall PASS count, top 5 PASS by traffic_potential, top 5 FAIL with reasons. Under 350 words.
+   Return: total vetted, B/I/D pass rates, share of intent decisions made via `intents` flags vs URL fallback, overall PASS count, top 5 PASS by traffic_potential, top 5 FAIL with reasons. Under 350 words.
    ```
 
-   On failure: stop. BID failures usually mean Semrush quota or auth issues — not recoverable mid-run.
+   On failure: stop. BID failures usually mean Ahrefs units exhaustion or auth issues — not recoverable mid-run.
 
 8. **Layer 3 — `/keyword-vet-aio`** (Agent dispatch). Brief:
 
@@ -156,16 +163,16 @@ Same constraint as `/blog-pipeline` (line 22-24 of `blog-pipeline/SKILL.md`): th
 
    Your job: enrich BID-PASS rows in keyword-ideas.csv with AIO cannibalization verdicts per .claude/skills/keyword-vet-aio/SKILL.md. Read the SKILL.md and the rubric at .claude/skills/keyword-research-pipeline/references/aio-cannibalization-rubric.md first.
 
-   For each BID-PASS row: detect AIO presence via mcp__semrush__serp-overview — Semrush's literal SERP-feature key is `ai_overview` (underscore — NOT the legacy Ahrefs `ai-overview`). Apply exemptions (tool-led, commercial-investigation, aio_gap source). For non-exempt AIO-present rows fetch the AIO body in this order: mcp__semrush__ai-toolkit-response → mcp__semrush__serp-overview's serp-features summary → WebFetch on https://www.google.com/search?q=…  Spawn the adversarial Sonnet sub-agent with the 0-10 completeness brief; persist has_aio, aio_completeness_score, aio_click_intent, aio_verdict, aio_reasoning, aio_body_source.
+   For each BID-PASS row: detect AIO presence via mcp__ahrefs__serp-overview — read its `serp_features` and look for the `ai_overview` key (underscore). Apply exemptions (tool-led, commercial-investigation, aio_gap source). For non-exempt AIO-present rows fetch the AIO body in this order: mcp__ahrefs__brand-radar-ai-responses (when 1c's Brand Radar path is enabled) → serp-overview's serp_features summary → WebFetch on https://www.google.com/search?q=…  Spawn the adversarial Sonnet sub-agent with the 0-10 completeness brief; persist has_aio, aio_completeness_score, aio_click_intent, aio_verdict, aio_reasoning, aio_body_source. Ahrefs params are comma-separated strings, `select`+`country` required.
 
-   Cache AIO bodies under cache/aio-fetch/ with _meta.source. Refresh weekly. Pre-migration cache files (brand_radar_*) are stale — re-fetch.
+   Cache AIO bodies under cache/aio-fetch/ with _meta.source. Refresh weekly. Pre-migration cache files (Semrush ai-toolkit / old brand_radar_*) are stale — re-fetch.
 
    Calibration check: if every score is 8+ OR every score is 4-, the scorer is mis-calibrated — log and re-run with strengthened brief per the SKILL's "Calibration" section.
 
-   Return: total checked, breakdown (no AIO / exempt / PASS / RISKY / FAIL_CANNIBALIZED / UNKNOWN), body-source mix (ai_toolkit / serp_features / webfetch), top 3 cannibalized rejections, top 3 risky survivors. Under 400 words.
+   Return: total checked, breakdown (no AIO / exempt / PASS / RISKY / FAIL_CANNIBALIZED / UNKNOWN), body-source mix (brand_radar / serp_features / webfetch), top 3 cannibalized rejections, top 3 risky survivors. Under 400 words.
    ```
 
-   On rate-limit (exit 75): persist progress, surface to orchestrator. Layer 3 is the most quota-heavy layer (one serp-overview + one ai-toolkit-response per non-exempt BID-PASS row).
+   On rate-limit (exit 75): persist progress, surface to orchestrator. Layer 3 is the most quota-heavy layer (one serp-overview + one AIO-body fetch per non-exempt BID-PASS row).
 
 9. **Layer 4 — `/keyword-redteam`** (Agent dispatch — judgment-heavy, stays on parent model). Brief:
 
@@ -174,7 +181,7 @@ Same constraint as `/blog-pipeline` (line 22-24 of `blog-pipeline/SKILL.md`): th
 
    Your job: redteam top-{max_redteam} survivors per .claude/skills/keyword-redteam/SKILL.md. Read the SKILL.md first.
 
-   Filter to bid_verdict=PASS AND aio_verdict ∈ {PASS, RISKY, UNKNOWN} AND no existing redteam_verdict (idempotent). Take top 30 by current priority_score. Spawn the skeptical-SEO sub-agent with the (a)-(d) challenge brief. The agent reasons over Semrush metrics (intents array, AS gap, KD%, KSB cluster id, AI Toolkit SoV) — not Ahrefs DR/KD heuristics.
+   Filter to bid_verdict=PASS AND aio_verdict ∈ {PASS, RISKY, UNKNOWN} AND no existing redteam_verdict (idempotent). Take top 30 by current priority_score. Spawn the skeptical-SEO sub-agent with the (a)-(d) challenge brief. The agent reasons over Ahrefs metrics (intents flags, DR gap, difficulty (KD), parent_topic / cluster id, Brand Radar SoV when available).
 
    Apply discipline check: if KEEP rate > 80% with weak per-candidate critique (avg < 60 words), re-run with the contrarian addendum from the SKILL.
 
@@ -238,12 +245,12 @@ Per the plan, **bad keyword research is worse than empty queue**. Layer failures
 
 - Layer 0 fails → continue. Topic-discovery is enrichment, not a gate.
 - Layer 1a fails → stop. Brand-config hash issue or agent malfunction.
-- Layer 1b fails → stop. Likely Semrush auth issue (401) or unauthorized OAuth.
+- Layer 1b fails → stop. Likely Ahrefs auth issue (401 / bad `AHREFS_MCP_KEY`) or units exhaustion.
 - Layer 1c fails (rate-limit) → continue without 1c rows; log skip.
 - Layer 1c fails (other) → continue with a warning; 1b alone is a viable candidate pool.
 - Layer 1d fails (rate-limit, exit 75) → persist progress; orchestrator retries on next cron.
 - Layer 1d fails (other) → continue. Question mining is enrichment.
-- Layer 2 fails → stop. The mechanical filter is required.
+- Layer 2 fails → stop. The mechanical filter is required (Ahrefs units exhaustion or auth issue).
 - Layer 3 rate-limit (exit 75) → persist progress, exit cleanly with code 75. The auto-blog-loop reads this and retries on the next cron cycle.
 - Layer 3 fails (other) → stop. AIO check is required.
 - Layer 4 fails → stop. Redteam is required.
@@ -259,24 +266,24 @@ The blog loop calls this when `keyword-queue.csv` is empty (selector exit 2). Th
 
 ## Calibration cadence
 
-The mechanical layers (BID, AIO) need calibration on first run after Semrush migration AND after major brand-config changes. Calibration logs are in `cache/`:
+The mechanical layers (BID, AIO) need calibration on first run after the Ahrefs migration AND after major brand-config changes. Calibration logs are in `cache/`:
 - `cache/bid-calibration.log` — threshold drift, pass-rate trends
 - `cache/aio-calibration.log` — score distribution, rubber-stamp detection
 
-The runbook (`.claude/skills/auto-blog-loop/references/runbook.md`) has a section on reading these logs and tuning thresholds. **Always recalibrate against `references/semrush-metric-translation.md` — Ahrefs thresholds will silently mis-fire on Semrush data.**
+The runbook (`.claude/skills/auto-blog-loop/references/runbook.md`) has a section on reading these logs and tuning thresholds. **Always recalibrate against `references/bid-method.md` (Ahrefs edition) — stale Semrush/DataForSEO thresholds will silently mis-fire on Ahrefs data.**
 
 ## Cost per run
 
-Approximate, for a 200-candidate pool, on Semrush quota:
+Approximate, for a 200-candidate pool, on the Ahrefs 400k-units/month workspace pool (≈50 base units + per-row; keep `limit` tight):
 
-- Layer 0: ~3-5 Semrush MCP calls (Topic Research + .Trends overview); idempotent — most runs skip
+- Layer 0: ~3-5 Ahrefs MCP calls (related-terms / matching-terms + site-explorer-organic-keywords); idempotent — most runs skip
 - Layer 1a: ~1K LLM tokens (one Agent call)
-- Layer 1b: ~10-15 Semrush MCP calls (organic-competitors + 5 keyword-gap modes + ~6 keyword-magic expansions per seed)
-- Layer 1c: ~10-30 AI Toolkit calls (mentions across the engine panel; weighted heavier than the legacy Brand Radar count because of multi-engine fan-out)
-- Layer 1d: ~10-20 keyword-magic-questions + serp-results PAA-extraction calls
-- Layer 2: ~200 keyword-overview + 200 serp-overview + ~200-2000 domain-overview calls (batched for the per-domain AS lookups)
-- Layer 3: ~100 serp-overview + ~50-70 ai-toolkit-response + ~50 Sonnet sub-agent invocations
+- Layer 1b: ~10-15 Ahrefs MCP calls (site-explorer-organic-competitors + per-competitor organic-keywords + ~6 matching/related expansions per seed)
+- Layer 1c: SKIPPED by default (no calls). If un-skipped: ~10-30 Brand Radar calls across the engine panel
+- Layer 1d: ~10-20 matching-terms(`terms`) + serp-overview PAA-extraction calls
+- Layer 2: ~200 keywords-explorer-overview + 200 serp-overview + batch-analysis calls (batched for the per-domain DR lookups)
+- Layer 3: ~100 serp-overview + ~50-70 AIO-body fetches + ~50 Sonnet sub-agent invocations
 - Layer 4: ~1 Opus call (30K-50K tokens)
 - Layer 5: ~1 Agent call
 
-Total: ~$0.50-1.50 in Semrush MCP quota + ~$0.50 in LLM tokens per run. Weekly cadence keeps annual cost < $80. The blog loop's article cost is much higher; keyword research is cheap insurance. Layer 0 + Layer 1d add ~$0.05-0.10 per run on top of the legacy chain — small price for the upstream uplift.
+Total: a few-thousand Ahrefs units per run + ~$0.50 in LLM tokens. Weekly cadence stays comfortably inside the 400k/mo pool. The blog loop's article cost is much higher; keyword research is cheap insurance. Layer 0 + Layer 1d add a small fixed unit cost on top of the core chain — worth it for the upstream uplift.

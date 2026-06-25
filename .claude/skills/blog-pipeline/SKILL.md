@@ -116,8 +116,8 @@ You are running stage 1 of the blog-agent content pipeline at {ROOT}. Keyword: "
 Your job: produce a research dossier at content-pipeline/1-research/{SLUG}.md per .claude/skills/research/SKILL.md. Read the SKILL.md first and follow it end-to-end.
 
 Critical requirements:
-- Read .claude/skills/research/references/semrush-mcp-cheatsheet.md FIRST — only the get_report_schema → execute_report pattern exists; kebab-name Semrush tools are fictional
-- Pull keyword data per the cheatsheet (phrase_this, phrase_kdi, phrase_fullsearch, phrase_related, phrase_questions, phrase_organic)
+- Read .claude/skills/research/references/ahrefs-mcp-cheatsheet.md FIRST — use the real Ahrefs MCP tools (mcp__ahrefs__*); params are comma-separated strings not arrays, select + country required, call doc {tool:"..."} before any unfamiliar tool. Semrush/DataForSEO are retired — never call mcp__semrush__* or DataForSEO
+- Pull keyword data per the cheatsheet (keywords-explorer-overview for volume/KD/CPC/parent-topic/traffic-potential/intents; keywords-explorer-matching-terms + related-terms for the variation pool and FAQ themes; serp-overview for the ranking URLs and People-Also-Ask)
 - Extract the top 5–8 ranking pages via Firecrawl (FIRECRAWL_API_KEY; WebFetch fallback) and build the SERP benchmark: per-page word counts, H2 lists, formats, item counts, table/visual counts
 - Run deep research via OpenRouter: doppler run -- python .claude/skills/research/scripts/openrouter_research.py --keyword "{KEYWORD}" --slug "{SLUG}"
 - ALSO emit content-pipeline/1-research/{SLUG}-data.json with chartable numbers from the dossier — schema described in the research SKILL
@@ -320,26 +320,26 @@ You are running stage 7 at {ROOT}. Slug: {SLUG}.
 
 Your job: produce content-pipeline/6-drafts-cited/{SLUG}.md per .claude/skills/verify-claims/SKILL.md. Read the SKILL first — particularly the two-tier citation rule (must-cite vs voice-flagged).
 
-Resolve every [link] placeholder with a real source via WebSearch + WebFetch. Use editor-note anchors for internal-Semrush metrics. Wire internal links from 2-reference. Apply the two-tier density check (must-cite ≥60% linked, voice-flagged listed for editor review — never auto-linked).
+Resolve every [link] placeholder with a real source via WebSearch + WebFetch. Use editor-note anchors for internal-Ahrefs metrics. Wire internal links from 2-reference. Apply the two-tier density check (must-cite ≥60% linked, voice-flagged listed for editor review — never auto-linked).
 
 Return: [link] placeholders replaced (count), [CITATION NEEDED] flags remaining, internal links wired, must-cite density %, voice-flagged statements listed for review.
 ```
 
-### Stage 8 — Optimize content (ContentShake AI)
+### Stage 8 — Optimize content (Ahrefs term + topic coverage)
 
 ```
 You are running stage 8 at {ROOT}. Slug: {SLUG}.
 
-Your job: per .claude/skills/optimize-content/SKILL.md. Run /optimize-content for {SLUG}. The skill calls Semrush ContentShake AI via .claude/skills/optimize-content/scripts/contentshake_optimize.py — no Chrome MCP, no Sonnet sub-agent for browser driving, no TipTap injection, no port-8766 server, no 50-doc/month cap.
+Your job: per .claude/skills/optimize-content/SKILL.md. Run /optimize-content for {SLUG}. The skill sources term/topic coverage directly from the Ahrefs MCP (mcp__ahrefs__keywords-explorer-related-terms / matching-terms for the recommended-term pool; mcp__ahrefs__site-explorer-organic-keywords on the top-3 URLs for competitor coverage). ContentShake/Semrush/DataForSEO are retired — no ContentShake API, no contentshake_optimize.py, no Chrome MCP, no TipTap injection, no port-8766 server. Read .claude/skills/research/references/ahrefs-mcp-cheatsheet.md first.
 
-Iteration loop: max 5 iterations. Stops on (seo_score >= 8 AND quality_score >= 8) → WIN, OR voice-drift > 8 pts vs baseline → ROLLBACK (revert last iteration), OR < 0.5pt lift twice in a row → PLATEAU, OR 5 iterations → CAPPED. Voice-drift safety net is non-negotiable.
+Iteration loop: max 5 iterations. Stops on (term_coverage >= 0.8 of must-cover terms AND /quality-check >= 85) → WIN, OR voice-drift > 8 pts vs baseline → ROLLBACK (revert last iteration), OR < 0.05 coverage lift twice in a row → PLATEAU, OR 5 iterations → CAPPED. Voice-drift safety net is non-negotiable.
 
 Skip conditions — both write a stub at content-pipeline/optimization/{SLUG}.md and exit 0 so the pipeline continues:
-- Neither SEMRUSH_API_KEY_BLOG_AGENT nor SEMRUSH_API_KEY_CONTENTSHAKE set in env (load via Doppler).
-- Monthly API budget (BLOG_AGENT_CONTENTSHAKE_MONTHLY_CAP, default 100) already exhausted.
-- contentshake_optimize.py exits 75 (mid-run quota — quota convention shared with the orchestrator).
+- Ahrefs MCP not reachable (mcp__ahrefs__* tools not loaded / AHREFS_MCP_KEY unset).
+- Monthly Ahrefs-units budget (BLOG_AGENT_OPTIMIZE_MONTHLY_CAP, default 100) already exhausted.
+- An Ahrefs call returns a 429/quota error mid-run (save progress, exit 0).
 
-Return: verdict (WIN/ROLLBACK/PLATEAU/CAPPED/SKIPPED), SEO and Quality scores before/after, voice-drift delta, iterations used, budget consumed/remaining, and one-line summary.
+Return: verdict (WIN/ROLLBACK/PLATEAU/CAPPED/SKIPPED), term coverage and quality-check score before/after, voice-drift delta, iterations used, budget consumed/remaining, and one-line summary.
 ```
 
 ### Stage 9 — Generate visuals

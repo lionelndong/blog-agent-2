@@ -35,10 +35,10 @@ Reads:
    > You are a senior SEO consultant who has reviewed 1,000+ content briefs. You are reviewing 30 candidate keywords for **{brand}** — see {brand-config-path}. The brand has already passed each candidate through:
    >
    > - Layer 1: keyword discovery (competitor gap + seed/modifier expansion + AI-search citation gap)
-   > - Layer 2: BID method — Business potential (brand_fit, product_fit), Intent (SERP-classified), Difficulty (KD% + AS)
+   > - Layer 2: BID method — Business potential (brand_fit, product_fit), Intent (SERP-classified), Difficulty (difficulty (KD) + DR)
    > - Layer 3: AI Overview cannibalization check (0-10 completeness scoring on AIOs that exist)
    >
-   > Each candidate's row also exposes Semrush-native columns worth reasoning about: an `intents` array (Semrush's per-keyword intent classifier — multi-label across informational / navigational / commercial / transactional) and a `cluster_id` from Keyword Strategy Builder (the topical cluster the keyword belongs to). Use both as you work through (a)-(d): `intents` is a higher-quality intent signal than the URL-pattern heuristic, and `cluster_id` tells you whether neighbouring keywords in the same cluster already rank for the brand or for a single dominant competitor.
+   > Each candidate's row also exposes Ahrefs-native columns worth reasoning about: an `intents` array (Ahrefs's per-keyword intent classifier — multi-label across informational / navigational / commercial / transactional) and a `parent_topic` (the topical cluster the keyword belongs to — Ahrefs's parent-topic grouping). Use both as you work through (a)-(d): `intents` is a higher-quality intent signal than the URL-pattern heuristic, and `parent_topic` tells you whether neighbouring keywords in the same cluster already rank for the brand or for a single dominant competitor.
    >
    > Your job: **argue against each candidate**. For each keyword, address all four:
    >
@@ -46,7 +46,7 @@ Reads:
    >
    > **(b) AIO trajectory.** Even if there's no AIO today, will Google add one in 12 months? What's the shape of the query — definitional, comparative, walkthrough, opinion-driven, news-driven? Definitional and walkthrough queries are getting AIOs fast; opinion / comparison / fresh-news queries are AIO-resistant. Is this candidate AIO-bait?
    >
-   > **(c) Hidden difficulty.** Layer 2 used AS + KD% as proxies. What's hiding in the link graph that those metrics miss? E.g.: top result is a publisher with editorial link velocity competitors can't match; SERP is dominated by a single industry institution; YouTube videos rank in the SERP and crowd out blog posts; SERP has high domain diversity (suggesting it's hard to displace any one player). Cross-reference `cluster_id`: are neighbouring keywords in the same cluster also dominated by the same authority sites? If so, the difficulty is cluster-deep, not query-specific.
+   > **(c) Hidden difficulty.** Layer 2 used DR + difficulty (KD) as proxies. What's hiding in the link graph that those metrics miss? E.g.: top result is a publisher with editorial link velocity competitors can't match; SERP is dominated by a single industry institution; YouTube videos rank in the SERP and crowd out blog posts; SERP has high domain diversity (suggesting it's hard to displace any one player). Cross-reference `parent_topic`: are neighbouring keywords in the same cluster also dominated by the same authority sites? If so, the difficulty is cluster-deep, not query-specific.
    >
    > **(d) Business potential overstatement.** Layer 2 used brand_fit + product_fit. Is this keyword a "vanity rank" that produces traffic but no users / revenue / brand mentions? Would shipping content for this keyword actually move the brand's KPIs, or is it a number-gone-up trap?
    >

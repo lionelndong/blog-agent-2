@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # run_pipeline.sh — launch Claude Code with the pipeline's secrets in env.
 #
-# Since 2026-06-12 the Semrush MCP authenticates with a plain API key
-# (`Authorization: Apikey $SEMRUSH_API_KEY`, expanded by .mcp.json) — no OAuth,
+# The Ahrefs MCP authenticates with a plain API key
+# (`Authorization: Bearer $AHREFS_MCP_KEY`, expanded by .mcp.json) — no OAuth,
 # no refresh tokens, no token minting. This wrapper is now just `doppler run`.
 #
 # Usage:
@@ -11,7 +11,7 @@
 #
 # Requires:
 #   * doppler CLI on PATH (DOPPLER_TOKEN in env, or interactive login)
-#   * SEMRUSH_API_KEY, FIRECRAWL_API_KEY, OPENROUTER_API_KEY_BLOG_AGENT in
+#   * AHREFS_MCP_KEY, AHREFS_API_KEY, FIRECRAWL_API_KEY, OPENROUTER_API_KEY_BLOG_AGENT in
 #     Doppler project `pleasurai`, config `dev`
 #
 # Headless-safe: no browser, no prompts, no terminal interaction.

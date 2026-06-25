@@ -3,6 +3,12 @@
   "stages": {
     "research": {
       "revisions_used": 1
+    },
+    "outline": {
+      "revisions_used": 1
+    },
+    "visuals": {
+      "revisions_used": 1
     }
   }
 }

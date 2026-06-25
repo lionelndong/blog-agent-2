@@ -55,7 +55,7 @@ For slug `{slug}`:
 > sentences, point at section headers, name URLs:
 >
 > 1. **Citations.** Does every numerical claim and every surprising statement
->    cite a source URL or an internal Semrush/Strapi reference? List up to 3
+>    cite a source URL or an internal Ahrefs/Strapi reference? List up to 3
 >    uncited load-bearing claims by quoting them.
 > 2. **Surprising findings.** The dossier should surface 3 surprising findings.
 >    Are they actually surprising to a reader who already knows this niche, or

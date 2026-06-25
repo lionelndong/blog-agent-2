@@ -90,21 +90,21 @@ Failed candidates stay in `keyword-ideas.csv` (transparency, future re-vet) but 
 
 ### Boosts and penalties on top of the existing scoring
 
-After computing `priority_score` from the existing weighted formula (0.4 traffic + 0.3 brand_fit + 0.3 product_fit), apply the Semrush-era column reads in this order. The full table — including justifications and the ±2.0 redteam clamp — lives in [`../keyword-research-pipeline/references/semrush-metric-translation.md`](../keyword-research-pipeline/references/semrush-metric-translation.md) under "Threshold deltas (prioritization Layer 5)". Read that doc before tuning these numbers.
+After computing `priority_score` from the existing weighted formula (0.4 traffic + 0.3 brand_fit + 0.3 product_fit), apply the column reads in this order. The full table — including justifications and the ±2.0 redteam clamp — lives in [`../keyword-research-pipeline/references/bid-method.md`](../keyword-research-pipeline/references/bid-method.md) (Ahrefs edition; the old `*-metric-translation.md` doc is retired) under the prioritization deltas. Read that doc before tuning these numbers.
 
 1. **`+1.5` if `source=aio_gap`** — queries where competitors are cited in AI search but the brand isn't. Doubly valuable: classic SERP traffic + AI-citation impressions.
 2. **`+1.0` if `serp_intent=tool-led`** — but tool-led keywords ROUTE TO `tool-opportunities.csv`, not the writing queue. The boost is recorded for triage; the writing pipeline never sees these.
-3. **`gap_mode` boosts (from Layer 1b multi-mode Keyword Gap)** — Semrush returns one of five modes per keyword. Apply them column-driven:
+3. **`gap_mode` boosts (from Layer 1b multi-mode keyword gap)** — Layer 1b tags one of five modes per keyword. Apply them column-driven:
    - `gap_mode=missing` → +0.0 (the classic "competitors rank, we don't" baseline; default behavior)
    - `gap_mode=weak` → **+0.5** (brand already ranks 11–20+; small effort to break top-10)
    - `gap_mode=unique` → **+0.7** (single competitor ranking; SERP shallow; one displacement away)
    - `gap_mode=common` → **−0.3** (saturated SERP; harder to differentiate)
    - `gap_mode=strong` → **route to `content-pipeline/0-keywords/cache/strong-positions.csv`** — already won; do NOT include in `keyword-queue.csv` regardless of priority_score
-4. **`+0.5` if `cluster_authority_gap=true`** — derived from KSB `cluster_id` + brand domain authority within the cluster. Brand has zero authority in an otherwise low-difficulty cluster; this keyword is the entry point to claiming the cluster.
+4. **`+0.5` if `cluster_authority_gap=true`** — derived from the Ahrefs `parent_topic` cluster + brand domain authority within the cluster. Brand has zero authority in an otherwise low-difficulty cluster; this keyword is the entry point to claiming the cluster.
 
 ### Tie-breaker on equal priority_score
 
-When two keywords have the same `priority_score` after all boosts/penalties, prefer the row with the higher `aio_sov_competitor_top` value (top competitor's Share-of-Voice in AI Toolkit AI Mentions). Higher SoV-to-displace = bigger AI-citation prize when the brand wins the rank.
+When two keywords have the same `priority_score` after all boosts/penalties, prefer the row with the higher `aio_sov_competitor_top` value (top competitor's Share-of-Voice in Ahrefs Brand Radar AI citations). Higher SoV-to-displace = bigger AI-citation prize when the brand wins the rank.
 
 ### Apply redteam priority delta
 

@@ -16,3 +16,8 @@ The month line auto-rolls over on the first call of a new calendar month (UTC).
 | 2026-06-15 | openmind-ai-vs-pleasurai | optimize+score | — | — | — | — | — | 0 (HTTP 400 "query type not found"; endpoint still down; no slot consumed) |
 | 2026-06-16 | what-do-ai-companion-coins-actually-cost | optimize | — | — | — | — | — | 0 (HTTP 400 "query type not found"; endpoint still down; no slot consumed) |
 | 2026-06-16 | ai-companion-pricing-guide-2026 | optimize | — | — | — | — | — | 0 (HTTP 400 "query type not found"; endpoint still down 4th run; no slot consumed) |
+| 2026-06-18 | character-ai-no-filter-2026 | optimize | — | — | — | — | — | 0 (HTTP 400 "query type not found"; endpoint still down 5th run; no slot consumed) |
+| 2026-06-18 | best-uncensored-ai-chatbot-free | optimize | — | — | — | — | — | 0 (HTTP 400 "query type not found"; endpoint still down 6th run; no slot consumed) |
+| 2026-06-19 | spicychat-alternative-2026 | optimize | — | — | — | — | — | 0 (HTTP 400 "query type not found"; endpoint still down 7th run; no slot consumed) |
+| 2026-06-22 | joi-ai-alternative-2026 | optimize | — | — | — | — | — | 0 (HTTP 400 "query type not found"; endpoint still down 8th run; no slot consumed) |
+| 2026-06-24 | ai-companion-vs-chatgpt-companionship | optimize | — | — | — | — | — | 0 (HTTP 400 "query type not found"; endpoint still down 9th run; no slot consumed) |

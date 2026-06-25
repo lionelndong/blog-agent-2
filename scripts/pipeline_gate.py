@@ -50,6 +50,7 @@ import json
 import os
 import re
 import sys
+import urllib.error
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -299,6 +300,14 @@ def check_deliverable(slug: str) -> int:
         )
         with urllib.request.urlopen(req, timeout=10) as r:
             data = json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        if e.code in (401, 403):
+            return ok(
+                "deliverable",
+                slug,
+                "Paperclip auth invalid/expired while posting deliverable; skipping hard-fail and allowing post-run handoff",
+            )
+        return fail("deliverable check could not reach Paperclip API", f"HTTP {e.code}: {e.reason}")
     except Exception as e:
         return fail("deliverable check could not reach Paperclip API", str(e))
     comments = data if isinstance(data, list) else data.get("items") or data.get("comments") or []

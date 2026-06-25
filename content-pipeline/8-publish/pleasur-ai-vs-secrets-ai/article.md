@@ -10,7 +10,7 @@ What follows is a true side-by-side: the real prices, what each app remembers ab
 
 Here is the whole comparison in one screen. The rest of the article explains the call behind each cell — but if you only read one thing, read this.
 
-![Axis table](images/pleasur-ai-vs-secrets-ai/table-pub-1.png)
+![Axis table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_1_7f6670280d.png)
 
 - **Pricing (monthly)** — Starter $12.99 · Standard $27.99 · Ultimate $49.99 — $19.99 (Premium)
 - **Pricing (annual, effective /mo)** — $5.20 · $11.20 · $20.00 — ~$13.33 (standard, non-sale)
@@ -36,7 +36,7 @@ What matters for most buyers is the entry point, and that's where the comparison
 
 One caveat on every number here. Secrets AI runs sale pricing often, so its live store can show steep discounts that don't last. The figures above are standard, non-sale rates — anchor to those and treat any promo as a bonus, not the baseline.
 
-![Bar chart of effective monthly price per tier showing Pleasur.ai Starter, Standard, and Ultimate on monthly and annual billing alongside Secrets AI.](images/pleasur-ai-vs-secrets-ai/chart-1-pleasur-ai-vs-secrets-ai.png)
+![Bar chart of effective monthly price per tier showing Pleasur.ai Starter, Standard, and Ultimate on monthly and annual billing alongside Secrets AI.](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_1_pleasur_ai_vs_secrets_ai_b6e085030f.png)
 
 Price only matters if both apps actually do what you're paying for. Start with the adult content itself.
 
@@ -50,7 +50,7 @@ Secrets AI covers the same ground from a different shape. It does adult chat and
 
 The practical difference is gating. On pleasur.ai, the core chat isn't where the meter bites; you spend coins on the media you generate. On Secrets AI, media generation draws from Moments. Both are reasonable models. Which suits you depends on whether you mostly talk or mostly generate.
 
-![Editorial diagram titled Build once, stays consistent: a character card listing Appearance, Personality, Backstory, and Kinks flows through an arrow into two outputs, a chat bubble and a generated image frame, both labeled same character.](images/pleasur-ai-vs-secrets-ai/image-2-pleasur-ai-vs-secrets-ai.png)
+![Editorial diagram titled Build once, stays consistent: a character card listing Appearance, Personality, Backstory, and Kinks flows through an arrow into two outputs, a chat bubble and a generated image frame, both labeled same character.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_2_pleasur_ai_vs_secrets_ai_7ddd58b24a.png)
 
 Doing NSFW is table stakes. Remembering who you are between sessions is where companions actually separate.
 
@@ -66,7 +66,7 @@ One thing both apps share, and it's worth being precise about: both meter media 
 
 If you want the category-level argument — every major companion ranked on how well it remembers you — that lives on our guide to the [AI girlfriend with the best memory](https://pleasur.ai/blog/ai-companion-best-memory). This page owns the head-to-head; that one owns the field.
 
-![Editorial diagram titled Two ways to remember: left panel Persistent persona shows one character card carried across Session 1, 2, and 3; right panel Tier-gated recall shows a rising bar staircase of memory recall as paid tiers increase.](images/pleasur-ai-vs-secrets-ai/image-1-pleasur-ai-vs-secrets-ai.png)
+![Editorial diagram titled Two ways to remember: left panel Persistent persona shows one character card carried across Session 1, 2, and 3; right panel Tier-gated recall shows a rising bar staircase of memory recall as paid tiers increase.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_1_pleasur_ai_vs_secrets_ai_fd8c5962c7.png)
 
 Memory keeps you coming back. Voice is what makes a session feel present — and here the two apps draw the line differently.
 
@@ -80,7 +80,7 @@ Secrets AI's Moments System is a credit currency that powers its image and video
 
 The friction sits in the same place for both apps: media and voice cost credits, and you'll watch a balance tick down. The one difference worth keeping in mind is that on pleasur.ai, the text conversation itself never hits that meter.
 
-![Bar chart of monthly coin allowance by Pleasur.ai tier: Starter 1,500, Standard 5,000, Ultimate 10,000 coins.](images/pleasur-ai-vs-secrets-ai/chart-2-pleasur-ai-vs-secrets-ai.png)
+![Bar chart of monthly coin allowance by Pleasur.ai tier: Starter 1,500, Standard 5,000, Ultimate 10,000 coins.](https://elegant-cactus-c693703b28.media.strapiapp.com/chart_2_pleasur_ai_vs_secrets_ai_ddfa9973c5.png)
 
 Metering aside, the question every buyer actually opens with isn't a feature. It's "can I trust this app at all?"
 
@@ -102,7 +102,7 @@ Both pleasur.ai and Secrets AI take ordinary card payments. That sounds obvious 
 
 Eternal AI is the example most people run into: it sells access through [one-time credit packs paid in crypto](https://eternalai.org/pricing), which means buying or holding tokens before you can even start chatting. For a lot of people that's a hard stop. pleasur.ai uses [straightforward card payment with transparent billing](https://pleasur.ai/blog/ai-girlfriend-app-privacy-data-guide-2026); Secrets AI takes cards too. Neither asks you to touch a wallet.
 
-![Editorial comparison diagram titled Two ways to pay to start: a Card payment lane runs a credit-card icon straight into a chat bubble labeled start chatting, while a Crypto-only lane runs a coin-token icon into a brick-wall barrier blocking the path to the same chat bubble.](images/pleasur-ai-vs-secrets-ai/image-3-pleasur-ai-vs-secrets-ai.png)
+![Editorial comparison diagram titled Two ways to pay to start: a Card payment lane runs a credit-card icon straight into a chat bubble labeled start chatting, while a Crypto-only lane runs a coin-token icon into a brick-wall barrier blocking the path to the same chat bubble.](https://elegant-cactus-c693703b28.media.strapiapp.com/image_3_pleasur_ai_vs_secrets_ai_7a657b8974.png)
 
 It's a small thing that turns out to be a real buying axis. Card payment plus unlimited core text chat is the lowest-friction way to actually start using one of these apps — no token purchase, no per-message meter on the conversation, just sign up and talk.
 

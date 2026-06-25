@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """Triage the 222 published Pleasur.AI articles into KEEP / CONSOLIDATE / DELETE buckets.
 
-LEGACY one-shot script. The blog-agent has migrated from Ahrefs to Semrush; the signals
-file this reads is a historical Ahrefs snapshot (pre-migration, archived to
-`scripts/_archive/_ahrefs_signals.json`). To re-run triage, capture a fresh Semrush
-equivalent (Domain Organic Pages + Backlink Analytics) into `scripts/_semrush_signals.json`
-and update the SIGNALS path below.
+LEGACY one-shot script. The signals file this reads is a historical Ahrefs snapshot
+(archived to `scripts/_archive/_ahrefs_signals.json`). Ahrefs is once again the blog-agent's
+SEO data source, so to re-run triage, capture a fresh Ahrefs snapshot (Site Explorer organic
+keywords + Best-pages-by-backlinks) into `scripts/_ahrefs_signals.json` and update the SIGNALS
+path below.
 
 Inputs (all already on disk):
     content-pipeline/brand-articles.json        Strapi inventory (title, slug, url, publishedAt)
     scripts/_archive/_ahrefs_signals.json       hand-curated Ahrefs MCP snapshot from 2026-05-03
-                                                (preserved for reproduction; do not regenerate
-                                                via Ahrefs — Semrush is the new source of truth)
+                                                (preserved for reproduction; regenerate from a
+                                                fresh Ahrefs pull when re-running)
 
 Outputs:
     content-pipeline/audit/blog-triage.csv          row per article with the verdict

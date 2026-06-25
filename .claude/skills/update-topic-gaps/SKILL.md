@@ -1,14 +1,14 @@
 ---
 name: update-topic-gaps
-description: Compare an existing article's section coverage to the current SERP (Semrush phrase_organic + Firecrawl page extraction) and to the related-term / question landscape (phrase_related + phrase_questions). Find topics ranking pages cover that the article doesn't, and propose new sections.
-allowed-tools: Read, Write, WebFetch, mcp__semrush__*
+description: Compare an existing article's section coverage to the current SERP (Ahrefs serp-overview + Firecrawl page extraction) and to the related-term / question landscape (keywords-explorer-related-terms + keywords-explorer-matching-terms). Find topics ranking pages cover that the article doesn't, and propose new sections.
+allowed-tools: Read, Write, WebFetch, mcp__ahrefs__*
 ---
 
 # Update Topic Gaps Skill
 
-> **DATA LAYER RULING (2026-06-12).** Fictional `mcp__semrush__*` kebab-name tools below are overridden by `.claude/skills/keyword-research-pipeline/references/semrush-data-layer.md`. For this skill: current SERP = `keyword_research/phrase_organic`; page content = Firecrawl scrape (`FIRECRAWL_API_KEY`); topic landscape = `phrase_related` + `phrase_questions`. Logic below remains binding.
+> **DATA LAYER (2026-06-24).** This skill runs on the **Ahrefs MCP** (`mcp__ahrefs__*`); Semrush and DataForSEO are retired. For this skill: current SERP = `serp-overview`; page content = Firecrawl scrape (`FIRECRAWL_API_KEY`), WebFetch fallback; topic landscape = `keywords-explorer-related-terms` + `keywords-explorer-matching-terms` grouped by `parent_topic`. Map every call to the tools pinned in [`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) — read it first. Params are comma-separated **strings** (not arrays); `select` + `country` are required; call `doc {tool:"serp-overview"}` for any tool you haven't used this run. Logic below remains binding.
 
-Articles don't get out-of-date in a vacuum — they get out-of-date because the SERP shifts and because the broader topic landscape grows new clusters around the seed term. New competitors rank with new sections, new angles, new evidence; Semrush Topic Research surfaces idea-clusters real publishers are writing about that may not yet be in the SERP top 5. This skill re-pulls both signals and finds what the existing article is missing.
+Articles don't get out-of-date in a vacuum — they get out-of-date because the SERP shifts and because the broader topic landscape grows new clusters around the seed term. New competitors rank with new sections, new angles, new evidence; the Ahrefs related-term / question landscape surfaces sub-topics real publishers are writing about that may not yet be in the SERP top 5. This skill re-pulls both signals and finds what the existing article is missing.
 
 ## Input
 
@@ -21,35 +21,35 @@ Reads:
 ## Process
 
 1. **Identify the article's primary keyword.** Often inferable from the H1 / URL slug. If unclear, ask the user.
-2. **Re-pull the current SERP for that keyword via `mcp__semrush__serp-results`** (or `mcp__semrush__serp-overview` if your inventory exposes that name — see `../../keyword-research-pipeline/references/semrush-mcp-tool-inventory.md`). Capture the top 10 ranking URLs, AS / Page-AS, traffic, word-count, and the `serp_features` array. **Do not silently fall back to Ahrefs** — Ahrefs is retired.
-3. **Pull Semrush Topic Research's idea-cluster tree** via `mcp__semrush__topic-research` with the article's primary keyword as the root. Extract every cluster's name, headlines, questions, and related searches. This is the second gap-source: the topic graph already knows what real publishers are writing about, even when those clusters haven't elbowed into the SERP top 5 yet (see `../../research/references/semrush-mcp-cheatsheet.md` → "Topic Research playbook").
-4. **WebFetch the top 5 ranking pages.** Extract each one's H2 list.
+2. **Re-pull the current SERP for that keyword via `serp-overview`** (`{keyword:"<kw>", country:"US", select:"url,title,position,serp_features"}`; see `../../research/references/ahrefs-mcp-cheatsheet.md` section 4). Capture the top 10 ranking URLs, position order, and the `serp_features` array (plus DR/UR/word-count where the payload exposes them). **Do not silently fall back to Semrush or DataForSEO** — both are retired.
+3. **Pull the Ahrefs related-term / question landscape** as the topic-cluster source. Call `keywords-explorer-related-terms` (`{keywords:"<primary kw>", country:"US", view_for:"also_talk_about", select:"keyword,volume,difficulty,parent_topic,intents", limit:"100"}`) and `keywords-explorer-matching-terms` (`{keywords:"<primary kw>", match_mode:"terms", country:"US", select:"keyword,volume,difficulty,parent_topic", limit:"100"}`); **group the combined rows by `parent_topic`** to form clusters (each cluster = a parent_topic with its member keywords and question-form members). This is the second gap-source: the topic landscape already knows what real publishers are writing about, even when those clusters haven't elbowed into the SERP top 5 yet (see the cheatsheet section 2 "Related / long-tail ideas").
+4. **WebFetch the top 5 ranking pages.** Extract each one's H2 list. (The MCP returns SERP metadata, not full page text — WebFetch, or Firecrawl when a page bot-walls, gives the H2 list — cheatsheet section 7.)
 5. **Compare H2 lists across both sources:**
    - Topics covered by the article: {list}
    - Topics covered by all top 5 SERP pages: {list}
-   - Topics surfaced by Topic Research clusters (cluster name → headlines / questions): {list}
-   - Topics covered by the article but NO ONE else (and no Topic Research cluster either): {list — possible differentiator, possible irrelevance}
+   - Topics surfaced by the related-term clusters (cluster parent_topic → member keywords / question members): {list}
+   - Topics covered by the article but NO ONE else (and no related-term cluster either): {list — possible differentiator, possible irrelevance}
    - **Topics covered by SERP pages but NOT the article:** {list — SERP-derived gaps}
-   - **Topics surfaced by Topic Research clusters but NOT the article AND NOT the SERP top-5:** {list — topic-graph-derived gaps; these are the "covered by no one but the topic graph already knows about it" angles to own}
+   - **Topics surfaced by related-term clusters but NOT the article AND NOT the SERP top-5:** {list — topic-landscape-derived gaps; these are the "covered by no one but the topic landscape already knows about it" angles to own}
 6. **For each gap, tag the gap-source and priority:**
    - **High priority (SERP)** — topic appears in 4+ of top 5 ranking pages (consensus topic the article needs)
    - **Medium priority (SERP)** — topic appears in 2–3 of top 5 (worth considering)
    - **Low priority (SERP)** — topic appears in 1 ranking page (likely a specific angle, not a must-have)
-   - **High priority (topic-graph)** — cluster has high cluster-level volume AND its headlines/questions form a coherent sub-topic the article doesn't address
-   - **Medium priority (topic-graph)** — cluster appears in Topic Research but is borderline-related or low-volume
+   - **High priority (topic-graph)** — cluster has high aggregated cluster volume AND its member keywords / question members form a coherent sub-topic the article doesn't address
+   - **Medium priority (topic-graph)** — cluster appears in the related-term landscape but is borderline-related or low-volume
 7. **For each high/medium gap, draft a section sketch:**
    - Proposed H2 title
    - 2–3 bullet key points
    - Where to insert in the article's flow (between which existing H2s)
    - **Gap source:** `serp` | `topic-graph` | `both` (if surfaced from both)
    - Evidence / examples needed
-8. **Identify obsolete sections.** If the article has H2s that no current ranking page covers AND that don't appear in any Topic Research cluster AND that don't seem essential, flag for possible removal.
+8. **Identify obsolete sections.** If the article has H2s that no current ranking page covers AND that don't appear in any related-term cluster AND that don't seem essential, flag for possible removal.
 9. **Write the audit** to `content-pipeline/updates/4-update-topic-gaps/{slug}.md`:
 
 ```markdown
 # Topic gaps audit: {slug}
 
-_Gap sources used: SERP top-5 (`mcp__semrush__serp-results`) + Topic Research idea-cluster tree (`mcp__semrush__topic-research`)._
+_Gap sources used: SERP top-5 (`serp-overview`) + Ahrefs related-term / question landscape (`keywords-explorer-related-terms` + `keywords-explorer-matching-terms`, grouped by parent_topic)._
 
 ## Current SERP overview
 - Pulled: {date}
@@ -58,11 +58,11 @@ _Gap sources used: SERP top-5 (`mcp__semrush__serp-results`) + Topic Research id
 - Average word count: {n}
 - SERP features present: {ai_overview | featured_snippet | people_also_ask | ...}
 
-## Topic Research overview
+## Topic landscape overview
 - Root keyword: {primary keyword}
 - Pulled: {date}
-- Cluster tree (top 5 by volume):
-  - **{cluster name}** (vol {n}, difficulty {n}) — {1-line summary of what publishers in this cluster are writing about}
+- Cluster tree (top 5 by aggregated volume):
+  - **{parent_topic}** (vol {n}, difficulty {n}) — {1-line summary of what publishers in this cluster are writing about}
   - ...
 
 ## Coverage comparison
@@ -73,8 +73,8 @@ _Gap sources used: SERP top-5 (`mcp__semrush__serp-results`) + Topic Research id
 ### Topics in current top-ranking pages (consensus)
 - {topic} — covered by N of top 5
 
-### Topics in Topic Research clusters
-- {topic / cluster sub-theme} — surfaced by cluster "{cluster name}"; appears in N of top 5 SERP pages (0 if topic-graph-only)
+### Topics in related-term clusters
+- {topic / cluster sub-theme} — surfaced by cluster "{parent_topic}"; appears in N of top 5 SERP pages (0 if topic-graph-only)
 
 ## Gap sections to add
 
@@ -82,7 +82,7 @@ _Gap sources used: SERP top-5 (`mcp__semrush__serp-results`) + Topic Research id
 
 #### Proposed H2: "..."
 - **Gap source:** `serp` | `topic-graph` | `both`
-- **Why:** covered by N of top 5 ranking pages / surfaced by Topic Research cluster "{cluster name}" with cluster volume {n}
+- **Why:** covered by N of top 5 ranking pages / surfaced by related-term cluster "{parent_topic}" with cluster volume {n}
 - **Key points:** ..., ..., ...
 - **Insert between:** "{existing H2}" and "{existing H2}"
 - **Evidence/examples:** ...
@@ -95,7 +95,7 @@ _Gap sources used: SERP top-5 (`mcp__semrush__serp-results`) + Topic Research id
 
 ## Possible removals
 
-- "{existing H2}" — not covered by any current top-ranking page AND absent from Topic Research clusters; consider whether it still earns its place
+- "{existing H2}" — not covered by any current top-ranking page AND absent from the related-term clusters; consider whether it still earns its place
 ```
 
 ## Output
@@ -106,15 +106,15 @@ A list of section additions and possible removals for `update-draft` to apply.
 
 ## Quality checklist
 
-- [ ] Re-pulled SERP within the last day (not stale) via `mcp__semrush__serp-results`
-- [ ] Topic Research idea-cluster tree pulled in the same run via `mcp__semrush__topic-research`
+- [ ] Re-pulled SERP within the last day (not stale) via `serp-overview`
+- [ ] Related-term / question landscape pulled in the same run via `keywords-explorer-related-terms` + `keywords-explorer-matching-terms` (grouped by parent_topic)
 - [ ] Coverage comparison lists actual topics, not summaries
 - [ ] Each gap is tagged with `gap_source: serp | topic-graph | both`
 - [ ] Each gap specifies WHERE to insert (which existing sections it sits between)
-- [ ] Removals only suggested when truly absent from current SERP AND absent from Topic Research clusters, not just absent from one page
+- [ ] Removals only suggested when truly absent from current SERP AND absent from the related-term clusters, not just absent from one page
 - [ ] If the article looks healthy (no high-priority gaps in either source), state that — don't manufacture gaps
-- [ ] No `mcp__ahrefs__*` calls anywhere in the run (Ahrefs is retired; that's a bug, not a fallback)
+- [ ] No `mcp__semrush__*` or DataForSEO calls anywhere in the run (both retired; that's a bug, not a fallback)
 
 ## When the SERP hasn't shifted
 
-If the article's H2s match the current top-ranking pages well AND no Topic Research cluster surfaces a meaningful uncovered angle, the audit may have nothing to suggest. That's fine — it means the article's structure is still strong. Other audits (claims, product mentions) may still find updates.
+If the article's H2s match the current top-ranking pages well AND no related-term cluster surfaces a meaningful uncovered angle, the audit may have nothing to suggest. That's fine — it means the article's structure is still strong. Other audits (claims, product mentions) may still find updates.

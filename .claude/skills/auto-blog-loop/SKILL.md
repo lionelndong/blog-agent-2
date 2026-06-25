@@ -82,7 +82,7 @@ Dispatch /keyword-research-pipeline as a fresh Agent with env BLOG_AGENT_AUTONOM
 
 Wait for completion. Re-run scripts/auto_keyword_selector.py.
 
-If still exit 2 (the keyword pipeline produced no candidates — rare, usually means Semrush AI Toolkit / API quota exhausted or genuinely empty gap), log a "no work" entry to auto-blog-log.csv and stop the loop. Don't try to run keyword research twice in a row — wait for the next cron cycle.
+If still exit 2 (the keyword pipeline produced no candidates — rare, usually means the Ahrefs MCP units budget is exhausted or a genuinely empty gap), log a "no work" entry to auto-blog-log.csv and stop the loop. Don't try to run keyword research twice in a row — wait for the next cron cycle.
 
 If the keyword pipeline itself failed (exit non-zero), keep the previous keyword-queue.csv (if any) and try the selector once more. If selector still empty, stop cleanly.
 ```
@@ -119,7 +119,7 @@ No "open in browser" or "review the preview" instructions — autonomous mode me
 ## Per-run cap and cool-down
 
 - `--max N` caps articles per invocation (default 3).
-- Between articles: 60s cool-down (rate-limit hygiene for Replicate / OpenRouter / Semrush).
+- Between articles: 60s cool-down (rate-limit hygiene for Replicate / OpenRouter / Ahrefs).
 - The keyword research re-run (when queue empty) does NOT count against the per-run cap — it's setup, not articles.
 
 ## Cron entry (production VPS)
@@ -137,9 +137,9 @@ The `--model claude-sonnet-4-6` pin matches existing memory ("Claude-in-Chrome w
 
 ## When the loop should NOT run
 
-- Semrush AI Toolkit / API quota exhausted: Layer 1c logs to `cache/aio-toolkit-quota.log`. Skip until reset.
+- Ahrefs MCP units exhausted: keyword research / optimize-content log the quota error and skip until the monthly reset.
 - Strapi unreachable: `auto_publish_check.py` will quarantine; a streak of consecutive quarantines = stop.
-- Semrush MCP auth expired: Layer 2 will fail; keyword research pipeline halts cleanly.
+- Ahrefs MCP auth expired (`AHREFS_MCP_KEY` invalid): Layer 2 will fail; keyword research pipeline halts cleanly.
 
 The loop is designed to fail forward — one bad article doesn't stop the loop, but one structural failure does.
 

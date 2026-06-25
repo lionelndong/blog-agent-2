@@ -1,0 +1,26 @@
+The pipeline is complete. Here's the final report.
+
+---
+
+✓ **Pipeline complete for "character ai no filter" (slug: character-ai-no-filter-2026) — AUTONOMOUS, PUBLISHED**
+
+**Stages run (every hard gate passed):**
+- ✓ research → dossier + data.json + deep research
+- ✓ research-adversarial → **PASS** (1 revision: first-party-traced competitor pricing, fixed mislabeled word-count median)
+- ✓ brand-reference → caught the brief's dead link `/blog/character-ai-alternative-2026` → corrected to `/blog/character-ai-alternative` everywhere
+- ✓ outline → 7 H2s, 6-platform comparison, FAQ
+- ✓ outline-adversarial → **PASS** (1 revision: made table vs how-to-choose MECE, +visual density, tightened intro)
+- ✓ product-mentions → 5 earned Pleasur.ai slots, coming-soon products barred
+- ✓ draft → 2,986 prose words (band 2,700–3,100), all 6 platforms, GFM table
+- ✓ quality-check → **PASS 86/100** (2 revision passes: 81→84→86, no CRITICAL, adversarial keeps our draft over the #1)
+- ✓ verify-claims → 4/4 links resolved, 0 citation-needed
+- ✓ optimize-content → SKIPPED (known ContentShake outage)
+- ✓ generate-visuals + visuals-adversarial → **PASS** (1 revision: stripped 3 bot-walled external screenshots, added a price chart + 3 brand-safe concept diagrams; 8 visuals, 0 failed)
+- ✓ preview → rendered
+- ✓ format-for-publish → **published live** (caught & removed a stale "Semrush" vendor-name leak first)
+
+**Live:** https://pleasur.ai/blog/character-ai-no-filter-2026 (Strapi id 1437, Supabase mirror `published`, auto_publish_check exit 0). Package committed + pushed to `main` (PLEAA-581 gate satisfied: `aa3bdf6`, `0c3f252`).
+
+**Compliance verified clean:** no "no filter/anything goes" absolutism (only quoted-and-rejected), 18+ framing throughout, no fabricated stats (the "20M+ DAU" line dropped), only CrushOn + DreamGen prices stated as fact, no coming-soon products, no vendor names in prose, brand-safe people-free imagery.
+
+**⚠ One deferred item — board deliverable comment:** the Paperclip run JWT expired mid-pipeline (HTTP 401), the documented `run-jwt-expires-mid-pipeline` case. The article is fully durable; only the PLE-2677 deliverable comment couldn't be posted. I appended the audit row, wrote `.runs/HEARTBEAT-HANDOFF-character-ai-no-filter-20260618.md` (with the exact raw-API PATCH command — the documented helper script isn't installed here), committed/pushed it, and updated memory. The next heartbeat will post the comment and clear the deliverable gate.

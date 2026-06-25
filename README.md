@@ -1,12 +1,12 @@
-# Blog Agent — Powered by Semrush
+# Blog Agent — Powered by Ahrefs
 
-A Claude Code content-engineering pipeline that turns a keyword into a publish-ready blog article. Adapts Ryan Law's content-engineering method to **Semrush's Power 1 MCP** as the single source of SEO + AI-search data — Keyword Magic Tool, Topic Research, .Trends, Keyword Strategy Builder, Organic Competitors, multi-mode Keyword Gap, AI Toolkit (AIO / ChatGPT / Gemini / Perplexity / Copilot citations), and ContentShake AI for content optimization, all under one MCP.
+A Claude Code content-engineering pipeline that turns a keyword into a publish-ready blog article. Implements Ryan Law's content-engineering method on the **Ahrefs MCP** as the single source of SEO + AI-search data — Keywords Explorer (overview, matching/related terms, SERP overview), Site Explorer (organic keywords, top pages, organic competitors, domain rating), Brand Radar AI-citation tracking (AIO / ChatGPT / Gemini / Perplexity citations), Site Audit, and Search Console, all under one MCP.
 
 ## Quick start
 
 1. Open this directory in Claude Code.
-2. Approve the Semrush MCP OAuth flow on first use (requires a Semrush plan that exposes the Power 1 MCP).
-3. Set `SEMRUSH_API_KEY_BLOG_AGENT` via Doppler — `doppler secrets set SEMRUSH_API_KEY_BLOG_AGENT=...` — then run Claude Code as `doppler run -- claude`.
+2. The Ahrefs MCP authenticates with a plain key (`Authorization: Bearer ${AHREFS_MCP_KEY}`, env-expanded by `.mcp.json`) — no OAuth flow. Requires an Ahrefs plan with API/MCP access.
+3. Set `AHREFS_MCP_KEY` (and `AHREFS_API_KEY` for REST/scripted pulls) via Doppler — `doppler secrets set AHREFS_MCP_KEY=...` — then run Claude Code as `doppler run -- claude`.
 4. Edit `brand-config.md` — fill in your brand name, products, target audience, and voice keywords.
 5. Run a smoke test:
 
@@ -18,10 +18,10 @@ A Claude Code content-engineering pipeline that turns a keyword into a publish-r
 
 ## Dependencies
 
-- **Python 3.9+** for the slugify, pipeline-status, preview, diff, Strapi-format, OpenRouter research, ContentShake-optimize, and quality-check scripts
-- **Semrush plan with Power 1 MCP access** — covers Keyword Magic, Topic Research, .Trends, Keyword Strategy Builder, AI Toolkit, ContentShake AI
+- **Python 3.9+** for the slugify, pipeline-status, preview, diff, Strapi-format, OpenRouter research, content-optimize, and quality-check scripts
+- **Ahrefs plan with API/MCP access** — covers Keywords Explorer, Site Explorer, Brand Radar (AI citations), Site Audit, and Search Console (400,000-units/month workspace pool)
 - **OpenRouter account** (recommended) — powers the deep web research stage via Perplexity (env var `OPENROUTER_API_KEY_BLOG_AGENT`)
-- **Doppler CLI** (recommended) — injects `SEMRUSH_API_KEY_BLOG_AGENT`, `OPENROUTER_API_KEY_BLOG_AGENT`, and (later) Strapi creds. Run Claude Code via `doppler run -- claude`
+- **Doppler CLI** (recommended) — injects `AHREFS_MCP_KEY`, `AHREFS_API_KEY`, `OPENROUTER_API_KEY_BLOG_AGENT`, and (later) Strapi creds. Run Claude Code via `doppler run -- claude`
 
 ## Whiteboard UI
 
@@ -68,7 +68,7 @@ The `examples/` directory ships with 5 reference articles for voice anchoring �
 
 | Skill | Output |
 |---|---|
-| `/topic-discovery` | `content-pipeline/0-keywords/topic-graph.json` + `trends.md` (Semrush Topic Research + .Trends; runs once per brand-config change) |
+| `/topic-discovery` | `content-pipeline/0-keywords/topic-graph.json` + `trends.md` (Ahrefs related-terms + matching-terms on the category seeds; runs once per brand-config change) |
 | `/research` | `content-pipeline/1-research/{slug}.md` (+ `{slug}-deep.md` from Perplexity, `{slug}-data.json` chartable numbers) |
 | `/brand-reference` | `content-pipeline/2-reference/{slug}.md` |
 | `/outline` | `content-pipeline/3-outlines/{slug}.md` |
@@ -76,7 +76,7 @@ The `examples/` directory ships with 5 reference articles for voice anchoring �
 | `/draft` | `content-pipeline/5-drafts/{slug}.md` |
 | `/quality-check` | `content-pipeline/quality-checks/{slug}.md` (gates pipeline if FAIL) |
 | `/verify-claims` | `content-pipeline/6-drafts-cited/{slug}.md` |
-| `/optimize-content` | `content-pipeline/optimization/{slug}.md` (Semrush ContentShake AI; no Chrome required) |
+| `/optimize-content` | `content-pipeline/optimization/{slug}.md` (benchmark-relative scoring + voice-preserving rewrites; no Chrome required) |
 | `/generate-visuals` | `content-pipeline/images/{slug}/manifest.json` |
 | `/preview` | `content-pipeline/7-preview/{slug}.html` |
 | `/format-for-publish` | `content-pipeline/8-publish/{slug}/` (article.md + article.json + README.md, ready for Strapi paste or API publish) |
@@ -87,4 +87,4 @@ Keyword-research outputs (the upstream of `auto-blog-loop`) land under `content-
 
 ## Credit
 
-Methodology: [Ryan Law — How I Do Content Engineering with Claude Code](https://ahrefs.com/blog/how-i-do-content-engineering-with-claude-code/) (originally Ahrefs-tooled; this fork is Semrush-tooled with the same editorial method).
+Methodology: [Ryan Law — How I Do Content Engineering with Claude Code](https://ahrefs.com/blog/how-i-do-content-engineering-with-claude-code/) (Ahrefs-tooled, matching the original method).

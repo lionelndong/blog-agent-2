@@ -96,7 +96,7 @@ visuals-adversarial → preview → format-for-publish → `auto_publish_check.p
 2. **Claims verified** — no naked `[link]` placeholders.
 3. **Internal-stack scrub (HARD)** — reader-facing prose must never name internal tools/vendors/data
    sources (DataForSEO, Strapi, Doppler, PostHog, OpenRouter, Replicate, Firecrawl, Paperclip,
-   Semrush, …; full list in `brand-config.md`). grep `article.md` before publish; any hit = fix.
+   Semrush, Ahrefs, …; full list in `brand-config.md`). grep `article.md` before publish; any hit = fix.
 4. **Visuals** — every image via `.claude/skills/visual-prompt-craft/` (9-part prompts; one-liners
    are a gate failure). Legible labels, zero gibberish; text-tables → matplotlib table-cards.
    Preview regenerated AFTER visuals are final.
@@ -146,11 +146,11 @@ Report a one-line status per article on the run issue. The whiteboard
   measurement) is EO-owned and autonomous.
 
 ## 5. Spend guardrail
-Semrush API units (drawn from the paid plan's bundle), Firecrawl scrapes, and image-generation
-calls are metered real money. Stay ≤ **$20/week** combined incremental spend without board
-approval. Keep `display_limit` ≤ 50 on Semrush reports (see the cheatsheet's budget table —
-`domain_domains` at 80 u/line and `phrase_kdi` at 50 u/line are the expensive ones). Log notable
-spend in the run ledger; report monthly to the CFO (PLE-333).
+Ahrefs API units (400,000/month workspace pool, shared with the REST `AHREFS_API_KEY`), Firecrawl
+scrapes, and image-generation calls are metered real money. Stay ≤ **$20/week** combined incremental
+spend without board approval. Ahrefs reports cost ~50 units base + per-row, so keep `limit` tight on
+every report and check the remaining pool any time with `subscription-info-limits-and-usage` before a
+big pull. Log notable spend in the run ledger; report monthly to the CFO (PLE-333).
 
 ## 6. Self-improvement cadence (2026-06-12)
 - **Example promotion:** when the board grades a published article 9+/10, promote its final

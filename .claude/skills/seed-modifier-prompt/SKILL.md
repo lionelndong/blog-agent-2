@@ -6,7 +6,7 @@ allowed-tools: Read, Write, Bash, Agent
 
 # Seed + Modifier Prompt Skill
 
-Take `brand-config.md` and produce a structured `seeds.json` that the keyword multiplier (Semrush Keyword Magic Tool via `/content-gap-analysis`) uses to expand into real keyword ideas.
+Take `brand-config.md` and produce a structured `seeds.json` that the keyword multiplier (Ahrefs Keywords Explorer via `/content-gap-analysis`) uses to expand into real keyword ideas.
 
 This is the upstream of all autonomous keyword research. Without good seeds and modifiers, every downstream layer (BID, AIO, redteam) is filtering an irrelevant pool.
 
@@ -89,7 +89,7 @@ Reads:
 
 ## Why this exists
 
-The keyword-research transcript's first principle: AI given nothing returns nothing useful. Seeds + modifiers + a real keyword research tool (Semrush Power 1 MCP) is the formula that produces volume-validated, intent-grounded keyword ideas. Without this layer, the pipeline's only ideation channel is "what do competitors rank for that we don't" — which is good but narrow. Adding the seeded-multiplier source widens the pool to "what does our audience search for" regardless of competitor coverage.
+The keyword-research transcript's first principle: AI given nothing returns nothing useful. Seeds + modifiers + a real keyword research tool (Ahrefs Keywords Explorer via the Ahrefs MCP) is the formula that produces volume-validated, intent-grounded keyword ideas. Without this layer, the pipeline's only ideation channel is "what do competitors rank for that we don't" — which is good but narrow. Adding the seeded-multiplier source widens the pool to "what does our audience search for" regardless of competitor coverage.
 
 ## When the agent returns generic seeds
 
@@ -105,6 +105,6 @@ If seeds look like "marketing" / "business" / "online" — they're too broad. Re
 
 ## Topic-graph enrichment (when Layer 0 has run)
 
-If `content-pipeline/0-keywords/topic-graph.json` exists (the output of Layer 0 `/topic-discovery`, which runs Semrush Topic Research + .Trends ahead of seed generation), pre-feed the agent with the **top 5 KSB cluster names** from that file plus their representative keywords as a "Pre-discovered topical clusters" section in the brief. Semrush has already done topical clustering at the category level; using its clusters as anchors produces seeds that map onto real ranking opportunities rather than abstract category words. The agent should treat the clusters as evidence, not constraints — it can still propose seeds outside them when brand-config strongly motivates one.
+If `content-pipeline/0-keywords/topic-graph.json` exists (the output of Layer 0 `/topic-discovery`, which runs Ahrefs `keywords-explorer-related-terms` + parent-topic clustering ahead of seed generation), pre-feed the agent with the **top 5 parent-topic / cluster names** from that file plus their representative keywords as a "Pre-discovered topical clusters" section in the brief. Ahrefs has already done topical clustering at the category level (via parent topics); using its clusters as anchors produces seeds that map onto real ranking opportunities rather than abstract category words. The agent should treat the clusters as evidence, not constraints — it can still propose seeds outside them when brand-config strongly motivates one.
 
-If `topic-graph.json` is absent (Layer 0 was skipped, or the brand has no Semrush coverage in the category yet), the skill falls back to brand-config-only behavior — the original 10-second hero prompt, unchanged. The pipeline never blocks on Layer 0; topic-graph is enrichment, not a hard input.
+If `topic-graph.json` is absent (Layer 0 was skipped, or the brand has no Ahrefs coverage in the category yet), the skill falls back to brand-config-only behavior — the original 10-second hero prompt, unchanged. The pipeline never blocks on Layer 0; topic-graph is enrichment, not a hard input.

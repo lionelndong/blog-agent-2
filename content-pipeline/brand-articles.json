@@ -1,16 +1,16 @@
 {
-  "fetched_at": "2026-06-18T14:15:54+00:00",
+  "fetched_at": "2026-06-24T13:38:45+00:00",
   "source": "strapi",
   "base_url": "https://elegant-cactus-c693703b28.strapiapp.com",
   "blog_url_base": "https://pleasur.ai/blog",
-  "count": 30,
+  "count": 36,
   "articles": [
     {
-      "slug": "ai-girlfriend-simulator",
-      "url": "https://pleasur.ai/blog/ai-girlfriend-simulator",
-      "title": "AI Girlfriend Simulator: What It Means and How to Choose",
+      "slug": "ai-companion-best-memory",
+      "url": "https://pleasur.ai/blog/ai-companion-best-memory",
+      "title": "Best AI Girlfriend With Memory (2026): Which Ones Actually Remember You?",
       "excerpt": "",
-      "publishedAt": "2026-06-17T16:40:14.598Z",
+      "publishedAt": "2026-06-23T14:15:04.676Z",
       "h2s": []
     },
     {
@@ -18,7 +18,119 @@
       "url": "https://pleasur.ai/blog/character-ai-alternative",
       "title": "Best Character AI Alternatives in 2026 | Pick by Use Case",
       "excerpt": "",
-      "publishedAt": "2026-06-17T16:40:13.418Z",
+      "publishedAt": "2026-06-23T14:14:37.966Z",
+      "h2s": []
+    },
+    {
+      "slug": "spicychat-alternative-2026",
+      "url": "https://pleasur.ai/blog/spicychat-alternative-2026",
+      "title": "Best SpicyChat Alternatives in 2026 (Tested)",
+      "excerpt": "",
+      "publishedAt": "2026-06-23T14:14:37.073Z",
+      "h2s": []
+    },
+    {
+      "slug": "joi-ai-alternative-2026",
+      "url": "https://pleasur.ai/blog/joi-ai-alternative-2026",
+      "title": "7 Best Joi AI Alternatives in 2026",
+      "excerpt": "",
+      "publishedAt": "2026-06-23T14:14:35.385Z",
+      "h2s": []
+    },
+    {
+      "slug": "what-happened-to-replika-users",
+      "url": "https://pleasur.ai/blog/what-happened-to-replika-users",
+      "title": "What Happened to Replika? The Full Story",
+      "excerpt": "",
+      "publishedAt": "2026-06-23T13:49:07.454Z",
+      "h2s": []
+    },
+    {
+      "slug": "best-replika-alternative-2026",
+      "url": "https://pleasur.ai/blog/best-replika-alternative-2026",
+      "title": "Best Replika Alternative in 2026: Memory, Freedom & Privacy",
+      "excerpt": "",
+      "publishedAt": "2026-06-20T16:07:58.597Z",
+      "h2s": []
+    },
+    {
+      "slug": "ai-companion-chatbot-explained",
+      "url": "https://pleasur.ai/blog/ai-companion-chatbot-explained",
+      "title": "What Is an AI Companion Chatbot? (And How It's Different From a Regular Chatbot)",
+      "excerpt": "",
+      "publishedAt": "2026-06-18T22:42:09.378Z",
+      "h2s": []
+    },
+    {
+      "slug": "how-to-make-an-ai-girlfriend",
+      "url": "https://pleasur.ai/blog/how-to-make-an-ai-girlfriend",
+      "title": "How to Make an AI Girlfriend: The Honest 2026 Guide",
+      "excerpt": "",
+      "publishedAt": "2026-06-18T22:22:12.747Z",
+      "h2s": []
+    },
+    {
+      "slug": "pleasur-ai-vs-dondi-ai",
+      "url": "https://pleasur.ai/blog/pleasur-ai-vs-dondi-ai",
+      "title": "Pleasur.ai vs Dondi.ai (2026): Honest Comparison",
+      "excerpt": "",
+      "publishedAt": "2026-06-18T16:54:20.763Z",
+      "h2s": []
+    },
+    {
+      "slug": "ai-boyfriend",
+      "url": "https://pleasur.ai/blog/ai-boyfriend",
+      "title": "AI Boyfriend: Best Apps and What to Know in 2026",
+      "excerpt": "",
+      "publishedAt": "2026-06-18T16:53:57.506Z",
+      "h2s": []
+    },
+    {
+      "slug": "muah-ai-review",
+      "url": "https://pleasur.ai/blog/muah-ai-review",
+      "title": "Muah AI Review: An Honest Look at What It Does and Where It Breaks",
+      "excerpt": "",
+      "publishedAt": "2026-06-18T16:53:12.870Z",
+      "h2s": []
+    },
+    {
+      "slug": "ai-sexting-app",
+      "url": "https://pleasur.ai/blog/ai-sexting-app",
+      "title": "Best AI Sexting Apps in 2026: 4 Worth Your Time",
+      "excerpt": "",
+      "publishedAt": "2026-06-18T16:33:08.411Z",
+      "h2s": []
+    },
+    {
+      "slug": "best-uncensored-ai-chatbot-free",
+      "url": "https://pleasur.ai/blog/best-uncensored-ai-chatbot-free",
+      "title": "Best Uncensored AI Chatbot Free: What Actually Works in 2026",
+      "excerpt": "",
+      "publishedAt": "2026-06-18T15:57:18.958Z",
+      "h2s": []
+    },
+    {
+      "slug": "character-ai-no-filter-2026",
+      "url": "https://pleasur.ai/blog/character-ai-no-filter-2026",
+      "title": "Character AI No Filter: 6 Best Alternatives (2026)",
+      "excerpt": "",
+      "publishedAt": "2026-06-18T15:36:58.915Z",
+      "h2s": []
+    },
+    {
+      "slug": "janitorai-alternatives-2026",
+      "url": "https://pleasur.ai/blog/janitorai-alternatives-2026",
+      "title": "Best JanitorAI Alternatives in 2026: 9 Apps That Just Work",
+      "excerpt": "",
+      "publishedAt": "2026-06-18T14:32:28.658Z",
+      "h2s": []
+    },
+    {
+      "slug": "ai-girlfriend-simulator",
+      "url": "https://pleasur.ai/blog/ai-girlfriend-simulator",
+      "title": "AI Girlfriend Simulator: What It Means and How to Choose",
+      "excerpt": "",
+      "publishedAt": "2026-06-17T16:40:14.598Z",
       "h2s": []
     },
     {
@@ -46,27 +158,11 @@
       "h2s": []
     },
     {
-      "slug": "how-to-make-an-ai-girlfriend",
-      "url": "https://pleasur.ai/blog/how-to-make-an-ai-girlfriend",
-      "title": "How to Make an AI Girlfriend: The Honest 2026 Guide",
-      "excerpt": "",
-      "publishedAt": "2026-06-17T16:34:57.666Z",
-      "h2s": []
-    },
-    {
       "slug": "ai-girlfriend-experience",
       "url": "https://pleasur.ai/blog/ai-girlfriend-experience",
       "title": "The AI Girlfriend Experience: 90 Seconds to Week Three",
       "excerpt": "",
       "publishedAt": "2026-06-17T16:34:00.646Z",
-      "h2s": []
-    },
-    {
-      "slug": "ai-sexting-app",
-      "url": "https://pleasur.ai/blog/ai-sexting-app",
-      "title": "Best AI Sexting Apps in 2026: 4 Worth Your Time",
-      "excerpt": "",
-      "publishedAt": "2026-06-17T16:31:36.572Z",
       "h2s": []
     },
     {
@@ -94,14 +190,6 @@
       "h2s": []
     },
     {
-      "slug": "best-replika-alternative-2026",
-      "url": "https://pleasur.ai/blog/best-replika-alternative-2026",
-      "title": "Best Replika Alternative in 2026: Memory, Freedom & Privacy",
-      "excerpt": "",
-      "publishedAt": "2026-06-16T14:57:11.194Z",
-      "h2s": []
-    },
-    {
       "slug": "is-candy-ai-safe",
       "url": "https://pleasur.ai/blog/is-candy-ai-safe",
       "title": "Is Candy AI Safe to Use in 2026? What Users Need to Know",
@@ -110,27 +198,11 @@
       "h2s": []
     },
     {
-      "slug": "muah-ai-review",
-      "url": "https://pleasur.ai/blog/muah-ai-review",
-      "title": "Muah AI Review: An Honest Look at What It Does and Where It Breaks",
-      "excerpt": "",
-      "publishedAt": "2026-06-16T14:19:14.612Z",
-      "h2s": []
-    },
-    {
       "slug": "how-to-choose-an-nsfw-ai-companion",
       "url": "https://pleasur.ai/blog/how-to-choose-an-nsfw-ai-companion",
       "title": "How to Choose an NSFW AI Companion",
       "excerpt": "",
       "publishedAt": "2026-06-16T14:19:11.505Z",
-      "h2s": []
-    },
-    {
-      "slug": "ai-boyfriend",
-      "url": "https://pleasur.ai/blog/ai-boyfriend",
-      "title": "AI Boyfriend: Best Apps and What to Know in 2026",
-      "excerpt": "",
-      "publishedAt": "2026-06-16T14:19:09.991Z",
       "h2s": []
     },
     {
@@ -182,27 +254,11 @@
       "h2s": []
     },
     {
-      "slug": "ai-companion-best-memory",
-      "url": "https://pleasur.ai/blog/ai-companion-best-memory",
-      "title": "Best AI Girlfriend With Memory (2026): Which Ones Actually Remember You?",
-      "excerpt": "",
-      "publishedAt": "2026-06-13T15:52:30.328Z",
-      "h2s": []
-    },
-    {
       "slug": "nsfw-ai-companion-payment-methods",
       "url": "https://pleasur.ai/blog/nsfw-ai-companion-payment-methods",
       "title": "NSFW AI Companion Payment Methods: Which Apps Take Credit Cards in 2026",
       "excerpt": "",
       "publishedAt": "2026-06-13T15:34:06.123Z",
-      "h2s": []
-    },
-    {
-      "slug": "janitorai-alternatives-2026",
-      "url": "https://pleasur.ai/blog/janitorai-alternatives-2026",
-      "title": "Best JanitorAI Alternatives in 2026: 9 Apps That Just Work",
-      "excerpt": "",
-      "publishedAt": "2026-06-12T06:57:06.366Z",
       "h2s": []
     },
     {
@@ -227,14 +283,6 @@
       "title": "Is Having an AI Girlfriend Cheating? An Honest Self-Test",
       "excerpt": "",
       "publishedAt": "2026-05-11T12:27:11.646Z",
-      "h2s": []
-    },
-    {
-      "slug": "best-uncensored-ai-chatbot-free",
-      "url": "https://pleasur.ai/blog/best-uncensored-ai-chatbot-free",
-      "title": "Best Uncensored AI Chatbot Free: No Payment Required (2026)",
-      "excerpt": "",
-      "publishedAt": "2026-05-08T09:44:14.133Z",
       "h2s": []
     },
     {

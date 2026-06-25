@@ -33,13 +33,15 @@
     - Explore styles (realistic, anime, art) without prompt-engineering expertise
     - Create images on demand inside an existing chat thread (in-conversation image gen)
 
-### Coming this week (treat as `coming-soon`)
+### Voice Replies + Phone Call — now `live` (drift refresh 2026-06-24, EO/PLE-2929)
 
+> **Status drift refreshed 2026-06-24:** both features below were flagged `coming-soon (this week)` on 2026-06-15. Live re-confirmation on 2026-06-24 via https://pleasur.ai/pricing shows "Voice notes (10 coins each)" included in all tiers and "Phone calls (50 coins/min)" in Standard + Ultimate, with NO "coming soon" qualifier — they are now billable, included features. Per the live-verification rule below, trusting the live page: both are `live`. (Homepage does not surface them; they are in-chat capabilities with no dedicated page, consistent with the note below.) **AI Video Generation remains `roadmap` — never claim video.**
+>
 > Both features below live INSIDE the existing chat experience — they are not standalone products and do not have their own URLs. Reference them as in-chat capabilities of the AI Companion Creator, not as separate tools. Articles must not link out to a dedicated `/voice` or `/call` page (none exists).
 
 - **Voice Replies (in-chat)** — Inside any chat with a companion, the user taps a speaker icon on a character's message and the character "speaks" the message aloud in their assigned voice. It's a per-message playback action, not a separate mode. The conversation stays in the same chat thread; voice is one tap on top of text.
   - URL: in-chat feature — no dedicated page; lives inside `https://pleasur.ai/create`
-  - Status: **coming-soon** (this week)
+  - Status: **live** (refreshed 2026-06-24 from coming-soon; verified live on pleasur.ai/pricing — "Voice notes (10 coins each)" in all tiers)
   - How to mention in articles:
     - Frame as a feature of the chat experience, not a separate tool
     - Show the speaker icon on the character's message bubble in screenshots
@@ -51,7 +53,7 @@
 
 - **Phone Call (in-chat)** — Inside the chat, the user taps a "Call" button on the character's profile and starts a real-time two-way voice call with them. The call is launched from the chat — there's no separate phone-call product or URL. After the call ends, the conversation history continues in the same chat thread.
   - URL: in-chat feature — no dedicated page; lives inside `https://pleasur.ai/create`
-  - Status: **coming-soon** (this week)
+  - Status: **live** (refreshed 2026-06-24 from coming-soon; verified live on pleasur.ai/pricing — "Phone calls (50 coins/min)" in Standard + Ultimate). Real-time two-way VOICE call, not video.
   - How to mention in articles:
     - Frame as an action you take from inside an existing chat with a companion
     - Show the "Call" button on the character profile / chat header in screenshots
@@ -169,4 +171,4 @@ The `/generate-visuals` skill produces real assets (PNGs) for typed `[VISUAL:...
 
 ## Forbidden in reader-facing copy: INTERNAL STACK (hard rule, board 2026-06-10)
 
-NEVER name internal tools, vendors, or data sources in article prose, captions, alt text, or metadata. Cite public sources or use neutral phrasing ("current search results", "our analysis"). Banned terms include: DataForSEO, SemRush, Strapi, Doppler, PostHog, OpenRouter, Firecrawl, Paperclip, TrafficStars, AgentMail, Trackdesk, Civitai, ComfyUI, Replicate, ContentShake, codex, gpt-5.5, Claude (as our tool). Ahrefs only as an editorially-justified product reference, never as our data source. Naming these leaks our stack and reads machine-generated. quality-check must FAIL any draft containing them.
+NEVER name internal tools, vendors, or data sources in article prose, captions, alt text, or metadata. Cite public sources or use neutral phrasing ("current search results", "our analysis"). Banned terms include: DataForSEO, SemRush, Ahrefs, Strapi, Doppler, PostHog, OpenRouter, Firecrawl, Paperclip, TrafficStars, AgentMail, Trackdesk, Civitai, ComfyUI, Replicate, ContentShake, codex, gpt-5.5, Claude (as our tool). Ahrefs is now our SEO data source — never name it as such; reference it only when an article genuinely needs it as an external product comparison, never to describe how we got our data. Naming these leaks our stack and reads machine-generated. quality-check must FAIL any draft containing them.

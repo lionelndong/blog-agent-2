@@ -2,7 +2,7 @@
 
 > Used by `/keyword-vet-aio` (Layer 3) when an adversarial Sonnet sub-agent rates how completely a Google AI Overview answers a query. The rubric is the source of truth for the 0-10 score.
 >
-> AIO bodies are sourced from **Semrush AI Toolkit's AI Response endpoint** (primary), then Semrush SERP Features (fallback), then `WebFetch` against Google Search (last resort). The scoring rubric below is data-source-agnostic — the reader-perspective question is the same regardless of where the AIO text came from.
+> AIO presence is read from **Ahrefs `serp-overview`'s `serp_features`** (the `ai_overview` key). AIO bodies are sourced from **Ahrefs Brand Radar AI responses** (`mcp__ahrefs__brand-radar-ai-responses`, when Layer 1c's Brand Radar path is enabled), then the `serp_features` summary (fallback), then `WebFetch` against Google Search (last resort). The scoring rubric below is data-source-agnostic — the reader-perspective question is the same regardless of where the AIO text came from.
 
 ## The question the rubric answers
 
@@ -108,7 +108,7 @@ Run these on first calibration; if the rubric's verdicts don't match the expecte
 | how to fix keyword cannibalization | 6-7 | RISKY |
 | best keyword research tool 2026 | 4-5 | PASS (commercial-investigation exemption) |
 | keyword cannibalization examples | 5 | RISKY |
-| semrush keyword cannibalization checker | 2 | PASS (tool-led routing) |
+| ahrefs keyword cannibalization checker | 2 | PASS (tool-led routing) |
 | seo audit checklist | 7 | RISKY |
 | how to write a meta description | 8 | FAIL_CANNIBALIZED if informational |
 | meta description vs meta title | 5 | RISKY (commercial-investigation, exempted to PASS) |
