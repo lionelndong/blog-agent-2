@@ -1,74 +1,96 @@
 ---
 name: quality-check
-description: Benchmark-relative quality gate. Scores the draft against the research dossier's beat spec (depth, consensus coverage, evidence) plus AI-tell and voice signals, runs an adversarial read armed with the SERP benchmark, and emits the verdict that gates the pipeline.
+description: The publish gate. Runs binary completeness floors, then a skeptical 3-reviewer panel that decides whether the article beats the live #1 result. Emits PASS/FAIL — there is no score to game. PASS is required to publish; FAIL routes a revision or quarantines.
 allowed-tools: Read, Write, Bash, Task
 ---
 
-# Quality Check Skill
+# Quality Check — the publish gate
 
-Reads the draft and produces a quality scorecard + a punch list of specific fixes. **The question this skill answers is not "does the draft comply with our rules" — it's "a reader opens this article and the #1 ranking result side by side: which one do they keep?"** A draft can be perfectly compliant and still lose; that's a FAIL.
+The question is never "does the draft comply with our rules." It is: **a reader opens this
+article and the current #1 result side by side — which one do they keep?** A perfectly
+"compliant" draft that loses that comparison is a FAIL.
 
-History (why this skill looks the way it does): the previous rubric weighted forbidden phrases + voice metrics + BLUF heuristics and let a 1,100-word, 4-item, no-table listicle score 95 against a SERP of 2,500-word, 9-item, table-bearing competitors. Benchmark-relative dimensions now dominate the score.
+This gate has no 0–100 score, on purpose. A score invites gaming — a model will add numbers,
+links, and headers to clear "85" without making the article better (that is exactly how thin
+drafts used to pass at 85 while the adversarial read named five real weaknesses). Instead the
+gate is two un-gameable halves, and **both must pass**:
+
+1. **FLOORS** — objective completeness you can only satisfy by doing the work.
+2. **PANEL** — three skeptical reviewers who decide whether this beats what's ranking.
 
 ## Input
 
 For slug `{slug}`:
-- `content-pipeline/5-drafts/{slug}.md` (the draft to score)
-- `content-pipeline/1-research/{slug}.md` (**the BEAT SPEC + benchmark — required**; if it lacks a BEAT SPEC section, flag the dossier as legacy and recommend re-running /research)
-- `content-pipeline/3-outlines/{slug}.md` (coverage map, word targets)
-- `brand-config.md` (forbidden phrases, audience)
-- `examples/voice/*.md` (voice baseline)
-- `.claude/skills/draft/references/voice-guide.md`
+- `content-pipeline/5-drafts/{slug}.md` (the draft; use `6-drafts-cited/{slug}.md` with `--stage cited`)
+- `content-pipeline/1-research/{slug}.md` (**the BEAT SPEC + SERP benchmark — required**)
+- `content-pipeline/3-outlines/{slug}.md` (coverage map)
+- `brand-config.md` (forbidden phrases, audience, products)
+- `examples/voice/*.md` (the voice the draft must match)
 
-## Process
+## Gate 1 — Floors (binary, mechanical)
 
-1. **Run the mechanical metrics script:**
-   ```bash
-   python .claude/skills/quality-check/scripts/quality_check.py "<slug>"
-   ```
-   (Use `--stage cited` when re-running after /verify-claims.) This writes `content-pipeline/quality-checks/{slug}-metrics.md` with subscores for: depth vs benchmark (25), consensus coverage (20), AI tells (25), evidence (15), structure (15) — plus CRITICAL findings and a mechanical score.
+```bash
+python .claude/skills/quality-check/scripts/quality_check.py "{slug}"   # add --stage cited after /verify-claims
+```
 
-2. **Voice + judgment read (your 0–100, worth 40% of the final).** Read 1–2 articles from `examples/voice/` and then the draft, as an editor. Judge:
-   - Would the byline survive on a serious blog? Does it sound like the examples or like an AI?
-   - Specificity: does every section teach something concrete, or does it gesture?
-   - Product mentions: demonstrated naturally, or bolted on?
-   - Information gain: is the `[GAIN]` section genuinely not on page 1 (check against the dossier's top-page summaries)?
+Writes `quality-checks/{slug}-metrics.md`; exits 0 (FLOORS_OK) or 1 (FLOORS_FAIL). Floors:
+SERP benchmark present · depth ≥ 80% of SERP median · item count met · comparison table when
+the SERP has one · **every** consensus topic covered · citations resolved (cited stage) · **no
+internal tooling in the prose** (Semrush/Ahrefs/Strapi/etc.) · no forbidden phrases.
 
-3. **Run the adversarial read — armed with the benchmark.** Spawn a Task sub-agent:
-   > Read `content-pipeline/1-research/{slug}.md` (note the BEAT SPEC and the top-page summaries), then read the draft at `content-pipeline/5-drafts/{slug}.md` as a skeptical industry expert who has read every page-1 result for "{keyword}". The brand is {brand}; the audience is {audience}. Answer first: **if this draft and the current #1 were side by side, which would you keep, and why — in 3 sentences.** Then list the 5 weakest things about the draft relative to what's ranking. Be specific — sentences, sections, missing material. Include 1 thing that genuinely works. Do NOT rewrite or be polite.
+**Any failed floor → the gate FAILs.** Don't run the panel on a draft that fails a floor —
+route the fix first: a missing topic or thin depth goes back to `/outline` or `/research`,
+prose problems to `/draft`.
 
-   Save to `content-pipeline/quality-checks/{slug}-adversarial.md`. Be skeptical of all-praise critiques shorter than 200 words — re-run with a sharper brief.
+## Gate 2 — Reviewer panel (the real signal)
 
-4. **Combine into the report** at `content-pipeline/quality-checks/{slug}.md`:
-   - **Verdict** at top: final score = 0.6 × mechanical + 0.4 × judgment. `PASS` (≥85 **and** no CRITICAL finding **and** no mechanical dimension below 60% of its weight **and** the adversarial read doesn't conclude "keep the competitor"), `BORDERLINE` (70–84 or adversarial-negative), `FAIL` (<70 or any CRITICAL).
-   - Metrics summary (numbers, not raw dumps)
-   - Adversarial critique
-   - **Punch list** — specific fixes ordered by severity, each pointing at a section
-   - **Recommendation** — proceed to `/verify-claims`, send back to `/draft` (voice/prose problems), or send back to `/outline` / `/research` (depth/coverage problems — do NOT ask /draft to fix a structural deficit)
+Spawn **three independent `Task` sub-agents**, each a skeptical industry expert who has read
+every page-1 result for "{keyword}". Give each the dossier (`1-research/{slug}.md` — note the
+BEAT SPEC + top-page summaries), the draft, and 1–2 `examples/voice/` articles. Brand: {brand};
+audience: {audience}. Each gets ONE lens:
 
-5. **On FAIL:**
-   - **Autonomous mode (`BLOG_AGENT_AUTONOMOUS=1`)**: don't stop; emit verdict + punch list and return cleanly. The orchestrator owns the retry budget (`BLOG_AGENT_REVISION_BUDGET`). Route matters: depth/coverage CRITICALs → the revision brief targets the **outline** and re-drafts affected sections; prose CRITICALs → the revision brief targets the draft.
-   - **Interactive mode**: stop and tell the user what failed and where to re-enter the pipeline.
+- **Lens A — Competitiveness:** depth, specificity, usefulness vs the winners.
+- **Lens B — Voice & readability:** does it read like the `examples/voice/` anchors (reader-felt,
+  concrete, leads with the real decision) or like generic AI? Would a serious blog run it under
+  a byline?
+- **Lens C — Reader intent & information gain:** does it satisfy the searcher better than the
+  SERP, and carry ≥ 1 genuine thing the top 10 don't have?
 
-## Output
+Each sub-agent answers in this exact shape:
+> **VERDICT: KEEP_OURS | KEEP_COMPETITOR | TOSS_UP** — default to KEEP_COMPETITOR / TOSS_UP if
+> unsure (be skeptical, not polite). Then: 3 sentences on why; the 5 weakest things vs what's
+> ranking (specific sentences/sections); 1 thing that genuinely works.
 
-- `content-pipeline/quality-checks/{slug}.md` (combined report, verdict at top)
-- `content-pipeline/quality-checks/{slug}-metrics.md` (mechanical)
-- `content-pipeline/quality-checks/{slug}-adversarial.md` (adversarial)
+Save all three to `quality-checks/{slug}-panel.md`. Distrust any all-praise verdict shorter
+than 200 words — re-run that lens with a sharper brief.
 
-## Scoring dimensions
+**Gate 2 passes iff ≥ 2 of 3 say KEEP_OURS AND none says KEEP_COMPETITOR.** A single TOSS_UP is
+tolerable; any KEEP_COMPETITOR fails the gate.
 
-| Dimension | Weight | What kills it |
-|---|---|---|
-| Depth vs benchmark | 25 (mech) | <70% of target words; item shortfall; missing required table |
-| Consensus coverage | 20 (mech) | any must-cover topic absent |
-| AI tells | 25 (mech) | forbidden phrases; crutch phrase ≥4×; uniform rhythm; throat-clearing openers |
-| Evidence | 15 (mech) | low claim density; <8 real links; naked `[link]` post-citation |
-| Structure | 15 (mech) | flat H2 structure; missing intro/conclusion |
-| Judgment overlay | 40% of final | sounds AI; no information gain; salesy mentions; loses the side-by-side |
+## Verdict
 
-**A perfect-compliance thin article cannot pass.** Depth floors bind no matter how clean the prose is.
+Write `content-pipeline/quality-checks/{slug}.md` with the verdict line FIRST:
 
-## Why this skill exists
+- `## Verdict: **PASS**` — iff FLOORS_OK **and** Gate 2 passes.
+- `## Verdict: **FAIL**` — otherwise.
 
-Without it, thinness and AI tells get caught at the board's review — the most expensive place. Catching them here means the orchestrator can regenerate before `/verify-claims` spends citation work on prose that was going to be rewritten anyway.
+Then: the floor-table summary, the three panel verdicts, and a **punch list** — specific fixes
+ordered by severity, each pointing at a section, each tagged with a **route**: `/draft` for
+voice/prose, `/outline` or `/research` for depth/coverage gaps (never ask `/draft` to fix a
+structural deficit).
+
+## On FAIL
+
+- **Autonomous mode (`BLOG_AGENT_AUTONOMOUS=1`):** don't stop — emit the verdict + routed punch
+  list and return cleanly. The orchestrator owns the retry budget (`BLOG_AGENT_REVISION_BUDGET`,
+  now **2**). When the budget is spent, the orchestrator writes `9-needs-review/{slug}.md` and
+  moves to the next keyword — **never lower the bar or publish a FAIL.**
+- **Interactive mode:** stop and report what failed and where to re-enter the pipeline.
+
+## Why this gate exists
+
+Ryan Law's quality guarantee is a human reading every article before it ships. We auto-publish,
+so the panel is that human's stand-in: three skeptics who must agree the piece wins the
+side-by-side. The floors guarantee they're judging a complete article, not a stub. Neither half
+emits a number — so there is nothing to optimize toward except actually being better than what's
+ranking.

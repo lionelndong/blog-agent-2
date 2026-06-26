@@ -47,9 +47,9 @@ The new quality contract, enforced end-to-end:
 1. **`/research` produces a quantified SERP benchmark and a "beat spec"** — median word count of the top 3, section counts, item counts for listicles, table/visual usage, consensus topics, gaps. The beat spec states what this article must do to deserve the click: format parity or better, every consensus topic covered, at least one genuine information gain.
 2. **`/outline` is bound by the beat spec.** Section count and per-section word targets come from the SERP, not from a fixed cap. If the SERP demands a 9-app listicle with a comparison table, the outline has 9+ apps and a comparison table.
 3. **`/draft` is judged on depth and specificity, not surface metrics.** Voice comes from `examples/` (read them every run), not from numeric paragraph/em-dash quotas.
-4. **`/quality-check` scores against the benchmark.** The leading question is: *"a reader opens this and the #1 result side by side — which do they keep?"* PASS requires ≥ 85 overall AND no dimension below 60% of its weight.
+4. **`/quality-check` is the publish gate — and it has no score, on purpose.** Two un-gameable halves, **both required to PASS**: (a) **completeness floors** — depth ≥ 80% of the SERP median, every consensus topic covered, citations resolved, no internal tooling leaked into prose; and (b) a **3-reviewer skeptical panel** answering *"reader sees this and the live #1 side by side — which do they keep?"* — ≥ 2 of 3 must say *ours* and **none** may say *the competitor*. A numeric score is gameable (pad numbers, links, and headers to clear 85); "beats the live #1, as judged by three skeptics" is not. A FAIL routes one targeted revision (budget **2**), then quarantines to `9-needs-review/` — **a FAIL never publishes.**
 
-If a draft sounds generic or AI-flavored, the pipeline has failed — regardless of what any score says.
+If a draft sounds generic or AI-flavored, the panel fails it — there is no score to hide behind.
 
 ## Editorial principles
 

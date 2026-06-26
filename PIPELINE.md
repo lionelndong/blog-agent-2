@@ -28,7 +28,7 @@ The drumbeat is the Paperclip routine **"SEO Publishing Pipeline"**
 
 **Target throughput: 5 articles/week is the CAP** — the only exception is a board-flagged
 product/feature announcement (may ship same-day as a 6th). That is the sustainable rate at the
-quality bar (≥2 drafts/article, benchmark-relative score ≥85, real visuals).
+quality bar (≥2 drafts/article, the floors + reviewer-panel gate, real visuals).
 
 If a scheduled run is missed (downtime), the catch-up policy is `skip_missed` — we do not
 double-publish to catch up; we resume the next scheduled slot. Cadence is a floor, not a debt.
@@ -81,25 +81,28 @@ top-N, so the choice is auditable.
 
 Run `/blog-pipeline "<keyword>"` in autonomous mode for the chosen slug. Env:
 ```
-BLOG_AGENT_AUTONOMOUS=1 UNATTENDED=1 BLOG_AGENT_AUTO_PUBLISH=1 BLOG_AGENT_REVISION_BUDGET=5
+BLOG_AGENT_AUTONOMOUS=1 UNATTENDED=1 BLOG_AGENT_AUTO_PUBLISH=1 BLOG_AGENT_REVISION_BUDGET=2
 ```
 Stages (each dispatched as a fresh agent; `scripts/pipeline_gate.py` between them):
-research → research-adversarial → brand-reference → outline → outline-adversarial →
-product-mentions → draft → quality-check → verify-claims → optimize-content → generate-visuals →
-visuals-adversarial → preview → format-for-publish → `auto_publish_check.py`.
+research → brand-reference → outline → product-mentions → draft → quality-check →
+verify-claims → optimize-content → generate-visuals → preview → format-for-publish →
+`auto_publish_check.py`. (The standalone adversarial stages are retired — the skeptical read
+now lives inside /quality-check's 3-reviewer panel.)
 
 ### Non-negotiable publish gates
-1. **Quality ≥ 85** (since 2026-06-12 this IS the PASS floor — the rubric is benchmark-relative:
-   depth vs the dossier's BEAT SPEC, consensus-topic coverage, AI-tell scan, side-by-side
-   adversarial read; a compliant-but-thin article cannot pass). Min 2 full drafts: v1 → brutal
-   self-critique → full rewrite v2. Still < 85 after the revision budget → **quarantine**.
+1. **/quality-check PASS** — no score, on purpose. PASS requires BOTH the completeness floors
+   (depth ≥ 80% of the SERP median, every consensus topic covered, citations resolved, no internal
+   tooling in the prose) AND the 3-reviewer skeptical panel (≥ 2 of 3 keep ours over the live #1;
+   none keeps the competitor). Min 2 full drafts: v1 → brutal self-critique → full rewrite v2.
+   Still FAIL after the revision budget (2) → **quarantine** to `9-needs-review/`.
 2. **Claims verified** — no naked `[link]` placeholders.
 3. **Internal-stack scrub (HARD)** — reader-facing prose must never name internal tools/vendors/data
    sources (DataForSEO, Strapi, Doppler, PostHog, OpenRouter, Replicate, Firecrawl, Paperclip,
    Semrush, Ahrefs, …; full list in `brand-config.md`). grep `article.md` before publish; any hit = fix.
-4. **Visuals** — every image via `.claude/skills/visual-prompt-craft/` (9-part prompts; one-liners
-   are a gate failure). Legible labels, zero gibberish; text-tables → matplotlib table-cards.
-   Preview regenerated AFTER visuals are final.
+4. **Visuals** — lean by design (Ryan does images by hand): real brand-UI screenshots via
+   /generate-visuals (Playwright) and matplotlib table-cards for data. No AI image generation.
+   Any non-screenshot visual is a manual TODO that does not block text publish. Preview
+   regenerated AFTER visuals are final.
 5. **Adult-content compliance** — 18+ framing, no "no filter/anything goes" absolutism, no safety
    guarantees, no real-person likenesses. Legal/privacy copy escalates to board, never auto-publish.
 

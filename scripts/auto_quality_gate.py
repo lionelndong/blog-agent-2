@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 """Parse a quality-check verdict file and emit a deterministic exit code.
 
-Reads `content-pipeline/quality-checks/<slug>.md` and looks for the verdict line
-written by /quality-check ("PASS", "BORDERLINE", "FAIL") plus any CRITICAL flags
-in the punch list. Used by the autonomous blog loop's revision retry logic.
+Reads `content-pipeline/quality-checks/<slug>.md` and looks for the binary verdict line
+written by /quality-check ("PASS" or "FAIL"). The verdict is no longer a score — it is
+PASS iff the completeness floors AND the reviewer panel both pass (see quality-check/SKILL.md).
+Used by the autonomous blog loop's revision retry logic.
 
 Exit codes:
-    0   PASS (>=75)
-    1   BORDERLINE without CRITICAL items in punch list
-    2   BORDERLINE with CRITICAL items in punch list (revision needed)
-    3   FAIL (<60) (revision needed)
+    0   PASS (floors + panel both passed — publish)
+    3   FAIL (revision needed; quarantine once the revision budget is spent)
     4   Verdict unparseable / file missing
 
 Usage:
@@ -56,14 +55,8 @@ def main() -> None:
         print(f"error: no verdict found in {path}", file=sys.stderr)
         sys.exit(4)
 
-    critical = has_critical(text)
-    print(f"{verdict}{' (CRITICAL)' if critical and verdict != 'FAIL' else ''}")
-
-    if verdict == "PASS":
-        sys.exit(0)
-    if verdict == "BORDERLINE":
-        sys.exit(2 if critical else 1)
-    sys.exit(3)
+    print(verdict)
+    sys.exit(0 if verdict == "PASS" else 3)
 
 
 if __name__ == "__main__":

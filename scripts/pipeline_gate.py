@@ -237,19 +237,16 @@ def check_quality(slug: str) -> int:
     if err:
         return fail("quality-check verdict missing", err)
     text = p.read_text(encoding="utf-8")
-    m = re.search(r"Verdict:\s*\*\*(PASS|FAIL|BORDERLINE)\*\*", text, re.I)
+    m = re.search(r"Verdict:\s*\*\*(PASS|FAIL)\*\*", text, re.I)
     if not m:
-        return fail("quality-check has no parseable verdict line", f"expected '## Verdict: **PASS|FAIL|BORDERLINE**' in {p.relative_to(REPO_ROOT)}")
+        return fail("quality-check has no parseable verdict line",
+                    f"expected '## Verdict: **PASS**' or '## Verdict: **FAIL**' in {p.relative_to(REPO_ROOT)}")
     verdict = m.group(1).upper()
-    has_critical = "CRITICAL" in text and re.search(r"###\s*CRITICAL[^\n]*\n([^#]+)", text, re.I)
-    critical_body = (has_critical.group(1) if has_critical else "").strip()
-    has_real_critical = bool(critical_body and not re.match(r"^[—-]+\s*none\s*$", critical_body, re.I))
-    if verdict == "FAIL":
-        return fail("quality verdict is FAIL — pipeline halts here", f"see {p.relative_to(REPO_ROOT)} for the punch list")
-    if verdict == "BORDERLINE" and has_real_critical:
-        return fail("quality verdict is BORDERLINE with CRITICAL items — pipeline halts here",
-                    f"resolve CRITICALs in {p.relative_to(REPO_ROOT)}")
-    return ok("quality", slug, f"verdict={verdict}, no blocking CRITICALs")
+    if verdict != "PASS":
+        return fail("quality verdict is FAIL — pipeline halts here",
+                    "both the completeness floors and the reviewer panel must pass to publish",
+                    f"see {p.relative_to(REPO_ROOT)} for the routed punch list")
+    return ok("quality", slug, "verdict=PASS (floors + reviewer panel)")
 
 
 def check_preview(slug: str) -> int:

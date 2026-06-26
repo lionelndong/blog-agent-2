@@ -1,21 +1,32 @@
 #!/usr/bin/env python3
-"""Automated quality metrics for a draft — benchmark-relative (2026-06-12 rebuild).
+"""Completeness FLOORS for a draft — binary and un-gameable (2026-06-25 Ryan-faithful rebuild).
 
-The old version scored compliance (paragraph lengths, em-dash quotas) and let
-objectively thin articles score 95. This version scores *competitiveness*
-against the research dossier's BEAT SPEC, plus the mechanical AI-tell signals
-that don't lie.
+Replaces the old 0-100 mechanical score. A numeric score invites gaming: a model can
+sprinkle numbers, add links, and split H2 headers to clear "85" without making the article
+any better — exactly the failure behind drafts that scored 85 PASS while the adversarial
+read named five real weaknesses. Ryan Law's method uses human editorial judgment, not a
+rubric. We approximate that judgment with two un-gameable halves:
 
-Computes:
-  - Beat-spec compliance: draft word count vs target, item count, table presence
-  - Consensus-topic coverage: every must-cover topic from the dossier present
-  - Evidence: numeric-claim density, citation ratio, naked [link] count
-  - AI tells: forbidden phrases, BLUF failures, crutch repetition, rhythm uniformity
-  - A 0-100 mechanical score with per-dimension subscores (the SKILL combines
-    this with the adversarial read for the final verdict)
+  * FLOORS (this script): objective completeness prerequisites that can ONLY be met by
+    actually doing the work — hitting the SERP-benchmarked depth, covering every consensus
+    topic the winners cover, citing every claim, and leaking no internal tooling into the
+    prose. Each is a hard pass/fail. There is no score to optimize toward.
+
+  * PANEL (the SKILL): a panel of skeptical reviewers answers the only question that
+    matters — "reader sees this and the live #1 side by side, which do they keep?" That
+    judgment, not a number, is what decides publish.
+
+This script emits FLOORS_OK or FLOORS_FAIL plus non-gating OBSERVATIONS (claim density,
+link count, paragraph rhythm, crutch words) for the panel and editor to weigh. Nothing here
+can be satisfied by padding.
 
 Usage:
     python .claude/skills/quality-check/scripts/quality_check.py <slug> [--stage cited]
+
+Exit codes:
+    0   all floors pass (FLOORS_OK)
+    1   one or more floors failed (FLOORS_FAIL)
+    2   no draft found
 """
 from __future__ import annotations
 
@@ -32,6 +43,18 @@ CITED_DIR = ROOT / "content-pipeline" / "6-drafts-cited"
 RESEARCH_DIR = ROOT / "content-pipeline" / "1-research"
 BRAND_CONFIG = ROOT / "brand-config.md"
 OUT_DIR = ROOT / "content-pipeline" / "quality-checks"
+
+# A draft below this fraction of the SERP-median word count is thin and cannot auto-publish.
+# (The #1 historical failure mode was 1,100-word drafts against 2,500-word SERP winners.)
+DEPTH_FLOOR = 0.80
+
+# Internal tooling / research jargon that must NEVER appear in reader-facing prose.
+# Catches leaks like a raw "Semrush 40,500-volume aside" sitting in a published draft.
+INTERNAL_LEAK_TERMS = [
+    "semrush", "dataforseo", "data for seo", "ahrefs", "contentshake", "content shake",
+    "strapi", "doppler", "posthog", "openrouter", "open router", "replicate", "firecrawl",
+    "paperclip", "supabase", "trafficstars", "beat spec", "beat-spec", "must-cover topic",
+]
 
 BLUF_BAD_OPENERS = [
     r"^in this section", r"^now that we", r"^now let", r"^before we",
@@ -71,6 +94,7 @@ def words(text: str) -> list[str]:
 
 def strip_markup(text: str) -> str:
     text = re.sub(r"\[VISUAL:[^\]]*\]", "", text)
+    text = re.sub(r"\[GAIN\]", "", text)
     text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", text)
     text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)
     text = re.sub(r"`[^`]*`", "", text)
@@ -82,9 +106,6 @@ def split_paragraphs(text: str) -> list[str]:
     for chunk in re.split(r"\n\s*\n", text):
         chunk = chunk.strip()
         if not chunk or chunk.startswith("#") or chunk.startswith("|"):
-            continue
-        if re.match(r"^[-*]\s", chunk):  # list block counts as one unit
-            out.append(chunk)
             continue
         out.append(chunk)
     return out
@@ -113,8 +134,6 @@ def parse_beat_spec(dossier: str) -> dict:
         spec["item_count"] = int(items.group(1))
     table = re.search(r"[Cc]omparison table:?\s*\*{0,2}(required|yes)", block)
     spec["table_required"] = bool(table)
-    # Capture only the Must-cover sub-list; stop at the next bolded sibling bullet
-    # (e.g. "- **Differentiation topics:**") so it doesn't swallow later sections.
     topics_m = re.search(
         r"Must-cover topics[^\n]*\n(.*?)(?=\n\s*[-*]\s+\*\*|\Z)",
         block, re.DOTALL,
@@ -138,7 +157,7 @@ def topic_covered(topic: str, draft_lower: str) -> bool:
 
 
 def crutch_phrases(text: str, topic_terms: set[str]) -> list[tuple[str, int]]:
-    """Distinctive words/bigrams repeated enough to read as a tic."""
+    """Distinctive words/bigrams repeated enough to read as a tic (OBSERVATION only)."""
     toks = words(text)
     flagged: list[tuple[str, int]] = []
     uni = Counter(t for t in toks if t not in STOPWORDS and len(t) >= 5 and t not in topic_terms)
@@ -160,7 +179,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("slug")
     ap.add_argument("--stage", choices=["draft", "cited"], default="draft",
-                    help="cited = post-verify-claims (naked [link] is a hard fail there)")
+                    help="cited = post-verify-claims (naked [link] is a hard floor there)")
     args = ap.parse_args()
 
     draft_path = (CITED_DIR if args.stage == "cited" else DRAFT_DIR) / f"{args.slug}.md"
@@ -173,142 +192,151 @@ def main() -> int:
     spec = parse_beat_spec(dossier)
     body = strip_markup(raw)
     body_words = len(words(body))
+    body_lower = body.lower()
+    draft_lower = " ".join(words(raw))
     title = (re.search(r"^#\s+(.+)$", raw, re.MULTILINE) or [None, args.slug])[1]
-    # Topic terms repeat legitimately: title, slug, every H2/H3 header (app names,
-    # comparison axes), and the brand name. Only NON-topical repetition is a crutch.
-    headers = " ".join(re.findall(r"^#{2,3}\s+(.+)$", raw, re.MULTILINE))
+    h2s = re.findall(r"^##\s+(.+)$", raw, re.MULTILINE)
+    h3s = re.findall(r"^###\s+(.+)$", raw, re.MULTILINE)
+    headers = " ".join(h2s + h3s)
     brand = (re.search(r"\*\*Name:\*\*\s*(.+)", read(BRAND_CONFIG)) or [None, ""])[1]
-    topic_terms = {
-        w for w in words(f"{title} {args.slug} {headers} {brand}") if w not in STOPWORDS
-    }
+    topic_terms = {w for w in words(f"{title} {args.slug} {headers} {brand}") if w not in STOPWORDS}
 
-    findings: list[str] = []
-    scores: dict[str, tuple[float, float]] = {}  # dim -> (earned, weight)
+    # floors: list of (name, passed, detail). observations: list of str.
+    floors: list[tuple[str, bool, str]] = []
+    observations: list[str] = []
 
-    # --- Depth vs beat spec (25) ---
+    # --- FLOOR: a SERP benchmark must exist (no benchmark -> cannot verify competitiveness) ---
+    if not spec:
+        floors.append((
+            "beat_spec", False,
+            "No BEAT SPEC in the dossier — cannot verify the draft beats the SERP. Re-run /research.",
+        ))
+
+    # --- FLOOR: depth vs the SERP median ---
     if spec.get("target_words"):
         ratio = body_words / spec["target_words"]
-        depth = max(0.0, min(1.0, (ratio - 0.5) / 0.35)) if ratio < 0.85 else (1.0 if ratio <= 1.35 else 0.85)
-        findings.append(f"Word count: {body_words} vs target {spec['target_words']} (ratio {ratio:.2f})")
-        if ratio < 0.7:
-            findings.append("CRITICAL: draft is <70% of the beat-spec word target — thin against the SERP.")
-    else:
-        depth = 0.6 if body_words >= 1500 else 0.3
-        findings.append(f"Word count: {body_words}; NO BEAT SPEC found in dossier (legacy?) — re-run /research.")
-    h2s = re.findall(r"^##\s+(.+)$", raw, re.MULTILINE)
-    if spec.get("item_count"):
-        h3s = re.findall(r"^###\s+(.+)$", raw, re.MULTILINE)
-        sections = len(h2s) + len(h3s)
-        if sections < spec["item_count"]:
-            depth = min(depth, 0.5)
-            findings.append(
-                f"CRITICAL: beat spec demands ~{spec['item_count']} items; draft has {sections} H2+H3 sections."
-            )
-    if spec.get("table_required") and not re.search(r"^\|.+\|\s*$", raw, re.MULTILINE):
-        depth = min(depth, 0.6)
-        findings.append("CRITICAL: beat spec requires a comparison table; none found in draft.")
-    scores["depth_vs_benchmark"] = (depth * 25, 25)
+        floors.append((
+            "depth", ratio >= DEPTH_FLOOR,
+            f"{body_words} words vs SERP median {spec['target_words']} "
+            f"(ratio {ratio:.2f}; floor {DEPTH_FLOOR:.2f})"
+            + ("" if ratio >= DEPTH_FLOOR else " — THIN against the SERP"),
+        ))
+    elif spec:
+        floors.append((
+            "depth", body_words >= 1500,
+            f"{body_words} words; beat spec has no parseable target word count",
+        ))
 
-    # --- Consensus coverage (20) ---
-    draft_lower = " ".join(words(raw))
+    # --- FLOOR: item count (listicles must carry the items the SERP demands) ---
+    if spec.get("item_count"):
+        sections = len(h2s) + len(h3s)
+        floors.append((
+            "item_count", sections >= spec["item_count"],
+            f"{sections} H2+H3 sections vs beat-spec {spec['item_count']} items",
+        ))
+
+    # --- FLOOR: comparison table when the SERP has one ---
+    if spec.get("table_required"):
+        has_table = bool(re.search(r"^\|.+\|\s*$", raw, re.MULTILINE))
+        floors.append((
+            "table", has_table,
+            "comparison table present" if has_table
+            else "beat spec requires a comparison table; none found in the draft",
+        ))
+
+    # --- FLOOR: consensus coverage (EVERY must-cover topic, not a ratio) ---
     must = spec.get("must_cover", [])
     if must:
         missing = [t for t in must if not topic_covered(t, draft_lower)]
-        cov = 1 - len(missing) / len(must)
-        for t in missing:
-            findings.append(f"MISSING consensus topic: {t}")
-        scores["consensus_coverage"] = (cov * 20, 20)
-    else:
-        scores["consensus_coverage"] = (10, 20)
-        findings.append("No must-cover topics parsed from dossier — coverage unscored (10/20 neutral).")
+        floors.append((
+            "consensus_coverage", not missing,
+            "all must-cover topics present" if not missing else f"MISSING: {', '.join(missing)}",
+        ))
 
-    # --- Evidence (15) ---
-    sentences = [s for s in re.split(r"(?<=[.!?])\s+", body) if s.strip()]
-    numeric = [s for s in sentences if re.search(r"\d", s)]
+    # --- FLOOR: citations resolved (cited stage only) ---
     naked_links = len(re.findall(r"\[link\]", raw))
     real_links = len(re.findall(r"\[[^\]]+\]\(https?://", raw))
-    claim_density = len(numeric) / max(len(sentences), 1)
-    ev = min(1.0, claim_density / 0.18) * 0.6 + min(1.0, real_links / 8) * 0.4
-    if args.stage == "cited" and naked_links:
-        ev = 0.0
-        findings.append(f"CRITICAL: {naked_links} naked [link] placeholders remain post-citation.")
-    elif naked_links:
-        findings.append(f"{naked_links} [link] placeholders (OK at draft stage; verify-claims must resolve).")
-    findings.append(f"Claim density {claim_density:.2f} ({len(numeric)}/{len(sentences)} sentences numeric); {real_links} hyperlinks.")
-    scores["evidence"] = (ev * 15, 15)
+    if args.stage == "cited":
+        floors.append((
+            "citations", naked_links == 0,
+            "no naked [link] placeholders" if naked_links == 0
+            else f"{naked_links} naked [link] placeholders remain post-citation",
+        ))
 
-    # --- AI tells (25) ---
-    tell_penalty = 0.0
+    # --- FLOOR: no internal tooling leaked into reader-facing prose ---
+    leaks = []
+    for term in INTERNAL_LEAK_TERMS:
+        n = len(re.findall(r"(?<![a-z0-9])" + re.escape(term) + r"(?![a-z0-9])", body_lower))
+        if n:
+            leaks.append(f'"{term}"x{n}')
+    floors.append((
+        "no_internal_leak", not leaks,
+        "no internal tooling in prose" if not leaks else f"LEAK in prose: {', '.join(leaks)}",
+    ))
+
+    # --- FLOOR: no brand-forbidden phrases ---
     forbidden = load_forbidden_phrases()
-    hits = [(p, len(re.findall(re.escape(p), raw, re.IGNORECASE))) for p in forbidden]
-    hits = [(p, n) for p, n in hits if n]
-    for p, n in hits:
-        findings.append(f"FORBIDDEN phrase x{n}: \"{p}\"")
-    if hits:
-        tell_penalty += 0.5
+    fhits = [(p, len(re.findall(re.escape(p), raw, re.IGNORECASE))) for p in forbidden]
+    fhits = [(p, n) for p, n in fhits if n]
+    floors.append((
+        "forbidden_phrases", not fhits,
+        "no forbidden phrases" if not fhits else "; ".join(f'"{p}"x{n}' for p, n in fhits),
+    ))
+
+    # --- OBSERVATIONS (non-gating — the panel and editor weigh these, the gate does not) ---
+    sentences = [s for s in re.split(r"(?<=[.!?])\s+", body) if s.strip()]
+    numeric = [s for s in sentences if re.search(r"\d", s)]
+    claim_density = len(numeric) / max(len(sentences), 1)
+    observations.append(
+        f"Claim density {claim_density:.2f} ({len(numeric)}/{len(sentences)} numeric sentences); "
+        f"{real_links} real hyperlinks; {naked_links} naked [link]."
+    )
+    observations.append(f"Structure: {len(h2s)} H2 + {len(h3s)} H3 sections.")
+    observations.append("Information gain: [GAIN] marker " + ("present." if "[GAIN]" in raw else "ABSENT — the panel must confirm a genuine information gain."))
     crutches = crutch_phrases(body, topic_terms)
-    bad_crutches = [(p, n) for p, n in crutches if n >= 4]
     for p, n in crutches:
-        findings.append(f"Repetition: \"{p}\" x{n}" + ("  <-- crutch, rewrite" if n >= 4 else ""))
-    # Only stylistic repetition is penalized; topical nouns repeating is normal
-    # (the findings still list them for the editor's judgment).
-    stylistic = [
-        (p, n) for p, n in bad_crutches
-        if " " in p or p in CRUTCH_LEXICON or p.endswith("ly")
-    ]
-    tell_penalty += min(0.3, 0.1 * len(stylistic))
+        observations.append(f'Repetition: "{p}" x{n}' + ("  <-- reads as a crutch" if n >= 4 else ""))
     bluf_fails = []
     for sec in re.split(r"^##\s+", raw, flags=re.MULTILINE)[1:]:
         first_para = next((p for p in sec.splitlines()[1:] if p.strip() and not p.startswith(("#", "|", "[", "!"))), "")
-        opener = first_para.strip().lower()
-        if any(re.match(rx, opener) for rx in BLUF_BAD_OPENERS):
+        if any(re.match(rx, first_para.strip().lower()) for rx in BLUF_BAD_OPENERS):
             bluf_fails.append(sec.splitlines()[0][:50])
     for s in bluf_fails:
-        findings.append(f"BLUF fail (throat-clearing opener): {s}")
-    tell_penalty += min(0.2, 0.05 * len(bluf_fails))
+        observations.append(f"BLUF fail (throat-clearing opener): {s}")
     paras = split_paragraphs(body)
     lens = [len(words(p)) for p in paras if words(p)]
     if len(lens) >= 8:
         cv = statistics.pstdev(lens) / max(statistics.mean(lens), 1)
-        findings.append(f"Paragraph rhythm: mean {statistics.mean(lens):.0f}w, CV {cv:.2f}" + ("  <-- uniform, vary rhythm" if cv < 0.35 else ""))
-        if cv < 0.35:
-            tell_penalty += 0.1
-    scores["ai_tells"] = (max(0.0, 1 - tell_penalty) * 25, 25)
+        observations.append(
+            f"Paragraph rhythm: mean {statistics.mean(lens):.0f}w, CV {cv:.2f}"
+            + ("  <-- uniform; vary rhythm" if cv < 0.35 else "")
+        )
 
-    # --- Structure (15) ---
-    has_intro = bool(paras) and bool(h2s)
-    h2_ok = len(h2s) >= 4
-    structure = (0.5 if has_intro else 0) + (0.5 if h2_ok else 0)
-    if not h2_ok:
-        findings.append(f"Only {len(h2s)} H2 sections — structure too flat.")
-    scores["structure"] = (structure * 15, 15)
-
-    earned = sum(e for e, _ in scores.values())
-    total = sum(w for _, w in scores.values())
-    score = round(earned / total * 100)
-    criticals = [f for f in findings if f.startswith(("CRITICAL", "MISSING", "FORBIDDEN"))]
-    dim_floor_fail = [d for d, (e, w) in scores.items() if e / w < 0.6]
-    verdict = "PASS" if score >= 85 and not criticals and not dim_floor_fail else (
-        "BORDERLINE" if score >= 70 else "FAIL")
+    floors_ok = all(passed for _, passed, _ in floors)
+    result = "FLOORS_OK" if floors_ok else "FLOORS_FAIL"
+    failed = [name for name, passed, _ in floors if not passed]
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     out = OUT_DIR / f"{args.slug}-metrics.md"
     lines = [
-        f"# Mechanical quality metrics — {args.slug} ({args.stage} stage)",
+        f"# Completeness floors — {args.slug} ({args.stage} stage)",
         "",
-        f"**Mechanical score: {score}/100 — {verdict}**",
-        "(Final verdict = this + adversarial read + voice judgment, per SKILL.md.)",
+        f"**{result}**" + ("" if floors_ok else f" — failed: {', '.join(failed)}"),
         "",
-        "| Dimension | Score | Weight | Floor (60%) |",
-        "|---|---|---|---|",
+        "Floors are hard prerequisites (you can only satisfy them by doing the work). They do",
+        "NOT decide publish on their own — the /quality-check panel decides whether the article",
+        "beats the live #1. A draft that clears every floor can still FAIL the panel.",
+        "",
+        "| Floor | Result | Detail |",
+        "|---|---|---|",
     ]
-    for dim, (e, w) in scores.items():
-        flag = "FAIL" if e / w < 0.6 else "ok"
-        lines.append(f"| {dim} | {e:.1f} | {w} | {flag} |")
-    lines += ["", "## Findings", ""] + [f"- {f}" for f in findings]
+    for name, passed, detail in floors:
+        lines.append(f"| {name} | {'PASS' if passed else 'FAIL'} | {detail} |")
+    lines += ["", "## Observations (non-gating — for the panel / editor)", ""]
+    lines += [f"- {o}" for o in observations]
     out.write_text("\n".join(lines), encoding="utf-8")
     print("\n".join(lines))
-    return 0
+    return 0 if floors_ok else 1
 
 
 if __name__ == "__main__":
