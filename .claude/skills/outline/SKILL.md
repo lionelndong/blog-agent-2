@@ -18,7 +18,7 @@ For slug `{slug}`, reads:
 - `references/bluf-mece-rules.md` (structural rules — must enforce)
 - `../../../templates/outline-template.md` (the file structure)
 - `../../../templates/visual-types.md` + `../../../templates/editorial-principles-visuals.md` (visual decisions)
-- `examples/` — read `examples/README.md`, then 1 structure example + 1 niche example closest to this content type
+- `examples/` — read `examples/README.md`, then the **2 examples closest to this content type** (structure + niche). The examples are the structure/voice spec — Ryan's principle: anchor in real high-performing articles, never work from a distilled rule list alone.
 
 ## Process
 
@@ -38,10 +38,10 @@ For slug `{slug}`, reads:
    - Evidence (stat / quote / example / walkthrough — cite which dossier section it comes from)
    - **Word target** — per-section targets must sum to the beat spec's total ±10%. Weight by SERP attention: comparison/criteria sections get more, boilerplate sections get less.
    - Transition to next section
-   - **Visuals** — one or more typed micro-specs (`screenshot` / `action-shot` / `image` / `table` / `chart` / `video` / `external` / `gif` / `none`), format:
+   - **Visuals** — one or more typed micro-specs (`screenshot` / `action-shot` / `table` / `chart` / `video` / `external` / `gif` / `none` — **no `image`: AI image generation is retired**), format:
      ```
      **Visuals:**
-       Visual 1: {type: image, sub: concept-illustration, prompt: <specific structured prompt>, safety: sfw}
+       Visual 1: {type: chart, data: <research.key>, style: bar, title: <title>}
        Visual 2: {type: screenshot, target: create, what: voice profile selector, annotate: arrow on speaker icon}
      ```
      Apply the decision sequence in `templates/editorial-principles-visuals.md`. The default for any non-trivial section (>300 words) is "this section deserves a visual; what kind?". For brand-product UI: `screenshot` if a single URL shows the state, `action-shot` if it takes clicks (routed to `/capture-visuals`). For quoted Reddit/tweets/news: `external` with a `selector`.

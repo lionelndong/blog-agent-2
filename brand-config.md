@@ -158,12 +158,8 @@ When `/verify-claims` finds an opportunity to link to a `brand-reference` URL, p
 
 The `/generate-visuals` skill produces real assets (PNGs) for typed `[VISUAL:...]` placeholders in the cited draft. See `templates/visual-types.md` for the taxonomy.
 
-- **Image gen provider:** Replicate (NEVER direct OpenAI / Google API — always proxied through Replicate)
-- **Image gen auth env var:** `REPLICATE_API_TOKEN` (load via Doppler — same pattern as `OPENROUTER_API_KEY_BLOG_AGENT`)
-- **Default model:** `openai/gpt-image-2`
-- **Backup model:** `google/nano-banana` — used automatically on error / rate-limit / safety refusal, or explicitly via `model=nano-banana` in the placeholder
-- **Adult-content rule:** any `[VISUAL:type=image;safety=adult;...]` placeholder is routed to `manual-capture.md` for the editor to produce via `pleasur.ai/generate`. Replicate's GPT Image 2 and Nano Banana refuse adult prompts and may flag the API account — never call them with adult content.
-- **Default image style suffix** (appended to SFW prompts unless overridden): "photorealistic, soft natural lighting, no people"
+- **No AI image generation (Ryan-faithful, 2026-06-25).** Real product imagery and authentic UI screenshots beat AI-generated "slop" on user experience, so we don't generate imagery. Only two automated visual types: **`screenshot`** (real Pleasur.AI UI via Playwright) and **`chart`/`table`** (matplotlib from real research data — graphs ARE fine to render). Any `type=image` placeholder is **dropped** and logged as a manual TODO; no image model is ever called (no Replicate / OpenAI / Google image API).
+- **Real imagery is captured, not generated:** when an article truly needs a real photo or an adult-context image, it goes to `manual-capture.md` for the editor to produce/source from `pleasur.ai` — never an AI generator.
 - **Default screenshot viewport:** 1440×900 at 2× device pixel ratio
 - **Screenshot auth:** Pleasur.AI app pages require login. Run `python .claude/skills/generate-visuals/scripts/setup_auth.py` once to log in and save cookies to `.claude/skills/generate-visuals/auth/state.json` (gitignored). Future headless captures replay that session.
 - **Strapi media upload:** when `STRAPI_BASE_URL` and `STRAPI_API_TOKEN` are set and `--publish` is passed, `/format-for-publish` uploads each captured image to Strapi's `/api/upload` endpoint and rewrites the article markdown to reference the hosted URLs. Without those env vars, images are copied to `content-pipeline/8-publish/{slug}/media/` for the editor to drag into Strapi manually.

@@ -34,7 +34,7 @@ For slug `{slug}`:
    - Parses every `[VISUAL:...]` and legacy `[SCREENSHOT:...]` placeholder
    - Dispatches by `type`:
      - `screenshot` → `capture_screenshot.py` (Playwright headless; uses `auth/state.json` if it exists)
-     - `image` → `generate_image.py` (Replicate; default `openai/gpt-image-2`, fallback `google/nano-banana`); `safety=adult` is routed to manual-capture instead
+     - `image` → **dropped** (AI image generation retired): stripped from the draft and logged as a manual TODO; no image model is ever called
      - `chart` → `render_chart.py` (matplotlib)
      - `video`, `external`, `gif` → manual-capture entry only
    - Optimizes every captured PNG via `optimize_image.py` (Pillow lossless re-save)
@@ -48,7 +48,6 @@ For slug `{slug}`:
 
 Under `content-pipeline/images/{slug}/`:
 - `screenshot-{n}-{slug}.png` — Playwright captures
-- `image-{n}-{slug}.png` — Replicate-generated images
 - `chart-{n}-{slug}.png` — matplotlib charts
 - `manifest.json` — typed record per visual: `{type, status: captured|manual|failed, path?, source?, prompt?, model?, alt}`
 - `manual-capture.md` — editor instructions for video/external/gif/adult-image
@@ -69,7 +68,7 @@ If `state.json` is missing, screenshot captures of authenticated pages will fail
 
 ## Quality checklist
 
-- [ ] Every typed visual placeholder either produced a PNG, succeeded as a chart/image, or appears in `manual-capture.md`
+- [ ] Every typed visual placeholder either produced a PNG (screenshot/chart) or appears in `manual-capture.md`
 - [ ] No naked `[VISUAL:...]` or `[SCREENSHOT:...]` left in the cited draft for types that should have been captured
 - [ ] All captured PNGs are at least 1200px wide
 - [ ] manifest.json records `status` per visual (captured/manual/failed)
@@ -81,14 +80,14 @@ Legacy `[SCREENSHOT: description]` placeholders are still recognized and treated
 
 ## Failure modes
 
-- **Replicate refuses prompt (content safety)**: `generate_image.py` retries with the backup model; if both refuse, the entry is flagged in `manual-capture.md` with note "API rejected; capture from pleasur.ai/generate"
+- **`type=image` placeholder encountered**: dropped and logged as a manual TODO in `manual-capture.md` (AI image generation is retired) — the editor sources real imagery from `pleasur.ai`.
 - **Playwright auth missing**: `capture_screenshot.py` falls back to capturing without auth (public pages render; authenticated pages show login). If the captured image height is suspiciously short, the entry is flagged for editor review.
-- **Replicate / Playwright not installed**: dispatcher logs and continues; visuals of those types are flagged manual.
+- **Playwright not installed**: dispatcher logs and continues; screenshot/external visuals are flagged manual.
 
 ## Auto-capture coverage by type
 
 - **`screenshot`** — auto-captured (patchright headless; uses `auth/state.json` if present).
-- **`image`** — auto-generated (Replicate; SFW only).
+- **`image`** — **retired** (dropped to a manual TODO; no AI image generation).
 - **`chart`** — auto-rendered (matplotlib from research data).
 - **`external`** — **auto-captured (PLEAA-417, 2026-05-06).** Was manual. Now patchright opens the URL, clips to `selector`, and applies a padded crop. Cloudflare / login walls fall back to `/capture-visuals` (Claude-in-Chrome with a real Chrome session). ToS bypasses are out of scope — if both paths fail the entry stays `failed` and the visuals gate halts.
 - **`action-shot`** — routed to `/capture-visuals` (multi-step interactive flows).

@@ -85,9 +85,9 @@ BLOG_AGENT_AUTONOMOUS=1 UNATTENDED=1 BLOG_AGENT_AUTO_PUBLISH=1 BLOG_AGENT_REVISI
 ```
 Stages (each dispatched as a fresh agent; `scripts/pipeline_gate.py` between them):
 research → brand-reference → outline → product-mentions → draft → quality-check →
-verify-claims → optimize-content → generate-visuals → preview → format-for-publish →
-`auto_publish_check.py`. (The standalone adversarial stages are retired — the skeptical read
-now lives inside /quality-check's 3-reviewer panel.)
+verify-claims → generate-visuals → preview → format-for-publish →
+`auto_publish_check.py`. (The standalone adversarial stages AND /optimize-content are retired —
+the skeptical read now lives inside /quality-check's 3-reviewer panel.)
 
 ### Non-negotiable publish gates
 1. **/quality-check PASS** — no score, on purpose. PASS requires BOTH the completeness floors

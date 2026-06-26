@@ -38,17 +38,16 @@ SKILLS_DIR = ROOT / ".claude" / "skills"
 # Each entry: (key, display_name, skill_name_for_rerun, dir_path_relative_to_pipeline, file_pattern, description, file_kind)
 STAGES = [
     ("context", "Context", "blog-pipeline", "0-context", "{slug}.md", "User-provided direction (--context)", "md"),
-    ("research", "Research", "research", "1-research", "{slug}.md", "Keyword metrics, SERP, top-page summaries", "md"),
-    ("research-deep", "Deep Research", "research", "1-research", "{slug}-deep.md", "Perplexity / OpenRouter web research", "md"),
-    ("reference", "Brand Reference", "brand-reference", "2-reference", "{slug}.md", "Existing brand articles + reusable modules", "md"),
-    ("outline", "Outline", "outline", "3-outlines", "{slug}.md", "Structured H2/H3 outline with BLUFs", "md"),
+    ("research", "Research", "research", "1-research", "{slug}.md", "Ahrefs metrics, SERP benchmark, top-page master-doc + beat spec", "md"),
+    ("research-deep", "Deep Research (optional)", "research", "1-research", "{slug}-deep.md", "Optional Perplexity web research — off by default", "md"),
+    ("reference", "Brand Reference", "brand-reference", "2-reference", "{slug}.md", "Live product features/use-cases to demonstrate + internal links", "md"),
+    ("outline", "Outline", "outline", "3-outlines", "{slug}.md", "Structured H2/H3 outline with BLUFs, bound by the beat spec", "md"),
     ("annotated", "Product Mentions", "product-mentions", "4-outlines-annotated", "{slug}.md", "Outline annotated with product touchpoints", "md"),
-    ("draft", "Draft", "draft", "5-drafts", "{slug}.md", "Full article prose", "md"),
-    ("quality-check", "Quality Check", "quality-check", "quality-checks", "{slug}-metrics.md|{slug}.md", "Voice metrics, BLUF, forbidden phrases, claim density", "md"),
+    ("draft", "Draft", "draft", "5-drafts", "{slug}.md", "Full article prose, anchored in examples/", "md"),
+    ("quality-check", "Quality Check", "quality-check", "quality-checks", "{slug}.md", "Completeness floors + 3-reviewer skeptical panel (no score)", "md"),
     ("cited", "Verify Claims", "verify-claims", "6-drafts-cited", "{slug}.md", "Claims with real source links", "md"),
-    ("visuals", "Visuals", "generate-visuals", "images/{slug}", "manifest.json", "Generated images/charts for [VISUAL] placeholders", "md"),
-    ("screenshots", "Screenshots", "generate-screenshot", "images/{slug}", "screenshot-urls.md", "Tool URLs for each screenshot placeholder", "md"),
-    ("preview", "Preview", "preview", "7-preview", "{slug}.html", "Ahrefs-styled HTML preview", "html"),
+    ("visuals", "Visuals", "generate-visuals", "images/{slug}", "manifest.json", "Real screenshots + matplotlib charts (no AI image gen)", "md"),
+    ("preview", "Preview", "preview", "7-preview", "{slug}.html", "Blog-styled HTML preview", "html"),
     ("publish", "Publish", "format-for-publish", "8-publish/{slug}", "article.md", "Strapi-ready markdown + JSON payload", "md"),
 ]
 

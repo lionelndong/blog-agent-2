@@ -45,7 +45,7 @@ For slug `{slug}`:
 5. **Insert typed visual placeholders** — one per `Visual N:` entry in the annotated outline, at natural break points. Forms (full field reference + selector cheatsheet in `templates/visual-types.md`):
    - `[VISUAL:type=screenshot;target=<product-slug>;what=<UI element>;annotate=<optional>]`
    - `[VISUAL:type=action-shot;url=<starting URL>;goal=<explicit click-path under 60 words>;what=<caption>]` — `/capture-visuals` drives Chrome (pinned to Sonnet); write the goal like briefing a human who has never seen the site
-   - `[VISUAL:type=image;sub=<concept-illustration|diagram|flow-diagram|comparison|lifestyle>;prompt=<specific structured prompt>;style=<illustration|photorealistic|flat-vector|isometric>;safety=<sfw|adult>]` — prompts name every labeled component; `safety=adult` routes to manual capture
+   - (`type=image` is **retired** — no AI image generation. Use `chart`/`table` for data visuals and `screenshot`/`action-shot`/`external` for real imagery. Real product imagery is captured from `pleasur.ai`, never generated.)
    - `[VISUAL:type=chart;data=<research.key>;style=<bar|line|pie>;title=<title>]`
    - `[VISUAL:type=external;sub=<reddit-comment|tweet|news-quote|competitor-ui|chart>;url=<source>;selector=<CSS>;crop=padded;what=<caption>]` — auto-captured (PLEAA-417); Reddit comments are `#t1_<id>`, tweets `article[data-testid="tweet"]`
    - `[VISUAL:type=video;url=<…>;what=<…>]`, `[VISUAL:type=gif;what=<…>]`

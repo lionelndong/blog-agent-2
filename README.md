@@ -76,8 +76,7 @@ The `examples/` directory ships with 5 reference articles for voice anchoring â€
 | `/draft` | `content-pipeline/5-drafts/{slug}.md` |
 | `/quality-check` | `content-pipeline/quality-checks/{slug}.md` (gates pipeline if FAIL) |
 | `/verify-claims` | `content-pipeline/6-drafts-cited/{slug}.md` |
-| `/optimize-content` | `content-pipeline/optimization/{slug}.md` (benchmark-relative scoring + voice-preserving rewrites; no Chrome required) |
-| `/generate-visuals` | `content-pipeline/images/{slug}/manifest.json` |
+| `/generate-visuals` | `content-pipeline/images/{slug}/manifest.json` (real screenshots + charts; no AI image gen) |
 | `/preview` | `content-pipeline/7-preview/{slug}.html` |
 | `/format-for-publish` | `content-pipeline/8-publish/{slug}/` (article.md + article.json + README.md, ready for Strapi paste or API publish) |
 

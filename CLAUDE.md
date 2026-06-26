@@ -75,18 +75,17 @@ If a draft sounds generic or AI-flavored, the panel fails it — there is no sco
 6. `/keyword-research-pipeline` — run all of the above end-to-end (0 → 1a → 1b → 2 → 3 → 5)
 
 ### Creation (keyword → publish-ready article)
-1. `/research` — Ahrefs metrics + SERP benchmark + Firecrawl top-page extraction + deep research (Perplexity) → dossier **with beat spec**
-2. `/brand-reference` — find existing articles on your blog covering this topic
+1. `/research` — Ahrefs metrics + SERP benchmark + Firecrawl top-page extraction (+ optional Perplexity deep research, off by default) → dossier **with beat spec**
+2. `/brand-reference` — surface the live product features/use-cases this article can demonstrate (+ existing articles for internal links)
 3. `/outline` — H2/H3 structure with BLUFs, bound by the beat spec
 4. `/product-mentions` — annotate where to mention which products
 5. `/draft` — expand to full prose, anchored in `examples/`
-6. `/quality-check` — benchmark-relative scorecard + adversarial read; gates the pipeline
+6. `/quality-check` — completeness floors + 3-reviewer skeptical panel (no score); gates the pipeline
 7. `/verify-claims` — find sources for every stat, add hyperlinks
-8. `/optimize-content` — benchmark-relative scoring + voice-preserving rewrites (against the dossier's beat spec and `examples/`; no external optimizer)
-9. `/generate-visuals` — produce real assets per typed `[VISUAL:...]` placeholder
-10. `/preview` — render HTML preview
-11. `/format-for-publish` — package as clean markdown + Strapi JSON payload (markdown tables → rendered table-cards until the site renderer supports GFM)
-12. `/blog-pipeline <keyword> [--context "..."]` — run the whole chain
+8. `/generate-visuals` — produce real assets per typed `[VISUAL:...]` placeholder (screenshots + charts only; no AI image gen)
+9. `/preview` — render HTML preview
+10. `/format-for-publish` — package as clean markdown + Strapi JSON payload (markdown tables → rendered table-cards until the site renderer supports GFM)
+11. `/blog-pipeline <keyword> [--context "..."]` — run the whole chain
 
 ### Update (existing article → refreshed)
 1. `/extract-content <url>` — pull article content + metadata
@@ -130,18 +129,14 @@ doc {tool:"<tool-name>"} (returns exact input/output schema) → call the tool w
 
 `/research` and `/update-topic-gaps` extract full content of ranking pages via the Firecrawl API (`FIRECRAWL_API_KEY` via Doppler). One POST to `https://api.firecrawl.dev/v1/scrape` with `{"url": ..., "formats": ["markdown"]}` per page. Prefer it over WebFetch for SERP competitors — it defeats most bot walls and returns clean markdown. WebFetch remains the fallback if Firecrawl errors or the budget is tight.
 
-## Content optimization
-
-The `/optimize-content` skill scores the draft against the dossier's beat spec and the `examples/` voice anchors, then applies voice-preserving rewrites — no external content optimizer (ContentShake is retired with Semrush). Voice drift > 8 pts on `/quality-check` triggers a rollback.
-
-## OpenRouter (deep research)
+## OpenRouter (deep research — optional, off by default)
 
 - **Env var:** `OPENROUTER_API_KEY_BLOG_AGENT` (Doppler)
 - **Default model:** `perplexity/sonar-reasoning-pro`; fallback `openai/o4-mini`
 - **Runner:** `.claude/skills/research/scripts/openrouter_research.py`
 - **Output:** `content-pipeline/1-research/{slug}-deep.md`
 
-If the env var isn't set, `/research` skips deep research and notes this in the dossier — pipeline still runs.
+Deep research is **off by default** — the SERP top-page master-doc is the primary research, exactly as Ryan does it. Opt in with `BLOG_AGENT_DEEP_RESEARCH=1` or via `--context`. When skipped (the default) or if the env var isn't set, `/research` notes it in the dossier and the pipeline runs on the SERP benchmark.
 
 ## Style guide
 

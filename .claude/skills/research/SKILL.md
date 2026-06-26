@@ -6,7 +6,7 @@ allowed-tools: Read, Write, WebFetch, mcp__ahrefs__*, Bash
 
 # Research Skill
 
-Produce a research dossier that ends in a **beat spec** — a quantified statement of what this article must do to deserve the top of this SERP. The outline is bound by the beat spec; the quality gate scores against it. If the research is thin, everything downstream is thin: this is the most leverage-dense stage of the pipeline.
+Produce a research dossier that ends in a **beat spec** — a SERP-derived *guideline* for what this article should do to deserve the top of this SERP (what's ranking, how deep, which topics are consensus, where the gaps are). The outline is shaped by it; the completeness floors enforce only the depth + coverage minimums. If the research is thin, everything downstream is thin: this is the most leverage-dense stage of the pipeline.
 
 > Tool calls: read [`references/ahrefs-mcp-cheatsheet.md`](./references/ahrefs-mcp-cheatsheet.md) first — it maps each research task to the real Ahrefs MCP tools and pins the param rules. Two rules that bite: params are comma-separated **strings**, not JSON arrays (`keywords:"ai girlfriend app"`, not `["ai girlfriend app"]`), and `select` + `country` are required on most endpoints. For any tool you haven't used this run, call the `doc` tool first (e.g. `doc {tool:"keywords-explorer-overview"}`) to get its exact input/output schema. Never invent tool names.
 
@@ -44,22 +44,33 @@ If invoked with no argument, read the most recent context file in `content-pipel
    - **Our product (always):** `WebFetch https://pleasur.ai/pricing` and capture every tier name, monthly price, annual-equivalent price, coin/credit allowance, and per-action media metering (image / voice / call costs). Cross-check against the **Canonical pricing** block in `brand-config.md`: if the live page and the block disagree, **trust the live page**, use it in the dossier, and note in the dossier that `brand-config.md` canonical pricing needs a refresh (so the drift gets fixed). If `pleasur.ai/pricing` 404s or the path moved, try `pleasur.ai` nav / `pleasur.ai/plans` and record the working URL.
    - **The competitor (for any comparison/`X vs Y`/alternatives keyword):** fetch the named competitor's live pricing/feature page the same way and record exact tiers/prices/metering. Do not infer competitor prices from reviews or the brief when a live page exists.
    - **Override rule:** any pricing/tier/feature-metering figure supplied by the brief, keyword-queue, memory, or a reviewer is **stale by default**. The live first-party (or live competitor) page wins on conflict. When they conflict, keep BOTH in the dossier WITH their sources and explicitly flag which one is load-bearing (the live one). A dossier that asserts an own-product price/feature with no `pleasur.ai`-live source recorded this run is INCOMPLETE — do not proceed to the beat spec.
-   - Record each captured figure inline with `source: <live URL> (fetched <YYYY-MM-DD>)` so `research-adversarial` and `verify-claims` can trace it.
-7. **Deep web research via OpenRouter (Perplexity).** Voice-of-customer + community signals (Reddit, forums, review sites):
+   - Record each captured figure inline with `source: <live URL> (fetched <YYYY-MM-DD>)` so `verify-claims` can trace it.
+7. **(Optional) Deep web research via OpenRouter (Perplexity).** OFF by default — the SERP top-page
+   extraction in step 4 is the primary research, exactly as Ryan does it. Run this extra
+   voice-of-customer pass (Reddit, forums, review sites) ONLY when the topic genuinely needs more
+   primary signal than the top pages give — opt in with `BLOG_AGENT_DEEP_RESEARCH=1`, or when the
+   `--context` explicitly asks for it:
 
    ```bash
    doppler run -- python .claude/skills/research/scripts/openrouter_research.py \
      --keyword "<keyword>" --slug "<slug>"
    ```
 
-   Output lands at `content-pipeline/1-research/{slug}-deep.md`. If `OPENROUTER_API_KEY_BLOG_AGENT` isn't set, skip and note it in the dossier — don't fail the pipeline.
+   Output lands at `content-pipeline/1-research/{slug}-deep.md`. When skipped (the default) or if
+   `OPENROUTER_API_KEY_BLOG_AGENT` isn't set, note it in the dossier and move on — the master SERP
+   benchmark from step 4 is what carries the research.
 8. **Recommend an angle.** One-sentence thesis that wins against the current SERP, with justification grounded in the benchmark's gaps + what this brand can credibly demonstrate first-hand. The angle must NOT rest on an own-product pricing/feature claim that step 6 did not confirm live (this is exactly how PLE-2320 built a false "price-concession" + "no credit meter" thesis).
-9. **Write the beat spec** — the dossier's final section, in exactly this shape:
+9. **Write the beat spec** — the dossier's final section. It is the **SERP summarized as a
+   guideline** (what's ranking demands), NOT a rigid numeric contract. Ryan looks at how deep the
+   ranking pages go and matches or beats them — he doesn't chase an inflated word target. Shape:
 
    ```markdown
-   ## BEAT SPEC (binding on outline + quality gate)
-   - Target word count: <max(1.1 × median of top 3, 1800)> (±20%)
-   - Format: <modal SERP format>; item count: <max items on SERP + 1, if list-shaped>
+   ## BEAT SPEC (guides the outline; the floors enforce only the depth + coverage minimums)
+   - Target word count: <median word count of the top 3> — the depth bar to MATCH or beat. Not a
+     cap, not a quota: win on usefulness, never pad to a number. (The completeness floor only checks
+     the draft isn't thin — ≥ 80% of this median.)
+   - Format: <modal SERP format>; item count: <the SERP's typical item count> — cover at least that
+     many; add more only when each genuinely earns its place.
    - Comparison table: <required iff ≥2 of top 5 have one — list required columns>
    - Must-cover topics (consensus): <bulleted list — every one becomes outline coverage>
    - Differentiation topics: <partial-coverage topics we go deeper on>
