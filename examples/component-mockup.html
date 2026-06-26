@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pleasur.AI blog component mockup — render target for the CTO</title>
+<!--
+  RENDER TARGET for the Ahrefs-style blog components.
+  Source of truth for the markup/attributes each fence carries: examples/ahrefs-components.md (## Render contract).
+  /draft emits :::fences; /format-for-publish preserves them; the blog page must turn each :::fence into the
+  matching component below. Class contract = cmp-<name>. This file is the pixel/CSS target — match it (or improve),
+  then screenshot each component rendered on the live blog page as proof.
+-->
+<style>
+  :root{--ink:#1d1d1f;--mut:#6b7280;--hint:#9ca3af;--line:#e5e7eb;--surf:#f6f6f4;--accent:#534ab7}
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:var(--ink);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  .art{max-width:680px;margin:0 auto;padding:2.5rem 1.25rem}
+  .art h1{font-size:30px;font-weight:600;line-height:1.25;margin:0 0 .4rem}
+  .art h2{font-size:22px;font-weight:600;margin:2.25rem 0 .6rem}
+  .art p{margin:0 0 1rem}
+  .art a{color:#185fa5;text-decoration:none}
+  /* cmp-byline */
+  .cmp-byline{display:flex;align-items:center;gap:11px;padding-bottom:1rem;border-bottom:1px solid var(--line);margin-bottom:1.75rem}
+  .cmp-byline .av{width:42px;height:42px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px}
+  .cmp-byline .nm{font-weight:600;font-size:14px}
+  .cmp-byline .mt{color:var(--mut);font-size:13px}
+  .cmp-byline .rev{color:#0f6e56;font-weight:600}
+  /* cmp-nutshell */
+  .cmp-nutshell{background:var(--surf);border-radius:12px;padding:1rem 1.25rem;margin:1.5rem 0}
+  /* cmp-methodology */
+  .cmp-methodology{background:#eeedfe;color:#26215c;border-radius:12px;padding:1.1rem 1.25rem;margin:1.5rem 0}
+  .cmp-methodology .h{font-weight:600;margin-bottom:.2rem}
+  .cmp-methodology .fresh{font-size:14px;margin-bottom:.5rem}
+  .cmp-methodology a{color:#3c3489;font-weight:600}
+  .cmp-methodology ul{margin:0;padding-left:1.15rem}
+  .cmp-methodology li{margin-bottom:.4rem}
+  /* cmp-stat-group / cmp-stat */
+  .cmp-stat-group{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:1.5rem 0}
+  .cmp-stat{background:var(--surf);border-radius:10px;padding:1rem 1.1rem}
+  .cmp-stat .v{font-size:32px;font-weight:600;line-height:1}
+  .cmp-stat .l{color:var(--mut);font-size:13px;margin-top:6px}
+  /* cmp-table */
+  .cmp-table{margin:1.5rem 0}
+  .cmp-table .cap{font-size:13px;color:var(--mut);margin-bottom:6px}
+  .cmp-table table{width:100%;border-collapse:collapse;font-size:14px}
+  .cmp-table th{text-align:left;background:var(--surf);padding:9px 12px;font-weight:600}
+  .cmp-table td{padding:9px 12px;border-top:1px solid var(--line)}
+  .cmp-table tr.win td{font-weight:600;background:#e6f1fb}
+  .cmp-table .src{font-size:12px;color:var(--hint);margin-top:6px}
+  /* cmp-sidenote */
+  .cmp-sidenote{background:var(--surf);border-left:3px solid #b4b2a9;padding:.8rem 1rem;margin:1.5rem 0;font-size:15px}
+  .cmp-sidenote .l{font-style:italic;font-weight:600}
+  /* cmp-tip */
+  .cmp-tip{background:#eaf3de;color:#173404;border-radius:8px;padding:.8rem 1rem;margin:1.5rem 0}
+  .cmp-tip .l{font-weight:600}
+  /* cmp-key-takeaways */
+  .cmp-key-takeaways{background:var(--surf);border-left:3px solid var(--accent);padding:1rem 1.25rem;margin:1.5rem 0}
+  .cmp-key-takeaways .l{font-weight:600}
+  .cmp-key-takeaways ul{margin:.4rem 0 0;padding-left:1.15rem}
+  /* cmp-expert */
+  .cmp-expert{display:flex;gap:14px;background:var(--surf);border-radius:12px;padding:1.25rem;margin:1.5rem 0}
+  .cmp-expert .av{width:48px;height:48px;border-radius:50%;background:#0f6e56;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0}
+  .cmp-expert .q{margin:0 0 .5rem;font-size:15px}
+  .cmp-expert .nm{font-weight:600;font-size:14px}
+  .cmp-expert .ro{color:var(--mut);font-size:13px}
+  /* cmp-pullquote */
+  .cmp-pullquote{font-family:Georgia,"Times New Roman",serif;font-size:23px;line-height:1.45;border-left:3px solid var(--accent);padding-left:1.25rem;margin:2rem 0}
+  .cmp-pullquote cite{display:block;font-family:inherit;font-style:normal;font-size:14px;color:var(--mut);margin-top:.6rem}
+  /* cmp-further-reading */
+  .cmp-further-reading{background:#e6f1fb;border-radius:8px;padding:.8rem 1rem;margin:1.5rem 0;font-size:15px}
+  .cmp-further-reading .l{font-weight:600}
+  /* cmp-cta */
+  .cmp-cta{border:1px solid var(--line);border-radius:14px;padding:1.6rem;margin:2rem 0;text-align:center}
+  .cmp-cta h3{font-size:18px;font-weight:600;margin:0 0 .3rem}
+  .cmp-cta p{color:var(--mut);font-size:14px;margin:0 0 1rem}
+  .cmp-cta .btn{display:inline-block;background:var(--accent);color:#fff;padding:.6rem 1.4rem;border-radius:8px;font-weight:600;font-size:14px}
+</style></head>
+<body>
+<article class="art">
+  <div class="cmp-byline">
+    <div class="av">SA</div>
+    <div>
+      <div class="nm">Sloane Avery</div>
+      <div class="mt"><span class="rev">✓ Reviewed by Theo Hart</span> · Jun 2026 · 9 min read</div>
+    </div>
+  </div>
+
+  <h1>How much do AI companion apps actually cost in 2026?</h1>
+
+  <div class="cmp-nutshell"><strong>In a nutshell.</strong> Most AI companion apps land between $10–$30/month, but the "unlimited" claims hide coin meters. We priced 14 apps on real usage.</div>
+
+  <div class="cmp-methodology">
+    <div class="h">Methodology</div>
+    <div class="fresh">Updated monthly with fresh pricing by <a href="#">Sloane Avery</a>.</div>
+    <ul>
+      <li><strong>Real signups, not list prices.</strong> We subscribed to all 14 apps and logged the actual billed amount.</li>
+      <li><strong>"Cost" means a typical month.</strong> 30 chats/day + 20 images — the median active-user load.</li>
+      <li><strong>We report the median, not the average.</strong> A few whale-priced tiers skew the mean.</li>
+    </ul>
+  </div>
+
+  <p>The headline price is rarely what you pay. Here is what a normal month actually costs.</p>
+
+  <div class="cmp-stat-group">
+    <div class="cmp-stat"><div class="v">$21.40</div><div class="l">median real monthly cost</div></div>
+    <div class="cmp-stat"><div class="v">61%</div><div class="l">of apps meter "unlimited" plans</div></div>
+  </div>
+
+  <div class="cmp-table">
+    <div class="cap">Real median monthly cost by app tier, May 2026</div>
+    <table>
+      <thead><tr><th>Tier</th><th>List price</th><th>Real cost</th><th>Metered?</th></tr></thead>
+      <tbody>
+        <tr class="win"><td>Pleasur.AI Standard</td><td>$27.99</td><td>$27.99</td><td>Flat</td></tr>
+        <tr><td>Competitor A "Unlimited"</td><td>$12.99</td><td>$34.10</td><td>Coins</td></tr>
+        <tr><td>Competitor B Pro</td><td>$19.99</td><td>$26.50</td><td>Coins</td></tr>
+      </tbody>
+    </table>
+    <div class="src">Data from a 14-app pricing audit, May 2026</div>
+  </div>
+
+  <div class="cmp-sidenote"><span class="l">Sidenote.</span> "Coins" almost always means image generation and voice are billed on top of the base plan.</div>
+
+  <div class="cmp-tip"><span class="l">💡 Pro tip.</span> Before subscribing, generate 10 images on the free tier and watch the coin counter — that is your real cost signal.</div>
+
+  <h2>The takeaways</h2>
+  <div class="cmp-key-takeaways">
+    <span class="l">Key takeaways</span>
+    <ul>
+      <li>Flat-rate plans beat "unlimited + coins" for daily users.</li>
+      <li>Image and voice are the hidden cost drivers.</li>
+      <li>Annual prepay cuts the real cost by ~30%.</li>
+    </ul>
+  </div>
+
+  <div class="cmp-expert">
+    <div class="av">JM</div>
+    <div>
+      <p class="q">"The coin model exists because <strong>most users underestimate how much they'll generate.</strong> Flat pricing is honest pricing."</p>
+      <div class="nm">Jordan Mills</div>
+      <div class="ro">Pricing analyst, <a href="#">SubscriptionIndex</a></div>
+    </div>
+  </div>
+
+  <div class="cmp-pullquote">"Unlimited" is a marketing word. The coin meter is the real price tag.
+    <cite>— Sloane Avery</cite>
+  </div>
+
+  <div class="cmp-further-reading"><span class="l">Further reading</span><br>→ <a href="#">What do AI companion coins actually cost?</a></div>
+
+  <div class="cmp-cta">
+    <h3>Try Pleasur.AI</h3>
+    <p>Flat pricing, no coin meter. Create and chat with your own AI companion.</p>
+    <a class="btn" href="#">Create your companion</a>
+  </div>
+</article>
+</body></html>

@@ -23,7 +23,11 @@ Apply in this order:
    - `**Sidenote:** ...` → fenced `:::note ... :::` block
 4. **Convert editor notes:**
    - `**Editor:** ...` → fenced `:::editor ... :::` block
-5. **Preserve everything else as-is** — H2/H3, lists, tables, code blocks, links, image references, screenshot placeholders.
+4a. **Convert the Ahrefs block-shorthands** (body is usually a bullet list — capture it whole):
+   - `**In a nutshell:** ...` → `:::nutshell ... :::`
+   - `**Key takeaways:** ...` → `:::key-takeaways ... :::`
+   - `**Methodology:** ...` → `:::methodology ... :::`
+5. **Preserve everything else as-is** — H2/H3, lists, tables, code blocks, links, image references, screenshot placeholders, **and every `:::component` fence** (`:::sidenote`, `:::methodology`, `:::nutshell`, `:::key-takeaways`, `:::stat`/`:::stat-group`, `:::expert`, `:::pullquote`, `:::further-reading`, `:::cta`, `:::tip`, `:::note`). The Ahrefs component fences emitted by `/draft` pass through to the published body verbatim — the blog page renderer styles them (see "Render contract" in `examples/ahrefs-components.md`); this stage never converts them to HTML.
 
 ## JSON metadata extraction rules (Strapi v5 schema)
 

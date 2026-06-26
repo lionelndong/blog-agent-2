@@ -481,21 +481,71 @@ def extract_title(md: str) -> tuple[str, str]:
 
 
 def transform_callouts(md: str) -> str:
-    """Convert **Tip:**, **Pro tip:**, **Note:**, **Sidenote:**, **Editor:** paragraphs into :::callout blocks."""
-    patterns = [
+    """Normalize `**Label:**` callout shorthands into `:::fence` blocks.
+
+    Two shapes are handled:
+
+    1. **Single-paragraph callouts** (Tip / Pro tip / Note / Sidenote / Editor) —
+       the label leads one paragraph; capture runs to the next blank line. These
+       are the original mappings and are UNCHANGED (Pro tip→tip, Tip→tip,
+       Sidenote→note, Note→note, Editor→editor) so existing drafts keep
+       converting byte-for-byte.
+
+    2. **Block-shaped callouts** (Methodology / In a nutshell / Key takeaways) —
+       the Ahrefs house-standard components whose body is often a *bulleted list*
+       (`:::methodology`, `:::key-takeaways`) or a short multi-sentence answer
+       (`:::nutshell`). A blank-line-terminated capture would truncate a bullet
+       list whose items sit on their own lines, so these use a block capture that
+       keeps the label's paragraph AND an immediately-adjacent bullet list
+       (bullets separated from the label by a single newline, no blank line).
+
+    The fence names are the exact catalog names from examples/ahrefs-components.md
+    (`:::nutshell`, `:::key-takeaways`, `:::methodology`). Authors are encouraged
+    to write the explicit `:::fence` directly (it passes through untouched — see
+    the "fence pass-through" contract); these shorthands are the convenience path.
+    """
+    # Shape 1: single-paragraph callouts (UNCHANGED — original behavior).
+    paragraph_patterns = [
         (r"\*\*Pro tip:\*\*\s*(.+?)(?=\n\n|\Z)", "tip"),
         (r"\*\*Tip:\*\*\s*(.+?)(?=\n\n|\Z)", "tip"),
         (r"\*\*Sidenote:\*\*\s*(.+?)(?=\n\n|\Z)", "note"),
         (r"\*\*Note:\*\*\s*(.+?)(?=\n\n|\Z)", "note"),
         (r"\*\*Editor:\*\*\s*(.+?)(?=\n\n|\Z)", "editor"),
     ]
-    for pattern, kind in patterns:
+    for pattern, kind in paragraph_patterns:
         md = re.sub(
             pattern,
             lambda m, k=kind: f":::{k}\n{m.group(1).strip()}\n:::",
             md,
             flags=re.DOTALL,
         )
+
+    # Shape 2: block-shaped callouts. The capture grabs the rest of the label
+    # line plus any contiguous following lines up to (but not including) the
+    # next blank line that is NOT immediately followed by a list item — i.e. a
+    # bullet list directly under the label is kept whole. `[ \t]*` lets the
+    # block include indented continuations; the lookahead stops at a true
+    # paragraph break (blank line followed by a non-bullet) or end-of-string.
+    block_patterns = [
+        (r"\*\*In a nutshell:\*\*[ \t]*(.+?)(?=\n\n(?![ \t]*[-*+] )|\Z)", "nutshell"),
+        (r"\*\*Key takeaways:\*\*[ \t]*(.+?)(?=\n\n(?![ \t]*[-*+] )|\Z)", "key-takeaways"),
+        (r"\*\*Methodology:\*\*[ \t]*(.+?)(?=\n\n(?![ \t]*[-*+] )|\Z)", "methodology"),
+    ]
+    for pattern, kind in block_patterns:
+        md = re.sub(
+            pattern,
+            lambda m, k=kind: f":::{k}\n{m.group(1).strip()}\n:::",
+            md,
+            flags=re.DOTALL,
+        )
+
+    # A shorthand authored mid-paragraph (`Some prose. **Tip:** …`) leaves the
+    # converted opener glued to the preceding text on the same line
+    # (`Some prose. :::tip`). A fence opener must begin its own block, so move
+    # any opener that is preceded by non-whitespace onto a fresh line with a
+    # blank line before it. Targets ONLY named openers (`:::name…`) — the bare
+    # closing `:::` and already-line-leading openers are untouched. Idempotent.
+    md = re.sub(r"(?m)(\S)[ \t]+(:::[A-Za-z])", r"\1\n\n\2", md)
     return md
 
 

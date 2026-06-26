@@ -18,6 +18,7 @@ For slug `{slug}`, reads:
 - `references/bluf-mece-rules.md` (structural rules — must enforce)
 - `../../../templates/outline-template.md` (the file structure)
 - `../../../templates/visual-types.md` + `../../../templates/editorial-principles-visuals.md` (visual decisions)
+- `examples/ahrefs-components.md` (the `:::component` catalog — plan which components each section carries per step 6a)
 - `examples/` — read `examples/README.md`, then the **2 examples closest to this content type** (structure + niche). The examples are the structure/voice spec — Ryan's principle: anchor in real high-performing articles, never work from a distilled rule list alone.
 
 ## Process
@@ -45,6 +46,19 @@ For slug `{slug}`, reads:
        Visual 2: {type: screenshot, target: create, what: voice profile selector, annotate: arrow on speaker icon}
      ```
      Apply the decision sequence in `templates/editorial-principles-visuals.md`. The default for any non-trivial section (>300 words) is "this section deserves a visual; what kind?". For brand-product UI: `screenshot` if a single URL shows the state, `action-shot` if it takes clicks (routed to `/capture-visuals`). For quoted Reddit/tweets/news: `external` with a `selector`.
+6a. **PLAN the Ahrefs components each section carries — with RESTRAINT.** Consult `examples/ahrefs-components.md` and, for each section, note which `:::component` fence(s) the writer should emit at draft time (the writer EMITS in `/draft`; you PLAN here). Mark them on the section as a `**Components:**` line, e.g. `**Components:** :::stat (the 68% retention figure), :::sidenote (caveat on the sample)`. Restraint is mandatory: **1–2 of each per article, only where it genuinely improves scannability — never decorate.** Most sections carry zero. Use the fence names EXACTLY as in `ahrefs-components.md`. Trigger → component:
+   - the top/one-paragraph answer (plan ONE, directly under the H1) → `:::nutshell`
+   - the conclusion's front-loaded takeaways → `:::key-takeaways`
+   - one load-bearing number → `:::stat` (multiples → `:::stat-group`)
+   - a data study's data disclosure → `:::methodology` (place right after the intro)
+   - an aside / caveat / source-note → `:::sidenote`
+   - a named expert's opinion → `:::expert`
+   - a deeper subtopic with its own article (mid-article) → `:::further-reading`
+   - a memorable line → `:::pullquote`
+   - a reader → product push (once high, once low) → `:::cta`
+   - a pro shortcut → `:::tip` (easily-missed caveat → `:::note`)
+
+   **Per-persona favorites** to bias the plan toward (the draft picks the persona; plan for the likely one): **Sloane Avery** → `:::methodology` / `:::stat` / `:::key-takeaways`; **Theo Hart** → tables / numbered steps / `:::cta` / `:::further-reading`; **Mateo Reyes** → `:::expert` / `:::nutshell` / `:::sidenote`.
 7. **Comparison table (when the beat spec requires one).** Spec it as a real markdown table skeleton in the outline: columns (from the beat spec's required-columns list), one row per item, plus a `Visual: {type: table}` entry on the section. The draft authors the table in GFM markdown; `/format-for-publish` converts it for the site renderer. Do NOT pre-degrade tables into bullet lists at outline or draft time.
 8. **Plan the intro.** Hook + thesis + preview. 150–200 words. The hook earns attention with something specific, surprising, or contrarian — never "In today's digital age".
 9. **Plan the conclusion.** Restated thesis + one next step (often a `2-reference/` link). 80–150 words.
@@ -69,6 +83,7 @@ For slug `{slug}`, reads:
 - [ ] One-sentence thesis
 - [ ] H2 list MECE, supports thesis, **sized by beat spec (no arbitrary 4–7 cap)**
 - [ ] Each H2: BLUF, key points, evidence source, word target, transition, typed Visuals
+- [ ] Components planned per section (`**Components:**` line) where one earns its place — restraint applied (1–2 of each max), fence names exact per `examples/ahrefs-components.md`; a `:::nutshell` planned under the H1 and `:::key-takeaways` for the conclusion when the format warrants
 - [ ] Word targets sum to beat-spec total ±10%
 - [ ] Coverage map: every consensus topic → a section
 - [ ] `[GAIN]` section present

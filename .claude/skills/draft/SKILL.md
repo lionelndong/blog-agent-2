@@ -29,6 +29,7 @@ For slug `{slug}`:
 - `references/voice-guide.md` (structural voice rules) + `references/prose-patterns.md` (sentence-level patterns)
 - `../../../templates/visual-types.md` (controlled vocabulary for `[VISUAL:...]` placeholders)
 - `examples/authors.md` (the persona map + content-type → persona selection rule + byline-comment contract)
+- `examples/ahrefs-components.md` (the `:::component` authoring syntax — emit these fences per step 5a, with restraint)
 - `examples/voice/` (per-persona `persona.md` + type-tagged anchor articles) — and the rest of `examples/` per commitment #3
 
 ## Process
@@ -48,6 +49,19 @@ For slug `{slug}`:
    - Internal links from `2-reference/` inline as `[anchor](URL)`
    - Close with a transition
 5. **Tables are content, not decoration.** Where the outline specs a comparison table, author it as a real GFM markdown table with every column and row filled from research. `/format-for-publish` handles site-renderer conversion (PLEAA-567) — never pre-degrade a table into bullets at draft time. The preview and the editor see the real table.
+5a. **Emit the Ahrefs component fences the outline planned — with RESTRAINT.** Consult `examples/ahrefs-components.md` (the writer-side authoring syntax for every component) and EMIT the `:::component` fences where a section genuinely calls for one. The outline already *planned* which components each section carries; your job is to *emit* them in the prose. Restraint is the rule: **1–2 of each per article, only when it improves scannability — never decorate, never wrap a section in a box just because it can be.** A wall of boxes reads worse than clean prose. Use the fence names EXACTLY as in `ahrefs-components.md`. Trigger → component:
+   - the top/one-paragraph answer (one, directly under the H1) → `:::nutshell`
+   - an article's conclusions, front-loaded for skimmers → `:::key-takeaways`
+   - one load-bearing number you want impossible to miss → `:::stat` (wrap multiples in `:::stat-group`)
+   - a data study's data disclosure (source, sample, definitions) → `:::methodology`
+   - an aside / caveat / source-note that would derail the sentence → `:::sidenote`
+   - an expert opinion attributed to a named person → `:::expert`
+   - a deeper subtopic that has its own article (mid-article hand-off) → `:::further-reading`
+   - a memorable, quotable line → `:::pullquote`
+   - a reader → product push (once high, once low) → `:::cta`
+   - a pro shortcut next to the step it improves → `:::tip` (also `:::note` for an easily-missed caveat)
+
+   **Per-persona favorites** (lean toward your selected persona's set; don't force the others): **Sloane Avery** → `:::methodology` / `:::stat` / `:::key-takeaways`; **Theo Hart** → tables / numbered steps / `:::cta` / `:::further-reading`; **Mateo Reyes** → `:::expert` / `:::nutshell` / `:::sidenote`. The shorthands `**Tip:**` / `**Note:**` / `**Sidenote:**` / `**Methodology:**` / `**In a nutshell:**` / `**Key takeaways:**` are also accepted — `/format-for-publish` normalizes them to their fences — but prefer authoring the explicit `:::fence` so the preview matches the published page.
 6. **Insert typed visual placeholders** — one per `Visual N:` entry in the annotated outline, at natural break points. Forms (full field reference + selector cheatsheet in `templates/visual-types.md`):
    - `[VISUAL:type=screenshot;target=<product-slug>;what=<UI element>;annotate=<optional>]`
    - `[VISUAL:type=action-shot;url=<starting URL>;goal=<explicit click-path under 60 words>;what=<caption>]` — `/capture-visuals` drives Chrome (pinned to Sonnet); write the goal like briefing a human who has never seen the site
@@ -81,6 +95,7 @@ Before saving, confirm:
 - [ ] Every outline section drafted; word targets hit ±20%; total ±15% of beat-spec target
 - [ ] Listicle item count matches the outline (no compression)
 - [ ] Comparison table authored as real markdown (when specced)
+- [ ] Ahrefs `:::component` fences emitted where the outline planned them, with restraint (1–2 of each max); fence names exact per `examples/ahrefs-components.md`; never decorative
 - [ ] No crutch word/move used 3+ times; paragraph rhythm varied
 - [ ] Zero forbidden phrases; zero "Furthermore/Moreover/It is important to note" openers
 - [ ] Every numerical claim cited or carrying `[link]` for verify-claims
