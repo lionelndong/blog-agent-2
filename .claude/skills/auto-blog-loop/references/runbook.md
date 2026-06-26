@@ -40,11 +40,12 @@ The loop expects these in the project's Doppler config (or exported in cron's en
 | `STRAPI_API_TOKEN` | Strapi API token (full access) | required for auto-publish |
 | `BLOG_PUBLIC_BASE_URL` | Public blog URL for post-publish check | required (often same as STRAPI_BASE_URL) |
 | `OPENROUTER_API_KEY_BLOG_AGENT` | OpenRouter key for /research deep | required for stage 1 |
-| `REPLICATE_API_TOKEN` | Replicate for /generate-visuals | required for image visuals |
+
+`/generate-visuals` needs **no image API token** — visuals are deterministic Playwright screenshots + matplotlib charts produced locally, at zero per-image API cost.
 
 Sanity-check before first run:
 ```bash
-doppler run -- python -c "import os; [print(k, '=', '***' if 'TOKEN' in k or 'KEY' in k else os.environ.get(k)) for k in ['STRAPI_BASE_URL','STRAPI_API_TOKEN','OPENROUTER_API_KEY_BLOG_AGENT','REPLICATE_API_TOKEN']]"
+doppler run -- python -c "import os; [print(k, '=', '***' if 'TOKEN' in k or 'KEY' in k else os.environ.get(k)) for k in ['STRAPI_BASE_URL','STRAPI_API_TOKEN','OPENROUTER_API_KEY_BLOG_AGENT']]"
 ```
 
 ### 2. Ahrefs MCP auth
@@ -193,7 +194,7 @@ The loop won't crash if Strapi rejects auto-publish — it'll quarantine and con
 `/keyword-research-pipeline` failed. Check:
 - Ahrefs MCP auth still valid? (`doppler run -- claude -p "use mcp__ahrefs__site-explorer-metrics with target=pleasur.ai, country=US"`)
 - Ahrefs units / Brand Radar quota? (`cat content-pipeline/0-keywords/cache/brand-radar-quota.log`, or run the `subscription-info-limits-and-usage` tool)
-- Network: VPS can reach api.ahrefs.com / openrouter.ai / replicate.com?
+- Network: VPS can reach api.ahrefs.com / openrouter.ai?
 
 ### "every article gets quarantined"
 
@@ -218,7 +219,7 @@ Per `BLOG_AGENT_MAX_PER_RUN=3`:
 | Component | Per article | Per nightly run | Per month |
 |---|---|---|---|
 | LLM tokens (Opus + Sonnet sub-agents) | ~$1-2 | ~$3-6 | ~$90-180 |
-| Replicate (~4 images @ $0.04) | ~$0.16 | ~$0.50 | ~$15 |
+| Visuals (Playwright screenshots + matplotlib charts) | $0 | $0 | $0 (deterministic, no image API) |
 | OpenRouter (Perplexity) | ~$0.30 | ~$0.90 | ~$27 |
 | Ahrefs (subscription) | included | included | (existing) |
 

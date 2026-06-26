@@ -102,15 +102,6 @@ def _load_capture_screenshot():
         return None
 
 
-def _load_generate_image():
-    sys.path.insert(0, str(SCRIPT_DIR))
-    try:
-        import generate_image  # type: ignore
-        return generate_image
-    except ImportError:
-        return None
-
-
 def _load_render_chart():
     sys.path.insert(0, str(SCRIPT_DIR))
     try:

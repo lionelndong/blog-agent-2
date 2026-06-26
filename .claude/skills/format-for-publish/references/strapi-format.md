@@ -56,9 +56,12 @@ SEO metadata (DOD#4, resolved 2026-05-07): the Article content-type has **no** `
 - **No tip/note callouts in source** — JSON `content` field is just clean markdown with no `:::` blocks. That's fine; not every article has callouts.
 - **Existing Strapi content with same slug** — the script does NOT check Strapi for existing slugs. Editor must check before publishing to avoid duplicate-slug errors.
 
-## What the skill does NOT do (yet)
+## What the skill does
 
-- Push to Strapi API (deferred until Doppler creds are wired)
-- Upload screenshot images to Strapi media library
-- Create or link to Strapi categories/tags by ID (suggests names; editor maps to existing or creates new)
-- Validate against the actual Strapi content-type schema (the JSON is a sensible default; editor adjusts for the real schema)
+- **Pushes to the Strapi API directly** — `--publish` / `--auto-publish` POST the payload to Strapi (Doppler creds wired via `STRAPI_BASE_URL` + `STRAPI_API_TOKEN`).
+- **Uploads images to the Strapi media library** — visuals are sent through `/api/upload` and attached, so screenshots/charts publish with the article (no manual admin step).
+
+## What the skill does NOT do
+
+- Create or link to Strapi categories/tags by ID (suggests names; editor maps to existing or creates new).
+- Validate against the actual Strapi content-type schema (the JSON is a sensible default; editor adjusts for the real schema).

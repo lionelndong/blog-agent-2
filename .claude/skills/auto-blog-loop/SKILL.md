@@ -118,7 +118,7 @@ No "open in browser" or "review the preview" instructions — autonomous mode me
 ## Per-run cap and cool-down
 
 - `--max N` caps articles per invocation (default 3).
-- Between articles: 60s cool-down (rate-limit hygiene for Replicate / OpenRouter / Ahrefs).
+- Between articles: 60s cool-down (rate-limit hygiene for OpenRouter / Ahrefs).
 - The keyword research re-run (when queue empty) does NOT count against the per-run cap — it's setup, not articles.
 
 ## Cron entry (production VPS)
@@ -150,7 +150,7 @@ The loop is designed to fail forward — one bad article doesn't stop the loop, 
 
 ## Cost expectations (per --max 3 nightly run)
 
-- 3x /blog-pipeline: ~$2-5 in tokens + ~$0.15 Replicate (4 images avg) + ~$1 OpenRouter (deep research) ≈ $3-7
+- 3x /blog-pipeline: ~$2-5 in tokens + ~$1 OpenRouter (deep research) ≈ $3-6 (visuals are deterministic Playwright screenshots + matplotlib charts — no per-image API cost)
 - Optional 1x /keyword-research-pipeline: ~$1.50
 - Strapi/auto_publish_check: free
 - Total: ~$3-9/night, ~$100-280/month

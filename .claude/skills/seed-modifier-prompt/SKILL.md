@@ -8,7 +8,7 @@ allowed-tools: Read, Write, Bash, Agent
 
 Take `brand-config.md` and produce a structured `seeds.json` that the keyword multiplier (Ahrefs Keywords Explorer via `/content-gap-analysis`) uses to expand into real keyword ideas.
 
-This is the upstream of all autonomous keyword research. Without good seeds and modifiers, every downstream layer (BID, AIO, redteam) is filtering an irrelevant pool.
+This is the upstream of all autonomous keyword research. Without good seeds and modifiers, every downstream layer (BID, AIO) is filtering an irrelevant pool.
 
 ## Input
 
@@ -101,10 +101,4 @@ If seeds look like "marketing" / "business" / "online" — they're too broad. Re
 
 ## Invocation from the master orchestrator
 
-`/keyword-research-pipeline` calls this skill first. It runs idempotently — no API costs, just one agent dispatch — so the master can call it on every run without worrying about waste.
-
-## Topic-graph enrichment (when Layer 0 has run)
-
-If `content-pipeline/0-keywords/topic-graph.json` exists (the output of Layer 0 `/topic-discovery`, which runs Ahrefs `keywords-explorer-related-terms` + parent-topic clustering ahead of seed generation), pre-feed the agent with the **top 5 parent-topic / cluster names** from that file plus their representative keywords as a "Pre-discovered topical clusters" section in the brief. Ahrefs has already done topical clustering at the category level (via parent topics); using its clusters as anchors produces seeds that map onto real ranking opportunities rather than abstract category words. The agent should treat the clusters as evidence, not constraints — it can still propose seeds outside them when brand-config strongly motivates one.
-
-If `topic-graph.json` is absent (Layer 0 was skipped, or the brand has no Ahrefs coverage in the category yet), the skill falls back to brand-config-only behavior — the original 10-second hero prompt, unchanged. The pipeline never blocks on Layer 0; topic-graph is enrichment, not a hard input.
+`/keyword-research-pipeline` calls this skill first. It runs idempotently — no API costs, just one agent dispatch — so the master can call it on every run without worrying about waste. Seeds and modifiers are generated from `brand-config.md` alone — there is no upstream enrichment layer to wait on.

@@ -14,7 +14,7 @@ Skill files bloat over time, and bloated skills get ignored by the model. Fronti
 /skill-eval <stage> "<test keyword>"     # e.g. /skill-eval outline "ai sexting apps"
 ```
 
-Core stages worth evaluating: `research`, `outline`, `draft`, `quality-check`, `verify-claims`.
+Runnable on **any pipeline stage that has a SKILL.md** — creation, update, or publish. Core creation stages worth evaluating: `research`, `outline`, `draft`, `product-mentions`, `quality-check`, `verify-claims`, `format-for-publish`. Update-pipeline stages too: `update-claims`, `update-product-mentions`, `update-topic-gaps`, `update-draft`. The self-improvement loop is not limited to this list — any stage with a skill file is fair game.
 
 ## Process
 

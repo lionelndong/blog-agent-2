@@ -66,13 +66,12 @@ If a draft sounds generic or AI-flavored, the panel fails it — there is no sco
 ## The pipeline
 
 ### Keyword research (top of funnel — fills `keyword-queue.csv`)
-0. `/topic-discovery` — Ahrefs-backed seed/category discovery (Layer 0; idempotent)
-1. `/seed-modifier-prompt` — generate seeds + modifiers, grounded in Layer 0's topic graph
-2. `/content-gap-analysis` — Ahrefs `site-explorer-organic-competitors` (competitor discovery) + `site-explorer-organic-keywords` (keyword gap) + `keywords-explorer-matching-terms`/`keywords-explorer-related-terms` expansion (question mining folded in: question-form terms + serp-overview PAA)
+1. `/seed-modifier-prompt` — generate seeds + modifiers from `brand-config.md` (the "10-second hero prompt")
+2. `/content-gap-analysis` — Ahrefs `site-explorer-organic-competitors` (competitor discovery) + `site-explorer-organic-keywords` (competitor-minus-brand gap) + `keywords-explorer-matching-terms`/`keywords-explorer-related-terms` expansion (question mining folded in); `gap_mode` = `missing` (write pool) / `strong` (track-only)
 3. `/keyword-vet-bid` — BID method (Business / Intent / Difficulty); `keywords-explorer-overview` `difficulty` + intent + `serp-overview` SERP shape
-4. `/keyword-vet-aio` — AI-Overview cannibalization check via `serp-overview`'s `serp_features` where available
-5. `/keyword-prioritization` — emit `keyword-queue.csv` (top 50 ranked)
-6. `/keyword-research-pipeline` — run all of the above end-to-end (0 → 1a → 1b → 2 → 3 → 5)
+4. `/keyword-vet-aio` — AI-Overview **presence** check via `serp-overview`'s `serp_features` (presence-only default; deep cannibalization scoring behind `BLOG_AGENT_AIO_DEEP=1`)
+5. `/keyword-prioritization` — emit `keyword-queue.csv` (3-factor scored: traffic × brand_fit × product_fit)
+6. `/keyword-research-pipeline` — run the chain end-to-end (1a → 1b → 2 → 3 → 5)
 
 ### Creation (keyword → publish-ready article)
 1. `/research` — Ahrefs metrics + SERP benchmark + Firecrawl top-page extraction (+ optional Perplexity deep research, off by default) → dossier **with beat spec**

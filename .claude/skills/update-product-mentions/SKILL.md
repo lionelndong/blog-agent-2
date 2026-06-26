@@ -26,18 +26,18 @@ Reads:
    - **`roadmap`** → never recommend in updates (too far out; articles will go stale before launch)
 3. **Read the article's mentioned products** from the extract.
 4. **Identify the gap:** products in the eligible set NOT in the article.
-4. **For each missing product, walk the article's H2 list:**
+5. **For each missing product, walk the article's H2 list:**
    - Is there an H2 where this product would fit naturally?
    - What's the surrounding context — does the section discuss a problem this product solves?
    - Apply the same "show, don't sell" test as `/product-mentions`:
      - The mention should help the reader, not pitch
      - The product must genuinely solve or demonstrate what the section covers
-5. **For each natural fit, propose:**
+6. **For each natural fit, propose:**
    - Which H2 to add the mention to
    - The annotation type (walkthrough / inline / tip box)
    - 1–2 sentences of suggested text
-6. **For products with no natural fit, flag** — sometimes a product belongs in a section the article doesn't have. Note this; the topic-gaps audit may suggest the missing section separately.
-7. **Write the audit** to `content-pipeline/updates/3-update-product-mentions/{slug}.md`:
+7. **For products with no natural fit, flag** — sometimes a product belongs in a section the article doesn't have. Note this; the topic-gaps audit may suggest the missing section separately.
+8. **Write the audit** to `content-pipeline/updates/3-update-product-mentions/{slug}.md`:
 
 ```markdown
 # Product mentions audit: {slug}

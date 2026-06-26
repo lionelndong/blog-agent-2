@@ -1,7 +1,7 @@
 ---
 name: geo-citation-audit
 description: Measure pleasur.ai's AI-citation share across ChatGPT / Perplexity / Gemini / Google AI Overviews for the tracked query list, using the Ahrefs MCP Brand Radar (AI share-of-voice / mentions + cited-pages gaps) plus serp-overview for AIO-presence screening, backed by direct engine queries for ground truth. Scores each query into the GEO ledger and surfaces the highest-leverage gaps to fix. The GEO Lead's core measurement loop.
-allowed-tools: Read, Write, Edit, Bash, WebFetch, Task, mcp__ahrefs__*
+allowed-tools: Read, Write, Edit, Bash, WebFetch, Agent, mcp__ahrefs__*
 ---
 
 # GEO Citation Audit
