@@ -81,22 +81,26 @@ const classify = (p) => (p === "SKILL.md" ? "skill" : p.startsWith("scripts/") ?
     const inv = walk(dir).sort().map((p) => ({ kind: classify(p), path: p }));
     const trust = inv.some((f) => f.kind === "script") ? "scripts_executables" : "markdown_only";
     const key = `${OWNER}/${REPO}/${slug}`;
-    const meta = { ref, repo: REPO, owner: OWNER, skillKey: key, sourceKind: "skills_sh", trackingRef: "main", repoSkillDir: `.claude/skills/${slug}` };
+    // Paperclip-NATIVE registration: resolve the skill from its local path in this repo
+    // (source_type local_path/catalog are the only kinds Paperclip resolves to a local
+    // source — see server/src/services/company-skills.ts). No external skills.sh/GitHub fetch.
+    const localLocator = path.join(SKILLS_DIR, slug);
+    const meta = { ref, repo: REPO, owner: OWNER, skillKey: key, sourceKind: "local_path", trackingRef: "main", repoSkillDir: `.claude/skills/${slug}` };
 
     const ex = await c.query("SELECT id, description, markdown FROM company_skills WHERE company_id=$1 AND key=$2", [CO, key]);
     if (!ex.rowCount) {
       await c.query(
         `INSERT INTO company_skills (id, company_id, key, slug, name, description, markdown, source_type, source_locator, source_ref, trust_level, compatibility, file_inventory, metadata, created_at, updated_at)
-         VALUES (gen_random_uuid(), $1,$2,$3,$4,$5,$6,'skills_sh',$7,$8,$9,'compatible',$10::jsonb,$11::jsonb, now(), now())`,
-        [CO, key, slug, fm.name || slug, fm.description || "", md, `https://skills.sh/${OWNER}/${REPO}/${slug}`, ref, trust, JSON.stringify(inv), JSON.stringify(meta)]
+         VALUES (gen_random_uuid(), $1,$2,$3,$4,$5,$6,'local_path',$7,$8,$9,'compatible',$10::jsonb,$11::jsonb, now(), now())`,
+        [CO, key, slug, fm.name || slug, fm.description || "", md, localLocator, ref, trust, JSON.stringify(inv), JSON.stringify(meta)]
       );
       inserted++; console.log("INSERT", slug);
     } else {
       const r = ex.rows[0];
       const changed = (r.description || "") !== (fm.description || "") || (r.markdown || "") !== md;
       await c.query(
-        `UPDATE company_skills SET name=$1, description=$2, markdown=$3, source_ref=$4, trust_level=$5, file_inventory=$6::jsonb, metadata=$7::jsonb, updated_at=now() WHERE id=$8`,
-        [fm.name || slug, fm.description || "", md, ref, trust, JSON.stringify(inv), JSON.stringify(meta), r.id]
+        `UPDATE company_skills SET name=$1, description=$2, markdown=$3, source_ref=$4, trust_level=$5, file_inventory=$6::jsonb, metadata=$7::jsonb, source_type='local_path', source_locator=$8, updated_at=now() WHERE id=$9`,
+        [fm.name || slug, fm.description || "", md, ref, trust, JSON.stringify(inv), JSON.stringify(meta), localLocator, r.id]
       );
       if (changed) { updated++; console.log("UPDATE", slug); } else unchanged++;
     }
