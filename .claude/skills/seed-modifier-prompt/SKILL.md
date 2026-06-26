@@ -101,7 +101,7 @@ If seeds look like "marketing" / "business" / "online" — they're too broad. Re
 
 ## Invocation from the master orchestrator
 
-`/keyword-research-pipeline` calls this skill first. It runs idempotently — no API costs, no Semrush quota, just one agent dispatch — so the master can call it on every run without worrying about waste.
+`/keyword-research-pipeline` calls this skill first. It runs idempotently — no API costs, just one agent dispatch — so the master can call it on every run without worrying about waste.
 
 ## Topic-graph enrichment (when Layer 0 has run)
 

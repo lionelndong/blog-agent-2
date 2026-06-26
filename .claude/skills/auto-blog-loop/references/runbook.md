@@ -1,6 +1,6 @@
 # Auto Blog Loop — VPS Operational Runbook
 
-> **2026-06-24 (supersedes the 2026-06-12 Semrush note):** the data layer is the **Ahrefs MCP** (`mcp__ahrefs__*`). Semrush and DataForSEO are retired; any `mcp__semrush__*` name in older notes is historical and must not be called. The real tool mapping + param rules live in `.claude/skills/research/references/ahrefs-mcp-cheatsheet.md`. Metrics/threshold logic in this file remains valid (now Ahrefs KD, recalibrated inline in `keyword-research-pipeline/references/bid-method.md`).
+> **Data layer: Ahrefs MCP** (`mcp__ahrefs__*`). Tool mapping + param rules: `.claude/skills/research/references/ahrefs-mcp-cheatsheet.md`. Metrics/threshold logic here remains valid (Ahrefs KD, recalibrated in `keyword-research-pipeline/references/bid-method.md`).
 
 Production-ready operating notes for running `/auto-blog-loop` autonomously on the user's VPS.
 

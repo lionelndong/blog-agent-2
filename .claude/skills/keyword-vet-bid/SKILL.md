@@ -6,7 +6,7 @@ allowed-tools: Read, Write, Edit, Bash, mcp__ahrefs__*
 
 # Keyword Vet — BID Method
 
-> **DATA LAYER (2026-06-24).** This layer runs on the **Ahrefs MCP** (`mcp__ahrefs__*`); Semrush and DataForSEO are retired. Map every data call to the tools pinned in [`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) — read it first. Two param rules bite: params are comma-separated **strings**, not JSON arrays, and `select` + `country` are required on most endpoints. For any tool you haven't used this run, call `doc {tool:"keywords-explorer-overview"}` first to get its exact schema; never invent tool names. The logic below (filters, thresholds, output schema) remains binding; only the data calls changed.
+> **Data layer: Ahrefs MCP** (`mcp__ahrefs__*`). Read [`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) first — string params not JSON arrays, `select`+`country` required, `doc {tool:"..."}` any unfamiliar tool. The logic below (filters, thresholds, schema) is binding.
 
 For every candidate in `keyword-ideas.csv`, run three tests:
 1. **B**usiness potential — would ranking #1 actually move the needle for this brand?
@@ -169,6 +169,6 @@ If `serp-overview` errors (rate-limit, query has no SERP data) AND the keyword's
 
 If `intents` is populated but the SERP fetch fails, the difficulty test loses `dr_top10_median` / `weak_link_count`. Mark `difficulty_match=FAIL` reason `serp_unavailable_for_difficulty` rather than passing on partial data.
 
-## No Semrush / DataForSEO fallbacks
+## Ahrefs MCP only
 
-`mcp__semrush__*` and the DataForSEO scripts are retired. If you find one in this skill or in cached artifacts, it's a leftover from migration — remove it, don't try to fall back. Quota/units errors from Ahrefs surface as exit 75 (orchestrator handles retry on next cron cycle).
+All data comes from `mcp__ahrefs__*`. Quota/units errors surface as exit 75 (orchestrator handles retry on the next cron cycle).

@@ -6,7 +6,7 @@ allowed-tools: Read, Write, Bash, mcp__ahrefs__*
 
 # Topic Discovery Skill (Layer 0)
 
-> **DATA LAYER (2026-06-24).** This layer runs on the **Ahrefs MCP** (`mcp__ahrefs__*`); Semrush and DataForSEO are retired. Map every data call to the tools pinned in [`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) — read it first. Two param rules bite: params are comma-separated **strings**, not JSON arrays (`keywords:"ai companion"`, not `["ai companion"]`), and `select` + `country` are required on most endpoints. For any tool you haven't used this run, call `doc {tool:"keywords-explorer-related-terms"}` first to get its exact schema; never invent tool names. The logic below (filters, thresholds, output schema) remains binding; only the data calls changed.
+> **Data layer: Ahrefs MCP** (`mcp__ahrefs__*`). Read [`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) first — string params not JSON arrays, `select`+`country` required, `doc {tool:"..."}` any unfamiliar tool. The logic below (filters, thresholds, schema) is binding.
 
 Take `brand-config.md` and produce two artefacts that downstream layers consume as enrichment:
 

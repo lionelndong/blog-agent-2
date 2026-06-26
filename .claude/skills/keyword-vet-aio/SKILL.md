@@ -6,7 +6,7 @@ allowed-tools: Read, Write, Edit, Bash, WebFetch, mcp__ahrefs__*, Task
 
 # Keyword Vet — AI Overview Cannibalization Check
 
-> **DATA LAYER (2026-06-24).** This layer runs on the **Ahrefs MCP** (`mcp__ahrefs__*`); Semrush and DataForSEO are retired. Map every data call to the tools pinned in [`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) — read it first. Params are comma-separated **strings** (not arrays); `select` + `country` are required; call `doc {tool:"serp-overview"}` (or `doc {tool:"brand-radar-ai-responses"}`) for any tool you haven't used this run. The logic below (filters, thresholds, scoring rubric, output schema) remains binding; only the data calls changed.
+> **Data layer: Ahrefs MCP** (`mcp__ahrefs__*`). Read [`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) first — string params (not arrays), `select`+`country` required, `doc {tool:"..."}` any unfamiliar tool. The logic below (filters, thresholds, scoring, schema) is binding.
 
 For every keyword that passed BID (Layer 2), check:
 1. Does the SERP show an AI Overview?
@@ -160,4 +160,4 @@ If the orchestrator detects units pressure (Ahrefs returns 429), pause Layer 3 m
 
 > **Note on presence-only posture.** The orchestrator's current default for Layer 3 is *presence-only* AIO detection via `serp-overview`'s `serp_features`. The Brand Radar body-fetch + adversarial-scoring path above is the full cannibalization check, preserved from the pre-migration design; it is now genuinely sourceable on Ahrefs (Brand Radar exists where Semrush AI Toolkit / DataForSEO did not). Run the full path when Brand Radar coverage is available; degrade gracefully to presence-only (treat `has_aio=true` non-exempt rows as `RISKY`) when it isn't, rather than blocking.
 
-**No Semrush / DataForSEO fallbacks.** `mcp__semrush__ai-toolkit-*` and the DataForSEO `ai_overview` item are retired; a Semrush or DataForSEO call from this skill is a bug, not a recovery path.
+**Ahrefs MCP only** — no other data providers (use the Brand Radar / serp-overview / WebFetch order above).

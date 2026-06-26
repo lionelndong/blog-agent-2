@@ -6,7 +6,7 @@ allowed-tools: Read, Write, WebFetch, mcp__ahrefs__*
 
 # Update Topic Gaps Skill
 
-> **DATA LAYER (2026-06-24).** This skill runs on the **Ahrefs MCP** (`mcp__ahrefs__*`); Semrush and DataForSEO are retired. For this skill: current SERP = `serp-overview`; page content = Firecrawl scrape (`FIRECRAWL_API_KEY`), WebFetch fallback; topic landscape = `keywords-explorer-related-terms` + `keywords-explorer-matching-terms` grouped by `parent_topic`. Map every call to the tools pinned in [`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) — read it first. Params are comma-separated **strings** (not arrays); `select` + `country` are required; call `doc {tool:"serp-overview"}` for any tool you haven't used this run. Logic below remains binding.
+> **Data layer: Ahrefs MCP** (`mcp__ahrefs__*`): current SERP = `serp-overview`; page content = Firecrawl (`FIRECRAWL_API_KEY`, WebFetch fallback); topic landscape = `keywords-explorer-related-terms`/`-matching-terms` by `parent_topic`. Read [`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) first — string params, `select`+`country` required. Logic below is binding.
 
 Articles don't get out-of-date in a vacuum — they get out-of-date because the SERP shifts and because the broader topic landscape grows new clusters around the seed term. New competitors rank with new sections, new angles, new evidence; the Ahrefs related-term / question landscape surfaces sub-topics real publishers are writing about that may not yet be in the SERP top 5. This skill re-pulls both signals and finds what the existing article is missing.
 
@@ -21,7 +21,7 @@ Reads:
 ## Process
 
 1. **Identify the article's primary keyword.** Often inferable from the H1 / URL slug. If unclear, ask the user.
-2. **Re-pull the current SERP for that keyword via `serp-overview`** (`{keyword:"<kw>", country:"US", select:"url,title,position,serp_features"}`; see `../../research/references/ahrefs-mcp-cheatsheet.md` section 4). Capture the top 10 ranking URLs, position order, and the `serp_features` array (plus DR/UR/word-count where the payload exposes them). **Do not silently fall back to Semrush or DataForSEO** — both are retired.
+2. **Re-pull the current SERP for that keyword via `serp-overview`** (`{keyword:"<kw>", country:"US", select:"url,title,position,serp_features"}`; see `../../research/references/ahrefs-mcp-cheatsheet.md` section 4). Capture the top 10 ranking URLs, position order, and the `serp_features` array (plus DR/UR/word-count where the payload exposes them).
 3. **Pull the Ahrefs related-term / question landscape** as the topic-cluster source. Call `keywords-explorer-related-terms` (`{keywords:"<primary kw>", country:"US", view_for:"also_talk_about", select:"keyword,volume,difficulty,parent_topic,intents", limit:"100"}`) and `keywords-explorer-matching-terms` (`{keywords:"<primary kw>", match_mode:"terms", country:"US", select:"keyword,volume,difficulty,parent_topic", limit:"100"}`); **group the combined rows by `parent_topic`** to form clusters (each cluster = a parent_topic with its member keywords and question-form members). This is the second gap-source: the topic landscape already knows what real publishers are writing about, even when those clusters haven't elbowed into the SERP top 5 yet (see the cheatsheet section 2 "Related / long-tail ideas").
 4. **WebFetch the top 5 ranking pages.** Extract each one's H2 list. (The MCP returns SERP metadata, not full page text — WebFetch, or Firecrawl when a page bot-walls, gives the H2 list — cheatsheet section 7.)
 5. **Compare H2 lists across both sources:**
@@ -113,7 +113,7 @@ A list of section additions and possible removals for `update-draft` to apply.
 - [ ] Each gap specifies WHERE to insert (which existing sections it sits between)
 - [ ] Removals only suggested when truly absent from current SERP AND absent from the related-term clusters, not just absent from one page
 - [ ] If the article looks healthy (no high-priority gaps in either source), state that — don't manufacture gaps
-- [ ] No `mcp__semrush__*` or DataForSEO calls anywhere in the run (both retired; that's a bug, not a fallback)
+- [ ] All data calls are `mcp__ahrefs__*`
 
 ## When the SERP hasn't shifted
 

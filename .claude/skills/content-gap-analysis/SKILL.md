@@ -6,7 +6,7 @@ allowed-tools: Read, Write, Bash, mcp__ahrefs__*
 
 # Content Gap Analysis Skill
 
-> **DATA LAYER RULING (2026-06-24 — supersedes the 2026-06-12 Semrush note).** Ahrefs MCP (`mcp__ahrefs__*`) is the data layer; Semrush AND DataForSEO are retired. Before making any data call, read [`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) — it maps each task to the real Ahrefs MCP tools and pins the param rules. Two that bite: params are comma-separated **strings**, not JSON arrays (`keywords:"ai girlfriend app"`, not `["ai girlfriend app"]`), and `select` + `country` are required on most endpoints. For any tool you haven't used this run, call `doc {tool:"..."}` first to get its exact schema; never invent tool names. The logic below (filters, thresholds, output schema, the five `gap_mode` tags) remains binding; only the data calls changed.
+> **Data layer: Ahrefs MCP** (`mcp__ahrefs__*`). Read [`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) first — string params not JSON arrays (`keywords:"ai girlfriend app"`, not `["ai girlfriend app"]`), `select`+`country` required, `doc {tool:"..."}` any unfamiliar tool. The logic below (filters, thresholds, schema, the five `gap_mode` tags) is binding.
 
 Use Ahrefs Site Explorer (competitor organic keywords) plus Keywords Explorer (matching/related terms) to surface keywords competitors rank for that the brand doesn't, plus seed-modifier expansion of the brand's own keyword universe. The output feeds `/keyword-prioritization`, which then feeds `/blog-pipeline` for the chosen keywords.
 
@@ -139,4 +139,4 @@ If neither CLI args nor brand-config nor auto-discovery yields competitors AND `
 
 ## Tool naming
 
-Tool names are the real Ahrefs MCP tools pinned in `.claude/skills/research/references/ahrefs-mcp-cheatsheet.md`. Call `doc {tool:"..."}` for any tool you haven't used this run to confirm its exact `select` columns / filters before calling it; never invent tool names. **No `mcp__semrush__*` or DataForSEO calls** — both are retired; a Semrush or DataForSEO call from this skill is a migration-leftover bug, not a fallback.
+Tool names are the real Ahrefs MCP tools pinned in `.claude/skills/research/references/ahrefs-mcp-cheatsheet.md`. Call `doc {tool:"..."}` for any tool you haven't used this run to confirm its exact `select` columns / filters; never invent tool names.
