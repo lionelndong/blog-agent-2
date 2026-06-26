@@ -308,33 +308,26 @@ _IMAGE_SUB_STYLE_DEFAULTS = {
 
 
 def _handle_image(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
+    """AI image generation is RETIRED (Ryan-faithful rebuild, 2026-06-25).
+
+    Ryan Law does blog images by hand; we don't spend on generated imagery and we
+    don't ship AI-illustrated concept art. An `image` placeholder is therefore
+    `drop`ped from the draft (the placeholder is stripped — no naked [VISUAL:] left
+    to fail the gate, no Replicate call) and logged as a non-blocking manual TODO so
+    an editor can add a real screenshot/diagram later if the visual genuinely earns
+    its place. Prefer `type=screenshot` (real brand UI) or `type=chart`/`type=table`
+    (real data) at outline/draft time instead of `type=image`.
+    """
     a = item["attrs"]
-    safety = (a.get("safety") or "sfw").lower()
-    if safety == "adult":
-        return {
-            "status": "manual",
-            "reason": "adult_content_routed_manual",
-            "prompt": a.get("prompt", ""),
-            "filename": f"image-{index}-{_slug(a.get('prompt', 'adult'))}.png",
-            "hint": "produce manually via pleasur.ai/generate",
-        }
     prompt = a.get("prompt") or a.get("what") or ""
-    if not prompt:
-        return {"status": "failed", "reason": "no_prompt"}
-    name = _slug(prompt)
-    out_path = out_dir / f"image-{index}-{name}.png"
-
-    module = _load_generate_image()
-    if module is None:
-        return {"status": "manual", "reason": "replicate_unavailable", "prompt": prompt, "filename": out_path.name}
-
-    # PLEAA-499: derive style_suffix from `sub` when the placeholder doesn't
-    # set one explicitly. Concept-illustration / diagram defaults push gpt-image-2
-    # toward the clean editorial look the ahrefs reference uses.
-    sub = (a.get("sub") or "concept-illustration").lower()
-    style_suffix = a.get("style_suffix") or _IMAGE_SUB_STYLE_DEFAULTS.get(sub)
-    model = a.get("model", module.DEFAULT_MODEL)
-    return module.generate(prompt, out_path, model=model, style_suffix=style_suffix, safety=safety)
+    name = _slug(prompt or "image")
+    return {
+        "status": "drop",
+        "reason": "ai_image_gen_retired",
+        "prompt": prompt,
+        "filename": f"image-{index}-{name}.png",
+        "hint": "AI image generation is retired. Add a real screenshot/diagram by hand if this visual earns its place; otherwise the article ships without it (text publish is not blocked).",
+    }
 
 
 def _handle_action_shot(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
@@ -593,6 +586,11 @@ def run(slug: str) -> int:
             # Treat failed captures the same as manual: editor needs to act.
             # Surface the reason so they know it's a CF block / API rejection
             # / etc. and not a missing placeholder.
+            manual_items.append({"item": item, "result": result})
+        elif result.get("status") == "drop":
+            # Retired AI-image placeholder: strip it from the draft (no naked
+            # [VISUAL:] left to fail the gate) and log a non-blocking manual TODO.
+            replacements.append((item["raw"], ""))
             manual_items.append({"item": item, "result": result})
         elif result.get("status") == "skip":
             replacements.append((item["raw"], ""))

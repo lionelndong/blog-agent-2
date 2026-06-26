@@ -1,17 +1,17 @@
 ---
 name: generate-visuals
-description: Realize every typed [VISUAL:...] placeholder in the cited draft into an actual asset — Playwright screenshots of brand UI, Replicate-generated images (GPT Image 2 default, Nano Banana backup), matplotlib charts. Manual-capture flag for video/external/gif/adult-image. Updates the draft to reference local image paths.
+description: Realize every typed [VISUAL:...] placeholder in the cited draft into an actual asset — Playwright screenshots of brand UI and matplotlib charts/tables. AI image generation is retired (type=image is dropped + logged as a manual TODO). Manual-capture flag for video/external/gif. Updates the draft to reference local image paths.
 allowed-tools: Read, Write, Edit, Bash
 ---
 
-> **MANDATORY (board 2026-06-10):** build every generation prompt with the `visual-prompt-craft` skill (9-part anatomy, references/example-prompts.md) BEFORE calling any image model. Write prompts to `images/{slug}/prompts.md`. One-line prompts are a gate failure.
+> **No AI image generation (Ryan-faithful rebuild, 2026-06-25):** `type=image` placeholders are dropped — the dispatcher strips them from the draft and logs a non-blocking manual TODO; it never calls an image model. Automate only real `screenshot` (Playwright) and `chart`/`table` (matplotlib) assets; route everything else to manual capture.
 
 
 # Generate Visuals Skill
 
 Take every `[VISUAL:type=...;...]` placeholder in the cited draft and produce a real asset on disk for the types we can automate, plus a `manual-capture.md` to-do for the rest. Update the draft to reference the local images so subsequent stages (preview, format-for-publish) treat them as ordinary markdown images.
 
-This is the skill that closes the gap Ryan Law called out in his content-engineering blog: "blog post images are not a solved problem, yet" — solved here for the four types we can automate.
+This is the skill that closes the gap Ryan Law called out in his content-engineering blog: "blog post images are not a solved problem, yet" — we automate the deterministic types (real screenshots, data charts/tables) and leave generative imagery to an editor, exactly as he does.
 
 ## Input
 
@@ -19,7 +19,6 @@ For slug `{slug}`:
 - `content-pipeline/6-drafts-cited/{slug}.md` — the cited draft with typed placeholders (or legacy `[SCREENSHOT: ...]`)
 - `brand-config.md` — product URLs and visual-generation config block
 - `../../../templates/visual-types.md` — taxonomy reference
-- `../generate-screenshot/references/_archive/ahrefs-products-catalog.md` (legacy non-Pleasur reference) — URL-pattern shape templates only; brand-config product URLs are the primary source for the Pleasur.AI deployment
 
 ## Process
 
