@@ -153,11 +153,14 @@ def check_visuals(slug: str) -> int:
     except Exception as e:
         return fail("visuals manifest is not valid JSON", str(e))
     visuals = manifest.get("visuals", [])
-    bad = [v for v in visuals if v.get("status") in ("manual", "failed")]
+    # `manual` entries are TODOs (non-deterministic visuals the lean pipeline intentionally skips),
+    # not blockers — the article ships with the screenshots/charts it has. Only a deterministic
+    # visual that errored (`failed`) halts the pipeline.
+    bad = [v for v in visuals if v.get("status") == "failed"]
     if bad:
-        details = [f"#{v.get('index')} {v.get('type')} → {v.get('status')}: {v.get('result',{}).get('reason','no reason')}" for v in bad]
-        return fail(f"{len(bad)}/{len(visuals)} visuals unresolved (manual or failed)", *details,
-                    "fix by running /capture-visuals or extending the SKILL to handle the type")
+        details = [f"#{v.get('index')} {v.get('type')} → failed: {v.get('result',{}).get('reason','no reason')}" for v in bad]
+        return fail(f"{len(bad)}/{len(visuals)} deterministic visuals failed", *details,
+                    "fix the screenshot/chart generation or strip the placeholder; manual TODOs do not block")
 
     # Also verify the cited draft has no naked [VISUAL:...] placeholders left.
     draft = CP / f"6-drafts-cited/{slug}.md"
@@ -318,15 +321,12 @@ def check_deliverable(slug: str) -> int:
 
 CHECKS = {
     "research": check_research,
-    "research-adversarial": check_research_adversarial,
     "reference": check_reference,
     "outline": check_outline,
-    "outline-adversarial": check_outline_adversarial,
     "annotated": check_annotated,
     "draft": check_draft,
     "cited": check_cited,
     "visuals": check_visuals,
-    "visuals-adversarial": check_visuals_adversarial,
     "quality": check_quality,
     "preview": check_preview,
     "publish": check_publish,

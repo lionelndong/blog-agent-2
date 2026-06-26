@@ -1,34 +1,48 @@
 ---
 name: blog-pipeline
-description: Master orchestrator for the content creation pipeline. Dispatches each stage as a fresh subagent so the parent context never overflows. Runs research through preview for a target keyword and surfaces stage failures cleanly. Editor reviews between preview and publish.
+description: Master orchestrator for the content creation pipeline. Dispatches each stage as a fresh subagent so the parent context never overflows. Runs research through preview for a target keyword and surfaces stage failures cleanly. The /quality-check floors+panel gate decides publish.
 allowed-tools: Read, Write, Bash, Agent, Glob
 ---
 
 # Blog Pipeline (Master Orchestrator)
 
-Take a keyword and produce a publish-ready article. The orchestrator does NOT inline-fork via the Skill tool — that fails with `Prompt is too long` once the parent context has any history. Instead each stage is dispatched as a fresh `general-purpose` Agent with a self-contained brief.
+Take a keyword and produce a publish-ready article. The orchestrator does NOT inline-fork via the
+Skill tool — that fails with `Prompt is too long` once the parent context has any history. Each
+stage is dispatched as a fresh `general-purpose` Agent with a self-contained brief.
+
+The chain is deliberately lean (Ryan Law's method — short skills, no redundant stages). The
+skeptical "is this good enough?" read is NOT a separate stage; it lives inside `/quality-check`'s
+3-reviewer panel. There are no `*-adversarial` stages.
 
 ## HARD-FAIL GATES — non-negotiable
 
-Neo, PLEAA-392 (2026-05-06): "we cannot skip steps. If something is missing, stop and address it before moving on. Quality is the #1 priority."
-
-Between every stage transition, the orchestrator MUST run:
+Between every stage transition, run:
 
 ```bash
 python scripts/pipeline_gate.py <stage-key> <slug>
 ```
 
-Stage keys: `research`, `research-adversarial`, `reference`, `outline`, `outline-adversarial`, `annotated`, `draft`, `cited`, `quality`, `visuals`, `visuals-adversarial`, `preview`, `publish`, `deliverable`. The script's exit code is authoritative — non-zero means HALT, do NOT advance to the next stage. Print the stderr summary to the user.
+Stage keys: `research`, `reference`, `outline`, `annotated`, `draft`, `cited`, `quality`,
+`visuals`, `preview`, `publish`, `deliverable`. The exit code is authoritative — non-zero means
+HALT, do NOT advance. Print the stderr summary.
 
-Specific halt conditions the gate enforces:
+Specific halt conditions:
 
-- **`visuals`** — every `[VISUAL:...]` placeholder must produce a real asset on disk. Any `manual` or `failed` entry in `manifest.json`, or any naked `[VISUAL:...]` left in the cited draft, is a HALT. Resolution: run `/capture-visuals`, or fix the SKILL/script to actually handle the type, then re-run `/generate-visuals`. Do NOT advance to preview/publish with unresolved visuals — Neo will reject the run.
-- **`quality`** — verdict FAIL or BORDERLINE-with-CRITICAL is a HALT. The autonomous-mode revision loop addresses this; if the loop's budget is exhausted and the verdict is still failing, write `9-needs-review/{slug}.md` and STOP — never publish broken prose.
-- **`research-adversarial` / `outline-adversarial` / `visuals-adversarial`** (PLEAA-418, Phase 3) — the adversarial verdict file must exist with `## Verdict: **PASS**` OR `## Verdict: **FAIL**` with revision budget remaining. FAIL with the per-stage budget exhausted is a HALT; write `9-needs-review/{slug}.md` and STOP. Per-stage budgets are tracked in `.runs/{slug}-budgets.json` via `python scripts/adversarial_runlog.py`. Default budgets (override via env): `BLOG_AGENT_RESEARCH_REVISION_BUDGET=1`, `BLOG_AGENT_OUTLINE_REVISION_BUDGET=1`, `BLOG_AGENT_VISUALS_REVISION_BUDGET=1`. The existing prose loop continues to use `BLOG_AGENT_REVISION_BUDGET=2`.
-- **`publish`** — `8-publish/{slug}/{article.md, article.json, README.md}` must all exist AND `article.md` must contain zero raw `[VISUAL:...]` placeholders. The format-for-publish skill must strip or substitute these — never ship template syntax.
-- **`deliverable`** — for issue-driven runs (PAPERCLIP_TASK_ID set), a deliverable comment with the slug + verdict must be posted to the trigger issue before the run is considered complete. Run-status "succeeded" means nothing if Neo can't see the result.
+- **`quality`** — verdict FAIL is a HALT. PASS requires BOTH the completeness floors AND the
+  3-reviewer panel (see `/quality-check`). The autonomous revision loop addresses a FAIL; if the
+  budget (2) is spent and it still FAILs, write `9-needs-review/{slug}.md` and STOP — never publish
+  a FAIL.
+- **`visuals`** — every deterministic `[VISUAL:...]` (screenshot, chart, table-card) must produce a
+  real asset; a `failed` manifest entry is a HALT. `manual` entries are TODOs, not blockers (the
+  article ships text + the visuals it has). No naked `[VISUAL:...]` may remain in the cited draft —
+  generate-visuals resolves or strips each one.
+- **`publish`** — `8-publish/{slug}/{article.md, article.json, README.md}` must all exist AND
+  `article.md` must contain zero raw `[VISUAL:...]` placeholders.
+- **`deliverable`** — for issue-driven runs (PAPERCLIP_TASK_ID set), a deliverable comment with the
+  slug + verdict must be posted to the trigger issue.
 
-**Never claim a stage succeeded just because the agent dispatched cleanly.** The gate is the source of truth.
+**Never claim a stage succeeded just because the agent dispatched cleanly.** The gate is the source
+of truth.
 
 ## Invocation
 
@@ -36,111 +50,80 @@ Specific halt conditions the gate enforces:
 /blog-pipeline <keyword> [--context "free-form direction"]
 ```
 
-Examples:
-- `/blog-pipeline keyword cannibalization`
-- `/blog-pipeline link building --context "Lean toward beginners. Mention ProductA's link tool early."`
-- `/blog-pipeline content gap analysis --context "Audience is technical SEO managers. Use a worked example throughout."`
+`--context` is Ryan's highest-leverage lever: front-loaded human direction (angle, emphasis,
+features to feature) beats heavy editing at the end. Examples:
+- `/blog-pipeline character ai no filter --context "Lead with the privacy angle. Feature the memory system early."`
+- `/blog-pipeline ai girlfriend apps --context "Audience is first-timers. Use a worked setup example throughout."`
 
 ## Why agent dispatch, not slash-command fork
 
-The `Skill` tool forks with the parent's context. After any compaction or accumulated history, that fork hits `Prompt is too long`. The `Agent` tool starts each stage with a clean window, so the orchestrator can run for as long as the chain needs without context pressure. This is non-negotiable — every stage MUST be an Agent dispatch, not a Skill invocation.
+The `Skill` tool forks with the parent's context and hits `Prompt is too long` after any
+compaction. The `Agent` tool starts each stage with a clean window. Every stage MUST be an Agent
+dispatch, not a Skill invocation.
 
 ## Autonomous mode (BLOG_AGENT_AUTONOMOUS=1)
 
-When the env var `BLOG_AGENT_AUTONOMOUS=1` is set (the auto-blog-loop sets it; cron-driven runs inherit it from Doppler), the orchestrator's behavior changes:
+Set by auto-blog-loop; cron runs inherit it from Doppler.
 
-- **Skip-or-regenerate**: never asks. If a stage's output file exists, skip it (resume-from-failure). If `--regenerate` was passed, overwrite. No middle ground; no prompt.
-- **Quality FAIL**: never bails. Auto-revise loop with budget `BLOG_AGENT_REVISION_BUDGET` (default 2). After budget exhausted, write `content-pipeline/9-needs-review/{slug}.md` with the punch list and abort the chain (do NOT continue to verify-claims/visuals/publish on broken prose).
-- **Capture-visuals**: `UNATTENDED=1` is set automatically. The skill skips per-step confirmations and treats failures as `manifest=failed` rather than blocking.
-- **Format-for-publish**: auto-runs as Stage 12 with `--auto-publish` (publishedAt = now). The article goes live on Strapi rather than entering as draft.
-- **Final report**: replaces "Next steps" with "Auto-published to <Strapi URL>" + audit log row reference. No "open in browser" instructions.
+- **Skip-or-regenerate**: never asks. If a stage's output exists, skip it (resume-from-failure);
+  `--regenerate` overwrites. No prompt.
+- **Quality FAIL**: never bails. Auto-revise loop with budget `BLOG_AGENT_REVISION_BUDGET` (2).
+  After the budget is spent, write `content-pipeline/9-needs-review/{slug}.md` and abort the chain
+  (do NOT continue to verify-claims/visuals/publish on a FAIL).
+- **Format-for-publish**: auto-runs with `--auto-publish` (publishedAt = now).
+- **Final report**: "Auto-published to <Strapi URL>" + audit log row.
 
-When `BLOG_AGENT_AUTONOMOUS` is unset (interactive / dev mode), the original behavior applies — every prompt below this section is the interactive default.
+When unset (interactive/dev), the prompts below are the interactive default; format-for-publish
+never auto-runs (editor owns the preview→publish gap).
 
 ## Process
 
-1. **Parse the input.** Extract the keyword (everything before `--context` if present) and the context string (after `--context`, if present).
-2. **Slugify.** Run `python scripts/slugify.py "<keyword>"` and capture the slug.
-3. **Capture context.** If context was provided, write `content-pipeline/0-context/{slug}.md`:
-   ```markdown
-   # Context for {slug}
-
-   {the user's context string verbatim}
-   ```
-4. **Check pipeline status.** Run `python scripts/pipeline_status.py {slug}`. If any stages already exist:
-   - **Autonomous mode (`BLOG_AGENT_AUTONOMOUS=1`)**: skip stages whose output files exist (resume-from-failure). Only overwrite if `--regenerate` was passed. No prompt.
-   - **Interactive mode**: ask the user whether to skip-or-regenerate before proceeding. Don't silently overwrite.
-5. **Run the chain via parallel + sequential agent dispatches** (see "Stage briefs" below for the exact prompt template per stage):
-   - **Parallel:** Stage 1 (`/research`) + Stage 2 (`/brand-reference`). Independent.
-   - Wait for both. Verify outputs on disk. If either failed, stop and surface the error.
-   - **Stage 1b — Research adversarial (PLEAA-418, Phase 3):** dispatch `/research-adversarial` for {slug}. Read the verdict.
-     - PASS → continue.
-     - FAIL with budget remaining (`python scripts/adversarial_runlog.py can-revise {slug} research`) → increment via `python scripts/adversarial_runlog.py increment {slug} research`, re-dispatch stage 1 with the CRITICAL findings as a revision brief, then re-run stage 1b. Loop up to `BLOG_AGENT_RESEARCH_REVISION_BUDGET` (default 1) revision passes.
-     - FAIL with budget exhausted → write `content-pipeline/9-needs-review/{slug}.md` with the CRITICAL list and abort. Do NOT advance to stage 3. Run `python scripts/pipeline_gate.py research-adversarial {slug}` between attempts to enforce the rule.
-   - **Sequential:** Stage 3 (`/outline`)
-   - **Stage 3b — Outline adversarial (PLEAA-418, Phase 3):** dispatch `/outline-adversarial` for {slug}. Same FAIL handling as 1b but with stage key `outline` and budget `BLOG_AGENT_OUTLINE_REVISION_BUDGET`. Run `python scripts/pipeline_gate.py outline-adversarial {slug}` between attempts.
-   - **Sequential continued:** Stage 4 (`/product-mentions`) → Stage 5 (`/draft`)
+1. **Parse** the keyword (before `--context`) and the context string (after it).
+2. **Slugify**: `python scripts/slugify.py "<keyword>"`.
+3. **Capture context** (REQUIRED for quality): write `content-pipeline/0-context/{slug}.md` with the
+   context string verbatim. If no `--context` was given, write a short brief yourself (angle,
+   audience, must-feature products) — the draft and optimize stages read this file.
+4. **Check status**: `python scripts/pipeline_status.py {slug}`. Autonomous → skip existing stages
+   unless `--regenerate`. Interactive → ask skip-or-regenerate.
+5. **Run the chain** (see Stage briefs):
+   - **Parallel:** Stage 1 (`/research`) + Stage 2 (`/brand-reference`). Wait for both; verify
+     outputs on disk; stop on either failure.
+   - **Sequential:** Stage 3 (`/outline`) → Stage 4 (`/product-mentions`) → Stage 5 (`/draft`).
    - **Quality gate:** Stage 6 (`/quality-check`). Read the verdict.
-   - **Autonomous mode revision loop** (when `BLOG_AGENT_AUTONOMOUS=1`):
-     - On FAIL or BORDERLINE-with-CRITICAL → dispatch Stage 6b targeted-revision Agent (brief expects to address every CRITICAL+HIGH item, not just CRITICAL). Re-run quality-check.
-     - Repeat up to `BLOG_AGENT_REVISION_BUDGET` (default 2) total revision passes. Budget covers FAIL retries AND BORDERLINE+CRITICAL retries (one shared budget).
-     - After budget exhausted, if verdict still FAIL or BORDERLINE-with-CRITICAL → write `content-pipeline/9-needs-review/{slug}.md` with the punch list, abort the chain (do NOT advance to verify-claims/visuals/publish on broken prose), and emit verdict=QUARANTINED in the final report.
-     - On PASS or BORDERLINE-no-CRITICAL → continue.
-   - **Interactive mode** (default when AUTONOMOUS unset):
-     - On FAIL: stop and surface the punch list. Do NOT advance.
-     - On BORDERLINE with CRITICAL items in punch list: dispatch a single targeted-revision Agent with the punch list as the brief. Re-run quality-check once. If still BORDERLINE without CRITICALs, continue.
-     - On BORDERLINE without CRITICALs: continue and flag in the final report.
-     - On PASS: continue.
-   - **Sequential continued:** Stage 7 (`/verify-claims`) → Stage 8 (`/optimize-content`) → Stage 9 (`/generate-visuals`).
-   - **Auto-capture-visuals when the Chrome MCP is connected:** if the manifest from stage 9 has `manual` entries that are `action-shot` or `screenshot` types AND the Claude-in-Chrome MCP is reachable (call `mcp__Claude_in_Chrome__list_connected_browsers`; if it returns at least one browser, the MCP is on), dispatch `/capture-visuals` automatically. The user's VPS keeps Chrome + the extension always-on, so this is the normal-running condition — not an opt-in. Only fall through to "surface manual-capture.md and stop" if the MCP is genuinely unreachable. `UNATTENDED=1` only changes whether the capture skill asks for per-step confirmations, not whether it fires.
-   - **Stage 9b — Visuals adversarial (PLEAA-418, Phase 3):** dispatch `/visuals-adversarial` for {slug}. Same FAIL handling as 1b/3b but with stage key `visuals` and budget `BLOG_AGENT_VISUALS_REVISION_BUDGET`. Revisions for this stage are surgical: strip CRITICAL decorative entries from the cited draft + manifest, then add new typed `[VISUAL:...]` placeholders for CRITICAL missing-visual findings and re-dispatch `/generate-visuals` for just those new placeholders. Run `python scripts/pipeline_gate.py visuals-adversarial {slug}` between attempts. NOTE: full value of this gate ships once PLEAA-417 (visuals broadening) lands; in the interim it strips decorative auto-captures and flags pure-fluff placeholders.
-   - Stage 10 (`/preview`).
-
-6. **Verify each stage's output file exists** before advancing. If a stage's expected file isn't on disk after the agent reports completion, that's a failure even if the agent claimed success.
-
-7. **`/format-for-publish` behavior depends on mode:**
-   - **Autonomous mode (`BLOG_AGENT_AUTONOMOUS=1`)**: auto-run as Stage 12. Dispatch a fresh Agent with the brief at "Stage 12 — Format for publish (autonomous only)" below. The article goes live on Strapi. After format-for-publish returns, run `python scripts/auto_publish_check.py {slug}` to verify the public URL renders. On verification failure, write `content-pipeline/9-needs-review/{slug}.md` with the failure reason and emit verdict=QUARANTINED.
-   - **Interactive mode**: never auto-run. Editor review owns the gap between preview and publish. The orchestrator surfaces the recommendation to run it when ready.
+     - **Autonomous:** on FAIL → dispatch Stage 6b targeted-revision (address every CRITICAL+HIGH
+       punch-list item along its route: prose → /draft edit; structural → /outline then re-draft the
+       affected sections). Re-run quality-check. Repeat up to `BLOG_AGENT_REVISION_BUDGET` (2). Still
+       FAIL after budget → write `9-needs-review/{slug}.md`, abort, emit verdict=QUARANTINED.
+     - **Interactive:** on FAIL → stop and surface the routed punch list. On PASS → continue.
+   - **Sequential:** Stage 7 (`/verify-claims`) → Stage 8 (`/optimize-content`) →
+     Stage 9 (`/generate-visuals`) → Stage 10 (`/preview`).
+6. **Verify each stage's output file exists** before advancing — an agent claiming success without
+   the file on disk is a failure.
+7. **`/format-for-publish`**: autonomous → auto-run as Stage 11 with `--auto-publish`, then
+   `python scripts/auto_publish_check.py {slug}`; on verification failure write `9-needs-review/` and
+   emit QUARANTINED. Interactive → never auto-run.
 
 ## Stage briefs
 
-Each stage's Agent dispatch follows this template. Replace `{KEYWORD}`, `{SLUG}`, `{ROOT}` (= `C:\Users\ndong\Downloads\blog-agent` or whatever the project root is on the host).
-
-The brief MUST be self-contained — the spawned agent has no memory of this conversation. Include: project root, slug, keyword, the SKILL file path, the input file paths, the output file path, the editorial constraints that matter for that stage, and an instruction to return a short summary (250–400 words) NOT a full content dump.
+Each Agent dispatch is self-contained (the spawned agent has no memory of this conversation).
+Include: project root `{ROOT}`, slug, keyword, the SKILL path, input/output paths, the editorial
+constraints for that stage, and "return a 250–400 word summary, not a content dump."
 
 ### Stage 1 — Research
 
 ```
-You are running stage 1 of the blog-agent content pipeline at {ROOT}. Keyword: "{KEYWORD}". Slug: {SLUG}. Brand: see brand-config.md.
+You are running stage 1 at {ROOT}. Keyword: "{KEYWORD}". Slug: {SLUG}. Brand: see brand-config.md.
 
-Your job: produce a research dossier at content-pipeline/1-research/{SLUG}.md per .claude/skills/research/SKILL.md. Read the SKILL.md first and follow it end-to-end.
+Your job: produce content-pipeline/1-research/{SLUG}.md per .claude/skills/research/SKILL.md. Read the SKILL first.
 
-Critical requirements:
-- Read .claude/skills/research/references/ahrefs-mcp-cheatsheet.md FIRST — use the real Ahrefs MCP tools (mcp__ahrefs__*); params are comma-separated strings not arrays, select + country required, call doc {tool:"..."} before any unfamiliar tool. Semrush/DataForSEO are retired — never call mcp__semrush__* or DataForSEO
-- Pull keyword data per the cheatsheet (keywords-explorer-overview for volume/KD/CPC/parent-topic/traffic-potential/intents; keywords-explorer-matching-terms + related-terms for the variation pool and FAQ themes; serp-overview for the ranking URLs and People-Also-Ask)
-- Extract the top 5–8 ranking pages via Firecrawl (FIRECRAWL_API_KEY; WebFetch fallback) and build the SERP benchmark: per-page word counts, H2 lists, formats, item counts, table/visual counts
-- Run deep research via OpenRouter: doppler run -- python .claude/skills/research/scripts/openrouter_research.py --keyword "{KEYWORD}" --slug "{SLUG}"
-- ALSO emit content-pipeline/1-research/{SLUG}-data.json with chartable numbers from the dossier — schema described in the research SKILL
-- The dossier MUST end with the "## BEAT SPEC" section (target word count, format + item count, table requirement, must-cover topics, information gain, secondary keywords, beatability) — the outline and quality gate are bound by it
-- 1200–2500 words
+- Read .claude/skills/research/references/ahrefs-mcp-cheatsheet.md FIRST — use the real Ahrefs MCP tools (mcp__ahrefs__*); params are comma-separated strings not arrays, select + country required, call doc {tool:"..."} before any unfamiliar tool. Semrush/DataForSEO are retired — never call them.
+- Pull keyword data (keywords-explorer-overview for volume/KD/CPC/parent-topic/intents; matching-terms + related-terms for the variation pool and FAQ themes; serp-overview for ranking URLs and People-Also-Ask).
+- Extract the top 5-8 ranking pages via Firecrawl (FIRECRAWL_API_KEY; WebFetch fallback); build the SERP benchmark: per-page word counts, H2 lists, formats, item counts, table/visual counts.
+- Deep research via OpenRouter: doppler run -- python .claude/skills/research/scripts/openrouter_research.py --keyword "{KEYWORD}" --slug "{SLUG}".
+- Emit content-pipeline/1-research/{SLUG}-data.json with chartable numbers (schema in the research SKILL).
+- The dossier MUST end with "## BEAT SPEC" (target word count, format + item count, table requirement, must-cover topics, information gain, secondary keywords) — the outline and quality gate are bound by it. Read 0-context/{SLUG}.md if present and honor its angle.
 
-Return: word count, recommended angle (one sentence), the BEAT SPEC's headline numbers (target words / format / item count / table), 3 most surprising findings from deep research, any failures encountered. Under 400 words.
-```
-
-### Stage 1b — Research adversarial (PLEAA-418)
-
-```
-You are running stage 1b at {ROOT}. Slug: {SLUG}.
-
-Your job: produce content-pipeline/quality-checks/{SLUG}-research-adversarial.md per .claude/skills/research-adversarial/SKILL.md. Read the SKILL first.
-
-Steps:
-1. Spawn a Task sub-agent with the skill's adversarial brief — the agent reads 1-research/{SLUG}.md, {SLUG}-deep.md (if present), {SLUG}-data.json, 0-context/{SLUG}.md (if present), and brand-config.md, then returns a critique tagged CRITICAL/HIGH/MEDIUM/LOW with a one-line `## Verdict: **PASS|FAIL**`.
-2. Combine into the verdict file.
-
-The orchestrator reads the verdict and the runlog (`python scripts/adversarial_runlog.py used {SLUG} research`) to decide whether to revise or advance. Do NOT rewrite the dossier yourself — your only job is to push back.
-
-Return: verdict, count of CRITICAL findings, top 3 findings by severity. Under 250 words.
+Return: word count, recommended angle (one sentence), the BEAT SPEC headline numbers, 3 most surprising findings, any failures. Under 400 words.
 ```
 
 ### Stage 2 — Brand reference
@@ -150,11 +133,8 @@ You are running stage 2 at {ROOT}. Slug: {SLUG}. Keyword: "{KEYWORD}". Brand: se
 
 Your job: produce content-pipeline/2-reference/{SLUG}.md per .claude/skills/brand-reference/SKILL.md. Read the SKILL first.
 
-Steps:
 - Refresh the Strapi inventory: doppler run -- python .claude/skills/brand-reference/scripts/fetch_strapi_inventory.py
-- Score articles, take top 3–5
-- Catalog reusable modules + product-led examples + internal-linking opportunities by H2
-- 300–700 words
+- Score articles, take top 3-5; catalog reusable modules + product-led examples + internal-linking opportunities by H2. 300-700 words.
 
 Return: inventory size, relevant count, top 3 internal-linking opportunities, any failures. Under 250 words.
 ```
@@ -166,44 +146,17 @@ You are running stage 3 at {ROOT}. Slug: {SLUG}. Brand: see brand-config.md.
 
 Your job: produce content-pipeline/3-outlines/{SLUG}.md per .claude/skills/outline/SKILL.md. Read the SKILL first.
 
-Inputs to read in order:
-1. .claude/skills/outline/SKILL.md
-2. .claude/skills/outline/references/bluf-mece-rules.md
-3. templates/outline-template.md
-4. templates/visual-types.md
-5. templates/editorial-principles-visuals.md (the 9-step decision rule for whether a section earns a visual; default `none`)
-6. content-pipeline/1-research/{SLUG}.md
-7. content-pipeline/1-research/{SLUG}-deep.md (if present)
-8. content-pipeline/2-reference/{SLUG}.md
-9. brand-config.md
-10. examples/README.md + 1 structure or niche example matching the content type
+Read in order: outline/SKILL.md; outline/references/bluf-mece-rules.md; templates/outline-template.md; templates/visual-types.md; templates/editorial-principles-visuals.md; content-pipeline/1-research/{SLUG}.md (+ {SLUG}-deep.md); content-pipeline/2-reference/{SLUG}.md; 0-context/{SLUG}.md; brand-config.md; examples/README.md + 1 structure/niche example matching the type.
 
 Editorial requirements:
-- **The outline is bound by the dossier's BEAT SPEC** — restate it at the top of the outline file; section count sized by the SERP (listicles get one section per item, item count ≥ the spec — the 4–7 cap applies only to non-list guides); per-section word targets sum to the spec total ±10%
-- Coverage map at the bottom: every must-cover (consensus) topic → which H2 covers it; one section marked [GAIN]
-- Comparison table specced as a markdown skeleton when the beat spec requires one
-- Each H2 has BLUF + 2–4 key points + evidence source + transition + typed Visuals + word target; MECE across sections
-- Visual density per templates/editorial-principles-visuals.md (non-trivial sections default to "what kind?", not "none")
-- Run the visual sanity check + structural self-check + beat-spec self-check before saving
-- Title under 60 chars, includes primary keyword
+- The outline is bound by the dossier's BEAT SPEC — restate it at the top; section count sized by the SERP (listicles get one section per item, item count ≥ the spec); per-section word targets sum to the spec total ±10%.
+- Coverage map at the bottom: every must-cover topic → which H2 covers it; one section marked [GAIN].
+- Comparison table specced as a markdown skeleton when the beat spec requires one.
+- Each H2: BLUF + 2-4 key points + evidence source + transition + typed Visuals + word target; MECE.
+- Visuals: only screenshot/chart/table-card types (no AI-generated imagery). Default non-trivial sections to a real screenshot or data viz, else "none".
+- Title under 60 chars, includes primary keyword.
 
-Return: title, one-sentence thesis, H2 list with one-line description each, beat-spec compliance line (sections / items / total words / table Y-N), count of Visuals by type, any structural concerns. Under 350 words.
-```
-
-### Stage 3b — Outline adversarial (PLEAA-418)
-
-```
-You are running stage 3b at {ROOT}. Slug: {SLUG}.
-
-Your job: produce content-pipeline/quality-checks/{SLUG}-outline-adversarial.md per .claude/skills/outline-adversarial/SKILL.md. Read the SKILL first.
-
-Steps:
-1. Spawn a Task sub-agent with the skill's adversarial brief — the agent reads 3-outlines/{SLUG}.md, 1-research/{SLUG}.md, 2-reference/{SLUG}.md, templates/editorial-principles-visuals.md, and brand-config.md. The agent must push back on MECE coverage, BLUF on every opener, problem-agitate-solution arc, differentiation vs SERP top-5, and whether visuals earn their place. It returns 5–8 findings tagged CRITICAL/HIGH/MEDIUM/LOW, one thing that works, and a `## Verdict: **PASS|FAIL**` line.
-2. Combine into the verdict file.
-
-The orchestrator reads the verdict and the runlog to decide whether to revise (re-run /outline) or advance to /product-mentions.
-
-Return: verdict, count of CRITICAL findings, top 3 findings by severity. Under 250 words.
+Return: title, one-sentence thesis, H2 list (one line each), beat-spec compliance line (sections / items / total words / table Y-N), visual count by type, structural concerns. Under 350 words.
 ```
 
 ### Stage 4 — Product mentions
@@ -211,18 +164,13 @@ Return: verdict, count of CRITICAL findings, top 3 findings by severity. Under 2
 ```
 You are running stage 4 at {ROOT}. Slug: {SLUG}. Brand: see brand-config.md.
 
-Your job: produce content-pipeline/4-outlines-annotated/{SLUG}.md per .claude/skills/product-mentions/SKILL.md. Read the SKILL first — including the **Constraint reconciliation pass** at the top.
+Your job: produce content-pipeline/4-outlines-annotated/{SLUG}.md per .claude/skills/product-mentions/SKILL.md. Read the SKILL first — including the Constraint reconciliation pass.
 
-Critical: BEFORE annotating, scan the outline for any contradictions on coming-soon products. If the outline both mentions a coming-soon product in a section AND has a rule restricting that product to a different section, DELETE the contradicting bullet and log the deletion at the top of the annotated file under `## Pre-flight reconciliation`. The draft must never see contradictory state.
+BEFORE annotating, scan the outline for contradictions on coming-soon products; delete contradicting bullets and log under "## Pre-flight reconciliation". 
 
-Editorial requirements:
-- Aim for 3–5 product-mention annotations across all H2s — don't shoehorn
-- Each annotation specifies HOW (walkthrough / inline / tip box)
-- When a walkthrough adds visuals, upgrade the section's existing Visual field to typed form
-- Reference existing brand-reference articles so the new piece doesn't re-explain workflows
-- No coming-soon products in walkthrough or evergreen sections
+- Aim for 3-5 product-mention annotations across all H2s — don't shoehorn. Each specifies HOW (walkthrough / inline / tip box). Hold the brand to the SAME critical lens as competitors — no promotional register the competitor sections don't get. No coming-soon products in walkthrough/evergreen sections.
 
-Return: number of sections annotated, the H2-by-H2 product plan as a table, any reconciliation deletions logged, any rejected mentions with reason. Under 250 words.
+Return: sections annotated, the H2-by-H2 product plan as a table, reconciliation deletions, rejected mentions with reason. Under 250 words.
 ```
 
 ### Stage 5 — Draft
@@ -230,99 +178,60 @@ Return: number of sections annotated, the H2-by-H2 product plan as a table, any 
 ```
 You are running stage 5 at {ROOT}. Slug: {SLUG}. Brand: see brand-config.md.
 
-Your job: produce content-pipeline/5-drafts/{SLUG}.md per .claude/skills/draft/SKILL.md. Read the SKILL first — particularly the three commitments (depth / specificity / voice-from-examples).
+Your job: produce content-pipeline/5-drafts/{SLUG}.md per .claude/skills/draft/SKILL.md. Read the SKILL first — the three commitments (depth / specificity / voice-from-examples).
 
-Depth targets (HARD — these gate the save):
-- Hit each section's word target from the annotated outline ±20%
-- Article total within ±15% of the BEAT SPEC target (restated at the top of the outline)
-- Listicle item count per the outline — never compress
-- Comparison table authored as real GFM markdown when the outline specs one
-- No crutch word/phrase used 3+ times; paragraph rhythm varied (mix one-line punches with developed 4–6 sentence passages)
+Read before drafting: draft/SKILL.md; draft/references/voice-guide.md; draft/references/prose-patterns.md; brand-config.md (forbidden phrases); content-pipeline/4-outlines-annotated/{SLUG}.md; 2-reference/{SLUG}.md; 1-research/{SLUG}.md (+ {SLUG}-deep.md); 0-context/{SLUG}.md; examples/README.md then 2 articles from examples/voice/ + 1 from examples/structure or niche.
 
-Read these references in order before drafting:
-1. .claude/skills/draft/SKILL.md
-2. .claude/skills/draft/references/voice-guide.md
-3. .claude/skills/draft/references/prose-patterns.md (includes worked-example paragraph showing right rhythm)
-4. brand-config.md (especially forbidden phrases)
-5. templates/visual-types.md
-6. content-pipeline/4-outlines-annotated/{SLUG}.md
-7. content-pipeline/2-reference/{SLUG}.md
-8. content-pipeline/1-research/{SLUG}.md (+ {SLUG}-deep.md)
-9. examples/README.md, then 2 articles from examples/voice/ + 1 from examples/structure/ or examples/niche/ per content type
+Hard requirements (these gate the save):
+- Hit each section's word target ±20%; article total within ±15% of the BEAT SPEC; listicle item count per the outline — never compress; comparison table as real GFM markdown when specced.
+- VOICE: lead with reader-felt reality (the real decision the reader faces), not a feature spec — match the examples/voice/ register. No crutch word/phrase used 3+ times; vary paragraph rhythm (mix one-line punches with developed passages).
+- Every section opens with a BLUF. No forbidden phrases. Cut "Furthermore/Moreover/It is important to note/very/really/quite/simply" when not load-bearing.
+- Show, don't sell — product mentions follow the annotated slot plan exactly. Internal links from 2-reference woven inline. Stat citations as [link] markers. Typed [VISUAL:...] placeholders per visual-types.md (screenshot/chart/table-card only). Mark the information-gain section with [GAIN].
 
-Editorial requirements:
-- Every section opens with a BLUF
-- No forbidden phrases — cut on sight
-- Cut "Furthermore", "Moreover", "It is important to note", "very", "really", "quite", "actually" (when not load-bearing), "simply"
-- Show, don't sell — for product mentions follow the annotated outline's slot-by-slot plan exactly
-- Coming-soon products only in the slots the annotated outline approved
-- Internal links from 2-reference woven inline as [anchor](URL)
-- Stat citations as [link] markers for verify-claims to resolve
-- Visual placeholders use typed [VISUAL:type=...;...] syntax per visual-types.md
-- For chart placeholders: use data=research.<key> where <key> is a key in {SLUG}-data.json (the research stage emits it). Don't write data=research.X with a placeholder X — pick a real key.
+Self-check before save: per-section word counts vs targets (any <80% → add concrete material from the dossier, never pad); scan for crutch repetition + uniform rhythm and fix.
 
-Self-check before save (the depth gate from draft/SKILL.md step 8):
-- Count words per section vs the outline targets; any section <80% → go back to the dossier and add concrete material (never pad).
-- Scan for crutch repetition (any distinctive word/move 3+ times) and uniform paragraph rhythm; fix before saving rather than letting quality-check fail.
-
-Save to content-pipeline/5-drafts/{SLUG}.md. Word target: per outline/BEAT SPEC.
-
-Return: word count vs target, section count vs outline, table present (Y/N if specced), [link] count, [VISUAL] count, confirmation no forbidden phrases or out-of-slot product mentions. Under 400 words.
+Return: word count vs target, section count vs outline, table Y/N, [link] count, [VISUAL] count, [GAIN] present, confirmation no forbidden phrases or out-of-slot mentions. Under 400 words.
 ```
 
-### Stage 6 — Quality check (gate)
+### Stage 6 — Quality check (the publish gate)
 
 ```
-You are running stage 6 at {ROOT}. Slug: {SLUG}. This is the quality gate.
+You are running stage 6 at {ROOT}. Slug: {SLUG}. This is the publish gate — it has NO score.
 
-Your job: produce content-pipeline/quality-checks/{SLUG}.md per .claude/skills/quality-check/SKILL.md. Read the SKILL first.
+Your job: produce content-pipeline/quality-checks/{SLUG}.md per .claude/skills/quality-check/SKILL.md. Read the SKILL first. PASS requires BOTH halves:
 
-Steps:
-1. Run python .claude/skills/quality-check/scripts/quality_check.py {SLUG}
-2. Do the voice + judgment read per the SKILL (read examples/voice/ first; your judgment is 40% of the final score)
-3. Spawn a Task sub-agent for the adversarial read with the benchmark-armed brief specified in the SKILL (it must answer the side-by-side question first)
-4. Combine into a verdict report with:
-   - Verdict at top: PASS (final ≥85 AND no CRITICAL AND no mechanical dimension <60% AND adversarial doesn't pick the competitor) / BORDERLINE (70–84) / FAIL (<70 or any CRITICAL)
-   - Metrics summary
-   - Adversarial critique
-   - Punch list ordered by severity (CRITICAL / HIGH / MEDIUM / LOW)
-   - Recommendation — route structural deficits (depth/coverage) back to /outline, prose issues back to /draft
+1. FLOORS — run: python .claude/skills/quality-check/scripts/quality_check.py {SLUG}  (exit 0 = FLOORS_OK). Any failed floor → FAIL; route the fix (missing consensus topic / thin depth / missing table → /outline or /research; prose/voice → /draft). Do not run the panel on a draft that fails a floor.
+2. PANEL — spawn THREE independent Task sub-agents, each a skeptical expert who has read every page-1 result for "{KEYWORD}", each given 1-research/{SLUG}.md (BEAT SPEC + top-page summaries), the draft, and 1-2 examples/voice/ articles. Lenses: (A) competitiveness, (B) voice & readability vs the examples, (C) reader intent & information gain. Each returns "VERDICT: KEEP_OURS|KEEP_COMPETITOR|TOSS_UP" (default KEEP_COMPETITOR/TOSS_UP if unsure) + 3-sentence why + 5 weakest things vs what's ranking + 1 that works. Save to quality-checks/{SLUG}-panel.md. Distrust all-praise verdicts under 200 words — re-run that lens sharper. Panel passes iff ≥2 KEEP_OURS AND none KEEP_COMPETITOR.
 
-Specifically check for constraint violations like coming-soon products appearing in walkthrough sections — these are CRITICAL even if the score is 75+.
+Write content-pipeline/quality-checks/{SLUG}.md with the verdict line FIRST: "## Verdict: **PASS**" iff FLOORS_OK AND panel passes, else "## Verdict: **FAIL**". Then the floor summary, the 3 panel verdicts, and a punch list — each fix tagged with a route (/draft for prose, /outline or /research for structure).
 
-Return: verdict, score, top 3 punch-list items by severity, whether any CRITICAL items remain, and whether to proceed/iterate/halt.
+Return: verdict, failed floors (if any), the 3 panel verdicts, top 3 punch-list items, proceed/iterate/halt.
 ```
 
-### Stage 6b — Targeted revision (only if BORDERLINE with CRITICAL items)
+### Stage 6b — Targeted revision (autonomous, on FAIL)
 
 ```
 You are running a surgical revision pass at {ROOT}. Slug: {SLUG}.
 
-The draft scored BORDERLINE on the quality gate with one or more CRITICAL or HIGH punch-list items. Apply ONLY the targeted fixes the punch list calls for — NOT a full re-draft.
+The draft FAILed the gate. Read content-pipeline/quality-checks/{SLUG}.md (the routed punch list), 5-drafts/{SLUG}.md, 4-outlines-annotated/{SLUG}.md, brand-config.md, draft/references/voice-guide.md.
 
-Inputs:
-- content-pipeline/quality-checks/{SLUG}.md (the punch list)
-- content-pipeline/5-drafts/{SLUG}.md (the draft)
-- content-pipeline/4-outlines-annotated/{SLUG}.md (the source of truth on constraints)
-- brand-config.md, .claude/skills/draft/references/voice-guide.md
+Apply each CRITICAL and HIGH item along its route, using Edit calls (not Write): prose/voice items → edit the draft; structural items (missing topic, item shortfall, missing table, thin depth) → say so explicitly, because those go back through /outline then a re-draft of the affected sections, NOT a surgical edit. Preserve all [link] markers, typed [VISUAL] placeholders, [GAIN] marker, internal links. Save back to 5-drafts/{SLUG}.md.
 
-Apply each CRITICAL and HIGH item using Edit calls (not Write). Preserve all [link] markers, all typed [VISUAL] placeholders, all internal links. Save back to content-pipeline/5-drafts/{SLUG}.md.
-
-Return: each fix applied (Y/N), word-count delta vs beat-spec target, confirmation any CRITICAL constraint violations are resolved. If the punch list calls for structural work (missing topics, item shortfall, missing table), say so explicitly — that goes back through /outline, not a surgical edit.
+Return: each fix applied (Y/N), word-count delta vs beat spec, whether any item requires a structural re-route. Under 300 words.
 ```
 
-After 6b, the orchestrator re-dispatches stage 6 (quality-check) once. If still BORDERLINE without CRITICAL, continue to stage 7. If FAIL or CRITICAL still present, halt and surface to user.
+After 6b, re-dispatch Stage 6 once. PASS → continue; FAIL with budget remaining → loop; FAIL with budget spent → quarantine.
 
 ### Stage 7 — Verify claims
 
 ```
 You are running stage 7 at {ROOT}. Slug: {SLUG}.
 
-Your job: produce content-pipeline/6-drafts-cited/{SLUG}.md per .claude/skills/verify-claims/SKILL.md. Read the SKILL first — particularly the two-tier citation rule (must-cite vs voice-flagged).
+Your job: produce content-pipeline/6-drafts-cited/{SLUG}.md per .claude/skills/verify-claims/SKILL.md. Read the SKILL first — the two-tier citation rule (must-cite vs voice-flagged).
 
-Resolve every [link] placeholder with a real source via WebSearch + WebFetch. Use editor-note anchors for internal-Ahrefs metrics. Wire internal links from 2-reference. Apply the two-tier density check (must-cite ≥60% linked, voice-flagged listed for editor review — never auto-linked).
+Resolve every [link] placeholder with a real source via WebSearch + WebFetch. Wire internal links from 2-reference. Apply the two-tier density check (must-cite ≥60% linked; voice-flagged listed for editor review, never auto-linked). No internal tool/vendor names in reader-facing prose.
 
-Return: [link] placeholders replaced (count), [CITATION NEEDED] flags remaining, internal links wired, must-cite density %, voice-flagged statements listed for review.
+Return: [link] placeholders replaced, [CITATION NEEDED] flags remaining, internal links wired, must-cite density %, voice-flagged statements listed. Under 300 words.
 ```
 
 ### Stage 8 — Optimize content (Ahrefs term + topic coverage)
@@ -330,47 +239,28 @@ Return: [link] placeholders replaced (count), [CITATION NEEDED] flags remaining,
 ```
 You are running stage 8 at {ROOT}. Slug: {SLUG}.
 
-Your job: per .claude/skills/optimize-content/SKILL.md. Run /optimize-content for {SLUG}. The skill sources term/topic coverage directly from the Ahrefs MCP (mcp__ahrefs__keywords-explorer-related-terms / matching-terms for the recommended-term pool; mcp__ahrefs__site-explorer-organic-keywords on the top-3 URLs for competitor coverage). ContentShake/Semrush/DataForSEO are retired — no ContentShake API, no contentshake_optimize.py, no Chrome MCP, no TipTap injection, no port-8766 server. Read .claude/skills/research/references/ahrefs-mcp-cheatsheet.md first.
+Your job: per .claude/skills/optimize-content/SKILL.md. Run /optimize-content for {SLUG}. Source term/topic coverage from the Ahrefs MCP (mcp__ahrefs__keywords-explorer-related-terms / matching-terms for the recommended-term pool; site-explorer-organic-keywords on the top-3 URLs for competitor coverage). ContentShake/Semrush/DataForSEO are retired — no external optimizer, no contentshake_optimize.py. Read .claude/skills/research/references/ahrefs-mcp-cheatsheet.md first.
 
-Iteration loop: max 5 iterations. Stops on (term_coverage >= 0.8 of must-cover terms AND /quality-check >= 85) → WIN, OR voice-drift > 8 pts vs baseline → ROLLBACK (revert last iteration), OR < 0.05 coverage lift twice in a row → PLATEAU, OR 5 iterations → CAPPED. Voice-drift safety net is non-negotiable.
+Loop: max 5 iterations. Stop on (term_coverage saturated AND /quality-check PASS) → WIN; voice-drift > 8 pts vs baseline → ROLLBACK; < 0.05 coverage lift twice → PLATEAU; 5 iterations → CAPPED. Voice-drift rollback is non-negotiable.
 
-Skip conditions — both write a stub at content-pipeline/optimization/{SLUG}.md and exit 0 so the pipeline continues:
-- Ahrefs MCP not reachable (mcp__ahrefs__* tools not loaded / AHREFS_MCP_KEY unset).
-- Monthly Ahrefs-units budget (BLOG_AGENT_OPTIMIZE_MONTHLY_CAP, default 100) already exhausted.
-- An Ahrefs call returns a 429/quota error mid-run (save progress, exit 0).
+Skip conditions (write a stub at content-pipeline/optimization/{SLUG}.md and exit 0): Ahrefs MCP unreachable; monthly Ahrefs-units cap (BLOG_AGENT_OPTIMIZE_MONTHLY_CAP, default 100) exhausted; a 429/quota error mid-run.
 
-Return: verdict (WIN/ROLLBACK/PLATEAU/CAPPED/SKIPPED), term coverage and quality-check score before/after, voice-drift delta, iterations used, budget consumed/remaining, and one-line summary.
+Return: verdict (WIN/ROLLBACK/PLATEAU/CAPPED/SKIPPED), term coverage before/after, voice-drift delta, iterations used, budget consumed/remaining. Under 300 words.
 ```
 
-### Stage 9 — Generate visuals
+### Stage 9 — Generate visuals (deterministic only)
 
 ```
 You are running stage 9 at {ROOT}. Slug: {SLUG}.
 
-Your job: per .claude/skills/generate-visuals/SKILL.md. Run the dispatcher:
+Your job: per .claude/skills/generate-visuals/SKILL.md. Run:
   doppler run -- python .claude/skills/generate-visuals/scripts/generate_visuals.py {SLUG}
 
-The dispatcher reads typed [VISUAL] placeholders from the cited draft, captures what it can (screenshot via patchright; chart via matplotlib using {SLUG}-data.json keys; image via Replicate), and routes everything else to manual-capture.md.
+The dispatcher reads typed [VISUAL] placeholders from the cited draft and realizes the deterministic ones: brand-UI screenshots via Playwright, data charts/tables via matplotlib using {SLUG}-data.json keys. NO AI image generation. Anything non-deterministic (video, external sites, adult imagery) is recorded as a manual TODO in manual-capture.md AND the [VISUAL:...] placeholder is stripped from the cited draft — it does NOT block text publish.
 
-If the dispatcher reports any chart with status=failed and reason=invalid_data_spec, that means {SLUG}-data.json is missing the key the placeholder references. In that case, read the research dossier, extract the actual numbers, append them to {SLUG}-data.json under the right key, and re-run the dispatcher. Do not hand-render charts; the data file is the single source of truth.
+If a chart reports status=failed reason=invalid_data_spec, {SLUG}-data.json is missing the referenced key: read the dossier, extract the numbers, append to {SLUG}-data.json, re-run. The data file is the single source of truth.
 
-Return: captured / manual / failed counts, manifest path, manual-capture path.
-```
-
-### Stage 9b — Visuals adversarial (PLEAA-418, full value pending PLEAA-417)
-
-```
-You are running stage 9b at {ROOT}. Slug: {SLUG}.
-
-Your job: produce content-pipeline/quality-checks/{SLUG}-visuals-adversarial.md per .claude/skills/visuals-adversarial/SKILL.md. Read the SKILL first.
-
-Steps:
-1. Spawn a Task sub-agent with the skill's adversarial brief — the agent reads 4-outlines-annotated/{SLUG}.md, 6-drafts-cited/{SLUG}.md, images/{SLUG}/manifest.json, images/{SLUG}/manual-capture.md (if present), templates/editorial-principles-visuals.md, and templates/visual-types.md. The agent must apply the 9-step "does this visual earn its place?" rule and flag decorative auto-captures, missing visuals where one would carry information, wrong-type visuals, bad crops, and any manual-capture entries that shouldn't have been requested at all.
-2. Combine into the verdict file with `## Verdict: **PASS|FAIL**`.
-
-NOTE: full value of this gate ships once PLEAA-417 (visuals broadening) lands; in the interim the adversarial mostly strips decorative pleasur.ai screenshots and flags pure-fluff placeholders. Skip the "is this external screenshot the right crop" question when the asset doesn't exist yet.
-
-Return: verdict, CRITICAL count, list of visuals to strip + list of visuals to add (if any). Under 300 words.
+Return: captured (screenshot/chart) / manual-TODO / failed counts, manifest path. Under 250 words.
 ```
 
 ### Stage 10 — Preview
@@ -381,120 +271,57 @@ You are running stage 10 at {ROOT}. Slug: {SLUG}.
 Your job: render content-pipeline/7-preview/{SLUG}.html per .claude/skills/preview/SKILL.md. Run:
   python .claude/skills/preview/scripts/render_preview.py {SLUG}
 
-Return: preview path. If render produced warnings, list them.
+Return: preview path; list any render warnings.
 ```
 
-### Stage 11 (auto, when Chrome MCP is connected) — Capture visuals
-
-This stage fires whenever stage 9's manifest has `manual` entries AND the Chrome MCP is reachable. The user's VPS Chrome stays always-on, so the normal expectation is that this fires. `UNATTENDED=1` is a separate signal that controls the *capture skill's* internal behavior (no per-step confirmations) — it does NOT gate whether stage 11 runs.
+### Stage 11 — Format for publish (autonomous only)
 
 ```
-You are running stage 11 at {ROOT}. Slug: {SLUG}.
-
-Your job: per .claude/skills/capture-visuals/SKILL.md. Drive the always-on Chrome via the Claude-in-Chrome MCP for each manual entry in content-pipeline/images/{SLUG}/manual-capture.md. Use Sonnet 4.6 (claude-sonnet-4-6) — Opus is wasted on browser driving.
-
-If UNATTENDED=1 is set, run the skill in unattended mode (no per-step confirmations, errors flagged in manifest, validation heuristics are the safety net). Otherwise run interactively — but in an orchestrator context the user isn't at the keyboard mid-pipeline anyway, so default to autonomous capture even without UNATTENDED.
-
-After captures land, rewrite the cited draft to swap [VISUAL:...] placeholders for ![alt](images/{SLUG}/file.png) markdown, update manifest.json, and re-run the preview script.
-
-Return: captured / skipped / failed counts; updated preview path.
-```
-
-### Stage 12 — Format for publish (autonomous only)
-
-```
-You are running stage 12 at {ROOT}. Slug: {SLUG}. Autonomous mode.
+You are running stage 11 at {ROOT}. Slug: {SLUG}. Autonomous mode.
 
 Your job: per .claude/skills/format-for-publish/SKILL.md (read it first). Run:
   doppler run -- python .claude/skills/format-for-publish/scripts/format_for_strapi.py {SLUG} --auto-publish
 
-The --auto-publish flag (and BLOG_AGENT_AUTO_PUBLISH=1 env) sets publishedAt = now in the Strapi payload, so the article goes live rather than entering as draft.
-
-The script will:
-- Re-read content-pipeline/quality-checks/{SLUG}.md and refuse to publish if verdict is FAIL (belt-and-suspenders gate)
-- Build the Strapi payload, copy images into the publish folder, optionally upload media
-- POST to Strapi with publishedAt set to current ISO timestamp
-- Print the public URL on success
-
-After the script returns success, run:
+The script re-reads quality-checks/{SLUG}.md and refuses to publish on verdict FAIL (belt-and-suspenders), builds the Strapi payload, copies images, POSTs with publishedAt = now, prints the public URL. Then run:
   python scripts/auto_publish_check.py {SLUG}
+On non-zero, the script writes 9-needs-review/{SLUG}.md — surface that as QUARANTINED, not published.
 
-Confirm exit 0. On non-zero, the script writes content-pipeline/9-needs-review/{SLUG}.md — surface that to the orchestrator's verdict so the article gets QUARANTINED instead of reported as published.
-
-Return: Strapi article ID (if returned), public URL, auto_publish_check exit code, any errors.
+Return: Strapi article ID, public URL, auto_publish_check exit code, any errors.
 ```
 
 ## Reporting format
 
-When the pipeline finishes, output:
-
-```
-✓ Pipeline complete for "{keyword}" (slug: {slug})
-
-Stages run:
-  ✓ research              → content-pipeline/1-research/{slug}.md (+ {slug}-deep.md, {slug}-data.json)
-  ✓ research-adversarial  → quality-checks/{slug}-research-adversarial.md (verdict: PASS, research: N/M revisions used)
-  ✓ brand-reference       → content-pipeline/2-reference/{slug}.md
-  ✓ outline               → content-pipeline/3-outlines/{slug}.md
-  ✓ outline-adversarial   → quality-checks/{slug}-outline-adversarial.md (verdict: PASS, outline: N/M revisions used)
-  ✓ product-mentions      → content-pipeline/4-outlines-annotated/{slug}.md
-  ✓ draft                 → content-pipeline/5-drafts/{slug}.md
-  ✓ quality-check         → content-pipeline/quality-checks/{slug}.md (verdict: PASS|BORDERLINE, quality: N/M revisions used)
-  ✓ verify-claims         → content-pipeline/6-drafts-cited/{slug}.md
-  ✓ optimize-content      → content-pipeline/optimization/{slug}.md (verdict WIN|ROLLBACK|PLATEAU|CAPPED|SKIPPED)
-  ✓ generate-visuals      → content-pipeline/images/{slug}/manifest.json (N captured, M manual)
-  ✓ visuals-adversarial   → quality-checks/{slug}-visuals-adversarial.md (verdict: PASS, visuals: N/M revisions used)
-  ✓ capture-visuals       → (only if UNATTENDED=1; otherwise listed under "Next steps")
-  ✓ preview               → content-pipeline/7-preview/{slug}.html
-
-Next steps (interactive mode only):
-  1. Open content-pipeline/7-preview/{slug}.html in your browser to review
-  2. (If manual-capture.md non-empty AND not UNATTENDED) Run /capture-visuals {slug} to drive Chrome MCP for the remaining visuals
-  3. When ready, run /format-for-publish {slug} to package for Strapi
-```
-
-In **autonomous mode** (`BLOG_AGENT_AUTONOMOUS=1`), the final report instead reads:
+Autonomous:
 
 ```
 ✓ Pipeline complete for "{keyword}" (slug: {slug}) — AUTONOMOUS
-
-Stages run:
   ✓ research / brand-reference / outline / product-mentions / draft
-  ✓ quality-check         → verdict: PASS|BORDERLINE-no-CRITICAL (after N revision passes)
-  ✓ verify-claims / optimize-content / generate-visuals / capture-visuals / preview
-  ✓ format-for-publish    → article.md, article.json, README.md
-  ✓ Auto-published to <Strapi public URL>
-  ✓ auto_publish_check    → verified live H1
-
-Audit log row appended: content-pipeline/audit/auto-blog-log.csv
+  ✓ quality-check   → verdict: PASS (floors + 3-reviewer panel; after N revision passes)
+  ✓ verify-claims / optimize-content / generate-visuals / preview
+  ✓ format-for-publish → auto-published to <Strapi public URL>
+  ✓ auto_publish_check → verified live H1
+  Audit row appended: content-pipeline/audit/auto-blog-log.csv
 ```
 
-If the article was quarantined (verdict QUARANTINED after revision budget exhausted, or auto_publish_check failed), the report ends:
+Quarantined:
 
 ```
 ✗ Pipeline halted for "{keyword}" (slug: {slug}) — QUARANTINED
-
-Last good stage: <name>
-Failure reason:  <one-line>
-Quarantine path: content-pipeline/9-needs-review/{slug}.md
-
-Audit log row appended (action=quarantined).
+  Last good stage: <name>   Failure reason: <one-line>
+  Quarantine path: content-pipeline/9-needs-review/{slug}.md
+  Audit row appended (action=quarantined).
 ```
 
 ## Quality-check gating
 
-- **PASS (final ≥85, no CRITICAL, no dimension floor breach, adversarial doesn't pick the competitor):** advance silently
-- **BORDERLINE (70–84), no CRITICAL:** advance only in interactive mode with the flag surfaced; in autonomous mode treat as FAIL (the publish gate is 85)
-- **BORDERLINE/FAIL with CRITICAL present:** structural CRITICALs (word-count ratio, item shortfall, missing table, missing consensus topics) → revision routes through /outline then re-draft of affected sections; prose CRITICALs → targeted draft revision. Re-run quality-check after, within the revision budget
-- **FAIL (<60):** stop, surface punch list, do not advance
+Binary, no score:
+- **PASS** (FLOORS_OK AND ≥2/3 panel KEEP_OURS AND none KEEP_COMPETITOR): advance.
+- **FAIL** (any failed floor OR panel not satisfied): autonomous → revise along the routed punch
+  list within budget 2, then quarantine; interactive → stop and surface the routed punch list.
+
+If a draft sounds generic or AI-flavored, the panel fails it — there is no score to hide behind.
 
 ## When a stage's agent fails
 
-If an agent reports an error or its expected output file isn't on disk:
-- Don't skip ahead. Surface the failure with stage name + agent's error message.
-- Save partial state so the user can resume from the failing stage.
-- Do NOT retry automatically — agents that fail once usually fail repeatedly without an underlying fix.
-
-## When the user wants to re-run from a stage
-
-The user can dispatch any stage's brief manually (e.g., re-run stage 5 by copying the Stage 5 brief above with their slug). The orchestrator is not the only entry point.
+Don't skip ahead — surface the failure with stage name + the agent's error. Save partial state so
+the run resumes from the failing stage. Do NOT retry automatically.

@@ -41,17 +41,16 @@ For each iteration up to `--max`:
    
    Run /blog-pipeline per .claude/skills/blog-pipeline/SKILL.md (read it first), with these env vars set:
    - BLOG_AGENT_AUTONOMOUS=1 (enables skip-resume, auto-revision, auto-format-for-publish)
-   - UNATTENDED=1 (enables capture-visuals unattended mode)
    - BLOG_AGENT_AUTO_PUBLISH=1 (enables publishedAt=now in format-for-publish)
    - BLOG_AGENT_REVISION_BUDGET=2 (max revision passes on quality FAIL)
    
-   The orchestrator's autonomous branch will: skip stages whose output exists, run stages 1-7 normally, run /quality-check, auto-revise on FAIL up to 2 times, run /verify-claims and /generate-visuals, fire /capture-visuals if Chrome MCP connected, render preview, then auto-run /format-for-publish --auto-publish.
+   The orchestrator's autonomous branch will: skip stages whose output exists, run research → brand-reference → outline → product-mentions → draft, run /quality-check (the floors + 3-reviewer panel gate; binary PASS/FAIL), auto-revise on FAIL up to 2 times then quarantine, run /verify-claims → /optimize-content → /generate-visuals (deterministic screenshots/charts only, no AI image gen) → /preview, then auto-run /format-for-publish --auto-publish.
    
-   Return: final verdict (PASS/BORDERLINE-no-CRITICAL/QUARANTINED), final score, list of stages run with paths, public Strapi URL on auto-publish, any failures. Under 500 words.
+   Return: final verdict (PASS or QUARANTINED), the failed floors / panel result if any, list of stages run with paths, public Strapi URL on auto-publish, any failures. Under 500 words.
    ```
 
 4. **Read the agent's report.**
-   - **Success path** (verdict ∈ {PASS, BORDERLINE-no-CRITICAL} AND format-for-publish reported a Strapi URL):
+   - **Success path** (verdict = PASS AND format-for-publish reported a Strapi URL):
      - Run `python scripts/auto_publish_check.py {slug}` to verify the public URL renders the right H1.
      - Update the audit row: `verdict`, `score`, `action=published`, `strapi_url`.
      - Continue to next iteration after a 60s cool-down.
@@ -163,5 +162,4 @@ For comparison, a human content writer producing 3 articles/day at $100/article 
 The loop is autonomous-by-default but writes everything to disk. Editors can spot-check `content-pipeline/audit/auto-blog-log.csv` and the published Strapi entries asynchronously. The pipeline doesn't *require* human review, but post-publish review remains valuable for calibration. Calibration changes go in:
 - `bid-method.md` (if BID gates need tuning)
 - `aio-cannibalization-rubric.md` (if AIO scoring drifts)
-- `keyword-redteam` SKILL (if redteam over-keeps or over-drops)
-- `quality-check` SKILL (if voice-baseline thresholds need adjusting)
+- `quality-check` SKILL (if the completeness floors or the reviewer-panel brief need tuning)

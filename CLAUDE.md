@@ -68,14 +68,11 @@ If a draft sounds generic or AI-flavored, the panel fails it — there is no sco
 ### Keyword research (top of funnel — fills `keyword-queue.csv`)
 0. `/topic-discovery` — Ahrefs-backed seed/category discovery (Layer 0; idempotent)
 1. `/seed-modifier-prompt` — generate seeds + modifiers, grounded in Layer 0's topic graph
-2. `/content-gap-analysis` — Ahrefs `site-explorer-organic-competitors` (competitor discovery) + `site-explorer-organic-keywords` (keyword gap) + `keywords-explorer-matching-terms`/`keywords-explorer-related-terms` expansion
-3. `/keyword-aio-gap` — SKIPPED by default (logged no-op). Ahrefs Brand Radar (`brand-radar-ai-responses`, `brand-radar-cited-pages`) now exposes the AI-citation data to enable it, so un-skipping Layer 1c is a deliberate methodology change you can make — not on by default.
-4. `/keyword-question-mining` — Ahrefs `keywords-explorer-matching-terms` (`match_mode:"terms"`, question-word filter) + SERP People-Also-Ask mining
-5. `/keyword-vet-bid` — BID method (Business / Intent / Difficulty); `keywords-explorer-overview` `difficulty` + intent + `serp-overview` SERP shape
-6. `/keyword-vet-aio` — AI-Overview cannibalization check via `serp-overview`'s `serp_features` where available
-7. `/keyword-redteam` — adversarial sub-agent challenges survivors
-8. `/keyword-prioritization` — emit `keyword-queue.csv` (top 50 ranked)
-9. `/keyword-research-pipeline` — run all of the above end-to-end
+2. `/content-gap-analysis` — Ahrefs `site-explorer-organic-competitors` (competitor discovery) + `site-explorer-organic-keywords` (keyword gap) + `keywords-explorer-matching-terms`/`keywords-explorer-related-terms` expansion (question mining folded in: question-form terms + serp-overview PAA)
+3. `/keyword-vet-bid` — BID method (Business / Intent / Difficulty); `keywords-explorer-overview` `difficulty` + intent + `serp-overview` SERP shape
+4. `/keyword-vet-aio` — AI-Overview cannibalization check via `serp-overview`'s `serp_features` where available
+5. `/keyword-prioritization` — emit `keyword-queue.csv` (top 50 ranked)
+6. `/keyword-research-pipeline` — run all of the above end-to-end (0 → 1a → 1b → 2 → 3 → 5)
 
 ### Creation (keyword → publish-ready article)
 1. `/research` — Ahrefs metrics + SERP benchmark + Firecrawl top-page extraction + deep research (Perplexity) → dossier **with beat spec**
