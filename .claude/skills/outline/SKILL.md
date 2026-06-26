@@ -46,10 +46,12 @@ For slug `{slug}`, reads:
        Visual 2: {type: screenshot, target: create, what: voice profile selector, annotate: arrow on speaker icon}
      ```
      Apply the decision sequence in `templates/editorial-principles-visuals.md`. The default for any non-trivial section (>300 words) is "this section deserves a visual; what kind?". For brand-product UI: `screenshot` if a single URL shows the state, `action-shot` if it takes clicks (routed to `/capture-visuals`). For quoted Reddit/tweets/news: `external` with a `selector`.
-6a. **PLAN the Ahrefs components each section carries — with RESTRAINT.** Consult `examples/ahrefs-components.md` and, for each section, note which `:::component` fence(s) the writer should emit at draft time (the writer EMITS in `/draft`; you PLAN here). Mark them on the section as a `**Components:**` line, e.g. `**Components:** :::stat (the 68% retention figure), :::sidenote (caveat on the sample)`. Restraint is mandatory: **1–2 of each per article, only where it genuinely improves scannability — never decorate.** Most sections carry zero. Use the fence names EXACTLY as in `ahrefs-components.md`. Trigger → component:
+6a. **PLAN the Ahrefs components each section carries — with RESTRAINT — from the FULL authored set.** Consult `examples/ahrefs-components.md` (read its `## Render contract` for the exact fence names + attributes) and, for each section, note which `:::component` fence(s) the writer should emit at draft time (the writer EMITS in `/draft`; you PLAN here). Mark them on the section as a `**Components:**` line, e.g. `**Components:** :::stat (the 68% retention figure), :::sidenote (caveat on the sample)`. **Plan for whichever component the section's content + the article's type genuinely calls for — not just the house-standard few.** Restraint is the paramount rule: **1–2 of each per article, only where it genuinely improves scannability — never decorate.** Most sections carry zero. Use the fence names EXACTLY (byte-for-byte, lowercase, hyphenated) as in `ahrefs-components.md`.
+
+   **House-standard triggers → component:**
    - the top/one-paragraph answer (plan ONE, directly under the H1) → `:::nutshell`
    - the conclusion's front-loaded takeaways → `:::key-takeaways`
-   - one load-bearing number → `:::stat` (multiples → `:::stat-group`)
+   - one load-bearing number → `:::stat` (2–4 → `:::stat-group`)
    - a data study's data disclosure → `:::methodology` (place right after the intro)
    - an aside / caveat / source-note → `:::sidenote`
    - a named expert's opinion → `:::expert`
@@ -58,7 +60,19 @@ For slug `{slug}`, reads:
    - a reader → product push (once high, once low) → `:::cta`
    - a pro shortcut → `:::tip` (easily-missed caveat → `:::note`)
 
-   **Per-persona favorites** to bias the plan toward (the draft picks the persona; plan for the likely one): **Sloane Avery** → `:::methodology` / `:::stat` / `:::key-takeaways`; **Theo Hart** → tables / numbered steps / `:::cta` / `:::further-reading`; **Mateo Reyes** → `:::expert` / `:::nutshell` / `:::sidenote`.
+   **High-value additions — plan these by content type + persona, only where they earn their place:**
+   - **first mention of the article's core term** → `:::definition term="…"`
+   - **a pitfall / must-know** → `:::warning` (hazard / data-loss / money-loss) or `:::important` (must-not-miss prerequisite that isn't a hazard)
+   - **a comparison / technical "which should I use" section** → `:::proscons` (one option, `## Pros`/`## Cons`), `:::feature-matrix` (features × products, `yes`/`no`/`partial`), `:::decision-table` (classification grid) + the `:::preferred-order` ranked list that follows it; a one-line call → `:::verdict`
+   - **a cited statistics roundup (5+ sourced figures)** → `:::stat-list` (1–4 hero numbers stay `:::stat`/`:::stat-group` — do not plan `:::stat-list` for fewer than 5)
+   - **an FAQ section** → `:::faq` (adds FAQPage schema; plain H2/H3 FAQs are fine when schema isn't the goal)
+   - **roundup / listicle scaffolding** → `:::jumplinks` (a "skip to the app" anchor menu) + one `:::entry n= name= url= best_for= price=` header per item; a qualitative award → `:::badge kind="…"`
+   - **a captioned data figure / diagram** → `:::figure src= source=` / `:::diagram src=` — but **visuals are DEFERRED**: keep planning visuals as the typed `Visual N:` micro-specs (step 6); only plan a `:::figure`/`:::diagram` fence when a real `src` will exist at draft time, else the `[VISUAL:...]` placeholder carries it
+   - **situational embeds** → `:::tweet url=` (degrade to `:::pullquote` if no live embed) · `:::video src= title=` (rare)
+
+   Note the **inline treatments** the draft will apply (no fence, governed by voice — you don't plan them per-section, but keep them in mind when shaping a section): inline `` `code` `` for formulas/literal values, `{lead}…{/lead}` on the opening paragraph, `==mark==` for the rare highlight, plain-link citations (no superscripts), and a "Final thoughts"/"Bottom line" closer.
+
+   **Per-persona favorites** to bias the plan toward (the draft picks the persona; plan for the likely one): **Sloane Avery** → `:::methodology` / `:::stat` / `:::stat-list` / `:::table` / `:::key-takeaways`; **Theo Hart** → tables / numbered steps / `:::decision-table` / `:::preferred-order` / `:::feature-matrix` / `:::cta` / `:::further-reading`; **Mateo Reyes** → `:::expert` / `:::pullquote` / `:::tweet` / `:::nutshell` / `:::sidenote` / `:::figure`.
 7. **Comparison table (when the beat spec requires one).** Spec it as a real markdown table skeleton in the outline: columns (from the beat spec's required-columns list), one row per item, plus a `Visual: {type: table}` entry on the section. The draft authors the table in GFM markdown; `/format-for-publish` converts it for the site renderer. Do NOT pre-degrade tables into bullet lists at outline or draft time.
 8. **Plan the intro.** Hook + thesis + preview. 150–200 words. The hook earns attention with something specific, surprising, or contrarian — never "In today's digital age".
 9. **Plan the conclusion.** Restated thesis + one next step (often a `2-reference/` link). 80–150 words.
@@ -83,7 +97,7 @@ For slug `{slug}`, reads:
 - [ ] One-sentence thesis
 - [ ] H2 list MECE, supports thesis, **sized by beat spec (no arbitrary 4–7 cap)**
 - [ ] Each H2: BLUF, key points, evidence source, word target, transition, typed Visuals
-- [ ] Components planned per section (`**Components:**` line) where one earns its place — restraint applied (1–2 of each max), fence names exact per `examples/ahrefs-components.md`; a `:::nutshell` planned under the H1 and `:::key-takeaways` for the conclusion when the format warrants
+- [ ] Components planned per section (`**Components:**` line) where one earns its place, drawn from the full authored set as the content type calls for it (definition/warning/important/proscons/feature-matrix/decision-table/preferred-order/verdict/stat-list/faq/jumplinks/entry/badge/figure/diagram/tweet/video) — restraint applied (1–2 of each max, most sections zero), fence names exact per `examples/ahrefs-components.md`; a `:::nutshell` planned under the H1 and `:::key-takeaways` for the conclusion when the format warrants
 - [ ] Word targets sum to beat-spec total ±10%
 - [ ] Coverage map: every consensus topic → a section
 - [ ] `[GAIN]` section present

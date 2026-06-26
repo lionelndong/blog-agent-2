@@ -27,7 +27,10 @@ Apply in this order:
    - `**In a nutshell:** ...` → `:::nutshell ... :::`
    - `**Key takeaways:** ...` → `:::key-takeaways ... :::`
    - `**Methodology:** ...` → `:::methodology ... :::`
-5. **Preserve everything else as-is** — H2/H3, lists, tables, code blocks, links, image references, screenshot placeholders, **and every `:::component` fence** (`:::sidenote`, `:::methodology`, `:::nutshell`, `:::key-takeaways`, `:::stat`/`:::stat-group`, `:::expert`, `:::pullquote`, `:::further-reading`, `:::cta`, `:::tip`, `:::note`). The Ahrefs component fences emitted by `/draft` pass through to the published body verbatim — the blog page renderer styles them (see "Render contract" in `examples/ahrefs-components.md`); this stage never converts them to HTML.
+5. **Preserve everything else as-is** — H2/H3, lists, tables, code blocks (incl. inline `` `code` ``), links, image references, screenshot placeholders, the inline `{lead}…{/lead}` opener token and `==mark==` spans, **and every `:::component` fence**. The full authored set passes through to the published body verbatim — the blog page renderer styles them (see "Render contract" in `examples/ahrefs-components.md`); this stage never converts any of them to HTML. Fences preserved:
+   - **14 BUILT:** `:::byline`, `:::sidenote`, `:::methodology`, `:::nutshell`, `:::key-takeaways`, `:::stat`/`:::stat-group`, `:::table`, `:::expert`, `:::pullquote`, `:::further-reading`, `:::cta`, `:::tip`, `:::note`.
+   - **New authored fences:** `:::warning`, `:::important`, `:::definition`, `:::primer`, `:::proscons`, `:::feature-matrix`, `:::decision-table`, `:::preferred-order`, `:::verdict`, `:::badge`, `:::stat-list`, `:::tweet`, `:::video`, `:::faq`, `:::jumplinks`, `:::figure`, `:::diagram`, `:::entry`.
+   Keep the fence names byte-for-byte as written; the only normalization is the `**Label:**` → fence conversion in steps 2–4a.
 
 ## JSON metadata extraction rules (Strapi v5 schema)
 

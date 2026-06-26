@@ -151,6 +151,37 @@ BYLINE_COMMENT_RE = re.compile(
 # the legacy [SCREENSHOT:...] form.
 VISUAL_PLACEHOLDER_RE = re.compile(r"\[(?:VISUAL|SCREENSHOT):[^\]]*\]")
 
+# ── Ahrefs component library: verbatim pass-through contract ───────────────────
+# /draft emits the full authored component set from examples/ahrefs-components.md.
+# These fences (and the inline {lead}/==mark== tokens below) are NOT rendered to
+# HTML here and are NOT normalized — they pass through to the published article.md
+# body BYTE-FOR-BYTE so the blog-page renderer (a separate CTO task; see the
+# "Render contract" in examples/ahrefs-components.md) can style them. This list is
+# documentation, kept in lockstep with that spec — preservation is *passive*
+# (nothing in this file transforms a `:::fence`, a `{lead}` wrapper, or a `==mark==`
+# span). transform_callouts() only NORMALIZES the `**Label:**` shorthands into a
+# subset of these fences; it must never touch an already-authored fence or token.
+# scrub_pipeline_scaffolding() (HTML comments + `_Visual asset:_` captions) and
+# assert_no_pipeline_leak() (high-precision internal vocab) match none of these,
+# so every component + inline token survives untouched.
+PRESERVED_AUTHORED_FENCES = (
+    # 14 BUILT (render today — component-mockup.html)
+    "byline", "nutshell", "methodology", "key-takeaways", "sidenote", "tip",
+    "note", "stat", "stat-group", "table", "expert", "pullquote",
+    "further-reading", "cta",
+    # New authored fences (renderer TODO; preserved verbatim all the same)
+    "warning", "important", "definition", "primer", "proscons", "feature-matrix",
+    "decision-table", "preferred-order", "verdict", "badge", "stat-list", "tweet",
+    "video", "faq", "jumplinks", "figure", "diagram", "entry",
+)
+# Inline treatments preserved as raw tokens (page renderer turns these into
+# cmp-lead / <mark>; inline `code` is plain markdown and also left as-is):
+#   {lead}…{/lead}   — editorial lead-paragraph wrapper
+#   ==marked text==  — highlight span
+# No regex in this file consumes them; they are listed here only to document the
+# guarantee for maintainers.
+PRESERVED_INLINE_TOKENS = ("{lead}…{/lead}", "==mark==", "`code`")
+
 
 def _slug_to_category_heuristic(slug: str) -> str:
     """Pick a category for a slug when no explicit override is present.
@@ -503,6 +534,17 @@ def transform_callouts(md: str) -> str:
     (`:::nutshell`, `:::key-takeaways`, `:::methodology`). Authors are encouraged
     to write the explicit `:::fence` directly (it passes through untouched — see
     the "fence pass-through" contract); these shorthands are the convenience path.
+
+    Pass-through guarantee (PRESERVED_AUTHORED_FENCES / PRESERVED_INLINE_TOKENS):
+    this function ONLY normalizes the `**Label:**` shorthands into their subset of
+    fences. It never rewrites an already-authored `:::fence` (BUILT or the newer
+    `:::warning` / `:::definition` / `:::proscons` / `:::feature-matrix` /
+    `:::decision-table` / `:::preferred-order` / `:::stat-list` / `:::faq` /
+    `:::jumplinks` / `:::entry` / `:::figure` / … set), nor the inline `{lead}…{/lead}`
+    wrapper or `==mark==` spans. The shorthand patterns are anchored to literal
+    `**Label:**` text, and the final "move a glued opener to its own line" rule
+    targets only `:::name` openers (which is desirable for EVERY fence name) — so
+    new fences and inline tokens reach the published body byte-for-byte.
     """
     # Shape 1: single-paragraph callouts (UNCHANGED — original behavior).
     paragraph_patterns = [
@@ -981,12 +1023,65 @@ def _split_gfm_row(line: str) -> list[str]:
     return [c.strip() for c in s.split("|")]
 
 
+# Opener / closer for an authored `:::fence … :::` block. Used to find the
+# character spans of every fence so the GFM→table-card workaround can skip any
+# table that lives INSIDE a fence (see _fence_spans / convert_gfm_tables).
+_FENCE_OPEN_RE = re.compile(r"(?m)^[ \t]*:::[A-Za-z][\w-]*\b.*$")
+_FENCE_CLOSE_RE = re.compile(r"(?m)^[ \t]*:::[ \t]*$")
+
+
+def _fence_spans(md: str) -> list[tuple[int, int]]:
+    """Return (start, end) char spans of every top-level `:::fence … :::` block.
+
+    Walks the text line-anchored: a named opener (`:::name…`) starts a block, the
+    next bare `:::` closes it. `:::stat-group` nests bare-named `:::stat` openers,
+    so we depth-count — a block ends only when depth returns to zero. Tables that
+    fall inside any returned span must NOT be converted to table-cards, because
+    the renderer parses the GFM table *inside* `:::table` / `:::feature-matrix` /
+    `:::decision-table` itself (Render contract, examples/ahrefs-components.md).
+    """
+    # Collect every fence-ish line (opener or closer) with its position, in order.
+    events: list[tuple[int, int, bool]] = []  # (start, end, is_opener)
+    for m in _FENCE_OPEN_RE.finditer(md):
+        events.append((m.start(), m.end(), True))
+    for m in _FENCE_CLOSE_RE.finditer(md):
+        # A bare `:::` also matches _FENCE_OPEN_RE? No — opener requires a letter
+        # after `:::`, so closers and openers are disjoint. Safe to merge.
+        events.append((m.start(), m.end(), False))
+    events.sort(key=lambda e: e[0])
+
+    spans: list[tuple[int, int]] = []
+    depth = 0
+    block_start = 0
+    for start, end, is_opener in events:
+        if is_opener:
+            if depth == 0:
+                block_start = start
+            depth += 1
+        else:  # closer
+            if depth > 0:
+                depth -= 1
+                if depth == 0:
+                    spans.append((block_start, end))
+    return spans
+
+
 def convert_gfm_tables(body_md: str, slug: str) -> str:
     """PLEAA-567 publish-boundary workaround: the public Next.js renderer can't
     render GFM tables, so replace each markdown table with (a) a brand table-card
     PNG via render_table_card.py and (b) a crawlable bulleted text fallback (one
     bullet per row, bold first-column label). When the renderer ships GFM support,
     delete this step — nothing upstream changes (the draft keeps real tables).
+
+    Fence-aware (component library): a GFM table that lives INSIDE a `:::fence`
+    block is left untouched. The table-bearing fences `:::table`,
+    `:::feature-matrix`, and `:::decision-table` carry a real GFM table that the
+    blog-page renderer parses itself (mapping `yes`/`no`/`partial` → ✓/✕/–,
+    applying caption/source/winner-row), per the Render contract in
+    examples/ahrefs-components.md. Converting that inner table to a PNG here would
+    break the fence's verbatim-preservation contract and pre-empt the renderer, so
+    we skip any table whose span falls within a fence. Only bare body tables (not
+    wrapped in a fence) get the table-card workaround.
     """
     if not GFM_TABLE_RE.search(body_md):
         return body_md
@@ -997,12 +1092,20 @@ def convert_gfm_tables(body_md: str, slug: str) -> str:
         )
         return body_md
 
+    fence_spans = _fence_spans(body_md)
+
+    def _inside_fence(start: int, end: int) -> bool:
+        return any(fs <= start and end <= fe for fs, fe in fence_spans)
+
     img_dir = IMAGES_DIR / slug
     img_dir.mkdir(parents=True, exist_ok=True)
     counter = {"n": 0}
 
     def _replace(m: re.Match) -> str:
         block = m.group(0)
+        # Skip tables inside a `:::fence` — the renderer handles those (see docstring).
+        if _inside_fence(m.start(), m.end()):
+            return block
         lines = [ln for ln in block.splitlines() if ln.strip().startswith("|")]
         if len(lines) < 3:
             return block  # not a real table (header + separator + >=1 row)

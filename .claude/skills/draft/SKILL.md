@@ -49,10 +49,12 @@ For slug `{slug}`:
    - Internal links from `2-reference/` inline as `[anchor](URL)`
    - Close with a transition
 5. **Tables are content, not decoration.** Where the outline specs a comparison table, author it as a real GFM markdown table with every column and row filled from research. `/format-for-publish` handles site-renderer conversion (PLEAA-567) — never pre-degrade a table into bullets at draft time. The preview and the editor see the real table.
-5a. **Emit the Ahrefs component fences the outline planned — with RESTRAINT.** Consult `examples/ahrefs-components.md` (the writer-side authoring syntax for every component) and EMIT the `:::component` fences where a section genuinely calls for one. The outline already *planned* which components each section carries; your job is to *emit* them in the prose. Restraint is the rule: **1–2 of each per article, only when it improves scannability — never decorate, never wrap a section in a box just because it can be.** A wall of boxes reads worse than clean prose. Use the fence names EXACTLY as in `ahrefs-components.md`. Trigger → component:
+5a. **Emit the Ahrefs component fences the outline planned — with RESTRAINT — drawing on the FULL authored set.** Consult `examples/ahrefs-components.md` (the writer-side authoring syntax for **every** component — read its `## Render contract` for the exact fence grammar and attribute names) and EMIT the `:::component` fences where a section genuinely calls for one. The outline already *planned* which components each section carries; your job is to *emit* them in the prose. **Reach for whatever component the content actually calls for — not just the house-standard few — but stay disciplined.** Restraint is the paramount rule: **1–2 of each per article, only when it improves scannability — never decorate, never wrap a section in a box just because it can be.** A typical article uses only the handful its content demands; most sections carry zero. A wall of boxes reads worse than clean prose. Use the fence names EXACTLY (byte-for-byte, lowercase, hyphenated) as in `ahrefs-components.md`.
+
+   **House-standard triggers → component:**
    - the top/one-paragraph answer (one, directly under the H1) → `:::nutshell`
    - an article's conclusions, front-loaded for skimmers → `:::key-takeaways`
-   - one load-bearing number you want impossible to miss → `:::stat` (wrap multiples in `:::stat-group`)
+   - one load-bearing number you want impossible to miss → `:::stat` (wrap 2–4 in `:::stat-group`)
    - a data study's data disclosure (source, sample, definitions) → `:::methodology`
    - an aside / caveat / source-note that would derail the sentence → `:::sidenote`
    - an expert opinion attributed to a named person → `:::expert`
@@ -61,7 +63,28 @@ For slug `{slug}`:
    - a reader → product push (once high, once low) → `:::cta`
    - a pro shortcut next to the step it improves → `:::tip` (also `:::note` for an easily-missed caveat)
 
-   **Per-persona favorites** (lean toward your selected persona's set; don't force the others): **Sloane Avery** → `:::methodology` / `:::stat` / `:::key-takeaways`; **Theo Hart** → tables / numbered steps / `:::cta` / `:::further-reading`; **Mateo Reyes** → `:::expert` / `:::nutshell` / `:::sidenote`. The shorthands `**Tip:**` / `**Note:**` / `**Sidenote:**` / `**Methodology:**` / `**In a nutshell:**` / `**Key takeaways:**` are also accepted — `/format-for-publish` normalizes them to their fences — but prefer authoring the explicit `:::fence` so the preview matches the published page.
+   **High-value additions — emit these when (and only when) the content type + section call for them:**
+   - **first mention of the article's core term** → `:::definition term="…"` (one crisp, quotable sentence)
+   - **a pitfall / must-know** → `:::warning` (risky, data-loss, or money-loss action) or `:::important` (a must-not-miss prerequisite/constraint that isn't a hazard)
+   - **a comparison / "which should I use" section** → `:::proscons` (one option's balanced verdict, `## Pros` then `## Cons`), `:::feature-matrix` (many features × many products; cells `yes`/`no`/`partial`), `:::decision-table` (classify options in a grid — no single winner), and the `:::preferred-order` ranked list that follows it (`1. **Pick** — use when you…`). One decisive call on an option → `:::verdict`.
+   - **a cited statistics roundup (5+ sourced figures)** → `:::stat-list` (one cited finding per bullet, `- **68%** … ([Source](url))`). Keep `:::stat`/`:::stat-group` for 1–4 hero numbers — do NOT use `:::stat-list` for fewer than 5.
+   - **an FAQ section** → `:::faq` (repeated `### Question` + answer; the renderer adds FAQPage schema). Plain H2/H3 FAQs remain fine — reach for `:::faq` only when schema capture is the point.
+   - **roundup / listicle scaffolding** → `:::jumplinks` (a writer-chosen "skip to the app you want" anchor menu) + one `:::entry n="1" name="…" url="…" best_for="…" price="…"` header per option section; a qualitative award → `:::badge kind="best-overall|editors-pick|best-free"`.
+   - **a captioned data figure / diagram** → `:::figure src="…" source="…"` / `:::diagram src="…"`. **Visuals are DEFERRED** — emit the typed `[VISUAL:...]` placeholder (step 6) for visuals the outline planned; only author a `:::figure`/`:::diagram` fence when you already have a real `src`, otherwise leave the `[VISUAL:...]` marker and let the visuals project fill it later.
+   - **situational embeds** → `:::tweet url="…"` (real social proof; degrade to `:::pullquote` if no live embed) · `:::video src="…" title="…"` (a moving walkthrough beats a screenshot; rare).
+
+   **INLINE treatments (no fence — these are the typographic devices, governed by voice):**
+   - **inline `` `code` `` for math / formulas / literal values** — this is the "colored formula" device. Wrap any formula, equation, token, file name, or short literal value in backticks: `` the formula is `CAC = spend / signups` ``. The renderer styles inline code as the on-brand chip. (Fenced ```` ``` ```` code BLOCKS opt out — keep those for multi-line code only.)
+   - **wrap the opening paragraph in `{lead}…{/lead}`** — the editorial lead (rendered ~22px, weight 400, NOT bold). One per article, the first paragraph after the H1/byline (and after `:::nutshell` if present).
+   - **`==text==` for the rare highlight** → `<mark>`. Use sparingly — a few key words at most.
+
+   **Voice conventions (already partly in force — hold the line):**
+   - **inline citations are plain links** — every stat/claim is an ordinary inline anchor to its source. **NO superscript footnotes, no `[1]`-style endnotes.**
+   - **colored bold lives only inside box components** — body-prose emphasis is plain `**bold**`; never reach for accent/colored bold as a free inline token.
+   - **close with a "Final thoughts" / "Bottom line" H2** — the standard closer heading.
+   - **no numbered headings** ("1. …", "2. …") and **no drop caps** — the open is the `{lead}` size bump only.
+
+   **Per-persona favorites** (lean toward your selected persona's set; don't force the others): **Sloane Avery** → `:::methodology` / `:::stat` / `:::stat-list` / `:::table` / `:::key-takeaways`; **Theo Hart** → tables / numbered steps / `:::decision-table` / `:::preferred-order` / `:::feature-matrix` / `:::cta` / `:::further-reading`; **Mateo Reyes** → `:::expert` / `:::pullquote` / `:::tweet` / `:::nutshell` / `:::sidenote` / `:::figure`. The shorthands `**Tip:**` / `**Note:**` / `**Sidenote:**` / `**Methodology:**` / `**In a nutshell:**` / `**Key takeaways:**` are also accepted — `/format-for-publish` normalizes them to their fences — but prefer authoring the explicit `:::fence` so the preview matches the published page.
 6. **Insert typed visual placeholders** — one per `Visual N:` entry in the annotated outline, at natural break points. Forms (full field reference + selector cheatsheet in `templates/visual-types.md`):
    - `[VISUAL:type=screenshot;target=<product-slug>;what=<UI element>;annotate=<optional>]`
    - `[VISUAL:type=action-shot;url=<starting URL>;goal=<explicit click-path under 60 words>;what=<caption>]` — `/capture-visuals` drives Chrome (pinned to Sonnet); write the goal like briefing a human who has never seen the site
@@ -95,7 +118,9 @@ Before saving, confirm:
 - [ ] Every outline section drafted; word targets hit ±20%; total ±15% of beat-spec target
 - [ ] Listicle item count matches the outline (no compression)
 - [ ] Comparison table authored as real markdown (when specced)
-- [ ] Ahrefs `:::component` fences emitted where the outline planned them, with restraint (1–2 of each max); fence names exact per `examples/ahrefs-components.md`; never decorative
+- [ ] Ahrefs `:::component` fences emitted where the outline planned them, drawn from the full authored set (definition/warning/important/proscons/feature-matrix/decision-table/preferred-order/verdict/stat-list/faq/jumplinks/entry/badge/figure/diagram/tweet/video as the content calls for them), with restraint (1–2 of each max, most sections zero); fence names exact per `examples/ahrefs-components.md`; never decorative
+- [ ] Inline treatments applied where they fit: inline `` `code` `` for formulas/literal values, `{lead}…{/lead}` on the opening paragraph, `==mark==` only for the rare highlight
+- [ ] Voice conventions held: plain-link citations (no superscripts), colored bold only inside boxes, a "Final thoughts"/"Bottom line" closer, no numbered headings, no drop caps
 - [ ] No crutch word/move used 3+ times; paragraph rhythm varied
 - [ ] Zero forbidden phrases; zero "Furthermore/Moreover/It is important to note" openers
 - [ ] Every numerical claim cited or carrying `[link]` for verify-claims
