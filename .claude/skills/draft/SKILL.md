@@ -28,29 +28,35 @@ For slug `{slug}`:
 - `brand-config.md` (voice, audience, products, **forbidden phrases**)
 - `references/voice-guide.md` (structural voice rules) + `references/prose-patterns.md` (sentence-level patterns)
 - `../../../templates/visual-types.md` (controlled vocabulary for `[VISUAL:...]` placeholders)
-- `examples/` per commitment #3
+- `examples/authors.md` (the persona map + content-type → persona selection rule + byline-comment contract)
+- `examples/voice/` (per-persona `persona.md` + type-tagged anchor articles) — and the rest of `examples/` per commitment #3
 
 ## Process
 
 1. **Read examples first** (commitment #3). Then the outline thoroughly — you're not re-architecting; the outline is the spec. Then context, references, research, brand-config.
-2. **Draft the intro** (150–200 words): hook (direct claim, surprising cited stat, opinion, or problem-naming), thesis, preview.
-3. **Draft each H2 in order:**
+2. **Select the author persona.** From the article's content-type (per the outline / beat-spec format), pick the persona using `examples/authors.md`'s selection rule; when ambiguous, fall back to **theo-hart**. Load `examples/voice/<persona>/persona.md` AND the type-matched anchor article in that persona's folder (fetch it live if it isn't cached). Write the whole draft in **THAT persona's craft, but in OUR register** (`brand-config.md`) — craft, not register; never reuse the anchor's text, examples, or structure. **Stamp the byline as the very first line of the draft file** (before the H1), using the exact contract from `examples/authors.md`:
+   ```
+   <!-- byline: <Byline Name> | persona: <persona-slug> -->
+   ```
+   e.g. `<!-- byline: Sloane Avery | persona: sloane-avery -->`. `/format-for-publish` reads this line to attach the Strapi author relation, so keep the format byte-for-byte exact.
+3. **Draft the intro** (150–200 words): hook (direct claim, surprising cited stat, opinion, or problem-naming), thesis, preview.
+4. **Draft each H2 in order:**
    - Open with the section's BLUF (or a sentence capturing the same idea)
    - Develop key points using `references/prose-patterns.md`; pull the evidence the outline specified — stats carry a `[link]` placeholder when you lack the exact URL (verify-claims resolves them; they must NOT survive past that stage)
    - Hit the section word target ±20% with specifics, per commitments #1–2
    - Product mentions exactly where annotated — "show, don't sell"
    - Internal links from `2-reference/` inline as `[anchor](URL)`
    - Close with a transition
-4. **Tables are content, not decoration.** Where the outline specs a comparison table, author it as a real GFM markdown table with every column and row filled from research. `/format-for-publish` handles site-renderer conversion (PLEAA-567) — never pre-degrade a table into bullets at draft time. The preview and the editor see the real table.
-5. **Insert typed visual placeholders** — one per `Visual N:` entry in the annotated outline, at natural break points. Forms (full field reference + selector cheatsheet in `templates/visual-types.md`):
+5. **Tables are content, not decoration.** Where the outline specs a comparison table, author it as a real GFM markdown table with every column and row filled from research. `/format-for-publish` handles site-renderer conversion (PLEAA-567) — never pre-degrade a table into bullets at draft time. The preview and the editor see the real table.
+6. **Insert typed visual placeholders** — one per `Visual N:` entry in the annotated outline, at natural break points. Forms (full field reference + selector cheatsheet in `templates/visual-types.md`):
    - `[VISUAL:type=screenshot;target=<product-slug>;what=<UI element>;annotate=<optional>]`
    - `[VISUAL:type=action-shot;url=<starting URL>;goal=<explicit click-path under 60 words>;what=<caption>]` — `/capture-visuals` drives Chrome (pinned to Sonnet); write the goal like briefing a human who has never seen the site
    - (`type=image` is **retired** — no AI image generation. Use `chart`/`table` for data visuals and `screenshot`/`action-shot`/`external` for real imagery. Real product imagery is captured from `pleasur.ai`, never generated.)
    - `[VISUAL:type=chart;data=<research.key>;style=<bar|line|pie>;title=<title>]`
    - `[VISUAL:type=external;sub=<reddit-comment|tweet|news-quote|competitor-ui|chart>;url=<source>;selector=<CSS>;crop=padded;what=<caption>]` — auto-captured (PLEAA-417); Reddit comments are `#t1_<id>`, tweets `article[data-testid="tweet"]`
    - `[VISUAL:type=video;url=<…>;what=<…>]`, `[VISUAL:type=gif;what=<…>]`
-6. **Draft the conclusion** (80–150 words): thesis restated fresh + one next step.
-7. **Self-edit pass — the human-editor read.** Read the full draft top to bottom and fix:
+7. **Draft the conclusion** (80–150 words): thesis restated fresh + one next step.
+8. **Self-edit pass — the human-editor read.** Read the full draft top to bottom and fix:
    - **Crutch repetition (the #1 tell):** any distinctive word or rhetorical move used 3+ times ("honest", "Here's the thing", "stated plainly", a verdict-sentence formula repeated per section). Two uses max; rewrite the rest with different constructions.
    - **Uniform rhythm:** if every paragraph is 1–3 short sentences, merge and vary. Good prose mixes one-sentence punches with 4–6-sentence developed paragraphs (look at how the example articles breathe). Avoid walls of text past ~90 words too — but vary, don't cap.
    - **Forbidden phrases** (brand-config list) — zero tolerance.
@@ -59,8 +65,8 @@ For slug `{slug}`:
    - Every section opens with its BLUF; no section opens with throat-clearing.
    - Product mentions demonstrate, never list features.
    - **The empty-paragraph test:** any paragraph with no concrete noun, number, step, or example → cut it or make it concrete.
-8. **Depth gate (replaces the old metrics gate).** Count words per section against the outline targets. Any section <80% of target → return to the dossier/deep file and add real material (an example, a number, a step, a user quote). Article total within ±15% of the beat-spec target. Only then save.
-9. **Save** to `content-pipeline/5-drafts/{slug}.md` — H1 title, then prose. No metadata header.
+9. **Depth gate (replaces the old metrics gate).** Count words per section against the outline targets. Any section <80% of target → return to the dossier/deep file and add real material (an example, a number, a step, a user quote). Article total within ±15% of the beat-spec target. Only then save.
+10. **Save** to `content-pipeline/5-drafts/{slug}.md` — byline comment first line, then the H1 title, then prose. No other metadata header.
 
 ## Output
 
@@ -69,6 +75,8 @@ For slug `{slug}`:
 ## Quality checklist
 
 Before saving, confirm:
+- [ ] Author persona selected from the content-type via `examples/authors.md`; drafted in that persona's craft, OUR register
+- [ ] Byline comment is the **very first line** of the file (`<!-- byline: <Name> | persona: <slug> -->`), before the H1, exact format
 - [ ] Read 2 voice examples + 1 structure/niche example this run (not from memory)
 - [ ] Every outline section drafted; word targets hit ±20%; total ±15% of beat-spec target
 - [ ] Listicle item count matches the outline (no compression)

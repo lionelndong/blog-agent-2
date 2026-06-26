@@ -32,12 +32,14 @@ Specific halt conditions:
   3-reviewer panel (see `/quality-check`). The autonomous revision loop addresses a FAIL; if the
   budget (2) is spent and it still FAILs, write `9-needs-review/{slug}.md` and STOP — never publish
   a FAIL.
-- **`visuals`** — every deterministic `[VISUAL:...]` (screenshot, chart, table-card) must produce a
-  real asset; a `failed` manifest entry is a HALT. `manual` entries are TODOs, not blockers (the
-  article ships text + the visuals it has). No naked `[VISUAL:...]` may remain in the cited draft —
-  generate-visuals resolves or strips each one.
-- **`publish`** — `8-publish/{slug}/{article.md, article.json, README.md}` must all exist AND
-  `article.md` must contain zero raw `[VISUAL:...]` placeholders.
+- **`visuals`** — **DEFERRED** (visuals are their own future project). The visuals stage leaves the
+  typed `[VISUAL:...]` placeholders in the draft as markers, generates nothing, and does **not** gate.
+  Leftover `[VISUAL:...]`/`[SCREENSHOT:...]` placeholders are EXPECTED and are no longer a HALT.
+  (`/format-for-publish` later converts each surviving placeholder to an invisible
+  `<!-- VISUAL-TODO: ... -->` marker.) Re-enable real asset generation via `BLOG_AGENT_VISUALS=on`.
+- **`publish`** — `8-publish/{slug}/{article.md, article.json, README.md}` must all exist. (The old
+  "zero raw `[VISUAL:...]`" assertion is **relaxed**: visuals are deferred, so `/format-for-publish`
+  converts any leftover placeholder to `<!-- VISUAL-TODO: ... -->` rather than failing.)
 - **`deliverable`** — for issue-driven runs (PAPERCLIP_TASK_ID set), a deliverable comment with the
   slug + verdict must be posted to the trigger issue.
 
@@ -102,6 +104,10 @@ never auto-runs (editor owns the preview→publish gap).
 7. **`/format-for-publish`**: autonomous → auto-run as Stage 11 with `--auto-publish`, then
    `python scripts/auto_publish_check.py {slug}`; on verification failure write `9-needs-review/` and
    emit QUARANTINED. Interactive → never auto-run.
+
+**Multi-author byline + deferred visuals (cross-cutting):**
+- **`/draft` selects the author persona** from the content-type (per `examples/authors.md`) and **stamps the byline** as the first line of the draft: `<!-- byline: <Byline Name> | persona: <persona-slug> -->`. **`/format-for-publish` reads that stamp and attaches the Strapi author relation** (persona slug → Author `documentId`); no byline ⇒ author left unset, no crash. Keep the byline comment format byte-exact across `/draft`, `/format-for-publish`, and the visuals stage.
+- **Visuals are DEFERRED for now:** the visuals stage leaves `[VISUAL:...]` placeholders, generates nothing, and does **not** gate. `/format-for-publish` converts any leftover placeholder to an invisible `<!-- VISUAL-TODO: ... -->` marker. Stage **order is unchanged** — Stage 9 still runs, it's just a no-op by default (`BLOG_AGENT_VISUALS=on` re-enables generation).
 
 ## Stage briefs
 
@@ -180,9 +186,10 @@ You are running stage 5 at {ROOT}. Slug: {SLUG}. Brand: see brand-config.md.
 
 Your job: produce content-pipeline/5-drafts/{SLUG}.md per .claude/skills/draft/SKILL.md. Read the SKILL first — the three commitments (depth / specificity / voice-from-examples).
 
-Read before drafting: draft/SKILL.md; draft/references/voice-guide.md; draft/references/prose-patterns.md; brand-config.md (forbidden phrases); content-pipeline/4-outlines-annotated/{SLUG}.md; 2-reference/{SLUG}.md; 1-research/{SLUG}.md (+ {SLUG}-deep.md); 0-context/{SLUG}.md; examples/README.md then 2 articles from examples/voice/ + 1 from examples/structure or niche.
+Read before drafting: draft/SKILL.md; draft/references/voice-guide.md; draft/references/prose-patterns.md; brand-config.md (forbidden phrases); examples/authors.md (persona map + content-type→persona rule + byline contract); content-pipeline/4-outlines-annotated/{SLUG}.md; 2-reference/{SLUG}.md; 1-research/{SLUG}.md (+ {SLUG}-deep.md); 0-context/{SLUG}.md; examples/README.md then the SELECTED persona's persona.md + 1–2 type-matched anchors from examples/voice/<persona>/ + 1 from examples/structure or niche.
 
 Hard requirements (these gate the save):
+- PERSONA + BYLINE: select the author persona from the content-type via examples/authors.md (fallback theo-hart); draft in that persona's craft + OUR register; **stamp the byline as the very first line of the draft file** before the H1 — exactly `<!-- byline: <Byline Name> | persona: <persona-slug> -->`. /format-for-publish reads this line to attach the Strapi author relation, so keep it byte-exact.
 - Hit each section's word target ±20%; article total within ±15% of the BEAT SPEC; listicle item count per the outline — never compress; comparison table as real GFM markdown when specced.
 - VOICE: lead with reader-felt reality (the real decision the reader faces), not a feature spec — match the examples/voice/ register. No crutch word/phrase used 3+ times; vary paragraph rhythm (mix one-line punches with developed passages).
 - Every section opens with a BLUF. No forbidden phrases. Cut "Furthermore/Moreover/It is important to note/very/really/quite/simply" when not load-bearing.
@@ -190,7 +197,7 @@ Hard requirements (these gate the save):
 
 Self-check before save: per-section word counts vs targets (any <80% → add concrete material from the dossier, never pad); scan for crutch repetition + uniform rhythm and fix.
 
-Return: word count vs target, section count vs outline, table Y/N, [link] count, [VISUAL] count, [GAIN] present, confirmation no forbidden phrases or out-of-slot mentions. Under 400 words.
+Return: persona chosen + byline-stamp confirmed as first line, word count vs target, section count vs outline, table Y/N, [link] count, [VISUAL] count, [GAIN] present, confirmation no forbidden phrases or out-of-slot mentions. Under 400 words.
 ```
 
 ### Stage 6 — Quality check (the publish gate)
@@ -248,19 +255,18 @@ Skip conditions (write a stub at content-pipeline/optimization/{SLUG}.md and exi
 Return: verdict (WIN/ROLLBACK/PLATEAU/CAPPED/SKIPPED), term coverage before/after, voice-drift delta, iterations used, budget consumed/remaining. Under 300 words.
 ```
 
-### Stage 9 — Generate visuals (deterministic only)
+### Stage 9 — Generate visuals (DEFERRED by default)
 
 ```
 You are running stage 9 at {ROOT}. Slug: {SLUG}.
 
-Your job: per .claude/skills/generate-visuals/SKILL.md. Run:
+VISUALS ARE DEFERRED (their own future project). By default this stage is a no-op: it leaves the typed [VISUAL:...] placeholders in the cited draft as markers, generates NOTHING, and does NOT gate. Leftover placeholders are EXPECTED — /format-for-publish later converts each surviving [VISUAL:...]/[SCREENSHOT:...] into an invisible <!-- VISUAL-TODO: ... --> marker, so they do not block text publish and must not be treated as a failure. Just confirm the stage ran and report the placeholder count.
+
+ONLY when BLOG_AGENT_VISUALS=on (opt-in) do real asset generation per .claude/skills/generate-visuals/SKILL.md:
   doppler run -- python .claude/skills/generate-visuals/scripts/generate_visuals.py {SLUG}
+In that mode the dispatcher realizes the deterministic placeholders (brand-UI screenshots via Playwright, data charts/tables via matplotlib using {SLUG}-data.json keys; NO AI image generation), and records anything non-deterministic as a manual TODO. If a chart reports status=failed reason=invalid_data_spec, {SLUG}-data.json is missing the referenced key: read the dossier, extract the numbers, append to {SLUG}-data.json, re-run.
 
-The dispatcher reads typed [VISUAL] placeholders from the cited draft and realizes the deterministic ones: brand-UI screenshots via Playwright, data charts/tables via matplotlib using {SLUG}-data.json keys. NO AI image generation. Anything non-deterministic (video, external sites, adult imagery) is recorded as a manual TODO in manual-capture.md AND the [VISUAL:...] placeholder is stripped from the cited draft — it does NOT block text publish.
-
-If a chart reports status=failed reason=invalid_data_spec, {SLUG}-data.json is missing the referenced key: read the dossier, extract the numbers, append to {SLUG}-data.json, re-run. The data file is the single source of truth.
-
-Return: captured (screenshot/chart) / manual-TODO / failed counts, manifest path. Under 250 words.
+Return (default deferred): placeholder count left in the draft, confirmation nothing was generated/stripped, that the stage did not gate. (Opt-in: captured/manual-TODO/failed counts + manifest path.) Under 250 words.
 ```
 
 ### Stage 10 — Preview
@@ -282,7 +288,7 @@ You are running stage 11 at {ROOT}. Slug: {SLUG}. Autonomous mode.
 Your job: per .claude/skills/format-for-publish/SKILL.md (read it first). Run:
   doppler run -- python .claude/skills/format-for-publish/scripts/format_for_strapi.py {SLUG} --auto-publish
 
-The script re-reads quality-checks/{SLUG}.md and refuses to publish on verdict FAIL (belt-and-suspenders), builds the Strapi payload, copies images, POSTs with publishedAt = now, prints the public URL. Then run:
+The script re-reads quality-checks/{SLUG}.md and refuses to publish on verdict FAIL (belt-and-suspenders), parses the byline stamp from the draft and attaches the Strapi author relation (persona slug → documentId via PERSONA_AUTHORS; unset if no byline — no crash), converts any leftover [VISUAL:...]/[SCREENSHOT:...] placeholders to invisible <!-- VISUAL-TODO: ... --> markers (visuals deferred — NOT a failure), builds the Strapi payload, copies images, POSTs with publishedAt = now, prints the public URL. Then run:
   python scripts/auto_publish_check.py {SLUG}
 On non-zero, the script writes 9-needs-review/{SLUG}.md — surface that as QUARANTINED, not published.
 

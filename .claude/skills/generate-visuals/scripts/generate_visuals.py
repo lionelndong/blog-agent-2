@@ -527,6 +527,39 @@ def _rewrite_draft(text: str, replacements: list[tuple[str, str]]) -> str:
     return text
 
 
+def _visuals_enabled() -> bool:
+    """Visual generation is OFF by default — deferred to a future visual project.
+
+    The whole capture/chart/rewrite path below only runs when the operator
+    explicitly opts in with BLOG_AGENT_VISUALS=on. Until then the stage is a
+    no-op that leaves every [VISUAL:...]/[SCREENSHOT:...] placeholder in place
+    as a marker and generates no assets.
+    """
+    return os.environ.get("BLOG_AGENT_VISUALS", "off").lower() == "on"
+
+
+def _run_deferred(slug: str, draft_path: Path, out_dir: Path, text: str, items: list[dict[str, Any]]) -> int:
+    """No-op visuals path: leave placeholders untouched, write a `deferred` manifest.
+
+    Generates nothing (no screenshots, no charts), does NOT rewrite the draft,
+    and records every parsed placeholder as `{"type":..., "status":"deferred",
+    "alt":...}` so downstream tooling can see where visuals will eventually go.
+    Always returns success — the pipeline must never block on deferred visuals.
+    """
+    manifest_entries = [
+        {"type": item["type"], "status": "deferred", "alt": _alt_text(item)}
+        for item in items
+    ]
+    (out_dir / "manifest.json").write_text(
+        json.dumps({"slug": slug, "visuals": manifest_entries}, indent=2),
+        encoding="utf-8",
+    )
+    sys.stdout.write(
+        f"visuals deferred (BLOG_AGENT_VISUALS=off) — {len(items)} placeholders left in place\n"
+    )
+    return 0
+
+
 def run(slug: str) -> int:
     draft_path = DRAFT_DIR / f"{slug}.md"
     if not draft_path.exists():
@@ -538,6 +571,12 @@ def run(slug: str) -> int:
 
     text = draft_path.read_text(encoding="utf-8")
     items = _find_placeholders(text)
+
+    if not _visuals_enabled():
+        # Visual generation is deferred (its own future project). Leave every
+        # placeholder in the draft as a marker, generate nothing, never block.
+        return _run_deferred(slug, draft_path, out_dir, text, items)
+
     if not items:
         sys.stdout.write("no visual placeholders found; nothing to do.\n")
         manifest = {"slug": slug, "visuals": []}

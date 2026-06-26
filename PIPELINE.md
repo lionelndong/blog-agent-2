@@ -99,10 +99,12 @@ the skeptical read now lives inside /quality-check's 3-reviewer panel.)
 3. **Internal-stack scrub (HARD)** — reader-facing prose must never name internal tools/vendors/data
    sources (DataForSEO, Strapi, Doppler, PostHog, OpenRouter, Replicate, Firecrawl, Paperclip,
    Semrush, Ahrefs, …; full list in `brand-config.md`). grep `article.md` before publish; any hit = fix.
-4. **Visuals** — lean by design (Ryan does images by hand): real brand-UI screenshots via
-   /generate-visuals (Playwright) and matplotlib table-cards for data. No AI image generation.
-   Any non-screenshot visual is a manual TODO that does not block text publish. Preview
-   regenerated AFTER visuals are final.
+4. **Visuals** — **DEFERRED** (its own future project; off by default, `BLOG_AGENT_VISUALS=off`).
+   /generate-visuals is a no-op: it leaves the typed `[VISUAL:...]` placeholders in the draft as
+   markers, generates no assets, and the visuals gate does **not** block on them. Re-enable with
+   `BLOG_AGENT_VISUALS=on` for the screenshots-via-Playwright + matplotlib-table-cards behavior
+   (lean by design — Ryan does images by hand; no AI image generation). Preview just carries the
+   placeholders through.
 5. **Adult-content compliance** — 18+ framing, no "no filter/anything goes" absolutism, no safety
    guarantees, no real-person likenesses. Legal/privacy copy escalates to board, never auto-publish.
 

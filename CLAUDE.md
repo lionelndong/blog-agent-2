@@ -81,7 +81,7 @@ If a draft sounds generic or AI-flavored, the panel fails it — there is no sco
 5. `/draft` — expand to full prose, anchored in `examples/`
 6. `/quality-check` — completeness floors + 3-reviewer skeptical panel (no score); gates the pipeline
 7. `/verify-claims` — find sources for every stat, add hyperlinks
-8. `/generate-visuals` — produce real assets per typed `[VISUAL:...]` placeholder (screenshots + charts only; no AI image gen)
+8. `/generate-visuals` — **DEFERRED** (its own future project): leaves typed `[VISUAL:...]` placeholders in the draft as markers, generates nothing, and does **not** block the pipeline (off by default; `BLOG_AGENT_VISUALS=on` re-enables screenshots + charts)
 9. `/preview` — render HTML preview
 10. `/format-for-publish` — package as clean markdown + Strapi JSON payload (markdown tables → rendered table-cards until the site renderer supports GFM)
 11. `/blog-pipeline <keyword> [--context "..."]` — run the whole chain

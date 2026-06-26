@@ -120,6 +120,37 @@ CATEGORY_FRONTMATTER_RE = re.compile(
     re.MULTILINE | re.IGNORECASE,
 )
 
+# ── Multi-author byline → Strapi Author relation ───────────────────────────────
+# /draft stamps the chosen persona into the first line of the cited draft as an
+# HTML comment:  <!-- byline: Sloane Avery | persona: sloane-avery -->
+# We parse the `persona` slug, strip the comment from the published body, and map
+# the slug → the live Strapi Author `documentId` below. The map is the source of
+# truth shared with examples/authors.md — keep the two in lockstep. Unknown or
+# missing slugs leave the author relation unset (no crash); the editor can attach
+# an author manually in admin.
+PERSONA_AUTHORS: dict[str, str] = {
+    "sloane-avery": "wfmxn1rf6wav1dn9t5bd7hsi",
+    "theo-hart": "bhofw86kms6ihklbhy72b0vh",
+    "mateo-reyes": "u42i38c5i95mfj47nenzx25u",
+}
+
+# Matches the byline stamp anywhere it appears (it's authored as the first line,
+# but we tolerate leading whitespace/blank lines). Captures the persona slug.
+# Note: HTML_COMMENT_RE in scrub_pipeline_scaffolding would also remove this
+# comment, so byline extraction MUST run on the raw draft before that scrub.
+BYLINE_COMMENT_RE = re.compile(
+    r"<!--\s*byline:\s*(?P<byline>[^|]+?)\s*\|\s*persona:\s*(?P<persona>[a-z0-9-]+)\s*-->",
+    re.IGNORECASE,
+)
+
+# Leftover deferred-visual placeholders. Visuals are DEFERRED in the current
+# pipeline (the visuals stage leaves placeholders, generates nothing, and does
+# NOT gate), so format-for-publish no longer hard-fails on these. Instead we
+# convert each to an HTML comment so the marker is retained in source but stays
+# invisible on the live site. Covers both the current [VISUAL:...] vocabulary and
+# the legacy [SCREENSHOT:...] form.
+VISUAL_PLACEHOLDER_RE = re.compile(r"\[(?:VISUAL|SCREENSHOT):[^\]]*\]")
+
 
 def _slug_to_category_heuristic(slug: str) -> str:
     """Pick a category for a slug when no explicit override is present.
@@ -330,6 +361,65 @@ def strip_editor_notes(md: str) -> str:
     if m:
         return md[:m.start()].rstrip() + "\n"
     return md
+
+
+def extract_byline_persona(raw_md: str) -> str | None:
+    """Parse the persona slug from the draft's byline stamp, if present.
+
+    /draft writes `<!-- byline: <Name> | persona: <slug> -->` as the first line.
+    Returns the lower-cased persona slug, or None when no byline comment exists.
+    MUST be called on the RAW draft — `scrub_pipeline_scaffolding` strips all HTML
+    comments (including this one), so byline extraction has to happen first.
+    """
+    m = BYLINE_COMMENT_RE.search(raw_md)
+    if not m:
+        return None
+    return m.group("persona").strip().lower()
+
+
+def strip_byline_comment(md: str) -> str:
+    """Remove the byline stamp comment from the body and tidy the blank line.
+
+    Defensive: `scrub_pipeline_scaffolding` already deletes every HTML comment,
+    so by publish time the byline is usually gone anyway. We strip it explicitly
+    here too so the function is correct even if called before/without the scrub.
+    """
+    md = BYLINE_COMMENT_RE.sub("", md)
+    # Drop a leading blank line the removed first-line comment may leave behind.
+    return md.lstrip("\n")
+
+
+def resolve_author_document_id(persona_slug: str | None) -> str | None:
+    """Map a persona slug → Strapi Author documentId, or None if unknown/missing."""
+    if not persona_slug:
+        return None
+    doc_id = PERSONA_AUTHORS.get(persona_slug)
+    if doc_id is None:
+        sys.stderr.write(
+            f"warning: byline persona {persona_slug!r} not in PERSONA_AUTHORS "
+            f"{sorted(PERSONA_AUTHORS)}; leaving author relation unset\n"
+        )
+    return doc_id
+
+
+def defer_visual_placeholders(md: str) -> str:
+    """Convert leftover `[VISUAL:...]` / `[SCREENSHOT:...]` placeholders to HTML comments.
+
+    Visuals are DEFERRED: the visuals stage intentionally leaves placeholders and
+    generates nothing, so a raw placeholder reaching publish is expected, not an
+    error. We retain each one as `<!-- VISUAL-TODO: ...original... -->` — a marker
+    that survives in the source (so the visuals agent can find it later) but is
+    invisible on the live site. Returns the body with every placeholder rewritten.
+
+    NB: This must run BEFORE `scrub_pipeline_scaffolding` (which deletes all HTML
+    comments) is applied to the *body* — otherwise the VISUAL-TODO markers would be
+    scrubbed away. In `main()` the scrub runs on the raw draft for QA-note removal,
+    and this conversion runs afterward on the body, so the markers persist to the
+    published article.md.
+    """
+    return VISUAL_PLACEHOLDER_RE.sub(
+        lambda m: f"<!-- VISUAL-TODO: {m.group(0)} -->", md
+    )
 
 
 def scrub_pipeline_scaffolding(md: str) -> str:
@@ -715,6 +805,7 @@ def build_payload(
     cover_image_url: str | None = None,    # noqa: ARG001 — same as above
     media_map: dict[str, dict] | None = None,
     cover_file_id: int | None = None,
+    author_document_id: str | None = None,
 ) -> dict:
     """Build a Strapi v5 article payload.
 
@@ -737,8 +828,9 @@ def build_payload(
     looked plausible but are NOT in the schema and would fail every POST:
     ``author_name``, ``read_time``, ``readTime``, ``cover_image_url``,
     ``coverImage``, ``tags``, ``excerpt``, ``content``. ``author`` and
-    ``cover`` exist as relations to the Author / Media content-types and
-    require numeric upload ids (not strings).
+    ``cover`` exist as relations to the Author / Media content-types.
+    ``cover`` (Media) takes a numeric upload id; ``author`` (Author) takes the
+    Strapi v5 documentId STRING — see ``author_document_id`` below.
 
     Cover relation (PLEAA-570, 2026-05-11): when ``cover_file_id`` is set,
     the article-level ``cover`` relation is included in the payload so
@@ -748,8 +840,16 @@ def build_payload(
     and the public page only worked because Next.js synthesized the hero
     URL from a slug-derived CDN convention. ``cover`` is emitted as a bare
     integer (Strapi v5 single-media field), matching the upload response's
-    ``id`` from :func:`upload_to_strapi_media`. Author is still out of
-    scope and set manually in admin.
+    ``id`` from :func:`upload_to_strapi_media`.
+
+    Author relation (multi-author byline, 2026-06): when ``author_document_id``
+    is set, the article-level ``author`` relation is included so the byline
+    resolves on the public page / RSS / OG. The value comes from the draft's
+    byline stamp (``<!-- byline: … | persona: <slug> -->``) mapped through
+    ``PERSONA_AUTHORS``. Emitted as the documentId STRING (Strapi v5 accepts the
+    string form for a relation); the ``{"connect": [<documentId>]}`` object form
+    is the documented fallback if a Strapi build rejects the string. Omitted when
+    no byline was found, so untagged drafts still publish (attach in admin).
 
     SEO metadata (DOD#4, resolved 2026-05-07): the Article content-type
     does NOT expose a ``seo`` field, ``seo`` component, or separate
@@ -799,6 +899,16 @@ def build_payload(
     # media fields.
     if isinstance(cover_file_id, int) and cover_file_id > 0:
         payload["data"]["cover"] = cover_file_id
+
+    # Multi-author byline (2026-06): attach the Strapi `author` relation derived
+    # from the draft's byline stamp (persona slug → documentId via PERSONA_AUTHORS).
+    # Strapi v5 accepts the documentId STRING for a relation field. If the string
+    # form is ever rejected, use the connect form instead:
+    #     payload["data"]["author"] = {"connect": [author_document_id]}
+    # Omitted entirely when no byline was found, so untagged drafts still publish
+    # (author left unset; attach manually in admin).
+    if author_document_id:
+        payload["data"]["author"] = author_document_id
 
     return payload
 
@@ -1017,6 +1127,7 @@ def write_outputs(slug: str, body_md: str, payload: dict) -> Path:
     body_text = first_rt.get("body", "") if first_rt else ""
     word_count = len(re.findall(r"\b\w+\b", body_text))
     category_value = data.get("category") or "(unresolved — set STRAPI_BASE_URL + STRAPI_API_TOKEN)"
+    author_value = data.get("author") or "(none — no byline stamp in draft; attach manually if desired)"
     read_time_min = compute_read_time(body_text)
     readme = f"""# Publish package — {data['title']}
 
@@ -1029,7 +1140,7 @@ Generated by /format-for-publish. Strapi v5 schema (PLEAA-457). Two ways to use 
 4. Description (≤80 chars): {data['description']}
 5. Blocks: paste the contents of `article.md` into a `shared.rich-text` block
 6. Category (documentId): {category_value}
-7. Author: attach manually in admin if desired. Cover relation auto-attached on `--auto-publish` to the first uploaded image (PLEAA-570)
+7. Author (documentId): {author_value} — derived from the draft byline stamp via PERSONA_AUTHORS. Cover relation auto-attached on `--auto-publish` to the first uploaded image (PLEAA-570)
 8. Save as draft, review, then publish
 
 ## Option B — direct API publish (when Doppler creds are wired)
@@ -1440,9 +1551,21 @@ def main() -> None:
             print(f"quality-check precondition passed ({reason})")
 
     raw = read_draft(args.slug)
+    # Multi-author byline: parse the persona slug from the byline stamp on the RAW
+    # draft, before scrub_pipeline_scaffolding strips all HTML comments (the byline
+    # is one). Maps slug → Strapi Author documentId; None when no byline present.
+    byline_persona = extract_byline_persona(raw)
+    author_document_id = resolve_author_document_id(byline_persona)
+    if author_document_id:
+        print(f"byline persona: {byline_persona} → author documentId {author_document_id}")
+    elif byline_persona:
+        print(f"byline persona: {byline_persona} (no documentId mapping; author unset)")
+    else:
+        print("no byline comment found; author relation left unset")
     no_notes = strip_editor_notes(raw)
     # PLE-2646: auto-remove structural QA scaffolding (HTML comments, manifest
-    # captions) before anything else looks at the body.
+    # captions) before anything else looks at the body. This also removes the
+    # byline stamp comment (already captured above).
     no_notes = scrub_pipeline_scaffolding(no_notes)
     title, body = extract_title(no_notes)
     body = transform_callouts(body)
@@ -1450,20 +1573,21 @@ def main() -> None:
     # bulleted fallback so the public renderer (no GFM support yet) shows them.
     body = convert_gfm_tables(body, args.slug)
 
-    # Hard-fail gate: never ship a publish package containing raw [VISUAL:...] /
-    # [SCREENSHOT:...] template syntax. Neo, PLEAA-392 (2026-05-06): the visuals
-    # stage is responsible for substituting these into ![alt](path) markdown OR
-    # routing to manual capture; if any leftover survives to format-for-publish,
-    # halt rather than ship template syntax to readers.
-    leftover_visuals = re.findall(r"\[VISUAL:[^\]]+\]|\[SCREENSHOT:[^\]]+\]", body)
-    if leftover_visuals:
-        first = leftover_visuals[0][:140] + ("…" if len(leftover_visuals[0]) > 140 else "")
-        sys.exit(
-            f"error: refusing to write publish package — {len(leftover_visuals)} naked "
-            f"[VISUAL:...] / [SCREENSHOT:...] placeholder(s) in cited draft.\n"
-            f"  first: {first}\n"
-            f"  fix: re-run /generate-visuals (or /capture-visuals for action-shots) "
-            f"so every placeholder produces a real asset and the draft references it via ![alt](path)."
+    # Deferred-visual handling (2026-06): visuals are DEFERRED — the visuals stage
+    # leaves typed placeholders, generates nothing, and does NOT gate. So a raw
+    # [VISUAL:...] / [SCREENSHOT:...] reaching this point is EXPECTED, not an error.
+    # We no longer hard-fail (the old PLEAA-392 gate); instead we convert each
+    # leftover placeholder into an HTML comment `<!-- VISUAL-TODO: ...original... -->`
+    # so the marker is retained in the published source for the future visuals agent
+    # but stays invisible on the live site. This runs AFTER scrub_pipeline_scaffolding
+    # (which removed QA comments from the body), so these VISUAL-TODO comments are
+    # intentionally preserved through to article.md.
+    deferred_visuals = VISUAL_PLACEHOLDER_RE.findall(body)
+    body = defer_visual_placeholders(body)
+    if deferred_visuals:
+        print(
+            f"deferred {len(deferred_visuals)} [VISUAL:...]/[SCREENSHOT:...] "
+            f"placeholder(s) → retained as <!-- VISUAL-TODO: ... --> (visuals deferred)"
         )
 
     # PLE-2646 hard gate: never ship inline QA/research scaffolding to readers.
@@ -1511,6 +1635,7 @@ def main() -> None:
         cover_image_url=cover_image_url,
         media_map=media_map,
         cover_file_id=cover_file_id,
+        author_document_id=author_document_id,
     )
     out_dir = write_outputs(args.slug, body, payload)
     manifest_path = write_manifest(out_dir, args.slug, title)

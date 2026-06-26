@@ -4,7 +4,16 @@ description: Realize every typed [VISUAL:...] placeholder in the cited draft int
 allowed-tools: Read, Write, Edit, Bash
 ---
 
-> **No AI image generation (Ryan-faithful rebuild, 2026-06-25):** `type=image` placeholders are dropped — the dispatcher strips them from the draft and logs a non-blocking manual TODO; it never calls an image model. Automate only real `screenshot` (Playwright) and `chart`/`table` (matplotlib) assets; route everything else to manual capture.
+> **⏸️ ALL visual generation is DEFERRED (own project later) — OFF by default (`BLOG_AGENT_VISUALS=off`).**
+> The stage is a **no-op**: it leaves every `[VISUAL:...]` / `[SCREENSHOT:...]` placeholder in the
+> draft as a marker for the future visual system, generates **no** assets (no screenshots, no
+> charts), does **not** rewrite the draft, and **never blocks** the pipeline. It writes
+> `content-pipeline/images/{slug}/manifest.json` with every parsed placeholder recorded as
+> `{"type":..., "status":"deferred", "alt":...}` and exits 0.
+> Set **`BLOG_AGENT_VISUALS=on`** to re-enable the full screenshots + matplotlib-charts behavior
+> documented below.
+
+> **No AI image generation (Ryan-faithful rebuild, 2026-06-25):** when visuals are re-enabled, `type=image` placeholders are dropped — the dispatcher strips them from the draft and logs a non-blocking manual TODO; it never calls an image model. Automate only real `screenshot` (Playwright) and `chart`/`table` (matplotlib) assets; route everything else to manual capture.
 
 
 # Generate Visuals Skill

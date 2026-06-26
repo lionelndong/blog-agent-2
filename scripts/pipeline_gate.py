@@ -144,6 +144,8 @@ def check_visuals(slug: str) -> int:
     entries in the manifest, OR naked [VISUAL:...] tags in the cited draft,
     are HALT conditions — the pipeline cannot advance to preview/publish.
     """
+    if os.environ.get("BLOG_AGENT_VISUALS", "off").lower() != "on":
+        return ok("visuals", slug, "deferred (BLOG_AGENT_VISUALS=off) - placeholders left in place")
     manifest_path = CP / f"images/{slug}/manifest.json"
     err = must_exist(manifest_path)
     if err:

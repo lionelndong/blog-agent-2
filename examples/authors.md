@@ -28,3 +28,27 @@ When a keyword could fit two, prefer the persona whose anchor set has the closes
 2. **Never reuse their words, examples, or structure verbatim.** Original content only — duplicate/derivative content tanks SEO and isn't ours.
 3. **Bylines are fictional personas** — never a real writer's name.
 4. **Visuals are landscape, "explain-then-show".** No AI-generated illustrations (retired) — annotated screenshots + landscape charts/diagrams + real images only.
+
+## Strapi author IDs
+
+These are the **live Strapi Author `documentId`s** that `/format-for-publish` attaches as the article's `author` relation. `/draft` stamps the persona slug into the byline comment (see the byline contract below); the formatter maps that slug → `documentId` and sets `payload.data.author`.
+
+| Persona slug | Byline | Strapi author `documentId` | Owns (content types) |
+|---|---|---|---|
+| `sloane-avery` | Sloane Avery | `wfmxn1rf6wav1dn9t5bd7hsi` | opinion, argument, trends, data-benchmark, behind-the-scenes |
+| `theo-hart` | Theo Hart | `bhofw86kms6ihklbhy72b0vh` | how-to-guide, checklist, comparison, definitive-explainer, x-vs-y |
+| `mateo-reyes` | Mateo Reyes | `u42i38c5i95mfj47nenzx25u` | experiment, plain-explainer, tactical-listicle, hands-on, build-log |
+
+Fallback persona when the content type is ambiguous: **`theo-hart`**.
+
+### Byline-comment contract (EXACT — keep in lockstep across `/draft`, `/format-for-publish`, and the visuals stage)
+
+`/draft` writes this as the **very first line** of the draft file, before the H1:
+
+```
+<!-- byline: <Byline Name> | persona: <persona-slug> -->
+```
+
+Example: `<!-- byline: Sloane Avery | persona: sloane-avery -->`
+
+`/format-for-publish` parses this comment, strips it from the published body, and maps `persona` → the `documentId` above to set the `author` relation. If no byline comment is present, the author relation is left unset (the formatter does not fail).
