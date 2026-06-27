@@ -157,9 +157,15 @@ def main() -> int:
 
     rows.sort(key=lambda r: (r["paid"], r["pv_organic_30d"]), reverse=True)
 
-    # snapshot
+    published_slugs = {a["slug"] for a in articles}
+    ghosts = sorted(
+        ({"slug": s, **d} for s, d in conv.items() if s and s not in published_slugs and d.get("first_touch", 0) >= 100),
+        key=lambda g: g["first_touch"], reverse=True,
+    )
+
+    # snapshot (managed + ghost) — consumed by the audit engine (Piece 2)
     SNAP_DIR.mkdir(parents=True, exist_ok=True)
-    (SNAP_DIR / f"{today}.json").write_text(json.dumps({"date": today, "articles": rows}, indent=2), encoding="utf-8")
+    (SNAP_DIR / f"{today}.json").write_text(json.dumps({"date": today, "articles": rows, "ghosts": ghosts}, indent=2), encoding="utf-8")
 
     # totals + signals
     tot_ft = sum(r["first_touch"] for r in rows)
@@ -168,11 +174,6 @@ def main() -> int:
     converters = [r for r in rows if r["paid"] > 0]
     leaky = [r for r in rows if r["first_touch"] >= 200 and r["paid"] == 0]   # high reach, zero paid
     dead = [r for r in rows if r["pv_organic_30d"] == 0 and r["first_touch"] < 20]  # no traffic, no entry
-    published_slugs = {a["slug"] for a in articles}
-    ghosts = sorted(
-        ([s, d] for s, d in conv.items() if s and s not in published_slugs and d.get("first_touch", 0) >= 100),
-        key=lambda x: x[1]["first_touch"], reverse=True,
-    )
 
     L = []
     L.append(f"# Content scorecard — {today}\n")
@@ -199,8 +200,8 @@ def main() -> int:
 
     L.append(f"\n## Ghost traffic — first-touch on slugs NOT in blog_posts ({len(ghosts)})\n")
     L.append("Legacy/unmanaged URLs still pulling entries — Piece-2 audit (reclaim, redirect, or re-adopt into the managed set):\n")
-    for s, d in ghosts[:15]:
-        L.append(f"- /blog/{s} — {d['first_touch']:,} first-touch · {d['paid']} paid")
+    for g in ghosts[:15]:
+        L.append(f"- /blog/{g['slug']} — {g['first_touch']:,} first-touch · {g['paid']} paid")
 
     LATEST_MD.parent.mkdir(parents=True, exist_ok=True)
     LATEST_MD.write_text("\n".join(L) + "\n", encoding="utf-8")
