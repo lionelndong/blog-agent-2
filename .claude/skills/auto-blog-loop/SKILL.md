@@ -44,7 +44,7 @@ For each iteration up to `--max`:
    - BLOG_AGENT_AUTO_PUBLISH=1 (enables publishedAt=now in format-for-publish)
    - BLOG_AGENT_REVISION_BUDGET=2 (max revision passes on quality FAIL)
    
-   The orchestrator's autonomous branch will: skip stages whose output exists, run research → brand-reference → outline → product-mentions → draft, run /quality-check (the floors + 3-reviewer panel gate; binary PASS/FAIL), auto-revise on FAIL up to 2 times then quarantine, run /verify-claims → /optimize-content → /generate-visuals (deterministic screenshots/charts only, no AI image gen) → /preview, then auto-run /format-for-publish --auto-publish.
+   The orchestrator's autonomous branch will: skip stages whose output exists, run research → brand-reference → outline → product-mentions → draft, run /quality-check (the floors + 3-reviewer panel gate; binary PASS/FAIL), auto-revise on FAIL up to 2 times then quarantine, run /verify-claims → /generate-visuals (deterministic screenshots/charts only, no AI image gen) → /preview, then auto-run /format-for-publish --auto-publish.
    
    Return: final verdict (PASS or QUARANTINED), the failed floors / panel result if any, list of stages run with paths, public Strapi URL on auto-publish, any failures. Under 500 words.
    ```
@@ -136,7 +136,7 @@ The `--model claude-sonnet-4-6` pin matches existing memory ("Claude-in-Chrome w
 
 ## When the loop should NOT run
 
-- Ahrefs MCP units exhausted: keyword research / optimize-content log the quota error and skip until the monthly reset.
+- Ahrefs unavailable (MCP down, units exhausted, or REST error): keyword research **HALTS LOUDLY and the loop STOPS** — Ahrefs is the mandatory, sole data source. Never skip the stage or substitute another provider; report it so it gets fixed.
 - Strapi unreachable: `auto_publish_check.py` will quarantine; a streak of consecutive quarantines = stop.
 - Ahrefs MCP auth expired (`AHREFS_MCP_KEY` invalid): Layer 2 will fail; keyword research pipeline halts cleanly.
 

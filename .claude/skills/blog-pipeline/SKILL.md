@@ -91,7 +91,7 @@ never auto-runs (editor owns the preview→publish gap).
 2. **Slugify**: `python scripts/slugify.py "<keyword>"`.
 3. **Capture context** (REQUIRED for quality): write `content-pipeline/0-context/{slug}.md` with the
    context string verbatim. If no `--context` was given, write a short brief yourself (angle,
-   audience, must-feature products) — the draft and optimize stages read this file.
+   audience, must-feature products) — the draft stage reads this file.
 4. **Check status**: `python scripts/pipeline_status.py {slug}`. Autonomous → skip existing stages
    unless `--regenerate`. Interactive → ask skip-or-regenerate.
 5. **Run the chain** (see Stage briefs):
@@ -104,17 +104,16 @@ never auto-runs (editor owns the preview→publish gap).
        affected sections). Re-run quality-check. Repeat up to `BLOG_AGENT_REVISION_BUDGET` (2). Still
        FAIL after budget → write `9-needs-review/{slug}.md`, abort, emit verdict=QUARANTINED.
      - **Interactive:** on FAIL → stop and surface the routed punch list. On PASS → continue.
-   - **Sequential:** Stage 7 (`/verify-claims`) → Stage 8 (`/optimize-content`) →
-     Stage 9 (`/generate-visuals`) → Stage 10 (`/preview`).
+   - **Sequential:** Stage 7 (`/verify-claims`) → Stage 8 (`/generate-visuals`) → Stage 9 (`/preview`).
 6. **Verify each stage's output file exists** before advancing — an agent claiming success without
    the file on disk is a failure.
-7. **`/format-for-publish`**: autonomous → auto-run as Stage 11 with `--auto-publish`, then
+7. **`/format-for-publish`**: autonomous → auto-run as Stage 10 with `--auto-publish`, then
    `python scripts/auto_publish_check.py {slug}`; on verification failure write `9-needs-review/` and
    emit QUARANTINED. Interactive → never auto-run.
 
 **Multi-author byline + deferred visuals (cross-cutting):**
 - **`/draft` selects the author persona** from the content-type (per `examples/authors.md`) and **stamps the byline** as the first line of the draft: `<!-- byline: <Byline Name> | persona: <persona-slug> -->`. **`/format-for-publish` reads that stamp and attaches the Strapi author relation** (persona slug → Author `documentId`); no byline ⇒ author left unset, no crash. Keep the byline comment format byte-exact across `/draft`, `/format-for-publish`, and the visuals stage.
-- **Visuals are DEFERRED for now:** the visuals stage leaves `[VISUAL:...]` placeholders, generates nothing, and does **not** gate. `/format-for-publish` converts any leftover placeholder to an invisible `<!-- VISUAL-TODO: ... -->` marker. Stage **order is unchanged** — Stage 9 still runs, it's just a no-op by default (`BLOG_AGENT_VISUALS=on` re-enables generation).
+- **Visuals are DEFERRED for now:** the visuals stage leaves `[VISUAL:...]` placeholders, generates nothing, and does **not** gate. `/format-for-publish` converts any leftover placeholder to an invisible `<!-- VISUAL-TODO: ... -->` marker. Stage **order is unchanged** — the visuals stage still runs, it's just a no-op by default (`BLOG_AGENT_VISUALS=on` re-enables generation).
 
 ## Stage briefs
 
@@ -248,24 +247,10 @@ Resolve every [link] placeholder with a real source via WebSearch + WebFetch. Wi
 Return: [link] placeholders replaced, [CITATION NEEDED] flags remaining, internal links wired, must-cite density %, voice-flagged statements listed. Under 300 words.
 ```
 
-### Stage 8 — Optimize content (Ahrefs term + topic coverage)
+### Stage 8 — Generate visuals (DEFERRED by default)
 
 ```
 You are running stage 8 at {ROOT}. Slug: {SLUG}.
-
-Your job: per .claude/skills/optimize-content/SKILL.md. Run /optimize-content for {SLUG}. Source term/topic coverage from the Ahrefs MCP (mcp__ahrefs__keywords-explorer-related-terms / matching-terms for the recommended-term pool; site-explorer-organic-keywords on the top-3 URLs for competitor coverage). ContentShake/Semrush/DataForSEO are retired — no external optimizer, no contentshake_optimize.py. Read .claude/skills/research/references/ahrefs-mcp-cheatsheet.md first.
-
-Loop: max 5 iterations. Stop on (term_coverage saturated AND /quality-check PASS) → WIN; voice-drift > 8 pts vs baseline → ROLLBACK; < 0.05 coverage lift twice → PLATEAU; 5 iterations → CAPPED. Voice-drift rollback is non-negotiable.
-
-Skip conditions (write a stub at content-pipeline/optimization/{SLUG}.md and exit 0): Ahrefs MCP unreachable; monthly Ahrefs-units cap (BLOG_AGENT_OPTIMIZE_MONTHLY_CAP, default 100) exhausted; a 429/quota error mid-run.
-
-Return: verdict (WIN/ROLLBACK/PLATEAU/CAPPED/SKIPPED), term coverage before/after, voice-drift delta, iterations used, budget consumed/remaining. Under 300 words.
-```
-
-### Stage 9 — Generate visuals (DEFERRED by default)
-
-```
-You are running stage 9 at {ROOT}. Slug: {SLUG}.
 
 VISUALS ARE DEFERRED (their own future project). By default this stage is a no-op: it leaves the typed [VISUAL:...] placeholders in the cited draft as markers, generates NOTHING, and does NOT gate. Leftover placeholders are EXPECTED — /format-for-publish later converts each surviving [VISUAL:...]/[SCREENSHOT:...] into an invisible <!-- VISUAL-TODO: ... --> marker, so they do not block text publish and must not be treated as a failure. Just confirm the stage ran and report the placeholder count.
 
@@ -276,10 +261,10 @@ In that mode the dispatcher realizes the deterministic placeholders (brand-UI sc
 Return (default deferred): placeholder count left in the draft, confirmation nothing was generated/stripped, that the stage did not gate. (Opt-in: captured/manual-TODO/failed counts + manifest path.) Under 250 words.
 ```
 
-### Stage 10 — Preview
+### Stage 9 — Preview
 
 ```
-You are running stage 10 at {ROOT}. Slug: {SLUG}.
+You are running stage 9 at {ROOT}. Slug: {SLUG}.
 
 Your job: render content-pipeline/7-preview/{SLUG}.html per .claude/skills/preview/SKILL.md. Run:
   python .claude/skills/preview/scripts/render_preview.py {SLUG}
@@ -287,10 +272,10 @@ Your job: render content-pipeline/7-preview/{SLUG}.html per .claude/skills/previ
 Return: preview path; list any render warnings.
 ```
 
-### Stage 11 — Format for publish (autonomous only)
+### Stage 10 — Format for publish (autonomous only)
 
 ```
-You are running stage 11 at {ROOT}. Slug: {SLUG}. Autonomous mode.
+You are running stage 10 at {ROOT}. Slug: {SLUG}. Autonomous mode.
 
 Your job: per .claude/skills/format-for-publish/SKILL.md (read it first). Run:
   doppler run -- python .claude/skills/format-for-publish/scripts/format_for_strapi.py {SLUG} --auto-publish
@@ -310,7 +295,7 @@ Autonomous:
 ✓ Pipeline complete for "{keyword}" (slug: {slug}) — AUTONOMOUS
   ✓ research / brand-reference / outline / product-mentions / draft
   ✓ quality-check   → verdict: PASS (floors + 3-reviewer panel; after N revision passes)
-  ✓ verify-claims / optimize-content / generate-visuals / preview
+  ✓ verify-claims / generate-visuals / preview
   ✓ format-for-publish → auto-published to <Strapi public URL>
   ✓ auto_publish_check → verified live H1
   Audit row appended: content-pipeline/audit/auto-blog-log.csv
