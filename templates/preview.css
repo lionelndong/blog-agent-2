@@ -215,3 +215,102 @@ html, body {
 .visual-placeholder--video      { border-color: #dc2626; background: #fef2f2; }
 .visual-placeholder--external   { border-color: #6b7280; background: #f9fafb; }
 .visual-placeholder--gif        { border-color: #db2777; background: #fdf2f8; }
+
+/* ==== Ahrefs-style components (appended 2026-06-27 for the styled preview) ==== */
+  /* ---- Inline treatments (bucket C) ---- */
+  /* inline code / formula chip — soft on-brand lavender, NOT Ahrefs crimson */
+  .post-body code{
+    background:#efeefc;color:#4338ad;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.875em;padding:.1em .4em;border-radius:4px;white-space:nowrap;
+  }
+  .post-body pre{background:var(--surf);padding:16px;border-radius:6px;overflow-x:auto;font-size:.9em;line-height:1.5}
+  .post-body pre code{background:none;color:inherit;padding:0;border-radius:0;white-space:pre}
+  .post-body .cmp-lead{font-size:1.375rem;line-height:1.5;font-weight:400;color:var(--ink);margin:0 0 1.25rem}
+  .post-body mark{background:#efe9c8;color:inherit;padding:0 .12em;border-radius:2px}
+
+  /* ---- Component family (bucket A) — copied/adapted from component-mockup.html ---- */
+  /* callout family: icon + color-coded tint */
+  .post-body .call{display:flex;gap:11px;border-radius:12px;padding:.85rem 1.1rem;margin:1.4rem 0;font-size:15px;line-height:1.6}
+  .post-body .call .i{flex-shrink:0;font-size:20px;line-height:1.5;margin-top:1px}
+  .post-body .call .l{font-weight:600}
+  .post-body .cmp-tip{background:#eaf3de}.post-body .cmp-tip .i,.post-body .cmp-tip .l{color:#3b6d11}
+  .post-body .cmp-note{background:#e6f1fb}.post-body .cmp-note .i,.post-body .cmp-note .l{color:#185fa5}
+  .post-body .cmp-warning{background:#faeeda}.post-body .cmp-warning .i,.post-body .cmp-warning .l{color:#92600a}
+  .post-body .cmp-important{background:#fceaea}.post-body .cmp-important .i,.post-body .cmp-important .l{color:#a32d2d}
+  .post-body .cmp-definition{background:#eeedfe;color:#26215c}.post-body .cmp-definition .i,.post-body .cmp-definition .l{color:#3c3489}
+  .post-body .cmp-sidenote{background:var(--surf)}.post-body .cmp-sidenote .i,.post-body .cmp-sidenote .l{color:var(--mut)}
+  .post-body .cmp-editor{background:var(--surf);color:var(--mut);font-style:italic}.post-body .cmp-editor .i,.post-body .cmp-editor .l{color:var(--mut)}
+
+  .post-body .cmp-nutshell{display:flex;gap:11px;background:var(--surf);border-radius:12px;padding:1rem 1.15rem;margin:1.5rem 0}
+  .post-body .cmp-nutshell .i{color:var(--accent);font-size:20px;flex-shrink:0;margin-top:1px}.post-body .cmp-nutshell .l{font-weight:600}
+
+  .post-body .cmp-methodology{background:#eeedfe;color:#26215c;border-radius:12px;padding:1.1rem 1.2rem;margin:1.5rem 0}
+  .post-body .cmp-methodology .h{display:flex;align-items:center;gap:8px;font-weight:600;margin-bottom:.15rem}
+  .post-body .cmp-methodology .h .i{color:var(--accent);font-size:19px}
+  .post-body .cmp-methodology .fresh{font-size:14px;margin-bottom:.5rem}.post-body .cmp-methodology a{color:#3c3489;font-weight:600}
+  .post-body .cmp-methodology ul{margin:0;padding-left:1.15rem}.post-body .cmp-methodology li{margin-bottom:.4rem}
+
+  .post-body .cmp-key-takeaways{display:flex;gap:11px;background:var(--surf);border-left:3px solid var(--accent);border-radius:12px;padding:1rem 1.2rem;margin:1.5rem 0}
+  .post-body .cmp-key-takeaways .i{color:var(--accent);font-size:20px;flex-shrink:0;margin-top:1px}.post-body .cmp-key-takeaways .l{font-weight:600}
+  .post-body .cmp-key-takeaways ul{margin:.4rem 0 0;padding-left:1.15rem}
+
+  .post-body .cmp-stat-group{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:1.5rem 0}
+  .post-body .cmp-stat{background:var(--surf);border-radius:10px;padding:1rem 1.1rem}
+  .post-body .cmp-stat .v{font-size:32px;font-weight:600;line-height:1}.post-body .cmp-stat .l{color:var(--mut);font-size:13px;margin-top:6px}
+  .post-body .cmp-stat-list{margin:1.5rem 0;padding-left:1.15rem}.post-body .cmp-stat-list li{margin-bottom:.5rem}
+
+  .post-body .cmp-expert{display:flex;gap:14px;background:var(--surf);border-radius:12px;padding:1.25rem;margin:1.5rem 0}
+  .post-body .cmp-expert .av{width:48px;height:48px;border-radius:50%;background:#0f6e56;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0}
+  .post-body .cmp-expert .q{margin:0 0 .5rem;font-size:15px}.post-body .cmp-expert .nm{font-weight:600;font-size:14px}.post-body .cmp-expert .ro{color:var(--mut);font-size:13px}
+
+  .post-body .cmp-pullquote{display:flex;gap:12px;font-family:Georgia,serif;font-size:23px;line-height:1.45;margin:1.9rem 0;border-left:3px solid var(--accent);padding-left:1rem}
+  .post-body .cmp-pullquote .i{font-family:inherit;color:var(--accent);font-size:24px;flex-shrink:0;margin-top:2px}
+  .post-body .cmp-pullquote cite{display:block;font-family:inherit;font-style:normal;font-size:14px;color:var(--mut);margin-top:.6rem}
+
+  .post-body .cmp-verdict{background:#eeedfe;color:#26215c;border-radius:10px;padding:.8rem 1.1rem;margin:1.4rem 0}.post-body .cmp-verdict .l{font-weight:600}
+  .post-body .cmp-badge{display:inline-block;background:var(--accent);color:#fff;font-size:12px;font-weight:600;padding:.2em .6em;border-radius:999px;margin:0 .25rem}
+
+  .post-body .cmp-proscons{display:flex;gap:14px;margin:1.5rem 0;flex-wrap:wrap}
+  .post-body .cmp-proscons .col{flex:1 1 220px;border-radius:10px;padding:1rem 1.1rem}
+  .post-body .cmp-proscons .col.pros{background:#eaf3de}.post-body .cmp-proscons .col.cons{background:var(--surf)}
+
+  .post-body .cmp-feature-matrix,.post-body .cmp-decision-table,.post-body .cmp-table{margin:1.5rem 0;overflow-x:auto}
+  .post-body .cmp-table .cap{color:var(--mut);font-size:.95rem;margin-bottom:.4rem}
+  .post-body .cmp-table .src{color:var(--hint);font-size:.85rem;margin-top:.4rem}
+  .post-body .yes{color:#178a3c;font-weight:600}.post-body .no{color:#c2371f;font-weight:600}.post-body .partial{color:var(--mut)}
+
+  .post-body .cmp-preferred-order{margin:1.5rem 0;padding-left:1.3rem}
+  .post-body .cmp-preferred-order li{margin-bottom:.5rem}.post-body .cmp-preferred-order li::marker{color:var(--accent);font-weight:700}
+
+  .post-body .cmp-further-reading{display:flex;gap:10px;align-items:flex-start;background:#e6f1fb;border-radius:8px;padding:.7rem 1rem;margin:1.4rem 0;font-size:15px}
+  .post-body .cmp-further-reading .i{color:#185fa5;flex-shrink:0;margin-top:2px}.post-body .cmp-further-reading .l{font-weight:600}
+  .post-body .cmp-further-reading ul{margin:.2rem 0 0;padding-left:1.1rem}
+
+  .post-body .cmp-jumplinks{display:flex;flex-wrap:wrap;gap:8px;margin:1.4rem 0;list-style:none;padding:0}
+  .post-body .cmp-jumplinks li{margin:0}
+  .post-body .cmp-jumplinks a{background:var(--surf);color:#185fa5;border-radius:999px;padding:.3em .8em;border-bottom:none}
+
+  .post-body .cmp-faq{margin:1.5rem 0}
+  .post-body .cmp-faq__item{border-bottom:1px solid var(--line);padding:.6rem 0}
+  .post-body .cmp-faq__item summary{font-weight:600;cursor:pointer}
+
+  .post-body .cmp-figure,.post-body .cmp-diagram{margin:1.6rem 0;text-align:center}
+  .post-body .cmp-diagram{background:var(--surf);border:1px solid var(--line);border-radius:10px;padding:1rem}
+  .post-body .cmp-figure figcaption,.post-body .cmp-diagram figcaption{color:var(--mut);font-size:.9rem;margin-top:.5rem}
+  .post-body .cmp-figure .src{color:var(--hint);font-size:.85rem}
+
+  .post-body .cmp-entry{margin:2rem 0 .5rem;padding-top:1rem;border-top:1px solid var(--line)}
+  .post-body .cmp-entry .n{color:var(--accent);font-weight:700;font-size:.85rem;letter-spacing:.04em}
+  .post-body .cmp-entry .best-for{color:var(--mut);font-size:.85rem}.post-body .cmp-entry .price{font-weight:600}
+
+  .post-body .cmp-tweet,.post-body .cmp-video{margin:1.6rem 0;border:1px solid var(--line);border-radius:10px;padding:1rem}
+  .post-body .cmp-video{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;color:var(--mut)}
+
+  .post-body .cmp-cta{border:1px solid var(--line);border-radius:14px;padding:1.6rem;margin:1.9rem 0;text-align:center}
+  .post-body .cmp-cta .i{color:var(--accent);font-size:24px}.post-body .cmp-cta h3{font-size:18px;font-weight:600;margin:.25rem 0}
+  .post-body .cmp-cta p{color:var(--mut);font-size:14px;margin:0 0 1rem}
+  .post-body .cmp-cta .btn{display:inline-block;background:var(--accent);color:#fff;padding:.6rem 1.4rem;border-radius:8px;font-weight:600;font-size:14px;border-bottom:none}
+
+  /* Unknown-fence fallback: never drop reader content. */
+  .post-body .cmp-unknown{border-left:3px solid var(--line);background:var(--surf);padding:.6rem 1rem;margin:1.4rem 0}
