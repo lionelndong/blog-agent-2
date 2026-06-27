@@ -9,7 +9,7 @@ Two modes — pick based on corpus size:
         without crawling the public site (which Cloudflare blocks).
 
     Query mode (--query "term1,term2") — for ~5K-50K+ corpora.
-        Asks Strapi to return only articles whose title/excerpt/content matches
+        Asks Strapi to return only articles whose title/description matches
         any of the comma-separated terms. Returns JSON on stdout. No cache write.
         Use this once the full inventory grows past ~5K articles — at that scale
         the calling skill should ask Strapi per-draft instead of loading the whole
@@ -33,7 +33,8 @@ Optional env:
     STRAPI_BLOG_URL_BASE      public URL prefix used for {slug} links
                               (default: derived from brand-config.md "Blog URL")
     STRAPI_SEARCH_FIELDS      comma-separated fields query mode searches
-                              (default: title,excerpt,content)
+                              (default: title,description -- the Article type's
+                              real filterable text fields; NOT excerpt/content)
 """
 from __future__ import annotations
 
@@ -56,7 +57,11 @@ BRAND_CONFIG_PATH = ROOT / "brand-config.md"
 DEFAULT_TTL_DAYS = 7
 PAGE_SIZE = 100
 QUERY_DEFAULT_LIMIT = 30
-QUERY_DEFAULT_FIELDS = ("title", "excerpt", "content")
+# Real filterable text fields on the Strapi Article content-type. The body lives in
+# `blocks` (blocks-editor, NOT $containsi-filterable) and there is NO `excerpt`/`content`
+# field -- filtering on those returns HTTP 400 "Invalid key". Verified against the live
+# schema 2026-06-27: {title, description, slug} are the valid $containsi keys.
+QUERY_DEFAULT_FIELDS = ("title", "description")
 SCALE_WARNING_THRESHOLD = 5_000
 
 
@@ -147,9 +152,9 @@ def normalise_article(item: dict[str, Any], blog_url_base: str) -> Article | Non
     title = extract_field(item, "title")
     if not slug or not title:
         return None
-    excerpt = extract_field(item, "excerpt") or ""
+    excerpt = extract_field(item, "description") or ""  # Strapi Article uses "description"; no "excerpt" field exists
     published_at = extract_field(item, "publishedAt")
-    content = extract_field(item, "content")
+    content = extract_field(item, "blocks")  # body lives in the blocks-editor field; extract_h2s handles the blocks JSON
     h2s = extract_h2s(content)
     url = f"{blog_url_base}/{slug}" if blog_url_base else slug
     return Article(
