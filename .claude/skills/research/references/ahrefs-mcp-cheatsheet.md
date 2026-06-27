@@ -14,6 +14,30 @@ Replaces the Semrush data layer. Verified live 2026-06-24 (Standard plan, 400k u
 - 130 tools. Shares one **400k units/month** workspace pool with the REST `AHREFS_API_KEY`
   (use the raw REST API for bulk/scripted pulls; use the MCP for in-pipeline agent calls).
 
+## Ahrefs is MANDATORY — outage policy (non-negotiable)
+
+Ahrefs is the **sole** SEO data source. It has two access methods to the **same** data:
+- **MCP** (`mcp__ahrefs__*`, this cheat sheet) — primary, for in-pipeline agent calls.
+- **REST** (Ahrefs API v3, `Authorization: Bearer ${AHREFS_MCP_KEY}` or `${AHREFS_API_KEY}`) — the
+  *same Ahrefs data*, same units pool. REST endpoints mirror the MCP tool names.
+
+When a stage needs Ahrefs data, follow this ladder — never skip a rung silently:
+
+1. **MCP available → use it.** The normal path.
+2. **MCP unavailable** (not loaded — e.g. `${AHREFS_MCP_KEY}` missing from env — or a transport
+   error) **→ use the Ahrefs REST API** (same source) **and SURFACE IT LOUDLY** in your stage
+   return: `⚠ AHREFS MCP UNAVAILABLE — used REST (same source). Fix the MCP.` Never fall through
+   silently; the operator must know the MCP is down.
+   - **REST gotcha (verified):** the REST API wants the country code **lowercase** (`country=us`),
+     whereas the MCP wants **uppercase** (`country:"US"`). Same data, different casing.
+3. **NEITHER MCP nor REST works** (auth dead, network down, units exhausted — *no Ahrefs at all*)
+   **→ HARD-FAIL the stage LOUDLY and STOP.** Emit:
+   `✗ AHREFS UNAVAILABLE — mandatory, not optional. Halting: no keyword data means no honest
+   research.` Do NOT proceed on guessed/empty metrics; do NOT write a partial dossier as if complete.
+4. **NEVER substitute a non-Ahrefs source** (DataForSEO, Semrush, ContentShake, …). They are
+   retired; calling one is a migration-leftover **bug**, not a fallback. There is no second-best
+   provider — it is Ahrefs, or a loud halt. A quiet bad run on wrong data is worse than a loud stop.
+
 ## Param rules (these bite — get them wrong and you get empty results, billed)
 1. **Params are comma-separated STRINGS, not JSON arrays.** ✅ `keywords:"ai girlfriend app"`,
    `select:"keyword,volume,difficulty"`  ❌ `keywords:["ai girlfriend app"]` (gets stringified to

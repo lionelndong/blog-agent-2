@@ -128,7 +128,7 @@ You are running stage 1 at {ROOT}. Keyword: "{KEYWORD}". Slug: {SLUG}. Brand: se
 
 Your job: produce content-pipeline/1-research/{SLUG}.md per .claude/skills/research/SKILL.md. Read the SKILL first.
 
-- Read .claude/skills/research/references/ahrefs-mcp-cheatsheet.md FIRST — use the real Ahrefs MCP tools (mcp__ahrefs__*); params are comma-separated strings not arrays, select + country required, call doc {tool:"..."} before any unfamiliar tool. Semrush/DataForSEO are retired — never call them.
+- Read .claude/skills/research/references/ahrefs-mcp-cheatsheet.md FIRST — use the real Ahrefs MCP tools (mcp__ahrefs__*); params are comma-separated strings not arrays, select + country required, call doc {tool:"..."} before any unfamiliar tool. Semrush/DataForSEO are retired — never call them. Ahrefs is mandatory: if the MCP is unavailable use the Ahrefs REST API (same source, lowercase country=us) and surface it loudly; if NO Ahrefs at all, HARD-FAIL and STOP. See the cheat sheet's outage policy.
 - Pull keyword data (keywords-explorer-overview for volume/KD/CPC/parent-topic/intents; matching-terms + related-terms for the variation pool and FAQ themes; serp-overview for ranking URLs and People-Also-Ask).
 - Extract the top 5-8 ranking pages via Firecrawl (FIRECRAWL_API_KEY; WebFetch fallback); build the SERP benchmark: per-page word counts, H2 lists, formats, item counts, table/visual counts.
 - Deep research via OpenRouter: doppler run -- python .claude/skills/research/scripts/openrouter_research.py --keyword "{KEYWORD}" --slug "{SLUG}".

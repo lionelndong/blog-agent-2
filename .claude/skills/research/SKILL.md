@@ -20,7 +20,7 @@ If invoked with no argument, read the most recent context file in `content-pipel
 
 1. **Slugify.** `python scripts/slugify.py "<keyword>"`; store the slug.
 2. **Read brand context.** `brand-config.md` — audience, products, voice. Research framing should consider what this brand can credibly own.
-3. **Pull keyword data via Ahrefs MCP** (cheatsheet "Research workflow"):
+3. **Pull keyword data via Ahrefs MCP** (cheatsheet "Research workflow"). **Ahrefs is mandatory:** if the MCP is unavailable, use the Ahrefs REST API (same source, lowercase `country=us`) and surface it LOUDLY in your return; if NO Ahrefs at all (MCP + REST both down/exhausted), HARD-FAIL and STOP — never proceed on guessed metrics, never a non-Ahrefs source. See the cheat sheet's "Ahrefs is MANDATORY — outage policy".
    - `keywords-explorer-overview` (`select:"keyword,volume,difficulty,cpc,parent_topic,traffic_potential,global_volume,intents"`) → volume, KD (`difficulty`), CPC, **parent topic** (write to the parent, not the long-tail), traffic potential, intent flags
    - `keywords-explorer-matching-terms` (`match_mode:"phrase"`, limit ~50) + `keywords-explorer-related-terms` ("also rank for" / "also talk about") → variation pool; keep 10–15 same-intent keywords with volumes
    - **Questions → 3–5 FAQ themes (there is NO dedicated questions tool):** pull `keywords-explorer-matching-terms` (`match_mode:"terms"`, limit ~100) and keep keywords starting with what/how/is/are/can/does/do/why/which/who/where, AND read `serp-overview`'s `serp_features` for People-Also-Ask entries. Group into 3–5 themes; drop spam. (Downstream, the FAQ caps at ~5 crisp Q&As — no 12-question dumps, no near-duplicates.)

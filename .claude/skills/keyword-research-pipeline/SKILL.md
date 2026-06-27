@@ -10,7 +10,7 @@ allowed-tools: Read, Write, Bash, Agent, Glob
 
 **Ahrefs MCP is the single data layer.** Semrush and DataForSEO are retired — no layer calls
 `mcp__semrush__*` or DataForSEO, and any sub-agent that reaches for them is a migration-leftover
-bug, not a fallback. Every layer's data calls map to the Ahrefs MCP tools pinned in
+bug, not a fallback. **If the Ahrefs MCP is unavailable, use the Ahrefs REST API (same source, lowercase `country=us`) and surface it loudly; if NO Ahrefs at all, HARD-FAIL and STOP — never a non-Ahrefs source** (see the cheat sheet's "Ahrefs is MANDATORY — outage policy"). Every layer's data calls map to the Ahrefs MCP tools pinned in
 [`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) —
 read it before dispatching any layer. Two param rules bite: params are comma-separated **strings**,
 not JSON arrays (`keywords:"ai girlfriend app"`, not `["ai girlfriend app"]`), and `select` +
