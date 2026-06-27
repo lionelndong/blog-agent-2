@@ -86,6 +86,8 @@ If a draft sounds generic or AI-flavored, the panel fails it — there is no sco
 10. `/format-for-publish` — package as clean markdown + Strapi JSON payload (markdown tables → rendered table-cards until the site renderer supports GFM)
 11. `/blog-pipeline <keyword> [--context "..."]` — run the whole chain
 
+**Component reliability layer:** `/draft` emits Ahrefs `:::component` fences from the writer's menu (`examples/component-cheatsheet.md`; deep spec `examples/ahrefs-components.md`). A deterministic checker (`scripts/lint_components.py`) validates the fences + inline tokens and is wired into `scripts/pipeline_gate.py` as the **`components` gate, which runs after `cited` and before `quality`/`publish`** — a malformed or over-decorated article (unclosed/unknown/missing-required-attr fence, or over the caps: nutshell/methodology/key-takeaways ≤1, cta ≤2) HALTS before publish. `/preview` renders these fences **styled** (`cmp-*` HTML + Tabler icons, CSS in `templates/preview.html`), not as raw `:::` text.
+
 ### Update (existing article → refreshed)
 1. `/extract-content <url>` — pull article content + metadata
 2. `/update-guidance` — set update priorities

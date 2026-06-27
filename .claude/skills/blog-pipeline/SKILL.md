@@ -22,11 +22,18 @@ Between every stage transition, run:
 python scripts/pipeline_gate.py <stage-key> <slug>
 ```
 
-Stage keys: `research`, `reference`, `outline`, `annotated`, `draft`, `cited`, `quality`,
-`visuals`, `preview`, `publish`, `deliverable`. The exit code is authoritative — non-zero means
-HALT, do NOT advance. Print the stderr summary.
+Stage keys: `research`, `reference`, `outline`, `annotated`, `draft`, `cited`, `components`,
+`quality`, `visuals`, `preview`, `publish`, `deliverable`. The exit code is authoritative —
+non-zero means HALT, do NOT advance. Print the stderr summary.
 
 Specific halt conditions:
+
+- **`components`** — runs `scripts/lint_components.py` against `6-drafts-cited/{slug}.md` and HALTS
+  on any hard error in the `:::component` fences / inline tokens (unclosed or orphan fence, unknown
+  fence name, missing required attribute, illegal nesting, exceeded caps — `nutshell`/`methodology`/
+  `key-takeaways` ≤1 and `cta` ≤2 — or unbalanced `{lead}`/`==` tokens). It runs **after `cited` and
+  before `quality`/`publish`**, so a malformed or over-decorated article cannot publish as broken
+  text. Soft issues (>8 callouts, back-to-back callouts) are WARN-only and do not halt.
 
 - **`quality`** — verdict FAIL is a HALT. PASS requires BOTH the completeness floors AND the
   3-reviewer panel (see `/quality-check`). The autonomous revision loop addresses a FAIL; if the

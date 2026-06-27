@@ -321,6 +321,33 @@ def check_deliverable(slug: str) -> int:
                 f"orchestrator must POST a deliverable summary to issue {task_id} after stage 8")
 
 
+def check_components(slug: str) -> int:
+    """Lint the :::component fences in the cited draft before publish.
+
+    A malformed or over-decorated component ships as broken text on the live
+    blog, so a hard error from scripts/lint_components.py halts the pipeline
+    here. The writer's menu is examples/component-cheatsheet.md.
+    """
+    import subprocess
+
+    draft = CP / f"6-drafts-cited/{slug}.md"
+    if must_exist(draft):
+        return ok("components", slug, "no cited draft yet - nothing to lint")
+    script = Path(__file__).resolve().parent / "lint_components.py"
+    proc = subprocess.run(
+        [sys.executable, str(script), str(draft)], capture_output=True, text=True
+    )
+    if proc.returncode != 0:
+        details = [ln for ln in (proc.stderr + proc.stdout).splitlines() if ln.strip()]
+        return fail(
+            "component check failed - malformed or over-used components",
+            *details[:20],
+            "fix per examples/component-cheatsheet.md (a malformed fence renders as broken text)",
+        )
+    warns = [ln for ln in proc.stdout.splitlines() if ln.startswith("WARN")]
+    return ok("components", slug, *(warns[:10] or ["components valid"]))
+
+
 CHECKS = {
     "research": check_research,
     "reference": check_reference,
@@ -328,6 +355,7 @@ CHECKS = {
     "annotated": check_annotated,
     "draft": check_draft,
     "cited": check_cited,
+    "components": check_components,
     "visuals": check_visuals,
     "quality": check_quality,
     "preview": check_preview,
