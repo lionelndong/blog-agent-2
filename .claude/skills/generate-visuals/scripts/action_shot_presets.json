@@ -1,0 +1,71 @@
+{
+  "_about": "Curated SFW action-shot states for the Pleasur.AI blog. PUBLIC presets work today; LOGGED-IN presets (auth_required:true) need the showcase session minted by setup_auth.py (Standard+ for calls). Routes marked _verify are best-guesses from the app sidebar (Home/Explore/Chat/Create/Generate/Profile) — confirm + tune selector/recipe live the moment the account lands. CLI flags override any field here.",
+
+  "pricing": {
+    "url": "https://pleasur.ai/pricing",
+    "viewport": "1440x900",
+    "frame": "browser",
+    "url_bar": "pleasur.ai/pricing",
+    "caption": "Simple, transparent pricing inside Pleasur.AI",
+    "auth_required": false,
+    "use_auth": false,
+    "steps": [{ "hide": ["#intercom-container", ".intercom-lightweight-app", "[class*='cookie']", "[id*='cookie']"] }]
+  },
+
+  "plan_card": {
+    "url": "https://pleasur.ai/pricing",
+    "viewport": "1440x900",
+    "frame": "plain",
+    "caption": "The Standard plan — the full experience on Pleasur.AI",
+    "anchor": "Standard",
+    "anchor_wmin": 260,
+    "anchor_wmax": 460,
+    "padding": 24,
+    "auth_required": false,
+    "use_auth": false,
+    "steps": [{ "hide": ["#intercom-container", ".intercom-lightweight-app", "[class*='cookie']"] }]
+  },
+
+  "chat": {
+    "url": "https://pleasur.ai/chat",
+    "_verify": "Confirm the chat route + whether a specific conversation deep-link is cleaner (e.g. /chat/<id>). Seed ONE wholesome SFW conversation in the showcase account first, then deep-link to it.",
+    "viewport": "430x932",
+    "frame": "device",
+    "caption": "A conversation with an AI companion on Pleasur.AI",
+    "auth_required": true,
+    "use_auth": true,
+    "steps": [
+      { "hide": ["#intercom-container", ".intercom-lightweight-app", "[class*='cookie']", "[class*='toast']", "[class*='banner']"] },
+      { "wait": 1200 }
+    ]
+  },
+
+  "call": {
+    "url": "https://pleasur.ai/chat",
+    "_verify": "Call UI is reached from inside a conversation (a call/phone button) and needs Standard+. Discover the exact route/affordance live; add a {click:'<call button>'} step + a short {wait} for the call screen to settle, then capture.",
+    "viewport": "430x932",
+    "frame": "device",
+    "caption": "An AI voice call on Pleasur.AI",
+    "auth_required": true,
+    "use_auth": true,
+    "steps": [
+      { "hide": ["#intercom-container", ".intercom-lightweight-app", "[class*='cookie']", "[class*='toast']"] },
+      { "wait": 1500 }
+    ]
+  },
+
+  "gallery": {
+    "url": "https://pleasur.ai/generate",
+    "_verify": "Confirm the image-gallery route (sidebar 'Generate'). Curate a grid of SFW, on-brand generated images in the showcase account before capturing; hide any explicit thumbnails or scroll to an SFW section.",
+    "viewport": "1440x900",
+    "frame": "browser",
+    "url_bar": "pleasur.ai/generate",
+    "caption": "The AI image gallery on Pleasur.AI",
+    "auth_required": true,
+    "use_auth": true,
+    "steps": [
+      { "hide": ["#intercom-container", ".intercom-lightweight-app", "[class*='cookie']", "[class*='toast']"] },
+      { "wait": 1000 }
+    ]
+  }
+}
