@@ -1,0 +1,40 @@
+{
+  "slug": "best-ai-girlfriend-app",
+  "issue": "PLE-3027",
+  "generated_at": "2026-06-28",
+  "visuals": [
+    {
+      "placeholder": "[VISUAL:type=chart;data=research.coin_costs;style=bar;title=What each action costs in coins]",
+      "file": "coin-value.png",
+      "strapi_url": "https://elegant-cactus-c693703b28.media.strapiapp.com/coin_value_2d9b145715.png",
+      "method": "infographic (SVG blueprint -> render_svg -> critique -> nano_refine)",
+      "model": "google/nano-banana (Replicate, ~10c)",
+      "retries": 0,
+      "source_svg": "coin-value.svg",
+      "blueprint": "coin-value-blueprint.png",
+      "data_source": "pleasur.ai/pricing: 5,000 coins (Standard $27.99/mo) = 500 images (10ea) / 500 voice notes (10ea) / 100 call minutes (50/min)",
+      "brand": "bg #f6f6f4, purple #534ab7 numbers, Pleasur.AI wordmark",
+      "compliance": "SFW, no likeness, on-brand"
+    },
+    {
+      "placeholder": "[VISUAL:type=screenshot;target=create;annotate=arrow on voice profile selector]",
+      "file": "creator-voice-picker.png",
+      "strapi_url": "https://elegant-cactus-c693703b28.media.strapiapp.com/creator_voice_picker_ec85b7bfa0.png",
+      "method": "annotation engine (navigate companion-creator wizard to Personality step 5/6, DOM-bbox annotate the VOICE card)",
+      "retries": 2,
+      "note": "Public /create step 1 + appearance steps (Ethnicity/Body) show explicit AI imagery and were REJECTED as not-SFW. The Personality step (5/6) is fully SFW and shows the voice-profile selector + preview button — annotated that. Custom navigate-then-annotate script used because the voice step is a client-side wizard state, not a distinct URL.",
+      "compliance": "SFW, no nudity, on-brand"
+    }
+  ],
+  "deferred": [
+    {
+      "placeholder": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;what=in-chat voice reply speaker icon + Call button]",
+      "status": "DEFERRED (skipped per PLE-3027) — needs a logged-in showcase companion account we do not have yet. Placeholder REMOVED from published body (the leftover HTML comment rendered as visible literal text on the live Next.js renderer).",
+      "next_action": "When a showcase account exists, capture an in-chat action-shot (speaker icon on a reply + Call button) and insert above the cross-session-memory paragraph in section 1."
+    },
+    {
+      "placeholder": "[VISUAL:type=table;data=research.feature_matrix]",
+      "status": "REDUNDANT — the 7-app comparison table is already rendered as a table-card image by format-for-publish (convert_gfm_tables) directly above this marker. Placeholder removed."
+    }
+  ]
+}

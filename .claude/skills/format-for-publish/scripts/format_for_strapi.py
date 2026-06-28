@@ -617,6 +617,11 @@ def extract_excerpt(body_md: str) -> str:
     intro = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", intro)
     intro = re.sub(r"\*\*(.+?)\*\*", r"\1", intro)
     intro = re.sub(r"(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)", r"\1", intro)
+    # Strip inline component tokens — the `{lead}…{/lead}` opener wrapper and
+    # `==mark==` highlight spans are authored markup, never reader copy, and must
+    # not leak into the meta description / OG snippet (PLE-2997).
+    intro = intro.replace("{lead}", "").replace("{/lead}", "")
+    intro = re.sub(r"==(.+?)==", r"\1", intro).strip()
     return first_sentences(intro, max_chars=160)
 
 
@@ -641,7 +646,15 @@ def truncate_description(text: str, limit: int = 80) -> str:
     last_space = cut.rfind(" ")
     out = cut[:last_space] if last_space > 0 else cut
     # Strip trailing connector punctuation that signals a sentence in progress.
-    return out.rstrip(" ,;:.-—–").rstrip()
+    out = out.rstrip(" ,;:.-—–").rstrip()
+    # Drop trailing dangling connector/stop words ("…Reddit thread, and the") so
+    # the snippet ends on a content word, not a half-finished clause.
+    _STOP = {"and", "the", "a", "an", "of", "to", "with", "for", "but", "or",
+             "that", "is", "are", "in", "on", "as", "at", "by", "it"}
+    words = out.split()
+    while words and words[-1].lower() in _STOP:
+        words.pop()
+    return (" ".join(words) or out).rstrip(" ,;:.-—–").rstrip()
 
 
 def extract_tags(body_md: str, max_tags: int = 5) -> list[str]:

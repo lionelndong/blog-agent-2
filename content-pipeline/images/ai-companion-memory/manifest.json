@@ -1,0 +1,149 @@
+{
+  "slug": "ai-companion-memory",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "a clean editorial diagram of a single chat conversation flowing into four stacked, labeled memory layers from top to bottom: \"Context window (short-term)\", \"Saved fact list\", \"Pinned notes\", \"Long-term understanding\"",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "a clean editorial diagram of a single chat conversation flowing into four stacked, labeled memory layers from top to bottom: \"Context window (short-term)\", \"Saved fact list\", \"Pinned notes\", \"Long-term understanding\"",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-companion-memory/image-1-a-clean-editorial-diagram-of-a.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "a clean editorial diagram of a single chat conversation flowing into four stacked, labeled memory layers from top to bottom: \"Context window (short-term)\", \"Saved fact list\", \"Pinned notes\", \"Long-term understanding\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=a clean editorial diagram of a single chat conversation flowing into four stacked, labeled memory layers from top to bottom: \"Context window (short-term)\", \"Saved fact list\", \"Pinned notes\", \"Long-term understanding\"; minimalist flat-vector style, soft colors, clear labels, no people;style=flat-vector;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "a diagram showing a fixed-width frame labeled \"context window\" sliding to the right across a long vertical list of chat message bubbles, with the oldest bubbles at the top falling out of the frame and fading",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "a diagram showing a fixed-width frame labeled \"context window\" sliding to the right across a long vertical list of chat message bubbles, with the oldest bubbles at the top falling out of the frame and fading",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-companion-memory/image-2-a-diagram-showing-a-fixed-widt.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "a diagram showing a fixed-width frame labeled \"context window\" sliding to the right across a long vertical list of chat message bubbles, with the oldest bubbles at the top falling out of the frame and fading. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=a diagram showing a fixed-width frame labeled \"context window\" sliding to the right across a long vertical list of chat message bubbles, with the oldest bubbles at the top falling out of the frame and fading; labeled \"older messages drop out\", flat-vector editorial style, no people;style=flat-vector;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "reddit-comment",
+        "url": "https://www.reddit.com/r/replika/",
+        "selector": "#t1_placeholder",
+        "crop": "padded",
+        "what": "A representative user post describing their AI companion forgetting earlier conversations after an update"
+      },
+      "alt": "A representative user post describing their AI companion forgetting earlier conversations after an update",
+      "status": "failed",
+      "result": {
+        "status": "failed",
+        "reason": "bounding_box_failed",
+        "error": "Locator.bounding_box: Timeout 30000ms exceeded.\nCall log:\n  2 \u00d7 waiting for locator(\"#t1_placeholder\").first\n",
+        "url": "https://www.reddit.com/r/replika/",
+        "sub": "reddit-comment",
+        "fallback": {
+          "method": "claude_in_chrome",
+          "skill": "/capture-visuals",
+          "url": "https://www.reddit.com/r/replika/",
+          "selector": "#t1_placeholder",
+          "what": "A representative user post describing their AI companion forgetting earlier conversations after an update",
+          "sub": "reddit-comment"
+        },
+        "hint": "Playwright blocked (bounding_box_failed). Run `/capture-visuals ai-companion-memory` to retry this entry via Claude-in-Chrome (real Chrome session bypasses the wall). The skill picks up `failed` external entries automatically in unattended mode."
+      },
+      "raw": "[VISUAL:type=external;sub=reddit-comment;url=https://www.reddit.com/r/replika/;selector=#t1_placeholder;crop=padded;what=A representative user post describing their AI companion forgetting earlier conversations after an update]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "comparison",
+        "prompt": "a clean comparison table graphic titled \"AI companion memory compared\" with five app rows and columns for memory type, cross-session recall, user-editable memory, and notable limit",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "a clean comparison table graphic titled \"AI companion memory compared\" with five app rows and columns for memory type, cross-session recall, user-editable memory, and notable limit",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-companion-memory/image-4-a-clean-comparison-table-graph.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "a clean comparison table graphic titled \"AI companion memory compared\" with five app rows and columns for memory type, cross-session recall, user-editable memory, and notable limit. Clean editorial side-by-side comparison illustration, white background, sans-serif labels, balanced left/right layout, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=comparison;prompt=a clean comparison table graphic titled \"AI companion memory compared\" with five app rows and columns for memory type, cross-session recall, user-editable memory, and notable limit; flat-vector editorial style, legible labels, no people;style=flat-vector;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "a clean privacy checklist card titled \"What to ask about memory storage\" with five checkbox lines: \"Stored where?\", \"Encrypted at rest?\", \"Retention period?\", \"Delete on account close?\", \"Editable / exportable?\"",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "a clean privacy checklist card titled \"What to ask about memory storage\" with five checkbox lines: \"Stored where?\", \"Encrypted at rest?\", \"Retention period?\", \"Delete on account close?\", \"Editable / exportable?\"",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-companion-memory/image-5-a-clean-privacy-checklist-card.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "a clean privacy checklist card titled \"What to ask about memory storage\" with five checkbox lines: \"Stored where?\", \"Encrypted at rest?\", \"Retention period?\", \"Delete on account close?\", \"Editable / exportable?\". Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=a clean privacy checklist card titled \"What to ask about memory storage\" with five checkbox lines: \"Stored where?\", \"Encrypted at rest?\", \"Retention period?\", \"Delete on account close?\", \"Editable / exportable?\"; flat-vector editorial UI style, no people;style=flat-vector;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "create",
+        "what": "the AI Companion Creator showing the personality and backstory fields",
+        "annotate": "arrow pointing to the backstory field"
+      },
+      "alt": "the AI Companion Creator showing the personality and backstory fields",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/ai-companion-memory/screenshot-6-the-ai-companion-creator-showi.png",
+        "url": "https://pleasur.ai/create",
+        "final_url": "https://pleasur.ai/create",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.1399,
+          "bytes": 1446259
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;target=create;what=the AI Companion Creator showing the personality and backstory fields;annotate=arrow pointing to the backstory field]",
+      "legacy": false
+    }
+  ]
+}

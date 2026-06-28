@@ -1,0 +1,29 @@
+The existing memory already documents this exactly — my duplicate is removed and no index edit is needed. Everything is complete except the Paperclip deliverable comment, which is blocked solely by the expired run JWT and handed off.
+
+Here's the final report.
+
+---
+
+## ✓ Pipeline complete — "ai companion vs chatgpt companionship" (AUTONOMOUS)
+
+**Live & verified:** https://pleasur.ai/blog/ai-companion-vs-chatgpt-companionship — H1 correct, Strapi id **1472**, quality **87 PASS** (0 CRITICAL).
+
+### Stages run
+- ✓ **research** → FAIL→PASS adversarial (added live-attempted ChatGPT pricing trace + privacy/data-trust axis). Semrush hit 0 API units — volume/KD unpulled, SERP benchmark via Firecrawl+WebSearch.
+- ✓ **brand-reference** → 36 articles, 4 internal links wired
+- ✓ **outline** → FAIL→PASS adversarial (visuals 5→4 over-spec cut; privacy elevated; Voice BLUF made answer-first)
+- ✓ **product-mentions** → 3 lean mentions; "When ChatGPT IS Better" kept honest/CTA-free
+- ✓ **draft → quality-check** → BORDERLINE-84 → surgical revise → **PASS 87** (crutch repetition cut; memory caveat qualitative, no fabricated number)
+- ✓ **verify-claims** → 10/10 links resolved, 100% must-cite, 0 fabricated. **82% MariaVibe stat omitted** (unverifiable — honors PLE-1945/2320/2351)
+- ✓ **optimize-content** → SKIPPED (known ContentShake 400 outage, 9th slug)
+- ✓ **generate-visuals → visuals-adversarial** → **caught a CRITICAL**: an auto-captured `/create` screenshot contained explicit imagery (wrong wizard state, brand/legal risk). Stripped it + the Mozilla external (Chrome MCP unreachable). Final visuals: inline comparison table (info gain — 0/3 SERP pages have one) + 1 SFW concept illustration → PASS
+- ✓ **preview → format-for-publish** → published, package committed (`e80fb69`) + artifacts/audit (`3446515`) pushed to main
+
+### Brief compliance (C17-4)
+Exact title · verbatim ≤60-word hook in para 1 · all 6 H2s + 4-Q FAQ · coin-metered pricing only (never flat) · voice = **audio not video** · informational/citable framing · ~1,300 words.
+
+### Two infra issues handled
+1. **GitHub Action billing-locked** → `--auto-publish` timed out before the Supabase mirror flipped; slug auto-quarantined. Recovered via the sanctioned peer path: manually inserted the `blog_publish_approvals` row + triggered `sync-blog-posts` → mirror `published`, `downgraded_published_without_approval=[]` (durable). Quarantine cleared. Already escalated account-wide.
+2. **Run JWT expired** (401 on `/agents/me`) → couldn't post the Paperclip deliverable to **PLE-2959**. Exact comment written to `.runs/ai-companion-vs-chatgpt-companionship-DELIVERABLE-HANDOFF.md` for the next heartbeat to post + close the issue.
+
+**One open item for the next heartbeat:** post the deliverable to PLE-2959 and mark it `done` (fresh JWT required). Everything else is durably complete.

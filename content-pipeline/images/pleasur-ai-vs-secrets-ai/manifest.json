@@ -1,0 +1,83 @@
+{
+  "slug": "pleasur-ai-vs-secrets-ai",
+  "generated": "2026-06-24",
+  "visuals": [
+    {
+      "id": "chart-1",
+      "type": "chart",
+      "status": "captured",
+      "path": "images/pleasur-ai-vs-secrets-ai/chart-1-pleasur-ai-vs-secrets-ai.png",
+      "style": "bar",
+      "title": "Effective monthly price by tier — annual vs monthly billing",
+      "takeaway": "Dollar comparison across both brands and both billing cycles: Pleasur Starter mo $12.99 / yr $5.20, Standard mo $27.99 / yr $11.20, Ultimate mo $49.99 / yr $20.00; Secrets AI mo $19.99 / yr $13.33.",
+      "data_source": "verified pricing figures (brief)",
+      "width": 1265,
+      "alt": "Bar chart of effective monthly price per tier showing Pleasur.ai Starter, Standard, and Ultimate on monthly and annual billing alongside Secrets AI."
+    },
+    {
+      "id": "chart-2",
+      "type": "chart",
+      "status": "captured",
+      "path": "images/pleasur-ai-vs-secrets-ai/chart-2-pleasur-ai-vs-secrets-ai.png",
+      "style": "bar",
+      "title": "Monthly coin allowance by tier (Pleasur.ai)",
+      "takeaway": "Capacity axis (NOT price): how much generation headroom each tier buys — Starter 1,500, Standard 5,000, Ultimate 10,000 coins/month. Deliberately distinct from chart-1's dollar comparison.",
+      "data_source": "verified coin figures (brief)",
+      "width": 1265,
+      "alt": "Bar chart of monthly coin allowance by Pleasur.ai tier: Starter 1,500, Standard 5,000, Ultimate 10,000 coins."
+    },
+    {
+      "id": "image-1",
+      "type": "image",
+      "sub": "concept-illustration",
+      "safety": "sfw",
+      "status": "captured",
+      "path": "images/pleasur-ai-vs-secrets-ai/image-1-pleasur-ai-vs-secrets-ai.png",
+      "model": "openai/gpt-image-2",
+      "backup_model": "google/nano-banana",
+      "retries": 0,
+      "prompt_ref": "images/pleasur-ai-vs-secrets-ai/prompts.md#image-1",
+      "width": 1400,
+      "art_director_note": "Accepted on first generation. Clean editorial diagram; all in-image text rendered correctly (titles, Session 1/2/3, memory recall, more paid tier); palette and composition on-spec; no human figures, no logos, no internal-tool names. Upscaled 1024->1400 lossless for the >=1200px bar.",
+      "alt": "Editorial diagram titled Two ways to remember: left panel Persistent persona shows one character card carried across Session 1, 2, and 3; right panel Tier-gated recall shows a rising bar staircase of memory recall as paid tiers increase."
+    },
+    {
+      "id": "image-2",
+      "type": "image",
+      "sub": "concept-illustration",
+      "safety": "sfw",
+      "status": "captured",
+      "path": "images/pleasur-ai-vs-secrets-ai/image-2-pleasur-ai-vs-secrets-ai.png",
+      "model": "openai/gpt-image-2",
+      "backup_model": "google/nano-banana",
+      "retries": 0,
+      "prompt_ref": "images/pleasur-ai-vs-secrets-ai/prompts.md#image-2",
+      "width": 1400,
+      "section": "NSFW capability: what each one actually does",
+      "what": "Build-once-stays-consistent flow: a labeled character-card panel (Appearance, Personality, Backstory, Kinks) flowing into two outputs (chat bubble + generated image frame), both labeled 'same character'.",
+      "art_director_note": "Accepted on first generation (0 retries). Title and all four card labels (Appearance/Personality/Backstory/Kinks) render correctly; blue forking arrow flows into a chat-bubble tile and an image-frame tile, both tagged 'same character'; only figure is an abstract featureless silhouette (no human likeness); no logos, no internal-tool names. Upscaled 1024->1400 lossless for the >=1200px bar.",
+      "alt": "Editorial diagram titled Build once, stays consistent: a character card listing Appearance, Personality, Backstory, and Kinks flows through an arrow into two outputs, a chat bubble and a generated image frame, both labeled same character.",
+      "added_by": "visuals-adversarial (density floor: 2,000-3,000-word band, target 10, was 4 realized)",
+      "reason_added": "NSFW section lost its login-gated brand-UI screenshot; a concept-illustration of the build-once-stays-consistent flow carries the section's core differentiator (persona + image character consistency) that the prose only describes."
+    },
+    {
+      "id": "image-3",
+      "type": "image",
+      "sub": "concept-illustration",
+      "safety": "sfw",
+      "status": "captured",
+      "path": "images/pleasur-ai-vs-secrets-ai/image-3-pleasur-ai-vs-secrets-ai.png",
+      "model": "openai/gpt-image-2",
+      "backup_model": "google/nano-banana",
+      "retries": 0,
+      "prompt_ref": "images/pleasur-ai-vs-secrets-ai/prompts.md#image-3",
+      "width": 1400,
+      "section": "NSFW AI companion without crypto payment required",
+      "what": "Payment-friction contrast: card-payment lane flowing straight to 'start chatting' vs crypto-only lane blocked by a wall before the same destination.",
+      "art_director_note": "Accepted on first generation (0 retries). Title correct; top 'Card payment' lane shows a generic card icon (no numbers, no brand marks) with a smooth blue arrow into a 'start chatting' chat bubble; bottom 'Crypto-only' lane shows a generic amber coin (no currency symbol, no logo) whose grey arrow is stopped by a brick-wall barrier before an unreachable 'start chatting' bubble; no logos, no internal-tool names. Upscaled 1024->1400 lossless for the >=1200px bar.",
+      "alt": "Editorial comparison diagram titled Two ways to pay to start: a Card payment lane runs a credit-card icon straight into a chat bubble labeled start chatting, while a Crypto-only lane runs a coin-token icon into a brick-wall barrier blocking the path to the same chat bubble.",
+      "added_by": "visuals-adversarial (density floor)",
+      "reason_added": "Eternal AI / payment-friction section is the article's information-gain angle and had no visual; a labeled contrast diagram makes the card-vs-crypto-wall point faster than the prose and adds type-diverse value to a section that previously read as unbroken prose."
+    }
+  ]
+}

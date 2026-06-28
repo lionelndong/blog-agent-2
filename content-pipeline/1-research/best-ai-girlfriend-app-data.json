@@ -1,0 +1,109 @@
+{
+  "keyword_metrics": {
+    "volume_us_monthly": 2700,
+    "keyword_difficulty": 50,
+    "cpc_usd": 1.30,
+    "traffic_potential": 3400,
+    "parent_topic_volume": 3200,
+    "global_volume": 2700,
+    "_meta": {
+      "source": "Ahrefs keywords-explorer overview REST (country=us, fetched 2026-06-26); parent_topic='best ai girlfriend' (vol 3200)",
+      "serp_features": "sitelink only (NO AI Overview)"
+    }
+  },
+  "related_keyword_volumes": {
+    "ai_girlfriend": 88000,
+    "free_ai_girlfriend": 14000,
+    "best_ai_girlfriend": 3200,
+    "ai_girlfriend_love_simulator": 1300,
+    "dream_companion_ai": 1300,
+    "free_ai_girlfriend_app": 800,
+    "best_ai_girlfriends": 350,
+    "best_ai_girl_app": 200,
+    "free_ai_girlfriend_apps": 200,
+    "ai_girlfriend_no_restrictions": 200,
+    "what_is_the_best_ai_girlfriend_app": 150,
+    "best_nsfw_ai_girlfriend_app": 70,
+    "_meta": { "source": "Ahrefs related-terms + matching-terms phrase REST (country=us, fetched 2026-06-26)" }
+  },
+  "serp_domain_ratings_top10": {
+    "reddit_com": 95,
+    "chicagoreader_com": 81,
+    "quora_com": 92,
+    "beginrescueend_com": 64,
+    "youtube_1": 99,
+    "play_google_com": 99,
+    "callyourgirlfriend_com": 65,
+    "straight_com": 78,
+    "youtube_2": 99,
+    "myanima_ai": 51,
+    "_meta": { "source": "Ahrefs serp-overview REST (country=us, fetched 2026-06-26)" }
+  },
+  "serp_traffic_top10": {
+    "myanima_ai_blog": 3432,
+    "callyourgirlfriend_com": 3190,
+    "reddit_thread": 2440,
+    "chicagoreader_com": 1596,
+    "quora_no_restrictions": 974,
+    "beginrescueend_com": 958,
+    "youtube_tried_all": 643,
+    "straight_com": 473,
+    "myanima_ai": 199,
+    "_meta": { "source": "Ahrefs serp-overview REST (country=us, fetched 2026-06-26)" }
+  },
+  "competitor_body_word_counts": {
+    "reddit_ugc_thread": 900,
+    "chicagoreader": 3800,
+    "callyourgirlfriend": 1200,
+    "straight": 3500,
+    "myanima": 1800,
+    "beginrescueend_ugc_forum": 1600,
+    "_meta": { "source": "Firecrawl markdown extraction 2026-06-26; body estimates exclude nav/footer/author boilerplate (full-md raw: chicago 4976, straight 4018, anima 2026, begin 2242, cygf 1389)" }
+  },
+  "competitor_item_counts": {
+    "chicagoreader_apps_ranked": 11,
+    "straight_apps_ranked": 8,
+    "myanima_apps_ranked": 8,
+    "callyourgirlfriend_apps_ranked": 6,
+    "_meta": { "source": "Firecrawl H3/table extraction 2026-06-26" }
+  },
+  "serp_table_usage": {
+    "pages_extracted": 5,
+    "pages_with_comparison_table": 1,
+    "pages_with_faq": 4,
+    "_meta": { "source": "Only chicagoreader has a readable ranked summary + per-app price mini-tables; cygf/straight/anima are prose+FAQ with zero tables (information-gain opening)" }
+  },
+  "pleasur_ai_pricing_live": {
+    "starter_monthly_usd": 12.99,
+    "starter_annual_equiv_usd": 5.20,
+    "standard_monthly_usd": 27.99,
+    "standard_annual_equiv_usd": 11.20,
+    "ultimate_monthly_usd": 49.99,
+    "ultimate_annual_equiv_usd": 20.00,
+    "starter_coins": 1500,
+    "standard_coins": 5000,
+    "ultimate_coins": 10000,
+    "image_gen_coins": 10,
+    "voice_note_coins": 10,
+    "phone_call_coins_per_min": 50,
+    "_meta": { "source": "https://pleasur.ai/pricing (first-party, fetched 2026-06-26); matches brand-config canonical block exactly, NO drift" }
+  },
+  "competitor_pricing_data_points_usd": {
+    "candy_3mo_per_month": 9.99,
+    "ourdream_12mo_per_month": 9.97,
+    "myanima_monthly": 9.99,
+    "myanima_yearly_per_month": 6.65,
+    "get_honey_monthly": 19.99,
+    "ourdream_anima_monthly": 12.99,
+    "crushon_standard_monthly": 4.90,
+    "nectar_monthly": 15.99,
+    "_meta": { "source": "Firecrawl extraction of chicagoreader + myanima price tables 2026-06-26; third-party-listed competitor prices, to be re-pinned/verified at verify-claims, NOT first-party" }
+  },
+  "_meta": {
+    "keyword": "best ai girlfriend app",
+    "slug": "best-ai-girlfriend-app",
+    "country": "us",
+    "generated": "2026-06-26",
+    "note": "Validation dry-run (PLE-2994). Chartable numbers only; no fabricated figures."
+  }
+}

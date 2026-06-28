@@ -1,0 +1,172 @@
+{
+  "slug": "why-ai-companion-forgets",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Clean editorial diagram of a fixed-width frame labeled \"context window\" sliding right across a long horizontal strip of chat bubbles",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Clean editorial diagram of a fixed-width frame labeled \"context window\" sliding right across a long horizontal strip of chat bubbles",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/why-ai-companion-forgets/image-1-clean-editorial-diagram-of-a-f.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Clean editorial diagram of a fixed-width frame labeled \"context window\" sliding right across a long horizontal strip of chat bubbles. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Clean editorial diagram of a fixed-width frame labeled \"context window\" sliding right across a long horizontal strip of chat bubbles; the oldest bubbles on the left fall outside the frame and fade out, labeled \"dropped\". White background, sans-serif labels, no human likeness, brand-neutral colors.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Side-by-side editorial diagram. Left panel labeled \"What you see\": a long scrollable chat transcript. Right panel labeled \"What the model reads\": only the last few message bubbles inside a bracket labeled \"context window (tokens)\". An arrow shows the model ignoring the older bubbles. White background, sans-serif labels, no human likeness.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Side-by-side editorial diagram. Left panel labeled \"What you see\": a long scrollable chat transcript. Right panel labeled \"What the model reads\": only the last few message bubbles inside a bracket labeled \"context window (tokens)\". An arrow shows the model ignoring the older bubbles. White background, sans-serif labels, no human likeness.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/why-ai-companion-forgets/image-2-side-by-side-editorial-diagram.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Side-by-side editorial diagram. Left panel labeled \"What you see\": a long scrollable chat transcript. Right panel labeled \"What the model reads\": only the last few message bubbles inside a bracket labeled \"context window (tokens)\". An arrow shows the model ignoring the older bubbles. White background, sans-serif labels, no human likeness.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Side-by-side editorial diagram. Left panel labeled \"What you see\": a long scrollable chat transcript. Right panel labeled \"What the model reads\": only the last few message bubbles inside a bracket labeled \"context window (tokens)\". An arrow shows the model ignoring the older bubbles. White background, sans-serif labels, no human likeness.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Four-step horizontal flow diagram titled \"What happens to one message\". Step 1 \"You type a fact\" (bubble at left edge of a frame labeled context window). Step 2 \"New messages push it back\" (the bubble slides left as new bubbles enter from the right). Step 3 \"It falls outside the window\" (the bubble drops below the frame, faded, labeled \"dropped\"). Step 4 \"Companion forgets\" (a confused speech bubble \"what boat?\"). Clean editorial illustration, white background, sans-serif labels, no human likeness.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Four-step horizontal flow diagram titled \"What happens to one message\". Step 1 \"You type a fact\" (bubble at left edge of a frame labeled context window). Step 2 \"New messages push it back\" (the bubble slides left as new bubbles enter from the right). Step 3 \"It falls outside the window\" (the bubble drops below the frame, faded, labeled \"dropped\"). Step 4 \"Companion forgets\" (a confused speech bubble \"what boat?\"). Clean editorial illustration, white background, sans-serif labels, no human likeness.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/why-ai-companion-forgets/image-3-four-step-horizontal-flow-diag.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Four-step horizontal flow diagram titled \"What happens to one message\". Step 1 \"You type a fact\" (bubble at left edge of a frame labeled context window). Step 2 \"New messages push it back\" (the bubble slides left as new bubbles enter from the right). Step 3 \"It falls outside the window\" (the bubble drops below the frame, faded, labeled \"dropped\"). Step 4 \"Companion forgets\" (a confused speech bubble \"what boat?\"). Clean editorial illustration, white background, sans-serif labels, no human likeness.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Four-step horizontal flow diagram titled \"What happens to one message\". Step 1 \"You type a fact\" (bubble at left edge of a frame labeled context window). Step 2 \"New messages push it back\" (the bubble slides left as new bubbles enter from the right). Step 3 \"It falls outside the window\" (the bubble drops below the frame, faded, labeled \"dropped\"). Step 4 \"Companion forgets\" (a confused speech bubble \"what boat?\"). Clean editorial illustration, white background, sans-serif labels, no human likeness.;style=illustration;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "reddit-comment",
+        "url": "https://www.reddit.com/r/CharacterAI/",
+        "selector": "#t1_<comment-id>",
+        "crop": "padded",
+        "what": "A representative public user complaint about a character forgetting established facts after only a few messages"
+      },
+      "alt": "A representative public user complaint about a character forgetting established facts after only a few messages",
+      "status": "manual",
+      "stage9_note": "Non-deterministic external/Reddit screenshot (external site, requires a human-selected public comment; #t1_<comment-id> is a placeholder selector, not resolvable). Per stage 9 directive: recorded as manual TODO in manual-capture.md and the [VISUAL] placeholder stripped from the cited draft so it does not block text publish. Reclassified failed -> manual.",
+      "result": {
+        "status": "manual",
+        "reason": "external_non_deterministic_manual_capture",
+        "original_status": "failed",
+        "original_reason": "bounding_box_failed",
+        "error": "Locator.bounding_box: Unexpected token \"<\" while parsing css selector \"#t1_<comment-id>\". Did you mean to CSS.escape it?\nCall log:\n  2 \u00d7 waiting for #t1_<comment-id> >> nth=0\n",
+        "url": "https://www.reddit.com/r/CharacterAI/",
+        "sub": "reddit-comment",
+        "fallback": {
+          "method": "claude_in_chrome",
+          "skill": "/capture-visuals",
+          "url": "https://www.reddit.com/r/CharacterAI/",
+          "selector": "#t1_<comment-id>",
+          "what": "A representative public user complaint about a character forgetting established facts after only a few messages",
+          "sub": "reddit-comment"
+        },
+        "hint": "Playwright blocked (bounding_box_failed). Run `/capture-visuals why-ai-companion-forgets` to retry this entry via Claude-in-Chrome (real Chrome session bypasses the wall). The skill picks up `failed` external entries automatically in unattended mode."
+      },
+      "raw": "[VISUAL:type=external;sub=reddit-comment;url=https://www.reddit.com/r/CharacterAI/;selector=#t1_<comment-id>;crop=padded;what=A representative public user complaint about a character forgetting established facts after only a few messages]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.context_rot_accuracy",
+        "style": "line",
+        "title": "Recall accuracy drops as the context window fills"
+      },
+      "alt": "Recall accuracy drops as the context window fills",
+      "status": "manual",
+      "result": {
+        "status": "manual",
+        "reason": "chart_data_unresolved:research_key_not_found:context_rot_accuracy",
+        "filename": "chart-5-recall-accuracy-drops-as-the-c.png",
+        "hint": "Add the data to content-pipeline/1-research/why-ai-companion-forgets-data.json under the key the placeholder references, then re-run /generate-visuals. Or render manually: python .claude/skills/generate-visuals/scripts/render_chart.py --title \"Recall accuracy drops as the context window fills\" --style line --data '<inline JSON>' --out content-pipeline/images/why-ai-companion-forgets/chart-5-recall-accuracy-drops-as-the-c.png"
+      },
+      "raw": "[VISUAL:type=chart;data=research.context_rot_accuracy;style=line;title=Recall accuracy drops as the context window fills]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "create",
+        "what": "Companion Creator showing where backstory, personality, and preferences are set \u2014 the fields that seed the persistent-memory layer",
+        "annotate": ".backstory-field"
+      },
+      "alt": "Companion Creator showing where backstory, personality, and preferences are set \u2014 the fields that seed the persistent-memory layer",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/why-ai-companion-forgets/screenshot-6-companion-creator-showing-wher.png",
+        "url": "https://pleasur.ai/create",
+        "final_url": "https://pleasur.ai/create",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.1416,
+          "bytes": 1467167
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;target=create;what=Companion Creator showing where backstory, personality, and preferences are set \u2014 the fields that seed the persistent-memory layer;annotate=.backstory-field]",
+      "legacy": false
+    },
+    {
+      "index": 7,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "A simple editorial scorecard card titled \"Memory test\", with three rows: \"State an unusual fact early\", \"Continue 30+ turns OR start a new session a day later\", \"Ask about it \u2014 score Remembered / Partial / Forgot\". Clean UI-style illustration, white background, sans-serif labels, no human likeness.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "A simple editorial scorecard card titled \"Memory test\", with three rows: \"State an unusual fact early\", \"Continue 30+ turns OR start a new session a day later\", \"Ask about it \u2014 score Remembered / Partial / Forgot\". Clean UI-style illustration, white background, sans-serif labels, no human likeness.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/why-ai-companion-forgets/image-7-a-simple-editorial-scorecard-c.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "A simple editorial scorecard card titled \"Memory test\", with three rows: \"State an unusual fact early\", \"Continue 30+ turns OR start a new session a day later\", \"Ask about it \u2014 score Remembered / Partial / Forgot\". Clean UI-style illustration, white background, sans-serif labels, no human likeness.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=A simple editorial scorecard card titled \"Memory test\", with three rows: \"State an unusual fact early\", \"Continue 30+ turns OR start a new session a day later\", \"Ask about it \u2014 score Remembered / Partial / Forgot\". Clean UI-style illustration, white background, sans-serif labels, no human likeness.;style=illustration;safety=sfw]",
+      "legacy": false
+    }
+  ]
+}

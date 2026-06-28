@@ -1,0 +1,54 @@
+{
+  "_meta": {
+    "slug": "joi-ai-alternative-2026",
+    "generated": "2026-06-22",
+    "source": "SERP reconstructed via live web search + page extraction (Semrush units exhausted this run); Pleasur.ai pricing from live pleasur.ai/pricing (fetched 2026-06-22); Joi/competitor facts attributed to aigirlfriendscout.com and scribehow.com hands-on reviews — verify current",
+    "note": "No fabricated stats. Semrush volume/KD/CPC UNVERIFIED this run. Competitor prices are third-party reviewer figures, not vendor-official."
+  },
+  "serp_word_counts": {
+    "scribehow_7_best": 3700,
+    "aigirlfriendscout_top10": 2500,
+    "toolify_joi_alt": 1900,
+    "topai_tools_joi": 600,
+    "aigirlfriendscout_joi_review": 3500
+  },
+  "serp_benchmark": {
+    "top3_median_words": 2500,
+    "top3_max_words": 3700,
+    "item_count_min": 7,
+    "item_count_max": 10,
+    "pages_with_comparison_table_top3": 1,
+    "beat_spec_target_words": 2800,
+    "beat_spec_item_count": 7
+  },
+  "joi_ai_pain_points_attributed": {
+    "message_character_cap": 115,
+    "neurons_extra_companion_cost_usd": 20,
+    "neurons_monthly_image_budget_low_usd": 10,
+    "neurons_monthly_image_budget_high_usd": 15
+  },
+  "pleasur_ai_pricing_live_usd_monthly": {
+    "starter": 12.99,
+    "standard": 27.99,
+    "ultimate": 49.99
+  },
+  "pleasur_ai_pricing_live_annual_equiv_monthly_usd": {
+    "starter": 5.20,
+    "standard": 11.20,
+    "ultimate": 20.00
+  },
+  "pleasur_ai_coins_per_month": {
+    "starter": 1500,
+    "standard": 5000,
+    "ultimate": 10000
+  },
+  "pleasur_ai_coin_action_costs": {
+    "ai_image": 10,
+    "voice_note": 10,
+    "phone_call_per_min": 50
+  },
+  "market_context_attributed_scribehow": {
+    "ai_companion_apps_in_market": 337,
+    "apps_launched_2025": 128
+  }
+}

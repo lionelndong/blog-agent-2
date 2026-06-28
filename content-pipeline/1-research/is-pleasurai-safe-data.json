@@ -1,0 +1,46 @@
+{
+  "oversecured_2026_category_study": {
+    "critical_security_flaws": 14,
+    "apps_audited": 17,
+    "combined_installs_millions": 150,
+    "apps_exposing_chat_history": 10,
+    "largest_app_downloads_millions": 10,
+    "_meta": {
+      "source": "Oversecured research, 'That AI You Confide in May Be an Open Book' (oversecured.com); coverage AndroidHeadlines/CyberNews/Biometric Update, Mar 2026; pre-verified in 0-context file and reaffirmed this run",
+      "unit_notes": "installs and downloads in millions; flaws/apps are counts",
+      "framing": "CATEGORY foil only — do not attribute to named competitors beyond what sources support"
+    }
+  },
+  "pleasurai_data_retention_years": {
+    "account_data_post_deletion_max": 3,
+    "financial_records_max": 10,
+    "marketing_data_inactivity_max": 2,
+    "_meta": {
+      "source": "https://pleasur.ai/legal/privacy-policy (fetched 2026-06-28); strings 'three year', 'retention' confirmed live"
+    }
+  },
+  "serp_article_word_counts": {
+    "hotshot": 2384,
+    "straight_advisor": 2328,
+    "clevguard": 1767,
+    "our_sibling_is_candy_ai_safe": 1693,
+    "aitoptools": 1471,
+    "herahaven": 1131,
+    "_meta": {
+      "source": "Firecrawl onlyMainContent extraction, 2026-06-28; anchor query 'is candy ai safe'; nudgesecurity (191w gated stub) excluded",
+      "median_article_words": 1730
+    }
+  },
+  "analog_keyword_volume_us": {
+    "is_candy_ai_safe": 1200,
+    "is_character_ai_safe": 900,
+    "is_candy_dot_ai_safe": 450,
+    "is_replika_safe": 150,
+    "pleasur_ai": 90,
+    "is_pleasurai_safe": 0,
+    "_meta": {
+      "source": "Ahrefs REST v3 keywords-explorer/overview, country=us, fetched 2026-06-28 (MCP unavailable; REST same source)",
+      "note": "is_pleasurai_safe=0 is expected for a branded-safety page; benchmark pivots to is_candy_ai_safe"
+    }
+  }
+}

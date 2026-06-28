@@ -1,0 +1,207 @@
+{
+  "slug": "why-does-my-ai-companion-forget",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Flow diagram titled \"Why an AI forgets\". Left to right: \"Your messages\" (a stack of chat bubbles) flows into \"Context window\" (a fixed-size box with older bubbles spilling out the top, labeled \"pushed out\"), which flows to \"AI reply\". Below, a second arrow shows \"Close app / new session\" emptying the box to blank. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "Flow diagram titled \"Why an AI forgets\". Left to right: \"Your messages\" (a stack of chat bubbles) flows into \"Context window\" (a fixed-size box with older bubbles spilling out the top, labeled \"pushed out\"), which flows to \"AI reply\". Below, a second arrow shows \"Close app / new session\" emptying the box to blank. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/why-does-my-ai-companion-forget/image-1-flow-diagram-titled-why-an-ai.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Flow diagram titled \"Why an AI forgets\". Left to right: \"Your messages\" (a stack of chat bubbles) flows into \"Context window\" (a fixed-size box with older bubbles spilling out the top, labeled \"pushed out\"), which flows to \"AI reply\". Below, a second arrow shows \"Close app / new session\" emptying the box to blank. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=Flow diagram titled \"Why an AI forgets\". Left to right: \"Your messages\" (a stack of chat bubbles) flows into \"Context window\" (a fixed-size box with older bubbles spilling out the top, labeled \"pushed out\"), which flows to \"AI reply\". Below, a second arrow shows \"Close app / new session\" emptying the box to blank. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors.;style=flat-vector;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "reddit-comment",
+        "url": "https://www.reddit.com/r/CharacterAI/",
+        "selector": "shortest-relevant-comment",
+        "crop": "padded",
+        "what": "A real user venting that their companion forgot them \u2014 validates the felt loss with a primary source"
+      },
+      "alt": "A real user venting that their companion forgot them \u2014 validates the felt loss with a primary source",
+      "status": "manual",
+      "result": {
+        "status": "failed",
+        "reason": "bounding_box_failed",
+        "error": "Locator.bounding_box: Timeout 30000ms exceeded.\nCall log:\n  2 \u00d7 waiting for locator(\"shortest-relevant-comment\").first\n",
+        "url": "https://www.reddit.com/r/CharacterAI/",
+        "sub": "reddit-comment",
+        "fallback": {
+          "method": "claude_in_chrome",
+          "skill": "/capture-visuals",
+          "url": "https://www.reddit.com/r/CharacterAI/",
+          "selector": "shortest-relevant-comment",
+          "what": "A real user venting that their companion forgot them \u2014 validates the felt loss with a primary source",
+          "sub": "reddit-comment"
+        },
+        "hint": "Playwright blocked (bounding_box_failed). Run `/capture-visuals why-does-my-ai-companion-forget` to retry this entry via Claude-in-Chrome (real Chrome session bypasses the wall). The skill picks up `failed` external entries automatically in unattended mode."
+      },
+      "raw": "[VISUAL:type=external;sub=reddit-comment;url=https://www.reddit.com/r/CharacterAI/;selector=shortest-relevant-comment;crop=padded;what=A real user venting that their companion forgot them \u2014 validates the felt loss with a primary source]",
+      "legacy": false,
+      "reason": "external_capture_routed_to_editor (bounding_box_failed; documented in manual-capture.md)"
+    },
+    {
+      "index": 3,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Labeled illustration of a context window as a desk. A desk surface holds a fixed number of paper sheets labeled \"recent messages\". An arrow adds a \"new message\" sheet on the right",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "Labeled illustration of a context window as a desk. A desk surface holds a fixed number of paper sheets labeled \"recent messages\". An arrow adds a \"new message\" sheet on the right",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/why-does-my-ai-companion-forget/image-3-labeled-illustration-of-a-cont.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Labeled illustration of a context window as a desk. A desk surface holds a fixed number of paper sheets labeled \"recent messages\". An arrow adds a \"new message\" sheet on the right. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Labeled illustration of a context window as a desk. A desk surface holds a fixed number of paper sheets labeled \"recent messages\". An arrow adds a \"new message\" sheet on the right; the oldest sheet on the left falls off the edge into a bin labeled \"out of context\". A caption box reads \"~1,000 tokens \u2248 750 words\". Clean editorial illustration, white background, sans-serif labels.;style=flat-vector;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "comparison",
+        "prompt": "Side-by-side comparison. Left panel titled \"In-chat overflow\": one long scroll of messages with the earliest ones fading out at the top. Right panel titled \"Session reset\": two separate chat sessions divided by a wall",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "Side-by-side comparison. Left panel titled \"In-chat overflow\": one long scroll of messages with the earliest ones fading out at the top. Right panel titled \"Session reset\": two separate chat sessions divided by a wall",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/why-does-my-ai-companion-forget/image-4-side-by-side-comparison-left-p.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Side-by-side comparison. Left panel titled \"In-chat overflow\": one long scroll of messages with the earliest ones fading out at the top. Right panel titled \"Session reset\": two separate chat sessions divided by a wall. Clean editorial side-by-side comparison illustration, white background, sans-serif labels, balanced left/right layout, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=comparison;prompt=Side-by-side comparison. Left panel titled \"In-chat overflow\": one long scroll of messages with the earliest ones fading out at the top. Right panel titled \"Session reset\": two separate chat sessions divided by a wall; the second session's context box is empty and blank. Clean editorial illustration, white background, sans-serif labels.;style=flat-vector;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.memory_token_compute_relative",
+        "style": "bar",
+        "y_label": "Relative compute (128K = 1x)",
+        "title": "Why a giant context window costs more \u2014 relative compute, 128K vs 1M vs 10M tokens"
+      },
+      "alt": "Why a giant context window costs more \u2014 relative compute, 128K vs 1M vs 10M tokens",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/why-does-my-ai-companion-forget/chart-5-why-a-giant-context-window-cos.png",
+        "style": "bar",
+        "data_points": 3
+      },
+      "raw": "[VISUAL:type=chart;data=research.memory_token_compute_relative;style=bar;y_label=Relative compute (128K = 1x);title=Why a giant context window costs more \u2014 relative compute, 128K vs 1M vs 10M tokens]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "A long horizontal bar representing a context window. Markers show \"high recall\" at the far left and far right ends, and a shaded dip labeled \"Lost in the Middle \u2014 details dropped\" across the center. Clean editorial illustration, white background, sans-serif labels.",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "A long horizontal bar representing a context window. Markers show \"high recall\" at the far left and far right ends, and a shaded dip labeled \"Lost in the Middle \u2014 details dropped\" across the center. Clean editorial illustration, white background, sans-serif labels.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/why-does-my-ai-companion-forget/image-6-a-long-horizontal-bar-represen.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "A long horizontal bar representing a context window. Markers show \"high recall\" at the far left and far right ends, and a shaded dip labeled \"Lost in the Middle \u2014 details dropped\" across the center. Clean editorial illustration, white background, sans-serif labels.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=concept-illustration;prompt=A long horizontal bar representing a context window. Markers show \"high recall\" at the far left and far right ends, and a shaded dip labeled \"Lost in the Middle \u2014 details dropped\" across the center. Clean editorial illustration, white background, sans-serif labels.;style=flat-vector;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 7,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Flow diagram of a memory workaround. \"New chat starts\" \u2192 \"App pulls saved facts/summary from store\" \u2192 \"Facts injected into context window\" \u2192 \"Model replies as if it remembers\". A small store icon labeled \"saved facts & summaries\" feeds the injection step. Clean editorial illustration, white background, sans-serif labels.",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "Flow diagram of a memory workaround. \"New chat starts\" \u2192 \"App pulls saved facts/summary from store\" \u2192 \"Facts injected into context window\" \u2192 \"Model replies as if it remembers\". A small store icon labeled \"saved facts & summaries\" feeds the injection step. Clean editorial illustration, white background, sans-serif labels.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/why-does-my-ai-companion-forget/image-7-flow-diagram-of-a-memory-worka.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "Flow diagram of a memory workaround. \"New chat starts\" \u2192 \"App pulls saved facts/summary from store\" \u2192 \"Facts injected into context window\" \u2192 \"Model replies as if it remembers\". A small store icon labeled \"saved facts & summaries\" feeds the injection step. Clean editorial illustration, white background, sans-serif labels.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=Flow diagram of a memory workaround. \"New chat starts\" \u2192 \"App pulls saved facts/summary from store\" \u2192 \"Facts injected into context window\" \u2192 \"Model replies as if it remembers\". A small store icon labeled \"saved facts & summaries\" feeds the injection step. Clean editorial illustration, white background, sans-serif labels.;style=flat-vector;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 8,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "A 5-step numbered horizontal flowchart titled \"The 2-minute memory test\". Steps: 1 \"Plant a specific fact\", 2 \"Chat 15-20 more messages\", 3 \"Ask in-session\", 4 \"Return next session\", 5 \"Ask again \u2014 recalled unprompted?\". A branch at the end splits to \"Logs only\" versus \"Real memory\". Clean editorial illustration, white background, sans-serif labels.",
+        "style": "flat-vector",
+        "safety": "sfw"
+      },
+      "alt": "A 5-step numbered horizontal flowchart titled \"The 2-minute memory test\". Steps: 1 \"Plant a specific fact\", 2 \"Chat 15-20 more messages\", 3 \"Ask in-session\", 4 \"Return next session\", 5 \"Ask again \u2014 recalled unprompted?\". A branch at the end splits to \"Logs only\" versus \"Real memory\". Clean editorial illustration, white background, sans-serif labels.",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/why-does-my-ai-companion-forget/image-8-a-5-step-numbered-horizontal-f.png",
+        "model": "openai/gpt-image-2",
+        "prompt": "A 5-step numbered horizontal flowchart titled \"The 2-minute memory test\". Steps: 1 \"Plant a specific fact\", 2 \"Chat 15-20 more messages\", 3 \"Ask in-session\", 4 \"Return next session\", 5 \"Ask again \u2014 recalled unprompted?\". A branch at the end splits to \"Logs only\" versus \"Real memory\". Clean editorial illustration, white background, sans-serif labels.. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors, clear arrows and connectors, no text artifacts."
+      },
+      "raw": "[VISUAL:type=image;sub=diagram;prompt=A 5-step numbered horizontal flowchart titled \"The 2-minute memory test\". Steps: 1 \"Plant a specific fact\", 2 \"Chat 15-20 more messages\", 3 \"Ask in-session\", 4 \"Return next session\", 5 \"Ask again \u2014 recalled unprompted?\". A branch at the end splits to \"Logs only\" versus \"Real memory\". Clean editorial illustration, white background, sans-serif labels.;style=flat-vector;safety=sfw]",
+      "legacy": false
+    },
+    {
+      "index": 9,
+      "type": "action-shot",
+      "attrs": {
+        "type": "action-shot",
+        "url": "https://pleasur.ai/create",
+        "goal": "Log in with the saved session, open an existing companion chat, and scroll to show the conversation resuming from a prior session with earlier context still visible in the thread. Capture the chat thread showing continuity across sessions.",
+        "what": "Resuming a saved chat thread across sessions in the AI Companion Creator"
+      },
+      "alt": "Resuming a saved chat thread across sessions in the AI Companion Creator",
+      "status": "manual",
+      "result": {
+        "status": "manual",
+        "reason": "action_shot_routed_to_editor",
+        "url": "https://pleasur.ai/create",
+        "goal": "Log in with the saved session, open an existing companion chat, and scroll to show the conversation resuming from a prior session with earlier context still visible in the thread. Capture the chat thread showing continuity across sessions.",
+        "filename": "action-9-log-in-with-the-saved-session.png",
+        "hint": "Capture interactively via Claude in Chrome. Run `/capture-visuals why-does-my-ai-companion-forget` and walk through this entry, or open the URL in Chrome and capture the moment described in 'goal' yourself."
+      },
+      "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Log in with the saved session, open an existing companion chat, and scroll to show the conversation resuming from a prior session with earlier context still visible in the thread. Capture the chat thread showing continuity across sessions.;what=Resuming a saved chat thread across sessions in the AI Companion Creator]",
+      "legacy": false
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "_meta": {
+    "slug": "ai-companion-memory",
+    "keyword": "ai companion memory",
+    "generated": "2026-06-23",
+    "source": "SERP benchmark (Firecrawl extraction of top organic pages 2026-06-23) + live pleasur.ai/pricing fetch 2026-06-23. Semrush metrics UNAVAILABLE this run (API unit balance zero on both MCP and classic API)."
+  },
+  "serp_word_counts": {
+    "aicompanionguides_ranked": 3536,
+    "scribehow_remember_you": 2793,
+    "affiny_how_memory_works": 4524,
+    "tekedia_9_chatbots": 3429,
+    "digitalhumancorp_best_with_memory": 3382
+  },
+  "serp_item_counts": {
+    "aicompanionguides_apps_ranked": 9,
+    "scribehow_apps_ranked": 8,
+    "tekedia_apps_ranked": 9,
+    "digitalhumancorp_apps_ranked": 6
+  },
+  "serp_evidence_features": {
+    "pages_with_comparison_table": 4,
+    "pages_extracted": 5,
+    "pages_listicle_format": 4,
+    "pages_explainer_format": 1,
+    "pages_with_hands_on_test_protocol": 4
+  },
+  "benchmark_targets": {
+    "median_words_top3": 3429,
+    "max_words_top3": 4524,
+    "recommended_target_words": 3400,
+    "recommended_min_item_count": 10
+  },
+  "pleasur_ai_pricing_live": {
+    "starter_monthly_usd": 12.99,
+    "standard_monthly_usd": 27.99,
+    "ultimate_monthly_usd": 49.99,
+    "starter_coins_per_month": 1500,
+    "standard_coins_per_month": 5000,
+    "ultimate_coins_per_month": 10000,
+    "image_gen_coins": 10,
+    "voice_note_coins": 10,
+    "phone_call_coins_per_min": 50,
+    "_meta": {"source": "https://pleasur.ai/pricing (fetched 2026-06-23)"}
+  }
+}

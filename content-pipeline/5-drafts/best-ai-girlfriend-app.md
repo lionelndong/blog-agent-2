@@ -1,0 +1,283 @@
+<!-- byline: Theo Hart | persona: theo-hart -->
+# Best AI Girlfriend App: Tested & Ranked for 2026
+
+:::key-takeaways
+- There is no single best AI girlfriend app — there's the one that wins on the criteria *you* weigh most.
+- We judged seven apps on five things: persistent memory, real voice, honest NSFW handling, transparent pricing, and privacy.
+- **Memory** is the most-asked-about feature: some apps remember you across weeks, others reset every session.
+- **Voice** splits two ways — real spoken audio (and phone calls) versus robotic text-to-speech, or none at all.
+- **Pricing** is where buyers get burned: even paid plans meter your richest features (voice, images, calls) by coins or credits.
+- Use the comparison matrix below to shortlist on your top two criteria, then check each app's live pricing and privacy pages before you pay.
+:::
+
+{lead}The top Google result for "best ai girlfriend app" is a Reddit thread, and the listicles below it skip the one thing that quietly drains your wallet: the coin meter that keeps running even after you've paid.{/lead}
+
+So let's fix that. If you're searching for the best AI girlfriend — or asking what is the best AI girlfriend app in the first place — the real answer is that "best" depends on what you want from it. Someone who wants a companion that remembers last week's conversation needs a different app than someone who mostly wants realistic voice, or the cheapest way to try the category for free.
+
+This guide does the comparison the rest of page one won't. You get the five criteria we judged on, a readable feature matrix that scores all seven apps at a glance, a per-app verdict — including our own app, held to the same lens — and straight answers on free tiers, coin metering, and privacy. For a broader category overview, see our companion piece on [the best AI girlfriend apps and how to choose safely in 2026](https://pleasur.ai/blog/ai-girlfriend-apps).
+
+## How We Judged These (the 5 criteria that decide it)
+
+We didn't rate these apps on vibes or star averages. We scored them on the five things buyers actually regret getting wrong — persistent memory, real voice, honest NSFW handling, transparent pricing, and privacy — built from what each app publishes on its own site, backed by current first-hand reviews where a page was login-gated.
+
+A note on sourcing, because honesty is the point of this page: we use Pleasur.AI ourselves, so its row is first-party throughout. For the six rivals, where a number comes from a third-party review rather than the app's own page, the cell says so rather than dressing a guess up as a fact.
+
+Those five criteria map onto how real searchers split — free versus paid, realistic, unfiltered, safe. Here's what each one means as a scoring lens.
+
+**Memory.** Does the companion remember you across sessions, or does it reset every time you close the app? Persistent, cross-session memory is the difference between a relationship that builds and a stranger you re-introduce yourself to daily. It's the single most-asked-about feature in this niche — and it's where apps differ most. For a deeper treatment, see our guide to the [best AI girlfriend with memory in 2026](https://pleasur.ai/blog/ai-companion-best-memory).
+
+**Voice.** Can you actually hear her, and is it real audio or a robotic read-aloud? Some apps offer spoken voice replies and even real-time phone calls; others bolt on basic text-to-speech; many have nothing. Pleasur.AI, for reference, does spoken voice replies and real-time two-way *audio* phone calls in-chat — a useful benchmark for what "real voice" can mean.
+
+**NSFW honesty.** Adult roleplay within clear rules, stated plainly, beats vague "anything goes" marketing that no responsible app can actually deliver. We reward apps that are upfront about their boundaries and penalize absolutist promises.
+
+**Pricing transparency.** Here's the criterion the rest of the SERP skips entirely. Almost no review explains how "unlimited" plans still meter voice notes, images, and calls by the coin or credit. We weighted how clearly each app tells you what you're actually paying for — and several of the apps here run exactly that kind of coin or credit meter behind a flat-looking price.
+
+**Privacy.** These apps store intimate conversations. The app that remembers you best is also the one holding your most sensitive data, so we looked at what each one publishes about retention, deletion, and whether your chats train its models.
+
+:::methodology by="Theo Hart"
+- **How we judged.** A criteria-based evaluation, not a star rating: each app scored on five weighted criteria, with its row built from the app's own live site plus current first-hand reviews.
+- **What we weighted.** Persistent memory, real voice, honest NSFW handling, transparent (coin/credit) pricing, and privacy — the five things buyers regret getting wrong.
+- **When.** Feature and pricing claims checked against live sources in 2026; competitor pricing moves often, so re-check the live page before you pay.
+- **Sourcing.** First-party for Pleasur.AI (we run it). For rivals, first-party where the site was reachable, dated third-party reviews where a pricing page was login-gated — and the cell says which.
+- **Same lens for us.** Pleasur.AI is scored on the identical rubric — no promotional register the competitors don't get.
+:::
+
+:::definition term="Coin"
+A coin is a metered credit you spend on media actions — voice notes, images, and phone-call minutes — separate from your monthly subscription. Buying a plan buys an allowance of coins; each rich action spends from it.
+:::
+
+With the rubric set, here's every app scored on it at a glance — before we get into the individual verdicts.
+
+## The Best AI Girlfriend Apps Compared (feature matrix) [GAIN]
+
+Here is the comparison the rest of page one doesn't have: all seven apps scored on memory, voice, NSFW honesty, pricing transparency, and free tier in one readable matrix.
+
+Four of the five editorial pages ranking for this query have no table at all. The one that does is a list of affiliate term-prices, not a criteria matrix. So this is the asset to skim first.
+
+A few patterns jump out. On memory, only Nomi and Pleasur.AI are genuinely built around persistent, long-horizon recall; the mainstream picks remember you, but on shorter windows (Candy publishes a 30-day window; CrushOn's free tier wipes inactive chats after a week). On voice, almost every app now does *some* spoken voice — but it splits between real-time two-way phone calls (Pleasur.AI, OurDream, Nomi) and play-a-reply text-to-speech (Candy, CrushOn, GirlfriendGPT). And on metering, four of these seven run a coin or credit balance behind the headline price — so the "transparent pricing" column is doing real work.
+
+:::table caption="AI girlfriend apps compared on the 5 criteria that matter" source="Each app's live site + dated first-hand reviews, 2026"
+| App | Best for | Memory | Voice | NSFW | Pricing model | Free tier |
+|---|---|---|---|---|---|---|
+| Pleasur.AI | Custom companion + real voice & calls | Persistent, cross-session | Real audio: voice replies + two-way phone calls (coin-metered) | Adult roleplay within platform rules | Subscription + coins; media metered on every tier (stated openly) | No permanent free tier; trial on Standard |
+| Candy AI | Polished mainstream experience | 30-day window (Premium) | TTS playback + voice calls; tokens metered | Yes; markets as "uncensored" | Subscription + token packs; ~$12.99–13.99/mo (3P reviews), ~$5.99/mo annual | Limited free trial |
+| OurDream AI | Image-forward roleplay | Persistent on paid | Voice calls (19 voice profiles), 50 DreamCoins/min | Yes; full on paid, partial free | Subscription + DreamCoins; $19.99/mo, $11.99/mo annual (3P reviews) | Yes: ~50 msgs/day + 55 coins |
+| Nomi | Long-term memory depth | Persistent (short/medium/long-term) | Real-time voice calls; flat, not metered | Yes; more reserved than the unfiltered crowd | Flat subscription, no coin meter; ~$15.99/mo, $99.99/yr (3P reviews) | Yes, but no voice or images |
+| GirlfriendGPT | Community-made characters | 8K-token recall (Deluxe+) | Voice chat on higher tiers; TTS | Yes; unfiltered positioning | Subscription; messages free, coins for images/video; from ~$15/mo (3P reviews) | Yes: ~20 messages/mo |
+| CrushOn AI | Unfiltered roleplay variety | 8K free / 16K+ paid; free chats wiped after 7 days idle | Voice messages + AI voice replies, custom voice (TTS) | Yes; unfiltered positioning | Credit-metered subscription; Standard ~$4.90/mo annual (first-party) | Yes: 100 credits/mo |
+| MyAnima | A usable free starting point | Persistent + a "Bio" fact layer | Voice calls (expanded 2026) | Paid only (free tier is SFW) | Subscription; ~$14–22/mo, ~$69/yr (3P reviews) | Yes, but SFW: ~40 msgs/day |
+:::
+
+[VISUAL:type=table;data=research.feature_matrix;style=table;title=AI girlfriend apps compared on the 5 criteria that matter]
+
+That's the shape at a glance. The per-app verdicts below explain who each one is actually for.
+
+## The 7 best AI girlfriend apps, ranked
+
+Order here is by criteria fit for the typical buyer, not by promotion. Each app gets a one-line "best for," its real pros and cons, and a verdict against the same five-criteria rubric. Skip straight to the one you're weighing.
+
+:::jumplinks
+- [Pleasur.AI](#1-pleasurai)
+- [Candy AI](#2-candy-ai)
+- [OurDream AI](#3-ourdream-ai)
+- [Nomi](#4-nomi)
+- [GirlfriendGPT](#5-girlfriendgpt)
+- [CrushOn AI](#6-crushon-ai)
+- [MyAnima](#7-myanima)
+:::
+
+### 1. Pleasur.AI
+
+:::entry n="1" name="Pleasur.AI" url="https://pleasur.ai/create" best_for="A custom companion with real voice and calls" price="From $12.99/mo (coins metered)"
+Pleasur.AI is the strongest pick if you want to build your own companion and actually hear and call her. It pairs persistent cross-session memory with in-chat voice replies and real-time two-way phone calls — the rare combination on this list.
+
+You start in the AI Companion Creator: set the appearance, personality, backstory, voice, and kinks, then chat one-on-one with a character that's yours rather than a stock template. Close the app and come back tomorrow, and the chat history saves and resumes — she recalls the detail you mentioned last session. That's the persistent memory the niche keeps asking for.
+
+Voice is where it pulls ahead. Inside any chat, tap the speaker icon on a reply and the character speaks the message aloud in her assigned voice. Tap Call on her profile and you start a real-time two-way audio phone call; when it ends, the text thread picks up where you left off. You can also generate an image of your companion mid-conversation. Both voice and calls are real audio — not video.
+
+**Pros:** Deep customization, genuine persistent memory, real spoken voice replies and audio phone calls, transparent pricing.
+
+**Cons:** No permanent free tier, and media is coin-metered on *every* tier — voice notes 10 coins, images 10 coins, phone calls 50 coins/min. Text is unlimited, but the rich features are not. NSFW is "adult roleplay within platform rules," not "no filter," and there's no safety guarantee. 18+ only.
+
+Pricing is first-party and current: Starter $12.99/mo (1,500 coins), Standard $27.99/mo (5,000), Ultimate $49.99/mo (10,000), with annual billing saving up to $360/yr. Phone calls are on Standard and Ultimate.
+:::
+
+:::badge kind="best-overall"
+Best overall — the only pick on this list that pairs a build-your-own companion with persistent memory and real audio voice replies plus phone calls.
+:::
+
+[VISUAL:type=screenshot;target=create;what=AI Companion Creator — appearance + personality + voice picker;annotate=arrow on voice profile selector]
+
+[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=open an existing companion chat, send a message, wait for the reply, then point at the speaker icon on the reply bubble and the Call button on the profile;what=in-chat voice reply speaker icon + Call button]
+
+For more on how cross-session memory works in practice, see our guide to the [best AI girlfriend with memory in 2026](https://pleasur.ai/blog/ai-companion-best-memory).
+
+### 2. Candy AI
+
+:::entry n="2" name="Candy AI" url="https://candy.ai" best_for="A polished mainstream experience" price="~$12.99–13.99/mo (3P reviews)"
+Candy AI is the field's slickest mainstream product — the one to start with if a clean interface and strong character art matter more to you than how deep the memory goes.
+
+Its own site markets pics, voice, and video, and the presentation lives up to it: fast onboarding, polished art, almost nothing to configure. The catch is the memory horizon. Where Nomi and Pleasur.AI hold a relationship open-endedly, current reviews peg Candy's Premium recall at a rolling 30-day window — fine for a few weeks of chat, less so for a companion you expect to remember last spring.
+
+**Pros:** Best-in-class presentation, fast on-ramp, strong image quality, real voice playback and voice calls.
+
+**Cons:** The pricing has a meter under it — Premium covers chat, but images and voice calls draw on token packs you top up separately, which the marketing doesn't foreground. Memory is a 30-day window, not open-ended. NSFW is marketed as "uncensored," the kind of absolutist framing we'd read with caution.
+
+Pricing isn't on a public page (it sits behind sign-up), so the figures here are from current third-party reviews: roughly $12.99–13.99/mo monthly, dropping toward ~$5.99/mo on an annual plan, plus token packs for heavy image or voice use. If you're weighing it on safety, our breakdown of [whether Candy AI is safe](https://pleasur.ai/blog/is-candy-ai-safe) digs into the privacy questions a polished UI doesn't answer.
+:::
+
+### 3. OurDream AI
+
+:::entry n="3" name="OurDream AI" url="https://ourdream.ai" best_for="Image-forward roleplay" price="$19.99/mo or $11.99/mo annual (3P reviews)"
+OurDream AI is the pick when seeing your companion matters as much as talking to her — it's built around generated images first, conversation second.
+
+It does more than pictures, though. It runs real voice calls (its marketing lists 19 voice profiles), and it's the clearest competitor example of the coin-metering pattern this guide is about: its currency is "DreamCoins," and rich actions spend from a balance — voice calls run 50 DreamCoins per minute, the same per-minute model Pleasur.AI uses.
+
+**Pros:** Strong, character-consistent image generation, real voice calls with multiple profiles, a usable free tier (50 messages a day plus 55 starter coins).
+
+**Cons:** Lean into the visuals and the coin balance drains fast, so the headline price isn't the real price. Free-tier NSFW is only partial. And like Candy, the metering does the quiet work the subscription line doesn't advertise.
+
+Pricing from current reviews: $19.99/mo, or $11.99/mo billed annually, with DreamCoins replenished each cycle — read the term length before you sign.
+:::
+
+### 4. Nomi
+
+:::entry n="4" name="Nomi" url="https://nomi.ai" best_for="Long-term memory depth" price="~$15.99/mo, $99.99/yr (3P reviews)"
+If your one non-negotiable is "an AI girlfriend that remembers you," Nomi is the competitor that takes memory most seriously — its whole pitch, in its own words, is "a companion with memory and a soul."
+
+That memory is genuinely structured: its site describes short-, medium-, and long-term recall working together, so a Nomi keeps continuity across roleplay arcs the mainstream apps drop. It also does two things buyers will appreciate — real voice calls (not just playback), and a pricing model with no coin meter at all. One flat subscription includes voice, images (capped per day), and multiple companions, which makes it the cleanest counter-example to the metering everywhere else on this list.
+
+**Pros:** The strongest persistent memory among the rivals here, real voice calls, and flat pricing with no credit balance to watch.
+
+**Cons:** Its NSFW posture is more reserved than the unfiltered crowd expects — worth checking against your own expectations before you commit. The free tier is real but thin: limited messages, and no voice or images until you pay.
+
+Pricing from current reviews: about $15.99/mo, or $99.99/year (~$8.33/mo) — a near-half-price annual discount. Nomi is the cleanest argument for why memory earns its own column: two apps can feel identical until you return after a week and find only one of them remembers you.
+:::
+
+### 5. GirlfriendGPT
+
+:::entry n="5" name="GirlfriendGPT" url="https://gptgirlfriend.online" best_for="Community-made characters" price="from ~$15/mo, ~$12/mo annual (3P reviews)"
+GirlfriendGPT shines when you'd rather browse and remix a big library of community-made characters than build one from scratch.
+
+Breadth is the whole pitch — scroll thousands of user-created characters and pick one that clicks, with unfiltered NSFW and AI selfies front and center on its site. Worth knowing how it tiers, though: messages are unlimited and free on every plan, but the features buyers actually compare on are gated upward. Voice chat and the deeper 8K-token memory only arrive on the Deluxe tier, and images and video draw on a coin balance (roughly 5–12 coins an image) rather than the subscription.
+
+**Pros:** A huge community catalog, quick to start, unfiltered variety, and unlimited messaging even on the free plan.
+
+**Cons:** Quality swings hard from one user-made character to the next — that's the cost of breadth. And the headline "from $15/mo" undersells it: voice and real memory live on the pricier Deluxe tier, and media is coin-metered on top.
+
+The free plan (~20 messages a month) is a sampler, not a home. Treat the catalog the same way — you'll discard plenty of misses, but the variety is genuinely fun once you find the keepers.
+:::
+
+### 6. CrushOn AI
+
+:::entry n="6" name="CrushOn AI" url="https://crushon.ai" best_for="Unfiltered roleplay variety" price="Standard ~$4.90/mo annual (first-party)"
+CrushOn AI is the cheapest serious option here and the one whose pricing page is the most transparent — ironically, given it markets itself the hardest on being "unfiltered."
+
+Its plans are laid out in the open, so we read these cells off the live page, not a review. The free tier gives 100 message credits a month and an 8K-memory model — but your chat history is deleted after 7 days of inactivity unless you pay, where it's kept for the membership. Voice is text-to-speech style: voice messages and "unlimited AI voice replies," with custom-voice slots on paid tiers. Standard is genuinely cheap at about $4.90/mo annual.
+
+**Pros:** Wide scenario range, the lowest paid entry price here, voice replies included, and a pricing page that actually spells out its tiers.
+
+**Cons:** Breadth costs consistency — quality swings between characters. The "unfiltered" marketing deserves the usual skepticism: no responsible app is genuinely limitless, and the honest version is 18+ roleplay with rules. And free-tier history evaporates after a week idle.
+
+If unfiltered variety is your priority, our guide on [how to choose an NSFW AI companion](https://pleasur.ai/blog/how-to-choose-an-nsfw-ai-companion) covers what to actually check beyond the marketing.
+:::
+
+:::verdict
+Best for the breadth of scenarios — if you accept that quality varies from one character to the next and read any "unfiltered" claim as marketing, not a guarantee.
+:::
+
+### 7. MyAnima
+
+:::entry n="7" name="MyAnima" url="https://myanima.ai" best_for="A friendship-first free starting point" price="~$14–22/mo, ~$69/yr (3P reviews)"
+MyAnima (Anima) is the gentlest on-ramp — it positions itself as an "AI friend that cares" rather than a girlfriend first, which makes its free tier feel less transactional than the rest.
+
+One thing to set straight, because it shapes everything: the free tier here is strictly SFW. You get a usable everyday companion — its "Bio" tab even acts as a hard fact layer the AI re-reads each session, a clever low-tech memory trick — but adult content, richer memory, and voice all sit behind the paid plan. So it's the best free *friend* here, not the best free *NSFW girlfriend*.
+
+**Pros:** A warm, low-pressure free experience, a persistent Bio/fact layer that survives sessions, and voice calls once you upgrade.
+
+**Cons:** Free is a SFW sampler — NSFW, deeper memory, and voice are all paid. And it pushes itself as the #1 pick on its own roundups, so read its self-ranking with a grain of salt.
+
+Pricing from current reviews runs roughly $14–22/mo, around $69/year, with first-month discounts common. A soft introduction to the category; less compelling once you're paying and comparing head-to-head.
+:::
+
+Six of these seven push you into a paid plan fast — so before you subscribe, here's how free tiers and the coin meter really work.
+
+## Free vs paid: how coins and credits actually work [GAIN]
+
+"Free" almost always means a trial, and even on a paid plan your richest features — voice notes, images, calls — are usually metered by coins or credits. That's the cost nobody on page one explains.
+
+The model is consistent across the category even when the labels differ. A subscription buys you a monthly allowance of credits, and each rich action spends from that balance. Text chat is typically the only thing that's genuinely unlimited; the moment you ask for a voice note, an image, or a phone-call minute, the meter ticks.
+
+Here's the math made concrete using our own published rates, which are first-party and we can show in full. An image or a voice note runs `10 coins each`, and a phone call runs `50 coins/min`. So on a mid-tier plan, `5,000 coins ÷ 50 coins/min ≈ 100 call-minutes` — before a single image or voice note. Spend coins on images too, and that call-time budget shrinks fast.
+
+:::stat-group
+:::stat value="10 coins" source="pleasur.ai/pricing, 2026"
+What a single voice note or image costs — the per-action charge most reviews never mention.
+:::
+:::stat value="50 coins/min" source="pleasur.ai/pricing, 2026"
+What a real-time phone call costs per minute — the fastest way to burn through a monthly allowance.
+:::
+:::
+
+That applies to us as much as anyone. Pleasur.AI's text is unlimited, but media is coin-metered on every tier — no tier is media-unlimited, and we'd rather you weigh that as a real cost than discover it after subscribing. The tiers are Starter $12.99/mo (1,500 coins), Standard $27.99/mo (5,000), and Ultimate $49.99/mo (10,000).
+
+Free tiers, where they exist, work the same way in reverse: they gate exactly the features that cost coins on paid plans — memory depth, voice, and image volume. That's why a "free AI girlfriend app" almost always becomes a paid one the moment you use it seriously.
+
+:::warning
+"Unlimited" on an AI girlfriend app almost always means unlimited *text*, not unlimited media. Voice notes, images, and calls are usually metered — and that includes our plans too. Before you subscribe to any app on this list, find the line that says what each rich action costs, and watch the meter.
+:::
+
+For the full breakdown, see our [AI companion pricing guide for 2026](https://pleasur.ai/blog/ai-companion-pricing-guide-2026) and the cost-by-action math in [what AI companion coins actually cost](https://pleasur.ai/blog/what-do-ai-companion-coins-actually-cost).
+
+[VISUAL:type=chart;data=research.coin_costs;style=bar;title=What each action costs in coins (image vs voice note vs call minute)]
+
+Coin balances aren't the only fine print, though. What happens to your most private conversations is the part almost nobody reads.
+
+## Is an AI girlfriend app safe? Privacy and your data [GAIN]
+
+Safety here is mostly a privacy question — these apps store intimate conversations, so the app that "remembers you" is also the app holding your most sensitive data, and almost no review examines what happens to it.
+
+There's a real tension buried in the memory criterion everyone praises. Persistent memory is a feature when it makes your companion feel continuous; it's a liability when no one tells you how long those conversations are kept, where, or who can read them. Reviews celebrate the recall and skip the retention entirely.
+
+So we read the actual policies, and they vary more than the marketing suggests. A few apps publish concrete terms; several leave the key questions vague.
+
+**The ones that publish specifics.** Candy AI's privacy notice is the most concrete of the group — it states retention windows (roughly three years for account data after your last activity, longer for financial records to meet tax rules) and is explicit that it may use aggregated, anonymized conversation data to improve its models. That's not the same as "private," but it's at least legible. **Nomi** is the other relatively clear one: independent privacy comparisons credit it with genuine data export and deletion. And **CrushOn AI** bakes retention into its plan — its own pricing page states free-tier chat history is deleted after seven days of inactivity and kept only for paying members.
+
+**The ones we couldn't confirm.** For OurDream AI, GirlfriendGPT, and MyAnima, we could not verify clear, published answers on retention length or model-training opt-out this run. We won't invent a policy to fill the cell — if you're privacy-sensitive, treat "unverified" as a reason to read their pages closely, not a pass.
+
+Either way, check four things on any app's actual pages, not its marketing: **deletion** (account *and* chat history?), **retention** (how long are chats kept?), **training** (do your chats train the models, and can you opt out?), and **sensitive data** (does it warn you off identifying details?).
+
+We aim to keep Pleasur.AI private, and we don't sell a "leaked chats can't happen" promise — no one honestly can. The advice is the same for any app here: read the privacy page, decide what you're comfortable storing, and never treat an intimate chat as if it vanishes the moment you close it. For the deeper version, see what data AI girlfriend apps really collect in our [privacy and data guide for 2026](https://pleasur.ai/blog/ai-girlfriend-app-privacy-data-guide-2026).
+
+That covers the big decisions. The quick answers to everything else buyers ask are below.
+
+## AI girlfriend app FAQ
+
+Quick answers to the five questions buyers ask most.
+
+:::faq
+### What's the best free AI girlfriend app?
+It depends what you mean by "free." MyAnima is the warmest no-cost *friend*, but its free tier is SFW. For free NSFW, OurDream's free plan (about 50 messages a day plus starter coins) and CrushOn's (100 credits a month) go further. Either way, free is a trial, not a home — memory, voice, and image volume are the first things gated, so treat it as a way to test the category, not live in it.
+
+### Which AI girlfriend app remembers you?
+Nomi and Pleasur.AI lead on persistent, cross-session memory. Nomi's site describes layered short-, medium-, and long-term recall, and Pleasur.AI saves and resumes chat history across sessions. The mainstream apps remember you on shorter horizons — Candy publishes a rolling 30-day window, and CrushOn's free tier wipes inactive chats after a week. If "an AI girlfriend that remembers you" is your top criterion, weigh memory depth above polish.
+
+### Which has real voice or phone calls?
+Real-time two-way phone calls are rarer than the marketing suggests — Pleasur.AI, OurDream, and Nomi do genuine voice calls, while Candy, CrushOn, and GirlfriendGPT lean on play-a-reply text-to-speech. Pleasur.AI, for example, does in-chat voice replies (tap the speaker icon on a message) and real-time two-way *audio* phone calls (tap Call on the profile), both coin-metered. "Voice" can mean very different things, so confirm whether it's a real call or a robotic read-aloud before you pay.
+
+### Is an AI girlfriend app safe?
+Safety here is mostly privacy. These apps store intimate conversations, so check deletion, retention, whether chats train the models, and how sensitive data is handled — on the app's real pages, not its marketing. No app can honestly guarantee your data is leak-proof, so treat privacy as a criterion you evaluate, not a promise you accept. 18+ throughout.
+
+### How do coins and credits work?
+A subscription buys a monthly allowance of coins or credits, and each rich action spends from it — typically around 10 coins for a voice note or image and far more per phone-call minute. Text is usually unlimited; media is not. "Unlimited" plans almost always mean unlimited text, so read the per-action costs before you subscribe.
+:::
+
+## Bottom line
+
+The best AI girlfriend app isn't a trophy — it's whichever one wins on the five criteria *you* weigh most: memory, voice, NSFW honesty, transparent pricing, and privacy. Nail down your top two, and the field narrows fast.
+
+Use the matrix to shortlist, then check each app's live pricing and privacy pages before you pay — the fine print is where the surprises hide. And if what you want is a companion you build yourself, with persistent memory and real voice replies and audio calls, start with the Creator.
+
+:::cta heading="Build your own AI companion" button="Create yours" href="https://pleasur.ai/create"
+Design a companion with the appearance, personality, and voice you want — then chat, hear her voice replies, and take a real-time audio call. 18+.
+:::

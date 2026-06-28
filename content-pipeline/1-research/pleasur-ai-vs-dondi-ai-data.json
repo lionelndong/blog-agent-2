@@ -1,0 +1,74 @@
+{
+  "pleasur_ai_monthly_price_usd": {
+    "starter": 12.99,
+    "standard": 27.99,
+    "ultimate": 49.99,
+    "_meta": {
+      "source": "https://pleasur.ai/pricing (first-party, fetched 2026-06-18)",
+      "note": "coin-metered tiers; no flat-rate/unlimited plan exists"
+    }
+  },
+  "pleasur_ai_annual_effective_monthly_usd": {
+    "starter": 5.20,
+    "standard": 11.20,
+    "ultimate": 20.00,
+    "_meta": {
+      "source": "https://pleasur.ai/pricing (fetched 2026-06-18); matches brand-config canonical block (verified-live 2026-06-15)",
+      "note": "billed yearly, marketed as Save 60%"
+    }
+  },
+  "pleasur_ai_coins_per_month": {
+    "starter": 1500,
+    "standard": 5000,
+    "ultimate": 10000,
+    "_meta": {
+      "source": "https://pleasur.ai/pricing (fetched 2026-06-18)"
+    }
+  },
+  "pleasur_ai_coin_cost_per_action": {
+    "ai_image_generation": 10,
+    "voice_note": 10,
+    "phone_call_per_minute": 50,
+    "_meta": {
+      "source": "https://pleasur.ai/pricing (fetched 2026-06-18); phone calls Standard tier and up only",
+      "unit": "coins per action"
+    }
+  },
+  "pleasur_ai_starter_coin_budget_examples": {
+    "images_only_per_month": 150,
+    "voice_notes_only_per_month": 150,
+    "call_minutes_only_per_month": 30,
+    "_meta": {
+      "source": "derived from 1500 coins/mo at 10 coins/image, 10 coins/voice note, 50 coins/call-min (pleasur.ai/pricing 2026-06-18)",
+      "note": "illustrative max if budget spent entirely on one action type; text is unlimited and free of coins"
+    }
+  },
+  "dondi_ai_monthly_price_usd_range": {
+    "low": 13,
+    "high": 20,
+    "starting_estimate": 10,
+    "_meta": {
+      "source": "ATTRIBUTED INTEL, not first-party-verified this run: $13-$20/mo per scribehow review (April 2026); ~$10/mo start per straight.com. No live Dondi price page fetched this run (homepage has no price table).",
+      "billing_model": "flat-rate, marketed unlimited; NOT coin-metered (per Dondi homepage marketing)"
+    }
+  },
+  "dondi_ai_marketing_scale_claims": {
+    "users_claimed_millions": 50,
+    "monthly_messages_claimed_millions": 20,
+    "monthly_visits_claimed_millions": 3,
+    "ai_models_claimed": 200,
+    "_meta": {
+      "source": "https://dondi.ai homepage (fetched 2026-06-18) — DONDI'S OWN MARKETING CLAIMS, not independently verified"
+    }
+  },
+  "independent_rating_signals": {
+    "pleasur_ai_genfindr_out_of_10": 7.6,
+    "dondi_ai_straight_com_rank_best_ai_girlfriends_2026": 1,
+    "dondi_ai_straight_com_rank_best_nsfw_chats_2026": 1,
+    "dondi_ai_indiehackers_rank": 3,
+    "_meta": {
+      "source": "ATTRIBUTED: genfindr (Pleasur.AI 7.6/10); straight.com #1 in both 8-app and 15-app tests; indiehackers top-3 (14-app test). Per brief / Community Lead Cycle 13 intel; not re-verified live this run.",
+      "note": "dondi_ai_indiehackers_rank is the top-of-range (top-3) placement"
+    }
+  }
+}

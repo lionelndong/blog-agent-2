@@ -1,0 +1,22 @@
+{
+  "serp_editorial_word_counts": {
+    "genies": 5514,
+    "eastbayexpress": 4441,
+    "aicompanionguides": 3063,
+    "sitepoint": 1424
+  },
+  "pleasurai_coin_allowance_by_tier": {
+    "starter": 1500,
+    "standard": 5000,
+    "ultimate": 10000
+  },
+  "pleasurai_monthly_price_usd_by_tier": {
+    "starter": 12.99,
+    "standard": 27.99,
+    "ultimate": 49.99
+  },
+  "_meta": {
+    "source": "Ahrefs REST serp-overview (ai companion apps, US, 2026-06-28) + Firecrawl extraction; pricing from https://pleasur.ai/pricing fetched 2026-06-28",
+    "notes": "Editorial-page word counts only (app-store/brand-homepage navigational results excluded). Coin/price figures are live first-party."
+  }
+}

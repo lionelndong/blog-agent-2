@@ -1,0 +1,9 @@
+2026-06-19 optimize-content / spicychat-alternative-2026
+cmd: contentshake_optimize.py --slug spicychat-alternative-2026 --keyword "spicychat alternative" --action optimize
+stdout: contentshake: action=optimize slug=spicychat-alternative-2026 draft=spicychat-alternative-2026.md (31988 chars) endpoint=/articles/analyze
+stderr: error: ContentShake API HTTP 400 Bad Request: query type not found
+exit: 1
+note: Same persistent /articles/analyze 400 "query type not found" outage recorded since 2026-06-15
+      (how-to-choose-an-nsfw-ai-companion, openmind-ai-vs-pleasurai, what-do-ai-companion-coins-actually-cost,
+       ai-companion-pricing-guide-2026, character-ai-no-filter-2026, best-uncensored-ai-chatbot-free).
+      400 occurs before any 200 → not a billable call → no budget slot consumed.

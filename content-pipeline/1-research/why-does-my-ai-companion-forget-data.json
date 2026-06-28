@@ -1,0 +1,68 @@
+{
+  "_meta": {
+    "keyword": "why does my ai companion forget",
+    "slug": "why-does-my-ai-companion-forget",
+    "run_date": "2026-06-25",
+    "source": "Ahrefs REST API v3 (keywords-explorer/overview, matching-terms; serp-overview), live SERP via web search, Firecrawl extraction of top explainer pages, OpenRouter deep research (perplexity/sonar-reasoning-pro). Ahrefs MCP server was unreachable this run; fell back to Ahrefs REST API per skill instructions.",
+    "notes": "Exact long-tail 'why does my ai companion forget' has 0 indexed Ahrefs volume/SERP (frustration micro-long-tail). Metrics below are for the keyword cluster it sits in."
+  },
+  "keyword_cluster_volume_us": {
+    "why_does_character_ai_forget": 50,
+    "character_ai_memory": 40,
+    "best_ai_companion_apps_with_long_term_memory_2026": 20,
+    "why_does_ai_forget_things": 10,
+    "best_ai_companion_apps_with_memory_2026": 10,
+    "why_does_my_ai_companion_forget_exact": 0
+  },
+  "keyword_metrics": {
+    "character_ai_memory_volume": 40,
+    "character_ai_memory_difficulty": 0,
+    "why_does_character_ai_forget_volume": 50
+  },
+  "serp_benchmark_word_counts": {
+    "digitalhumancorp_why_companion_forgets": 2067,
+    "plurality_network_why_ai_doesnt_remember": 2582,
+    "llmnesia_why_chatbots_dont_remember": 1721,
+    "matthopkins_context_window_problem": 1710,
+    "storychat_forgets_in_long_chats": 603
+  },
+  "serp_benchmark_summary": {
+    "median_word_count_top3": 2067,
+    "max_word_count_top5": 2582,
+    "pages_with_comparison_table": 0,
+    "pages_of_5": 5,
+    "pages_with_faq_section": 3,
+    "typical_image_count": 1
+  },
+  "serp_feature_counts_character_ai_memory": {
+    "ai_overview_block": 1,
+    "ai_overview_sitelinks": 3,
+    "reddit_discussion_results": 6,
+    "quora_facebook_discussion": 2,
+    "people_also_ask_questions": 4,
+    "organic_explainer_results": 4,
+    "video_results": 1
+  },
+  "memory_token_facts": {
+    "tokens_per_1000_approx_words": 750,
+    "lost_in_the_middle_effect": 1,
+    "context_window_resets_between_sessions": 1
+  },
+  "memory_token_compute_relative": {
+    "_note": "Relative self-attention compute, normalized to 128K = 1x. Transformer attention cost scales with the square of the sequence length, which is the dossier's plain-English 'bigger window needs exponentially more compute than 128K' cost wall (content-pipeline/1-research/why-does-my-ai-companion-forget.md line 178). Values = (window_tokens / 128K)^2: 1M(=1024K)->64x, 10M(=10240K)->6400x.",
+    "128K": 1,
+    "1M": 64,
+    "10M": 6400
+  },
+  "pleasur_pricing_verified_2026_06_25": {
+    "starter_monthly_usd": 12.99,
+    "standard_monthly_usd": 27.99,
+    "ultimate_monthly_usd": 49.99,
+    "starter_coins": 1500,
+    "standard_coins": 5000,
+    "ultimate_coins": 10000,
+    "image_gen_coins": 10,
+    "voice_note_coins": 10,
+    "phone_call_coins_per_min": 50
+  }
+}

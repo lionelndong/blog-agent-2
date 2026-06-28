@@ -1,0 +1,64 @@
+{
+  "_meta": {
+    "slug": "why-ai-companion-forgets",
+    "keyword": "why does my ai companion forget",
+    "generated": "2026-06-25",
+    "source": "Ahrefs MCP (keywords-explorer-overview / matching-terms / related-terms / serp-overview / site-explorer-domain-rating, 2026-06-25) + live SERP via web search 2026-06-25 + Firecrawl extraction of top organic pages 2026-06-25 + live pleasur.ai/pricing fetch 2026-06-25. NOTE: exact keyword returns 0 volume rows and empty serp-overview in Ahrefs (genuine low-volume long-tail); volumes shown are nearest same-intent neighbors."
+  },
+  "keyword_volumes": {
+    "why_does_character_ai_forget": 50,
+    "why_does_ai_forget_things": 10,
+    "why_do_ai_assistants_forget_between_sessions": 10,
+    "does_grok_ai_remember_previous_conversations": 400,
+    "how_ai_assistants_remember_user_preferences": 100,
+    "how_to_make_character_ai_remember": 90,
+    "how_ai_chatbots_remember_user_names": 80,
+    "exact_keyword_why_does_my_ai_companion_forget": 0
+  },
+  "serp_word_counts": {
+    "plurality_network": 2032,
+    "arsturn_blog": 2144,
+    "digitalhumancorp": 1913,
+    "llmnesia": 1638,
+    "kenoticlabs": 1337,
+    "storychat_blog": 498
+  },
+  "serp_evidence_features": {
+    "pages_extracted": 6,
+    "pages_with_comparison_table": 1,
+    "pages_with_faq_section": 4,
+    "pages_explainer_format": 6,
+    "pages_listicle_format": 0,
+    "median_h2_count": 9
+  },
+  "competitor_domain_ratings": {
+    "arsturn_com": 41.0,
+    "plurality_network": 25.0,
+    "llmnesia_com": 12.0,
+    "kenoticlabs_com": 10.0,
+    "digitalhumancorp_com": 3.6
+  },
+  "benchmark_targets": {
+    "median_words_top3": 2032,
+    "max_words_top5": 2144,
+    "recommended_target_words": 2200,
+    "format": "explainer (why + fix), not listicle"
+  },
+  "context_window_facts_from_serp": {
+    "typical_companion_context_window_tokens_low": 8000,
+    "typical_companion_context_window_tokens_actively_used": 4000,
+    "gemini_2_5_input_token_limit": 1048576
+  },
+  "pleasur_ai_pricing_live": {
+    "starter_monthly_usd": 12.99,
+    "standard_monthly_usd": 27.99,
+    "ultimate_monthly_usd": 49.99,
+    "starter_coins_per_month": 1500,
+    "standard_coins_per_month": 5000,
+    "ultimate_coins_per_month": 10000,
+    "image_gen_coins": 10,
+    "voice_note_coins": 10,
+    "phone_call_coins_per_min": 50,
+    "_meta": {"source": "https://pleasur.ai/pricing (fetched 2026-06-25); matches brand-config canonical block exactly, no drift; live page shows NO $19 tier and NO 'priority memory processing' line item"}
+  }
+}

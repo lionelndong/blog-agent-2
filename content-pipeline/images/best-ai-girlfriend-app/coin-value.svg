@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" font-family="DejaVu Sans, Arial, sans-serif">
+  <rect width="1200" height="820" fill="#f6f6f4"/>
+
+  <!-- wordmark -->
+  <text x="64" y="78" font-size="34" font-weight="700" fill="#1a1a1a">Pleasur<tspan fill="#534ab7">.AI</tspan></text>
+
+  <!-- title + subtitle -->
+  <text x="600" y="170" text-anchor="middle" font-size="52" font-weight="800" fill="#1a1a1a">What 5,000 coins gets you</text>
+  <text x="600" y="214" text-anchor="middle" font-size="23" fill="#6b6b72">On a Standard plan ($27.99/mo) — pick any mix, until the meter runs out</text>
+
+  <!-- three columns: centers at 270 / 600 / 930 -->
+  <!-- column 1: AI images (camera) -->
+  <g>
+    <circle cx="270" cy="350" r="62" fill="#ffffff" stroke="#534ab7" stroke-width="4"/>
+    <rect x="238" y="332" width="64" height="44" rx="10" fill="none" stroke="#534ab7" stroke-width="5"/>
+    <rect x="258" y="324" width="24" height="12" rx="4" fill="none" stroke="#534ab7" stroke-width="5"/>
+    <circle cx="270" cy="354" r="13" fill="none" stroke="#534ab7" stroke-width="5"/>
+    <text x="270" y="510" text-anchor="middle" font-size="104" font-weight="800" fill="#534ab7">500</text>
+    <text x="270" y="558" text-anchor="middle" font-size="30" font-weight="700" fill="#1a1a1a">AI images</text>
+    <text x="270" y="592" text-anchor="middle" font-size="20" fill="#6b6b72">10 coins each</text>
+  </g>
+
+  <!-- column 2: Voice notes (microphone) -->
+  <g>
+    <circle cx="600" cy="350" r="62" fill="#ffffff" stroke="#534ab7" stroke-width="4"/>
+    <rect x="588" y="320" width="24" height="42" rx="12" fill="none" stroke="#534ab7" stroke-width="5"/>
+    <path d="M576 350 a24 24 0 0 0 48 0" fill="none" stroke="#534ab7" stroke-width="5"/>
+    <line x1="600" y1="374" x2="600" y2="388" stroke="#534ab7" stroke-width="5"/>
+    <line x1="586" y1="388" x2="614" y2="388" stroke="#534ab7" stroke-width="5"/>
+    <text x="600" y="510" text-anchor="middle" font-size="104" font-weight="800" fill="#534ab7">500</text>
+    <text x="600" y="558" text-anchor="middle" font-size="30" font-weight="700" fill="#1a1a1a">Voice notes</text>
+    <text x="600" y="592" text-anchor="middle" font-size="20" fill="#6b6b72">10 coins each</text>
+  </g>
+
+  <!-- column 3: Call minutes (phone) -->
+  <g>
+    <circle cx="930" cy="350" r="62" fill="#ffffff" stroke="#534ab7" stroke-width="4"/>
+    <path d="M912 326 c-6 0 -10 4 -10 10 0 26 22 48 48 48 6 0 10 -4 10 -10 l0 -12 -16 -6 -8 8 c-8 -4 -14 -10 -18 -18 l8 -8 -6 -16 z" fill="none" stroke="#534ab7" stroke-width="5" stroke-linejoin="round"/>
+    <text x="930" y="510" text-anchor="middle" font-size="104" font-weight="800" fill="#534ab7">100</text>
+    <text x="930" y="558" text-anchor="middle" font-size="30" font-weight="700" fill="#1a1a1a">Call minutes</text>
+    <text x="930" y="592" text-anchor="middle" font-size="20" fill="#6b6b72">50 coins/min</text>
+  </g>
+
+  <!-- footer -->
+  <line x1="64" y1="690" x2="1136" y2="690" stroke="#dcdcd8" stroke-width="2"/>
+  <text x="600" y="738" text-anchor="middle" font-size="23" font-weight="600" fill="#1a1a1a">Text is unlimited. Media is metered on every tier.</text>
+  <text x="600" y="770" text-anchor="middle" font-size="18" fill="#9a9aa0">Coin costs from pleasur.ai/pricing. Phone calls on Standard and Ultimate.</text>
+</svg>

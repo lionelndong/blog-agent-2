@@ -1,0 +1,239 @@
+{
+  "slug": "character-ai-no-filter-2026",
+  "_revision_note": "2026-06-18 visuals-adversarial FAIL → surgical revision. 3 external third-party screenshots (reddit-comment, CrushOn pricing, DreamGen pricing) were DECORATIVE and un-retryable (Chrome MCP unreachable); stripped from the draft body and marked status=removed for audit trail. 4 new auto-capturable information-bearing visuals added (1 chart + 3 people-free concept diagrams), all captured. The /generate-visuals dispatcher rebuilds the manifest from only the naked placeholders it processes, so the 4 prior captured entries were re-merged here by hand to keep the full 8-visual record. All 8 entries below correspond 1:1 to the markdown image refs in the cited draft, in reading order.",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Clean editorial flow illustration, white background, sans-serif labels, no people, brand-neutral colors. Left: a phone chat bubble with a red \"blocked\" shield labeled \"Character.AI filter\". A right-pointing arrow labeled \"the real fix\" leads to a green-checked panel labeled \"Dedicated 18+ platform\" listing three small icons with labels: \"Uncensored roleplay\", \"Persistent memory\", \"Image gen\". No readable text on the chat screen.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Clean editorial flow illustration, white background, sans-serif labels, no people, brand-neutral colors. Left: a phone chat bubble with a red \"blocked\" shield labeled \"Character.AI filter\". A right-pointing arrow labeled \"the real fix\" leads to a green-checked panel labeled \"Dedicated 18+ platform\" listing three small icons with labels: \"Uncensored roleplay\", \"Persistent memory\", \"Image gen\". No readable text on the chat screen.",
+      "status": "captured",
+      "section": "Intro — the real fix",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/character-ai-no-filter-2026/image-1-clean-editorial-flow-illustrat.png",
+        "model": "openai/gpt-image-2"
+      },
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Horizontal editorial diagram illustrating why an unofficial \"no-filter\" mod-APK or jailbreak-prompt does NOT unlock adult content and instead creates security and account risk. Flat-vector editorial, off-white background, NO people, no real logos. Unofficial mod-APK card → Security & account risk cluster (broken-shield / key-with-exclamation / account-alert badges) → Still filtered phone chat card with a closed padlock. Exact labels: \"Unofficial mod-APK\", \"Security & account risk\", \"Still filtered\".",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Editorial diagram: an unofficial mod-APK leads to security and account risk and a still-filtered chat — showing that bypass hacks do not unlock adult content on Character.AI.",
+      "status": "captured",
+      "section": "Does Character AI have a no-filter mode?",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/character-ai-no-filter-2026/image-1-horizontal-editorial-diagram-f.png",
+        "model": "openai/gpt-image-2"
+      },
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "diagram",
+        "prompt": "Horizontal editorial cause-and-effect diagram explaining WHY a general-audience AI chat app filters adult content. Three compliance-obligation cards (Protect minors / Terms of Service / Payment rules) converge through connectors into a grey General-audience filter funnel, then a bold arrow to a green-checked Dedicated 18+ platform panel. Flat-vector editorial, off-white background, NO people, no real logos. Exact labels: \"Protect minors\", \"Terms of Service\", \"Payment rules\", \"General-audience filter\", \"Dedicated 18+ platform\".",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Editorial diagram: three platform compliance obligations — protecting minors, Terms of Service, and payment-processor rules — converging into a general-audience content filter, with a dedicated 18+ platform as the right tool for adult roleplay.",
+      "status": "captured",
+      "section": "Why does Character AI have a filter?",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/character-ai-no-filter-2026/image-2-horizontal-editorial-diagram-f.png",
+        "model": "openai/gpt-image-2"
+      },
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.entry_paid_tier_usd_monthly",
+        "style": "bar",
+        "title": "Entry paid monthly price — platforms with public pricing (USD)"
+      },
+      "alt": "Bar chart of entry paid monthly price for the three platforms that publish a public price: Pleasur.ai $12.99, CrushOn AI $4.90, DreamGen $7.83. Candy AI, Joyland, and Janitor publish no public price tier.",
+      "status": "captured",
+      "section": "Character AI no-filter alternatives at a glance (comparison table)",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/character-ai-no-filter-2026/chart-3-entry-paid-monthly-price-platf.png",
+        "style": "bar",
+        "data_points": 3
+      },
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Horizontal editorial diagram illustrating persistent memory across sessions — an AI companion that retains your backstory and past conversation when you return later. Two session chat cards (Session 1 - today / Session 2 - next week) separated by a faint time-gap divider, bridged by a center Persistent memory store. Flat-vector editorial, off-white background, NO people, no readable UI text, no real logos. Exact labels: \"Session 1 - today\", \"Persistent memory\", \"Session 2 - next week\".",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Editorial diagram: an AI companion's persistent memory carries your backstory and conversation across sessions, from today to next week, instead of resetting at every login.",
+      "status": "captured",
+      "section": "1. Pleasur.ai — persistent memory",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/character-ai-no-filter-2026/image-4-horizontal-editorial-diagram-f.png",
+        "model": "openai/gpt-image-2"
+      },
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "create",
+        "what": "AI Companion Creator — personality and backstory panel",
+        "annotate": "voice and kinks fields"
+      },
+      "alt": "AI Companion Creator — personality and backstory panel",
+      "status": "captured",
+      "section": "1. Pleasur.ai — Companion Creator",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/character-ai-no-filter-2026/screenshot-3-ai-companion-creator-personali.png",
+        "url": "https://pleasur.ai/create",
+        "final_url": "https://pleasur.ai/create",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.1401,
+          "bytes": 1442770
+        }
+      },
+      "legacy": false
+    },
+    {
+      "index": 7,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "generate",
+        "what": "AI Image Generation in-chat — the generate panel with an image result",
+        "annotate": "in-chat image result"
+      },
+      "alt": "AI Image Generation in-chat — the generate panel with an image result",
+      "status": "captured",
+      "section": "1. Pleasur.ai — in-chat image generation",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/character-ai-no-filter-2026/screenshot-4-ai-image-generation-in-chat-th.png",
+        "url": "https://pleasur.ai/generate",
+        "final_url": "https://pleasur.ai/generate/image",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.1839,
+          "bytes": 905020
+        }
+      },
+      "legacy": false
+    },
+    {
+      "index": 8,
+      "type": "image",
+      "attrs": {
+        "type": "image",
+        "sub": "concept-illustration",
+        "prompt": "Clean editorial decision-tree illustration, white background, sans-serif labels, no people, brand-neutral colors. A single entry node labeled \"What do you want?\" branches to six labeled outcome chips: \"Best all-round - Pleasur.ai\", \"Try free first - CrushOn AI\", \"Long-form writing - DreamGen\", \"Polished companion - Candy AI\", \"Big library - Joyland AI\", \"Max control / API - Janitor AI\". Simple connecting lines, no icons.",
+        "style": "illustration",
+        "safety": "sfw"
+      },
+      "alt": "Clean editorial decision-tree illustration, white background, sans-serif labels, no people, brand-neutral colors. A single entry node labeled \"What do you want?\" branches to six labeled outcome chips: \"Best all-round - Pleasur.ai\", \"Try free first - CrushOn AI\", \"Long-form writing - DreamGen\", \"Polished companion - Candy AI\", \"Big library - Joyland AI\", \"Max control / API - Janitor AI\". Simple connecting lines, no icons.",
+      "status": "captured",
+      "section": "How to choose: pick by what you want",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/character-ai-no-filter-2026/image-7-clean-editorial-decision-tree.png",
+        "model": "openai/gpt-image-2"
+      },
+      "legacy": false
+    },
+    {
+      "index": 101,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "reddit-comment",
+        "url": "https://www.reddit.com/r/CharacterAIrunaways/",
+        "selector": "a[data-testid=\"post-title\""
+      },
+      "alt": "external visual",
+      "status": "removed",
+      "result": {
+        "status": "removed",
+        "reason": "superseded_decorative_external",
+        "note": "Chrome MCP unreachable 2026-06-18; external third-party screenshots cannot be retried. Per visuals-adversarial verdict, DECORATIVE — the r/CharacterAIrunaways frustration is already quoted inline and cited in prose. Placeholder stripped from draft body; density recovered via 4 new auto-capturable visuals.",
+        "url": "https://www.reddit.com/r/CharacterAIrunaways/"
+      },
+      "legacy": false
+    },
+    {
+      "index": 102,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "competitor-ui",
+        "url": "https://crushon.ai/pricing",
+        "selector": ".pricing-table"
+      },
+      "alt": "CrushOn AI pricing page showing Free $0 / Standard $4.90 / Premium $7.90 tiers",
+      "status": "removed",
+      "result": {
+        "status": "removed",
+        "reason": "superseded_decorative_external",
+        "note": "Chrome MCP unreachable 2026-06-18; could not be retried (Cloudflare). Per visuals-adversarial verdict, DECORATIVE — CrushOn's $0/$4.90/$7.90 tiers are already in the comparison table and cited prose linked to crushon.ai/pricing. Placeholder stripped from draft body; the new price chart now carries the entry-tier comparison.",
+        "url": "https://crushon.ai/pricing"
+      },
+      "legacy": false
+    },
+    {
+      "index": 103,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "competitor-ui",
+        "url": "https://v2.dreamgen.com/pricing",
+        "selector": ".pricing-table"
+      },
+      "alt": "DreamGen pricing page showing Starter $7.83 / Advanced $19.35 / Pro $48.30 and context-window tiers",
+      "status": "removed",
+      "result": {
+        "status": "removed",
+        "reason": "superseded_decorative_external",
+        "note": "Chrome MCP unreachable 2026-06-18; could not be retried (timeout). Per visuals-adversarial verdict, DECORATIVE — DreamGen's $7.83/$19.35/$48.30 tiers and context-window metering are already in the comparison table and cited prose linked to v2.dreamgen.com/pricing. Placeholder stripped from draft body; the new price chart now carries the entry-tier comparison.",
+        "url": "https://v2.dreamgen.com/pricing"
+      },
+      "legacy": false
+    }
+  ]
+}
