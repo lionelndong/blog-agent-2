@@ -129,6 +129,15 @@ def _load_run_action_shot():
         return None
 
 
+def _load_animate_demo():
+    sys.path.insert(0, str(SCRIPT_DIR))
+    try:
+        import animate_demo  # type: ignore
+        return animate_demo
+    except Exception:
+        return None
+
+
 def _capture_with_playwright(
     item: dict[str, Any],
     url: str,
@@ -453,6 +462,71 @@ def _handle_chart(item: dict[str, Any], slug: str, index: int, out_dir: Path) ->
     return module.render(title, style, resolved, out_path, a.get("x_label"), a.get("y_label"))
 
 
+def _handle_demo(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
+    """Animated product demo (4th visual type): a short looping GIF/MP4/WebP of a
+    scripted pleasur.ai interaction, captured with patchright (headed under :99,
+    clears Cloudflare + the 18+ gate) and wrapped in an on-brand browser frame.
+
+    Placeholder grammar:
+      [VISUAL:type=demo;scene=pricing-toggle;what=...]
+      [VISUAL:type=demo;scene=path/to/scene.json;formats=gif,mp4;what=...]
+      [VISUAL:type=demo;scene=chat-typing;auth=1;url=https://pleasur.ai/chat/<id>;what=...]
+
+    Public scenes (pricing-toggle, pricing-scroll) run now. Auth scenes
+    (chat-typing, image-generating, call) come back `manual` with the showcase-
+    account dependency until a session is provided (see setup_auth.py).
+    """
+    a = item["attrs"]
+    scene = a.get("scene") or a.get("preset")
+    name = _slug(a.get("what") or scene or "demo")
+    out_path = out_dir / f"demo-{index}-{name}.gif"
+    if not scene:
+        return {
+            "status": "manual", "reason": "demo_requires_scene", "filename": out_path.name,
+            "hint": "Add scene=<preset|path>. Presets: pricing-toggle, pricing-scroll, "
+                    "chat-typing(auth), image-generating(auth), call(auth).",
+        }
+    module = _load_animate_demo()
+    if module is None:
+        return {"status": "manual", "reason": "animate_demo_unavailable", "filename": out_path.name}
+
+    formats = [f.strip() for f in (a.get("formats") or "gif,mp4,webp").split(",") if f.strip()]
+    truthy = {"1", "true", "yes"}
+    try:
+        res = module.generate(
+            scene=scene, out=out_path, formats=formats,
+            url=a.get("url"), caption=a.get("caption"),
+            auth=(a.get("auth") or "").lower() in truthy,
+            strict=(a.get("strict") or "").lower() in truthy,
+            headed=True, max_width=int(a.get("max_width") or 940),
+        )
+    except Exception as exc:
+        return {"status": "manual", "reason": "demo_engine_error",
+                "error": str(exc)[:200], "filename": out_path.name}
+
+    status = res.get("status")
+    if status == "captured":
+        gif = (res.get("outputs") or {}).get("gif") or {}
+        gif_path = gif.get("path")
+        if gif_path:
+            try:
+                res["path"] = str(Path(gif_path).relative_to(ROOT))
+            except ValueError:
+                res["path"] = gif_path
+        # surface mp4/webp for the editor (MP4 is the preferred body embed)
+        res["alt_formats"] = {k: (v or {}).get("path") for k, v in (res.get("outputs") or {}).items()
+                              if k != "gif"}
+        return res
+    if status == "blocked_on_auth":
+        return {
+            "status": "manual", "reason": "blocked_on_auth", "filename": out_path.name,
+            "scene": scene, "url": a.get("url") or res.get("url"),
+            "hint": res.get("dependency"),
+        }
+    return {"status": "manual", "reason": res.get("error") or "demo_failed",
+            "filename": out_path.name, "scene": scene}
+
+
 def _handle_manual(item: dict[str, Any], index: int) -> dict[str, Any]:
     a = item["attrs"]
     return {
@@ -476,8 +550,8 @@ def _dispatch(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dic
         return _handle_chart(item, slug, index, out_dir)
     if t == "external":
         return _handle_external(item, slug, index, out_dir)
-    if t in {"video", "gif"}:
-        return _handle_manual(item, index)
+    if t in {"demo", "animation", "video", "gif"}:
+        return _handle_demo(item, slug, index, out_dir)
     if t == "table" or t == "none":
         return {"status": "skip", "reason": f"type_{t}_not_an_asset"}
     return {"status": "failed", "reason": f"unknown_type_{t}"}
