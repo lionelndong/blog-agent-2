@@ -99,7 +99,7 @@ Legacy `[SCREENSHOT: description]` placeholders are still recognized and treated
 - **`image`** — **retired** (dropped to a manual TODO; no AI image generation).
 - **`chart`** — auto-rendered (matplotlib from research data).
 - **`external`** — **auto-captured (PLEAA-417, 2026-05-06).** Was manual. Now patchright opens the URL, clips to `selector`, and applies a padded crop. Cloudflare / login walls fall back to `/capture-visuals` (Claude-in-Chrome with a real Chrome session). ToS bypasses are out of scope — if both paths fail the entry stays `failed` and the visuals gate halts.
-- **`action-shot`** — routed to `/capture-visuals` (multi-step interactive flows).
+- **`action-shot`** — auto-captured via `action_shot.py` (deterministic patchright + brand frame; presets in `action_shot_presets.json`, polish in `frame_shot.py`). Public presets (pricing) work now; **chat/call/gallery need the showcase session** from `setup_auth.py` (Standard+ for calls) → else `reason:"session_required"`. See `ACTION-SHOT-RECIPE.md`. (Editor fallback `/capture-visuals` remains for one-off interactive grabs.)
 - **`video`** — manual. Embedded by URL into Strapi, not produced as a PNG.
 - **`gif`** — manual. Requires a screen-recording source the pipeline doesn't have. ffmpeg conversion is a future enhancement.
 
