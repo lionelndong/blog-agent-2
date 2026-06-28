@@ -179,6 +179,141 @@ def _shoot(page, clip: dict[str, int]):
 
 
 # ---------------------------------------------------------------------------
+# Animated cursor — an injected pointer + click ripple, so the viewer SEES the
+# product being used (a glide-in + ripple reads as a real person clicking).
+# It's a fixed-position DOM element captured in every frame; positions/ripple
+# are set explicitly per frame (CSS animations are frozen by screenshot()).
+# ---------------------------------------------------------------------------
+
+CURSOR_JS = r"""
+(() => {
+  if (window.__demoCursor) return;
+  const c = document.createElement('div');
+  c.id = '__demo_cursor__';
+  c.style.cssText = 'position:fixed;left:-200px;top:-200px;z-index:2147483647;'
+    + 'pointer-events:none;transition:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35));';
+  c.innerHTML = '<svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">'
+    + '<path d="M5 3 L5 21 L10 16 L13.2 23 L16 21.8 L12.8 15 L19 15 Z" '
+    + 'fill="#15171c" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+  const r = document.createElement('div');
+  r.id = '__demo_ripple__';
+  r.style.cssText = 'position:fixed;left:-200px;top:-200px;width:0;height:0;border-radius:50%;'
+    + 'background:rgba(46,144,250,.30);border:2px solid rgba(46,144,250,.95);z-index:2147483646;'
+    + 'pointer-events:none;transform:translate(-50%,-50%);opacity:0;transition:none;';
+  document.documentElement.appendChild(c);
+  document.documentElement.appendChild(r);
+  window.__demoCursor = c; window.__demoRipple = r;
+})();
+"""
+
+# cursor SVG hotspot (tip) offset inside the 28x28 box
+_TIP = (5, 3)
+
+
+def _ease(t: float) -> float:
+    """smoothstep easing for natural cursor motion."""
+    t = max(0.0, min(1.0, t))
+    return t * t * (3 - 2 * t)
+
+
+def _cursor_to(page, x: float, y: float) -> None:
+    page.evaluate(
+        "([x,y]) => { const c = window.__demoCursor; if (c) { c.style.left = x+'px'; c.style.top = y+'px'; } }",
+        [x - _TIP[0], y - _TIP[1]],
+    )
+
+
+def _ripple(page, x: float, y: float, size: float, opacity: float) -> None:
+    page.evaluate(
+        "([x,y,s,o]) => { const r = window.__demoRipple; if (r) { r.style.left=x+'px'; r.style.top=y+'px'; "
+        "r.style.width=s+'px'; r.style.height=s+'px'; r.style.opacity=o; } }",
+        [x, y, size, opacity],
+    )
+
+
+def _target_center(page, selector: str) -> tuple[float, float] | None:
+    loc = page.locator(selector).first
+    try:
+        loc.scroll_into_view_if_needed(timeout=4_000)
+    except Exception:
+        pass
+    box = loc.bounding_box()
+    if not box:
+        return None
+    return box["x"] + box["width"] / 2, box["y"] + box["height"] / 2
+
+
+def _guided(page, clip, beat, cursor_pos, segs, max_frames):
+    """Run a guided beat: glide the cursor to a target, then click (guided_click)
+    or focus + type char-by-char (guided_type). Captures every step as a frame so
+    the interaction is visible. Mutates `segs` and `cursor_pos` in place.
+    Returns (info, ok)."""
+    info: dict[str, Any] = {}
+    is_type = "guided_type" in beat
+    g = beat["guided_type"] if is_type else beat["guided_click"]
+    sel = g["selector"]
+    loc = page.locator(sel).first
+    center = _target_center(page, sel)
+    if center is None:
+        info["error"] = f"target not found: {sel}"
+        return info, False
+    box = loc.bounding_box() or {}
+    if is_type and box:
+        tx, ty = box["x"] + 18, box["y"] + box["height"] / 2  # aim at the caret start
+    else:
+        tx, ty = center
+
+    # 1) glide the cursor in
+    gf, gms = int(g.get("glide_frames", 12)), int(g.get("glide_ms", 42))
+    sx, sy = cursor_pos[0], cursor_pos[1]
+    for i in range(1, gf + 1):
+        if len(segs) >= max_frames:
+            break
+        u = _ease(i / gf)
+        _cursor_to(page, sx + (tx - sx) * u, sy + (ty - sy) * u)
+        segs.append(Segment(img=_shoot(page, clip), dur_ms=gms))
+    cursor_pos[0], cursor_pos[1] = tx, ty
+    _cursor_to(page, tx, ty)
+
+    # 2) click ripple
+    if g.get("ripple", True):
+        for s, o in ((12, 0.55), (30, 0.40), (48, 0.14)):
+            if len(segs) >= max_frames:
+                break
+            _ripple(page, tx, ty, s, o)
+            segs.append(Segment(img=_shoot(page, clip), dur_ms=70))
+        _ripple(page, -300, -300, 0, 0)
+
+    # 3) the action
+    if is_type:
+        try:
+            loc.click(timeout=6_000)
+        except Exception:
+            pass
+        text, step = g.get("text", ""), max(1, int(g.get("char_step", 2)))
+        tms, buf = int(g.get("type_ms", 95)), 0
+        for ch in text:
+            page.keyboard.type(ch)
+            buf += 1
+            if buf >= step and len(segs) < max_frames:
+                buf = 0
+                segs.append(Segment(img=_shoot(page, clip), dur_ms=tms))
+        page.wait_for_timeout(int(g.get("settle_ms", 300)))
+        segs.append(Segment(img=_shoot(page, clip), dur_ms=int(g.get("hold_ms", 1_400))))
+        info["typed"] = len(text)
+    else:
+        if g.get("click", True):
+            try:
+                loc.click(force=True, timeout=6_000)
+            except Exception as exc:
+                info["click_error"] = str(exc)[:160]
+        page.wait_for_timeout(int(g.get("settle_ms", 600)))
+        xf = int(g.get("transition_ms", 0)) if g.get("transition") == "crossfade" else 0
+        segs.append(Segment(img=_shoot(page, clip), dur_ms=int(g.get("hold_ms", 1_500)), xfade_ms=xf))
+    return info, True
+
+
+# ---------------------------------------------------------------------------
 # Action runner
 # ---------------------------------------------------------------------------
 
@@ -294,7 +429,19 @@ def play(scene: dict[str, Any], *, headed: bool = True, use_auth: bool = False,
             clip = _resolve_clip(page, scene.get("clip"))
             res.clip = clip
 
-            for bi, beat in enumerate(scene.get("beats", [])):
+            # Cursor: inject if the scene opts in (cursor:true) or any beat is guided.
+            beats = scene.get("beats", [])
+            uses_cursor = bool(scene.get("cursor")) or any(
+                ("guided_click" in b or "guided_type" in b) for b in beats
+            )
+            cs = scene.get("cursor_start") or [clip["x"] + clip["width"] * 0.62,
+                                               clip["y"] + clip["height"] * 0.86]
+            cursor_pos = [float(cs[0]), float(cs[1])]
+            if uses_cursor:
+                page.evaluate(CURSOR_JS)
+                _cursor_to(page, cursor_pos[0], cursor_pos[1])
+
+            for bi, beat in enumerate(beats):
                 breport: dict[str, Any] = {"index": bi, "label": beat.get("label", "")}
                 try:
                     breport["actions"] = _run_actions(page, beat.get("actions", []), strict)
@@ -305,7 +452,16 @@ def play(scene: dict[str, Any], *, headed: bool = True, use_auth: bool = False,
                     res.beats.append(breport)
                     break
 
-                if "motion" in beat:
+                if "guided_click" in beat or "guided_type" in beat:
+                    ginfo, ok = _guided(page, clip, beat, cursor_pos, res.segments, max_frames)
+                    breport["guided"] = ginfo
+                    if not ok and strict:
+                        res.ok = False
+                        res.error = ginfo.get("error")
+                        breport["fatal"] = ginfo.get("error")
+                        res.beats.append(breport)
+                        break
+                elif "motion" in beat:
                     m = beat["motion"]
                     frames = int(m.get("frames", 24))
                     interval = int(m.get("interval_ms", 1000 // default_fps))

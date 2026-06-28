@@ -43,21 +43,30 @@ PRICING_TOGGLE: dict[str, Any] = {
     # NB the page DEFAULTS to Yearly, so beat 0 clicks Monthly to set the baseline;
     # both crossfades then show a real price change (the whole point of the demo).
     "clip": {"crop": [305, 284, 920, 652]},
+    # An animated cursor glides in and clicks the toggle, so the viewer SEES the
+    # interaction; the prices then dissolve (crossfade) to the new plan.
+    "cursor_start": [770, 560],
     "beats": [
         {"label": "monthly",
          "actions": [{"do": "click", "selector": "button:has-text('Monthly')"},
                      {"do": "wait", "ms": 700}],
-         "shoot": {"hold_ms": 1500}},
-        {"label": "yearly",
-         "actions": [{"do": "click", "selector": "button:has-text('Yearly')"},
-                     {"do": "wait", "ms": 700}],
-         "shoot": {"hold_ms": 1900, "transition": "crossfade", "transition_ms": 340}},
-        {"label": "back-to-monthly",
-         "actions": [{"do": "click", "selector": "button:has-text('Monthly')"},
-                     {"do": "wait", "ms": 700}],
-         "shoot": {"hold_ms": 1200, "transition": "crossfade", "transition_ms": 340}},
+         "shoot": {"hold_ms": 1300}},
+        {"label": "click-yearly",
+         "guided_click": {"selector": "button:has-text('Yearly')", "glide_frames": 12,
+                          "glide_ms": 42, "settle_ms": 650, "hold_ms": 1800,
+                          "transition": "crossfade", "transition_ms": 300}},
+        {"label": "click-monthly",
+         "guided_click": {"selector": "button:has-text('Monthly')", "glide_frames": 10,
+                          "glide_ms": 42, "settle_ms": 650, "hold_ms": 1200,
+                          "transition": "crossfade", "transition_ms": 300}},
     ],
 }
+
+# NOTE: a public "type a prompt -> Generate" demo on /generate/image was evaluated
+# and REJECTED on SFW grounds — adult attribute chips (BREASTS / BODY TYPE / OUTFIT /
+# POSITION) sit right above the prompt bar, so no crop is safe for a public indexed
+# blog. The only SFW place to demo typing/sending is the in-app chat with a SFW
+# character (CHAT_TYPING, auth-gated). /explore and /create are character-grid or walled.
 
 PRICING_SCROLL: dict[str, Any] = {
     "name": "pricing-scroll",
@@ -99,19 +108,17 @@ CHAT_TYPING: dict[str, Any] = {
     "caption": "Chatting with your AI companion",
     "sfw": "Use a SFW character + SFW message. The line below is intentionally tame.",
     "clip": {"selector": "main"},
+    "cursor": True,
     "beats": [
         {"label": "open", "actions": [{"do": "wait", "ms": 500}], "shoot": {"hold_ms": 1000}},
-        {"label": "type",
-         "actions": [{"do": "type",
-                      "selector": "textarea, [contenteditable='true'], input[type='text']",
-                      "text": "Hey! What's your favorite way to spend a Sunday?", "delay": 55}],
-         "shoot": {"hold_ms": 900}},
+        {"label": "type-message",
+         "guided_type": {"selector": "textarea, [contenteditable='true'], input[type='text']",
+                         "text": "Hey! What's your favorite way to spend a Sunday?",
+                         "char_step": 2, "type_ms": 80, "glide_frames": 10, "hold_ms": 700}},
         {"label": "send",
-         "actions": [{"do": "press",
-                      "selector": "textarea, [contenteditable='true'], input[type='text']",
-                      "key": "Enter"}],
-         "motion": {"frames": 30, "interval_ms": 220}},
-        {"label": "reply", "actions": [{"do": "wait", "ms": 400}], "shoot": {"hold_ms": 2200}},
+         "guided_click": {"selector": "button[type='submit'], button:has-text('Send'), [aria-label*='send' i]",
+                          "glide_frames": 8, "hold_ms": 700}},
+        {"label": "reply", "motion": {"frames": 30, "interval_ms": 220}},
     ],
 }
 
@@ -163,7 +170,8 @@ CALL: dict[str, Any] = {
 
 
 PRESETS: dict[str, dict[str, Any]] = {
-    s["name"]: s for s in (PRICING_TOGGLE, PRICING_SCROLL, CHAT_TYPING, IMAGE_GENERATING, CALL)
+    s["name"]: s for s in (PRICING_TOGGLE, PRICING_SCROLL,
+                           CHAT_TYPING, IMAGE_GENERATING, CALL)
 }
 
 

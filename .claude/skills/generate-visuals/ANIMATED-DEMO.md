@@ -28,9 +28,14 @@ sizes, warnings).
 |---|---|---|
 | `pricing-toggle` | **public** | Monthly ⇄ Yearly; prices dissolve, "Save 60%" + annual savings appear. State-mode + crossfade. |
 | `pricing-scroll` | **public** | Smooth scroll down the pricing page (plans → compare table). Motion-mode (wheel burst). |
-| `chat-typing` | auth | Type a SFW message, send, reply streams in. |
+| `chat-typing` | auth | **Cursor types a SFW message, clicks Send, reply streams in.** |
 | `image-generating` | auth | Type a SFW prompt, hit Generate, result appears. |
 | `call` | auth | Start a voice call (Standard+). |
+
+> A public "type a prompt → Generate" demo on `/generate` was **rejected on SFW grounds** —
+> that surface carries adult attribute chips (BREASTS / BODY TYPE / OUTFIT) right above the
+> prompt bar, so no crop is safe for a public indexed blog. The only SFW place to demo
+> typing/sending is the in-app chat with a SFW character (auth-gated).
 
 ## ⚠️ Dependency: the auth scenes need the SHOWCASE ACCOUNT
 The high-value in-app demos (`chat-typing`, `image-generating`, `call`) are **fully authored and
@@ -63,12 +68,23 @@ AI-drawn). The captured content's **bottom edge fades into the page's own bg** s
 unequal-height states read as intentional (the Linear/Vercel screenshot trick). `--frame none`
 disables the chrome.
 
+## Animated cursor + guided interactions (the realism upgrade)
+Set `"cursor": true` (or use any guided beat) and a pointer is injected; it **glides to the
+target and clicks with a ripple**, so the viewer SEES the product being used. Two guided beats:
+- **`guided_click`**: `{selector, glide_frames, glide_ms, click=true, ripple=true, settle_ms,
+  hold_ms, transition, transition_ms}` — cursor glides in, ripples, clicks; pair with `crossfade`
+  to dissolve the result (e.g. prices changing). `click:false` = hover only (rest on a button).
+- **`guided_type`**: `{selector, text, char_step, type_ms, glide_frames, hold_ms}` — cursor glides
+  to a field, focuses, and types **char-by-char** (the message appears as it's typed). This is the
+  "send a message" interaction (the send is a following `guided_click`).
+`cursor_start: [x,y]` sets the resting position (viewport CSS px).
+
 ## Author a custom scene
 Pass a JSON file to `--scene`. A scene = `url`, `viewport`, `clip` (the fixed CSS-px region every
 frame captures — `{"crop":[x,y,w,h]}` or `{"selector":"…"}` or `null` for full viewport), and
-`beats`. Each beat runs `actions` then captures either a **keyframe** (`shoot`, with optional
-`{"transition":"crossfade","transition_ms":N}`) or a **motion burst** (`motion`: `frames`,
-`interval_ms`, optional `each` actions run before every frame).
+`beats`. Each beat runs `actions` then captures one of: a **keyframe** (`shoot`, with optional
+`{"transition":"crossfade","transition_ms":N}`), a **motion burst** (`motion`: `frames`,
+`interval_ms`, optional `each` actions per frame), a **`guided_click`**, or a **`guided_type`**.
 Actions: `click, hover, type, fill, press, wait, scroll, wheel, mouse_move, eval`.
 ```json
 { "name":"my-demo","url":"https://pleasur.ai/x","viewport":{"width":1280,"height":900},
