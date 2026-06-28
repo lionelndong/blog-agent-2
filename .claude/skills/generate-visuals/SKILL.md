@@ -22,6 +22,16 @@ Take every `[VISUAL:type=...;...]` placeholder in the cited draft and produce a 
 
 This is the skill that closes the gap Ryan Law called out in his content-engineering blog: "blog post images are not a solved problem, yet" — we automate the deterministic types (real screenshots, data charts/tables) and leave generative imagery to an editor, exactly as he does.
 
+## Diagram engine (process flows / decision trees / flow charts)
+
+A standalone premium engine for "how it works" process flows, step sequences, and simple decision
+trees — **clean + structured + on-brand**, deliberately distinct from the hand-drawn infographic.
+Renders headless via `scripts/render_diagram_web.py` (dagre.js auto-layout + a custom brand-card
+renderer — HTML node cards over an SVG edge layer; `dagre.min.js` bundled, no runtime CDN):
+`--type linear|tree|flow` or `--config spec.json`. Full usage + spec format in **`DIAGRAM-THEME.md`**.
+Like the chart / infographic / annotation engines, every output MUST pass `VISUAL-CRITIQUE-LOOP.md`
+before publish.
+
 ## Input
 
 For slug `{slug}`:
