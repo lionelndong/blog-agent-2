@@ -51,14 +51,20 @@ formatted as you want — `"5,000"`, `"2.5×"`, `"<2s"`, `"92%"`), optional `uni
 ```json
 {
   "kind": "quote",
-  "accent": "#8B5CF6",
+  "style": "bar",
+  "accent": "#2E90FA",
   "quote": "The full pull-quote sentence.",
   "attribution": {"name": "Jordan M.", "role": "Premium subscriber · 6 months",
                   "avatar": "JM", "avatarColor": "#8B5CF6"}
 }
 ```
-- Quote text auto-sizes by length (30 / 26 / 23px). `attribution` and `avatar` are optional —
-  no avatar → just the name/role line. `avatarColor` defaults to `accent`.
+- **`style`** (default `bar`):
+  - `bar` — editorial pull-quote with a brand left accent rule; the cleanest "blog quote" (Ahrefs-like). Avatar optional.
+  - `mark` — oversized typographic quote glyph in the accent; reads instantly as a testimonial.
+  - `review` — a 5-star `rating` row + an optional `attribution.source` chip ("App Store", "Trustpilot"). Best for real reviews / social proof.
+  - `highlight` — wraps `highlight` (a substring of the quote) in a soft brand highlighter; emphasizes the key line.
+- Quote text auto-sizes by length. `attribution` / `avatar` / `source` are optional — no avatar → just name/role. `avatarColor` defaults to `accent`.
+- Use full names + a specific role, and keep it to one strong sentence (testimonial best practice).
 
 ## 3. CALLOUT — key-takeaway / tip / warning box
 Accent rail + icon chip + label + text, with a faint accent wash.

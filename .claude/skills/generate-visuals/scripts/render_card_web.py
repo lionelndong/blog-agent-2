@@ -8,7 +8,8 @@ HTML is rendered headless via patchright and the #wrap element is screenshotted 
 
 Sub-types (set by "kind" in the spec):
   stat    — 1-3 big numbers + label, optional unit / delta-trend pill / icon / sub-line
-  quote   — a pull-quote with a quote mark + attribution (name / role / initials avatar)
+  quote   — a pull-quote + attribution; 4 styles via "style": bar (default, editorial left
+            rule) / mark (big quote glyph) / review (star rating + source chip) / highlight
   callout — a "Key takeaway" / tip / warning box: accent rail + icon + label + text
 
 Usage:
@@ -166,28 +167,59 @@ def build_stat(spec, logo):
     return "stat", card_style(accent, width), inner
 
 
+def _stars(rating):
+    try:
+        n = max(0, min(5, int(rating)))
+    except (TypeError, ValueError):
+        n = 5
+    cells = "".join('<span class="star %s">%s</span>' % ("on" if i < n else "off",
+                    icon("star", cls="st", fill=True)) for i in range(5))
+    return '<div class="stars">%s</div>' % cells
+
+
 def build_quote(spec, logo):
+    """Four pull-quote styles (`style`): mark (big quote glyph), bar (editorial left
+    accent rule), review (star rating + source chip), highlight (key phrase marked)."""
     accent = spec.get("accent") or PALETTE[0]
-    width = spec.get("width") or 740
+    width = spec.get("width") or 760
+    style = (spec.get("style") or "bar").lower()
     q = spec.get("quote", "")
     qlen = len(q)
-    qsize = 30 if qlen <= 120 else (26 if qlen <= 210 else 23)
+    if style == "review":
+        qsize = 25 if qlen <= 120 else (22 if qlen <= 210 else 20)
+    else:
+        qsize = 31 if qlen <= 110 else (27 if qlen <= 200 else 23)
 
-    attrib = ""
+    # quote text, with one optional highlighted phrase (escape first, then wrap)
+    body = esc(q)
+    if spec.get("highlight"):
+        h = esc(spec["highlight"])
+        body = body.replace(h, "<mark>%s</mark>" % h, 1)
+    qtext = '<blockquote class="quote-text" style="font-size:%dpx">%s</blockquote>' % (qsize, body)
+
+    # attribution row (name / role / initials avatar / optional source chip)
     a = spec.get("attribution") or {}
+    attrib = ""
     if a.get("name") or a.get("role"):
         av = ""
         if a.get("avatar"):
-            avc = a.get("avatarColor") or accent
-            av = '<div class="avatar" style="background:%s">%s</div>' % (esc(avc), esc(a["avatar"]))
+            av = ('<div class="avatar" style="background:%s">%s</div>'
+                  % (esc(a.get("avatarColor") or accent), esc(a["avatar"])))
         name = ('<div class="aname">%s</div>' % esc(a["name"])) if a.get("name") else ""
         role = ('<div class="arole">%s</div>' % esc(a["role"])) if a.get("role") else ""
-        attrib = '<div class="attrib">%s<div class="atext">%s%s</div></div>' % (av, name, role)
+        src = ('<div class="qsource">%s</div>' % esc(a["source"])) if a.get("source") else ""
+        attrib = '<div class="attrib">%s<div class="atext">%s%s</div>%s</div>' % (av, name, role, src)
 
-    # typographic open-quote mark — a reliable, well-designed glyph in the accent colour
-    inner = ('<div class="qmark">&ldquo;</div><blockquote class="quote-text" style="font-size:%dpx">%s</blockquote>%s%s'
-             % (qsize, esc(q), attrib, footer(logo)))
-    return "quote", card_style(accent, width), inner
+    if style == "bar":
+        inner = '<div class="qbar">%s</div>%s%s' % (qtext, attrib, footer(logo))
+    elif style == "review":
+        inner = "%s%s%s%s" % (_stars(spec.get("rating", 5)), qtext, attrib, footer(logo))
+    elif style == "highlight":
+        inner = '<div class="qmark sm">&ldquo;</div>%s%s%s' % (qtext, attrib, footer(logo))
+    else:  # mark (default) — oversized typographic open-quote glyph
+        inner = '<div class="qmark">&ldquo;</div>%s%s%s' % (qtext, attrib, footer(logo))
+
+    return "quote q-%s" % style, card_style(accent, width), inner
 
 
 def build_callout(spec, logo):
@@ -256,6 +288,22 @@ body{font-family:__BODY__;background:__PAGE__;-webkit-font-smoothing:antialiased
   color:#fff;font-weight:700;font-size:15.5px;letter-spacing:.3px;flex:none}
 .aname{font-size:15px;font-weight:700;color:__INK__}
 .arole{font-size:13.5px;color:__MUTED__;margin-top:2px}
+.qmark.sm{font-size:60px;height:28px}
+mark{background:var(--t15);color:inherit;padding:.02em .14em;border-radius:5px;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.qsource{margin-left:auto;align-self:center;font-size:12.5px;font-weight:600;
+  color:var(--accent);background:var(--t12);padding:5px 12px;border-radius:999px}
+/* bar: editorial left accent rule */
+#card.q-bar{padding:36px 44px 24px}
+.qbar{border-left:4px solid var(--accent);padding-left:26px}
+.q-bar .quote-text{margin-top:0}
+.q-bar .attrib{margin-top:26px}
+/* review: star rating + source chip */
+.stars{display:flex;gap:4px}
+.stars .st{width:20px;height:20px}
+.star.on{color:#F5A623}
+.star.off{color:#E4E7EC}
+.q-review .quote-text{margin-top:18px}
 
 /* CALLOUT */
 #card.callout{padding:0;overflow:hidden;display:flex}
