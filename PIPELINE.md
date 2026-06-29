@@ -99,12 +99,21 @@ the skeptical read now lives inside /quality-check's 3-reviewer panel.)
 3. **Internal-stack scrub (HARD)** — reader-facing prose must never name internal tools/vendors/data
    sources (DataForSEO, Strapi, Doppler, PostHog, OpenRouter, Replicate, Firecrawl, Paperclip,
    Semrush, Ahrefs, …; full list in `brand-config.md`). grep `article.md` before publish; any hit = fix.
-4. **Visuals** — **DEFERRED** (its own future project; off by default, `BLOG_AGENT_VISUALS=off`).
-   /generate-visuals is a no-op: it leaves the typed `[VISUAL:...]` placeholders in the draft as
-   markers, generates no assets, and the visuals gate does **not** block on them. Re-enable with
-   `BLOG_AGENT_VISUALS=on` for the screenshots-via-Playwright + matplotlib-table-cards behavior
-   (lean by design — Ryan does images by hand; no AI image generation). Preview just carries the
-   placeholders through.
+4. **Visuals** — **ON** (wired 2026-06-29; `BLOG_AGENT_VISUALS=on` by default). /generate-visuals
+   realizes every typed `[VISUAL:...]` into an on-brand asset and rewrites the draft to
+   `![alt](images/<slug>/file.png)`. Engines (all in `.claude/skills/generate-visuals/scripts/`, run
+   in the container): **chart** → `render_chart_web.py` (ApexCharts, replaces matplotlib); **diagram**
+   → `render_diagram_web.py` (dagre); **table/comparison** → `render_table_card.py`; **cover** →
+   `render_cover.py` (free line-art, 1600×900); **annotation** → `annotate_screenshot.py --strict`;
+   **screenshot/action-shot/external** → patchright capture; **demo/gif** → `animate_demo.py`; the
+   gated AI lanes **infographic** → `infographic_engine.js`+`composite_logo.py` and
+   **concept-illustration** → `concept_illustration_engine.js` (both require `REPLICATE_API_KEY`,
+   loud-fail, and the vision gate). `type=image` is retired (dropped); `type=card` uses native blog
+   components (skipped). **No silent fallback:** a type that can't be produced is recorded
+   `failed`/`manual` and keeps its placeholder; the visuals stage does **not** hard-block the run, but
+   every *captured* visual owes the `VISUAL-CRITIQUE-LOOP.md` vision gate before publish.
+   `/format-for-publish` converts any surviving placeholder to `<!-- VISUAL-TODO: ... -->`. Set
+   `BLOG_AGENT_VISUALS=off` for a text-only dry run (legacy no-op).
 5. **Adult-content compliance** — 18+ framing, no "no filter/anything goes" absolutism, no safety
    guarantees, no real-person likenesses. Legal/privacy copy escalates to board, never auto-publish.
 

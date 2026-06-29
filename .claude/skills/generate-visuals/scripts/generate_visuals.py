@@ -15,6 +15,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -102,15 +103,6 @@ def _load_capture_screenshot():
         return None
 
 
-def _load_render_chart():
-    sys.path.insert(0, str(SCRIPT_DIR))
-    try:
-        import render_chart  # type: ignore
-        return render_chart
-    except ImportError:
-        return None
-
-
 def _load_optimizer():
     sys.path.insert(0, str(SCRIPT_DIR))
     try:
@@ -136,6 +128,133 @@ def _load_animate_demo():
         return animate_demo
     except Exception:
         return None
+
+
+# ---------------------------------------------------------------------------
+# Engine subprocess plumbing (web-render + AI engines)
+# ---------------------------------------------------------------------------
+# The deterministic web engines (render_chart_web.py / render_diagram_web.py /
+# render_table_card.py / render_cover.py / annotate_screenshot.py) and the gated
+# AI engines (infographic_engine.js / concept_illustration_engine.js +
+# composite_logo.py) all expose a CLI and run *inside the container* (patchright
+# + chromium + node + bundled apexcharts/dagre). We call them as subprocesses
+# rather than importing them, exactly the way the recipes document them. No
+# silent fallbacks: a non-zero exit, a missing output file, or an engine
+# `status != captured` becomes a loud `failed` entry in the manifest — never a
+# substitution.
+
+# Default engine timeout (s). Headless-browser renders + Nano-Banana calls can
+# take a while; keep generous but bounded so a hung engine can't wedge the run.
+_ENGINE_TIMEOUT = int(os.environ.get("VISUAL_ENGINE_TIMEOUT", "240"))
+
+
+def _engine_path(name: str) -> Path:
+    return SCRIPT_DIR / name
+
+
+def _run_engine(cmd: list[str]) -> dict[str, Any]:
+    """Run an engine CLI as a subprocess; return a structured result.
+
+    Returns {ok, returncode, stdout, stderr}. Never raises for an engine
+    failure — the caller decides how to surface it (so each visual type can
+    loud-fail into the manifest individually).
+    """
+    try:
+        proc = subprocess.run(
+            cmd,
+            cwd=str(SCRIPT_DIR),
+            capture_output=True,
+            text=True,
+            timeout=_ENGINE_TIMEOUT,
+        )
+    except FileNotFoundError as exc:
+        return {"ok": False, "returncode": 127, "stdout": "", "stderr": f"executable_not_found: {exc}"}
+    except subprocess.TimeoutExpired as exc:
+        # With text=True the partial stdout is usually str, but on a mid-stream
+        # kill it can be bytes — decode defensively so it never lands as bytes in
+        # the manifest JSON (which would crash json.dumps).
+        return {"ok": False, "returncode": -1,
+                "stdout": _as_text(exc.stdout),
+                "stderr": f"engine_timeout_{_ENGINE_TIMEOUT}s"}
+    return {
+        "ok": proc.returncode == 0,
+        "returncode": proc.returncode,
+        "stdout": _as_text(proc.stdout),
+        "stderr": _as_text(proc.stderr),
+    }
+
+
+def _as_text(val: Any) -> str:
+    if val is None:
+        return ""
+    if isinstance(val, bytes):
+        return val.decode("utf-8", errors="replace")
+    return str(val)
+
+
+def _last_json_line(text: str) -> dict[str, Any] | None:
+    """Parse the last JSON object printed on stdout (the web engines' contract)."""
+    for line in reversed([ln.strip() for ln in text.splitlines() if ln.strip()]):
+        if line.startswith("{") and line.endswith("}"):
+            try:
+                return json.loads(line)
+            except json.JSONDecodeError:
+                continue
+    return None
+
+
+def _rel_to_root(path: Path) -> str:
+    try:
+        return str(path.relative_to(ROOT)).replace("\\", "/")
+    except ValueError:
+        return str(path).replace("\\", "/")
+
+
+def _spec_to_tempfile(spec: Any, out_dir: Path, stem: str) -> Path:
+    """Write a JSON spec next to the output so engines that want a --config /
+    --content / --spec FILE (not inline) can read it. Kept on disk (not
+    auto-deleted) so a failed render leaves the exact spec for debugging."""
+    p = out_dir / f".{stem}.spec.json"
+    p.write_text(json.dumps(spec, indent=2), encoding="utf-8")
+    return p
+
+
+def _engine_captured(result: dict[str, Any], out_path: Path, *, engine: str,
+                     extra: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Build a `captured` manifest result for a web engine that printed
+    {"status":"captured","path":...} and actually wrote the file."""
+    payload = _last_json_line(result["stdout"])
+    if not result["ok"]:
+        return _engine_failed(result, engine=engine, out_path=out_path,
+                              reason=(payload or {}).get("reason"))
+    if not payload or payload.get("status") != "captured":
+        return _engine_failed(result, engine=engine, out_path=out_path,
+                              reason=(payload or {}).get("reason") or "engine_no_captured_status")
+    if not out_path.exists() or out_path.stat().st_size == 0:
+        return _engine_failed(result, engine=engine, out_path=out_path,
+                              reason="engine_output_missing")
+    entry: dict[str, Any] = {
+        "status": "captured",
+        "path": _rel_to_root(out_path),
+        "engine": engine,
+    }
+    if extra:
+        entry.update(extra)
+    return entry
+
+
+def _engine_failed(result: dict[str, Any], *, engine: str, out_path: Path,
+                   reason: str | None = None) -> dict[str, Any]:
+    """Loud failure: capture enough of stderr/stdout to debug, no substitution."""
+    tail = (result.get("stderr") or result.get("stdout") or "").strip()
+    return {
+        "status": "failed",
+        "reason": reason or "engine_error",
+        "engine": engine,
+        "returncode": result.get("returncode"),
+        "filename": out_path.name,
+        "error": tail[-500:],
+    }
 
 
 def _capture_with_playwright(
@@ -331,16 +450,17 @@ def _handle_image(item: dict[str, Any], slug: str, index: int, out_dir: Path) ->
 
 
 def _handle_action_shot(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
-    """Multi-step capture for visuals that require actions (click through age
-    gate, log in, open settings panel, send a message, etc.) before the
-    capture point.
+    """Multi-step / stateful capture → action_shot.run (deterministic patchright +
+    brand frame). The default now (per ACTION-SHOT-RECIPE.md): our own retina
+    capture, Cloudflare bypass, 18+-gate dismissal, on-brand frame — free, no paid
+    cloud agent, no per-task LLM spend.
 
-    Default: routes to manual-capture so the editor handles it interactively
-    via Claude in Chrome. The editor has visibility, control, and a real
-    Chrome session — better than handing it to a paid AI agent.
-
-    Opt-in: set BROWSER_USE_ENABLED=1 to fall back to the Browser Use Cloud
-    agent (requires BROWSER_USE_API_KEY and burns LLM tokens per task).
+    `goal` (or `what`) describes the capture; `url`/`target` give the start. Public
+    presets (pricing) work today. Logged-in shots (chat/call/gallery) need the
+    showcase session minted by setup_auth.py — without it action_shot returns
+    `reason:"session_required"`, which we surface as a `manual` entry (showcase-
+    login dependency) rather than a hard fail. Cloudflare/nav blocks come back
+    `failed` (the gate halts) — no silent substitution either way.
     """
     a = item["attrs"]
     goal = a.get("goal") or a.get("what")
@@ -352,28 +472,20 @@ def _handle_action_shot(item: dict[str, Any], slug: str, index: int, out_dir: Pa
     name = _slug(goal)
     out_path = out_dir / f"action-{index}-{name}.png"
 
-    if os.environ.get("BROWSER_USE_ENABLED", "").lower() not in {"1", "true", "yes"}:
-        return {
-            "status": "manual",
-            "reason": "action_shot_routed_to_editor",
-            "url": start_url,
-            "goal": goal,
-            "filename": out_path.name,
-            "hint": (
-                "Capture interactively via Claude in Chrome. Run "
-                "`/capture-visuals " + slug + "` and walk through this entry, "
-                "or open the URL in Chrome and capture the moment described in 'goal' yourself."
-            ),
-        }
-
     module = _load_run_action_shot()
     if module is None:
         return {
             "status": "manual",
-            "reason": "browser_use_sdk_not_installed",
+            "reason": "action_shot_engine_unavailable",
+            "url": start_url,
+            "goal": goal,
             "filename": out_path.name,
-            "hint": "pip install browser-use-sdk",
+            "hint": (
+                "action_shot.py could not be imported (patchright missing?). Capture "
+                "interactively via `/capture-visuals " + slug + "` instead."
+            ),
         }
+
     max_steps_attr = a.get("max_steps")
     try:
         max_steps = int(max_steps_attr) if max_steps_attr else int(os.environ.get("BROWSER_USE_MAX_STEPS", "25"))
@@ -381,15 +493,40 @@ def _handle_action_shot(item: dict[str, Any], slug: str, index: int, out_dir: Pa
         max_steps = 25
     llm = a.get("llm") or os.environ.get("BROWSER_USE_LLM", "claude-sonnet-4-6")
 
-    result = module.run(
-        goal,
-        out_path,
-        start_url=start_url,
-        max_steps=max_steps,
-        llm=llm,
-    )
+    try:
+        result = module.run(
+            goal,
+            out_path,
+            start_url=start_url,
+            max_steps=max_steps,
+            llm=llm,
+        )
+    except Exception as exc:  # never let one capture crash the whole stage
+        return {"status": "failed", "reason": "action_shot_engine_error",
+                "error": str(exc)[:300], "filename": out_path.name, "url": start_url}
+
     if start_url:
         result.setdefault("url", start_url)
+
+    # Normalize a captured absolute path to ROOT-relative for the rewrite step.
+    if result.get("status") == "captured" and isinstance(result.get("path"), str):
+        result["path"] = _rel_to_root(Path(result["path"]))
+
+    # The showcase-account dependency is an operator follow-up, not a content
+    # failure: surface it as `manual` so the gate doesn't permanently halt on it.
+    if result.get("status") == "failed" and result.get("reason") == "session_required":
+        return {
+            "status": "manual",
+            "reason": "session_required",
+            "url": start_url,
+            "goal": goal,
+            "filename": out_path.name,
+            "hint": (
+                "Logged-in action-shot needs the Pleasur.AI showcase session. Mint it "
+                "once with `python .claude/skills/generate-visuals/scripts/setup_auth.py "
+                "--interactive --headed` (calls need Standard+), then re-run /generate-visuals."
+            ),
+        }
     return result
 
 
@@ -432,34 +569,563 @@ def _resolve_chart_data(data: str, slug: str) -> tuple[str | None, str | None]:
     return None, f"unrecognized_data_form:{spec}"
 
 
+def _resolve_structured_data(data: str, slug: str) -> tuple[str | None, str | None]:
+    """Resolve a structured-data spec for the diagram / table / AI-content engines.
+
+    Like `_resolve_chart_data` but WITHOUT the bare-`:` passthrough (that sugar is
+    chart-only and would wrongly accept prose like "Step 1: foo" or a Windows path
+    as valid data). Accepts:
+      - inline JSON object/list — passed through
+      - research.<key> — resolved against content-pipeline/1-research/{slug}-data.json
+      - path:KEY — passed through (engines that accept path:KEY resolve it themselves)
+    Anything else returns a clear `unrecognized_data_form` error so authoring
+    feedback is precise. Returns (resolved, error); exactly one is non-None.
+    """
+    spec = (data or "").strip()
+    if not spec:
+        return None, "no_data_spec"
+    if spec.startswith("{") or spec.startswith("["):
+        return spec, None
+    if spec.startswith("path:"):
+        return spec, None
+    if spec.startswith("research."):
+        return _resolve_chart_data(spec, slug)
+    return None, f"unrecognized_data_form:{spec}"
+
+
+# Chart-kind aliases → render_chart_web.py `--type` values.
+_CHART_TYPES = {"area", "line", "bar", "bar_h", "donut"}
+_CHART_TYPE_ALIASES = {
+    "column": "bar", "vertical_bar": "bar", "vbar": "bar",
+    "horizontal_bar": "bar_h", "hbar": "bar_h", "barh": "bar_h",
+    "pie": "donut", "doughnut": "donut",
+    "spline": "line", "trend": "line",
+    "stacked": "bar",
+}
+
+
+def _chart_type(raw: str | None) -> str:
+    t = (raw or "bar").lower().strip()
+    if t in _CHART_TYPES:
+        return t
+    return _CHART_TYPE_ALIASES.get(t, "bar")
+
+
 def _handle_chart(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
+    """Chart → render_chart_web.py (ApexCharts headless, brand theme + real logo).
+
+    Replaces the old matplotlib render_chart.py. `style=`/`chart_type=` selects the
+    ApexCharts kind (bar|bar_h|area|line|donut); `data=` is inline JSON, `path:KEY`,
+    or `research.<key>` (resolved against content-pipeline/1-research/<slug>-data.json).
+    A `config=` path (full ApexCharts options JSON, e.g. from the apexcharts skill)
+    takes precedence over `data` for the 16 advanced chart types.
+
+    No silent fallback: prose/unresolvable `data` and engine errors loud-fail into
+    the manifest as `failed` (the visuals gate then halts) — never substituted.
+    """
     a = item["attrs"]
     title = a.get("title") or a.get("what") or "Chart"
-    style = (a.get("style") or "bar").lower()
-    raw_data = a.get("data")
+    ctype = _chart_type(a.get("chart_type") or a.get("style"))
     name = _slug(title)
     out_path = out_dir / f"chart-{index}-{name}.png"
 
-    resolved, err = _resolve_chart_data(raw_data, slug)
+    cmd = [sys.executable, str(_engine_path("render_chart_web.py")),
+           "--title", title, "--out", str(out_path)]
+    if a.get("subtitle"):
+        cmd += ["--subtitle", a["subtitle"]]
+
+    config = a.get("config")
+    if config:
+        config_path = (ROOT / config) if not os.path.isabs(config) else Path(config)
+        if not config_path.exists():
+            return {"status": "failed", "reason": f"chart_config_missing:{config}",
+                    "filename": out_path.name}
+        cmd += ["--config", str(config_path)]
+    else:
+        resolved, err = _resolve_chart_data(a.get("data"), slug)
+        if err is not None:
+            # Loud-fail (NOT manual): unresolved data is a real authoring gap.
+            return {
+                "status": "failed",
+                "reason": f"chart_data_unresolved:{err}",
+                "filename": out_path.name,
+                "hint": (
+                    "Provide chartable data: add it to content-pipeline/1-research/"
+                    + slug + "-data.json under the key the placeholder references "
+                    "(data=research.<key>), or inline JSON in data=, or a full "
+                    "ApexCharts options file via config=. Free-text data= cannot be charted."
+                ),
+            }
+        if resolved.strip() in {"[]", "{}", "null"}:
+            return {"status": "failed", "reason": "chart_data_empty",
+                    "filename": out_path.name,
+                    "hint": "The referenced chart data resolved to an empty value — "
+                            "the research key exists but holds no numbers."}
+        cmd += ["--type", ctype, "--data", resolved]
+
+    return _engine_captured(_run_engine(cmd), out_path, engine="render_chart_web",
+                            extra={"chart_type": "config" if config else ctype})
+
+
+# Diagram-kind aliases → render_diagram_web.py `--type`.
+_DIAGRAM_TYPES = {"linear", "tree", "flow", "cycle"}
+_DIAGRAM_TYPE_ALIASES = {
+    "process": "linear", "steps": "linear", "step": "linear", "sequence": "linear",
+    "decision": "tree", "decision-tree": "tree", "decision_tree": "tree",
+    "flowchart": "flow", "flow-chart": "flow",
+    "loop": "cycle", "feedback": "cycle", "cyclic": "cycle",
+}
+
+
+def _diagram_type(raw: str | None) -> str:
+    t = (raw or "linear").lower().strip()
+    if t in _DIAGRAM_TYPES:
+        return t
+    return _DIAGRAM_TYPE_ALIASES.get(t, "linear")
+
+
+def _handle_diagram(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
+    """Diagram → render_diagram_web.py (dagre auto-layout + brand-card renderer).
+
+    Clean process flows / decision trees / flow charts / cycles. Needs STRUCTURED
+    input: `data=` inline JSON (list of steps / nested tree / list of cycle nodes)
+    or `config=` a path to a full {direction,nodes,edges} spec JSON. `style=`/
+    `diagram_type=` picks linear|tree|flow|cycle (aliases: process/decision/flowchart/loop).
+
+    A diagram described only in prose (`what=...`, no `data`/`config`) CANNOT be
+    rendered deterministically — it loud-fails as `failed` with a hint to add
+    structured data, rather than silently substituting anything.
+    """
+    a = item["attrs"]
+    title = a.get("title") or a.get("what") or "Diagram"
+    dtype = _diagram_type(a.get("diagram_type") or a.get("style"))
+    name = _slug(a.get("title") or a.get("what") or "diagram")
+    out_path = out_dir / f"diagram-{index}-{name}.png"
+
+    cmd = [sys.executable, str(_engine_path("render_diagram_web.py")),
+           "--title", title, "--out", str(out_path)]
+    if a.get("subtitle"):
+        cmd += ["--subtitle", a["subtitle"]]
+    if a.get("direction") in {"LR", "TB"}:
+        cmd += ["--direction", a["direction"]]
+
+    config = a.get("config")
+    if config:
+        config_path = (ROOT / config) if not os.path.isabs(config) else Path(config)
+        if not config_path.exists():
+            return {"status": "failed", "reason": f"diagram_config_missing:{config}",
+                    "filename": out_path.name}
+        cmd += ["--config", str(config_path)]
+    else:
+        data = (a.get("data") or "").strip()
+        if not data:
+            return {
+                "status": "failed",
+                "reason": "diagram_requires_structured_data",
+                "filename": out_path.name,
+                "hint": (
+                    "render_diagram_web.py needs structured nodes, not prose. Add "
+                    "data=research.<key> (resolved from content-pipeline/1-research/"
+                    "<slug>-data.json) or config=<path to a {direction,nodes,edges} spec>. "
+                    "linear: a list of {label,desc}; tree: a nested {label,children}; "
+                    "cycle: a list of {label,icon}. See DIAGRAM-THEME.md."
+                ),
+            }
+        # Inline JSON (rare — the [VISUAL:] grammar truncates at the first ']',
+        # so bracketed JSON can't survive in a placeholder; research.<key>/path:KEY
+        # is the practical form) OR a resolver reference.
+        if data.startswith("{") or data.startswith("["):
+            resolved = data
+        else:
+            resolved, err = _resolve_structured_data(data, slug)
+            if err is not None:
+                return {
+                    "status": "failed",
+                    "reason": f"diagram_data_unresolved:{err}",
+                    "filename": out_path.name,
+                    "hint": (
+                        "diagram data= must be a research.<key> reference (resolved from "
+                        "content-pipeline/1-research/" + slug + "-data.json), a path:KEY, or "
+                        "use config=<path> for a full {direction,nodes,edges} spec."
+                    ),
+                }
+        if resolved.strip() in {"[]", "{}", "null"}:
+            return {"status": "failed", "reason": "diagram_data_empty",
+                    "filename": out_path.name,
+                    "hint": "The referenced diagram data resolved to an empty value."}
+        cmd += ["--type", dtype, "--data", resolved]
+
+    return _engine_captured(_run_engine(cmd), out_path, engine="render_diagram_web",
+                            extra={"diagram_type": "config" if config else dtype})
+
+
+def _build_table_spec(a: dict[str, str], slug: str, title: str) -> tuple[dict[str, Any] | None, str | None]:
+    """Build a render_table_card.py spec from [VISUAL] attrs.
+
+    Forms supported (matching how drafts write table/comparison placeholders):
+      - config=<path> / spec=<path>  → load that spec JSON verbatim.
+      - data=<inline JSON object>    → a full spec object, passed through.
+      - data=research.<key> / path:KEY → resolve to a spec object or a rows array.
+      - columns=A,B,C (+ data=rows)  → generic GFM-style table; rows from data or empty.
+    Returns (spec, error). Exactly one is non-None.
+    """
+    spec_path = a.get("config") or a.get("spec")
+    if spec_path:
+        p = (ROOT / spec_path) if not os.path.isabs(spec_path) else Path(spec_path)
+        if not p.exists():
+            return None, f"table_spec_missing:{spec_path}"
+        try:
+            return json.loads(p.read_text(encoding="utf-8")), None
+        except (OSError, json.JSONDecodeError) as exc:
+            return None, f"table_spec_unreadable:{exc}"
+
+    raw = (a.get("data") or "").strip()
+    resolved_obj: Any = None
+    if raw:
+        if raw.startswith("{") or raw.startswith("["):
+            try:
+                resolved_obj = json.loads(raw)
+            except json.JSONDecodeError as exc:
+                return None, f"table_data_bad_json:{exc}"
+        else:
+            # research.<key> / path:KEY — reuse the chart resolver (same contract).
+            resolved, err = _resolve_chart_data(raw, slug)
+            if err is not None:
+                return None, f"table_data_unresolved:{err}"
+            try:
+                resolved_obj = json.loads(resolved)
+            except json.JSONDecodeError as exc:
+                return None, f"table_data_bad_json:{exc}"
+
+    # A fully-formed spec object (has type/rows/columns) is passed through, with
+    # the placeholder title/subtitle filled in if the spec omits them.
+    if isinstance(resolved_obj, dict) and ("rows" in resolved_obj or "items" in resolved_obj or "columns" in resolved_obj):
+        spec = dict(resolved_obj)
+        spec.setdefault("title", title)
+        if a.get("subtitle"):
+            spec.setdefault("subtitle", a["subtitle"])
+        if a.get("comparison_type") and "type" not in spec:
+            spec["type"] = a["comparison_type"]
+        return spec, None
+
+    # columns=A,B,C → generic table; rows come from a resolved list (if any).
+    cols_attr = a.get("columns")
+    if cols_attr:
+        columns = [c.strip() for c in cols_attr.split(",") if c.strip()]
+        rows: list[Any] = []
+        if isinstance(resolved_obj, list):
+            rows = resolved_obj
+        elif isinstance(resolved_obj, dict) and isinstance(resolved_obj.get("rows"), list):
+            rows = resolved_obj["rows"]
+        spec: dict[str, Any] = {"type": "table", "title": title, "columns": columns, "rows": rows}
+        if a.get("subtitle"):
+            spec["subtitle"] = a["subtitle"]
+        return spec, None
+
+    return None, "table_no_spec_columns_or_data"
+
+
+def _handle_table(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
+    """Table / comparison / pricing / grid → render_table_card.py (brand table card).
+
+    Deterministic crisp text (never an image model). Spec is built from the
+    placeholder attrs: `config=`/`spec=` path, an inline `data=` spec object,
+    `data=research.<key>` resolving to a spec/rows, or `columns=A,B,C` for a
+    generic GFM table. Loud-fails (no substitution) when no usable spec exists or
+    the engine errors.
+    """
+    a = item["attrs"]
+    title = a.get("title") or a.get("what") or "Comparison"
+    name = _slug(a.get("title") or a.get("what") or item["type"])
+    out_path = out_dir / f"table-{index}-{name}.png"
+
+    spec, err = _build_table_spec(a, slug, title)
     if err is not None:
         return {
-            "status": "manual",
-            "reason": f"chart_data_unresolved:{err}",
+            "status": "failed",
+            "reason": err,
             "filename": out_path.name,
             "hint": (
-                "Add the data to content-pipeline/1-research/" + slug + "-data.json under "
-                "the key the placeholder references, then re-run /generate-visuals. "
-                "Or render manually: python .claude/skills/generate-visuals/scripts/render_chart.py "
-                "--title \"" + title + "\" --style " + style + " --data '<inline JSON>' --out "
-                + str(out_path.relative_to(ROOT))
+                "Provide the table data: columns=A,B,C with rows in data= (inline "
+                "JSON list or research.<key>), or a full spec via config=<path> / "
+                "inline data=<spec object>. See COMPARISON-TABLE.md."
             ),
         }
 
-    module = _load_render_chart()
-    if module is None:
-        return {"status": "manual", "reason": "matplotlib_unavailable", "filename": out_path.name}
+    spec_file = _spec_to_tempfile(spec, out_dir, f"table-{index}")
+    cmd = [sys.executable, str(_engine_path("render_table_card.py")),
+           "--spec", str(spec_file), "--out", str(out_path)]
+    return _engine_captured(_run_engine(cmd), out_path, engine="render_table_card",
+                            extra={"table_type": spec.get("type", "table")})
 
-    return module.render(title, style, resolved, out_path, a.get("x_label"), a.get("y_label"))
+
+def _handle_cover(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
+    """Cover / hero → render_cover.py (deterministic line-art, free, no AI).
+
+    The article featured image (1600×900). We route to the free deterministic
+    engine (render_cover.py) — never the AI cover lane — so the auto-pipeline
+    stays cost-free and SFW. `title` is required (defaults to the article title via
+    `what`); `theme` (light|dark|bold|aurora), `accent`, `eyebrow`/`subtitle`,
+    `icon`, `motif` map straight to flags. `content=<path>` (a cover JSON) wins.
+    """
+    a = item["attrs"]
+    name = _slug(a.get("title") or a.get("what") or slug)
+    out_path = out_dir / f"cover-{index}-{name}.png"
+    cmd = [sys.executable, str(_engine_path("render_cover.py")), "--out", str(out_path)]
+
+    content = a.get("content")
+    if content:
+        content_path = (ROOT / content) if not os.path.isabs(content) else Path(content)
+        if not content_path.exists():
+            return {"status": "failed", "reason": f"cover_content_missing:{content}",
+                    "filename": out_path.name}
+        cmd += ["--content", str(content_path)]
+    else:
+        title = a.get("title") or a.get("what")
+        if not title:
+            return {"status": "failed", "reason": "cover_requires_title",
+                    "filename": out_path.name,
+                    "hint": "Add title= (or what=) — the cover needs the article title."}
+        cmd += ["--title", title]
+        if a.get("eyebrow"):
+            cmd += ["--eyebrow", a["eyebrow"]]
+        if a.get("subtitle"):
+            cmd += ["--subtitle", a["subtitle"]]
+        if a.get("theme") in {"light", "dark", "bold", "aurora"}:
+            cmd += ["--theme", a["theme"]]
+        if a.get("accent"):
+            cmd += ["--accent", a["accent"]]
+        if a.get("icon"):
+            cmd += ["--icon", a["icon"]]
+        if a.get("motif"):
+            cmd += ["--motif", a["motif"]]
+
+    return _engine_captured(_run_engine(cmd), out_path, engine="render_cover")
+
+
+def _handle_annotation(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
+    """Annotation → annotate_screenshot.py --strict (callout boxes/arrows on a shot).
+
+    A screenshot of a brand URL with numbered highlight boxes/labels drawn on
+    target elements. `url` required; `targets=` is a JSON array of
+    {selector, kind?, label?, corner?} (or a single `selector=` is wrapped into
+    one target). `dismiss=` clicks an exact-text element first (age/cookie gate);
+    `color=` sets the highlight colour.
+
+    Always runs with `--strict` (mandate: a missing target HARD-FAILS, never a
+    silent skip). The engine writes <out>_report.json; we read it for the loud
+    failure detail. No silent fallback.
+    """
+    a = item["attrs"]
+    url = a.get("url") if "url" in a else _resolve_brand_url(a.get("target") or "create")
+    name = _slug(a.get("what") or a.get("target") or "annotation")
+    out_path = out_dir / f"annotation-{index}-{name}.png"
+
+    # Build the targets array.
+    targets: Any
+    raw_targets = a.get("targets")
+    if raw_targets:
+        try:
+            targets = json.loads(raw_targets)
+        except json.JSONDecodeError as exc:
+            return {"status": "failed", "reason": f"annotation_targets_bad_json:{exc}",
+                    "filename": out_path.name}
+    elif a.get("selector") or a.get("annotate"):
+        sel = a.get("annotate") or a.get("selector")
+        targets = [{"selector": sel, "kind": a.get("kind", "box"),
+                    "label": a.get("label") or a.get("what")}]
+    else:
+        return {"status": "failed", "reason": "annotation_requires_targets_or_selector",
+                "filename": out_path.name,
+                "hint": "Add targets=<JSON array of {selector,kind,label}> or a single selector=."}
+
+    cmd = [sys.executable, str(_engine_path("annotate_screenshot.py")),
+           "--url", url, "--out", str(out_path),
+           "--targets", json.dumps(targets), "--strict"]
+    if a.get("dismiss"):
+        cmd += ["--dismiss", a["dismiss"]]
+    if a.get("color"):
+        cmd += ["--color", a["color"]]
+
+    result = _run_engine(cmd)
+    # annotate_screenshot prints "DREW -> <out>" + a *_report.json; --strict
+    # exits non-zero when a target is missing/overlapping.
+    report_path = Path(str(out_path).rsplit(".", 1)[0] + "_report.json")
+    report: dict[str, Any] = {}
+    if report_path.exists():
+        try:
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            report = {}
+    missing = report.get("missing") or []
+    overlaps = report.get("overlaps") or []
+    file_ok = out_path.exists() and out_path.stat().st_size > 0
+    # Loud-fail on a non-zero --strict exit, a missing output file, OR a report
+    # that shows any unfound target / overlap (defense beyond the exit code — a
+    # missing target must never be silently skipped, per the mandate).
+    if not result["ok"] or not file_ok or missing or overlaps:
+        return {
+            "status": "failed",
+            "reason": "annotation_strict_failed",
+            "engine": "annotate_screenshot",
+            "filename": out_path.name,
+            "missing": missing,
+            "overlaps": overlaps,
+            "error": (result.get("stderr") or result.get("stdout") or "").strip()[-500:],
+        }
+    return {
+        "status": "captured",
+        "path": _rel_to_root(out_path),
+        "engine": "annotate_screenshot",
+        "url": url,
+        "targets": report.get("targets"),
+    }
+
+
+def _handle_infographic(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
+    """Infographic → infographic_engine.js (Nano Banana) THEN composite_logo.py.
+
+    Two-step gated-AI lane (hand-drawn-edu illustration + clean sans text + the
+    real composited logo). Needs a `content=` JSON file (or inline `data=` spec
+    object) of {title, subtitle, takeaway, items:[{icon,number,label,sublabel}]}.
+    REPLICATE_API_KEY is mandatory in the engine (loud-fail, no fallback).
+
+    Step 1 writes raw.png; step 2 stamps the real logo → final out_path. Any
+    failure in either step is a loud `failed` (no substitution). Every output
+    still owes the VISUAL-CRITIQUE-LOOP vision gate before publish.
+    """
+    a = item["attrs"]
+    name = _slug(a.get("title") or a.get("what") or "infographic")
+    out_path = out_dir / f"infographic-{index}-{name}.png"
+    raw_path = out_dir / f".infographic-{index}-{name}.raw.png"
+
+    content_path = _infographic_content_path(a, slug, out_dir, index)
+    if isinstance(content_path, dict):
+        return content_path  # an error result
+
+    node = _node_bin()
+    gen = _run_engine([node, str(_engine_path("infographic_engine.js")),
+                       "--content", str(content_path), "--out", str(raw_path)])
+    if not gen["ok"] or not raw_path.exists() or raw_path.stat().st_size == 0:
+        return _engine_failed(gen, engine="infographic_engine", out_path=out_path,
+                              reason="infographic_generate_failed")
+
+    stamp = _run_engine([sys.executable, str(_engine_path("composite_logo.py")),
+                         "--in", str(raw_path), "--out", str(out_path)])
+    if not stamp["ok"] or not out_path.exists() or out_path.stat().st_size == 0:
+        return _engine_failed(stamp, engine="composite_logo", out_path=out_path,
+                              reason="infographic_logo_stamp_failed")
+    return {"status": "captured", "path": _rel_to_root(out_path),
+            "engine": "infographic_engine+composite_logo",
+            "needs_vision_gate": True}
+
+
+def _handle_concept_illustration(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
+    """Concept illustration → concept_illustration_engine.js (Nano Banana), then a
+    deterministic palette gate (concept_palette_check.py).
+
+    The single gated AI lane for a truly abstract concept (rare ~6% slot). Needs
+    a `content=` JSON file (or inline `data=`) with {concept, metaphor, mood?,
+    style?, aspect?}. REPLICATE_API_KEY mandatory (loud-fail, no fallback).
+
+    After render we run the cheap palette check; a `WARN` is attached to the
+    manifest (`palette_warn`) so the vision gate scrutinizes it — it does NOT
+    auto-fail (the decisive gate is the agent's vision pass per
+    VISUAL-CRITIQUE-LOOP.md). Composite logo is intentionally OFF for in-body
+    illustrations (page chrome carries the brand). No silent fallback on errors.
+    """
+    a = item["attrs"]
+    name = _slug(a.get("concept") or a.get("what") or "concept")
+    out_path = out_dir / f"concept-{index}-{name}.png"
+
+    content_path = _concept_content_path(a, slug, out_dir, index)
+    if isinstance(content_path, dict):
+        return content_path  # an error result
+
+    node = _node_bin()
+    cmd = [node, str(_engine_path("concept_illustration_engine.js")),
+           "--content", str(content_path), "--out", str(out_path)]
+    if a.get("style"):
+        cmd += ["--style", a["style"]]
+    if a.get("aspect"):
+        cmd += ["--aspect", a["aspect"]]
+    gen = _run_engine(cmd)
+    if not gen["ok"] or not out_path.exists() or out_path.stat().st_size == 0:
+        return _engine_failed(gen, engine="concept_illustration_engine", out_path=out_path,
+                              reason="concept_illustration_generate_failed")
+
+    # Deterministic first-filter palette check (advisory, not decisive).
+    palette_warn = None
+    chk = _run_engine([sys.executable, str(_engine_path("concept_palette_check.py")),
+                       "--in", str(out_path), "--json"])
+    payload = _last_json_line(chk["stdout"])
+    if payload and payload.get("verdict") == "WARN":
+        palette_warn = {"brand_pct": payload.get("brand_pct"), "off_pct": payload.get("off_pct")}
+
+    return {"status": "captured", "path": _rel_to_root(out_path),
+            "engine": "concept_illustration_engine",
+            "needs_vision_gate": True,
+            "palette_warn": palette_warn}
+
+
+def _node_bin() -> str:
+    return os.environ.get("NODE_BIN", "node")
+
+
+def _content_from_attr(a: dict[str, str], slug: str, out_dir: Path, index: int, kind: str,
+                       required_keys: tuple[str, ...]) -> Path | dict[str, Any]:
+    """Resolve a `content=`/`data=` spec for the AI engines into a JSON file path.
+
+    Accepts `content=<path>`, inline `data=<{...}>`, or `data=research.<key>`
+    (resolved from content-pipeline/1-research/<slug>-data.json — same contract as
+    chart/diagram). Returns a Path on success, or an error result dict (loud-fail)
+    when no valid spec with the required keys is present.
+    """
+    content = a.get("content")
+    if content:
+        p = (ROOT / content) if not os.path.isabs(content) else Path(content)
+        if not p.exists():
+            return {"status": "failed", "reason": f"{kind}_content_missing:{content}",
+                    "filename": f"{kind}-{index}.png"}
+        return p
+    raw = (a.get("data") or "").strip()
+    if raw:
+        if raw.startswith("{"):
+            try:
+                obj = json.loads(raw)
+            except json.JSONDecodeError as exc:
+                return {"status": "failed", "reason": f"{kind}_data_bad_json:{exc}",
+                        "filename": f"{kind}-{index}.png"}
+        else:
+            # research.<key> / path:KEY → resolve to a spec object.
+            resolved, err = _resolve_structured_data(raw, slug)
+            if err is not None:
+                return {"status": "failed", "reason": f"{kind}_data_unresolved:{err}",
+                        "filename": f"{kind}-{index}.png"}
+            try:
+                obj = json.loads(resolved)
+            except json.JSONDecodeError as exc:
+                return {"status": "failed", "reason": f"{kind}_data_bad_json:{exc}",
+                        "filename": f"{kind}-{index}.png"}
+        if not isinstance(obj, dict):
+            return {"status": "failed", "reason": f"{kind}_data_not_object",
+                    "filename": f"{kind}-{index}.png"}
+        missing = [k for k in required_keys if not obj.get(k)]
+        if missing:
+            return {"status": "failed", "reason": f"{kind}_missing_keys:{','.join(missing)}",
+                    "filename": f"{kind}-{index}.png"}
+        return _spec_to_tempfile(obj, out_dir, f"{kind}-{index}")
+    return {"status": "failed", "reason": f"{kind}_requires_content",
+            "filename": f"{kind}-{index}.png",
+            "hint": f"Add content=<path to a {kind} JSON>, inline data=<spec with {', '.join(required_keys)}>, or data=research.<key>."}
+
+
+def _infographic_content_path(a, slug, out_dir, index):
+    return _content_from_attr(a, slug, out_dir, index, "infographic", ("title", "items"))
+
+
+def _concept_content_path(a, slug, out_dir, index):
+    return _content_from_attr(a, slug, out_dir, index, "concept", ("concept", "metaphor"))
 
 
 def _handle_demo(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
@@ -540,20 +1206,42 @@ def _handle_manual(item: dict[str, Any], index: int) -> dict[str, Any]:
 
 def _dispatch(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
     t = item["type"]
+    # --- Deterministic, free, on-brand engines (the common path) ---
     if t == "screenshot":
         return _handle_screenshot(item, slug, index, out_dir)
-    if t == "action-shot":
-        return _handle_action_shot(item, slug, index, out_dir)
-    if t == "image":
-        return _handle_image(item, slug, index, out_dir)
     if t == "chart":
         return _handle_chart(item, slug, index, out_dir)
+    if t in {"table", "comparison", "pricing-table", "feature-table"}:
+        return _handle_table(item, slug, index, out_dir)
+    if t in {"diagram", "process", "decision-tree", "flowchart", "cycle"}:
+        return _handle_diagram(item, slug, index, out_dir)
+    if t in {"cover", "hero"}:
+        return _handle_cover(item, slug, index, out_dir)
+    if t == "annotation":
+        return _handle_annotation(item, slug, index, out_dir)
+    # --- Stateful capture (deterministic; showcase session for authed shots) ---
+    if t == "action-shot":
+        return _handle_action_shot(item, slug, index, out_dir)
     if t == "external":
         return _handle_external(item, slug, index, out_dir)
+    # --- Animated demos (GIF/MP4/WebP) ---
     if t in {"demo", "animation", "video", "gif"}:
         return _handle_demo(item, slug, index, out_dir)
-    if t == "table" or t == "none":
-        return {"status": "skip", "reason": f"type_{t}_not_an_asset"}
+    # --- Gated AI lanes (Replicate; every output owes the vision gate) ---
+    if t == "infographic":
+        return _handle_infographic(item, slug, index, out_dir)
+    if t in {"concept-illustration", "concept"}:
+        return _handle_concept_illustration(item, slug, index, out_dir)
+    # --- Retired / non-asset ---
+    if t == "image":
+        # AI image generation is retired: dropped + logged as a manual TODO.
+        return _handle_image(item, slug, index, out_dir)
+    if t == "card":
+        # The blog has native stat/quote/callout components — not a generated
+        # asset. Skip (strip the placeholder) so the gate doesn't choke on it.
+        return {"status": "skip", "reason": "type_card_uses_native_components"}
+    if t == "none":
+        return {"status": "skip", "reason": "type_none_not_an_asset"}
     return {"status": "failed", "reason": f"unknown_type_{t}"}
 
 
@@ -602,14 +1290,15 @@ def _rewrite_draft(text: str, replacements: list[tuple[str, str]]) -> str:
 
 
 def _visuals_enabled() -> bool:
-    """Visual generation is OFF by default — deferred to a future visual project.
+    """Visual generation is ON by default (wired 2026-06-29).
 
-    The whole capture/chart/rewrite path below only runs when the operator
-    explicitly opts in with BLOG_AGENT_VISUALS=on. Until then the stage is a
-    no-op that leaves every [VISUAL:...]/[SCREENSHOT:...] placeholder in place
-    as a marker and generates no assets.
+    The full dispatcher routes every typed [VISUAL:...] to its on-brand engine
+    (chart/diagram/table/cover/annotation deterministic + screenshot/action-shot/
+    external capture + the gated AI infographic/concept-illustration lanes). Set
+    BLOG_AGENT_VISUALS=off to fall back to the legacy no-op (placeholders left in
+    place, no assets generated) — e.g. for a text-only dry run.
     """
-    return os.environ.get("BLOG_AGENT_VISUALS", "off").lower() == "on"
+    return os.environ.get("BLOG_AGENT_VISUALS", "on").lower() != "off"
 
 
 def _run_deferred(slug: str, draft_path: Path, out_dir: Path, text: str, items: list[dict[str, Any]]) -> int:
@@ -677,8 +1366,15 @@ def run(slug: str) -> int:
         manifest_entries.append(entry)
 
         if result.get("status") == "captured":
-            asset_path = result["path"]
-            if isinstance(asset_path, str) and not asset_path.startswith(("http://", "https://")):
+            asset_path = result.get("path")
+            if not asset_path:
+                # Handler contract violation: captured without a path. Demote to
+                # failed rather than crashing the whole run on a KeyError.
+                entry["status"] = "failed"
+                entry["result"] = {**result, "status": "failed",
+                                   "reason": "captured_without_path"}
+                manual_items.append({"item": item, "result": entry["result"]})
+            elif isinstance(asset_path, str) and not asset_path.startswith(("http://", "https://")):
                 rel = asset_path.replace("\\", "/")
                 if rel.startswith("content-pipeline/"):
                     rel = rel.replace("content-pipeline/", "", 1)

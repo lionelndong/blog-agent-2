@@ -39,14 +39,18 @@ Specific halt conditions:
   3-reviewer panel (see `/quality-check`). The autonomous revision loop addresses a FAIL; if the
   budget (2) is spent and it still FAILs, write `9-needs-review/{slug}.md` and STOP — never publish
   a FAIL.
-- **`visuals`** — **DEFERRED** (visuals are their own future project). The visuals stage leaves the
-  typed `[VISUAL:...]` placeholders in the draft as markers, generates nothing, and does **not** gate.
-  Leftover `[VISUAL:...]`/`[SCREENSHOT:...]` placeholders are EXPECTED and are no longer a HALT.
-  (`/format-for-publish` later converts each surviving placeholder to an invisible
-  `<!-- VISUAL-TODO: ... -->` marker.) Re-enable real asset generation via `BLOG_AGENT_VISUALS=on`.
-- **`publish`** — `8-publish/{slug}/{article.md, article.json, README.md}` must all exist. (The old
-  "zero raw `[VISUAL:...]`" assertion is **relaxed**: visuals are deferred, so `/format-for-publish`
-  converts any leftover placeholder to `<!-- VISUAL-TODO: ... -->` rather than failing.)
+- **`visuals`** — **ON** (wired 2026-06-29; `BLOG_AGENT_VISUALS=on` by default). `/generate-visuals`
+  realizes every typed `[VISUAL:...]` into an on-brand asset (deterministic charts/diagrams/tables/
+  covers/annotations + screenshots/action-shots/external captures + the gated AI infographic/
+  concept-illustration lanes), rewrites the draft to `![alt](images/{slug}/file.png)`, and records a
+  manifest. **No silent fallback:** a type that can't be produced is recorded `failed`/`manual` and
+  its placeholder is kept in the draft. A *captured* visual still owes the `VISUAL-CRITIQUE-LOOP.md`
+  vision gate before publish. Set `BLOG_AGENT_VISUALS=off` for a text-only dry run (legacy no-op:
+  placeholders left in place, nothing generated). `/format-for-publish` converts any *surviving*
+  placeholder (failed/manual/deferred) to an invisible `<!-- VISUAL-TODO: ... -->` marker.
+- **`publish`** — `8-publish/{slug}/{article.md, article.json, README.md}` must all exist. (Any
+  leftover `[VISUAL:...]` for a failed/manual/deferred visual is converted by `/format-for-publish`
+  to `<!-- VISUAL-TODO: ... -->` rather than failing.)
 - **`deliverable`** — for issue-driven runs (PAPERCLIP_TASK_ID set), a deliverable comment with the
   slug + verdict must be posted to the trigger issue.
 
@@ -111,9 +115,9 @@ never auto-runs (editor owns the preview→publish gap).
    `python scripts/auto_publish_check.py {slug}`; on verification failure write `9-needs-review/` and
    emit QUARANTINED. Interactive → never auto-run.
 
-**Multi-author byline + deferred visuals (cross-cutting):**
+**Multi-author byline + visuals (cross-cutting):**
 - **`/draft` selects the author persona** from the content-type (per `examples/authors.md`) and **stamps the byline** as the first line of the draft: `<!-- byline: <Byline Name> | persona: <persona-slug> -->`. **`/format-for-publish` reads that stamp and attaches the Strapi author relation** (persona slug → Author `documentId`); no byline ⇒ author left unset, no crash. Keep the byline comment format byte-exact across `/draft`, `/format-for-publish`, and the visuals stage.
-- **Visuals are DEFERRED for now:** the visuals stage leaves `[VISUAL:...]` placeholders, generates nothing, and does **not** gate. `/format-for-publish` converts any leftover placeholder to an invisible `<!-- VISUAL-TODO: ... -->` marker. Stage **order is unchanged** — the visuals stage still runs, it's just a no-op by default (`BLOG_AGENT_VISUALS=on` re-enables generation).
+- **Visuals are ON (2026-06-29):** the visuals stage realizes every typed `[VISUAL:...]` into an on-brand asset and rewrites the draft to `![alt](images/{slug}/file.png)`. It does **not** hard-gate the run, but each captured visual owes the `VISUAL-CRITIQUE-LOOP.md` vision gate before publish; failed/manual entries keep their placeholder, which `/format-for-publish` converts to an invisible `<!-- VISUAL-TODO: ... -->` marker. Set `BLOG_AGENT_VISUALS=off` for a text-only dry run (legacy no-op). Stage **order is unchanged**.
 
 ## Stage briefs
 
@@ -247,18 +251,27 @@ Resolve every [link] placeholder with a real source via WebSearch + WebFetch. Wi
 Return: [link] placeholders replaced, [CITATION NEEDED] flags remaining, internal links wired, must-cite density %, voice-flagged statements listed. Under 300 words.
 ```
 
-### Stage 8 — Generate visuals (DEFERRED by default)
+### Stage 8 — Generate visuals (ON by default)
 
 ```
 You are running stage 8 at {ROOT}. Slug: {SLUG}.
 
-VISUALS ARE DEFERRED (their own future project). By default this stage is a no-op: it leaves the typed [VISUAL:...] placeholders in the cited draft as markers, generates NOTHING, and does NOT gate. Leftover placeholders are EXPECTED — /format-for-publish later converts each surviving [VISUAL:...]/[SCREENSHOT:...] into an invisible <!-- VISUAL-TODO: ... --> marker, so they do not block text publish and must not be treated as a failure. Just confirm the stage ran and report the placeholder count.
-
-ONLY when BLOG_AGENT_VISUALS=on (opt-in) do real asset generation per .claude/skills/generate-visuals/SKILL.md:
+VISUALS ARE ON (BLOG_AGENT_VISUALS=on by default). Run the dispatcher; it realizes every typed [VISUAL:...] into an on-brand asset, optimizes the PNG, records content-pipeline/images/{SLUG}/manifest.json, and rewrites the cited draft so each captured placeholder becomes ![alt](images/{SLUG}/file.png):
   doppler run -- python .claude/skills/generate-visuals/scripts/generate_visuals.py {SLUG}
-In that mode the dispatcher realizes the deterministic placeholders (brand-UI screenshots via Playwright, data charts/tables via matplotlib using {SLUG}-data.json keys; NO AI image generation), and records anything non-deterministic as a manual TODO. If a chart reports status=failed reason=invalid_data_spec, {SLUG}-data.json is missing the referenced key: read the dossier, extract the numbers, append to {SLUG}-data.json, re-run.
+(DISPLAY=:99 must be set for the headless-browser engines — the container has it.)
 
-Return (default deferred): placeholder count left in the draft, confirmation nothing was generated/stripped, that the stage did not gate. (Opt-in: captured/manual-TODO/failed counts + manifest path.) Under 250 words.
+Engines (all run in the container; full interface in .claude/skills/generate-visuals/SKILL.md + the per-type recipe docs):
+  chart -> render_chart_web.py | diagram -> render_diagram_web.py | table/comparison -> render_table_card.py |
+  cover -> render_cover.py | annotation -> annotate_screenshot.py --strict | screenshot -> capture_screenshot.py |
+  action-shot -> action_shot.py | external -> capture_screenshot.py | demo/gif -> animate_demo.py |
+  infographic -> infographic_engine.js + composite_logo.py | concept-illustration -> concept_illustration_engine.js.
+  (type=image is retired/dropped; type=card uses native blog components and is skipped.)
+
+NO SILENT FALLBACK. A type that can't be produced is recorded failed/manual with a reason; its placeholder stays in the draft (and /format-for-publish later converts a surviving placeholder to an invisible <!-- VISUAL-TODO: ... --> marker — failed/manual visuals therefore do NOT block text publish). Common fixes: chart/diagram status=failed reason=*data_unresolved/*requires_structured_data => the referenced key is missing from content-pipeline/1-research/{SLUG}-data.json — read the dossier, extract the numbers/nodes, append under that key, re-run. action-shot reason=session_required => an authed shot needs the showcase session (setup_auth.py); leave it manual. infographic/concept reason=*generate_failed => check REPLICATE_API_KEY / the Nano-Banana error.
+
+Every CAPTURED visual must pass VISUAL-CRITIQUE-LOOP.md (render -> deterministic check -> vision critique -> fix -> re-render, max 3) before publish — be a strict critic, especially for the gated AI lanes. Set BLOG_AGENT_VISUALS=off only for a text-only dry run (legacy no-op).
+
+Return: captured / manual / failed counts + the manifest path + any failed entries with their reason. Under 250 words.
 ```
 
 ### Stage 9 — Preview
