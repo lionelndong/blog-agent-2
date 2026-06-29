@@ -38,8 +38,10 @@ deterministic line-art engine (`render_cover.py`) stays as a free fallback.
    Locked Ahrefs house-style + a per-topic **`scene`** (the creative variable; derived from the title
    if absent) → Nano Banana, 16:9. `REPLICATE_API_KEY` mandatory (loud-fail). `c.json`:
    `{ "title", "scene"?, "bg"? ("blue"|"white") }`.
-2. **Finalize (resize)** — `python logo_stamp.py --no-logo --in raw.png --out cover.png`
-   Resizes to **1600×900**. **No logo on covers** (operator's call) — branding comes from the page + og:title.
+2. **Finalize** — `python logo_stamp.py --no-logo --bg-color "#2E90FA" --in raw.png --out cover.png`
+   Resizes to **1600×900** and **snaps the background to exact `#2E90FA`** (corner flood-fill — the bold
+   outlines stop it, so interior shapes are untouched), so EVERY cover has the identical brand-blue
+   background (AI bg drifts per render; this locks it). **No logo on covers** (operator's call).
 3. **Hard vision gate** — look at the PNG vs the Cover checklist: **cut** if it reads "AI"/slop, is
    off-brand, **NOT SFW**, garbled, or has any stray text/wrong logo. Max 3 re-rolls (refine the
    `scene` wording), else fall back to route-line-art. A bad cover never ships.

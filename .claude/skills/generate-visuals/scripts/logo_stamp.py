@@ -11,6 +11,26 @@ from PIL import Image, ImageDraw, ImageFilter
 SCRIPT_DIR = Path(__file__).resolve().parent
 
 
+def normalize_bg(img, hexc, thresh=140):
+    """Snap the background to an EXACT colour so every cover matches (AI bg drifts per render).
+
+    Flood-fills inward from the 8 frame edges → recolours only the connected background region;
+    the illustration's bold dark outlines stop the fill, so interior shapes (even blue ones, which
+    are enclosed) are untouched.
+    """
+    t = (int(hexc[1:3], 16), int(hexc[3:5], 16), int(hexc[5:7], 16))
+    im = img.convert("RGB")
+    W, H = im.size
+    seeds = [(3, 3), (W - 4, 3), (3, H - 4), (W - 4, H - 4),
+             (W // 2, 3), (W // 2, H - 4), (3, H // 2), (W - 4, H // 2)]
+    for s in seeds:
+        try:
+            ImageDraw.floodfill(im, s, t, thresh=thresh)
+        except Exception:
+            pass
+    return im.convert("RGBA")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--in", dest="inp", required=True)
@@ -22,11 +42,15 @@ def main():
     ap.add_argument("--height", type=int, default=900)
     ap.add_argument("--no-logo", dest="no_logo", action="store_true",
                     help="just resize to spec, no logo chip (covers ship logo-free per operator)")
+    ap.add_argument("--bg-color", dest="bg_color", default="",
+                    help="snap the background to this EXACT hex (e.g. #2E90FA) so every cover matches")
     a = ap.parse_args()
 
     img = Image.open(a.inp).convert("RGBA")
     if a.width and a.height and img.size != (a.width, a.height):
         img = img.resize((a.width, a.height), Image.LANCZOS)  # flat vector art upscales cleanly
+    if a.bg_color:
+        img = normalize_bg(img, a.bg_color if a.bg_color.startswith("#") else "#" + a.bg_color)
     if a.no_logo:
         img.convert("RGB").save(a.out)
         print("SAVED", a.out, img.size, "| no logo")
