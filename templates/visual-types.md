@@ -216,6 +216,10 @@ rate-limited APIs to force a pass.
 
 **Shape: capture LANDSCAPE, not square/portrait** (`visual-strategy.md` §7). Drive `action_shot.py` at a wide viewport (`--viewport 1440x880 --frame browser`), frame the actual feature, and trim the dead bottom band (composer / nav / empty scroll) — a landscape (≳1.3:1) product shot reads far better in-article than a tall phone-frame one. Use `--blur-images` for SFW and `--anchor`/`--selector` to clip to the relevant panel.
 
+**Frame is OPTIONAL** (`visual-strategy.md` §7). The branded browser/white-card frame + logo + caption is the default and looks polished, but a clean frameless/raw shot is fine when it reads better — vary it (`--frame plain|browser|device|none`, `--no-logo`). Don't force the frame on every shot.
+
+**SFW capture (companions are adult by default).** Our characters and the `/create` flow lean explicit, so never capture them raw for a public blog. Steer a chat to strictly professional content (hard custom-instruction + clean prompts, regenerate drift), `--hide` the conversation-list and persona side-panels that carry flirty snippets, scroll past any suggestive opener, and **view** the frame to confirm zero suggestive/explicit text before shipping. A missing shot beats a risqué one.
+
 ### Targeting and quality (`screenshot` / `external`)
 
 A screenshot of a whole viewport is rarely the right capture. Specify what to clip to:

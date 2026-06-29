@@ -92,6 +92,17 @@ An unresolvable `[VISUAL:]` loud-fails and leaves the section blank — that is 
   scroll space) showing on the blog. Capture our product at a wide viewport (≈1440×880, browser frame),
   frame the actual feature (the memory panel, the speaker/Listen reply, the pricing meter), and trim the
   dead bottom band; a landscape (≳1.3:1) shot reads far better in-article than a tall one.
+- **The branded frame is the DEFAULT, not mandatory.** The white-card / browser-chrome frame with the
+  real logo + caption looks polished and on-brand — keep it as the default for product/feature shots. But
+  it's **optional**: a clean frameless / raw screenshot is fine when it simply reads better. Vary it; don't
+  force the frame on every shot. (`action_shot.py --frame plain|browser|device|none`; `--no-logo` drops the
+  logo.)
+- **Public-blog content is SFW even though the product is adult.** Every captured frame must contain **zero
+  suggestive/flirty/explicit text or imagery** — it's a public, indexed page. Our companion characters and
+  the character-creation flow are adult by default, so don't capture them raw: steer a chat to strictly
+  professional content (a hard custom-instruction + clean prompts, regenerate any drift), hide the
+  conversation-list / persona side-panels that carry flirty snippets, scroll past any suggestive opener, and
+  **view the final frame** to confirm it's clean before shipping. A missing shot beats a risqué one.
 - **Annotation is selective** — only where the eye needs guidance. Self-evident charts get **zero**.
   When used: a box + **one** bold arrow + a short label (brand blue), never a cluttered swarm.
 - **Always blur PII** (emails, names) and any explicit imagery.
