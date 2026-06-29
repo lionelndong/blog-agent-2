@@ -23,6 +23,10 @@ Usage:
   python render_diagram_web.py --type tree --title "Which mode fits you?" \
     --data '{"label":"Want voice?","children":[{"edge":"Yes","tone":"yes","label":"Voice mode"}, ...]}' --out tree.png
 
+  # circular cycle (icons-in-pastel-circles loop — "how X works" as a repeating loop)
+  python render_diagram_web.py --type cycle --title "How memory works" \
+    --data '[{"label":"You chat","icon":"chat"},{"label":"Saved to memory","icon":"chip"}]' --out cycle.png
+
   # arbitrary flow (full node/edge spec, supports branching + merges)
   python render_diagram_web.py --type flow --title "..." --data '{"direction":"TB","nodes":[...],"edges":[...]}' --out flow.png
   python render_diagram_web.py --config spec.json --title "..." --out flow.png
@@ -109,6 +113,20 @@ def build_tree(data, direction):
     return {"direction": direction or "TB", "type": "tree", "nodes": nodes, "edges": edges}
 
 
+def build_cycle(items):
+    """Circular loop of icon nodes — pastel circle + line icon + label, clockwise arrows.
+    `items` = list of strings or {label, icon?, color?}. For "how X works" feedback loops."""
+    nodes = []
+    for i, it in enumerate(items):
+        if isinstance(it, str):
+            label, icon, color = it, None, None
+        else:
+            label, icon, color = it.get("label", ""), it.get("icon"), it.get("color")
+        nodes.append({"id": "c%d" % i, "shape": "circle", "label": label,
+                      "icon": (icon or "dot"), "color": color or PALETTE[i % 4]})
+    return {"type": "cycle", "nodes": nodes, "edges": []}
+
+
 # ------------------------------------------------------------------------- assets
 CSS = r"""
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=IBM+Plex+Sans:wght@600;700&display=swap');
@@ -157,6 +175,13 @@ body{margin:0;font-family:__FONT__;-webkit-font-smoothing:antialiased}
 .edge-label.lbl-neg{color:#C2483D;border-color:#F3CFCA;background:#FDF2F1}
 .edge-label.lbl-cau{color:#B5790F;border-color:#F3DFB6;background:#FEF8EC}
 .edge-layer{position:absolute;left:0;top:0;overflow:visible}
+
+/* ---- cycle (icons-in-pastel-circles loop) ---- */
+.node.circle{position:absolute;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 22px rgba(20,30,50,0.08)}
+.node.circle svg{width:46%;height:46%}
+.cyc-label{position:absolute;font-family:__TFONT__;font-weight:600;font-size:15.5px;color:#344054;
+  text-align:center;line-height:1.3}
 """
 
 JS = r"""
@@ -168,6 +193,37 @@ document.fonts.ready.then(function(){
   var DIA = T.diamond, DEL = Math.round(DIA / Math.SQRT2);   // diamond element side
 
   nodes.forEach(function(n, i){ if (n._idx == null) n._idx = i; });
+
+  var ICONS = {
+    chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+    message:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/>',
+    star:'<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>',
+    sparkle:'<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 14.5l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z"/>',
+    chip:'<rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/>',
+    shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+    lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+    key:'<circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/>',
+    heart:'<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.49 4.04 3 5.5l7 7z"/>',
+    user:'<circle cx="12" cy="8" r="4"/><path d="M5 21v-1a7 7 0 0 1 14 0v1"/>',
+    database:'<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/>',
+    bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+    clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+    bolt:'<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',
+    bulb:'<path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/>',
+    check:'<circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
+    eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>',
+    phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7A2 2 0 0 1 22 16.9z"/>',
+    image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.8"/><path d="m21 15-5-5L5 21"/>',
+    gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/>',
+    dot:'<circle cx="12" cy="12" r="7"/>'
+  };
+  ICONS.note=ICONS.star; ICONS.recall=ICONS.sparkle; ICONS.memory=ICONS.chip; ICONS.brain=ICONS.chip;
+  ICONS.privacy=ICONS.shield; ICONS.idea=ICONS.bulb; ICONS.time=ICONS.clock; ICONS.lightning=ICONS.bolt;
+  ICONS.find=ICONS.search; ICONS.gallery=ICONS.image; ICONS.call=ICONS.phone; ICONS.person=ICONS.user;
+  ICONS.done=ICONS.check; ICONS.settings=ICONS.gear;
+
+  if ((SPEC.type || '') === 'cycle'){ renderCycle(); return; }
 
   var POS={yes:1,positive:1,good:1,success:1,proceed:1,"true":1}, NEG={no:1,negative:1,bad:1,stop:1,block:1,"false":1}, CAU={caution:1,warn:1,maybe:1,review:1};
   function colOf(n){ if(n.color) return n.color; if((n.shape||'')==='process') return PALETTE[0]; return PALETTE[n._idx % PALETTE.length]; }
@@ -314,6 +370,53 @@ document.fonts.ready.then(function(){
   });
 
   document.body.setAttribute('data-ready','1');
+
+  // ---- cycle renderer (icons-in-pastel-circles loop; bypasses dagre) ----
+  function renderCycle(){
+    var N = nodes.length;
+    var SIZE = 132, R = Math.max(158, 40 * N + 30), PAD = 84;
+    var total = 2 * R + SIZE + 2 * PAD, CX = total / 2, CY = total / 2;
+    diagram.style.width = total + 'px'; diagram.style.height = total + 'px';
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('width', total); svg.setAttribute('height', total); svg.setAttribute('class', 'edge-layer');
+    diagram.appendChild(svg);
+    var pos = nodes.map(function(n, i){
+      var a = -Math.PI / 2 + i * 2 * Math.PI / N;
+      return {x: CX + R * Math.cos(a), y: CY + R * Math.sin(a)};
+    });
+    for (var i = 0; i < N; i++){ cycArrow(svg, pos[i], pos[(i + 1) % N], CX, CY, SIZE / 2); }
+    nodes.forEach(function(n, i){
+      var color = colOf(n);
+      var c = el('node circle');
+      c.style.width = SIZE + 'px'; c.style.height = SIZE + 'px';
+      c.style.left = (pos[i].x - SIZE / 2) + 'px'; c.style.top = (pos[i].y - SIZE / 2) + 'px';
+      c.style.background = tint(color, 0.16);
+      c.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="' + color + '" stroke-width="2" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' + (ICONS[(n.icon || 'dot')] || ICONS.dot) + '</svg>';
+      diagram.appendChild(c);
+      var lab = el('cyc-label'); lab.textContent = n.label; lab.style.width = (SIZE + 64) + 'px';
+      diagram.appendChild(lab);
+      lab.style.left = (pos[i].x - (SIZE + 64) / 2) + 'px'; lab.style.top = (pos[i].y + SIZE / 2 + 12) + 'px';
+    });
+    document.body.setAttribute('data-ready', '1');
+  }
+  function cycArrow(svg, a, b, cx, cy, r){
+    var dx = b.x - a.x, dy = b.y - a.y, L = Math.hypot(dx, dy) || 1, ux = dx / L, uy = dy / L, gap = r + 18;
+    var sx = a.x + ux * gap, sy = a.y + uy * gap, ex = b.x - ux * gap, ey = b.y - uy * gap;
+    var mx = (sx + ex) / 2, my = (sy + ey) / 2, ox = mx - cx, oy = my - cy, ol = Math.hypot(ox, oy) || 1, bulge = 30;
+    var cpx = mx + ox / ol * bulge, cpy = my + oy / ol * bulge;
+    var vx = ex - cpx, vy = ey - cpy, vl = Math.hypot(vx, vy) || 1, u2x = vx / vl, u2y = vy / vl;
+    var head = 11, hw = 6, bx = ex - u2x * head, by = ey - u2y * head;
+    var path = document.createElementNS(NS, 'path');
+    path.setAttribute('d', 'M' + sx + ' ' + sy + ' Q' + cpx + ' ' + cpy + ' ' + bx + ' ' + by);
+    path.setAttribute('fill', 'none'); path.setAttribute('stroke', T.edge);
+    path.setAttribute('stroke-width', '2.4'); path.setAttribute('stroke-linecap', 'round');
+    svg.appendChild(path);
+    var nx = -u2y, ny = u2x, tri = document.createElementNS(NS, 'path');
+    tri.setAttribute('d', 'M' + ex + ' ' + ey + ' L' + (bx + nx * hw) + ' ' + (by + ny * hw) +
+      ' L' + (bx - nx * hw) + ' ' + (by - ny * hw) + ' Z');
+    tri.setAttribute('fill', T.edge); svg.appendChild(tri);
+  }
 });
 """
 
@@ -322,7 +425,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--title", required=True)
     ap.add_argument("--subtitle", default="")
-    ap.add_argument("--type", default=None, choices=["linear", "tree", "flow"])
+    ap.add_argument("--type", default=None, choices=["linear", "tree", "flow", "cycle"])
     ap.add_argument("--data", default="")
     ap.add_argument("--direction", default=None, choices=["LR", "TB"])
     ap.add_argument("--config", default=None, help="full spec JSON: {direction,nodes,edges}")
@@ -339,6 +442,8 @@ def main():
         spec = build_linear(json.loads(a.data), a.direction)
     elif a.type == "tree":
         spec = build_tree(json.loads(a.data), a.direction)
+    elif a.type == "cycle":
+        spec = build_cycle(json.loads(a.data))
     elif a.type == "flow":
         spec = json.loads(a.data)
     else:

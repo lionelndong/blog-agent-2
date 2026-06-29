@@ -20,6 +20,7 @@ engine — no runtime CDN dependency.**
 | **linear** | a "how it works" / step-by-step process (steps + connecting arrows) | LR (horizontal) |
 | **tree** | a decision tree / "which option fits you" (branching questions → outcomes) | TB (top-down) |
 | **flow** | any flow chart with branches **and merges**, terminals, decisions | TB |
+| **cycle** | a repeating loop — "how X works" as a feedback cycle (icons-in-pastel-circles) | (ring) |
 
 ## 1. Linear process (preset)
 ```
@@ -71,6 +72,22 @@ python render_diagram_web.py --config spec.json --title "..." --out flow.png   #
   `process` defaults to brand blue so explicit green/amber stay *meaningful*; `step` cycles the palette.
 - **edge** = `{from, to, label?, tone?, color?}` — `tone` colours the connector + pill. Two edges into
   one node = a merge; dagre routes and rounds it automatically.
+
+## 4. Cycle (preset) — icons-in-pastel-circles loop
+```
+python render_diagram_web.py --type cycle --title "How your AI remembers you" \
+  --subtitle "Every chat makes her understand you a little better." \
+  --data '[{"label":"You chat","icon":"chat"},{"label":"It notes what matters","icon":"star"},
+           {"label":"Saves to memory","icon":"chip"},{"label":"Recalls it later","icon":"sparkle"}]' \
+  --out cycle.png
+```
+`--data` = a list of `{label, icon?, color?}`. Nodes sit on a ring with clockwise grey arrows; each is a
+soft pastel circle (palette-cycled, or explicit `color`) holding a crisp line **icon**, with the label
+beneath. Use it for a **loop** (the process feeds back on itself); use `linear` for a one-way sequence.
+Keep it to **3–6 steps**. Icons (name → glyph): `chat message star note sparkle recall chip memory brain
+shield privacy lock key heart user person database bell clock time search find bolt lightning bulb idea
+check done eye phone call image gallery gear settings` — unknown name → a neutral dot. Add more as inline
+SVG paths in the `ICONS` map in `render_diagram_web.py`.
 
 ## Theme (matches the brand card standard)
 - Palette `#2E90FA #8B5CF6 #22B276 #F5A623 #E8655A`; connectors neutral `#B7BFCC`; yes=green, no=coral, caution=amber.
