@@ -28,6 +28,13 @@ The keyword's value isn't its volume — it's the share of that volume that conv
 
 3. **Vanity-rank check**: the "what is espresso" example. Volume + low difficulty + irrelevant intent = traffic that doesn't move the needle. The redteam (Layer 4) is the judgment-based version of this; the mechanical version is brand_fit ≥ 4.
 
+4. **buyer_intent vs free-seeker (the conversion signal — added 2026-06-29).** brand_fit + product_fit say the topic is *relevant* and *product-demonstrable* — NOT whether the *searcher will pay*. PostHog proved the gap: blog first-touch on "free / no-filter / uncensored" terms = high traffic, ~0 paid; buyer-intent searchers are one step from the wallet. Score `buyer_intent` 0-10 from keyword markers:
+   - **8-10 (buyer):** "best", "review", "vs", "alternative(s)", "pricing"/"price"/"cost", "worth it", "for <use-case>" — comparison/decision shoppers.
+   - **4-7 (neutral):** explainer / how-to / definitional with a plausible upgrade path.
+   - **0-3 (free-seeker):** "free", "no filter"/"no-filter", "unfiltered", "uncensored", "unlimited", "without paying/account/signup" — wants it for free; weak path to paid.
+
+   This does NOT hard-reject (Ryan: don't ignore the generic high-volume version entirely — strong sales copy still converts *some*; that's business-value 2, not 0). It feeds **Layer 5 prioritization, where it OUTWEIGHS raw traffic** so buyer-intent rises and free-seeker sinks. Map to the course's **business_value 0-3**: 3 = our product is the natural answer (easy sell), 0 = no path to paid (skip).
+
 ## I — Intent (Ahrefs classifier primary, SERP-grounded fallback)
 
 > "No matter what you do, if you can't match the intent of the searcher, you will never rank. To check intent, just Google the keyword and look at what's actually ranking."
