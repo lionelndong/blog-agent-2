@@ -1,0 +1,213 @@
+{
+  "slug": "what-ai-companion-apps-get-wrong",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.five_failure_taxonomy",
+        "style": "bar",
+        "title": "The five things AI companion apps get wrong (memory at the root)"
+      },
+      "alt": "The five things AI companion apps get wrong (memory at the root)",
+      "status": "failed",
+      "result": {
+        "status": "failed",
+        "reason": "chart_data_unresolved:research_key_not_found:five_failure_taxonomy",
+        "filename": "chart-1-the-five-things-ai-companion-a.png",
+        "hint": "Provide chartable data: add it to content-pipeline/1-research/what-ai-companion-apps-get-wrong-data.json under the key the placeholder references (data=research.<key>), or inline JSON in data=, or a full ApexCharts options file via config=. Free-text data= cannot be charted."
+      },
+      "raw": "[VISUAL:type=chart;data=research.five_failure_taxonomy;style=bar;title=The five things AI companion apps get wrong (memory at the root)]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "diagram",
+      "attrs": {
+        "type": "diagram",
+        "what": "fixed context window dropping old turns vs. a persistent memory layer retaining facts across sessions",
+        "annotate": "label \"earlier exchanges drop\" on the context-window side"
+      },
+      "alt": "fixed context window dropping old turns vs. a persistent memory layer retaining facts across sessions",
+      "status": "failed",
+      "result": {
+        "status": "failed",
+        "reason": "diagram_requires_structured_data",
+        "filename": "diagram-2-fixed-context-window-dropping.png",
+        "hint": "render_diagram_web.py needs structured nodes, not prose. Add data=research.<key> (resolved from content-pipeline/1-research/<slug>-data.json) or config=<path to a {direction,nodes,edges} spec>. linear: a list of {label,desc}; tree: a nested {label,children}; cycle: a list of {label,icon}. See DIAGRAM-THEME.md."
+      },
+      "raw": "[VISUAL:type=diagram;what=fixed context window dropping old turns vs. a persistent memory layer retaining facts across sessions;annotate=label \"earlier exchanges drop\" on the context-window side]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "chat",
+        "what": "companion recalling a fact from a previous session unprompted",
+        "annotate": "highlight the recalled detail"
+      },
+      "alt": "companion recalling a fact from a previous session unprompted",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-ai-companion-apps-get-wrong/screenshot-3-companion-recalling-a-fact-fro.png",
+        "url": "https://pleasur.ai/chat",
+        "final_url": "https://pleasur.ai/chat/be593578-35da-42a4-853f-1ca7b52a008a",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.2353,
+          "bytes": 851395
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;target=chat;what=companion recalling a fact from a previous session unprompted;annotate=highlight the recalled detail]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "diagram",
+      "attrs": {
+        "type": "diagram",
+        "what": "context-churn loop \u2014 truncated history feeding generic repeated replies, contrasted with memory-fed varied replies"
+      },
+      "alt": "context-churn loop \u2014 truncated history feeding generic repeated replies, contrasted with memory-fed varied replies",
+      "status": "failed",
+      "result": {
+        "status": "failed",
+        "reason": "diagram_requires_structured_data",
+        "filename": "diagram-4-context-churn-loop-truncated-h.png",
+        "hint": "render_diagram_web.py needs structured nodes, not prose. Add data=research.<key> (resolved from content-pipeline/1-research/<slug>-data.json) or config=<path to a {direction,nodes,edges} spec>. linear: a list of {label,desc}; tree: a nested {label,children}; cycle: a list of {label,icon}. See DIAGRAM-THEME.md."
+      },
+      "raw": "[VISUAL:type=diagram;what=context-churn loop \u2014 truncated history feeding generic repeated replies, contrasted with memory-fed varied replies]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "create",
+        "what": "AI Companion Creator persona/character setup showing persisted persona traits",
+        "annotate": "arrow on the saved persona fields"
+      },
+      "alt": "AI Companion Creator persona/character setup showing persisted persona traits",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-ai-companion-apps-get-wrong/screenshot-5-ai-companion-creator-persona-c.png",
+        "url": "https://pleasur.ai/create",
+        "final_url": "https://pleasur.ai/create",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.1341,
+          "bytes": 1441512
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;target=create;what=AI Companion Creator persona/character setup showing persisted persona traits;annotate=arrow on the saved persona fields]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "table",
+      "attrs": {
+        "type": "table",
+        "data": "pricing.coin_tiers",
+        "style": "table",
+        "title": "Pleasur.ai coin tiers"
+      },
+      "alt": "Pleasur.ai coin tiers",
+      "status": "failed",
+      "result": {
+        "status": "failed",
+        "reason": "table_data_unresolved:unrecognized_data_form:pricing.coin_tiers",
+        "filename": "table-6-pleasur-ai-coin-tiers.png",
+        "hint": "Provide the table data: columns=A,B,C with rows in data= (inline JSON list or research.<key>), or a full spec via config=<path> / inline data=<spec object>. See COMPARISON-TABLE.md."
+      },
+      "raw": "[VISUAL:type=table;data=pricing.coin_tiers;style=table;title=Pleasur.ai coin tiers]",
+      "legacy": false
+    },
+    {
+      "index": 7,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "pricing",
+        "what": "the three named tiers plus per-action coin costs"
+      },
+      "alt": "the three named tiers plus per-action coin costs",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-ai-companion-apps-get-wrong/screenshot-7-the-three-named-tiers-plus-per.png",
+        "url": "https://pleasur.ai/pricing",
+        "final_url": "https://pleasur.ai/pricing",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.1761,
+          "bytes": 228253
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;target=pricing;what=the three named tiers plus per-action coin costs]",
+      "legacy": false
+    },
+    {
+      "index": 8,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "chat",
+        "what": "the Call button on the character profile/chat header AND the speaker icon on a message bubble",
+        "annotate": "arrow on Call button + arrow on speaker icon"
+      },
+      "alt": "the Call button on the character profile/chat header AND the speaker icon on a message bubble",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/what-ai-companion-apps-get-wrong/screenshot-8-the-call-button-on-the-charact.png",
+        "url": "https://pleasur.ai/chat",
+        "final_url": "https://pleasur.ai/chat/be593578-35da-42a4-853f-1ca7b52a008a",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.2353,
+          "bytes": 851395
+        }
+      },
+      "raw": "[VISUAL:type=screenshot;target=chat;what=the Call button on the character profile/chat header AND the speaker icon on a message bubble;annotate=arrow on Call button + arrow on speaker icon]",
+      "legacy": false
+    },
+    {
+      "index": 9,
+      "type": "table",
+      "attrs": {
+        "type": "table",
+        "data": "research.choose_checklist",
+        "style": "table",
+        "title": "What to test, the failure it guards against, and the green flag"
+      },
+      "alt": "What to test, the failure it guards against, and the green flag",
+      "status": "failed",
+      "result": {
+        "status": "failed",
+        "reason": "table_data_unresolved:research_key_not_found:choose_checklist",
+        "filename": "table-9-what-to-test-the-failure-it-gu.png",
+        "hint": "Provide the table data: columns=A,B,C with rows in data= (inline JSON list or research.<key>), or a full spec via config=<path> / inline data=<spec object>. See COMPARISON-TABLE.md."
+      },
+      "raw": "[VISUAL:type=table;data=research.choose_checklist;style=table;title=What to test, the failure it guards against, and the green flag]",
+      "legacy": false
+    }
+  ]
+}

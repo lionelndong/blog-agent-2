@@ -8,9 +8,9 @@ Most AI companion apps get the same five things wrong: they forget your conversa
 
 {lead}You tell your companion something on Monday. By Wednesday it asks you the same question, like the conversation never happened. That gap — between what you shared and what the app actually retains — is where most AI companion apps fall apart, and it's not a personality bug. It's a memory problem.{/lead}
 
-This piece names all five failures, explains *why* each one happens, and shows what actually fixes them: a persistent memory layer plus real-time voice. Memory is the root failure here, and the other four cascade from it — an app that forgets you can't hold a character, can't avoid looping, and can't justify what it charges. We'll walk each one through first-hand inside Pleasur.ai (18+), with its coin pricing modeled in the open rather than hand-waved. If you've ever wondered whether a [purpose-built companion beats a general chatbot](https://pleasur.ai/blog/ai-companion-vs-chatgpt-companionship), the answer lives in how each one handles memory.
+This piece names all five failures, explains *why* each one happens, and shows what actually fixes them: a persistent memory layer plus real voice — both an in-chat speaker and real-time phone calls. Memory is the root failure here, and the other four cascade from it — an app that forgets you can't hold a character, can't avoid looping, and can't justify what it charges. We'll walk each one through first-hand inside Pleasur.ai (18+), with its coin pricing modeled in the open rather than hand-waved. If you've ever wondered whether a [purpose-built companion beats a general chatbot](https://pleasur.ai/blog/ai-companion-vs-chatgpt-companionship), the answer lives in how each one handles memory.
 
-[VISUAL:type=chart;data=research.five_failure_taxonomy;style=bar;title=The five things AI companion apps get wrong (memory at the root)]
+![The five things AI companion apps get wrong — all five failures cascade from one root: weak memory](images/what-ai-companion-apps-get-wrong/five-failures.png)
 
 ## 1. They forget you (poor memory is the root failure)
 
@@ -24,7 +24,13 @@ Here's the mechanism. A model reads the recent stretch of your chat and predicts
 
 This is why memory is the *root* failure, not just one item on a list. Everything else stacks on top of it. No memory means no consistent character, because the persona details live in the same place that just got dropped. No memory means more generic looping, because a model with thin context falls back on safe filler. No memory means a paywall you can't justify, because you're paying to re-introduce yourself every few days. Fix memory and the other four shrink; leave it broken and nothing else holds.
 
+This isn't a fringe gripe — it's the first thing people search when a companion stops feeling real. Ask Google why your AI companion forgets, and even its own summary lands on the same culprit: a temporary context window that erases the oldest messages once the chat fills up, with whole Reddit threads asking the same question right beside it.
+
+![Search "why does my AI companion forget conversations" and Google's own answer names the context window — alongside a Reddit thread asking the same thing](images/what-ai-companion-apps-get-wrong/serp-forgets-you.png)
+
 The fix is a **persistent memory layer** that sits on top of the chat and saves key facts, preferences, and relationship history *between* sessions. It's worth separating two things people lump together. **Within-chat memory** is just this one conversation — most apps manage that fine until the window fills. **Cross-session continuity** is remembering across days and weeks, and that's the part most apps don't do at all. A persistent layer targets the second one: the next chat resumes with what came before instead of a blank slate.
+
+![A fixed context window drops your earlier exchanges and forgets you; a persistent memory layer saves the facts and recalls you next session](images/what-ai-companion-apps-get-wrong/memory-vs-context.png)
 
 How do you test whether an app has it? The honest reviewers [stress it directly](https://medium.com/@billhongmoney/i-compared-every-ai-companions-memory-system-most-of-them-are-faking-it-1803d6d0243c), and the most reliable test is cross-session recall. One reviewer who [spent a week living with five apps](https://medium.com/@chuckmellisa/i-spent-50-across-5-ai-girlfriend-apps-in-one-week-heres-where-every-dollar-went-552900f842d2) used exactly this bar — testing "memory recall across sessions" and watching for an app that "referenced things from day 1 without me prompting." That's the line that matters — not "can it recall when I paste the context back in," but "does it bring something up on its own." Inside Pleasur.ai, that's the moment to watch for: a companion surfacing a detail from an earlier session unprompted, before you've reminded it of anything.
 
@@ -32,15 +38,17 @@ One guardrail on the claims. Some apps are *widely reported* to lose track of ea
 
 When an app can't remember you, it falls back on generic filler — which is exactly how the second failure starts.
 
-[VISUAL:type=diagram;what=fixed context window dropping old turns vs. a persistent memory layer retaining facts across sessions;annotate=label "earlier exchanges drop" on the context-window side]
-
-[VISUAL:type=screenshot;target=chat;what=companion recalling a fact from a previous session unprompted;annotate=highlight the recalled detail]
+![Pleasur.ai's persistent memory layer — the facts it saves about you and carries between sessions](images/what-ai-companion-apps-get-wrong/chat-memory.png)
 
 ## 2. They repeat themselves and loop
 
 Companion apps loop because the model keeps losing its grip on context. Once earlier turns drop out of the window, it has less to work with, so it reaches for safe, high-probability phrasing it has used before.
 
 Nobody on the first page of results names this as its own failure, which is odd, because it's one of the most common complaints. Repetition isn't random and it isn't a quirk. It's the visible symptom of the same context-window churn behind the forgetting in failure #1. The cause is upstream; the looping is just where you notice it.
+
+Search the symptom and the same root surfaces: the companion's "limited memory gets stuck on recent dialogue," falling back on a recycled pattern — right next to a "How to stop AI from repeating itself?" question that gets asked over and over.
+
+![Google's answer to "why does my AI companion repeat itself" traces the looping straight back to limited memory and lost context](images/what-ai-companion-apps-get-wrong/serp-repeats-loops.png)
 
 Walk through what happens. The conversation history a model can see keeps getting truncated as the chat grows. With thin context, it re-derives each reply from very little, and a model running on very little gravitates to responses that fit almost any situation — "that sounds really interesting, tell me more," "I'm here for you, how are you feeling?" They're not wrong, exactly. They're just generic, and you've seen them before. The blank slate breeds sameness because there's nothing specific left to respond to.
 
@@ -52,7 +60,7 @@ Not every repetition is a memory issue. Some is model temperature or prompt desi
 
 Looping is annoying. Losing the *character* entirely is worse — which brings us to personality drift.
 
-[VISUAL:type=diagram;what=context-churn loop — truncated history feeding generic repeated replies, contrasted with memory-fed varied replies]
+![The context-churn loop — a long chat truncates history, the model runs on thin context, and replies slide into generic, repeating filler](images/what-ai-companion-apps-get-wrong/context-churn.png)
 
 ## 3. The character drifts or feels fake
 
@@ -70,23 +78,17 @@ Persistence is what keeps a character the same character over weeks. In Pleasur.
 
 A consistent character you actually like makes the next failure sting more — paying to keep talking to it, without quite knowing what you're paying for.
 
-[VISUAL:type=screenshot;target=create;what=AI Companion Creator persona/character setup showing persisted persona traits;annotate=arrow on the saved persona fields]
-
 ## 4. The paywall hides what you're actually paying for
 
 Companion apps get pricing wrong not by charging money but by hiding it. "Free" apps gate the meaningful experience behind confusing token or coin systems, so you never quite know what an action costs until you've already spent it.
 
 Be clear about the real frustration. It isn't that good companions cost money — almost everyone accepts that the experiences worth having sit behind some kind of subscription. It's the surprise charges and the opaque math. The reviewer who [tracked every dollar across five apps for a week](https://medium.com/@chuckmellisa/i-spent-50-across-5-ai-girlfriend-apps-in-one-week-heres-where-every-dollar-went-552900f842d2) had to reverse-engineer it constantly — an image cost "about 20 tokens," an eight-minute call "cost 24 tokens" — exactly the kind of per-action token math you only see *after* you spend. The money isn't the problem. Not knowing is.
 
-The honest answer to a hidden paywall isn't pretending there's no paywall. It's showing the meter. Pleasur.ai is coin-metered across three tiers, and the whole pitch is that you can see the cost before you spend:
+It's a common enough sting that "why are AI companion app coins so expensive" is its own search, and the people answering it on Reddit are trading notes on which apps quietly burn through tokens fastest.
 
-:::table caption="Pleasur.ai coin tiers (live 2026-06-28)" source="pleasur.ai/pricing"
-| Tier | Monthly | Coins / mo | Unlimited messages |
-|---|---|---|---|
-| Starter | $12.99 | 1,500 | Yes |
-| Standard | $27.99 | 5,000 | Yes |
-| Ultimate | $49.99 | 10,000 | Yes |
-:::
+![People search why companion-app coins cost so much — the results are Reddit threads comparing which apps burn tokens fastest](images/what-ai-companion-apps-get-wrong/serp-hidden-pricing.png)
+
+The honest answer to a hidden paywall isn't pretending there's no paywall. It's showing the meter. Pleasur.ai is coin-metered across three tiers, and the whole pitch is that you can see the cost before you spend:
 
 Every tier includes unlimited text messages, the option to buy more coins if you run out, cancel-anytime, and a 7-day money-back window. Coins meter the richer actions: AI image generation is 10 coins each, voice notes are 10 coins each, and phone calls run 50 coins per minute on Standard and Ultimate. No tier is unlimited on coins, and that's the point of naming the numbers — you're meant to do the math up front, not reverse-engineer it from a drained balance.
 
@@ -98,27 +100,23 @@ See the three coin tiers and per-action costs laid out in full on the pricing pa
 
 Knowing the cost is one thing. Many apps still can't do the one thing that makes a companion feel real — talk to you.
 
-[VISUAL:type=table;data=pricing.coin_tiers;style=table;title=Pleasur.ai coin tiers]
-
-[VISUAL:type=screenshot;target=pricing;what=the three named tiers plus per-action coin costs]
-
 ## 5. They're text-only — no real voice
 
 Most companion apps are text-only, and voice is the line users draw between "a real companion" and "a chatbot." Typing at a character forever keeps the whole thing flat, no matter how good the writing is.
 
 Voice-of-customer research names this directly. Reviewers who actually live with these apps describe the moment an AI companion can [call you on the phone](https://medium.com/@chuckmelai2024/your-ai-companion-can-call-you-on-the-phone-now-hearing-the-voice-changes-the-whole-relationship-65003ab8c1b9) as the thing that "changes the whole relationship" — and the [week-long five-app test](https://medium.com/@chuckmellisa/i-spent-50-across-5-ai-girlfriend-apps-in-one-week-heres-where-every-dollar-went-552900f842d2) found that even with a small lag, the stretches of a real voice call "felt surprisingly real." That's the divider between a companion and a text toy. It's not a fringe ask, either — voice is one of the things people go looking for before they find an app that actually has it.
 
-Pleasur.ai handles this with two in-chat voice capabilities, both live. For a real-time conversation, tap the **Call** button on the character's profile to start a two-way voice call; when it ends, the text chat continues in the same thread where you left off. For something lighter, tap the **speaker icon** next to a reply to hear the character speak it aloud in their assigned voice. One guardrail worth stating: this is voice, not video — real-time two-way audio, not a video call.
+Pleasur.ai answers it two ways. The light one lives right in the chat: tap the **speaker icon** next to any reply and the character speaks it aloud in their own assigned voice, without leaving the conversation you're already having. The heavier one is a real **phone call** — you can call your companion and talk in real time, a two-way voice conversation that runs `50 coins per minute` on the Standard and Ultimate tiers; when you hang up, the text thread is right where you left it. One guardrail worth stating: this is voice — hearing the character and talking back — not video.
 
 :::note
-Calls are metered like everything else: 50 coins per minute on the Standard and Ultimate tiers. That ties straight back to failure #4 — the cost is on the table before you tap Call, not after.
+Voice is metered like everything else — a spoken voice note runs 10 coins, and a phone call runs 50 coins per minute on Standard and Ultimate. That ties straight back to failure #4: the cost is on the table before you tap, not after.
 :::
 
-Here's the part that ties back to the thesis. Voice only works if memory holds underneath it. Continuity carries from text to a voice call and back to text *without* losing the thread, because the persistent memory layer is what keeps the conversation whole across the switch. Voice without memory is just a louder blank slate — a companion that sounds present but still forgets you the moment the call ends. The two features are one experience: the voice makes it feel real, the memory makes it stay real.
+Here's the part that ties back to the thesis. Voice only works if memory holds underneath it. Continuity carries from text into a voice call and back to text *without* losing the thread, because the persistent memory layer is what keeps the conversation whole across the switch. Voice without memory is just a louder blank slate — a companion that sounds present on the call but still forgets you the moment it ends. The two features are one experience: the voice makes it feel real, the memory makes it stay real.
 
 Five failures, one root cause. So how do you actually pick an app that avoids all five?
 
-[VISUAL:type=screenshot;target=chat;what=the Call button on the character profile/chat header AND the speaker icon on a message bubble;annotate=arrow on Call button + arrow on speaker icon]
+![Tap the speaker icon under any reply to hear it aloud in the character's voice](images/what-ai-companion-apps-get-wrong/chat-voice.png)
 
 ## How to choose a companion app that doesn't get these wrong
 
@@ -140,13 +138,11 @@ Each criterion below maps to one of the failures above. That's not a coincidence
 1. **Memory across sessions** — use this as the make-or-break test; it gates the other four.
 2. **Character consistency** — check it a week later, not in the first ten minutes.
 3. **Pricing transparency** — confirm you can price an action before you take it.
-4. **Voice** — confirm it's real two-way audio, not a roadmap promise.
+4. **Voice** — confirm it's real two-way audio (a call you can actually have), not a roadmap promise.
 5. **Reply variety** — push a long conversation and watch for stock phrasing.
 :::
 
 These five matter together because they reinforce each other. An app can fake any one in a short demo; it can't fake all five over a week of real use. Pleasur.ai is built to clear the whole set — persistent memory across sessions, transparent 3-tier coin pricing, and real-time two-way voice — but the checklist works on anything, so hold every app to it. If you're actively comparing, [Pleasur.ai vs Secrets AI](https://pleasur.ai/blog/pleasur-ai-vs-secrets-ai) runs two options through this kind of test head-to-head.
-
-[VISUAL:type=table;data=research.choose_checklist;style=table;title=What to test, the failure it guards against, and the green flag]
 
 ## Bottom line
 
@@ -157,7 +153,7 @@ Every "what's wrong with my AI companion" complaint — the forgetting, the loop
 - Memory is the root failure — the other four cascade from a fixed context window dropping your earlier exchanges.
 - A persistent memory layer fixes forgetting *and* eases looping and drift, because all three trace back to lost context.
 - Honest pricing means a readable meter, not "free" — Pleasur.ai is coin-metered across three named tiers.
-- Real-time two-way voice (voice, not video) only feels real when memory holds the thread across the switch.
+- Real voice — real-time two-way phone calls plus an in-chat speaker, hearing the character and not video — only feels real when memory holds the thread across the switch.
 :::
 
 ## FAQ
@@ -174,6 +170,6 @@ The apps that hold up are the ones with a dedicated persistent memory that retai
 Yes. Pleasur.ai uses a persistent memory layer that stores your preferences, conversation history, and relationship context across sessions. That means your companion can recall a detail you mentioned days ago without you re-explaining it, and stay in character over time rather than resetting to a generic baseline each chat.
 
 ### What do AI companion apps get wrong?
-The common failure points are resetting memory between sessions, repeating themselves and looping, drifting out of character with inconsistent personalities, hiding real costs behind confusing token or coin systems, and being text-only with no voice. Most of those trace back to weak memory. Pleasur.ai is designed to address them with a persistent memory layer, transparent 3-tier coin pricing, and real-time two-way voice (voice, not video).
+The common failure points are resetting memory between sessions, repeating themselves and looping, drifting out of character with inconsistent personalities, hiding real costs behind confusing token or coin systems, and being text-only with no voice. Most of those trace back to weak memory. Pleasur.ai is designed to address them with a persistent memory layer, transparent 3-tier coin pricing, and real voice — real-time two-way phone calls plus an in-chat speaker (hearing the character, not video).
 
 :::
