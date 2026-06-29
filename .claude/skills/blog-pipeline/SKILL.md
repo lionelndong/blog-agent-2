@@ -162,14 +162,14 @@ You are running stage 3 at {ROOT}. Slug: {SLUG}. Brand: see brand-config.md.
 
 Your job: produce content-pipeline/3-outlines/{SLUG}.md per .claude/skills/outline/SKILL.md. Read the SKILL first.
 
-Read in order: outline/SKILL.md; outline/references/bluf-mece-rules.md; templates/outline-template.md; templates/visual-types.md; templates/editorial-principles-visuals.md; content-pipeline/1-research/{SLUG}.md (+ {SLUG}-deep.md); content-pipeline/2-reference/{SLUG}.md; 0-context/{SLUG}.md; brand-config.md; examples/README.md + 1 structure/niche example matching the type.
+Read in order: outline/SKILL.md; outline/references/bluf-mece-rules.md; templates/outline-template.md; templates/visual-strategy.md (THE governing spec for visuals); templates/visual-types.md; content-pipeline/1-research/{SLUG}.md (+ {SLUG}-deep.md); content-pipeline/2-reference/{SLUG}.md; 0-context/{SLUG}.md; brand-config.md; examples/README.md + 1 structure/niche example matching the type.
 
 Editorial requirements:
 - The outline is bound by the dossier's BEAT SPEC — restate it at the top; section count sized by the SERP (listicles get one section per item, item count ≥ the spec); per-section word targets sum to the spec total ±10%.
 - Coverage map at the bottom: every must-cover topic → which H2 covers it; one section marked [GAIN].
 - Comparison table specced as a markdown skeleton when the beat spec requires one.
 - Each H2: BLUF + 2-4 key points + evidence source + transition + typed Visuals + word target; MECE.
-- Visuals: only screenshot/chart/table-card types (no AI-generated imagery). Default non-trivial sections to a real screenshot or data viz, else "none".
+- Visuals: need-driven per templates/visual-strategy.md — plan a [VISUAL:] ONLY where a section must SHOW value text + native ::: components can't (proof/data/example/concept), value-first ~80/20 (mostly third-party: external competitor-ui/serp/reddit/tweet — our-product screenshot/action-shot only when on-topic), charts/diagrams point at a real research.<key> or authored config=. Plan native ::: for stats/quotes/tables/callouts (never a [VISUAL:] for those). No AI-generated imagery (type=image retired). NO density quota.
 - Title under 60 chars, includes primary keyword.
 
 Return: title, one-sentence thesis, H2 list (one line each), beat-spec compliance line (sections / items / total words / table Y-N), visual count by type, structural concerns. Under 350 words.
@@ -203,7 +203,7 @@ Hard requirements (these gate the save):
 - Hit each section's word target ±20%; article total within ±15% of the BEAT SPEC; listicle item count per the outline — never compress; comparison table as real GFM markdown when specced.
 - VOICE: lead with reader-felt reality (the real decision the reader faces), not a feature spec — match the examples/voice/ register. No crutch word/phrase used 3+ times; vary paragraph rhythm (mix one-line punches with developed passages).
 - Every section opens with a BLUF. No forbidden phrases. Cut "Furthermore/Moreover/It is important to note/very/really/quite/simply" when not load-bearing.
-- Show, don't sell — product mentions follow the annotated slot plan exactly. Internal links from 2-reference woven inline. Stat citations as [link] markers. Typed [VISUAL:...] placeholders per visual-types.md (screenshot/chart/table-card only). Mark the information-gain section with [GAIN].
+- Show, don't sell — product mentions follow the annotated slot plan exactly. Internal links from 2-reference woven inline. Stat citations as [link] markers. Typed [VISUAL:...] placeholders per templates/visual-strategy.md: resolvable data (chart/diagram point at a real research.<key> or authored config= — NO invented keys), no native-component duplication (no PNG of a stat/quote/table/callout already in a ::: directive), value-first ~80/20 (type=external third-party is the workhorse; our-product only when on-topic). Mark the information-gain section with [GAIN].
 
 Self-check before save: per-section word counts vs targets (any <80% → add concrete material from the dossier, never pad); scan for crutch repetition + uniform rhythm and fix.
 
@@ -293,7 +293,7 @@ You are running stage 10 at {ROOT}. Slug: {SLUG}. Autonomous mode.
 Your job: per .claude/skills/format-for-publish/SKILL.md (read it first). Run:
   doppler run -- python .claude/skills/format-for-publish/scripts/format_for_strapi.py {SLUG} --auto-publish
 
-The script re-reads quality-checks/{SLUG}.md and refuses to publish on verdict FAIL (belt-and-suspenders), parses the byline stamp from the draft and attaches the Strapi author relation (persona slug → documentId via PERSONA_AUTHORS; unset if no byline — no crash), converts any leftover [VISUAL:...]/[SCREENSHOT:...] placeholders to invisible <!-- VISUAL-TODO: ... --> markers (visuals deferred — NOT a failure), builds the Strapi payload, copies images, POSTs with publishedAt = now, prints the public URL. Then run:
+The script re-reads quality-checks/{SLUG}.md and refuses to publish on verdict FAIL (belt-and-suspenders), parses the byline stamp from the draft and attaches the Strapi author relation (persona slug → documentId via PERSONA_AUTHORS; unset if no byline — no crash), converts any leftover [VISUAL:...]/[SCREENSHOT:...] placeholders (only failed/manual/deferred visuals survive — visuals are ON, governed by templates/visual-strategy.md) to invisible <!-- VISUAL-TODO: ... --> markers — NOT a failure, builds the Strapi payload, copies images, POSTs with publishedAt = now, prints the public URL. Then run:
   python scripts/auto_publish_check.py {SLUG}
 On non-zero, the script writes 9-needs-review/{SLUG}.md — surface that as QUARANTINED, not published.
 

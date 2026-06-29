@@ -1,37 +1,110 @@
 # Visual types — controlled vocabulary
 
-Single source of truth for visual placement decisions across the pipeline. Every visual planned in an outline must use one of the `type` values below. The pipeline reads the type to decide how to capture or generate the asset.
+> **Governing spec: `templates/visual-strategy.md`.** That file decides *whether* a visual earns its
+> place (need-driven, not a quota), *whose world* it shows (value-first ~80/20 — mostly third-party),
+> and *what must never become a `[VISUAL:]`* (anything a native `:::` component renders). **Read it
+> first.** This file is the controlled vocabulary that strategy uses — the `type` values, their
+> fields, and the selection guide. `outline`, `draft`, and `generate-visuals` all reference both.
 
-## The 9 types
+Single source of truth for the `[VISUAL:]` `type` vocabulary. Every visual planned in an outline and
+placed in a draft must use one of the types below; the pipeline reads the `type` to decide how to
+capture or generate the asset. **Stats, quotes, tables, and callouts are NOT visuals here — they are
+native `:::` components** (see §0).
+
+## 0. First gate — is this even a `[VISUAL:]`? (the anti-duplication rule)
+
+The blog renders ~25 native `:::` directives inline. A native component is **always** better than a
+PNG of the same content — selectable, accessible, SEO-readable, responsive. So before you reach for a
+`[VISUAL:]`, check this table. **If the content is in the left column, emit the native directive and
+do NOT make a `[VISUAL:]` of it** (`visual-strategy.md` §4 — the duplicate bug we are killing):
+
+| If the content is… | Use the native directive — NEVER a `[VISUAL:]` |
+|---|---|
+| a statistic / number | `:::stat` · `:::stat-group` · `:::stat-list` |
+| a quote | `:::pullquote` |
+| a tip / note / warning / takeaway / definition | `:::tip` · `:::note` · `:::warning` · `:::nutshell` · `:::key-takeaways` · `:::definition` |
+| a comparison / feature matrix / pros-cons / simple data table | `:::table` · `:::feature-matrix` · `:::decision-table` · `:::proscons` |
+| a captioned figure (you already have a `src` on disk) | `:::figure` |
+| FAQ / CTA | `:::faq` · `:::cta` |
+
+**A `[VISUAL:]` PNG is ONLY for what text + natives can't show:** real **screenshots** (a third party,
+a SERP, a Reddit/forum thread, an X/LinkedIn post, a real artifact — or our product *on-topic only*),
+**charts** (branded, real data), **diagrams/flows** (the concept slot), the rare **cover**, **demos/
+GIFs**, **embeds**. If you already authored the data as a `:::decision-table` or `:::table`, you may
+**not** also ship a PNG table of it.
+
+## 1. Value-first selection guide — whose world does it show? (~80/20)
+
+Per the Ahrefs audit in `visual-strategy.md` §3 (107 images / 5 varied posts), **~80% of strong
+visuals show a third party / the reader's world** and only ~20% the author's own product. Adopt this.
+When a section does warrant a `[VISUAL:]`, pick the type that shows the **category**, not us, unless
+the post is genuinely about Pleasur.ai:
+
+| Section needs to show… | Value-first type (prefer) | Self type (only when on-topic about us) |
+|---|---|---|
+| proof a problem is real / widespread | `external` (Reddit/forum thread, a real review) | — |
+| what a rival does (or does wrong) | `external;sub=competitor-ui` (the rival's UI) | — |
+| how people search for the problem | `external;sub=serp` (Google SERP) | — |
+| a real opinion / hot take | `external;sub=tweet\|linkedin` | — |
+| a data trend / numeric comparison | `chart` (real data, often third-party) | `chart` (our metered numbers, if on-topic) |
+| a concept / system / flow | `diagram` | `diagram` |
+| a capability we uniquely solve | — | `screenshot` / `action-shot` (SFW, blurred) |
+
+`type=external` is **the workhorse.** A reader who sees a competitor's UI, a real SERP, or a real
+thread gets value whether or not they ever buy. The same method applies to **any** product a post
+covers — if the post is about another tool, screenshot and annotate *that* tool.
+
+## 2. Resolvable data — the hard rule for charts, diagrams, and data tables
+
+A `chart` / `diagram` / data-driven visual **MUST** reference data that exists:
+
+- a real **`research.<key>`** — and you must **verify the key is present** in
+  `content-pipeline/1-research/{slug}-data.json` before using it, **or**
+- a **`config=<file>`** you author (ApexCharts options for a chart; a `{direction,nodes,edges}` /
+  nested-tree / cycle spec for a diagram).
+
+**NEVER invent a key.** The failures this rule kills: `data=research.five_failure_taxonomy` and
+`data=research.pricing.coin_tiers` when the real keys did not exist — the placeholder loud-failed and
+left the section blank. If the data you want isn't in research, either add it to the research JSON,
+author a `config=` file, or **drop the visual**. An unresolvable `[VISUAL:]` is a build failure, not a
+soft skip.
+
+## 3. The type catalog
 
 | Type | When to use | Capture strategy |
 |---|---|---|
-| `screenshot` | Section walks through a brand-owned product UI at a **static, navigable URL**. The page renders the wanted state immediately on load (or after a known modal dismissal). No multi-step interaction required. | Patchright headless capture (Playwright fork with CF/bot bypass). May require auth (`setup_auth.py`). |
-| `action-shot` | Section needs the UI in a state that **only exists after a sequence of actions** — clicking through a wizard, sending a message in a conversation, opening settings, dismissing a non-trivial modal, mid-form state. Also the right tool when `screenshot` can't get past the site's bot protection. | Default: routed to `manual-capture.md` for the editor to handle interactively via `/capture-visuals` (driven by Claude in Chrome — full visibility and control, no token cost, uses the editor's real Chrome session). Opt-in agent fallback: set `BROWSER_USE_ENABLED=1` to delegate to Browser Use Cloud (~$0.05–$0.15/visual). |
-| `image` | **RETIRED — do not plan this type.** AI image generation is off (Ryan-faithful rebuild, 2026-06-25): we don't ship AI-illustrated concept art. For a concept/diagram, use a real `screenshot` of the brand UI that shows it, a `chart`/`table` of the underlying data, or an `external` capture. If only a hand-made diagram would do, use `none` and an editor adds one later. | **Dropped** — the placeholder is stripped from the draft and logged as a non-blocking manual TODO. No asset generated, no Replicate call. |
-| `table` | Section compares N items across M dimensions, or presents structured comparison data. | Inline markdown table — no asset file. The draft writes the table directly. |
-| `chart` | Section presents quantitative data with trends, distributions, or proportions (search volumes, percentages, rankings). | matplotlib PNG rendered from data in the research dossier. |
-| `video` | Section references an embedded video (YouTube, Loom, screen recording, demo). | Editor-managed: provide an embed URL; rendered as `<iframe>` or Strapi video block. Not auto-captured. |
-| `external` | Section references something the brand doesn't own that adds *specific* value — a Reddit comment we cite, a tweet, a chart in a news article, a competitor UI panel, a third-party tool screen. **PLEAA-417 (2026-05-06): auto-captured by default**, not routed to manual. | Patchright headless capture of the URL plus a CSS `selector` that clips to the relevant element (the comment, the tweet, the chart). `crop=padded` adds breathing room around the bbox. On Cloudflare / login-wall / nav-fail, the manifest entry stays `failed` with a `fallback.method=claude_in_chrome` breadcrumb so `/capture-visuals` retries via a real Chrome session. ToS bypasses (puzzle-solving, IP rotation chains) are out of scope: if both paths fail, the entry stays `failed` and the visuals gate halts. |
-| `gif` | Section needs an animated GIF for a multi-step interaction text alone struggles to describe. | Editor-managed: provide a screen-recording source; ffmpeg conversion is a future enhancement. |
-| `none` | Section is purely transitional, very short (<150 words), or argumentative-rhetorical — a forced visual would dilute it. **Use sparingly:** the new editorial bar (per `editorial-principles-visuals.md`) is that most non-trivial sections deserve a visual, often more than one. | Skip — no placeholder rendered, no asset generated. |
+| `external` | **The workhorse.** The section cites/shows something the brand doesn't own that adds *specific* value — a Reddit comment, a tweet, a LinkedIn post, a Google SERP, a chart in a news article, a competitor's UI panel, a real artifact. | Patchright headless capture of the URL clipped to a CSS `selector`. `crop=padded` adds breathing room. On Cloudflare / login-wall / nav-fail the entry stays `failed` with a `fallback.method=claude_in_chrome` breadcrumb so `/capture-visuals` retries via a real Chrome session. **No ToS bypasses** — if both paths fail, the entry stays `failed`. |
+| `screenshot` | **Our product, on-topic posts only.** A section walks through a brand-owned UI at a **static, navigable URL** that renders the wanted state on load (or after one age-gate/cookie click). | Patchright headless capture (CF/bot bypass). May require auth (`setup_auth.py`). |
+| `action-shot` | **Our logged-in product** in a state that only exists after a sequence of actions (a wizard, sending a message, opening settings, mid-form) — or when `screenshot` can't get past bot protection. **SFW: explicit tiles + PII blurred.** | Routed to `/capture-visuals` (Claude in Chrome on the VPS, real session, no token cost). Opt-in `BROWSER_USE_ENABLED=1` delegates to Browser Use Cloud. |
+| `chart` | Quantitative data with trends/distributions/proportions. **Resolvable data only (§2).** | ApexCharts PNG (`render_chart_web.py`) from `data=research.<key>` or a `config=` options file. |
+| `diagram` | A concept, mental model, workflow, or "how it works" — the **illustration slot** (no AI metaphor art). **Structured nodes only (§2)** — `linear` / `tree` / `flow` / `cycle` via `data=`/`config=`. | `render_diagram_web.py` (dagre). |
+| `cover` | The article hero / featured image. | `render_cover.py` — 1600×900, real logo composited (covers carry no in-body logo per strategy §7). |
+| `video` | A section embeds a video where motion is essential (a real demo, a YouTube/Loom clip). | Editor-managed embed URL → `<iframe>` / Strapi video block. Not auto-captured. |
+| `gif` | An animated multi-step interaction text alone struggles to describe. | Editor-managed screen-recording source; ffmpeg conversion is a future enhancement. |
+| `none` | The section is pure argument, a transition, or short — text alone carries it, or its value belongs in a native `:::` component. | Skip — no placeholder, no asset. **Most sections are `none`** (need-driven, not a quota). |
 
-## Decision rule (one-pass check)
+**`type=image` is RETIRED — do not plan it.** AI image generation is off (Ryan-faithful rebuild,
+2026-06-25). For a concept use a `diagram`; for data use a `chart`; for real imagery use `external`
+(third party) or `screenshot`/`action-shot` (our product, on-topic). If only a hand-made illustration
+would truly do, use `none` and let an editor add one later.
 
-For each H2 section in an outline, ask in this order. The first "yes" wins. **Sections often warrant more than one visual** — once you find a primary, also ask whether a secondary type (e.g. `chart` after a `screenshot`, or `external` after an `image`) would carry additional concrete information.
+## 4. Decision sequence (need-driven, per `visual-strategy.md`)
 
-1. Does the section walk through a **brand product UI at a static URL**, where the wanted state is visible on first load (or after one age-gate/cookie click)? → `screenshot`
-2. Does the section need a UI state that **only exists after multi-step interaction** (clicks through a wizard, sending messages, opening settings, mid-form state)? → `action-shot`
-3. Does the section **compare N things on M axes**? → `table`
-4. Does the section present **quantitative data with trends**? → `chart`
-5. Does the section **reference a third-party artifact** (a Reddit comment we quote, a tweet, a chart in a news article, a competitor UI panel)? → `external` — pair with `selector=` so we capture the exact element, not the whole page.
-6. Does the section **explain a concept, mental model, workflow, or "how it works" idea**? → prefer a real `screenshot` of the brand UI that demonstrates it, or a `chart`/`table` of the underlying data. AI-generated `image` diagrams are **retired** — if only a hand-drawn diagram would truly do, use `none` and let an editor add one.
-7. Does the section need an **animated multi-step demo**? → `gif`
-8. Does the section embed a **video / demo** where motion is essential? → `video`
-9. (Scene-setting / atmospheric AI illustration is **retired** — don't plan it.)
-10. Otherwise → `none` — argue with prose, not pictures
+For each H2, ask **"would a visual here show the reader real value that text + native `:::` components
+can't?"** (`visual-strategy.md` §2). If no — `none`. If yes, pick the type, biasing value-first:
 
-**New default bias:** the editorial bar (per `editorial-principles-visuals.md`) is that most non-trivial sections in a well-researched article have something concrete to show. If the decision tree above leaves you at "none" for a 300+ word section, double-check by asking: "is there a flow, comparison, claim, or concept here that a labeled `image` would explain better than prose?" Forced visuals are still bad — but visual under-density is now a more common failure than over-density.
+1. Is the value **proof / a real example / a rival / how people search** for this? → `external`
+   (the workhorse) — pair with `selector=` to clip to the exact element.
+2. Is it our **own on-topic capability** the reader needs to see in our UI? → `screenshot` (static URL)
+   or `action-shot` (needs clicks / SFW state).
+3. Is it a **data trend / numeric comparison** backed by a real key or authored config? → `chart`.
+4. Is it a **concept / system / flow**? → `diagram` (structured nodes).
+5. Is it a **video/demo where motion is essential**? → `video` / `gif`.
+6. Otherwise → `none`.
+
+**There is NO minimum count, no "image every N words," and no "≥3 distinct types" quota.** A missing
+visual always beats a weak or duplicate one. Under-showing a genuine value-moment and over-showing
+filler are *both* failures — need is the only bar. Never stack two visuals back-to-back.
 
 ## `screenshot` vs `action-shot` — the key distinction
 
@@ -46,7 +119,7 @@ The two are easy to confuse. Mistakes here are the most common reason a visual f
 - The reader needs to see what it looks like *after* a click/type/wait sequence. The state isn't reachable by URL alone.
 - Or: the page IS at a static URL but the site's bot protection is too aggressive for `screenshot` (Cloudflare Pro, DataDome, etc.).
 - Cost: **free.** Routed to `/capture-visuals`, which drives the VPS's always-on Chrome via the Claude in Chrome MCP — uses your real Chrome session, your subscription, your IP. No token billing, no per-task fees. (Opt-in: set `BROWSER_USE_ENABLED=1` to delegate to the Browser Use Cloud agent instead at ~$0.05–$0.15/visual; rarely needed.)
-- Model: always **Sonnet 4.6** (`claude-sonnet-4-6`). Browser driving is high-throughput / low-reasoning, and Opus is wasted spend here. The VPS systemd unit and cron triggers pin `--model claude-sonnet-4-6` for the same reason.
+- Model: always **Sonnet 4.6** (`claude-sonnet-4-6`). Browser driving is high-throughput / low-reasoning, and Opus is wasted spend here.
 
 **Examples that map clearly:**
 
@@ -55,59 +128,81 @@ The two are easy to confuse. Mistakes here are the most common reason a visual f
 - A chat conversation in mid-flow with the typing indicator visible → `action-shot`
 - A privacy settings panel with all toggles enabled → `action-shot`
 - A static feature page on the marketing site → `screenshot`
-- A competitor's product UI behind their bot wall → `action-shot` (when ToS allows)
+- A competitor's product UI behind their bot wall → `action-shot` (when ToS allows) or `external` with the Claude-in-Chrome fallback
 
-## SFW / adult content rule (Pleasur.AI specific)
+## SFW / adult content rule (Pleasur.ai specific)
 
-Replicate's `openai/gpt-image-2` and `google/nano-banana` will refuse adult prompts and may flag the API account. For visuals that depict adult content (companion characters in suggestive scenarios, etc.):
+The product is adult, but **every published visual must be SFW** for ad-network, embed, and
+search-index compatibility:
 
-- Use `safety=adult` in the placeholder
-- The pipeline routes the placeholder to `manual-capture.md` — the editor produces the image manually using the brand's own tooling at `pleasur.ai/generate`
-- **Never** call Replicate with adult prompts, even if `safety` is unset and the prompt happens to imply adult content
-
-Default for any `image` placeholder is `safety=sfw`. Most blog illustrations should be SFW (lifestyle, abstract, scene-setting, no people) — that also keeps the published article SFW for ad-network and embed compatibility.
+- Any `action-shot` / `screenshot` of the logged-in product runs with PII redaction on (email masked)
+  and **explicit image tiles blurred in place** (`VISUAL-CRITIQUE-LOOP.md` action-shot checklist).
+- Never depict nudity, suggestive contact, or skin-focus in a published asset — frame the *capability*
+  (the memory panel, the voice control, the pricing meter), not explicit content.
+- AI generation is retired, so the old "route adult prompts to manual" path is moot — there is no
+  Replicate call to refuse. If a SFW capture of an inherently adult screen isn't achievable, use
+  `none` rather than ship something risqué.
 
 ## Placeholder syntax (for `/draft`)
 
-The draft realizes the outline's typed `Visual:` block as a single typed placeholder per section. Format:
+The draft realizes the outline's typed `Visual N:` plan as a single typed placeholder per planned
+visual. Format:
 
 ```
 [VISUAL:type=<type>;<key>=<value>;<key>=<value>...]
 ```
 
-### Examples
+### Examples (value-first first — `external` is the workhorse)
 
 ```
-[VISUAL:type=screenshot;target=create;what=character backstory & traits panel;selector=.backstory-panel;annotate=#voice-button]
+[VISUAL:type=external;sub=reddit-comment;url=https://www.reddit.com/r/AICompanions/comments/<id>/;selector=#t1_<comment-id>;crop=padded;what=Top reply: a companion app forgot the user after a week]
 
-[VISUAL:type=screenshot;target=create;what=top-of-page hero with sign-up CTA;crop=0,0,1440,720]
+[VISUAL:type=external;sub=competitor-ui;url=https://competitor.example.com/chat;selector=.message-list;crop=padded;what=Rival app repeating the same stock reply]
 
-[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Navigate to pleasur.ai/create. Dismiss the age verification dialog. Click the Realistic template card. Wait for the Ethnicity selection step to load. Capture that screen.;what=Companion Creator Ethnicity step]
+[VISUAL:type=external;sub=serp;url=https://www.google.com/search?q=ai+companion+forgets+conversations;selector=#search;crop=padded;what=Google SERP for the memory complaint]
 
-[VISUAL:type=action-shot;url=https://pleasur.ai;goal=Log into Pleasur with the saved session. Open an existing character chat. Send the message "Tell me about your day." Wait for the typing indicator to appear and the response to arrive. Capture the chat with the response visible.;what=Mid-conversation chat with typing indicator and response]
+[VISUAL:type=external;sub=tweet;url=https://x.com/<user>/status/<id>;selector=article[data-testid="tweet"];crop=padded;what=User's hot-take on hidden AI-companion pricing]
 
-[VISUAL:type=image;sub=concept-illustration;prompt=Flow diagram showing how a memory-augmented AI girlfriend chat works. Three labeled components arranged left-to-right: "User Message" (speech bubble icon), "Vector Memory Store" (three boxes labeled "Embed", "Retrieve", "Rerank"), "LLM Response" (chat bubble icon). Arrows connect each step; a feedback loop arrow returns from Response to Memory. Clean editorial illustration style, white background, sans-serif labels, brand-neutral colors.;style=illustration;safety=sfw]
+[VISUAL:type=screenshot;target=chat;what=the memory panel recalling a fact from a prior session unprompted;annotate=#recalled-detail]
 
-[VISUAL:type=image;sub=diagram;prompt=Side-by-side comparison labeled "Generative AI" (left) vs "Agentic AI" (right). Left panel: single user prompt arrow into a brain icon, single output arrow. Right panel: same prompt arrow into a brain icon, but with three sub-arrows out to three labeled tools ("Browser", "Code", "Memory"), and a return arrow combining results. Clean editorial illustration, white background, sans-serif labels.;style=illustration;safety=sfw]
-
-[VISUAL:type=image;sub=lifestyle;prompt=Modern apartment interior at evening, warm desk lamp, laptop with chat interface visible (no readable text on screen), no people. Photorealistic, editorial.;style=photorealistic;safety=sfw]
-
-[VISUAL:type=image;prompt=portrait of a custom-designed companion character;safety=adult]
+[VISUAL:type=action-shot;url=https://pleasur.ai;goal=Log in with the saved session. Open an existing character chat. Tap the speaker icon next to a reply. Capture the chat with the voice control active.;what=In-chat voice playback control]
 
 [VISUAL:type=chart;data=research.search_volumes;style=bar;title=Monthly searches by platform]
 
+[VISUAL:type=diagram;type=cycle;config=content-pipeline/images/<slug>/context-churn.json;what=The context-churn loop]
+
 [VISUAL:type=video;url=https://youtube.com/watch?v=<id>;what=demo of voice reply tap-to-play]
-
-[VISUAL:type=external;sub=reddit-comment;url=https://www.reddit.com/r/AICompanions/comments/<id>/;selector=#t1_<comment-id>;crop=padded;what=Top reply on memory-limit complaints]
-
-[VISUAL:type=external;sub=tweet;url=https://x.com/<user>/status/<id>;selector=article[data-testid="tweet"];crop=padded;what=User's hot-take on AI girlfriend pricing]
-
-[VISUAL:type=external;sub=news-quote;url=https://example.com/article;selector=figure.chart;crop=tight;what=Chart of monthly active users by AI companion app]
-
-[VISUAL:type=external;sub=competitor-ui;url=https://competitor.example.com/pricing;selector=.pricing-table;crop=padded;what=Competitor pricing tiers]
 ```
 
-Tables are not placeholders — `/draft` writes them inline as markdown.
+Tables are not placeholders — author them as native `:::table` / `:::decision-table` / `:::feature-matrix` (§0).
+
+### `external` placeholder fields (the workhorse — PLEAA-417)
+
+`external` is the right type when the section *quotes* or *cites* something the brand doesn't own and
+the visual evidence is a specific element on that page — a single Reddit comment, a tweet, a SERP, a
+chart inside an article, a competitor panel. **Always pair with `selector`** to clip to the element; a
+viewport-sized screenshot of a whole thread is wasted space.
+
+| Field | Required | Purpose |
+|---|---|---|
+| `url` | yes | Source URL. Reachable without login when possible; if login-walled, the entry falls back to `/capture-visuals` (real Chrome session). |
+| `selector` | strongly recommended | CSS selector clipping to the element that matters. Reddit comment IDs (`#t1_<id>`), tweet `article[data-testid="tweet"]`, SERP `#search`/`#rso`, news `figure.chart`, competitor `.pricing-table`/`.message-list`. |
+| `sub` | recommended | `reddit-comment`, `tweet`, `linkedin`, `news-quote`, `competitor-ui`, `serp`, `chart`. |
+| `crop` | no | `padded` (default for external, ~48px) or `tight` (~8px). Or `X,Y,W,H` for a manual rectangle. |
+| `what` | yes | Short caption / alt text. |
+| `validate` | no | `validate=true` adds a Claude-vision sanity check (~$0.003/capture). |
+
+**Sub-type cheatsheet:**
+
+- `sub=reddit-comment` — `selector=#t1_<base36-comment-id>`. Old Reddit (`old.reddit.com`) renders cleaner; prefer it. **Blur usernames/PII.**
+- `sub=tweet` — `selector=article[data-testid="tweet"]`. X login-gates many pages; expect the Claude-in-Chrome fallback.
+- `sub=serp` — `selector=#search` or `#rso` (the results column). Blur any personalized/PII chrome.
+- `sub=competitor-ui` — `.pricing-table`, `.message-list`, `.feature-grid`, etc. ToS check before scraping; if the competitor blocks bots, use the Claude-in-Chrome fallback, never a proxy/CAPTCHA bypass.
+- `sub=news-quote` / `sub=chart` — `figure.chart`, `.embedded-chart`, `.article__pull-quote`; inspect the page first.
+
+**ToS rule:** we don't bypass site protections. If both Playwright and Claude-in-Chrome fail, the
+entry stays `failed` and the visuals gate records it — do not chain proxies, solve CAPTCHAs, or scrape
+rate-limited APIs to force a pass.
 
 ### `action-shot` placeholder fields
 
@@ -115,69 +210,21 @@ Tables are not placeholders — `/draft` writes them inline as markdown.
 |---|---|---|
 | `goal` | yes | Natural-language description of the full sequence: navigation + actions + what to capture. Be specific about which screen to land on. |
 | `url` | recommended | Starting URL. Speeds up the agent (skips a search step). |
-| `what` | yes | Short caption / alt text. Used for the published image. |
-| `max_steps` | no | Override default of 25. Lower for simple tasks (saves $), higher for complex flows. |
-| `llm` | no | Override default `claude-sonnet-4-6`. Try `gpt-4.1-mini` for cheaper / faster on simple tasks. |
+| `what` | yes | Short caption / alt text. |
+| `max_steps` | no | Override default of 25. Lower for simple tasks, higher for complex flows. |
+| `llm` | no | Override default `claude-sonnet-4-6`. |
 
-### `image` placeholder fields
-
-`image` covers two distinct sub-types. Choose deliberately.
-
-| Field | Required | Purpose |
-|---|---|---|
-| `sub` | recommended | One of `concept-illustration` (default), `diagram`, `flow-diagram`, `comparison`, `lifestyle`. Drives prompt-template defaults — the dispatcher may prepend style hints (e.g. "clean editorial illustration, white background, sans-serif labels" for diagrams). |
-| `prompt` | yes | The full image prompt. **Be specific.** For diagrams: name every labeled component, describe layout (left-to-right, side-by-side, etc.), specify connectors (arrows, lines), and demand a clean editorial style. For lifestyle: describe scene, lighting, mood, "no people" (or "people, no faces shown") to avoid the AI face-rendering problem. |
-| `style` | recommended | `illustration` (default for diagrams), `photorealistic` (default for lifestyle), `flat-vector`, `isometric`. |
-| `safety` | recommended | `sfw` (default; pipeline calls Replicate) or `adult` (routes to manual capture; pipeline never sends adult prompts to Replicate). |
-
-**Prompt patterns that work for `concept-illustration` / `diagram`:**
-
-- *"Flow diagram showing X. Components from left to right: A → B → C. Each component labeled with [name]. Arrows showing direction. Clean editorial illustration, white background, sans-serif labels, brand-neutral colors."*
-- *"Side-by-side comparison: '[Concept A]' on left vs '[Concept B]' on right. Each side has [shared structure] with [specific differences highlighted]. Clean editorial illustration, white background, sans-serif labels."*
-- *"Layered architecture diagram. Bottom layer labeled '[base]'. Middle layer labeled '[middle]'. Top layer labeled '[top]'. Arrows show data flow upward. Clean editorial style, white background."*
-
-**Prompt anti-patterns** (produce vague art):
-
-- "An AI girlfriend." (no structure, no labels, no scene)
-- "A futuristic concept of love and technology." (abstract, no concrete elements)
-- "A diagram of how AI works." (no specifics — what diagram, what components, what relationships)
-
-The diagram prompts that work read like a *brief to a junior illustrator*, not like a haiku.
-
-### `external` placeholder fields (PLEAA-417)
-
-`external` is the right type when the section *quotes* or *cites* something the brand doesn't own and the visual evidence is a specific element on that page — a single Reddit comment, a tweet, a chart inside an article, a competitor pricing tier. Always pair with `selector` to clip to the element; a viewport-sized screenshot of a Reddit thread is wasted space.
-
-| Field | Required | Purpose |
-|---|---|---|
-| `url` | yes | Source URL. Must be reachable without login when possible; if login-walled, the manifest entry will fall back to `/capture-visuals` (real Chrome session). |
-| `selector` | strongly recommended | CSS selector clipping to the element that matters. Reddit comment IDs (`#t1_<id>`), tweet `article[data-testid="tweet"]`, news `figure.chart`, competitor `.pricing-table`. |
-| `sub` | recommended | One of `reddit-comment`, `tweet`, `news-quote`, `competitor-ui`, `chart`. Free-form metadata today; future heuristics may auto-pick selectors per sub. |
-| `crop` | no | `padded` (default for external, ~48px breathing room around the bbox) or `tight` (~8px). Or `X,Y,W,H` for a manual rectangle if no selector works. |
-| `what` | yes | Short caption / alt text. Used for the published image. |
-| `validate` | no | Set `validate=true` to add a Claude-vision sanity check (~$0.003/capture). |
-
-**Sub-type cheatsheet:**
-
-- `sub=reddit-comment` — `selector=#t1_<base36-comment-id>` (the data-fullname suffix on the comment node). Old Reddit (`old.reddit.com`) renders cleaner than new Reddit; prefer it when you can.
-- `sub=tweet` — `selector=article[data-testid="tweet"]`. X/Twitter login-gates many pages; expect the Claude-in-Chrome fallback to handle most of these.
-- `sub=news-quote` — selectors vary by publication. `figure.chart`, `.embedded-chart`, `.article__pull-quote` are common starting points; inspect the page first.
-- `sub=competitor-ui` — `.pricing-table`, `.feature-grid`, etc. ToS check before scraping; if competitor blocks bots aggressively, flag and use a manual capture.
-- `sub=chart` — when the source is a chart (vs the page that hosts it). Often the same selector as `news-quote` with a tighter crop.
-
-**ToS rule:** we don't bypass site protections. If both Playwright and Claude-in-Chrome fail, the entry stays `failed` and the visuals gate halts — do not chain proxies, solve CAPTCHAs, or scrape rate-limit-protected APIs to make it pass.
-
-## Targeting and quality (`screenshot` and `external`)
+### Targeting and quality (`screenshot` / `external`)
 
 A screenshot of a whole viewport is rarely the right capture. Specify what to clip to:
 
 | Directive | When to use | Example |
 |---|---|---|
-| `selector=<css>` | The thing you want to show is a specific element on the page (a card, a panel, a single post, a Reddit comment, a tweet). The capture is clipped to that element's bounding box. | `selector=.companion-card[data-id="123"]` |
-| `crop=padded` / `crop=tight` | With `selector`, expand the bbox by ~48px (padded) or ~8px (tight) before clipping. Padded is the right default for external visuals — bbox-tight Reddit/tweet captures look cramped. | `selector=#t1_xyz;crop=padded` |
-| `crop=X,Y,W,H` | No clean selector is available, but you know the rectangle. Coordinates in CSS pixels (pre-2x scale). | `crop=0,0,1440,720` (top-of-viewport hero) |
-| `annotate=<css>` | Highlight an element with a red outline before capture. Independent of selector — you can highlight one thing inside a larger element. | `annotate=#voice-button` |
-| (none) | Capture the whole 1440×900 viewport. Use sparingly — usually you want a selector. | — |
+| `selector=<css>` | The thing you want is a specific element (a card, a panel, a post, a Reddit comment, a tweet). Clipped to that element's bbox. | `selector=.companion-card[data-id="123"]` |
+| `crop=padded` / `crop=tight` | With `selector`, expand the bbox by ~48px (padded) or ~8px (tight). Padded is the right default for external. | `selector=#t1_xyz;crop=padded` |
+| `crop=X,Y,W,H` | No clean selector, but you know the rectangle (CSS pixels, pre-2× scale). | `crop=0,0,1440,720` |
+| `annotate=<css>` | Highlight an element (selective — one box + one arrow + a short brand-blue label, per strategy §7). Independent of selector. | `annotate=#voice-button` |
+| (none) | Whole 1440×900 viewport. Use sparingly — usually you want a selector. | — |
 
 ### Quality validation (post-capture)
 
@@ -188,27 +235,27 @@ Every screenshot capture runs heuristic checks automatically:
 - **Color variance > 0.02** — catches blank / mostly-uniform captures (login walls, white screens)
 - **File size > 5KB** — catches truncated writes
 
-If a check fails → the visual is flagged in `manual-capture.md` for the editor to handle. If it's "suspect" (low color variance) → captured but flagged for review.
-
-### Optional vision validation
-
-Set `validate=true` on the placeholder (or `VISUAL_VALIDATION=true` env var) to additionally ask Claude (Haiku) to look at the image and verify it shows what `what=` said it would. Costs ~$0.003/check; off by default. Catches subtler failures the heuristics miss (e.g., the page rendered a different feature than expected).
-
-```
-[VISUAL:type=screenshot;target=create;what=companion creator backstory panel;selector=.create-panel;validate=true]
-```
+If a check fails → the entry is recorded `failed`/`manual` for `/capture-visuals`. Low-variance →
+captured but flagged. Set `validate=true` (or `VISUAL_VALIDATION=true`) to add a Haiku vision check
+(~$0.003) that confirms the image shows what `what=` said.
 
 ## Backwards compatibility
 
-The pipeline still accepts the legacy `[SCREENSHOT: description]` form. `/generate-visuals` treats it as `[VISUAL:type=screenshot;what=description]`. New outlines should use the typed form.
+The pipeline still accepts the legacy `[SCREENSHOT: description]` form; `/generate-visuals` treats it
+as `[VISUAL:type=screenshot;what=description]`. New outlines and drafts use the typed form.
 
 ## Quality bar per type
 
 | Type | Minimum quality |
 |---|---|
-| `screenshot` | 1440×900 viewport, 2× retina (2880×1800 PNG), Pillow-optimized |
-| `image` | 1024×1024 minimum (model default); upscale only if model supports it |
-| `chart` | Min 1200px wide, brand-neutral palette, axis labels & title |
-| `gif` / `video` | Editor-managed quality; pipeline doesn't enforce |
+| `external` / `screenshot` | clipped to the right element, 2× retina, tight chrome-free crop, PII + explicit blurred |
+| `action-shot` | real logged-in product (not a login wall / age gate), SFW, email masked, ~2880 wide desktop |
+| `chart` | min 1200px wide, on-brand palette, axis labels + title, numbers match the source |
+| `diagram` | structured nodes, on-brand theme, no clipped labels |
+| `cover` | exactly 1600×900, exact title in safe-zone, real logo |
+| `gif` / `video` | editor-managed; pipeline doesn't enforce |
 
-Every visual gets a markdown caption / alt text derived from the placeholder's `what=` or `prompt=` field. Captions are part of the publishable output, not an afterthought.
+Every visual gets a markdown caption / alt text derived from `what=`. Captions are part of the
+publishable output. **Every captured visual passes `VISUAL-CRITIQUE-LOOP.md`** (the agent *views* it
+and redoes until it's genuinely good) before publish — a wasted render is cheap, a weak published
+visual is not.

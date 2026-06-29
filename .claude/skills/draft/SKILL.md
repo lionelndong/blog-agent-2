@@ -27,7 +27,8 @@ For slug `{slug}`:
 - `content-pipeline/1-research/{slug}.md` + `{slug}-deep.md` (evidence, stats, user quotes)
 - `brand-config.md` (voice, audience, products, **forbidden phrases**)
 - `references/voice-guide.md` (structural voice rules) + `references/prose-patterns.md` (sentence-level patterns)
-- `../../../templates/visual-types.md` (controlled vocabulary for `[VISUAL:...]` placeholders)
+- `../../../templates/visual-strategy.md` (**THE GOVERNING SPEC for placing `[VISUAL:]` — read it**: resolvable data, no native-component duplication, value-first ~80/20, the type catalog)
+- `../../../templates/visual-types.md` (the controlled `[VISUAL:...]` vocabulary + selection guide; follows visual-strategy.md)
 - `examples/authors.md` (the persona map + content-type → persona selection rule + byline-comment contract)
 - `examples/component-cheatsheet.md` (**PRIMARY component reference — the writer's menu**: when to reach for each component, how to write it, and the caps; consult this first per step 5a)
 - `examples/ahrefs-components.md` (the deep `:::component` spec — fence grammar + exact attribute names; consult when the cheatsheet isn't enough)
@@ -71,7 +72,7 @@ For slug `{slug}`:
    - **a cited statistics roundup (5+ sourced figures)** → `:::stat-list` (one cited finding per bullet, `- **68%** … ([Source](url))`). Keep `:::stat`/`:::stat-group` for 1–4 hero numbers — do NOT use `:::stat-list` for fewer than 5.
    - **an FAQ section** → `:::faq` (repeated `### Question` + answer; the renderer adds FAQPage schema). Plain H2/H3 FAQs remain fine — reach for `:::faq` only when schema capture is the point.
    - **roundup / listicle scaffolding** → `:::jumplinks` (a writer-chosen "skip to the app you want" anchor menu) + one `:::entry n="1" name="…" url="…" best_for="…" price="…"` header per option section; a qualitative award → `:::badge kind="best-overall|editors-pick|best-free"`.
-   - **a captioned data figure / diagram** → `:::figure src="…" source="…"` / `:::diagram src="…"`. **Visuals are DEFERRED** — emit the typed `[VISUAL:...]` placeholder (step 6) for visuals the outline planned; only author a `:::figure`/`:::diagram` fence when you already have a real `src`, otherwise leave the `[VISUAL:...]` marker and let the visuals project fill it later.
+   - **a captioned data figure / diagram** → `:::figure src="…" source="…"` / `:::diagram src="…"` only when you already have a real `src` on disk. **Visuals are ON (2026-06-29):** for every visual the outline planned, emit the typed `[VISUAL:...]` placeholder (step 6) and let `/generate-visuals` realize it into `![alt](images/<slug>/file.png)`. Reach for a `:::figure`/`:::diagram` fence only when pointing at an asset that already exists.
    - **situational embeds** → `:::tweet url="…"` (real social proof; degrade to `:::pullquote` if no live embed) · `:::video src="…" title="…"` (a moving walkthrough beats a screenshot; rare).
 
    **INLINE treatments (no fence — these are the typographic devices, governed by voice):**
@@ -86,13 +87,20 @@ For slug `{slug}`:
    - **no numbered headings** ("1. …", "2. …") and **no drop caps** — the open is the `{lead}` size bump only.
 
    **Per-persona favorites** (lean toward your selected persona's set; don't force the others): **Sloane Avery** → `:::methodology` / `:::stat` / `:::stat-list` / `:::table` / `:::key-takeaways`; **Theo Hart** → tables / numbered steps / `:::decision-table` / `:::preferred-order` / `:::feature-matrix` / `:::cta` / `:::further-reading`; **Mateo Reyes** → `:::expert` / `:::pullquote` / `:::tweet` / `:::nutshell` / `:::sidenote` / `:::figure`. The shorthands `**Tip:**` / `**Note:**` / `**Sidenote:**` / `**Methodology:**` / `**In a nutshell:**` / `**Key takeaways:**` are also accepted — `/format-for-publish` normalizes them to their fences — but prefer authoring the explicit `:::fence` so the preview matches the published page.
-6. **Insert typed visual placeholders** — one per `Visual N:` entry in the annotated outline, at natural break points. Forms (full field reference + selector cheatsheet in `templates/visual-types.md`):
-   - `[VISUAL:type=screenshot;target=<product-slug>;what=<UI element>;annotate=<optional>]`
-   - `[VISUAL:type=action-shot;url=<starting URL>;goal=<explicit click-path under 60 words>;what=<caption>]` — `/capture-visuals` drives Chrome (pinned to Sonnet); write the goal like briefing a human who has never seen the site
-   - (`type=image` is **retired** — no AI image generation. Use `chart`/`table` for data visuals and `screenshot`/`action-shot`/`external` for real imagery. Real product imagery is captured from `pleasur.ai`, never generated.)
-   - `[VISUAL:type=chart;data=<research.key>;style=<bar|line|pie>;title=<title>]`
-   - `[VISUAL:type=external;sub=<reddit-comment|tweet|news-quote|competitor-ui|chart>;url=<source>;selector=<CSS>;crop=padded;what=<caption>]` — auto-captured (PLEAA-417); Reddit comments are `#t1_<id>`, tweets `article[data-testid="tweet"]`
-   - `[VISUAL:type=video;url=<…>;what=<…>]`, `[VISUAL:type=gif;what=<…>]`
+6. **Place the typed `[VISUAL:]` placeholders — governed by `templates/visual-strategy.md`.** Emit one per `Visual N:` entry the outline planned, at a natural break in the section it belongs to (never two stacked back-to-back). Three hard rules gate every placeholder — break any one and the visual loud-fails the visuals stage or duplicates a component:
+
+   - **(a) RESOLVABLE DATA (kills the invented-key bug).** A `chart` / `diagram` / data `table` **MUST** reference data that actually exists: either a real `research.<key>` that you have **verified is present in `content-pipeline/1-research/{slug}-data.json`**, or a `config=<file>` you author yourself. **NEVER invent a key.** (The real failures we shipped: `data=research.five_failure_taxonomy` and `data=research.pricing.coin_tiers` when the keys did not exist — the placeholder loud-failed and left the section blank.) If the number/structure you want isn't in the research JSON: add it to the research data, author a `config=` file, or **drop the visual**. Never point at a key on faith.
+   - **(b) NO native-component duplication (the duplicate bug).** Do **NOT** emit a `[VISUAL:]` for anything a native `:::` directive renders inline — a stat (`:::stat`), a quote (`:::pullquote`), a comparison / pros-cons / feature matrix / decision grid / simple data table (`:::table` · `:::feature-matrix` · `:::decision-table` · `:::proscons`), a tip/note/warning/takeaway/definition (`:::tip` · `:::note` · `:::warning` · `:::key-takeaways` · `:::definition`). A native component is **always** better than a PNG of the same thing (selectable, accessible, SEO-readable, responsive). If you already wrote the data as a `:::decision-table` or `:::table`, you may NOT also make a PNG table of it. `[VISUAL:]` PNGs are **only** for what text + natives can't show: real screenshots, branded charts of real data, concept diagrams/flows, covers, demos/GIFs, embeds.
+   - **(c) VALUE-FIRST type choice (~80/20 — `type=external` is the workhorse).** Most placeholders should screenshot a **third party / the category** (a competitor companion app, a Google SERP, a Reddit/forum thread, an X/LinkedIn post, a real review/artifact). Reserve `type=screenshot`/`action-shot` of **our** product for moments the post is genuinely on-topic about Pleasur.ai. The same method applies to any product a post covers.
+
+   **Type catalog** (full field reference + selector cheatsheet in `templates/visual-types.md`):
+   - `[VISUAL:type=external;sub=<reddit-comment|tweet|linkedin|news-quote|competitor-ui|serp|chart>;url=<source>;selector=<CSS>;crop=padded;what=<caption>]` — **the workhorse: real third-party evidence.** Auto-captured (PLEAA-417). Reddit comments `#t1_<id>`, tweets `article[data-testid="tweet"]`, a SERP or competitor panel with the right `selector`. Always clip with `selector` — a viewport shot of a whole thread is wasted space.
+   - `[VISUAL:type=screenshot;target=<product-slug>;what=<UI element>;annotate=<optional>]` — **our product, on-topic posts only.**
+   - `[VISUAL:type=action-shot;url=<starting URL>;goal=<explicit click-path under 60 words>;what=<caption>]` — our logged-in product (**SFW — blur explicit + PII**); `/capture-visuals` drives Chrome (pinned to Sonnet); write the goal like briefing a human who has never seen the site.
+   - `[VISUAL:type=chart;data=research.<KEY-THAT-EXISTS>|config=<file>;style=<bar|line|pie>;title=<title>]` — branded chart from **real** data (rule a).
+   - `[VISUAL:type=diagram;type=<linear|tree|flow|cycle>|config=<file>;what=<…>]` — concept / process / decision (the "illustration" slot); needs structured nodes via `data=`/`config=`, not prose (rule a).
+   - `[VISUAL:type=cover;…]` · `[VISUAL:type=video;url=<…>;what=<…>]` · `[VISUAL:type=gif;what=<…>]`.
+   - (`type=image` is **retired** — no AI metaphor art. Real imagery is captured from `pleasur.ai` or the third party, never generated. For a concept, use `diagram`; for data, `chart`.)
 7. **Draft the conclusion** (80–150 words): thesis restated fresh + one next step.
 8. **Self-edit pass — the human-editor read.** Read the full draft top to bottom and fix:
    - **Crutch repetition (the #1 tell):** any distinctive word or rhetorical move used 3+ times ("honest", "Here's the thing", "stated plainly", a verdict-sentence formula repeated per section). Two uses max; rewrite the rest with different constructions.
@@ -126,7 +134,7 @@ Before saving, confirm:
 - [ ] Zero forbidden phrases; zero "Furthermore/Moreover/It is important to note" openers
 - [ ] Every numerical claim cited or carrying `[link]` for verify-claims
 - [ ] Product mentions only where annotated, demonstrative
-- [ ] All visual placeholders typed per the controlled vocabulary
+- [ ] Every `[VISUAL:]` follows `templates/visual-strategy.md`: resolvable data (chart/diagram/table point at a real `research.<key>` or authored `config=` — NO invented keys), no native-component duplication (no PNG of a stat/quote/table/callout already in a `:::` directive), value-first ~80/20 (`type=external` third-party is the default; our-product only when on-topic), spaced (none stacked)
 - [ ] Internal links from `2-reference/` woven in with descriptive anchors
 
 ## When the draft feels off

@@ -37,7 +37,7 @@ Box components are fenced: an opener line `:::name attr="value"`, the content, t
 | 1–4 hero numbers to make impossible to miss | `stat` (wrap multiples in `stat-group`) | `:::stat-group`<br>`:::stat value="61%" source="…"`<br>of apps meter "unlimited"<br>`:::`<br>`:::` |
 | 5+ statistics each with a source | `stat-list` | `:::stat-list`<br>- 68% … ([source](url))<br>`:::` |
 | A measured data table (caption + source + winner row) | `table` | `:::table caption="…" source="Ahrefs" emphasize-row="1"`<br>(GFM table)<br>`:::` |
-| A chart or labelled screenshot | `figure` / `diagram` | `:::figure src="…" source="…"`<br>caption<br>`:::` *(visuals deferred — leave as a marker)* |
+| A chart or labelled screenshot | `figure` / `diagram` | `:::figure src="…" source="…"`<br>caption<br>`:::` *(visuals are ON — emit a typed `[VISUAL:]` per `templates/visual-strategy.md`; use a `:::figure`/`:::diagram` fence only when a real `src` already exists on disk)* |
 
 ### Comparing / recommending (roundups, "X vs Y", technical)
 | When | Component | Syntax |
