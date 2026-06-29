@@ -1,126 +1,72 @@
 # Article cover / hero image — RECIPE (LOCKED 2026-06-28)
 
-The **featured image** at the top of every blog post (and the card thumbnail + the OG/Twitter
-share image — the site reuses one `coverImage` for all three). Fourth visual type, after
-annotation, infographic, and chart. **Quality is #1** — covers must read Ahrefs-grade, never
-"vibe-coded". Two routes; **route A (deterministic) is the default for consistency.**
+The **featured image** at the top of every blog post (also the card thumbnail + the post
+`og:image`/`twitter:image` — the site reuses one `coverImage`). **Quality is #1.**
 
 ## Dimensions — 1600×900 (16:9)
 
-The blog uses **16:9** for the cover everywhere:
-- article hero renders in an `aspect-video` box, `object-cover`, `priority` (blog-article-page.tsx)
-- cards are `aspect-ratio: 16/9` (globals.css)
-- the post's `og:image` + `twitter:image` both reuse `coverImage` (blog `[slug]/page.tsx`)
+Verified from the frontend: the article hero renders in an `aspect-video` box (`object-cover`,
+`priority`); cards are `aspect-ratio: 16/9` (globals.css); the post `og:image`+`twitter:image` reuse
+`coverImage`; the site-wide OG default is 1200×630. **Canonical asset = 1600×900** (2× the 800px
+content column → crisp on hero + cards, valid Twitter `summary_large_image`). Keep key content inside
+a centred safe-zone so an OG-side crop to ~1.91:1 never clips.
 
-So the canonical asset is **1600×900** (exact 2× of the 800px content column → crisp, zero crop on
-hero + cards, valid Twitter `summary_large_image`). The engine renders at 2× supersample and
-LANCZOS-downscales for sharp text. Keep the title + logo inside a **centred safe-zone** so an
-OG-side crop to ~1.91:1 (1600×838) never clips. `--width/--height` are configurable if a separate
-1200×630 OG variant is ever wanted.
+## The cover style (operator-chosen): Ahrefs-style flat-vector illustration
 
-## Brand system (matches render_chart_web.py / CHART-THEME.md)
+ndong's call, reviewing Ahrefs' real blog heroes (e.g. `ahrefs.com/blog/facebook-marketing-groups/`):
+the cover is a **playful, characterful FLAT-VECTOR scene illustration** in the Ahrefs blog house-style
+— bold uniform navy outlines, flat colour fills, friendly cartoon objects/scenes depicting the topic,
+on a **bold brand-blue** background (`#2E90FA`; `white` variant available).
 
-- **Palette** `#2E90FA` blue · `#8B5CF6` purple · `#22B276` mint · `#F5A623` amber · `#E8655A` coral
-- **Title font = Plus Jakarta Sans 800** — the LIVE blog hero H1 font (`src/config/fonts/blog-display.ts`,
-  "bold geometric sans, Ahrefs-style"). The cover title sits directly above the article H1, so it
-  matches it. (This is a deliberate refinement over IBM Plex for the title.)
-- **Eyebrow = IBM Plex Sans 700** (uppercase, letter-spaced, with a rule + dot). **Body/byline = Geist.**
-  All three load via Google Fonts `@import` (the container reaches Google Fonts at render time).
-- **Logo = the REAL wordmark**, composited deterministically, NEVER AI-drawn. Bundled
-  `pleasurai-logo.png` (charcoal "Pleasur." + blue ".ai") is used on light covers; on dark covers the
-  engine recolours the charcoal half to white at render time and keeps the blue ".ai".
+- **No fixed mascot** — scene/object-based (like Ahrefs' plug/laptop covers); the locked house-style +
+  bold-blue bg + brand palette + logo chip are what make them one family ("same template, not the same").
+- **No title text on the image** — the page H1 carries the title. (Verified in a page mock: the bold-blue
+  cover sits cleanly next to the title in both above- and beside-the-title layouts — the blue is
+  contained and doesn't clash with the dark title on the white page.)
+- **Real logo** = a small **white chip** bottom-right (legible on any background, keeps the blue ".ai";
+  never AI-drawn).
+- **SFW** — covers are public + indexed, so topics are shown via friendly phones / hearts / chat
+  bubbles / shields / sparkles / simple cartoon people. No nudity/suggestive/contact, ever.
 
-## Route A — designed HTML cover via patchright (DEFAULT)
+This is **AI-generated** (Nano Banana / Replicate) — a deliberate operator override of the
+"deterministic-default" rule **for covers**, because the characterful illustration beats a designed
+card. It MUST pass the **hard SFW + no-slop vision gate** (VISUAL-CRITIQUE-LOOP.md → "Cover"). The
+deterministic line-art engine (`render_cover.py`) stays as a free fallback.
 
-`render_cover.py` builds a designed HTML hero from a content JSON and screenshots it headless —
-**no AI, pixel-exact text, fully reproducible, free, fast.** One design language, four themes, six
-line-art motifs — every cover is unmistakably one family yet visually distinct ("same template, not
-the same"). **Design inspiration:** **Linear** (one templated canvas + a unique minimal line-art
-motif per post), **Ahrefs** (typographic editorial: small-caps category + big brand title + byline),
-**Sam Marsh** (bold confident colour-fields).
+### Pipeline (primary)
+1. **Generate** — `node cover_hero_engine.js --content c.json --out raw.png`  (or `--title "…" --bg blue`)
+   Locked Ahrefs house-style + a per-topic **`scene`** (the creative variable; derived from the title
+   if absent) → Nano Banana, 16:9. `REPLICATE_API_KEY` mandatory (loud-fail). `c.json`:
+   `{ "title", "scene"?, "bg"? ("blue"|"white") }`.
+2. **Stamp logo + size** — `python logo_stamp.py --in raw.png --out cover.png`
+   Resizes to **1600×900** and composites the real logo as a small white chip (deterministic, never AI).
+3. **Hard vision gate** — look at the PNG vs the Cover checklist: **cut** if it reads "AI"/slop, is
+   off-brand, **NOT SFW**, garbled, or has any stray text/wrong logo. Max 3 re-rolls (refine the
+   `scene` wording), else fall back to route-line-art. A bad cover never ships.
 
-**Themes** (`--theme`, default **`light`** — operator's pick):
-- `light` — airy white editorial canvas, crisp accent line-art (**the Ahrefs look, default**)
-- `dark` — near-black + glowing line-art (Linear)
-- `aurora` — dark with a soft blue→violet aurora glow (richer/moodier)
-- `bold` — solid brand-colour field + white line-art (Sam Marsh poster)
+### The craft (what makes or breaks it)
+- The **`scene` is the only creative variable — and it's the whole game.** Write it richly, literally,
+  cheerfully, SFW. Describe WHAT objects/characters do; the finish (flat vector, bold blue, outlines)
+  is locked in the engine — don't put finish words in the scene.
+- Bold-blue is the default (verified not to clash with the adjacent title); `--bg white` is the lighter
+  variant for rhythm in the feed.
 
-**Motif** — a single parametric **line-art "concept diagram"** (NOT an icon-in-a-box): elegant thin
-strokes + dot nodes + a glowing hub carrying a small brand icon. Six layouts (`--motif`,
-**auto-picked from the title**): `cluster` (memory/constellation) · `orbit` (companionship/safety) ·
-`thread` (chat/connection) · `wave` (voice) · `radial` (image-gen) · `grid` (comparison). Shared
-node/line/glow styling across all layouts → one family; geometry varies → distinct per topic.
+## Fallback — deterministic line-art (`render_cover.py`)
 
-**Recurring brand devices** (the "same template" glue): a small-caps category eyebrow with an accent
-square, a top-right corner tick, a hairline baseline above the footer, the real logo + byline.
-Five accents (`--accent` blue/purple/mint/coral/amber, or `#hex`).
-
-**Content JSON**
-```json
-{ "title": "Best AI Girlfriend Apps", "eyebrow": "COMPARISON · 2026",
-  "subtitle": "optional one-liner", "theme": "light",
-  "accent": "blue|purple|mint|coral|amber" | "#RRGGBB",
-  "motif": "cluster|orbit|thread|wave|radial|grid", "author": "By Theo Hart" }
-```
-Only `title` is required; `theme`/`motif`/`accent` auto-default. Title font-size auto-scales to length.
-
-**Run**
-```bash
-python render_cover.py --content cover.json --out cover.png
-# or flags:
-python render_cover.py --title "Are AI Girlfriends Safe?" --eyebrow "PRIVACY & SAFETY" \
-       --theme light --accent mint --motif orbit --icon shield --out cover.png
-```
-
-## Route B — AI illustration background, GATED + rare (REUSES `concept_illustration_engine.js`)
-
-For the rare cover where an illustration genuinely beats a designed card. **No second AI engine** —
-the cover's optional AI background reuses the existing gated AI lane (`concept_illustration_engine.js`
-+ `concept_palette_check.py`; see `CONCEPT-ILLUSTRATION-RECIPE.md`, prompt taxonomy informed by the
-`baoyu-cover-image` skill). **Hybrid by design so AI never touches text** (text is the #1 AI tell):
-AI makes a *text-free* background; the deterministic layer adds the exact title + real logo.
-
-1. **Generate** a text-free brand illustration at 16:9:
-   `node concept_illustration_engine.js --content c.json --style luminous-dark --aspect 16:9 --out raw.png`
-   (`luminous-dark` suits dark covers; `editorial-vector` suits light covers. `REPLICATE_API_KEY`
-   mandatory, loud-fail. The metaphor is the whole craft — write it richly; ask for generous empty
-   space on the left for the title.)
-2. **Palette first-filter:** `python concept_palette_check.py --in raw.png` (`ok` / `WARN`).
-3. **Composite** title + logo over it:
-   `python render_cover.py --bg-image raw.png --title "…" --eyebrow "…" --accent purple --author "…" --out final.png`
-   A legibility **scrim** darkens the left for the title and the **real logo** sits bottom-left —
-   together they also cover any stray corner artifact. The motif is suppressed (the illustration is
-   the visual).
-4. **Hard vision gate** (VISUAL-CRITIQUE-LOOP.md → "Cover" + "Concept illustration"): cut on sight if
-   it reads "AI", has artifacts / garbled text / a baked logo, a face, or is off-brand/generic. If
-   unsure → fall back to route A.
-
-> Proven 2026-06-28: `luminous-dark` "memory-constellation" (concept "How AI companions remember you")
-> → palette `ok` → composited cleanly. Honest gate: **borderline** (the tiny memory tokens read a touch
-> busy) — usable, but **route A stays the distinctive, consistent default**. (An earlier ad-hoc
-> cover-only AI prompt even baked a literal "LOGO" placeholder — exactly why text + logo are always
-> deterministic and the gate is mandatory.)
+Free, no-AI, reproducible. An editorial **line-motif** system: 4 themes (`light` default / `dark`
+Linear / `aurora` / `bold` Sam-Marsh) × 6 auto-picked motif layouts (cluster/orbit/thread/wave/radial/
+grid) × 5 accents, with the title composited on. Use when AI is unavailable/undesired, for a quick
+draft, or if the gate cuts the illustration 3×. `python render_cover.py --title "…" --eyebrow "…" --out c.png`.
 
 ## Critique loop
-
-Every cover passes `VISUAL-CRITIQUE-LOOP.md`: render → deterministic check (file exists, exact
-1600×900) → **vision critique vs the Cover checklist** → fix → re-render, max 3, else flag a human
-(never publish a bad cover). The v1→v2 iteration that produced the locked motif (halo rings +
-confident orbiting chips + reflection, vs the first faint floating chips) is the loop in action.
+Every cover passes `VISUAL-CRITIQUE-LOOP.md` (render → deterministic check: exists, 1600×900 → **vision
+critique vs the Cover + Concept-illustration checklists** → fix → re-render, max 3, else flag a human).
 
 ## Running in the container
+The HOST lacks node/patchright; run in the **container** (`paperclip-whwi-paperclip-1`). The engine +
+`logo_stamp.py` + `pleasurai-logo.png` live together in `scripts/`. Replicate key via Doppler
+(`REPLICATE_API_KEY`); inject with `docker exec -e REPLICATE_API_KEY=…`.
 
-The HOST lacks patchright; render in the **container** (headless — no `DISPLAY` needed for our own
-HTML). `render_cover.py` + `pleasurai-logo.png` must sit together (both bundled in `scripts/`).
-```bash
-C=paperclip-whwi-paperclip-1
-docker exec $C bash -lc "cd <REPO>/.claude/skills/generate-visuals/scripts && \
-  python3 render_cover.py --content cover.json --out /tmp/cover.png"
-```
-
-## Open follow-ups (not blocking this engine)
-- Wire `type=cover` into the `generate_visuals.py` dispatcher (same pending step as the premium
-  infographic/chart engines — they're all standalone until the unified dispatcher rewire +
-  `BLOG_AGENT_VISUALS=on`).
-- `format-for-publish`: upload the cover to Strapi media and set the Article `coverImage` field.
-- Optional: a deterministic-text "illustrated" variant gallery; a 1200×630 OG-specific export.
+## Open follow-ups (not blocking)
+- Wire `type=cover` into `generate_visuals.py` (generate → stamp → gate) + `BLOG_AGENT_VISUALS=on`.
+- `format-for-publish`: upload the cover to Strapi media and set the Article `coverImage`.
