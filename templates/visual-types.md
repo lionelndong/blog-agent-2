@@ -214,6 +214,8 @@ rate-limited APIs to force a pass.
 | `max_steps` | no | Override default of 25. Lower for simple tasks, higher for complex flows. |
 | `llm` | no | Override default `claude-sonnet-4-6`. |
 
+**Shape: capture LANDSCAPE, not square/portrait** (`visual-strategy.md` §7). Drive `action_shot.py` at a wide viewport (`--viewport 1440x880 --frame browser`), frame the actual feature, and trim the dead bottom band (composer / nav / empty scroll) — a landscape (≳1.3:1) product shot reads far better in-article than a tall phone-frame one. Use `--blur-images` for SFW and `--anchor`/`--selector` to clip to the relevant panel.
+
 ### Targeting and quality (`screenshot` / `external`)
 
 A screenshot of a whole viewport is rarely the right capture. Specify what to clip to:

@@ -87,6 +87,11 @@ An unresolvable `[VISUAL:]` loud-fails and leaves the section blank — that is 
   tab-nav row is dropped; the seam reads as a clean white gutter. Same principle for any third-party
   capture: clip to the element that carries the value (the comment, the tweet, the panel, the chart), not
   the page chrome around it.
+- **Feature / product screenshots crop to a LANDSCAPE rectangle** focused on the relevant UI — avoid
+  square/portrait crops that leave unnecessary bottom chrome (the message composer, nav rail, empty
+  scroll space) showing on the blog. Capture our product at a wide viewport (≈1440×880, browser frame),
+  frame the actual feature (the memory panel, the speaker/Listen reply, the pricing meter), and trim the
+  dead bottom band; a landscape (≳1.3:1) shot reads far better in-article than a tall one.
 - **Annotation is selective** — only where the eye needs guidance. Self-evident charts get **zero**.
   When used: a box + **one** bold arrow + a short label (brand blue), never a cluttered swarm.
 - **Always blur PII** (emails, names) and any explicit imagery.
