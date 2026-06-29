@@ -107,6 +107,28 @@ def _snapshot(context) -> int:
     return 0
 
 
+def _dismiss_age_gate(page) -> bool:
+    """Dismiss the 18+ age gate / common blocking modals before touching the form."""
+    import re
+    try:
+        page.get_by_text("I am 18 years of age or older", exact=True).click(timeout=3000)
+        page.wait_for_timeout(1000)
+        return True
+    except Exception:
+        pass
+    for t in ("I am 18 or older", "Yes, I am 18", "Enter site", "I Agree", "Accept all", "Continue to site"):
+        try:
+            loc = page.locator("button", has_text=re.compile(re.escape(t), re.I))
+            if loc.count() == 0:
+                continue
+            loc.first.click(timeout=2500, force=True)
+            page.wait_for_timeout(800)
+            return True
+        except Exception:
+            continue
+    return False
+
+
 def _auth_signals(page) -> dict[str, Any]:
     """Heuristic: logged-OUT pages show Login/Join-Free CTAs; logged-IN do not."""
     final_url = page.url
@@ -143,6 +165,7 @@ def verify(verify_url: str, headed: bool) -> int:
             sys.stderr.write(f"verify navigation failed: {exc}\n")
             browser.close()
             return 2
+        _dismiss_age_gate(page)
         signals = _auth_signals(page)
         browser.close()
     state = json.loads(AUTH_STATE.read_text())
@@ -175,6 +198,8 @@ def login_credentials(email: str, password: str, login_url: str, headed: bool,
             browser.close()
             return 2
 
+        if _dismiss_age_gate(page):
+            sys.stderr.write("info: dismissed age gate\n")
         email_sel = sel_email or "input[type=email], input[name=email], input[autocomplete=username]"
         pw_sel = sel_pw or "input[type=password], input[name=password]"
         try:
