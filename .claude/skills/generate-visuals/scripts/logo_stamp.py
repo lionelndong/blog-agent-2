@@ -11,24 +11,40 @@ from PIL import Image, ImageDraw, ImageFilter
 SCRIPT_DIR = Path(__file__).resolve().parent
 
 
-def normalize_bg(img, hexc, thresh=140):
+def normalize_bg(img, hexc, tol=80):
     """Snap the background to an EXACT colour so every cover matches (AI bg drifts per render).
 
-    Flood-fills inward from the 8 frame edges → recolours only the connected background region;
-    the illustration's bold dark outlines stop the fill, so interior shapes (even blue ones, which
-    are enclosed) are untouched.
+    numpy connected-region fill FROM THE BORDER: builds a mask of background-coloured pixels, seeds
+    it from the four frame edges, and grows the seed within the mask until stable → only the
+    background region connected to the edge is recoloured. The illustration's bold dark outlines are
+    far from the bg colour, so they bound the region and interior shapes (even blue ones, enclosed)
+    are untouched. (Pillow 12's ImageDraw.floodfill is a no-op; scipy/cv2 aren't installed.)
     """
+    try:
+        import numpy as np
+    except Exception:
+        return img  # numpy missing → leave bg as-is rather than fail the finalize
     t = (int(hexc[1:3], 16), int(hexc[3:5], 16), int(hexc[5:7], 16))
-    im = img.convert("RGB")
-    W, H = im.size
-    seeds = [(3, 3), (W - 4, 3), (3, H - 4), (W - 4, H - 4),
-             (W // 2, 3), (W // 2, H - 4), (3, H // 2), (W - 4, H // 2)]
-    for s in seeds:
-        try:
-            ImageDraw.floodfill(im, s, t, thresh=thresh)
-        except Exception:
-            pass
-    return im.convert("RGBA")
+    arr = np.asarray(img.convert("RGB")).astype(np.int16)
+    H, W, _ = arr.shape
+    ring = np.concatenate([arr[0:5].reshape(-1, 3), arr[H - 5:].reshape(-1, 3),
+                           arr[:, 0:5].reshape(-1, 3), arr[:, W - 5:].reshape(-1, 3)])
+    bg = np.median(ring, axis=0)
+    mask = np.abs(arr - bg).sum(2) < tol
+    reach = np.zeros((H, W), bool)
+    reach[0, :] |= mask[0, :]; reach[-1, :] |= mask[-1, :]
+    reach[:, 0] |= mask[:, 0]; reach[:, -1] |= mask[:, -1]
+    reach &= mask
+    for _ in range(4000):
+        g = reach.copy()
+        g[1:, :] |= reach[:-1, :]; g[:-1, :] |= reach[1:, :]
+        g[:, 1:] |= reach[:, :-1]; g[:, :-1] |= reach[:, 1:]
+        g &= mask
+        if int(g.sum()) == int(reach.sum()):
+            break
+        reach = g
+    arr[reach] = t
+    return Image.fromarray(arr.astype("uint8")).convert("RGBA")
 
 
 def main():
