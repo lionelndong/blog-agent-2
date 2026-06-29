@@ -103,7 +103,9 @@ CHAT_TYPING: dict[str, Any] = {
     # blurs every avatar/image, (2) the clip is the conversation+composer COLUMN
     # only — it excludes the right-hand profile panel (age/body/personality text),
     # (3) it stops right after the user's SFW message sends (no AI reply shown).
-    "url": f"{BASE}/chat/ecf3ab3a-04ea-4557-9424-2f03478ef1fd",
+    # Renee = SFW "cheerful chef / cooking-show host" (auto-picked as the most SFW
+    # persona on the homepage browse; SFW is always prioritised over NSFW characters).
+    "url": f"{BASE}/chat/be593578-35da-42a4-853f-1ca7b52a008a",
     "viewport": {"width": 1280, "height": 900},
     "dismiss_age_gate": True,
     "settle_ms": 2200,
