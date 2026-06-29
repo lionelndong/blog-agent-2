@@ -97,9 +97,30 @@ Routes for authed presets are best-guesses from the app sidebar (Home/Explore/Ch
 Profile) — **confirm + tune `url`/`selector`/`steps` live the moment the account lands** (each carries
 a `_verify` note).
 
-## SFW
-Curate SFW states only; default to pricing/plan-card/clean panels. The vision critic (below) hard-fails
-anything risqué, garbled, or off-brand — a wasted render is cheap, a bad published visual is not.
+## SFW — selective blur (`blur_explicit.py`)
+The logged-in product is **predominantly explicit** (the Explore/Generate feeds are hardcore; many
+persona avatars are nude). Per ndong: **don't blur the whole character — blur only the explicit
+part.** `blur_explicit.py` applies a strong gaussian under a FEATHERED rounded mask (soft focus, not
+a hard censor box) over just those regions, leaving the face/clothing/UI sharp:
+
+```
+# vision-specified regions (precise, for the curated set) — FRACTIONS of w/h:
+python blur_explicit.py --in raw.png --out sfw.png --boxes '[[0.12,0.006,0.15,0.062]]'
+# auto-detect (NudeNet) — for the future EO auto-pipeline; needs nudenet baked into the image:
+python blur_explicit.py --in raw.png --out sfw.png --auto
+```
+Run BEFORE `frame_shot.py`. The vision critic then verifies **nothing explicit survives**.
+
+**SFW-safe shot recipes (proven):**
+- **Chat text-bubble crop** — crop to the message bubbles (the user bubble is brand-blue); no imagery, no blur. Safest hero.
+- **Chat device shot** — full phone view; blur ONLY the small avatar circle in the header.
+- **UI chrome** — pricing / plan-card / profile / settings: inherently SFW, no blur.
+- Use a **custom, clearly-adult, wholesome showcase persona** (create one) — the default personas
+  are brand-unsafe (barely-legal / submissive framing). Never build marketing on those.
+- Gallery: a full grid of blurred tiles reads as "censored" — prefer a curated few or skip.
+
+Default to the safe recipes; the vision critic hard-fails anything risqué, garbled, or off-brand —
+a wasted render is cheap, a bad published visual is not.
 
 ## Integrate into the auto-pipeline (follow-up)
 `run_action_shot.py` now re-exports the deterministic `action_shot.run(...)`, so
