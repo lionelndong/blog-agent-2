@@ -202,6 +202,43 @@ def _apply_blur(page, spec) -> list[str]:
     return sels
 
 
+def _chat_override(page, name: str | None, greeting: str | None) -> dict:
+    """Author a clean SFW exchange in a real chat: set the conversation header NAME,
+    replace the first (character) bubble with a custom SFW GREETING, and clear every
+    other message in the thread. Lets us show a fully-controlled, on-brand SFW chat
+    in the real product UI without depending on the platform's character/greeting
+    (which skew flirty). Returns what it changed."""
+    if not (name or greeting):
+        return {}
+    return page.evaluate(
+        r"""(args) => {
+      const [NAME, GREETING] = args; const cx0 = 380, cx1 = 980; let did = {};
+      const inCol = r => r.x >= cx0 && r.x < cx1;
+      let rows = [...document.querySelectorAll('div')].filter(e => {
+        const cls = (e.className || '').toString();
+        if (!(/(^|\s)mb-3(\s|$)/.test(cls) && /flex/.test(cls) && /w-full/.test(cls))) return false;
+        const r = e.getBoundingClientRect();
+        return inCol(r) && r.y > 110 && r.y < 860 && (e.innerText || '').trim().length > 4;
+      }).sort((a, b) => a.getBoundingClientRect().y - b.getBoundingClientRect().y);
+      if (GREETING && rows.length) {
+        const span = rows[0].querySelector('span') || rows[0];
+        span.innerText = GREETING; did.greeting = true;
+        for (let i = 1; i < rows.length; i++) rows[i].remove();
+        did.removed = rows.length - 1;
+      }
+      if (NAME) {
+        let heads = [...document.querySelectorAll('div,span,h1,h2,h3,p')].filter(e => {
+          const r = e.getBoundingClientRect(); const t = (e.innerText || '').trim();
+          return inCol(r) && r.y > 60 && r.y < 150 && t.length > 0 && t.length < 24 && e.children.length === 0;
+        }).sort((a, b) => a.getBoundingClientRect().y - b.getBoundingClientRect().y);
+        if (heads.length) { heads[0].innerText = NAME; did.name = NAME; }
+      }
+      return did;
+        }""",
+        [name or "", greeting or ""],
+    )
+
+
 def _shoot(page, clip: dict[str, int]):
     from PIL import Image
 
@@ -466,6 +503,7 @@ def play(scene: dict[str, Any], *, headed: bool = True, use_auth: bool = False,
             page.wait_for_timeout(settle_ms)
             res.final_url = page.url
             res.blurred = _apply_blur(page, scene.get("blur"))
+            _chat_override(page, scene.get("name_override"), scene.get("greeting_override"))
 
             clip = _resolve_clip(page, scene.get("clip"))
             res.clip = clip

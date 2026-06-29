@@ -112,16 +112,21 @@ CHAT_TYPING: dict[str, Any] = {
     "fps": 16,
     "url_label": "pleasur.ai/chat",
     "caption": "Chatting with your AI companion",
-    "sfw": "blur=media + chat-column clip (no profile panel) + stop after send. Use a SFW character.",
+    "sfw": "blur=media + chat-column clip + authored SFW name/greeting + stop after send.",
     "blur": "media",
+    # Author a clean, fully-SFW exchange in the real UI (the platform's characters skew
+    # flirty, so we set our own friendly name + greeting and clear the rest of the thread).
+    "name_override": "Ava",
+    "greeting_override": ("Morning! I just got back from photographing the sunrise at the lake - "
+                          "the colours were unreal. How's your day going so far?"),
     "clip": {"crop": [424, 58, 536, 815]},
     "cursor_start": [690, 690],
     "beats": [
         {"label": "open", "actions": [{"do": "wait", "ms": 700}], "shoot": {"hold_ms": 1300}},
         {"label": "type-message",
          "guided_type": {"selector": "textarea",
-                         "text": "Hey! What's your favorite way to spend a Sunday?",
-                         "char_step": 2, "type_ms": 80, "glide_frames": 10, "hold_ms": 600}},
+                         "text": "That sounds gorgeous - I'd love to see the shot! Any tips for a total beginner?",
+                         "char_step": 2, "type_ms": 70, "glide_frames": 10, "hold_ms": 600}},
         {"label": "send",
          "guided_click": {"x": 906, "y": 838, "glide_frames": 7, "settle_ms": 600, "hold_ms": 1600}},
     ],

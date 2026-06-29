@@ -63,7 +63,19 @@ that streams in later — while the **interaction stays sharp** (text, input, UI
 
 Defence in depth for the chat preset: **blur** + a **clip to the conversation/composer column**
 (excludes the right-hand profile panel with age/body text) + **stop right after the user's SFW
-message sends** (no AI reply rendered). Still: point it at a clearly-adult, SFW-framed character.
+message sends** (no AI reply rendered).
+
+**Author your own SFW exchange** (the platform's characters + greetings skew flirty). The chat
+scene supports:
+- `"name_override"` — sets the conversation header name (e.g. `"Ava"`).
+- `"greeting_override"` — replaces the first (character) bubble with a custom SFW greeting **and
+  clears every other message in the thread**, so the only text is what you authored + what the
+  cursor types.
+
+This renders a fully-controlled, on-brand SFW chat in the *real* product UI without depending on
+the underlying character. (Creating a brand-new character via `/create` is unreliable for this —
+the wizard randomises NSFW defaults like Relationship/Fetish — so authoring name+greeting on an
+existing SFW persona is the robust path.)
 
 ## Formats & size (keep it small)
 `palettegen/paletteuse` GIF + H.264 MP4 (yuv420p, faststart) via the **bundled** ffmpeg
