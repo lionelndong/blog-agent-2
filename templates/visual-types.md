@@ -196,7 +196,7 @@ viewport-sized screenshot of a whole thread is wasted space.
 
 - `sub=reddit-comment` — `selector=#t1_<base36-comment-id>`. Old Reddit (`old.reddit.com`) renders cleaner; prefer it. **Blur usernames/PII.**
 - `sub=tweet` — `selector=article[data-testid="tweet"]`. X login-gates many pages; expect the Claude-in-Chrome fallback.
-- `sub=serp` — `selector=#search` or `#rso` (the results column). Blur any personalized/PII chrome.
+- `sub=serp` — **crop to the search bar (query visible) + the AI Overview / results; trim the result-type tab-nav row (`All / Images / Videos / News / …`) and any empty top space** (the crop standard in `visual-strategy.md` §7). `#m-x-content` clips the AI-Overview block, `#rso` the organic results; if one selector can't include the search bar *and* drop the tab nav, composite two bands (search-bar strip + AI-Overview-onward strip). Blur any personalized/PII chrome.
 - `sub=competitor-ui` — `.pricing-table`, `.message-list`, `.feature-grid`, etc. ToS check before scraping; if the competitor blocks bots, use the Claude-in-Chrome fallback, never a proxy/CAPTCHA bypass.
 - `sub=news-quote` / `sub=chart` — `figure.chart`, `.embedded-chart`, `.article__pull-quote`; inspect the page first.
 

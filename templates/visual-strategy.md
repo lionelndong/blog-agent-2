@@ -79,6 +79,14 @@ An unresolvable `[VISUAL:]` loud-fails and leaves the section blank — that is 
 
 - **Tight, chrome-free crops; retina (2×).** Let the third-party tool's *own* UI do the work — frame it
   cleanly, don't re-skin it.
+- **SERP captures — crop to the search bar (query visible) + the AI Overview / results, nothing else.**
+  Keep the Google search box *with the query showing* at the top (it sets the context), then go straight
+  into the AI Overview and organic results. **Trim the result-type tab-nav row** (`All / Images / Videos /
+  News / Forums / Shopping / More / Tools`) and **any empty top space** — keep only what's important. If a
+  single selector won't do it, composite two bands (search-bar strip + AI-Overview-onward strip) so the
+  tab-nav row is dropped; the seam reads as a clean white gutter. Same principle for any third-party
+  capture: clip to the element that carries the value (the comment, the tweet, the panel, the chart), not
+  the page chrome around it.
 - **Annotation is selective** — only where the eye needs guidance. Self-evident charts get **zero**.
   When used: a box + **one** bold arrow + a short label (brand blue), never a cluttered swarm.
 - **Always blur PII** (emails, names) and any explicit imagery.
