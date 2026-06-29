@@ -23,8 +23,8 @@ on a **bold brand-blue** background (`#2E90FA`; `white` variant available).
 - **No title text on the image** — the page H1 carries the title. (Verified in a page mock: the bold-blue
   cover sits cleanly next to the title in both above- and beside-the-title layouts — the blue is
   contained and doesn't clash with the dark title on the white page.)
-- **Real logo** = a small **white chip** bottom-right (legible on any background, keeps the blue ".ai";
-  never AI-drawn).
+- **No logo on the cover** (operator's call) — the cover is the clean illustration; branding comes from
+  the page chrome + `og:title`. (`logo_stamp.py` can still stamp a white logo chip if ever wanted elsewhere.)
 - **SFW** — covers are public + indexed, so topics are shown via friendly phones / hearts / chat
   bubbles / shields / sparkles / simple cartoon people. No nudity/suggestive/contact, ever.
 
@@ -38,8 +38,8 @@ deterministic line-art engine (`render_cover.py`) stays as a free fallback.
    Locked Ahrefs house-style + a per-topic **`scene`** (the creative variable; derived from the title
    if absent) → Nano Banana, 16:9. `REPLICATE_API_KEY` mandatory (loud-fail). `c.json`:
    `{ "title", "scene"?, "bg"? ("blue"|"white") }`.
-2. **Stamp logo + size** — `python logo_stamp.py --in raw.png --out cover.png`
-   Resizes to **1600×900** and composites the real logo as a small white chip (deterministic, never AI).
+2. **Finalize (resize)** — `python logo_stamp.py --no-logo --in raw.png --out cover.png`
+   Resizes to **1600×900**. **No logo on covers** (operator's call) — branding comes from the page + og:title.
 3. **Hard vision gate** — look at the PNG vs the Cover checklist: **cut** if it reads "AI"/slop, is
    off-brand, **NOT SFW**, garbled, or has any stray text/wrong logo. Max 3 re-rolls (refine the
    `scene` wording), else fall back to route-line-art. A bad cover never ships.

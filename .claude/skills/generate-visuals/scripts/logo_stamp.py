@@ -20,11 +20,17 @@ def main():
     ap.add_argument("--margin", type=float, default=0.045)
     ap.add_argument("--width", type=int, default=1600, help="resize illustration to the cover spec first")
     ap.add_argument("--height", type=int, default=900)
+    ap.add_argument("--no-logo", dest="no_logo", action="store_true",
+                    help="just resize to spec, no logo chip (covers ship logo-free per operator)")
     a = ap.parse_args()
 
     img = Image.open(a.inp).convert("RGBA")
     if a.width and a.height and img.size != (a.width, a.height):
         img = img.resize((a.width, a.height), Image.LANCZOS)  # flat vector art upscales cleanly
+    if a.no_logo:
+        img.convert("RGB").save(a.out)
+        print("SAVED", a.out, img.size, "| no logo")
+        return
     IW, IH = img.size
     logo = Image.open(a.logo).convert("RGBA")
     lw = int(IW * a.frac)
