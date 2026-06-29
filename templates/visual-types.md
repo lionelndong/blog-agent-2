@@ -73,9 +73,9 @@ soft skip.
 
 | Type | When to use | Capture strategy |
 |---|---|---|
-| `external` | **The workhorse.** The section cites/shows something the brand doesn't own that adds *specific* value — a Reddit comment, a tweet, a LinkedIn post, a Google SERP, a chart in a news article, a competitor's UI panel, a real artifact. | Patchright headless capture of the URL clipped to a CSS `selector`. `crop=padded` adds breathing room. On Cloudflare / login-wall / nav-fail the entry stays `failed` with a `fallback.method=claude_in_chrome` breadcrumb so `/capture-visuals` retries via a real Chrome session. **No ToS bypasses** — if both paths fail, the entry stays `failed`. |
-| `screenshot` | **Our product, on-topic posts only.** A section walks through a brand-owned UI at a **static, navigable URL** that renders the wanted state on load (or after one age-gate/cookie click). | Patchright headless capture (CF/bot bypass). May require auth (`setup_auth.py`). |
-| `action-shot` | **Our logged-in product** in a state that only exists after a sequence of actions (a wizard, sending a message, opening settings, mid-form) — or when `screenshot` can't get past bot protection. **SFW: explicit tiles + PII blurred.** | Routed to `/capture-visuals` (Claude in Chrome on the VPS, real session, no token cost). Opt-in `BROWSER_USE_ENABLED=1` delegates to Browser Use Cloud. |
+| `external` | **The workhorse.** The section cites/shows something the brand doesn't own that adds *specific* value — a Reddit comment, a tweet, a LinkedIn post, a Google SERP, a chart in a news article, a competitor's UI panel, a real artifact. | Patchright headless capture of the URL clipped to a CSS `selector`. `crop=padded` adds breathing room. **Annotate by default** (`annotate=<what to point out>` → `annotate_screenshot.py`) so the reader sees the exact point. On Cloudflare / login-wall / nav-fail the entry stays `failed` with a `fallback.method=claude_in_chrome` breadcrumb so `/capture-visuals` retries via a real Chrome session. **No ToS bypasses** — if both paths fail, the entry stays `failed`. |
+| `screenshot` | **Our product, on-topic posts only.** A section walks through a brand-owned UI at a **static, navigable URL** that renders the wanted state on load (or after one age-gate/cookie click). | Patchright headless capture (CF/bot bypass). May require auth (`setup_auth.py`). **Annotate by default** (`annotate=<what to point out>` → `annotate_screenshot.py`) to point out the proven thing. |
+| `action-shot` | **Our logged-in product** in a state that only exists after a sequence of actions (a wizard, sending a message, opening settings, mid-form) — or when `screenshot` can't get past bot protection. **SFW: explicit tiles + PII blurred.** | Routed to `/capture-visuals` (Claude in Chrome on the VPS, real session, no token cost). **Annotate by default** (`annotate=<what to point out>` → `annotate_screenshot.py`). Opt-in `BROWSER_USE_ENABLED=1` delegates to Browser Use Cloud. |
 | `chart` | Quantitative data with trends/distributions/proportions. **Resolvable data only (§2).** | ApexCharts PNG (`render_chart_web.py`) from `data=research.<key>` or a `config=` options file. |
 | `diagram` | A concept, mental model, workflow, or "how it works" — the **illustration slot** (no AI metaphor art). **Structured nodes only (§2)** — `linear` / `tree` / `flow` / `cycle` via `data=`/`config=`. | `render_diagram_web.py` (dagre). |
 | `cover` | The article hero / featured image. | `render_cover.py` — 1600×900, real logo composited (covers carry no in-body logo per strategy §7). |
@@ -157,15 +157,15 @@ visual. Format:
 ```
 [VISUAL:type=external;sub=reddit-comment;url=https://www.reddit.com/r/AICompanions/comments/<id>/;selector=#t1_<comment-id>;crop=padded;what=Top reply: a companion app forgot the user after a week]
 
-[VISUAL:type=external;sub=competitor-ui;url=https://competitor.example.com/chat;selector=.message-list;crop=padded;what=Rival app repeating the same stock reply]
+[VISUAL:type=external;sub=competitor-ui;url=https://competitor.example.com/chat;selector=.message-list;crop=padded;what=Rival app repeating the same stock reply;annotate=the duplicated stock reply]
 
-[VISUAL:type=external;sub=serp;url=https://www.google.com/search?q=ai+companion+forgets+conversations;selector=#search;crop=padded;what=Google SERP for the memory complaint]
+[VISUAL:type=external;sub=serp;url=https://www.google.com/search?q=ai+companion+forgets+conversations;selector=#search;crop=padded;what=Google SERP for the memory complaint;annotate=the "forgets everything" phrasing in the top result]
 
 [VISUAL:type=external;sub=tweet;url=https://x.com/<user>/status/<id>;selector=article[data-testid="tweet"];crop=padded;what=User's hot-take on hidden AI-companion pricing]
 
 [VISUAL:type=screenshot;target=chat;what=the memory panel recalling a fact from a prior session unprompted;annotate=#recalled-detail]
 
-[VISUAL:type=action-shot;url=https://pleasur.ai;goal=Log in with the saved session. Open an existing character chat. Tap the speaker icon next to a reply. Capture the chat with the voice control active.;what=In-chat voice playback control]
+[VISUAL:type=action-shot;url=https://pleasur.ai;goal=Log in with the saved session. Open an existing character chat. Tap the speaker icon next to a reply. Capture the chat with the voice control active.;what=In-chat voice playback control;annotate=the active speaker / voice-playback control]
 
 [VISUAL:type=chart;data=research.search_volumes;style=bar;title=Monthly searches by platform]
 
@@ -190,6 +190,7 @@ viewport-sized screenshot of a whole thread is wasted space.
 | `sub` | recommended | `reddit-comment`, `tweet`, `linkedin`, `news-quote`, `competitor-ui`, `serp`, `chart`. |
 | `crop` | no | `padded` (default for external, ~48px) or `tight` (~8px). Or `X,Y,W,H` for a manual rectangle. |
 | `what` | yes | Short caption / alt text. |
+| `annotate` | recommended | **What to point out** — the one thing this screenshot proves (a selector or a short phrase). Annotate screenshots by default to direct the eye (strategy §7); a bare third-party shot is vague. Realized by `annotate_screenshot.py` (one brand-blue box + arrow + marker label). |
 | `validate` | no | `validate=true` adds a Claude-vision sanity check (~$0.003/capture). |
 
 **Sub-type cheatsheet:**
@@ -211,6 +212,7 @@ rate-limited APIs to force a pass.
 | `goal` | yes | Natural-language description of the full sequence: navigation + actions + what to capture. Be specific about which screen to land on. |
 | `url` | recommended | Starting URL. Speeds up the agent (skips a search step). |
 | `what` | yes | Short caption / alt text. |
+| `annotate` | recommended | **What to point out** — the specific point the shot makes (the feature/control to emphasize). Annotate product shots by default to direct the eye (strategy §7). Realized by `annotate_screenshot.py` (one brand-blue box + arrow + marker label). |
 | `max_steps` | no | Override default of 25. Lower for simple tasks, higher for complex flows. |
 | `llm` | no | Override default `claude-sonnet-4-6`. |
 
@@ -229,7 +231,7 @@ A screenshot of a whole viewport is rarely the right capture. Specify what to cl
 | `selector=<css>` | The thing you want is a specific element (a card, a panel, a post, a Reddit comment, a tweet). Clipped to that element's bbox. | `selector=.companion-card[data-id="123"]` |
 | `crop=padded` / `crop=tight` | With `selector`, expand the bbox by ~48px (padded) or ~8px (tight). Padded is the right default for external. | `selector=#t1_xyz;crop=padded` |
 | `crop=X,Y,W,H` | No clean selector, but you know the rectangle (CSS pixels, pre-2× scale). | `crop=0,0,1440,720` |
-| `annotate=<css>` | Highlight an element (selective — one box + one arrow + a short brand-blue label, per strategy §7). Independent of selector. | `annotate=#voice-button` |
+| `annotate=<what to point out>` | **Point out the one thing the screenshot proves** — annotate screenshots by default to direct the eye (strategy §7); a bare screenshot is vague. Value = the point to emphasize (a CSS selector, or a short phrase naming the element); the engine `annotate_screenshot.py` draws one brand-blue box + one bold arrow + a short marker label. Independent of `selector`. **Self-evident visuals (clean charts/diagrams/cards) get NO `annotate`.** | `annotate=#voice-button` · `annotate=the "remembers you" badge` |
 | (none) | Whole 1440×900 viewport. Use sparingly — usually you want a selector. | — |
 
 ### Quality validation (post-capture)

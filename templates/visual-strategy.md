@@ -38,6 +38,14 @@ Reserve our-product shots for on-topic moments. **The same method applies to *an
 about** — if the post is about another tool, screenshot and annotate *that* tool. A reader who screenshots
 a competitor's UI, a SERP, or a real thread gets value whether or not they ever buy.
 
+The point of the ~80% is **showing the reader's WORLD and giving real VALUE — not any one source.**
+**A Google SERP is just ONE source among many** — Reddit/forum threads, a competitor's UI, real
+reviews/examples, news, other tools, real artifacts all count equally. **Vary the sources** and pick
+whichever best proves *this* point; don't reach for a SERP by reflex. **No single-source over-reliance —
+e.g. don't fill a post with Google SERP screenshots.** (The Ahrefs "show the world" idea is illustrated
+*with* SERPs; it is not a mandate to *use* SERPs — it means show evidence from the reader's world,
+whatever form that takes.)
+
 ## 4. Never duplicate a native component (hard rule — the duplicate bug)
 
 The blog renders ~25 native `:::` directives inline (see `examples/component-cheatsheet.md`). A native
@@ -60,9 +68,9 @@ art), **covers**, **demos/GIFs**, **embeds**.
 
 ## 5. The `[VISUAL:]` type catalog
 
-- `type=external;sub=reddit-comment|tweet|linkedin|news-quote|competitor-ui|serp;url=…;selector=…;crop=padded` — **the workhorse.** Screenshot the real third-party thing. (Reddit comment `#t1_<id>`; tweet `article[data-testid="tweet"]`.)
-- `type=screenshot;target=<product-slug>;what=…` — our product, **on-topic posts only**.
-- `type=action-shot;url=…;goal=…;what=…` — logged-in product, **SFW (blur explicit + PII)**.
+- `type=external;sub=reddit-comment|tweet|linkedin|news-quote|competitor-ui|serp;url=…;selector=…;crop=padded;annotate=<what to point out>` — **the workhorse.** Screenshot the real third-party thing. (Reddit comment `#t1_<id>`; tweet `article[data-testid="tweet"]`.) `annotate=` = the one thing this screenshot proves; run it through `annotate_screenshot.py`.
+- `type=screenshot;target=<product-slug>;what=…;annotate=<what to point out>` — our product, **on-topic posts only**. `annotate=` names the specific point to emphasize; realize it via `annotate_screenshot.py`.
+- `type=action-shot;url=…;goal=…;what=…;annotate=<what to point out>` — logged-in product, **SFW (blur explicit + PII)**. `annotate=` = the point the shot makes; run it through `annotate_screenshot.py`.
 - `type=chart;data=research.<KEY-THAT-EXISTS>|config=<file>;style=…;title=…` — branded chart from **real** data.
 - `type=diagram;type=linear|tree|flow|cycle|config=<file>` — concept/process/decision (the "illustration" slot).
 - `type=cover` · `type=demo`/`gif` · embeds (real live, only where genuinely valuable — a tweet/video).
@@ -104,8 +112,16 @@ An unresolvable `[VISUAL:]` loud-fails and leaves the section blank — that is 
   professional content (a hard custom-instruction + clean prompts, regenerate any drift), hide the
   conversation-list / persona side-panels that carry flirty snippets, scroll past any suggestive opener, and
   **view the final frame** to confirm it's clean before shipping. A missing shot beats a risqué one.
-- **Annotation is selective** — only where the eye needs guidance. Self-evident charts get **zero**.
-  When used: a box + **one** bold arrow + a short label (brand blue), never a cluttered swarm.
+- **Annotate SCREENSHOTS by default; leave self-evident visuals clean.** A bare screenshot is vague —
+  the reader doesn't know where to look. So **most screenshots** (SERPs, our product UI, competitor UIs,
+  third-party artifacts) should carry a **light annotation that POINTS OUT the one thing the screenshot
+  proves** — an arrow / highlight / box / short marker label, in **brand blue**, via the annotation engine
+  `annotate_screenshot.py` (blue C/bold arrow · box · highlight · marker label, DOM-bbox precise). This is
+  how Ahrefs does it: an arrow or marker text calls out exactly what they're showing. **The EXCEPTION is
+  self-evident visuals** — clean charts, diagrams, designed cards — which **need NO annotation; don't
+  annotate the already-obvious.** Net rule: **annotate screenshots to direct the eye; leave self-evident
+  visuals clean.** When you annotate, stay minimal — a box + **one** bold arrow + a short label, never a
+  cluttered swarm (`VISUAL-CRITIQUE-LOOP.md` enforces "one clean callout, not a swarm").
 - **Always blur PII** (emails, names) and any explicit imagery.
 - On-brand (palette, IBM Plex title / Geist body, real logo where appropriate; covers carry **no** logo).
 - Every visual passes `VISUAL-CRITIQUE-LOOP.md` — the agent **views** it and redoes until it's genuinely
