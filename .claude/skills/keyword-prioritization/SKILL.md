@@ -41,12 +41,9 @@ Reads:
    - 4 = product can be mentioned in passing
    - 0 = no relevant product (Ryan Law's "Business Potential 0" — usually not worth writing)
 
-   **Buyer Intent** (0–10): will the *searcher* convert to a paying customer? (the conversion signal — see `keyword-vet-bid` / `bid-method.md` B#4; reuse the `buyer_intent` column if BID already set it)
-   - 8–10 = buyer markers: "best", "review", "vs", "alternative(s)", pricing/cost, "for <use-case>"
-   - 4–7 = neutral explainer / how-to with a plausible upgrade path
-   - 0–3 = free-seeker markers: "free", "no-filter", "uncensored", "unfiltered", "unlimited" — high traffic, ~no path to paid
+   **Free-seeker check** (the conversion guardrail — see `bid-method.md` B#4): the *conversion signal is `product_fit`*, which is HIGH for genuinely useful informational, product-adjacent posts (the Ahrefs model) — do NOT add a salesy "best/review" boost. Instead flag `free_seeker` when the keyword wants the thing for free ("free", "no-filter", "uncensored", "unfiltered", "unlimited", "without paying/account") — those readers don't pay even when the product fits (the 0-paid leak). Reuse the `free_seeker` / `business_value` columns if BID already set them.
 
-4. **Compute priority_score.** Weighted sum that puts **business value above traffic** (the 2026-06-29 re-weight — traffic used to be 0.4, which floated free-seeker keywords to the top of the queue where they converted 0): **`0.2·traffic + 0.25·brand_fit + 0.25·product_fit + 0.3·buyer_intent`**, range 0–10. buyer_intent is the single largest weight and traffic the smallest, so a lower-volume buyer-intent keyword now outranks a high-volume free-seeker one.
+4. **Compute priority_score.** Put **product fit above traffic** (the Ahrefs model — useful, product-adjacent topics win, mostly *informational*, not salesy), then penalize free-seekers: **`priority_score = (0.2·traffic + 0.3·brand_fit + 0.5·product_fit) × free_seeker_penalty`**, range 0–10, where `free_seeker_penalty = 0.4` if `free_seeker` is set, else `1.0`. `product_fit` is the dominant weight (the buying undercurrent) and traffic the smallest; there is **no reward for salesy "best/review" phrasing** — a comparison post wins only when its `product_fit` is genuinely high. A high-volume free-seeker keyword sinks below a useful product-adjacent informational one.
 5. **Add a `notes` column** with a one-line justification per keyword (why brand_fit / product_fit got that score, named product if applicable).
 6. **Sort the CSV by priority_score descending.**
 7. **Add a `rank` column** (1, 2, 3, ...) reflecting the new sort order.
@@ -61,7 +58,7 @@ Updated `content-pipeline/0-keywords/keyword-ideas.csv` with:
 - `priority_score` column (0–10)
 - `brand_fit` column (0–10)
 - `product_fit` column (0–10)
-- `buyer_intent` column (0–10) + `business_value` (0–3)
+- `business_value` (0–3) + `free_seeker` flag
 - `notes` column (justification)
 - `rank` column (sorted ranking)
 
@@ -95,11 +92,11 @@ Failed candidates stay in `keyword-ideas.csv` (transparency, future re-vet) but 
 
 ### Routing on top of the scoring
 
-The `priority_score` is the re-weighted formula (`0.2 traffic + 0.25 brand_fit + 0.25 product_fit + 0.3 buyer_intent` — business value over traffic, see step 4) — no other boosts. Column-driven routing rules apply:
+The `priority_score` is the re-weighted formula (`(0.2 traffic + 0.3 brand_fit + 0.5 product_fit) × free_seeker_penalty` — product fit over traffic, see step 4) — no other boosts. Column-driven routing rules apply:
 
 1. **`serp_intent=tool-led` → ROUTE TO `tool-opportunities.csv`**, not the writing queue. The writing pipeline never sees these.
 2. **`gap_mode=strong` → route to `content-pipeline/0-keywords/cache/strong-positions.csv`** — already won; do NOT include in `keyword-queue.csv` regardless of priority_score. (`gap_mode=missing` is the write pool; it scores on the formula with no modifier.)
-3. **`buyer_intent ≤ 3` (free-seeker) → keep in the queue but DEPRIORITIZED** (the re-weight already sinks them) and tag `top-of-funnel / low-business-value` in `notes`. A free-seeker keyword must never outrank a buyer-intent one on raw traffic alone — if it does after scoring, the weights are misapplied, not the data.
+3. **`free_seeker` set → keep in the queue but DEPRIORITIZED** (the ×0.4 penalty already sinks them) and tag `top-of-funnel / low-business-value` in `notes`. A free-seeker keyword must never outrank a useful product-adjacent one on raw traffic alone — if it does after scoring, the penalty wasn't applied.
 
 ### Tie-breaker on equal priority_score
 
@@ -121,4 +118,4 @@ In autonomous mode, do not print "Suggest running /blog-pipeline `<top keyword>`
 
 ## When the brand has no products
 
-If `brand-config.md` lists no products (it's a personal blog, agency, etc.), product_fit becomes irrelevant. Set product_fit weight to 0 and re-weight, **still keeping business value above traffic**: `0.3 traffic + 0.3 brand_fit + 0.4 buyer_intent`. Note this in the output summary.
+If `brand-config.md` lists no products (it's a personal blog, agency, etc.), product_fit becomes irrelevant. Set product_fit weight to 0 and re-weight: `0.4 traffic + 0.6 brand_fit`, still applying the free-seeker penalty. Note this in the output summary.

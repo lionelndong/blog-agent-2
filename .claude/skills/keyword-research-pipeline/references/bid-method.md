@@ -28,12 +28,9 @@ The keyword's value isn't its volume — it's the share of that volume that conv
 
 3. **Vanity-rank check**: the "what is espresso" example. Volume + low difficulty + irrelevant intent = traffic that doesn't move the needle. The redteam (Layer 4) is the judgment-based version of this; the mechanical version is brand_fit ≥ 4.
 
-4. **buyer_intent vs free-seeker (the conversion signal — added 2026-06-29).** brand_fit + product_fit say the topic is *relevant* and *product-demonstrable* — NOT whether the *searcher will pay*. PostHog proved the gap: blog first-touch on "free / no-filter / uncensored" terms = high traffic, ~0 paid; buyer-intent searchers are one step from the wallet. Score `buyer_intent` 0-10 from keyword markers:
-   - **8-10 (buyer):** "best", "review", "vs", "alternative(s)", "pricing"/"price"/"cost", "worth it", "for <use-case>" — comparison/decision shoppers.
-   - **4-7 (neutral):** explainer / how-to / definitional with a plausible upgrade path.
-   - **0-3 (free-seeker):** "free", "no filter"/"no-filter", "unfiltered", "uncensored", "unlimited", "without paying/account/signup" — wants it for free; weak path to paid.
-
-   This does NOT hard-reject (Ryan: don't ignore the generic high-volume version entirely — strong sales copy still converts *some*; that's business-value 2, not 0). It feeds **Layer 5 prioritization, where it OUTWEIGHS raw traffic** so buyer-intent rises and free-seeker sinks. Map to the course's **business_value 0-3**: 3 = our product is the natural answer (easy sell), 0 = no path to paid (skip).
+4. **business_value + free-seeker check (the conversion signal — the Ahrefs way, 2026-06-29).** `product_fit` (heuristic 2) already captures the real buying undercurrent — *is our product the natural answer to this topic?* — and it is HIGH for genuinely useful **informational, product-adjacent** posts (the Ahrefs model: "how to do keyword research", not "best keyword tool"). **Do NOT add a separate reward for salesy "best/review/pricing" phrasing** — that makes the blog thirsty; a comparison post already scores high via `product_fit` when it genuinely fits, and that's enough. Two outputs feed Layer 5:
+   - **`business_value` 0-3** (course term) = `product_fit` gated by audience: 3 = product is the natural answer for a paying-prospect topic; 2 = helps, mentionable; 1 = weak path; 0 = no product fit → skip.
+   - **`free_seeker` flag** = the keyword signals a reader who won't pay even when the product fits: "free", "no filter"/"no-filter", "unfiltered", "uncensored", "unlimited", "without paying/account/signup". This is the real leak (PostHog: these = high traffic, ~0 paid). Flag it; Layer 5 applies a penalty. Do NOT hard-reject (Ryan: a strong sales angle still converts *some* — business_value 1-2, not 0).
 
 ## I — Intent (Ahrefs classifier primary, SERP-grounded fallback)
 

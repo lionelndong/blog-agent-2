@@ -53,7 +53,8 @@ Reads:
      - 0 = no relevant product
    - **Reject** if `brand_fit < 4` OR `product_fit < 3`. (When the brand has no products, set `product_fit_weight=0` and skip the product check — same logic as `keyword-prioritization` for personal-blog cases.)
    - **Reject** if the keyword is a "vanity rank" — high traffic but no path to revenue/users (e.g. brand keyword for a competitor, or pure curiosity terms with no commercial relevance).
-   - Compute `buyer_intent` (0-10) + `business_value` (0-3) from keyword markers (see `bid-method.md` B#4): buyer markers (best/review/vs/alternative/pricing/cost/"for <use-case>") → 8-10; free-seeker markers (free/no-filter/uncensored/unfiltered/unlimited/"without paying") → 0-3; else 4-7. **Do NOT reject on this signal** (a strong sales angle still converts *some* free-seekers — business-value 2, not 0) — persist `buyer_intent`+`business_value` for Layer 5, where they OUTWEIGH raw traffic so free-seekers sink and buyers rise. This is the fix for the "high traffic, 0 paid" leak the scorecard surfaced.
+   - Set `business_value` (0-3) from `product_fit` gated by audience (see `bid-method.md` B#4): 3 = product is the natural answer for a paying-prospect topic; 2 = helps/mentionable; 1 = weak path; 0 = no product fit. **Do NOT reward salesy "best/review/pricing" phrasing** — `product_fit` already scores genuine fits high, and the Ahrefs model favors useful *informational* product-adjacent posts over thirsty listicles.
+   - Set the `free_seeker` flag when the keyword signals a non-paying reader ("free", "no-filter", "uncensored", "unfiltered", "unlimited", "without paying/account"). **Do NOT reject** — persist `business_value` + `free_seeker` for Layer 5, which weights product-fit over traffic and penalizes free-seekers (the fix for the "high traffic, 0 paid" leak the scorecard surfaced).
 
    ### I — Intent (Ahrefs classifier primary, SERP-grounded fallback)
 
@@ -108,7 +109,7 @@ Reads:
    - `FAIL` otherwise; record `bid_reason` as the first failed test
 
 5. **Write enriched columns back to `keyword-ideas.csv`.** Add columns if missing:
-   - `brand_fit`, `product_fit`, `buyer_intent`, `business_value`, `serp_intent`, `dr_top10_median`, `referring_domains_top10_median`, `weak_link_count`, `bid_verdict`, `bid_reason`
+   - `brand_fit`, `product_fit`, `business_value`, `free_seeker`, `serp_intent`, `dr_top10_median`, `referring_domains_top10_median`, `weak_link_count`, `bid_verdict`, `bid_reason`
    - Existing rows get updated; no duplication.
 
 6. **Print a summary**:
