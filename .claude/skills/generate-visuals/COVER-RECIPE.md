@@ -33,36 +33,43 @@ OG-side crop to ~1.91:1 (1600×838) never clips. `--width/--height` are configur
 ## Route A — designed HTML cover via patchright (DEFAULT)
 
 `render_cover.py` builds a designed HTML hero from a content JSON and screenshots it headless —
-**no AI, pixel-exact text, fully reproducible, free, fast.** One design language, three themes
-(a built-in style sampler), driven by a content object.
+**no AI, pixel-exact text, fully reproducible, free, fast.** One design language, four themes, six
+line-art motifs — every cover is unmistakably one family yet visually distinct ("same template, not
+the same"). **Design inspiration:** **Linear** (one templated canvas + a unique minimal line-art
+motif per post), **Ahrefs** (typographic editorial: small-caps category + big brand title + byline),
+**Sam Marsh** (bold confident colour-fields).
 
-**Themes** (`--theme`): `gradient` (rich brand mesh, dark — bold/premium, default) · `light`
-(airy editorial canvas — the most Ahrefs-like) · `spotlight` (near-black + a single accent glow —
-moody, for emotional/concept topics).
+**Themes** (`--theme`, default **`light`** — operator's pick):
+- `light` — airy white editorial canvas, crisp accent line-art (**the Ahrefs look, default**)
+- `dark` — near-black + glowing line-art (Linear)
+- `aurora` — dark with a soft blue→violet aurora glow (richer/moodier)
+- `bold` — solid brand-colour field + white line-art (Sam Marsh poster)
 
-**Motif** — a *designed* "app-tile" composition (NOT clip-art): a rounded squircle with a brand
-gradient + the chosen icon, glossy highlight, reflection, concentric halo rings, two orbiting
-feature chips, and sparkle accents. Reads as "a premium AI-companion app" — on-theme for the niche.
+**Motif** — a single parametric **line-art "concept diagram"** (NOT an icon-in-a-box): elegant thin
+strokes + dot nodes + a glowing hub carrying a small brand icon. Six layouts (`--motif`,
+**auto-picked from the title**): `cluster` (memory/constellation) · `orbit` (companionship/safety) ·
+`thread` (chat/connection) · `wave` (voice) · `radial` (image-gen) · `grid` (comparison). Shared
+node/line/glow styling across all layouts → one family; geometry varies → distinct per topic.
 
-**Icon vocabulary** (`--icon`, Lucide stroke paths, MIT): `heart chat sparkles phone shield image
-users star robot infinity`. **Auto-picked from the title** if omitted (memory→sparkles,
-companion→heart, chat/sext→chat, call→phone, safety→shield, image→image, …).
+**Recurring brand devices** (the "same template" glue): a small-caps category eyebrow with an accent
+square, a top-right corner tick, a hairline baseline above the footer, the real logo + byline.
+Five accents (`--accent` blue/purple/mint/coral/amber, or `#hex`).
 
 **Content JSON**
 ```json
 { "title": "Best AI Girlfriend Apps", "eyebrow": "COMPARISON · 2026",
   "subtitle": "optional one-liner", "theme": "light",
   "accent": "blue|purple|mint|coral|amber" | "#RRGGBB",
-  "icon": "heart", "author": "By Theo Hart" }
+  "motif": "cluster|orbit|thread|wave|radial|grid", "author": "By Theo Hart" }
 ```
-Only `title` is required. Title font-size auto-scales to length (no overflow).
+Only `title` is required; `theme`/`motif`/`accent` auto-default. Title font-size auto-scales to length.
 
 **Run**
 ```bash
 python render_cover.py --content cover.json --out cover.png
 # or flags:
 python render_cover.py --title "Are AI Girlfriends Safe?" --eyebrow "PRIVACY & SAFETY" \
-       --theme spotlight --accent blue --icon shield --out cover.png
+       --theme light --accent mint --motif orbit --icon shield --out cover.png
 ```
 
 ## Route B — AI illustration background, GATED + rare (REUSES `concept_illustration_engine.js`)
