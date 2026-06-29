@@ -65,6 +65,33 @@ BLUR_IMAGES_JS = """
 }
 """
 
+# PII pass (default ON, "locked in"): mask EMAIL addresses so a real user's private email never
+# appears in a marketing shot. Usernames / display names are intentionally left alone.
+REDACT_PII_JS = r"""
+() => {
+  const RE = /([A-Za-z0-9._%+-])[A-Za-z0-9._%+-]*@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g;
+  const mask = (m, first) => first + '•••••@•••••';
+  let n = 0;
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+  const nodes = [];
+  while (w.nextNode()) nodes.push(w.currentNode);
+  for (const node of nodes) {
+    const v = node.nodeValue;
+    if (v && v.indexOf('@') !== -1) {
+      const nv = v.replace(RE, mask);
+      if (nv !== v) { node.nodeValue = nv; n++; }
+    }
+  }
+  document.querySelectorAll('input, textarea').forEach(el => {
+    if (el.value && el.value.indexOf('@') !== -1) {
+      const nv = el.value.replace(RE, mask);
+      if (nv !== el.value) { el.value = nv; n++; }
+    }
+  });
+  return n;
+}
+"""
+
 
 # ---------------------------------------------------------------------------
 # Preset + step resolution
@@ -245,6 +272,7 @@ def capture_raw(
     anchor_wmin: int = 240,
     anchor_wmax: int = 560,
     blur_images: int | None = None,
+    redact_pii: bool = True,
 ) -> dict[str, Any]:
     """Drive the session-aware browser through the recipe and capture a raw retina PNG."""
     try:
@@ -349,6 +377,15 @@ def capture_raw(
                         "(--email/--password or --interactive) to mint auth/state.json, then retry.",
             }
 
+        # PII pass: mask emails before capture (usernames/display names left intact)
+        if redact_pii:
+            try:
+                rn = page.evaluate(REDACT_PII_JS)
+                if rn:
+                    sys.stderr.write(f"info: redacted {rn} email(s)\n")
+            except Exception as exc:
+                sys.stderr.write(f"warning: redact_pii failed: {exc}\n")
+
         # SFW pass: blur explicit image tiles/avatars in-browser before capture (UI stays sharp)
         if blur_images:
             try:
@@ -419,6 +456,7 @@ def action_shot(opts: dict[str, Any]) -> dict[str, Any]:
         anchor_wmin=int(opts.get("anchor_wmin") or 240),
         anchor_wmax=int(opts.get("anchor_wmax") or 560),
         blur_images=int(opts["blur_images"]) if opts.get("blur_images") else None,
+        redact_pii=opts.get("redact_pii", True),
     )
 
     report = {
@@ -530,6 +568,8 @@ def resolve_opts(args) -> dict[str, Any]:
         opts["auth_required"] = False
     if args.no_logo:
         opts["logo"] = False
+    if args.no_redact_pii:
+        opts["redact_pii"] = False
     if args.headed:
         opts["headed"] = True
     if args.headless:
@@ -544,6 +584,7 @@ def resolve_opts(args) -> dict[str, Any]:
     opts.setdefault("auth_required", False)
     opts.setdefault("headed", True)
     opts.setdefault("logo", True)
+    opts.setdefault("redact_pii", True)
     opts["out"] = args.out
     if args.raw_out:
         opts["raw_out"] = args.raw_out
@@ -621,6 +662,8 @@ def main() -> int:
     ap.add_argument("--url-bar", dest="url_bar", default=None)
     ap.add_argument("--max-width", dest="max_width", type=int, default=None)
     ap.add_argument("--no-logo", dest="no_logo", action="store_true")
+    ap.add_argument("--no-redact-pii", dest="no_redact_pii", action="store_true",
+                    help="don't mask emails (default: emails ARE masked; usernames left intact)")
     ap.add_argument("--no-auth", dest="no_auth", action="store_true", help="skip the session (public pages)")
     ap.add_argument("--headed", action="store_true", help="visible browser (default; needed for Cloudflare)")
     ap.add_argument("--headless", action="store_true", help="force headless (frame render / public pages)")

@@ -118,6 +118,11 @@ python action_shot.py --url https://pleasur.ai/chat/<id> --viewport 430x932 --bl
 For a **precise, vision-specified region** (e.g. one avatar) use **`blur_explicit.py`** (feathered
 gaussian under a rounded mask; `--boxes` fractions, or `--auto` NudeNet for the future auto-pipeline).
 
+## PII — email is masked by default (`--redact-pii`, on)
+Every capture masks **email addresses** before the screenshot (a real user's email must never appear
+in a marketing shot) → `b•••••@•••••`. **Usernames / display names are intentionally left intact.**
+Pass `--no-redact-pii` only if you have a reason to. (Proven on the account/settings panel.)
+
 **Proven SFW set (live showcase account):** create / explore / chat (full warm conversation, avatar
 auto-blurred) + pricing / plan-card. Notes: bump blur strength on large retina tiles (the engine
 scales it `min(w,h)/5`); a **chat text-bubble crop** (no imagery) is the safest hero; **skip
