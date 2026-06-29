@@ -214,7 +214,7 @@ rate-limited APIs to force a pass.
 | `max_steps` | no | Override default of 25. Lower for simple tasks, higher for complex flows. |
 | `llm` | no | Override default `claude-sonnet-4-6`. |
 
-**Shape: capture LANDSCAPE, not square/portrait** (`visual-strategy.md` §7). Drive `action_shot.py` at a wide viewport (`--viewport 1440x880 --frame browser`), frame the actual feature, and trim the dead bottom band (composer / nav / empty scroll) — a landscape (≳1.3:1) product shot reads far better in-article than a tall phone-frame one. Use `--blur-images` for SFW and `--anchor`/`--selector` to clip to the relevant panel.
+**Shape: capture NATURAL proportions — let the UI dictate** (`visual-strategy.md` §7). A chat/app view is fine as it renders; **do NOT force a wide landscape crop** (it looks unnatural on app UIs) and **do NOT force a square**. Match the app's own shape — an intimate mobile chat is naturally tall (`--viewport 430x932 --frame device`), a desktop panel naturally wider (`--frame plain|browser`). Frame on the relevant UI and trim the dead bottom chrome (composer / nav / empty scroll). Use `--blur-images` for SFW and `--anchor`/`--selector` to clip to the relevant panel.
 
 **Frame is OPTIONAL** (`visual-strategy.md` §7). The branded browser/white-card frame + logo + caption is the default and looks polished, but a clean frameless/raw shot is fine when it reads better — vary it (`--frame plain|browser|device|none`, `--no-logo`). Don't force the frame on every shot.
 

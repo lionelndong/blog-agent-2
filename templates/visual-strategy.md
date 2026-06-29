@@ -87,11 +87,12 @@ An unresolvable `[VISUAL:]` loud-fails and leaves the section blank — that is 
   tab-nav row is dropped; the seam reads as a clean white gutter. Same principle for any third-party
   capture: clip to the element that carries the value (the comment, the tweet, the panel, the chart), not
   the page chrome around it.
-- **Feature / product screenshots crop to a LANDSCAPE rectangle** focused on the relevant UI — avoid
-  square/portrait crops that leave unnecessary bottom chrome (the message composer, nav rail, empty
-  scroll space) showing on the blog. Capture our product at a wide viewport (≈1440×880, browser frame),
-  frame the actual feature (the memory panel, the speaker/Listen reply, the pricing meter), and trim the
-  dead bottom band; a landscape (≳1.3:1) shot reads far better in-article than a tall one.
+- **Capture product / app screenshots in their NATURAL proportions — let the UI dictate.** A chat / app
+  view is fine as it renders (a mobile chat is naturally tall, a desktop panel naturally wider); frame on
+  the relevant UI (the memory panel, the speaker/Listen reply, the pricing meter) and trim the dead bottom
+  chrome (composer / nav rail / empty scroll). **Do NOT force a wide landscape crop** — it looks unnatural
+  on app UIs — and **do NOT force a square**. Match the app's own shape; use the device frame for an
+  intimate mobile chat and a plain/browser frame for a desktop panel.
 - **The branded frame is the DEFAULT, not mandatory.** The white-card / browser-chrome frame with the
   real logo + caption looks polished and on-brand — keep it as the default for product/feature shots. But
   it's **optional**: a clean frameless / raw screenshot is fine when it simply reads better. Vary it; don't
