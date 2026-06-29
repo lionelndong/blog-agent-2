@@ -45,6 +45,26 @@ import frame_shot  # noqa: E402
 PRESETS_FILE = SCRIPT_DIR / "action_shot_presets.json"
 LOGIN_HINTS = cs.LOGIN_URL_HINTS
 
+# In-browser SFW pass: blur the explicit IMAGE tiles/avatars in place (keep UI text/labels sharp),
+# so a real explicit surface (explore/generate/create/chat) becomes a usable SFW product shot.
+# Targets <img>/<video> above `min` px; skips logos/icons. clip-path contains the blur to the box.
+BLUR_IMAGES_JS = """
+(min) => {
+  let n = 0;
+  document.querySelectorAll('img, video').forEach(el => {
+    const r = el.getBoundingClientRect();
+    const s = ((el.currentSrc||el.src||'') + ' ' + (el.alt||'')).toLowerCase();
+    if (r.width >= min && r.height >= min && !/logo|icon|wordmark/.test(s)) {
+      const px = Math.max(26, Math.round(Math.min(r.width, r.height) / 5));
+      el.style.setProperty('filter', 'blur(' + px + 'px)', 'important');
+      el.style.setProperty('clip-path', 'inset(0)', 'important');
+      n++;
+    }
+  });
+  return n;
+}
+"""
+
 
 # ---------------------------------------------------------------------------
 # Preset + step resolution
@@ -224,6 +244,7 @@ def capture_raw(
     anchor: str | None = None,
     anchor_wmin: int = 240,
     anchor_wmax: int = 560,
+    blur_images: int | None = None,
 ) -> dict[str, Any]:
     """Drive the session-aware browser through the recipe and capture a raw retina PNG."""
     try:
@@ -328,6 +349,15 @@ def capture_raw(
                         "(--email/--password or --interactive) to mint auth/state.json, then retry.",
             }
 
+        # SFW pass: blur explicit image tiles/avatars in-browser before capture (UI stays sharp)
+        if blur_images:
+            try:
+                n = page.evaluate(BLUR_IMAGES_JS, blur_images)
+                sys.stderr.write(f"info: blurred {n} image element(s) >= {blur_images}px\n")
+                page.wait_for_timeout(450)
+            except Exception as exc:
+                sys.stderr.write(f"warning: blur_images failed: {exc}\n")
+
         page.wait_for_timeout(600)
         try:
             if selector:
@@ -388,6 +418,7 @@ def action_shot(opts: dict[str, Any]) -> dict[str, Any]:
         anchor=opts.get("anchor"),
         anchor_wmin=int(opts.get("anchor_wmin") or 240),
         anchor_wmax=int(opts.get("anchor_wmax") or 560),
+        blur_images=int(opts["blur_images"]) if opts.get("blur_images") else None,
     )
 
     report = {
@@ -476,6 +507,8 @@ def resolve_opts(args) -> dict[str, Any]:
         opts["selector"] = args.selector
     if args.anchor is not None:
         opts["anchor"] = args.anchor
+    if args.blur_images is not None:
+        opts["blur_images"] = args.blur_images
     if args.anchor_wmin is not None:
         opts["anchor_wmin"] = args.anchor_wmin
     if args.anchor_wmax is not None:
@@ -575,6 +608,8 @@ def main() -> int:
     ap.add_argument("--anchor-wmin", dest="anchor_wmin", type=int, default=None, help="min card width px (anchor)")
     ap.add_argument("--anchor-wmax", dest="anchor_wmax", type=int, default=None, help="max card width px (anchor)")
     ap.add_argument("--padding", type=int, default=None, help="pad the selector/anchor bbox by N CSS px")
+    ap.add_argument("--blur-images", dest="blur_images", type=int, default=None,
+                    help="SFW pass: blur explicit img/video tiles >= N px in-browser (UI stays sharp). Try 60 for grids, 40 for chat avatars.")
     ap.add_argument("--hide", default=None, help="comma-separated CSS selectors to display:none pre-capture")
     ap.add_argument("--click", action="append", default=None, help="CSS to click (repeatable)")
     ap.add_argument("--fill", default=None, help="'selector::text' to type into a composer (not sent)")
