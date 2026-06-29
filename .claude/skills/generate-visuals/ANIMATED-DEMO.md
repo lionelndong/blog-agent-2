@@ -52,6 +52,19 @@ Then the *same* command runs unchanged with `--auth` (auto-on for auth scenes). 
 character: `--url https://pleasur.ai/chat/<sfw-character-id>`. **Keep every logged-in demo SFW** —
 the showcase account must use a SFW character and SFW prompts/messages.
 
+## Blur the explicit parts (SFW for logged-in demos)
+Logged-in surfaces show character imagery. Set `"blur"` in the scene and the engine injects a
+persistent stylesheet rule so the explicit media is blurred in **every** frame — including media
+that streams in later — while the **interaction stays sharp** (text, input, UI chrome):
+- `"blur": "media"` → blurs `img, video, canvas` at 24px (the default for the auth presets).
+- `"blur": ["selector", …]` → blur specific elements.
+- `"blur": {"selectors":[…], "px":30, "bg":true}` → custom radius; `bg:true` also blurs
+  `background-image` divs.
+
+Defence in depth for the chat preset: **blur** + a **clip to the conversation/composer column**
+(excludes the right-hand profile panel with age/body text) + **stop right after the user's SFW
+message sends** (no AI reply rendered). Still: point it at a clearly-adult, SFW-framed character.
+
 ## Formats & size (keep it small)
 `palettegen/paletteuse` GIF + H.264 MP4 (yuv420p, faststart) via the **bundled** ffmpeg
 (`imageio_ffmpeg`, no system ffmpeg needed) + animated WebP via PIL.

@@ -98,27 +98,30 @@ PRICING_SCROLL: dict[str, Any] = {
 CHAT_TYPING: dict[str, Any] = {
     "name": "chat-typing",
     "needs_auth": True,
-    # Operator: set this to the showcase account's SFW character chat URL.
-    "url": f"{BASE}/chat",
+    # A real showcase conversation. Operator: point this at a clearly-adult,
+    # SFW-framed character. The demo is kept SFW three ways: (1) `blur: "media"`
+    # blurs every avatar/image, (2) the clip is the conversation+composer COLUMN
+    # only — it excludes the right-hand profile panel (age/body/personality text),
+    # (3) it stops right after the user's SFW message sends (no AI reply shown).
+    "url": f"{BASE}/chat/ecf3ab3a-04ea-4557-9424-2f03478ef1fd",
     "viewport": {"width": 1280, "height": 900},
     "dismiss_age_gate": True,
-    "settle_ms": 2000,
+    "settle_ms": 2200,
     "fps": 16,
     "url_label": "pleasur.ai/chat",
     "caption": "Chatting with your AI companion",
-    "sfw": "Use a SFW character + SFW message. The line below is intentionally tame.",
-    "clip": {"selector": "main"},
-    "cursor": True,
+    "sfw": "blur=media + chat-column clip (no profile panel) + stop after send. Use a SFW character.",
+    "blur": "media",
+    "clip": {"crop": [424, 58, 536, 815]},
+    "cursor_start": [690, 690],
     "beats": [
-        {"label": "open", "actions": [{"do": "wait", "ms": 500}], "shoot": {"hold_ms": 1000}},
+        {"label": "open", "actions": [{"do": "wait", "ms": 700}], "shoot": {"hold_ms": 1300}},
         {"label": "type-message",
-         "guided_type": {"selector": "textarea, [contenteditable='true'], input[type='text']",
+         "guided_type": {"selector": "textarea",
                          "text": "Hey! What's your favorite way to spend a Sunday?",
-                         "char_step": 2, "type_ms": 80, "glide_frames": 10, "hold_ms": 700}},
+                         "char_step": 2, "type_ms": 80, "glide_frames": 10, "hold_ms": 600}},
         {"label": "send",
-         "guided_click": {"selector": "button[type='submit'], button:has-text('Send'), [aria-label*='send' i]",
-                          "glide_frames": 8, "hold_ms": 700}},
-        {"label": "reply", "motion": {"frames": 30, "interval_ms": 220}},
+         "guided_click": {"x": 906, "y": 838, "glide_frames": 7, "settle_ms": 600, "hold_ms": 1600}},
     ],
 }
 

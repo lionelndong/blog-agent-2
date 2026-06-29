@@ -86,6 +86,7 @@ class CaptureResult:
     auth_used: bool = False
     final_url: str = ""
     clip: dict[str, int] | None = None
+    blurred: list[str] = field(default_factory=list)
     error: str | None = None
 
 
@@ -171,6 +172,36 @@ def _resolve_clip(page, clip: dict[str, Any] | None) -> dict[str, int]:
     return {"x": 0, "y": 0, "width": vp["width"], "height": vp["height"]}
 
 
+def _apply_blur(page, spec) -> list[str]:
+    """Blur explicit media so logged-in in-app demos are SFW for a public blog.
+
+    Injects a persistent stylesheet rule, so it covers media that appears LATER
+    (a streamed reply image, a generated result) without re-applying per frame.
+    The interaction (text, input, UI chrome) stays sharp — only the media blurs.
+
+    spec: truthy/"media" -> blur img,video,canvas at 24px; a list of selectors;
+          or {"selectors":[...], "px":N, "bg":bool} (bg also blurs background-image divs).
+    Returns the selectors blurred (for the report)."""
+    if not spec:
+        return []
+    px, sels = 24, ["img", "video", "canvas"]
+    if isinstance(spec, dict):
+        px = int(spec.get("px", 24))
+        sels = spec.get("selectors") or sels
+        if spec.get("bg"):
+            sels = sels + ['[style*="background-image"]']
+    elif isinstance(spec, (list, tuple)):
+        sels = list(spec)
+    css = ",".join(sels) + " { filter: blur(%dpx) !important; }" % px
+    page.evaluate(
+        "(css) => { let s = document.getElementById('__demo_blur__');"
+        " if (!s) { s = document.createElement('style'); s.id = '__demo_blur__';"
+        " document.head.appendChild(s); } s.textContent = css; }",
+        css,
+    )
+    return sels
+
+
 def _shoot(page, clip: dict[str, int]):
     from PIL import Image
 
@@ -251,17 +282,23 @@ def _guided(page, clip, beat, cursor_pos, segs, max_frames):
     info: dict[str, Any] = {}
     is_type = "guided_type" in beat
     g = beat["guided_type"] if is_type else beat["guided_click"]
-    sel = g["selector"]
-    loc = page.locator(sel).first
-    center = _target_center(page, sel)
-    if center is None:
-        info["error"] = f"target not found: {sel}"
-        return info, False
-    box = loc.bounding_box() or {}
-    if is_type and box:
-        tx, ty = box["x"] + 18, box["y"] + box["height"] / 2  # aim at the caret start
+    sel = g.get("selector")
+    loc = None
+    if not is_type and "x" in g and "y" in g:
+        # coordinate target — robust when the element has no stable selector
+        # (e.g. a Tailwind-hashed send button).
+        tx, ty = float(g["x"]), float(g["y"])
     else:
-        tx, ty = center
+        loc = page.locator(sel).first
+        center = _target_center(page, sel)
+        if center is None:
+            info["error"] = f"target not found: {sel}"
+            return info, False
+        box = loc.bounding_box() or {}
+        if is_type and box:
+            tx, ty = box["x"] + 18, box["y"] + box["height"] / 2  # aim at the caret start
+        else:
+            tx, ty = center
 
     # 1) glide the cursor in
     gf, gms = int(g.get("glide_frames", 12)), int(g.get("glide_ms", 42))
@@ -304,7 +341,10 @@ def _guided(page, clip, beat, cursor_pos, segs, max_frames):
     else:
         if g.get("click", True):
             try:
-                loc.click(force=True, timeout=6_000)
+                if loc is not None:
+                    loc.click(force=True, timeout=6_000)
+                else:
+                    page.mouse.click(tx, ty)
             except Exception as exc:
                 info["click_error"] = str(exc)[:160]
         page.wait_for_timeout(int(g.get("settle_ms", 600)))
@@ -425,6 +465,7 @@ def play(scene: dict[str, Any], *, headed: bool = True, use_auth: bool = False,
                 _dismiss_age_gate(page)
             page.wait_for_timeout(settle_ms)
             res.final_url = page.url
+            res.blurred = _apply_blur(page, scene.get("blur"))
 
             clip = _resolve_clip(page, scene.get("clip"))
             res.clip = clip
