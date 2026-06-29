@@ -24,3 +24,6 @@ Thumbs.db
 
 # PLEAA-581: per-environment publish-override audit log
 content-pipeline/audit/publish-overrides.log
+
+# per-run env files hold creds — never track
+*.env
