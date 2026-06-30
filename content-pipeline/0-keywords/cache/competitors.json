@@ -1,0 +1,26 @@
+{
+  "target": "pleasur.ai",
+  "resolved_at": "2026-06-29",
+  "source": "brand_config_pinned",
+  "country": "us",
+  "note": "Pinned from brand-config.md '## Competitors (PINNED)' — vetted subscription companion/girlfriend-app peers (products that monetize via paid plans, so their keyword gap is full of topics whose searchers can become PAYING customers). Replaces the 2026-06-29 auto-discovered set that included uncensored.com + venice.ai, which skewed the gap to free-seeker uncensored/smut long-tail (PLE-3063 item 2, Doctrine #2). Footprints verified live on Ahrefs site-explorer/metrics 2026-06-29.",
+  "selected_domains": ["candy.ai", "ourdream.ai", "nastia.ai", "kupid.ai", "dreamgf.ai"],
+  "selected": [
+    {"competitor_domain": "candy.ai", "org_keywords": 1128, "org_traffic": 184003, "why": "subscription AI girlfriend/companion — direct paid-plan peer"},
+    {"competitor_domain": "ourdream.ai", "org_keywords": 1518, "org_traffic": 280602, "why": "subscription AI girlfriend/companion — direct paid-plan peer"},
+    {"competitor_domain": "nastia.ai", "org_keywords": 3316, "org_traffic": 227976, "why": "direct AI companion peer (previously vetted)"},
+    {"competitor_domain": "kupid.ai", "org_keywords": 601, "org_traffic": 39519, "why": "subscription AI companion — paid-plan peer"},
+    {"competitor_domain": "dreamgf.ai", "org_keywords": 716, "org_traffic": 23229, "why": "subscription AI girlfriend — paid-plan peer"}
+  ],
+  "excluded_generic": [
+    "uncensored.com (free/uncensored AI chat — free-seeker intent, skewed last run)",
+    "venice.ai (uncensored AI chat/image — free-seeker intent, skewed last run)",
+    "janitorai.com (free character-chat — huge traffic, ~0 subscription overlap)",
+    "theresanaiforthat.com (AI directory/aggregator)",
+    "miniapps.ai (generic AI tools dir)",
+    "ninjachat.ai (generic chat aggregator)",
+    "flowgpt.com (prompt marketplace)",
+    "maxai.co (browser AI assistant)",
+    "scribehow.com / trustpilot.com / steampowered.com / itch.io / chicagoreader.com (off-topic)"
+  ]
+}

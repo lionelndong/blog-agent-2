@@ -67,7 +67,7 @@ Every layer MUST be an Agent dispatch.
 
    Your job: produce content-pipeline/0-keywords/keyword-ideas.csv per .claude/skills/content-gap-analysis/SKILL.md. Read the SKILL.md first.
 
-   Auto-discover competitors via mcp__ahrefs__site-explorer-organic-competitors if brand-config doesn't list any; cache to cache/competitors.json. Read seeds.json from Layer 1a — for each seed, expand via mcp__ahrefs__keywords-explorer-matching-terms (`match_mode:"phrase"` or `"terms"`) plus keywords-explorer-related-terms / search-suggestions where breadth is thin; filter to the modifiers. **Question mining (folded in): also retain question-form terms (what/how/is/are/can/does/why/which/who/where/should) surfaced by matching-terms(`terms`), and read serp-overview `serp_features` for People-Also-Ask entries; tag those rows source=question.** Pull intents + metrics via mcp__ahrefs__keywords-explorer-overview per row (`select:"keyword,volume,difficulty,cpc,parent_topic,traffic_potential,intents"`, `country:"US"`). Comma-separated string params, NOT arrays.
+   Auto-discover competitors via mcp__ahrefs__site-explorer-organic-competitors if brand-config doesn't list any; cache to cache/competitors.json. Read seeds.json from Layer 1a — for each seed, expand via mcp__ahrefs__keywords-explorer-matching-terms (`match_mode:"phrase"` or `"terms"`) plus keywords-explorer-related-terms / search-suggestions where breadth is thin; filter to the modifiers. **Question mining (folded in): also retain question-form terms (what/how/is/are/can/does/why/which/who/where/should) surfaced by matching-terms(`terms`), and read keywords-explorer-overview `serp_features` for the `question` (People-Also-Ask) signal — NOT serp-overview, which has no serp_features column (verified PLE-3063); tag those rows source=question.** Pull intents + metrics via mcp__ahrefs__keywords-explorer-overview per row (`select:"keyword,volume,difficulty,cpc,parent_topic,traffic_potential,intents"`, `country:"US"`). Comma-separated string params, NOT arrays.
 
    Content gap = a competitor's ranking keywords (mcp__ahrefs__site-explorer-organic-keywords on each competitor URL; consensus across 3+ top pages) MINUS the brand's. Derive gap_mode yourself: competitor ranks and brand does not → `missing` (the write pool); brand-only → `strong` (route to cache/strong-positions.csv, track-only, NOT the writing pool). Tag every row with `gap_mode` and `source`. Merge + dedupe on keyword.
 
@@ -105,7 +105,7 @@ Every layer MUST be an Agent dispatch.
 
    Your job: enrich BID-PASS rows in keyword-ideas.csv with AIO cannibalization verdicts per .claude/skills/keyword-vet-aio/SKILL.md and the rubric at .claude/skills/keyword-research-pipeline/references/aio-cannibalization-rubric.md. Read both first.
 
-   For each BID-PASS row: detect AIO presence via mcp__ahrefs__serp-overview — read its `serp_features` and look for the `ai_overview` key. Apply exemptions (tool-led, commercial-investigation). For non-exempt AIO-present rows fetch the AIO body: serp-overview's serp_features summary → WebFetch on https://www.google.com/search?q=…  Spawn the adversarial Sonnet sub-agent with the 0-10 completeness brief; persist has_aio, aio_completeness_score, aio_click_intent, aio_verdict, aio_reasoning, aio_body_source. Ahrefs params comma-separated strings, `select`+`country` required.
+   For each BID-PASS row: detect AIO presence via mcp__ahrefs__keywords-explorer-overview — read its `serp_features` and look for the `ai_overview` key. (⚠️ NOT serp-overview — it has no serp_features column; verified PLE-3063.) Apply exemptions (tool-led, commercial-investigation). For non-exempt AIO-present rows fetch the AIO body: Brand Radar → WebFetch on https://www.google.com/search?q=… (there is no serp_features body source). Spawn the adversarial Sonnet sub-agent with the 0-10 completeness brief; persist has_aio, aio_completeness_score, aio_click_intent, aio_verdict, aio_reasoning, aio_body_source. Ahrefs params comma-separated strings, `select`+`country` required.
 
    Cache AIO bodies under cache/aio-fetch/ with _meta.source; refresh weekly. Pre-migration cache files (Semrush ai-toolkit / old brand_radar_*) are stale — re-fetch.
 
@@ -196,6 +196,6 @@ major brand-config changes. Calibration logs in `cache/`: `bid-calibration.log`,
 Approximate, for a 200-candidate pool, on the Ahrefs 400k-units/month pool (≈50 base units + per-row;
 keep `limit` tight): Layer 1a ~1K LLM tokens;
 Layer 1b ~10-15 calls (competitors + per-competitor organic-keywords + matching/related + question
-retention); Layer 2 ~200 overview + serp-overview + batch-analysis; Layer 3 ~100 serp-overview +
-~50-70 AIO-body fetches + ~50 Sonnet sub-agents; Layer 5 ~1 Agent call. Total: a few-thousand Ahrefs
+retention); Layer 2 ~200 overview + serp-overview + batch-analysis; Layer 3 ~100 keywords-explorer-overview
+(serp_features presence, batchable) + ~50-70 AIO-body fetches + ~50 Sonnet sub-agents; Layer 5 ~1 Agent call. Total: a few-thousand Ahrefs
 units + ~$0.50 LLM tokens per run; weekly cadence stays comfortably inside the pool.

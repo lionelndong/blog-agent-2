@@ -55,7 +55,7 @@ Reads:
 5. **Add a `notes` column** with a one-line justification per keyword (why brand_fit / product_fit got that score, named product if applicable).
 6. **Sort the CSV by priority_score descending.**
 7. **Add a `rank` column** (1, 2, 3, ...) reflecting the new sort order.
-8. **Overwrite the CSV** at `content-pipeline/0-keywords/keyword-ideas.csv`.
+8. **Overwrite the CSV** at `content-pipeline/0-keywords/keyword-ideas.csv` — build the full table in memory and `Write` it whole in one shot (never `Edit` individual cells; a format/linter hook can race a partial write — PLE-3063 item 4). The same atomic rule applies to `keyword-queue.csv` and `tool-opportunities.csv` below.
 9. **Tell the user:**
    - Top 10 keywords with rank, keyword, priority_score, and notes
    - Suggest running `/blog-pipeline "<top keyword>" --context "..."` for the chosen keyword

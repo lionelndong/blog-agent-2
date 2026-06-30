@@ -1,6 +1,6 @@
 ---
 name: keyword-vet-aio
-description: Layer 3 of the keyword research pipeline. For every BID-passing keyword, detects AI Overview **presence** by default (via the Ahrefs serp-overview SERP-features array) — non-exempt AIO-present rows are flagged RISKY so the writer differentiates. An OPT-IN heavier path (Brand Radar body-fetch + per-keyword AIO completeness scoring) can reject fully "AIO-cannibalized" keywords, but that is behind a flag, not the default.
+description: Layer 3 of the keyword research pipeline. For every BID-passing keyword, detects AI Overview **presence** by default (via the Ahrefs keywords-explorer-overview `serp_features` array — NOT serp-overview, which has no serp_features column) — non-exempt AIO-present rows are flagged RISKY so the writer differentiates. An OPT-IN heavier path (Brand Radar body-fetch + per-keyword AIO completeness scoring) can reject fully "AIO-cannibalized" keywords, but that is behind a flag, not the default.
 allowed-tools: Read, Write, Edit, Bash, WebFetch, mcp__ahrefs__*, Task
 ---
 
@@ -28,7 +28,9 @@ Reads:
 
 1. **Filter to BID-PASS rows only.** Layer 3 doesn't run on FAIL rows — they're already excluded.
 
-2. **For each candidate, detect AIO presence.** Call `serp-overview` (`{keyword:"<kw>", country:"US", select:"url,title,position,serp_features"}`) for the keyword. Look at the `serp_features` array in the response — AI Overview shows up under the **literal key `ai_overview`** (underscore, not hyphen). Other features in the array (`featured_snippet`, `people_also_ask`, etc.) are useful as secondary evidence but only `ai_overview` triggers the cannibalization check.
+2. **For each candidate, detect AIO presence.** Call `keywords-explorer-overview` (`{keywords:"<kw>", country:"US", select:"keyword,volume,serp_features"}`) for the keyword. Look at the `serp_features` array in the response — AI Overview shows up under the **literal key `ai_overview`** (underscore, not hyphen). Other features in the array (`featured_snippet`, `question` = People Also Ask, etc.) are useful as secondary evidence but only `ai_overview` triggers the cannibalization check.
+
+   > ⚠️ **Do NOT call `serp-overview` for this** — `serp-overview` has **no `serp_features` column** (selecting it hard-errors: `column 'serp_features' not found`). SERP features (incl. `ai_overview`) live ONLY on `keywords-explorer-overview`. Verified 2026-06-29 (PLE-3063); see the cheatsheet section 4 callout. `keywords-explorer-overview` takes `keywords:` (plural) and you can batch several comma-separated keywords per call — cheaper than one `serp-overview` per keyword.
 
    - If `ai_overview` not in `serp_features`: `has_aio=false`, `aio_verdict=PASS` (no cannibalization risk), continue.
    - If `ai_overview` in `serp_features`: `has_aio=true`, proceed to step 3.
@@ -42,10 +44,11 @@ Reads:
 4. **(OPT-IN — `BLOG_AGENT_AIO_DEEP=1` only) For non-exempt AIO-present keywords, fetch the AIO body.** Try in this order (Ahrefs Brand Radar AI-responses → SERP-feature snippet → WebFetch — the migration retired the old Semrush AI Toolkit path):
 
    1. **`brand-radar-ai-responses`** for the keyword (Ahrefs's Brand Radar AI-citation toolkit — cheatsheet "Bonus capabilities"). It returns the actual AI-engine response body Ahrefs captured during its most recent crawl, the engine (filter to the Google AI Overview engine), the cited sources, and a freshness timestamp. This is the highest-fidelity source — use it first. (`brand-radar-cited-pages` gives the cited URLs if you need them for Layer 4's mentions signal.)
-   2. **`serp-overview`** — the `serp_features` payload carries a snippet-level summary of the `ai_overview` feature. Lower fidelity than Brand Radar but always returned alongside the presence check, so use it as the second-line source when Brand Radar doesn't have a recent crawl for the keyword.
-   3. **`WebFetch`** the SERP URL `https://www.google.com/search?q={url-encoded-keyword}` and extract the AIO block (parse for `<div data-ai-overview>` or similar — heuristic; will sometimes miss but the lower-tier sources are stronger anyway). This is the last-resort fallback.
+   2. **`WebFetch`** the SERP URL `https://www.google.com/search?q={url-encoded-keyword}` and extract the AIO block (parse for `<div data-ai-overview>` or similar — heuristic; will sometimes miss but Brand Radar is the stronger source). This is the second-line source when Brand Radar doesn't have a recent crawl.
 
-   Cache successful fetches under `content-pipeline/0-keywords/cache/aio-fetch/{keyword-slug}.json` with timestamp and a `_meta.source` field set to one of `brand_radar_ai_responses`, `serp_features`, or `webfetch`. Refresh weekly. (Pre-migration cache files have Semrush `ai_toolkit_*` source shapes — treat them as stale on first read and re-fetch.)
+   > Note: there is **no** Ahrefs serp_features *body* source. `keywords-explorer-overview`'s `serp_features` only flags AIO **presence** (the `ai_overview` key) — it does NOT carry the AIO text. For the body you need Brand Radar (best) or WebFetch (fallback). The old "serp-overview snippet" source was a migration artifact and never existed on Ahrefs.
+
+   Cache successful fetches under `content-pipeline/0-keywords/cache/aio-fetch/{keyword-slug}.json` with timestamp and a `_meta.source` field set to one of `brand_radar_ai_responses` or `webfetch`. Refresh weekly. (Pre-migration cache files have Semrush `ai_toolkit_*` source shapes — treat them as stale on first read and re-fetch.)
 
    Optionally also use `brand-radar-cited-pages` / `brand-radar-sov-overview` for the keyword to check whether the brand or any competitor is currently cited inside the AIO body — informational only; not required for the cannibalization score.
 
@@ -87,12 +90,12 @@ Reads:
    - **Score >= 8 AND `serp_intent=commercial-investigation`** → `aio_verdict=PASS`. Commercial intent is AIO-resistant per transcript principle (users want options, not summary).
 
 7. **Persist columns** to `keyword-ideas.csv`:
-   - `has_aio` (true/false — derived from the `ai_overview` literal in `serp_features`)
+   - `has_aio` (true/false — derived from the `ai_overview` literal in `keywords-explorer-overview`'s `serp_features`)
    - `aio_completeness_score` (0-10 or null)
    - `aio_click_intent` (yes-deep / yes-shallow / no / null)
    - `aio_verdict` (PASS / RISKY / FAIL_CANNIBALIZED / UNKNOWN)
    - `aio_reasoning` (one-sentence agent rationale)
-   - `aio_body_source` (brand_radar_ai_responses / serp_features / webfetch — informs Layer 4's confidence in the score)
+   - `aio_body_source` (brand_radar_ai_responses / webfetch — informs Layer 4's confidence in the score; presence is always from `keywords-explorer-overview` serp_features, which is not a body source)
 
 8. **Print summary**:
    ```
@@ -105,7 +108,7 @@ Reads:
      AIO scored 5-7 (RISKY):                  X
      AIO scored 8-10 (FAIL_CANNIBALIZED):     X
      Fetch failed (UNKNOWN, treated RISKY):   X
-     Body sources: brand_radar=X serp=Y webfetch=Z
+     Body sources: brand_radar=X webfetch=Y
    Top 3 cannibalized rejections (deep mode only):
      - <keyword> — score <n>: <reasoning>
    Top 3 risky survivors:
@@ -123,7 +126,7 @@ Calibration log at `content-pipeline/0-keywords/cache/aio-calibration.log`.
 ## Quality checklist
 
 - [ ] Every BID-PASS row has `aio_verdict` populated
-- [ ] AIO presence detection used the `ai_overview` literal in `serp-overview`'s `serp_features`
+- [ ] AIO presence detection used the `ai_overview` literal in `keywords-explorer-overview`'s `serp_features` (NOT `serp-overview` — it has no serp_features column)
 - [ ] Presence-only default: every non-exempt `has_aio=true` row is `RISKY` (reason `aio_present`); no `FAIL_CANNIBALIZED` is emitted unless deep mode ran
 - [ ] **Deep mode (`BLOG_AGENT_AIO_DEEP=1`) only:** at least 1 row got each of {PASS, RISKY, FAIL_CANNIBALIZED} (scorer doing real work — if all PASS too lenient, if all FAIL hallucinating); no row scored 8+ was kept as PASS unless exempt; `aio_reasoning` is specific (e.g. "fully covers the definition + 3 examples"), not generic; cache files written with `_meta.source`
 
@@ -152,13 +155,13 @@ Per project memory ("Claude-in-Chrome work always runs on Sonnet 4.6") and the m
 
 ## Ahrefs API units notes
 
-- `serp-overview` is the most-called tool here — once per BID-PASS keyword. With ~50-100 candidates per run, this is the heaviest API consumer in Layer 3.
+- `keywords-explorer-overview` is the most-called tool here for presence detection — but you can batch several keywords per call (`keywords:` is plural, comma-separated), so it's cheaper than the old one-`serp-overview`-per-keyword pattern. With ~50-100 candidates per run, batch them in groups to cut unit spend.
 - `brand-radar-ai-responses` is the fidelity-leading source for AIO bodies — its call frequency is bounded by the non-exempt-AIO subset (typically ~30-60 keywords per run after exemptions).
 - `brand-radar-cited-pages` / `brand-radar-sov-overview` are optional; only call when Layer 4 will use the mentions signal.
 - WebFetch fallback bypasses Ahrefs units but is slower and parses inconsistently. Last resort.
 
 If the orchestrator detects units pressure (Ahrefs returns 429), pause Layer 3 mid-run, persist progress to `keyword-ideas.csv`, exit with code 75 (signal: rate-limited, retry after cool-down). The orchestrator handles the retry on next cron cycle.
 
-> **Note on presence-only posture (the default).** Layer 3's default is *presence-only* AIO detection via `serp-overview`'s `serp_features`: any non-exempt row with `has_aio=true` is flagged `RISKY` (reason `aio_present`) and the writer differentiates — no body fetch, no scoring. The Brand Radar body-fetch + adversarial-scoring path (steps 4-6) is the **opt-in** full cannibalization check, gated behind `BLOG_AGENT_AIO_DEEP=1`; it is preserved from the pre-migration design and is now genuinely sourceable on Ahrefs (Brand Radar exists where Semrush AI Toolkit / DataForSEO did not). Enable it deliberately when Brand Radar coverage is available and you want FAIL_CANNIBALIZED rejections; otherwise the presence-only default stands rather than blocking.
+> **Note on presence-only posture (the default).** Layer 3's default is *presence-only* AIO detection via `keywords-explorer-overview`'s `serp_features`: any non-exempt row with `has_aio=true` is flagged `RISKY` (reason `aio_present`) and the writer differentiates — no body fetch, no scoring. The Brand Radar body-fetch + adversarial-scoring path (steps 4-6) is the **opt-in** full cannibalization check, gated behind `BLOG_AGENT_AIO_DEEP=1`; it is preserved from the pre-migration design and is now genuinely sourceable on Ahrefs (Brand Radar exists where Semrush AI Toolkit / DataForSEO did not). Enable it deliberately when Brand Radar coverage is available and you want FAIL_CANNIBALIZED rejections; otherwise the presence-only default stands rather than blocking.
 
-**Ahrefs MCP only** — no other data providers (use the Brand Radar / serp-overview / WebFetch order above).
+**Ahrefs MCP only** — no other data providers. Presence from `keywords-explorer-overview` serp_features; AIO body (deep mode) from Brand Radar → WebFetch in that order.

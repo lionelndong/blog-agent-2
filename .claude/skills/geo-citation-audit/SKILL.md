@@ -1,6 +1,6 @@
 ---
 name: geo-citation-audit
-description: Measure pleasur.ai's AI-citation share across ChatGPT / Perplexity / Gemini / Google AI Overviews for the tracked query list, using the Ahrefs MCP Brand Radar (AI share-of-voice / mentions + cited-pages gaps) plus serp-overview for AIO-presence screening, backed by direct engine queries for ground truth. Scores each query into the GEO ledger and surfaces the highest-leverage gaps to fix. The GEO Lead's core measurement loop.
+description: Measure pleasur.ai's AI-citation share across ChatGPT / Perplexity / Gemini / Google AI Overviews for the tracked query list, using the Ahrefs MCP Brand Radar (AI share-of-voice / mentions + cited-pages gaps) plus keywords-explorer-overview serp_features for AIO-presence screening, backed by direct engine queries for ground truth. Scores each query into the GEO ledger and surfaces the highest-leverage gaps to fix. The GEO Lead's core measurement loop.
 allowed-tools: Read, Write, Edit, Bash, WebFetch, Agent, mcp__ahrefs__*
 ---
 
@@ -23,10 +23,11 @@ repeatable procedure.
 
 ## Process
 
-1. **Screen AIO presence (cheap, Ahrefs `serp-overview`).** For the due queries, call
-   `mcp__ahrefs__serp-overview` (`keyword` required, `country:"US"`, `select:"url,title,position,serp_features"`)
+1. **Screen AIO presence (cheap, Ahrefs `keywords-explorer-overview`).** For the due queries, call
+   `mcp__ahrefs__keywords-explorer-overview` (`keywords` plural, comma-separated and batchable, `country:"US"`, `select:"keyword,serp_features"`)
    and read the `serp_features` list; the `ai_overview` feature flags which queries even trigger a
-   Google AI Overview. Confirm the `ai_overview` key once against a query you know shows one. Drop
+   Google AI Overview. (⚠️ NOT `serp-overview` — it has no `serp_features` column; verified PLE-3063.)
+   Confirm the `ai_overview` key once against a query you know shows one. Drop
    queries that never trigger AIO from the Google-AIO column (don't optimize a surface that isn't there).
    Keep `limit` tight — units cost ≈ 50 base + per-row.
 
@@ -63,7 +64,7 @@ repeatable procedure.
 
 ## Quality bar
 - Every "cited" verdict backed by a captured snippet (no guessing).
-- AIO-presence screen (`serp-overview` `serp_features.ai_overview`) done before scoring the Google-AIO column.
+- AIO-presence screen (`keywords-explorer-overview` `serp_features.ai_overview`) done before scoring the Google-AIO column.
 - Brand Radar numbers are real MCP pulls or an explicit "gated — escalated" note, never fabricated.
 - Adult-reality honesty: mark hard-blocked surfaces and stop scoring them.
 

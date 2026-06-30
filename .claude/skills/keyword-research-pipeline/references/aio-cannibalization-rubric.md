@@ -2,7 +2,7 @@
 
 > Used by `/keyword-vet-aio` (Layer 3) when an adversarial Sonnet sub-agent rates how completely a Google AI Overview answers a query. The rubric is the source of truth for the 0-10 score.
 >
-> AIO presence is read from **Ahrefs `serp-overview`'s `serp_features`** (the `ai_overview` key). AIO bodies are sourced from **Ahrefs Brand Radar AI responses** (`mcp__ahrefs__brand-radar-ai-responses`, when Layer 1c's Brand Radar path is enabled), then the `serp_features` summary (fallback), then `WebFetch` against Google Search (last resort). The scoring rubric below is data-source-agnostic — the reader-perspective question is the same regardless of where the AIO text came from.
+> AIO presence is read from **Ahrefs `keywords-explorer-overview`'s `serp_features`** (the `ai_overview` key) — NOT `serp-overview`, which has no `serp_features` column (verified PLE-3063). AIO bodies are sourced from **Ahrefs Brand Radar AI responses** (`mcp__ahrefs__brand-radar-ai-responses`, when Layer 1c's Brand Radar path is enabled), then `WebFetch` against Google Search (last resort). There is no serp_features *body* source — `serp_features` only flags presence. The scoring rubric below is data-source-agnostic — the reader-perspective question is the same regardless of where the AIO text came from.
 
 ## The question the rubric answers
 

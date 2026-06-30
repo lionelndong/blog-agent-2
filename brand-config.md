@@ -10,6 +10,24 @@
 - **Domain:** pleasur.ai (used by `/brand-reference` to search existing articles)
 - **Category positioning:** Not just an AI companion app — a full AI adult content universe (companions, images, voice, calls, video).
 
+## Competitors (PINNED — keyword research source of truth)
+
+> **Read by `/content-gap-analysis` (Layer 1b) before auto-discovery.** These are vetted **subscription companion/girlfriend-app peers** — products that monetize the same way we do (paid plans for a personalized AI partner), so the keyword gap they reveal is full of topics whose searchers can become **paying** customers (Content doctrine #2: business value = product fit + a prospect who could pay). Auto-discovery picked free-uncensored plays last run (uncensored.com / venice.ai), which skewed the gap to free-seeker "uncensored / smut / unrestricted" long-tail that never converts (the "3,733 visitors, 0 paid" leak) — this pinned list is the fix. Verified live on Ahrefs 2026-06-29 (PLE-3063): every peer below has a real US organic footprint.
+
+**Use these (subscription companion/girlfriend peers):**
+- `candy.ai` — subscription AI girlfriend/companion (~184k US organic traffic, 1.1k kw)
+- `ourdream.ai` — subscription AI girlfriend/companion (~280k, 1.5k kw)
+- `nastia.ai` — direct AI companion peer (~228k, 3.3k kw)
+- `kupid.ai` — subscription AI companion (~40k, 600 kw)
+- `dreamgf.ai` — subscription AI girlfriend (~23k, 700 kw)
+
+**NEVER pin / always exclude (free-seeker or off-category — they skew the gap toward traffic that won't pay):**
+- `uncensored.com`, `venice.ai` — free/"uncensored" AI chat plays (free-seeker intent)
+- `janitorai.com` — free character-chat (huge traffic, ~0 subscription overlap)
+- AI directories / aggregators / off-topic giants: `theresanaiforthat.com`, `miniapps.ai`, `ninjachat.ai`, `flowgpt.com`, `maxai.co`, `trustpilot.com`, `steampowered.com`, `itch.io`
+
+> When auto-discovery runs (no pinned list / new domains surface), apply the same lens: drop any domain whose ranking keywords are dominated by **free-seeker modifiers** (`free`, `no filter`, `uncensored`, `unfiltered`, `unlimited`, `nsfw generator`) or that is a directory/aggregator. A peer must plausibly sell a paid AI-companion subscription.
+
 ## Products / Features
 
 > Listed in priority order. The `product-mentions` skill picks the most relevant product per H2 to demonstrate. Each product has a `status` field (`live` / `coming-soon` / `roadmap`). The `product-mentions` and `update-product-mentions` skills should ONLY recommend `live` products in published articles. `coming-soon` products may be teased in roadmap or feature-announcement posts but never as core walkthroughs.

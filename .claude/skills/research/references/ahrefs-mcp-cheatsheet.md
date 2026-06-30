@@ -70,7 +70,9 @@ Pull 50+, then keep only same **parent topic** + same dominant **intent**; group
 Build the FAQ from two sources, then **group into 3–5 themes, drop spam, cap ~5 crisp Q&As**:
 - `keywords-explorer-matching-terms` `{match_mode:"terms"}` → filter keywords that start with
   `what|how|is|are|can|does|do|why|which|who|where|will|should`.
-- `serp-overview` → read `serp_features` for **People Also Ask** entries.
+- `keywords-explorer-overview` → read `serp_features` for the **`question`** entry (Ahrefs's
+  People-Also-Ask signal). ⚠️ **NOT `serp-overview`** — it has no `serp_features` column (see the
+  ⚠️ callout under section 4). This is a secondary FAQ source; the matching-terms pull above is primary.
 **This is the FAQ fix.** No 12-question dumps, no near-duplicates, no competitor-stuffing.
 Each answer ≤ 2–3 sentences, ≤ 1 link.
 
@@ -78,6 +80,16 @@ Each answer ≤ 2–3 sentences, ≤ 1 link.
 `{keyword:"<kw>", country:"US", select:"url,title,position,..."}` (keyword REQUIRED) → top 10 URLs,
 positions, DR/UR/word-count where available. Classify dominant intent (informational / commercial /
 transactional / mix) and the modal format + item count for the benchmark table.
+
+> ⚠️ **`serp-overview` has NO `serp_features` column — verified 2026-06-29 (PLE-3063).** Selecting it
+> returns a hard error: `column 'serp_features' not found. Available columns: keywords, ahrefs_rank,
+> backlinks, type, title, top_keyword_volume, traffic, update_date, value, top_keyword, refdomains,
+> url, position, page_type, domain_rating, url_rating`. **SERP features (AI Overview, People Also
+> Ask, featured snippet, …) live ONLY on `keywords-explorer-overview`'s `serp_features` array** —
+> read them there, keyed by keyword, NOT from `serp-overview`. Use `serp-overview` only for ranking
+> URLs / positions / DR-UR (its real columns above). The literal keys verified in the `serp_features`
+> array: `ai_overview` (AI Overview presence), `question` (People Also Ask), plus `featured_snippet`,
+> `image_th`, `video_th`, `discussion`, `news`, `ai_overview_sitelink`, etc.
 
 ### 5. Competitor / content gap
 - `site-explorer-organic-keywords` — a competitor URL's ranking keywords.

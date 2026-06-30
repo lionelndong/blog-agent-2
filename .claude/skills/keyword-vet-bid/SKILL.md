@@ -74,7 +74,7 @@ Reads:
 
    #### Fallback — URL/title heuristic on the SERP top-10 (demoted to tie-breaker)
 
-   When `intents` is empty, equally split, or disagrees with brand fit, classify the SERP top-10 by URL pattern + title heuristics. Call `serp-overview` (`{keyword:"<kw>", country:"US", select:"url,title,position,serp_features"}`) for the keyword and look at the top 10 URLs:
+   When `intents` is empty, equally split, or disagrees with brand fit, classify the SERP top-10 by URL pattern + title heuristics. Call `serp-overview` (`{keyword:"<kw>", country:"US", select:"url,title,position,domain_rating,url_rating"}`) for the keyword and look at the top 10 URLs. (⚠️ Do NOT select `serp_features` here — `serp-overview` has no such column and the call hard-errors; SERP-feature signals live on `keywords-explorer-overview`. Verified PLE-3063.)
 
    - `informational` — blog posts, how-to articles, knowledge-base entries (paths like `/blog/`, `/learn/`, `/how-to/`, `/guides/`; titles starting with how/what/why/guide)
    - `commercial-investigation` — best-of lists, comparison articles, reviews (paths like `/best/`, `/vs/`, `/review/`; titles like "best X for Y" or "X vs Y")

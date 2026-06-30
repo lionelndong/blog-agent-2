@@ -38,7 +38,7 @@ Turn the flat, ranked keyword queue into a **strategy**: a few **money clusters*
    - Never auto-edit `clusters.md` — write proposals for human/EO review (adding a cluster is a deliberate strategy call).
 
 6. **Write outputs:**
-   - **Cluster-tag the queue:** add/update `cluster` + `role` columns in `keyword-queue.csv` (in place; no duplication).
+   - **Cluster-tag the queue (ATOMIC — PLE-3063 item 4):** read the *entire* `keyword-queue.csv`, add/update the `cluster` + `role` values for every row **in memory**, then `Write` the whole file back in one shot. **Never use `Edit` to patch individual cells / the role column in place** — a linter/format hook can race a partial `Edit` and corrupt or half-tag the queue (that's the "mutated queue role column" bug). One read → mutate the full table → one `Write`. Preserve column order and every other column untouched; no row duplication.
    - **`content-pipeline/0-keywords/cluster-map.md`** — per active cluster: keystone (keyword + slug + priority + winnability), supporting count, coverage status. The at-a-glance strategy board.
    - **`content-pipeline/0-keywords/cluster-proposals.md`** — the new-cluster candidates from step 5, each with why (members, traffic, BV) and a ready-to-paste `clusters.md` row. Empty file with "no new clusters proposed" if none.
 

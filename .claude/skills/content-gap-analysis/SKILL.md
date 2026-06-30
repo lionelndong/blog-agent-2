@@ -28,9 +28,14 @@ If `--our-domain` isn't provided, read it from `brand-config.md`.
 
 2. **Resolve competitors.** In order of preference:
    - CLI args (e.g. `/content-gap-analysis competitor1.com competitor2.com`)
-   - `brand-config.md` competitor list
-   - **Autonomous fallback**: call `mcp__ahrefs__site-explorer-organic-competitors` for the brand domain, take top 3 by organic-keyword intersection
-   - Cache the resolved competitors to `content-pipeline/0-keywords/cache/competitors.json` so later layers reuse the same set without re-querying
+   - **`brand-config.md` `## Competitors (PINNED ...)` list** — the source of truth. Use the domains under **"Use these"**; these are vetted subscription companion/girlfriend peers. **When this section exists, use it and DO NOT auto-discover** (auto-discovery is the skewed path that pinned the queue to free-seeker uncensored/smut long-tail — that's exactly what the pinned list exists to prevent). Doctrine #2.
+   - **Autonomous fallback (only when no pinned list exists)**: call `mcp__ahrefs__site-explorer-organic-competitors` for the brand domain, take the top organic-keyword-intersection domains, **then filter through the exclude rules below** and keep the top 3 survivors.
+   - **Free-seeker / off-category exclude (ALWAYS apply, even to CLI args and the pinned list as a sanity check).** Drop any candidate domain that is:
+     - on the brand-config **"NEVER pin / always exclude"** list (e.g. `uncensored.com`, `venice.ai`, `janitorai.com`, `theresanaiforthat.com`, `miniapps.ai`, `ninjachat.ai`, …), OR
+     - a directory / aggregator / off-topic giant (AI tool directories, review sites, app stores), OR
+     - free-seeker-dominated: spot-check its top ranking keywords (`site-explorer-organic-keywords`, `limit:20`, `order_by:"traffic:desc"`); if ≥ ~40% contain free-seeker modifiers (`free`, `no filter`, `uncensored`, `unfiltered`, `unlimited`, `nsfw generator`), drop it — its gap is full of traffic that won't pay (Doctrine #2).
+     Log every dropped domain + reason to `cache/competitors.json`'s `excluded_generic` array.
+   - **Cache the resolved competitors atomically** to `content-pipeline/0-keywords/cache/competitors.json` so later layers reuse the same set: build the full JSON in memory and **`Write` the whole file in one shot** (never `Edit` it incrementally — a linter/format hook can race a partial write and corrupt it; see PLE-3063 item 4). Stamp `resolved_at`, `source` (`brand_config_pinned` | `auto_discovered`), `selected_domains`, and `excluded_generic`.
 
 3. **Read brand context.** Audience, products — used downstream to filter the gap list to relevant intent (Layer 2's BID).
 
@@ -58,10 +63,11 @@ If `--our-domain` isn't provided, read it from `brand-config.md`.
 6. **Auto-relax filters if pool is small.** If fewer than 50 candidates come back at the default filters, automatically re-run once with relaxed thresholds: volume ≥ 5, KD ≤ 80 (Ahrefs). Log the relaxation. If still under 50, continue with what we have — Layer 1a-driven seed expansion will widen the pool.
 
 7. **Seed-modifier expansion (Layer 1a integration).** If `content-pipeline/0-keywords/seeds.json` exists:
-   - For each seed, call `mcp__ahrefs__keywords-explorer-matching-terms` with `keywords` = the seed, `match_mode:"phrase"`, and `country:"US"` to pull the phrase-match variation pool; filter to keep rows whose keyword contains any of the modifier strings. Use `mcp__ahrefs__keywords-explorer-related-terms` ("also rank for" / "also talk about") for breadth where phrase-match is thin, and `mcp__ahrefs__keywords-explorer-matching-terms` with `match_mode:"terms"` when a modifier is a multi-word phrase that needs broader term expansion.
+   - For each seed, call `mcp__ahrefs__keywords-explorer-matching-terms` with `keywords` = the seed, `match_mode:"phrase"`, and `country:"US"` to pull the phrase-match variation pool. Use `mcp__ahrefs__keywords-explorer-related-terms` ("also rank for" / "also talk about") for breadth where phrase-match is thin, and `mcp__ahrefs__keywords-explorer-matching-terms` with `match_mode:"terms"` when a modifier is a multi-word phrase that needs broader term expansion.
+   - **Retention (do NOT over-drop — PLE-3063 item 3).** Keep a row if it meets the base bar (`volume ≥ 20`, `kd ≤ 70`, same/adjacent parent_topic, not branded). **Modifier presence is a BONUS, NOT a requirement** — the old rule "keep only rows whose keyword contains a modifier string" discarded ~80% of the legitimate seed expansion (last run: only 15 of 68 final rows came from seed_modifier). The matching-terms / related-terms pool for a relevant seed is *itself* the value; modifier-bearing combos (`best <seed>`, `<seed> vs`, `<seed> app`) are a high-priority subset to surface first, not a gate that drops everything else. Tag whether a row is modifier-bearing in `notes` (e.g. `mod=best`) so prioritization can weight it, but retain non-modifier same-parent variations too.
    - Set `select` to include `keyword,volume,difficulty,traffic_potential,parent_topic,intents` so each result already carries volume, KD, traffic_potential, parent topic (use as the cluster anchor), and the `intents` array. Only call `mcp__ahrefs__keywords-explorer-overview` for a result that came back without an intent label.
    - Tag each row with `source=seed_modifier` and `gap_mode=seed_modifier` (sentinel value — not the competitor-gap `missing`/`strong` modes).
-   - Cap per-seed expansion at 100 results to keep the merged pool manageable.
+   - Cap per-seed expansion at 100 results (sorted by `traffic_potential desc`) to keep the merged pool manageable. **Aim for seed_modifier to contribute a meaningful share of the final pool** (it is the only ideation channel independent of competitor coverage); if it contributes < ~25% of final rows, the retention filter is still too tight — relax to `volume ≥ 5` and re-pull once, and log it.
 
 8. **Merge and dedupe.** Combine competitor-gap rows with seed-modifier rows. Keep one row per unique keyword:
    - If a keyword appears in both the competitor-gap `missing` mode and seed-modifier expansion, set `source=both` and retain `gap_mode=missing` (from the competitor-gap row) and `competitor_top_position` from the gap row, plus the seed_modifier metadata.
@@ -82,7 +88,16 @@ If `--our-domain` isn't provided, read it from `brand-config.md`.
 
 10. **Save as CSV** to `content-pipeline/0-keywords/keyword-ideas.csv`. Use UTF-8, headers in row 1.
 
-11. **Print a one-line summary** (autonomous mode) or suggest running `/keyword-prioritization` next (interactive mode). The summary breaks out row counts per `gap_mode` (`missing` write pool vs `strong` track-only) plus the seed_modifier count.
+11. **Print a one-line summary** (autonomous mode) or suggest running `/keyword-prioritization` next (interactive mode). **Report the ACTUAL written row count — count the rows in the CSV you just wrote, never the 200 cap (PLE-3063 item 3: last run claimed "200" when only 68 rows were written).** Break out the actual counts per `source`/`gap_mode`:
+    ```
+    Wrote N rows to keyword-ideas.csv (actual, = `wc -l` minus header):
+      competitor_gap (missing):  X
+      seed_modifier:             Y   (Y/N = Z% — flag if < 25%)
+      both:                      W
+      → strong (track-only, separate file): S rows to cache/strong-positions.csv
+    Competitors used: <domains>  (source: brand_config_pinned | auto_discovered)
+    ```
+    If the missing pool was capped, say "capped at 200 from <raw> raw" — but the headline count is always the actual rows written.
 
 ## Output
 
@@ -115,7 +130,7 @@ If fewer than 20 results come back, either:
 
 When invoked from `/keyword-research-pipeline` (or with `BLOG_AGENT_AUTONOMOUS=1` set):
 
-- **Auto-discover competitors** via `mcp__ahrefs__site-explorer-organic-competitors` if neither CLI args nor `brand-config.md` provide any. Take top 3 by organic-keyword intersection. Cache to `cache/competitors.json` so later layers reuse the same set.
+- **Prefer the `brand-config.md` `## Competitors (PINNED ...)` list** — when it exists, use it and skip auto-discovery entirely (it's the fix for the free-seeker skew; Doctrine #2). Only **auto-discover** via `mcp__ahrefs__site-explorer-organic-competitors` when no pinned list exists; then apply the free-seeker / directory exclude filter (step 2) and take the top 3 survivors. Cache atomically (single `Write`, never `Edit`) to `cache/competitors.json` so later layers reuse the same set.
 - **Tag rows with `gap_mode`** (`missing` / `strong`). Route `strong` to `cache/strong-positions.csv`; `missing` goes to the writing pool.
 - **Auto-relax filters** if pool is < 50 (volume ≥ 5, KD ≤ 80; once only).
 - **Auto-merge seed-modifier expansion** if `seeds.json` exists.
