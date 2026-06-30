@@ -25,7 +25,9 @@ We do **not** pick keywords individually. We build a few deliberate **money clus
 - a ring of **supporting articles** (sub-topics, long-tail, intent variants);
 - **internal links** funneling link-juice to the keystone and to money/product pages.
 
-Build the **winnable members first** (low KD relative to our DR — see #2); expand the cluster's ambition as DR grows. Our starting clusters map to our products (AI girlfriend/companion, NSFW chat, AI sexting, roleplay, …). The vetted keyword queue is **cluster-organized**, with each row tagged `cluster` + `keystone|supporting`. *(Enforced by `cluster-planner`.)*
+Build the **winnable members first** (low KD relative to our DR — see #2); expand the cluster's ambition as DR grows. Our starting clusters map to our products (AI companions, NSFW image generation, adult chat/sexting/roleplay, voice & calls, tools/comparisons). The vetted keyword queue is **cluster-organized**, with each row tagged `cluster` + `keystone|supporting`.
+
+**The cluster list is a *living* config, never a fixed list** (`content-pipeline/0-keywords/clusters.md`). Adding a cluster is one edit — no code change — and `cluster-planner` actively **proposes new clusters** when it finds high-business-value demand, or a newly-shipped product, that no cluster covers yet. So as Pleasur.AI grows (e.g. new interactive/real-time features), the blog strategy expands with it and never stays stuck. *(Enforced by `cluster-planner`, Layer 6 of the keyword research pipeline.)*
 
 ### 2. Winnability that MOVES with our DR
 Difficulty is judged **relative to our own domain**, and our domain changes. Our DR is a **live value** (read from `content-pipeline/0-keywords/cache/brand-dr.json`, refreshed on a cadence together with our "Best by links" referring-domain ceiling) — **never a hardcoded number.** The winnability tiers recompute from live DR, and the *ambition ladders up automatically*:

@@ -1,100 +1,30 @@
-# Priority keyword clusters (board Addendum 4, 2026-06-10)
+# Money clusters — config (EDITABLE; a living list, never a ceiling)
 
-Strategy = topical authority via clusters, not ad-hoc picks. Every keyword entering
-`keyword-queue.csv` must carry a `cluster` assignment + full vetting trail
-(BID / AIO / redteam / priority). A keyword that fits no cluster does not enter the queue.
-Publishing order favors **completing a cluster** (hub + 3–5 interlinked spokes) over scattering.
+> The blog strategy is organized into **money clusters** — business-value PARENT topics, each tied to a live Pleasur.AI product/feature. **This file is THE control surface.** Adding a cluster = adding one row here; no code change. The `cluster-planner` skill reads this file, organizes the keyword queue into these clusters, AND **proposes new cluster candidates** whenever research surfaces a high-business-value topic, or a live product, that no cluster covers yet — so the blog **expands as the company expands** and never stays stuck on a fixed list.
 
-Baseline mapping below reflects the 16 currently-live articles (see
-`audit/performance-ledger.csv`). Hubs are the canonical pillar; spokes link up to the hub
-and across to siblings.
+## How to add / split / merge a cluster (do this whenever a product ships or a new demand area emerges)
+1. Add (or edit) a row in **Active clusters**: a short `id`, a human `name`, the `parent_topic` (the head term — let keyword research confirm the exact highest-volume phrasing), the `product` it showcases, and a few `seeds` for keyword research.
+2. Re-run the keyword research pipeline. `cluster-planner` populates the cluster (keystone + supporting ring) on the next run.
+3. That's it — the config is the only thing you touch. To retire a cluster, set `status: archived` (don't delete; keeps history).
 
----
+## Active clusters (seed set — expand freely)
+| id | name | parent_topic | product/feature | seeds | status |
+|----|------|--------------|-----------------|-------|--------|
+| companions | AI Companions | ai girlfriend | AI Companion Creator | ai girlfriend, ai boyfriend, ai companion, virtual girlfriend | active |
+| image-gen | NSFW AI Image Generation | ai porn generator | AI Image Generation | nsfw ai image generator, ai porn generator, ai art generator nsfw | active |
+| chat-roleplay | Adult Chat, Sexting & Roleplay | nsfw ai chat | Companion chat / sexting | nsfw ai chat, ai sexting, ai roleplay, dirty talk ai | active |
+| voice-calls | AI Voice & Calls | ai girlfriend voice | Voice Replies, Phone Call | ai girlfriend voice, call an ai, ai voice chat | active |
+| tools-compare | Tools & Comparisons | best ai girlfriend app | (cross-product; buyer-intent) | best ai girlfriend app, ai girlfriend alternatives, [X] vs [Y] | active |
 
-## C1 — ai-girlfriend-core  (the strongest existing footprint)
+## Planned clusters (add the parent_topic + seeds + flip to active when the product ships)
+| id | name | product/feature | status |
+|----|------|-----------------|--------|
+| interactive | Interactive / Real-time Companion | planned interactive features (live interaction, etc.) | planned |
 
-- **Hub:** `ai-girlfriend-simulator` ("ai girlfriend simulator") — the disambiguation pillar.
-- **Spokes:**
-  - `how-to-make-an-ai-girlfriend` ("how to make an ai girlfriend") — creation intent
-  - `ai-girlfriend-apps` ("ai girlfriend apps") — app-comparison intent (route currently gated)
-  - `ai-girlfriend-experience` ("ai girlfriend experience")
-  - `yandere-ai-girlfriend-simulator` ("yandere ai girlfriend simulator") — niche; 11 clk/75 imp 7d
-  - `is-having-an-ai-girlfriend-cheating` ("is having an ai girlfriend cheating") — POV/relationship
-  - `character-ai-alternative` ("character ai alternative") — competitor-alternative bridge to C2
-- **Internal-link plan:** every spoke links up to the hub with descriptive anchor; hub links down
-  to creation + safety. Gap to fill: a "best ai girlfriend apps" comparison spoke once the app route unblocks.
+> When a planned product ships: fill in `parent_topic` + `seeds`, set `status: active`, re-run the pipeline. `cluster-planner` will ALSO auto-flag any planned/uncovered product it detects from the live product set, so you get a reminder even if this file lags.
 
-## C2 — uncensored-nofilter-chat  (high commercial intent, competitive)
-
-- **Hub:** `best-uncensored-ai-chatbot-free` ("best uncensored ai chatbot") — 6 clk/17 imp 7d, pos 29.6
-- **Spokes:**
-  - `ai-chatbot-no-filter-2026` ("ai chatbot no filter") — 5 clk 7d, pos 19.8 (best ranker in cluster)
-  - `ai-chatbot-app-guide-2026` ("ai chatbot app")
-  - `tavern-ai-review-2026` ("tavern ai") — product review
-  - `crushon-ai-review-2026` ("crushon ai review") — competitor review
-  - `muah-ai-review` ("muah ai review") — competitor review
-- **Internal-link plan:** reviews link up to the hub "best uncensored" pillar; hub ranks the options.
-
-## C3 — adult-nsfw-interaction  (highest current traffic, lowest AIO risk)
-
-- **Hub:** `dirty-ai-guide-2026` ("dirty ai") — **top performer: 14 clk/245 imp 7d, pos 7.4**
-- **Spokes:**
-  - `ai-sexting-app` ("ai sexting app")
-  - (gap) "dirty talking ai" / "ai roleplay" spokes to build out — board named "dirty-talking"
-- **Note:** DataForSEO shows **no AI Overview** on these adult queries (2026-06-10) — low AIO
-  cannibalization, so click-through potential stays high. Prioritize completing this cluster.
-
-## C4 — trust-safety  (E-E-A-T spine; links into every other cluster)
-
-- **Hub:** `ai-companion-safety-checklist` ("ai companion safety checklist") — featured-snippet present on SERP
-- **Role:** the due-diligence reference every adult article links to. Not a traffic play; an
-  authority/trust signal. Keep one strong, current checklist; interlink from all clusters.
-
----
-
-## C5 — competitor-alternatives  (capture defector/migration waves; Reddit-citation play)
-
-Added 2026-06-10 from the Community Lead Phase 0 Reddit-listening handoff (PLE-1446) + GEO
-Lead briefs (PLE-1447). Intent: users actively leaving a named platform searching for "X
-alternatives". High commercial-investigation value; designed for AI-citation + organic Reddit
-mentions in recommendation threads. **Right-to-win:** honest, fair comparisons (name competitors
-truthfully — SpicyChat best-free, CrushOn budget, Nomi emotional depth) + memory differentiator +
-pricing transparency + a genuine "not predatory" stance.
-
-- **Hub (in production):** `janitorai-alternatives-2026` ("janitorai alternatives") — PLE-1451 /
-  PLE-1448#2. Live JanitorAI age-verification backlog = active acquisition window.
-- **Spokes (queued):**
-  - `how-to-choose-nsfw-ai-companion` ("how to choose an nsfw ai companion") — buying guide, PLE-1448#5
-  - bridges to C2 competitor reviews (`crushon-ai-review-2026`, `muah-ai-review`) and C1
-    (`character-ai-alternative`).
-- **HARD COMPLIANCE RAIL (content-policy Part 3):** never market "no ID / no age verification" as
-  a selling point. Age verification is mandatory under UK/EU/DE/default. Differentiate on memory,
-  value, honesty — not verification evasion. See PLE-1448 board escalation.
-
-## C6 — ai-companion-memory  (own the memory story we already win in reviews)
-
-Added 2026-06-10 (PLE-1446/PLE-1447). Memory retention is repeatedly named Pleasur.ai's top
-differentiator in independent reviews (genfindr 7.6/10 "best memory system tested"; scribehow
-"personas maintain context across conversations"). We own the story but aren't visible for the
-queries that ask about it (Google AIO cites Nomi, not us).
-
-- **Hub (in production via PLE-1449):** `ai-companion-best-memory` / memory-comparison page —
-  "best ai companion app with memory" + "which ai companion has best memory". Folds in PLE-1448#3
-  ("we compared 7 AI companions on memory retention") as the data backbone (one canonical page —
-  avoid cannibalizing the comparison intent).
-- **Spokes (queued):**
-  - `ai-companion-memory` ("ai companion memory") — how memory actually works, PLE-1448#1
-  - `why-ai-companion-forgets` ("why does my ai companion forget") — frustration search, PLE-1448#6
-- **Stat-provenance rail:** the "82% vs 33% 7-day retention" comparison is a THIRD-PARTY claim
-  (attributed to mariavibe.com) — verify-at-source-or-drop; never publish as our own benchmark.
-
----
-
-## Operating rules
-
-1. New keywords: run the keyword-research-pipeline; only cluster-tagged survivors enter the queue.
-2. Publishing cadence (4/wk cap) favors finishing C3 then C2 hubs+spokes (best near-term ROI:
-   C3 already ranks page-1 on its hub; C2 has a page-2 ranker to push).
-3. AIO: record `ai_overview_present` per keyword in the ledger; deprioritize fully-AIO-answered
-   informational terms (no-click risk). Adult/commercial terms here mostly show no AIO — favorable.
-4. Decay watch (Thu Performance Rescue): any hub/spoke losing position 2 weeks running → update pipeline.
+## Rules (the strategy this config serves — see `STRATEGY.md`)
+- **Each cluster maps to a real product/feature** (product-led; business value ≥ 2). A topic area with no product fit is not a money cluster — don't add it here.
+- **Authors are NOT owned per cluster.** The author is chosen by the article's *content type* (`examples/authors.md`); a cluster spans types → spans authors.
+- **Build winnable members first** (winnability vs our *live* DR — `cache/brand-dr.json`); expand a cluster's ambition (higher-KD members, bigger sub-topics) as DR grows.
+- **Each cluster = a keystone** (the parent_topic article) **+ a supporting ring** (sub-topics / long-tail / intent variants), internally linked, with link-juice flowing to the keystone and the money/product page.

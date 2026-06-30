@@ -20,9 +20,10 @@ tool names. Metric thresholds go through [`references/bid-method.md`](./referenc
 (Ahrefs edition) — stale Semrush/DataForSEO thresholds will silently mis-fire on Ahrefs data.
 
 Take a brand and produce a *vetted* keyword queue (`keyword-queue.csv`) ready for the autonomous
-blog loop. Lean layered chain **1a → 1b → 2 → 3 → 5**, each rejecting candidates with reasons
+blog loop. Lean layered chain **1a → 1b → 2 → 3 → 5 → 6**, each rejecting candidates with reasons
 logged, each dispatched as a fresh Agent. This is the upstream of `auto-blog-loop`; the blog loop
-reads the queue this orchestrator emits — never the raw `keyword-ideas.csv`.
+reads the queue this orchestrator emits — never the raw `keyword-ideas.csv`. Layer 6 (cluster-planner)
+organizes the ranked queue into money clusters and proposes new ones (`STRATEGY.md` §1).
 
 ## Invocation
 
@@ -124,17 +125,28 @@ Every layer MUST be an Agent dispatch.
 
    Filter pool: only rows where bid_verdict=PASS AND aio_verdict ∈ {PASS, RISKY}.
 
-   Apply the 0.4/0.3/0.3 scoring weights (traffic × brand_fit × product_fit). The only routing rule:
-     - serp_intent=tool-led → ROUTE to tool-opportunities.csv, not the writing queue
-     - gap_mode=strong → already in cache/strong-positions.csv, ignored here
-   Tie-breaker on equal priority_score: higher traffic_potential wins.
+   Apply the scoring formula + routing EXACTLY as defined in the SKILL.md — do NOT hardcode weights here, the SKILL is the source of truth (it currently uses product_fit-dominant + traffic + brand_fit + winnability-vs-our-live-DR, times a free-seeker penalty; winnability reads cache/brand-dr.json). Routing: serp_intent=tool-led → tool-opportunities.csv (not the writing queue); gap_mode=strong → already in cache/strong-positions.csv, ignored here. Tie-breaker on equal priority_score: higher traffic_potential wins.
 
    Re-rank, write top-50 to keyword-queue.csv. Tool-opportunity rows go to tool-opportunities.csv.
 
-   Return: queue size, top 10 with rank/keyword/priority_score/source/intent/gap_mode/verdicts, tool-opportunities count. Under 350 words.
+   Return: queue size, top 10 with rank/keyword/priority_score/winnability/source/intent/gap_mode/verdicts, tool-opportunities count. Under 350 words.
    ```
 
-8. **Verify each layer's output file exists** before advancing. Layer 1a: seeds.json. Layer 1b: keyword-ideas.csv (+ cache/strong-positions.csv when applicable). Layer 2/3: required columns present. Layer 5: keyword-queue.csv.
+7b. **Layer 6 — `/cluster-planner`** (Agent dispatch). Brief:
+
+   ```
+   You are running Layer 6 at {ROOT}.
+
+   Your job: organize content-pipeline/0-keywords/keyword-queue.csv into money clusters per .claude/skills/cluster-planner/SKILL.md. Read the SKILL.md first.
+
+   Read clusters.md (active clusters) + keyword-queue.csv + brand-config.md Products. Assign each queued keyword to its best cluster (else `unclustered`); per cluster pick the keystone (best WINNABLE member targeting the parent_topic) + supporting ring; add `cluster` + `role` columns to keyword-queue.csv in place. Run cluster discovery: propose NEW clusters from (a) unclustered themes with ≥3 winnable (winnability≥5) BV≥2 members and (b) LIVE products in brand-config with no cluster (skip coming-soon/roadmap). Write cluster-map.md + cluster-proposals.md. Never auto-edit clusters.md.
+
+   Return: one line per active cluster (keystone + winnability + supporting count + coverage), count of new clusters proposed, count of unclustered rows. Under 300 words.
+   ```
+
+   On failure: NON-FATAL. The flat queue is still usable; log and continue, but flag that clustering didn't run so the publish loop knows it's working an un-clustered queue.
+
+8. **Verify each layer's output file exists** before advancing. Layer 1a: seeds.json. Layer 1b: keyword-ideas.csv (+ cache/strong-positions.csv when applicable). Layer 2/3: required columns present. Layer 5: keyword-queue.csv. Layer 6: keyword-queue.csv carries `cluster`+`role` columns and `cluster-map.md` is written (non-fatal if missing — see failure handling).
 
 9. **Reporting.** When complete, output:
 
@@ -147,8 +159,9 @@ Every layer MUST be an Agent dispatch.
      ✓ 2 keyword-vet-bid  → 203 vetted, 91 PASS / 112 FAIL  (intents signal: 78%, URL-fallback: 22%)
      ✓ 3 keyword-vet-aio  → 91 checked, 71 PASS / 14 RISKY / 4 FAIL_CANNIBALIZED
      ✓ 5 prioritization   → keyword-queue.csv (top 50 ranked) + tool-opportunities.csv (12 entries)
+     ✓ 6 cluster-planner  → 5 clusters (companions: keystone "ai girlfriend", 11 supporting, healthy; …) + 2 new proposed → cluster-proposals.md
 
-   Queue ready for /auto-blog-loop.
+   Queue ready for /auto-blog-loop — cluster-organized.
    ```
 
 ## Failure handling
@@ -162,6 +175,7 @@ auto-retrying:
 - Layer 3 rate-limit (exit 75) → persist progress, exit 75; auto-blog-loop retries next cron.
 - Layer 3 fails (other) → stop (AIO check is required).
 - Layer 5 fails → stop (queue emission is the whole point).
+- Layer 6 fails → NON-FATAL (clustering is additive). Log to `cache/pipeline-failures.log` and continue — the flat ranked queue still works; the publish loop just won't have cluster/keystone context this run.
 
 The orchestrator never auto-retries — it logs the failure to
 `content-pipeline/0-keywords/cache/pipeline-failures.log` and exits.
