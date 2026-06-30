@@ -43,10 +43,13 @@ Reads:
 
    **Free-seeker check** (the conversion guardrail — see `bid-method.md` B#4): the *conversion signal is `product_fit`*, which is HIGH for genuinely useful informational, product-adjacent posts (the Ahrefs model) — do NOT add a salesy "best/review" boost. Instead flag `free_seeker` when the keyword wants the thing for free ("free", "no-filter", "uncensored", "unfiltered", "unlimited", "without paying/account") — those readers don't pay even when the product fits (the 0-paid leak). Reuse the `free_seeker` / `business_value` columns if BID already set them.
 
-   **Winnability** (0–10): can WE realistically rank this given our domain authority? (Course Lesson 3.4–3.5 — "cherry-pick the most traffic with the LEAST backlinks.") A great article on a keyword we can't rank for is publish-and-pray. Read our DR from `cache/brand-dr.json` (`brand_DR`; pleasur.ai is currently ~21). Then, from `kd` + `weak_link_count` (set by `keyword-vet-bid`'s D-test):
-   - `gap = kd − brand_DR`; tier: gap ≤ 0 → **10**; ≤ 10 → **8**; ≤ 25 → **5**; ≤ 40 → **3**; else → **1**.
+   **Winnability** (0–10): can WE realistically rank this given our **live** domain authority? (Course Lesson 3.4–3.5 — "cherry-pick the most traffic with the LEAST backlinks.") A great article on a keyword we can't rank for is publish-and-pray. Read **`cache/brand-dr.json`** — `domain_rating` (our DR) + **`max_targetable_kd`** (the hardest KD we can realistically rank for at this DR; refreshed by `scripts/refresh_brand_authority.py`, so it **MOVES as DR grows — never hardcode it**). Then, from `kd` + `weak_link_count` (set by `keyword-vet-bid`'s D-test):
+   - `kd ≤ domain_rating` → **10** (at/below our authority — trivially winnable).
+   - `domain_rating < kd ≤ max_targetable_kd` → **8 → 5** (winnable with effort; scale linearly across the band).
+   - `max_targetable_kd < kd ≤ max_targetable_kd + 15` → **3** (a reach — needs links we don't have yet).
+   - `kd > max_targetable_kd + 15` → **1** and set a `above_ceiling` flag (don't target yet; revisit when DR rises).
    - **Weak-link override:** if `weak_link_count ≥ 3`, bump up one tier (a beatable SERP with displaceable pages is winnable even at higher KD).
-   At DR 21 this makes KD-7/30 easy wins score 8–10 and KD-50+ terms score 1–3 — so the rankable wins rise and the out-of-reach big terms sink to "later, once we have links."
+   At DR 21 / `max_targetable_kd` 30 this scores KD-7 → 10, KD-30 → ~5, KD-45 → 3, KD-59 → 1 — rankable wins rise, out-of-reach terms sink. **As DR climbs, `max_targetable_kd` rises and the whole band shifts up automatically** (STRATEGY.md §2) — the strategy is never frozen.
 
 4. **Compute priority_score.** Put **product fit above traffic** (the Ahrefs model) AND **only rank what we can actually rank for** (the backlink-reality of Lesson 3), then penalize free-seekers: **`priority_score = (0.2·traffic + 0.2·brand_fit + 0.4·product_fit + 0.2·winnability) × free_seeker_penalty`**, range 0–10, where `free_seeker_penalty = 0.4` if `free_seeker` is set, else `1.0`. `product_fit` stays the dominant weight (the buying undercurrent); **`winnability` is co-weighted with traffic and brand_fit** so a high-product-fit keyword we *can't rank for yet* (KD far above our DR) loses to an easier, rankable one. No reward for salesy "best/review" phrasing — comparison posts win only on genuine `product_fit`. The result: easy, winnable, product-adjacent wins rise; out-of-reach big terms and free-seekers sink.
 5. **Add a `notes` column** with a one-line justification per keyword (why brand_fit / product_fit got that score, named product if applicable).
@@ -71,7 +74,7 @@ Updated `content-pipeline/0-keywords/keyword-ideas.csv` with:
 ## Quality checklist
 
 - [ ] Every keyword has all five new columns populated (incl. `winnability`)
-- [ ] `winnability` actually varies with KD vs our DR — high-KD terms on a DR-21 domain are NOT scoring 8+ (if they are, `brand-dr.json` wasn't read or the D-test didn't set `weak_link_count`)
+- [ ] `winnability` actually varies with KD vs our live ceiling — terms with `kd > max_targetable_kd` are NOT scoring 8+ (if they are, `brand-dr.json` wasn't read / is stale, or the D-test didn't set `weak_link_count`)
 - [ ] Top 5 keywords visibly differ in product_fit (the scoring is doing real work, not flat-rating everything)
 - [ ] At least one keyword scored 8+ on product_fit (otherwise either nothing fits the brand, or scoring is too conservative)
 - [ ] CSV opens correctly in Excel (notes column with commas is properly quoted)
