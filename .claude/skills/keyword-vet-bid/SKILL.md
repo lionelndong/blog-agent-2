@@ -32,6 +32,8 @@ Reads:
 
 1. **Resolve brand DR.** Read `cache/brand-dr.json` if < 7 days old. Otherwise call `site-explorer-domain-rating` for the brand domain (`{target:"pleasur.ai", country:"US"}` — see the cheatsheet section 6) — read the `domain_rating` field — and write `cache/brand-dr.json` with `{ "domain": "...", "domain_rating": N, "fetched_at": "ISO-8601" }`. Brand DR is the reference point for the difficulty test. (Any legacy `brand-as.json` is retired; if it lingers, delete it — its AS-shaped payload will silently mis-calibrate the gate.)
 
+   **MANDATORY — fail loud, never fall back to a bare KD cutoff.** Brand DR is the reference point for *every* difficulty decision in this run. If `cache/brand-dr.json` is absent AND the live `site-explorer-domain-rating` call fails (Ahrefs MCP/REST down), **HALT the keyword-research run** with a clear error (`brand_dr_unavailable — Ahrefs is the sole SEO source and is down; cannot calibrate difficulty`). Do **NOT** proceed by gating on KD alone (e.g. "KD ≤ 70") — KD is absolute and ignores OUR domain; a DR-21 site that "passes" a KD-50 term that way is publish-and-pray. A blind gate is worse than no gate. (As of 2026-06-29, pleasur.ai DR ≈ **21** — a young domain; the cache is pre-seeded with this value.)
+
 2. **Read brand context** for the Business potential test:
    - Audience persona + pain points
    - Live products + their use cases
@@ -103,6 +105,8 @@ Reads:
      - **Accept** if `dr_top10_median ≤ brand_DR + 12` (within striking distance)
      - **Accept** if `weak_link_count ≥ 2` (at least two pages we can displace by being better)
      - **Reject** otherwise → `difficulty_match=FAIL` reason `dr_gap_too_wide`
+
+   **This DR-relative rule IS the difficulty test — a bare `KD ≤ N` threshold is not a substitute.** KD ignores our domain; on a DR-21 site a KD-50 term is unrankable no matter that `50 < 70`. Persist `dr_top10_median`, `referring_domains_top10_median`, and `weak_link_count` on every row even when it PASSES — Layer 5 (`keyword-prioritization`) turns `kd` + `weak_link_count` (relative to brand DR) into the `winnability` score, which is what cherry-picks the easy, rankable wins to the top of the queue (course Lesson 3.4–3.5). A keyword that squeaks past this binary gate but has a wide DR gap will still rank low on winnability — that's intended.
 
 4. **Compute `bid_verdict`** per row:
    - `PASS` if all three tests pass

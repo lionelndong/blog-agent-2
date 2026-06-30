@@ -1,0 +1,10 @@
+{
+  "domain": "pleasur.ai",
+  "domain_rating": 21.0,
+  "fetched_at": "2026-06-29T23:00:00Z",
+  "source": "ahrefs_rest_v3 site-explorer/domain-rating",
+  "ahrefs_rank": 7923445,
+  "org_keywords": 12,
+  "org_traffic": 61,
+  "note": "Young/low-DR domain. The keyword-vet-bid D-test and keyword-prioritization winnability score are calibrated against this. Refresh weekly via site-explorer-domain-rating; if Ahrefs is down and this cache is stale, HALT the run rather than gating on a bare KD cutoff."
+}

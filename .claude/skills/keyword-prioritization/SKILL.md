@@ -1,6 +1,6 @@
 ---
 name: keyword-prioritization
-description: Layer 5 of the keyword research pipeline. Scores and ranks keywords that survived BID + AIO vetting with a 3-factor model (traffic × brand_fit × product_fit, weights 0.4/0.3/0.3). Routes tool-led keywords aside and drops gap_mode=strong (track-only). Emits keyword-queue.csv (the vetted queue auto-blog-loop reads) and tool-opportunities.csv.
+description: Layer 5 of the keyword research pipeline. Scores and ranks keywords that survived BID + AIO vetting with a 4-factor model (product_fit-dominant + traffic + brand_fit + winnability-vs-our-DR), times a free-seeker penalty. Routes tool-led keywords aside and drops gap_mode=strong (track-only). Emits keyword-queue.csv (the vetted queue auto-blog-loop reads) and tool-opportunities.csv.
 allowed-tools: Read, Write, Edit, Bash
 ---
 
@@ -43,7 +43,12 @@ Reads:
 
    **Free-seeker check** (the conversion guardrail — see `bid-method.md` B#4): the *conversion signal is `product_fit`*, which is HIGH for genuinely useful informational, product-adjacent posts (the Ahrefs model) — do NOT add a salesy "best/review" boost. Instead flag `free_seeker` when the keyword wants the thing for free ("free", "no-filter", "uncensored", "unfiltered", "unlimited", "without paying/account") — those readers don't pay even when the product fits (the 0-paid leak). Reuse the `free_seeker` / `business_value` columns if BID already set them.
 
-4. **Compute priority_score.** Put **product fit above traffic** (the Ahrefs model — useful, product-adjacent topics win, mostly *informational*, not salesy), then penalize free-seekers: **`priority_score = (0.2·traffic + 0.3·brand_fit + 0.5·product_fit) × free_seeker_penalty`**, range 0–10, where `free_seeker_penalty = 0.4` if `free_seeker` is set, else `1.0`. `product_fit` is the dominant weight (the buying undercurrent) and traffic the smallest; there is **no reward for salesy "best/review" phrasing** — a comparison post wins only when its `product_fit` is genuinely high. A high-volume free-seeker keyword sinks below a useful product-adjacent informational one.
+   **Winnability** (0–10): can WE realistically rank this given our domain authority? (Course Lesson 3.4–3.5 — "cherry-pick the most traffic with the LEAST backlinks.") A great article on a keyword we can't rank for is publish-and-pray. Read our DR from `cache/brand-dr.json` (`brand_DR`; pleasur.ai is currently ~21). Then, from `kd` + `weak_link_count` (set by `keyword-vet-bid`'s D-test):
+   - `gap = kd − brand_DR`; tier: gap ≤ 0 → **10**; ≤ 10 → **8**; ≤ 25 → **5**; ≤ 40 → **3**; else → **1**.
+   - **Weak-link override:** if `weak_link_count ≥ 3`, bump up one tier (a beatable SERP with displaceable pages is winnable even at higher KD).
+   At DR 21 this makes KD-7/30 easy wins score 8–10 and KD-50+ terms score 1–3 — so the rankable wins rise and the out-of-reach big terms sink to "later, once we have links."
+
+4. **Compute priority_score.** Put **product fit above traffic** (the Ahrefs model) AND **only rank what we can actually rank for** (the backlink-reality of Lesson 3), then penalize free-seekers: **`priority_score = (0.2·traffic + 0.2·brand_fit + 0.4·product_fit + 0.2·winnability) × free_seeker_penalty`**, range 0–10, where `free_seeker_penalty = 0.4` if `free_seeker` is set, else `1.0`. `product_fit` stays the dominant weight (the buying undercurrent); **`winnability` is co-weighted with traffic and brand_fit** so a high-product-fit keyword we *can't rank for yet* (KD far above our DR) loses to an easier, rankable one. No reward for salesy "best/review" phrasing — comparison posts win only on genuine `product_fit`. The result: easy, winnable, product-adjacent wins rise; out-of-reach big terms and free-seekers sink.
 5. **Add a `notes` column** with a one-line justification per keyword (why brand_fit / product_fit got that score, named product if applicable).
 6. **Sort the CSV by priority_score descending.**
 7. **Add a `rank` column** (1, 2, 3, ...) reflecting the new sort order.
@@ -58,13 +63,15 @@ Updated `content-pipeline/0-keywords/keyword-ideas.csv` with:
 - `priority_score` column (0–10)
 - `brand_fit` column (0–10)
 - `product_fit` column (0–10)
+- `winnability` column (0–10) + the `kd` / `weak_link_count` it was derived from
 - `business_value` (0–3) + `free_seeker` flag
 - `notes` column (justification)
 - `rank` column (sorted ranking)
 
 ## Quality checklist
 
-- [ ] Every keyword has all four new columns populated
+- [ ] Every keyword has all five new columns populated (incl. `winnability`)
+- [ ] `winnability` actually varies with KD vs our DR — high-KD terms on a DR-21 domain are NOT scoring 8+ (if they are, `brand-dr.json` wasn't read or the D-test didn't set `weak_link_count`)
 - [ ] Top 5 keywords visibly differ in product_fit (the scoring is doing real work, not flat-rating everything)
 - [ ] At least one keyword scored 8+ on product_fit (otherwise either nothing fits the brand, or scoring is too conservative)
 - [ ] CSV opens correctly in Excel (notes column with commas is properly quoted)
@@ -92,7 +99,7 @@ Failed candidates stay in `keyword-ideas.csv` (transparency, future re-vet) but 
 
 ### Routing on top of the scoring
 
-The `priority_score` is the re-weighted formula (`(0.2 traffic + 0.3 brand_fit + 0.5 product_fit) × free_seeker_penalty` — product fit over traffic, see step 4) — no other boosts. Column-driven routing rules apply:
+The `priority_score` is the re-weighted formula (`(0.2 traffic + 0.2 brand_fit + 0.4 product_fit + 0.2 winnability) × free_seeker_penalty` — product fit dominant, winnability co-weighted so we only queue what we can rank for, see step 4) — no other boosts. Column-driven routing rules apply:
 
 1. **`serp_intent=tool-led` → ROUTE TO `tool-opportunities.csv`**, not the writing queue. The writing pipeline never sees these.
 2. **`gap_mode=strong` → route to `content-pipeline/0-keywords/cache/strong-positions.csv`** — already won; do NOT include in `keyword-queue.csv` regardless of priority_score. (`gap_mode=missing` is the write pool; it scores on the formula with no modifier.)
@@ -118,4 +125,4 @@ In autonomous mode, do not print "Suggest running /blog-pipeline `<top keyword>`
 
 ## When the brand has no products
 
-If `brand-config.md` lists no products (it's a personal blog, agency, etc.), product_fit becomes irrelevant. Set product_fit weight to 0 and re-weight: `0.4 traffic + 0.6 brand_fit`, still applying the free-seeker penalty. Note this in the output summary.
+If `brand-config.md` lists no products (it's a personal blog, agency, etc.), product_fit becomes irrelevant. Set product_fit weight to 0 and re-weight: `(0.3 traffic + 0.4 brand_fit + 0.3 winnability) × free_seeker_penalty` — winnability stays in (the DR ceiling applies regardless of products). Note this in the output summary.
