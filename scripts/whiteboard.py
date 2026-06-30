@@ -43,16 +43,32 @@ STAGES = [
     ("reference", "Brand Reference", "brand-reference", "2-reference", "{slug}.md", "Live product features/use-cases to demonstrate + internal links", "md"),
     ("outline", "Outline", "outline", "3-outlines", "{slug}.md", "Structured H2/H3 outline with BLUFs, bound by the beat spec", "md"),
     ("annotated", "Product Mentions", "product-mentions", "4-outlines-annotated", "{slug}.md", "Outline annotated with product touchpoints", "md"),
-    ("draft", "Draft", "draft", "5-drafts", "{slug}.md", "Full article prose, anchored in examples/", "md"),
-    ("quality-check", "Quality Check", "quality-check", "quality-checks", "{slug}.md", "Completeness floors + 3-reviewer skeptical panel (no score)", "md"),
+    ("draft", "Draft", "draft", "5-drafts", "{slug}.md", "Full article prose, persona voice anchored in examples/voice/, non-salesy persona title", "md"),
+    ("squeeze", "Squeeze Max Traffic", "squeeze-max-traffic", "5-drafts", "{slug}-squeeze.md", "Lesson 5: expanded to the full keyword family + content gap (audit trail of what was added + why)", "md"),
+    ("quality-check", "Quality Check", "quality-check", "quality-checks", "{slug}.md", "Completeness floors + uniqueness gate + 3-reviewer panel (competitiveness / voice+honesty / intent+shareability) — PASS/FAIL, no score", "md"),
     ("cited", "Verify Claims", "verify-claims", "6-drafts-cited", "{slug}.md", "Claims with real source links", "md"),
-    ("visuals", "Visuals", "generate-visuals", "images/{slug}", "manifest.json", "Real screenshots + matplotlib charts (no AI image gen)", "md"),
+    ("visuals", "Visuals", "generate-visuals", "images/{slug}", "manifest.json", "Screenshots/action-shots + external captures (incl. /capture-visuals retry) + ApexCharts/diagrams/tables/covers + gated AI infographic/concept lanes", "md"),
     ("preview", "Preview", "preview", "7-preview", "{slug}.html", "Blog-styled HTML preview", "html"),
     ("publish", "Publish", "format-for-publish", "8-publish/{slug}", "article.md", "Strapi-ready markdown + JSON payload", "md"),
 ]
 
 # Stages that are part of the standard chain (used for the count: "X / Y completed")
-CORE_STAGES = {"research", "reference", "outline", "annotated", "draft", "cited", "preview"}
+CORE_STAGES = {"research", "reference", "outline", "annotated", "draft", "squeeze", "cited", "visuals", "preview"}
+
+# The upstream KEYWORD-RESEARCH layer ("the odd things" before any article exists). These are
+# company-wide files in content-pipeline/0-keywords/ (not per-slug) — surfaced on the index as a
+# debug lane so a stale/broken queue, an empty cluster map, or a drifted DR ceiling is visible at a
+# glance. Each entry: (relpath under 0-keywords, display label, what-it-is). Served via /pipeline/.
+KEYWORD_LAYER = [
+    ("clusters.md", "Clusters (config)", "Editable money-cluster config — keystone + supporting ring per topic"),
+    ("cluster-map.md", "Cluster Map", "Live keystone/supporting coverage status per active cluster"),
+    ("cluster-proposals.md", "Cluster Proposals", "Self-extension: NEW clusters the planner proposes as products grow"),
+    ("keyword-queue.csv", "Keyword Queue", "The vetted, winnable, prioritized queue articles are drawn from"),
+    ("cache/brand-dr.json", "Brand DR + KD ceiling", "Live domain rating + max_targetable_kd winnability ceiling (weekly refresh)"),
+    ("topic-graph.json", "Topic Graph", "Seed/topic relationships feeding cluster planning"),
+    ("competitor-watchlist.md", "Competitor Watchlist", "Curated competitor seeds for content-gap mining"),
+    ("trends.md", "Trends", "Trend signals feeding idea generation"),
+]
 
 
 def stage_path(slug: str, stage: dict) -> Path:
@@ -483,6 +499,50 @@ def _fmt_when(mtime: float) -> str:
     return f'{dt.strftime("%Y-%m-%d %H:%M")} · {rel}'
 
 
+def render_keyword_layer() -> str:
+    """The upstream keyword-research lane, shown once on the index (company-wide, not per-slug)."""
+    kdir = PIPELINE / "0-keywords"
+    rows = []
+    for rel, label, desc in KEYWORD_LAYER:
+        p = kdir / rel
+        exists = p.is_file()
+        when = _fmt_when(p.stat().st_mtime) if exists else "missing"
+        extra = ""
+        if exists and rel.endswith("brand-dr.json"):
+            try:
+                d = json.loads(p.read_text(encoding="utf-8"))
+                dr, kd = d.get("domain_rating"), d.get("max_targetable_kd")
+                if dr is not None and kd is not None:
+                    extra = (f' <span style="background:#2E90FA;color:#fff;border-radius:6px;'
+                             f'padding:1px 7px;font-size:11px;font-weight:600">DR {dr} &rarr; KD &le; {kd}</span>')
+            except Exception:
+                pass
+        mark = "&#10003;" if exists else "&middot;"
+        color = "#22B276" if exists else "var(--muted)"
+        if exists:
+            inner = f'<a href="/pipeline/0-keywords/{rel}" style="color:inherit">{html.escape(label)}</a>{extra}'
+        else:
+            inner = f'{html.escape(label)}{extra}'
+        rows.append(
+            '<div style="display:flex;align-items:center;gap:12px;padding:8px 12px;'
+            'border-bottom:1px solid var(--border,#23262d)">'
+            f'<span style="color:{color};width:14px;text-align:center">{mark}</span>'
+            f'<div style="flex:1"><div style="font-weight:600;font-size:13px">{inner}</div>'
+            f'<div style="color:var(--muted);font-size:12px">{html.escape(desc)}</div></div>'
+            f'<div style="color:var(--muted);font-size:12px;white-space:nowrap">{html.escape(when)}</div></div>'
+        )
+    return (
+        '<section style="margin-bottom:28px">'
+        '<h2 style="margin-top:0">Keyword Research '
+        '<span style="color:var(--muted);font-weight:400;font-size:14px">'
+        '&mdash; the upstream layer: cluster &rarr; vet &rarr; winnability &rarr; queue '
+        '(debug a stale/empty queue or drifted DR ceiling here)</span></h2>'
+        '<div style="background:var(--panel,#16181d);border:1px solid var(--border,#23262d);'
+        f'border-radius:10px;overflow:hidden">{"".join(rows)}</div>'
+        '</section>'
+    )
+
+
 def render_index(slugs: list[str]) -> str:
     if not slugs:
         body = '<div class="empty"><h2>No articles yet</h2><p>Run <code>/blog-pipeline &lt;keyword&gt;</code> in Claude Code to start one.</p></div>'
@@ -513,7 +573,7 @@ def render_index(slugs: list[str]) -> str:
 <style>{CSS}</style>
 </head><body>
 <div class="topbar">Whiteboard <span class="crumb">/</span> All articles</div>
-<div class="main">{body}</div>
+<div class="main">{render_keyword_layer()}{body}</div>
 </body></html>"""
 
 
