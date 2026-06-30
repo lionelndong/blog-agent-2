@@ -26,7 +26,7 @@ For slug `{slug}`, reads:
 ## Process
 
 1. **Read all inputs.** Restate the BEAT SPEC numbers at the top of your outline file so the draft stage sees them without re-opening the dossier.
-2. **Choose the article title.** Direct, includes the primary keyword early, under 60 characters when possible.
+2. **Set a PROVISIONAL working title.** Direct, includes the primary keyword early, under 60 chars when possible — enough to anchor the outline. The FINAL title is chosen at `/draft` step 2a (≥5 headlines brainstormed, shaped in the persona's craft, non-salesy/honest, strongest picked) — so don't over-invest here; this is a placeholder the draft stage replaces.
 3. **Write the thesis.** One sentence. The article's central argument.
 4. **Decide content type.** Follow the beat spec's format. Deviating from the modal SERP format requires an explicit justification line in the outline ("SERP is listicles; we're doing X because …") — absent that, format parity is mandatory.
 5. **Draft the H2 list — sized by the beat spec, not a fixed cap.**
