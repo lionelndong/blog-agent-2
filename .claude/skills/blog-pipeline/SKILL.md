@@ -22,7 +22,7 @@ Between every stage transition, run:
 python scripts/pipeline_gate.py <stage-key> <slug>
 ```
 
-Stage keys: `research`, `reference`, `outline`, `annotated`, `draft`, `cited`, `components`,
+Stage keys: `research`, `reference`, `outline`, `annotated`, `draft`, `squeeze`, `cited`, `components`,
 `quality`, `visuals`, `preview`, `publish`, `deliverable`. The exit code is authoritative —
 non-zero means HALT, do NOT advance. Print the stderr summary.
 
@@ -101,7 +101,7 @@ never auto-runs (editor owns the preview→publish gap).
 5. **Run the chain** (see Stage briefs):
    - **Parallel:** Stage 1 (`/research`) + Stage 2 (`/brand-reference`). Wait for both; verify
      outputs on disk; stop on either failure.
-   - **Sequential:** Stage 3 (`/outline`) → Stage 4 (`/product-mentions`) → Stage 5 (`/draft`).
+   - **Sequential:** Stage 3 (`/outline`) → Stage 4 (`/product-mentions`) → Stage 5 (`/draft`) → Stage 5b (`/squeeze-max-traffic`).
    - **Quality gate:** Stage 6 (`/quality-check`). Read the verdict.
      - **Autonomous:** on FAIL → dispatch Stage 6b targeted-revision (address every CRITICAL+HIGH
        punch-list item along its route: prose → /draft edit; structural → /outline then re-draft the
@@ -208,6 +208,20 @@ Hard requirements (these gate the save):
 Self-check before save: per-section word counts vs targets (any <80% → add concrete material from the dossier, never pad); scan for crutch repetition + uniform rhythm and fix.
 
 Return: persona chosen + byline-stamp confirmed as first line, word count vs target, section count vs outline, table Y/N, [link] count, [VISUAL] count, [GAIN] present, confirmation no forbidden phrases or out-of-slot mentions. Under 400 words.
+```
+
+### Stage 5b — Squeeze max traffic (Lesson 5 part 3)
+
+```
+You are running stage 5b at {ROOT}. Slug: {SLUG}. Brand: see brand-config.md.
+
+Your job: expand content-pipeline/5-drafts/{SLUG}.md to capture the FULL keyword family per .claude/skills/squeeze-max-traffic/SKILL.md. Read the SKILL first. This runs AFTER /draft and BEFORE /quality-check, in place on 5-drafts/{SLUG}.md, so the gate judges the squeezed draft.
+
+If content-pipeline/5-drafts/{SLUG}-squeeze.md already exists, this slug was already squeezed this run — NO-OP and return.
+
+Pull (a) the page's keyword family (parent-topic related/matching terms + the winning page's organic keywords) via Ahrefs, and (b) the Content Gap (keywords competitors rank for but we don't) by reusing /content-gap-analysis (keyword-ideas.csv + cache/competitors.json). Triage to same-intent, on-topic, SERVABLE terms; weave the worthwhile ones in as NATURAL added paragraphs/sub-sections — NOT keyword stuffing (STRATEGY.md anti-pattern #10). Preserve the persona voice, the byline first line, the [GAIN] information-gain element, and the authority element. Re-save in place to 5-drafts/{SLUG}.md; write the audit trail to 5-drafts/{SLUG}-squeeze.md. Non-fatal: if nothing worthwhile to add, NO-OP and say so.
+
+Return: keywords folded in (count + examples), sections added/expanded, confirmation byline first line + [GAIN] + voice intact — or NO-OP with reason. Under 300 words.
 ```
 
 ### Stage 6 — Quality check (the publish gate)
