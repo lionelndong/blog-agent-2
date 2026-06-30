@@ -65,7 +65,7 @@ Every article must simultaneously be:
 
 ---
 
-## The 16 things we NEVER do (anti-patterns)
+## The 17 things we NEVER do (anti-patterns)
 1. Optimize for **traffic** instead of **paying customers**.
 2. Chase the **spike of hope** / treat **viral** as a strategy.
 3. Set a **"publish N/week" quota**.
@@ -82,6 +82,7 @@ Every article must simultaneously be:
 14. **Quit promotion early** or refuse to spend on it.
 15. **Spam communities / mass-blast outreach / push for links / nag** with follow-ups.
 16. Go after **"big" keywords before we have the audience + resources** to compete.
+17. **Over-hype or oversell our own product** — inflate features, stack superlatives, imply more than is true, or hide the tradeoffs/limits. Be honest like Ahrefs (whose blog is *helpful*, not a sales page): name what the product genuinely does AND where it falls short; let the reader trust us *because* we're straight with them. Under-promise. (Extends the live-verification + "never claim video/unshipped features" truthfulness rules — honesty applies to *shipped* features too, not just unshipped ones.) **Winning =** a reader buys feeling we under-sold it, never over-hyped it.
 
 ---
 

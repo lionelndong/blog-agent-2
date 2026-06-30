@@ -145,7 +145,8 @@
 
 ## Voice
 
-- **Tone keywords:** practical, direct, evidence-led, conversational-but-not-chatty
+- **Tone keywords:** practical, direct, evidence-led, **honest**, conversational-but-not-chatty
+- **Honest, never hyped (the Ahrefs register).** We chase quality like Ahrefs — genuinely useful, not salesy. Be honest about our OWN product: name what it does well AND its real limits/tradeoffs; don't oversell, don't superlative-stack ("the best", "revolutionary"), don't imply more than is true. A reader who buys after reading should feel the article *under*-promised, not over-hyped — that honesty is what earns trust (and links). This extends the truthfulness rules (live-verify prices/features; never claim video or unshipped features) to *shipped* features too: describe them accurately, don't inflate them. (STRATEGY anti-pattern #17.)
 - **Person:** Second person ("you"), conversational
 - **Sentence length:** Short to medium. Vary rhythm. Cut every word that doesn't earn its place.
 - **Paragraph length:** 1–4 sentences. Single-sentence paragraphs are fine for emphasis.

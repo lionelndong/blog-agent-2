@@ -106,9 +106,12 @@ BEAT SPEC + top-page summaries), the draft, and 1–2 `examples/voice/` articles
 audience: {audience}. Each gets ONE lens:
 
 - **Lens A — Competitiveness:** depth, specificity, usefulness vs the winners.
-- **Lens B — Voice & readability:** does it read like the `examples/voice/` anchors (reader-felt,
+- **Lens B — Voice, readability & honesty:** does it read like the `examples/voice/` anchors (reader-felt,
   concrete, leads with the real decision) or like generic AI? Would a serious blog run it under
-  a byline?
+  a byline? **AND is it HONEST about our own product** — does it name real limits/tradeoffs instead of
+  over-hyping? A salesy, over-promising, superlative-stacked piece **fails this lens**: it reads like
+  marketing, not the trustworthy Ahrefs register, and erodes reader trust (STRATEGY #17). Flag any
+  inflated claim, missing tradeoff, or hype word.
 - **Lens C — Reader intent, information gain & shareability:** does it satisfy the searcher better
   than the SERP, and carry ≥ 1 genuine thing the top 10 don't have? **Plus a Contagious read
   (Lesson 7; `/contagious-why-things-catch-on`): would anyone actually share or link this, and which
