@@ -5,8 +5,8 @@
   "model": "max_targetable_kd = round(0.72*DR + 15), clamped [10,85]; anchored on Ahrefs course (DR~90 -> KD~80) + young-site point (DR~21 -> KD~30). DR-based on purpose; see refresh_brand_authority.py docstring.",
   "referring_domains_domain": 97,
   "best_page_referring_domains": 1,
-  "fetched_at": "2026-06-29T00:00:00Z",
-  "source": "ahrefs_rest_v3 (domain-rating + backlinks-stats + top-pages)",
+  "fetched_at": "2026-06-30T00:00:00Z",
+  "source": "ahrefs_mcp_v3 (site-explorer-domain-rating; DR 21.0 ahrefs_rank 7923445, re-confirmed 2026-06-30)",
   "note": "Winnability reads domain_rating (easy-win floor: kd<=DR) + max_targetable_kd (reach ceiling). Refresh weekly; if Ahrefs is down and this is stale, HALT rather than gate on a bare KD cutoff.",
   "diagnostics": []
 }

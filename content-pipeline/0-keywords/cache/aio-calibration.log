@@ -1,3 +1,32 @@
 2026-05-04 AIO run: 174 bid-pass scored, distribution 0-4=6 5-7=7 8-10=0, verdicts PASS=167 RISKY=7 FAIL=0
 2026-05-04 AIO run: 174 bid-pass scored, distribution 0-4=6 5-7=7 8-10=0, verdicts PASS=167 RISKY=7 FAIL=0
 2026-05-04 AIO run: 174 bid-pass scored, distribution 0-4=6 5-7=7 8-10=0, verdicts PASS=167 RISKY=7 FAIL=0
+
+[2026-06-29 PLE-3062 Layer 3 keyword-vet-aio run]
+BID-PASS rows checked: 13
+AIO-present (ai_overview in serp_features): 1 (ai girlfriend chatbot)
+No-AIO rows: 12 -> all PASS
+Scoring distribution: NOT APPLICABLE — deep-mode body fetch failed for the single AIO row.
+CALIBRATION CHECK: cannot evaluate (zero rows scored). No 8+/<=4 clustering to flag because no completeness scores were produced.
+MIS-CALIBRATION / BREAKAGE NOTES:
+ - Deep-mode body fetch impossible in EO runtime. All three sources failed for 'ai girlfriend chatbot':
+     1. brand_radar_ai_responses: Ahrefs MCP not loaded; no Brand Radar REST endpoint in rest-patterns.md.
+     2. serp_features summary: Ahrefs REST serp-overview/serp-overview has no serp_features column (API error).
+     3. WebFetch on google.com/search: CAPTCHA/consent page (blocked), NO_AIO_FOUND.
+ - Per SKILL step 4 fail-path: aio_verdict=UNKNOWN, reason=fetch_failed, treated as RISKY for queue.
+ - Presence-only default (no BLOG_AGENT_AIO_DEEP body source available) would equally mark this row RISKY (reason aio_present).
+   Net queue effect identical: 1 RISKY survivor, 12 PASS, 0 FAIL_CANNIBALIZED.
+
+[2026-06-30 PLE-3063 Layer 3 keyword-vet-aio run — PRESENCE-ONLY (BLOG_AGENT_AIO_DEEP off)]
+BID-PASS rows checked: 34
+Presence source: keywords-explorer-overview serp_features (ai_overview key). NOT serp-overview. Ahrefs MCP, 3 batches, ~408 units.
+AIO-present (ai_overview in serp_features): 4
+  - how to create an ai girlfriend (informational+commercial)
+  - interactive ai girlfriend (informational+commercial)
+  - ai girlfriend love simulator (informational+commercial)
+  - online ai girlfriend (informational+commercial)
+Exemptions applied: 0 (none tool-led; none matched the commercial-investigation "best X / X vs Y" comparison exemption — all 4 are how-to/product hybrids)
+Verdicts: PASS=30 (no ai_overview) | RISKY=4 (aio_present) | FAIL_CANNIBALIZED=0 (deep mode off, none possible)
+aio_completeness_score: blank/NA (presence-only). aio_body_source=serp_features for all rows.
+CALIBRATION CHECK: not all-one-bucket (30 PASS + 4 RISKY) -> no lenient/over-strict anomaly to flag. Scoring N/A in presence-only mode.
+NOTE: all 4 AIO-present rows cluster in the ai-girlfriend "how to / create / interactive" sub-theme — definitional/how-to queries are the most AIO-cannibalized class, as expected.

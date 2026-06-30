@@ -1,3 +1,21 @@
 2026-05-04 BID run: 218 vetted, 174 PASS (79%), brand_DR=21, dr_gap_limit=51
 2026-05-04 BID run: 218 vetted, 174 PASS (79%), brand_DR=21, dr_gap_limit=51
 2026-05-04 BID run: 218 vetted, 174 PASS (79%), brand_DR=21, dr_gap_limit=51
+
+[2026-06-29 PLE-3062 Layer2 BID validation run]
+brand_DR=21 (fresh, brand-dr.json) | thresholds: brand_fit>=4, product_fit>=3, weak<26(DR+5), dr_median<=36(DR+15), weak>=2, KD<=70
+Vetted 68 | B: 60P/8F | I: 65P/3F | D: 13P/44F (of 57 fetched) | OVERALL: 13 PASS / 55 FAIL
+Calibration: NOT all-pass/all-fail (13/68=19% pass). Gate well-calibrated; no tuning applied.
+Each FAIL reason populated >=1 (dr_gap_too_wide=44, brand_fit_below=8, serp_unavailable=2, navigational=1). Sanity OK.
+weak_link_count populated across all 57 D-fetches: min=0 median=0 max=4. All 13 PASS qualified via weak>=2 foothold (none via dr_median<=36 alone except where both held).
+Intent source: 66/68 via Ahrefs intents array (97%), 2 via fallback (empty-intent video rows -> serp_unavailable).
+Data source: Ahrefs REST v3 (MCP unavailable). REST calls: 1 test + 57 serp-overview = 58. No REST errors. No thin-DR-coverage rows.
+2026-06-29 BID run (PLE-3062, REST fallback): 68 vetted, 13 PASS (19%), brand_DR=21, dr_gap_limit=36, weak_dr_ceiling<26. B:62/6, I:65/3 (66 intents-flag / 2 fallback), D:13/48. No degenerate gate (all 3 FAIL reasons present) -> thresholds NOT adjusted. 1 row serp_unavailable_for_difficulty (best ai girlfriend app: Ahrefs returned all-null DR top10).
+
+[2026-06-30 Layer2 BID full run]
+brand_DR=21 (brand-dr.json refreshed 2026-06-30 via Ahrefs MCP site-explorer-domain-rating; DR 21.0, ahrefs_rank 7923445, max_targetable_kd 30) | thresholds: brand_fit>=4, product_fit>=3, dr_median<=36(DR+15), weak_dr_ceiling<26(DR+5) weak>=2, KD<=70, intent info/comm PASS
+Vetted 321 | B: 321P/0F | I: 320P/1F (318 intents-flag / 3 fallback, 99.1% flag share) | D: 35P/286F | OVERALL: 34 PASS / 287 FAIL (10.6%)
+Calibration: NOT all-pass/all-fail (10.6% pass) -> gate well-calibrated; NO tuning applied. Consistent with PLE-3062 run (19% on a 68-row subset).
+FAIL reasons: dr_gap_too_wide=285, serp_is_navigational=1, serp_unavailable_for_difficulty=1. All three test paths exercised; sanity OK.
+Note: B passes 100% because the candidate pool is pre-curated adult-AI keywords (all on-brand, all product-adjacent) — discriminating power lives entirely in D, by design. 33/34 PASS qualified via weak>=2 foothold (DR<26 displaceable pages); only 4 also had dr_median<=36; 1 PASS via dr_median<=36 alone (weak=1).
+Data source: Ahrefs (MCP live, verified via site-explorer-domain-rating + serp-overview; bulk 321 serp-overview fetches via Ahrefs REST v3 with AHREFS_API_KEY = same data/same 400k units pool, per cheatsheet bulk-pull guidance). 0 fetch errors. Workspace pre-run 159,278/400,000 units; ~321x50=~16k units this run.
