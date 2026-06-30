@@ -12,21 +12,25 @@
 
 ## Competitors (PINNED — keyword research source of truth)
 
-> **Read by `/content-gap-analysis` (Layer 1b) before auto-discovery.** These are vetted **subscription companion/girlfriend-app peers** — products that monetize the same way we do (paid plans for a personalized AI partner), so the keyword gap they reveal is full of topics whose searchers can become **paying** customers (Content doctrine #2: business value = product fit + a prospect who could pay). Auto-discovery picked free-uncensored plays last run (uncensored.com / venice.ai), which skewed the gap to free-seeker "uncensored / smut / unrestricted" long-tail that never converts (the "3,733 visitors, 0 paid" leak) — this pinned list is the fix. Verified live on Ahrefs 2026-06-29 (PLE-3063): every peer below has a real US organic footprint.
+> **Read by `/content-gap-analysis` (Layer 1b) before auto-discovery.** These are vetted **subscription companion/girlfriend-app peers** — products that monetize the way we do (paid plans for a personalized AI partner), so the keyword gap they reveal is full of topics whose searchers can become **paying** customers (Content doctrine #2: business value = product fit + a prospect who could pay). When this list exists, Layer 1b uses it and **skips auto-discovery** — auto-discovery picked free-uncensored plays last run (`uncensored.com` / `venice.ai`), which skewed the gap to free-seeker "uncensored / smut / unrestricted" long-tail that never converts (the "3,733 visitors, 0 paid" leak). This pinned list is the fix.
+>
+> **Vetting (cockpit re-vet, PLE-3063, 2026-06-30).** Each peer below is (a) a genuine **paid AI-companion subscription** product AND (b) a **real competitor by keyword overlap** — it ranks top-10 for a meaningful share of *our own* target keywords. "Overlap" below = the number of the 118 keyword SERPs pulled in the PLE-3062 run that the domain ranks top-10 for (the empirical "is it really a competitor" test). Footprints verified live on Ahrefs.
 
 **Use these (subscription companion/girlfriend peers):**
-- `candy.ai` — subscription AI girlfriend/companion (~184k US organic traffic, 1.1k kw)
-- `ourdream.ai` — subscription AI girlfriend/companion (~280k, 1.5k kw)
-- `nastia.ai` — direct AI companion peer (~228k, 3.3k kw)
-- `kupid.ai` — subscription AI companion (~40k, 600 kw)
-- `dreamgf.ai` — subscription AI girlfriend (~23k, 700 kw)
+- `nastia.ai` — subscription AI companion (DR 47, ~228k US traffic, 3.3k kw). **Overlap 80** — our single strongest keyword-overlap peer. (Re-vetted: it was auto-discovered alongside the free-uncensored plays last run, but unlike them it is a broad *paid-companion* competitor, not a narrow free-seeker play — keep.)
+- `candy.ai` — subscription AI girlfriend/companion (DR 77, ~184k, 1.1k kw). Overlap 25.
+- `secrets.ai` — subscription AI companion (DR 59, ~50k, 1.3k kw). Overlap 25. (We already publish a `pleasur-ai-vs-secrets-ai` comparison — added this re-vet; the prior pinned set missed it.)
+- `kupid.ai` — subscription AI companion (~40k, 600 kw). Overlap 22.
+- `ourdream.ai` — subscription AI girlfriend/companion (~280k, 1.5k kw). Overlap 10.
+- `girlfriendly.ai` — subscription AI girlfriend (DR 47, ~3k, 330 kw). Overlap 9. (Added this re-vet.)
+- `dreamgf.ai` — subscription AI girlfriend (~23k, 700 kw). Overlap 3 (smaller overlap but a clean paid peer — kept for breadth).
 
-**NEVER pin / always exclude (free-seeker or off-category — they skew the gap toward traffic that won't pay):**
-- `uncensored.com`, `venice.ai` — free/"uncensored" AI chat plays (free-seeker intent)
-- `janitorai.com` — free character-chat (huge traffic, ~0 subscription overlap)
-- AI directories / aggregators / off-topic giants: `theresanaiforthat.com`, `miniapps.ai`, `ninjachat.ai`, `flowgpt.com`, `maxai.co`, `trustpilot.com`, `steampowered.com`, `itch.io`
+**NEVER pin / always exclude — these have HIGH keyword overlap but are NOT subscription companions, so pinning them re-skews the gap toward free-seeker / off-product traffic that won't pay:**
+- `crushon.ai` (overlap 43), `spicychat.ai` (overlap 37), `character.ai` (overlap 34), `janitorai.com` (overlap 5) — **free / freemium character-chat, or SFW-mainstream** plays. They rank for many of our keywords, but they monetize on free-with-limits / ads, not a companion subscription, so seeding from them floods the candidate pool with free-seeker roleplay + SFW terms (the exact skew we're fixing). The chat-roleplay cluster is fed instead by the subscription peers above + seed-modifier expansion; any individual free-seeker keyword still hits the Layer-5 free-seeker penalty.
+- `uncensored.com`, `venice.ai`, `muah.ai` — free/"uncensored" AI plays (free-seeker intent; `muah.ai` also shows ~0 overlap with our SERPs).
+- AI directories / aggregators / off-topic giants: `theresanaiforthat.com`, `miniapps.ai`, `ninjachat.ai`, `flowgpt.com`, `maxai.co`, `trustpilot.com`, `steampowered.com`, `itch.io`.
 
-> When auto-discovery runs (no pinned list / new domains surface), apply the same lens: drop any domain whose ranking keywords are dominated by **free-seeker modifiers** (`free`, `no filter`, `uncensored`, `unfiltered`, `unlimited`, `nsfw generator`) or that is a directory/aggregator. A peer must plausibly sell a paid AI-companion subscription.
+> When auto-discovery runs (no pinned list / new domains surface), apply the same two-part lens: a peer must (a) plausibly **sell a paid AI-companion subscription** AND (b) not be dominated by **free-seeker modifiers** (`free`, `no filter`, `uncensored`, `unfiltered`, `unlimited`, `nsfw generator`) or be a directory/aggregator. High traffic/overlap alone is NOT enough — `character.ai` / `crushon.ai` / `spicychat.ai` overlap heavily yet are the wrong seed.
 
 ## Products / Features
 

@@ -1,26 +1,26 @@
 {
   "target": "pleasur.ai",
-  "resolved_at": "2026-06-29",
+  "resolved_at": "2026-06-30",
   "source": "brand_config_pinned",
   "country": "us",
-  "note": "Pinned from brand-config.md '## Competitors (PINNED)' — vetted subscription companion/girlfriend-app peers (products that monetize via paid plans, so their keyword gap is full of topics whose searchers can become PAYING customers). Replaces the 2026-06-29 auto-discovered set that included uncensored.com + venice.ai, which skewed the gap to free-seeker uncensored/smut long-tail (PLE-3063 item 2, Doctrine #2). Footprints verified live on Ahrefs site-explorer/metrics 2026-06-29.",
-  "selected_domains": ["candy.ai", "ourdream.ai", "nastia.ai", "kupid.ai", "dreamgf.ai"],
+  "note": "Pinned from brand-config.md '## Competitors (PINNED)' â€” cockpit re-vet PLE-3063 (2026-06-30). Each peer is (a) a paid AI-companion subscription product AND (b) a real competitor by keyword overlap (ranks top-10 for a meaningful share of the 118 keyword SERPs pulled in PLE-3062). Replaces the 2026-06-29 EO set {candy,ourdream,nastia,kupid,dreamgf}: kept all five, RE-VETTED nastia.ai (highest overlap=80, broad paid-companion peer, NOT a free-seeker play despite being auto-discovered with uncensored.com/venice.ai last run), and ADDED secrets.ai (overlap 25) + girlfriendly.ai (overlap 9) which the EO set missed. Excludes high-overlap-but-free plays (crushon/spicychat/character.ai/janitorai) that would re-skew the gap toward free-seeker/SFW traffic. Doctrine #2.",
+  "selected_domains": ["nastia.ai", "candy.ai", "secrets.ai", "kupid.ai", "ourdream.ai", "girlfriendly.ai", "dreamgf.ai"],
   "selected": [
-    {"competitor_domain": "candy.ai", "org_keywords": 1128, "org_traffic": 184003, "why": "subscription AI girlfriend/companion — direct paid-plan peer"},
-    {"competitor_domain": "ourdream.ai", "org_keywords": 1518, "org_traffic": 280602, "why": "subscription AI girlfriend/companion — direct paid-plan peer"},
-    {"competitor_domain": "nastia.ai", "org_keywords": 3316, "org_traffic": 227976, "why": "direct AI companion peer (previously vetted)"},
-    {"competitor_domain": "kupid.ai", "org_keywords": 601, "org_traffic": 39519, "why": "subscription AI companion — paid-plan peer"},
-    {"competitor_domain": "dreamgf.ai", "org_keywords": 716, "org_traffic": 23229, "why": "subscription AI girlfriend — paid-plan peer"}
+    {"competitor_domain": "nastia.ai", "domain_rating": 47, "org_keywords": 3311, "org_traffic": 227976, "serp_overlap": 80, "why": "subscription AI companion â€” strongest keyword overlap; broad paid-companion peer"},
+    {"competitor_domain": "candy.ai", "domain_rating": 77, "org_keywords": 1128, "org_traffic": 184003, "serp_overlap": 25, "why": "subscription AI girlfriend/companion â€” flagship paid-plan peer"},
+    {"competitor_domain": "secrets.ai", "domain_rating": 59, "org_keywords": 1256, "org_traffic": 50407, "serp_overlap": 25, "why": "subscription AI companion â€” paid peer (we publish a vs-secrets comparison)"},
+    {"competitor_domain": "kupid.ai", "domain_rating": null, "org_keywords": 601, "org_traffic": 39519, "serp_overlap": 22, "why": "subscription AI companion â€” paid-plan peer"},
+    {"competitor_domain": "ourdream.ai", "domain_rating": null, "org_keywords": 1518, "org_traffic": 280602, "serp_overlap": 10, "why": "subscription AI girlfriend/companion â€” paid-plan peer"},
+    {"competitor_domain": "girlfriendly.ai", "domain_rating": 47, "org_keywords": 330, "org_traffic": 3257, "serp_overlap": 9, "why": "subscription AI girlfriend â€” paid peer"},
+    {"competitor_domain": "dreamgf.ai", "domain_rating": null, "org_keywords": 716, "org_traffic": 23229, "serp_overlap": 3, "why": "subscription AI girlfriend â€” clean paid peer, kept for breadth"}
   ],
   "excluded_generic": [
-    "uncensored.com (free/uncensored AI chat — free-seeker intent, skewed last run)",
-    "venice.ai (uncensored AI chat/image — free-seeker intent, skewed last run)",
-    "janitorai.com (free character-chat — huge traffic, ~0 subscription overlap)",
-    "theresanaiforthat.com (AI directory/aggregator)",
-    "miniapps.ai (generic AI tools dir)",
-    "ninjachat.ai (generic chat aggregator)",
-    "flowgpt.com (prompt marketplace)",
-    "maxai.co (browser AI assistant)",
-    "scribehow.com / trustpilot.com / steampowered.com / itch.io / chicagoreader.com (off-topic)"
+    "crushon.ai (overlap 43 but free/freemium NSFW character-chat â€” not a subscription companion; re-skews gap to free-seeker roleplay)",
+    "spicychat.ai (overlap 37 but freemium character-chat â€” same reason)",
+    "character.ai (overlap 34 but SFW-mainstream free product â€” off-category + floods pool with SFW terms)",
+    "janitorai.com (overlap 5, free character-chat â€” ~0 subscription overlap)",
+    "uncensored.com / venice.ai (free/uncensored AI plays â€” free-seeker intent; original PLE-3062 skew culprits)",
+    "muah.ai (uncensored play; ~0 overlap with our SERPs)",
+    "theresanaiforthat.com / miniapps.ai / ninjachat.ai / flowgpt.com / maxai.co / trustpilot.com / steampowered.com / itch.io (directories / aggregators / off-topic giants)"
   ]
 }
