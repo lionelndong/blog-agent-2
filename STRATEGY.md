@@ -42,10 +42,11 @@ The course **busts the "publish more often" myth.** Ahrefs went from 2-3 article
 - **Mature phase:** taper new volume; shift toward **update/relaunch** (the Ahrefs steady state).
 - **Reserve ~50% of the calendar for AUDIT & RELAUNCH** of existing pieces (see the audit routine).
 
-### 4. Authorship — authors own clusters; craft, not clones
-We have AI authors (`examples/authors.md`: Sloane Avery, Theo Hart, Mateo Reyes) modeled on the **craft** of real Ahrefs writers.
-- **Each author owns a money cluster** → a consistent expert voice + **topical authority** per cluster (the byline lends authority — a real ranking and trust signal). "Who posts this?" = **the author who owns that cluster.** Add authors as clusters grow.
-- **Hard rule — craft, not content:** authors borrow Ahrefs writers' *structure, clarity, depth, and formatting*. They **never clone Ahrefs's actual articles or anyone else's.** Every piece must pass the **uniqueness gate** (#5). *(Enforced by `select-author` + the uniqueness gate.)*
+### 4. Authorship — the right craft for each content type (already built; keep it)
+We publish under 3 AI author personas (`examples/authors.md`), each modeled on a great writer's **craft** (never their topic): **Sloane Avery** (Analyst — opinion / data-benchmark / trends), **Theo Hart** (Guide — how-to / comparison / checklist; the fallback), **Mateo Reyes** (Tester — experiment / explainer / hands-on). The pipeline **already selects the persona by the article's content TYPE**, so each type gets the right craft and a consistent, credible voice (this *is* the course's authority-via-consistent-craft).
+- **"Who posts this?" = the article's content type**, decided by the existing select-by-type rule (`draft` stamps the byline, `format-for-publish` maps it to the Strapi author) — **not** the cluster. A money cluster naturally spans types → spans authors (a how-to keystone by Theo, a data study by Sloane, an experiment by Mateo).
+- **Hard rule — craft, not content (already enforced in `authors.md`):** personas imitate the *moves*, write in OUR voice, and produce **original content only** — never reuse anyone's words, examples, structure, or subject. Every piece still passes the uniqueness gate (#5).
+- **Subject-matter authority** comes not from author-cluster-ownership but from being **product-led** (we demonstrate our own tools first-hand) + our **own data** (#5 and the data-study assets).
 
 ### 5. Uniqueness — never repeat what's already been said
 **Never clone page 1.** Researching everything published and squeezing it into one article just makes a clone, and a clone doesn't deserve more attention than the original. Every article must add **≥ 1 information-gain element**: our **own data**, **first-hand testing**, a **sharper angle**, or a **180° challenge** to consensus (with real arguments). This is a **publish-blocking gate** — nothing ships without a named unique element. It also enforces #4's craft-not-clone. *(Enforced by the uniqueness/info-gain gate in the quality stage.)*
@@ -102,7 +103,7 @@ Every article must simultaneously be:
 - **#1 clusters** → `cluster-planner` (organizes the queue) + internal-linking in `format-for-publish`.
 - **#2 winnability/DR** → `keyword-vet-bid` (D-test) + `keyword-prioritization` (winnability) + weekly DR/RD-ceiling refresh.
 - **#3 cadence** → the Publish routine is **gate-driven, not quota-driven**; the Audit & Relaunch routine takes ~half the calendar.
-- **#4 authorship** → `select-author` (topic → cluster → author).
+- **#4 authorship** → existing **select-by-content-type** persona rule (`draft` byline → `format-for-publish` Strapi author); no change needed.
 - **#5 uniqueness** → blocking info-gain gate in `quality-check`.
 - **#6 spine** → BID-B (business value), intent check in `research`/SERP step, compound framing throughout.
 - **Off-page (later)** → linkable-asset generator + competitor-mining + outreach, run by the off-page sub-agent once blogs are proven.
