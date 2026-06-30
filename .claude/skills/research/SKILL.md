@@ -60,6 +60,7 @@ If invoked with no argument, read the most recent context file in `content-pipel
    `OPENROUTER_API_KEY_BLOG_AGENT` isn't set, note it in the dossier and move on — the master SERP
    benchmark from step 4 is what carries the research.
 8. **Recommend an angle.** One-sentence thesis that wins against the current SERP, with justification grounded in the benchmark's gaps + what this brand can credibly demonstrate first-hand. The angle must NOT rest on an own-product pricing/feature claim that step 6 did not confirm live (this is exactly how PLE-2320 built a false "price-concession" + "no credit meter" thesis).
+8a. **Lock the authority element (MANDATORY — Lesson 6 "be the journalist / build authority").** Every article must carry **≥ 1 authority element**, and the dossier must name it so `/outline` and `/draft` can build it in. **Primary, always-on: PRODUCT-LED first-hand authority** — name the specific own-tool capability the article will demonstrate hands-on (the thing we can SHOW because we built it), consistent with the product-led brand-reference approach already used for product mentions. **Secondary, where it fits: a credible named source** — one real expert, study, or primary source worth citing (the journalist move) when the topic supports it; record the source inline with its URL (step 6 sourcing rules apply). At least one element must be product-led; a purely third-party-cited article with no first-hand product demonstration is under-built for our brand. This element is recorded on the BEAT SPEC's `Authority element` line and usually overlaps the information-gain element (a first-hand product walkthrough is both). Do NOT manufacture a fake expert or an unsourced "studies show" — if no credible external source exists, lean fully product-led and say so.
 9. **Write the beat spec** — the dossier's final section. It is the **SERP summarized as a
    guideline** (what's ranking demands), NOT a rigid numeric contract. Ryan looks at how deep the
    ranking pages go and matches or beats them — he doesn't chase an inflated word target. Shape:
@@ -75,6 +76,7 @@ If invoked with no argument, read the most recent context file in `content-pipel
    - Must-cover topics (consensus): <bulleted list — every one becomes outline coverage>
    - Differentiation topics: <partial-coverage topics we go deeper on>
    - Information gain (≥1 REQUIRED): <the thing nobody on page 1 has — original comparison, first-hand product walkthrough, fresh data, better explanation>
+   - Authority element (≥1 REQUIRED — Lesson 6): <how this article earns trust. PRIMARILY PRODUCT-LED — name the specific own-tool we demonstrate first-hand (the first-hand-authority move), consistent with the product-led brand-reference approach; PLUS, where it fits, one credible named expert/study/primary source to cite (the journalist move). At least one must be product-led.>
    - Secondary keywords to work in naturally: <from site-explorer-organic-keywords + variations>
    - Beatability: <honest read — authority spread, content quality of incumbents>
    ```
@@ -104,6 +106,7 @@ Before saving, verify:
 - [ ] **Benchmark table computed (median/max words, modal format, table usage)**
 - [ ] **Consensus / partial / gap topics explicitly listed**
 - [ ] **BEAT SPEC section present, complete, and numerically specific**
+- [ ] **Authority element named on the BEAT SPEC (Lesson 6, step 8a): ≥1 element, at least one PRODUCT-LED (a specific own-tool we demonstrate first-hand), plus a credible named/sourced expert where it fits — no manufactured experts or unsourced "studies show"**
 - [ ] One-sentence recommended angle with justification
 - [ ] Deep-research section present (or explicit note that OpenRouter wasn't configured)
 - [ ] At least 3 verbatim user quotes when deep research ran

@@ -1,6 +1,6 @@
 ---
 name: quality-check
-description: The publish gate. Runs binary completeness floors, then a skeptical 3-reviewer panel that decides whether the article beats the live #1 result. Emits PASS/FAIL — there is no score to game. PASS is required to publish; FAIL routes a revision or quarantines.
+description: The publish gate. Runs binary completeness floors, then a publish-BLOCKING uniqueness check (≥1 named information-gain element or hard FAIL — never clone page 1), then a skeptical 3-reviewer panel that decides whether the article beats the live #1 result. Emits PASS/FAIL — there is no score to game. PASS is required to publish; FAIL routes a revision or quarantines.
 allowed-tools: Read, Write, Bash, Task
 ---
 
@@ -13,10 +13,12 @@ article and the current #1 result side by side — which one do they keep?** A p
 This gate has no 0–100 score, on purpose. A score invites gaming — a model will add numbers,
 links, and headers to clear "85" without making the article better (that is exactly how thin
 drafts used to pass at 85 while the adversarial read named five real weaknesses). Instead the
-gate is two un-gameable halves, and **both must pass**:
+gate is three un-gameable parts, and **all must pass**:
 
 1. **FLOORS** — objective completeness you can only satisfy by doing the work.
-2. **PANEL** — three skeptical reviewers who decide whether this beats what's ranking.
+2. **UNIQUENESS** — a hard, publish-BLOCKING info-gain check: the article must carry ≥ 1 *named*
+   information-gain element, or it FAILs outright (STRATEGY §5; Lesson 6 "never clone page 1").
+3. **PANEL** — three skeptical reviewers who decide whether this beats what's ranking.
 
 ## Input
 
@@ -41,6 +43,48 @@ internal tooling in the prose** (Semrush/Ahrefs/Strapi/etc.) · no forbidden phr
 **Any failed floor → the gate FAILs.** Don't run the panel on a draft that fails a floor —
 route the fix first: a missing topic or thin depth goes back to `/outline` or `/research`,
 prose problems to `/draft`.
+
+## Gate 1.5 — Uniqueness (the publish-BLOCKING info-gain gate)
+
+**STRATEGY §5 + Lesson 6 "never clone page 1": this is a hard FAIL, not a warning.** Researching
+everything on page 1 and squeezing it into one article only produces a *clone*, and a clone
+doesn't deserve to outrank the original. Before the panel runs, the reviewer must **name** at
+least one genuine **information-gain element** the article carries that the top 10 do **not**.
+This also enforces the authors' craft-not-clone / original-only rule (`examples/authors.md`
+Hard rule #2; STRATEGY §4).
+
+The element must be **one of these four** (STRATEGY §5), and must actually be *in the draft*:
+- **Our own data** — a stat, benchmark, or study we produced (e.g. a `:::methodology` + figures), not a number lifted from a competitor.
+- **First-hand product testing** — a hands-on walkthrough/experiment of our own tool (or a tool the post covers), with specifics a reader couldn't get without doing it.
+- **A sharper angle** — a genuinely better framing/explanation/synthesis the SERP lacks (not a paraphrase of the consensus take).
+- **A 180° challenge to consensus** — a defensible contrarian position, argued with real reasons, against what page 1 agrees on.
+
+**How to judge it (be skeptical, not generous):**
+1. Open the draft against the dossier's **BEAT SPEC → "Information gain"** line and the top-page
+   summaries in `1-research/{slug}.md`.
+2. Find the element in the *draft prose* and confirm it is **absent from the page-1 pages** —
+   if the top results already have it, it is table-stakes coverage, not info-gain.
+3. **Name it explicitly** in the verdict block below: which of the four types, the exact section
+   it lives in, and one sentence on why the SERP doesn't have it.
+
+**A "unique element" that is really just (a) restated consensus, (b) a generic claim with no
+data/test behind it, (c) an own-product price/feature assertion `verify-claims` hasn't confirmed
+live, or (d) something already present on page 1 — does NOT count.** When in doubt, it fails.
+
+Write the result to `quality-checks/{slug}-uniqueness.md`:
+
+```markdown
+## Uniqueness: **PASS** | **FAIL**
+- Element type: <own-data | first-hand-testing | sharper-angle | 180-challenge>
+- Where: <H2/section it lives in>
+- Why the SERP lacks it: <one sentence, grounded in the top-page summaries>
+- (on FAIL) What's missing: <the named gap; route to /research for data/testing, /outline for angle/coverage>
+```
+
+**Gate 1.5 passes iff a reviewer can NAME ≥ 1 qualifying element. Absence = FAIL.** A FAIL here
+short-circuits the gate — **do not run the panel** on an article with no information gain; route
+the fix first (new data or a hands-on pass → `/research`; a genuinely new angle/section →
+`/outline`). Never publish a clone.
 
 ## Gate 2 — Reviewer panel (the real signal)
 
@@ -71,13 +115,15 @@ tolerable; any KEEP_COMPETITOR fails the gate.
 
 Write `content-pipeline/quality-checks/{slug}.md` with the verdict line FIRST:
 
-- `## Verdict: **PASS**` — iff FLOORS_OK **and** Gate 2 passes.
-- `## Verdict: **FAIL**` — otherwise.
+- `## Verdict: **PASS**` — iff FLOORS_OK **and** Gate 1.5 (uniqueness) PASSES **and** Gate 2 passes.
+- `## Verdict: **FAIL**` — otherwise (any one of the three failing fails the article).
 
-Then: the floor-table summary, the three panel verdicts, and a **punch list** — specific fixes
-ordered by severity, each pointing at a section, each tagged with a **route**: `/draft` for
-voice/prose, `/outline` or `/research` for depth/coverage gaps (never ask `/draft` to fix a
-structural deficit).
+Then: the floor-table summary, **the named uniqueness element (or the missing-info-gain reason
+on FAIL)**, the three panel verdicts, and a **punch list** — specific fixes ordered by severity,
+each pointing at a section, each tagged with a **route**: `/draft` for voice/prose, `/outline` or
+`/research` for depth/coverage gaps **and for a missing information-gain element** (new data or a
+hands-on pass → `/research`; a new angle/section → `/outline`) — never ask `/draft` to fix a
+structural deficit or to invent info-gain.
 
 ## On FAIL
 
@@ -91,6 +137,8 @@ structural deficit).
 
 Ryan Law's quality guarantee is a human reading every article before it ships. We auto-publish,
 so the panel is that human's stand-in: three skeptics who must agree the piece wins the
-side-by-side. The floors guarantee they're judging a complete article, not a stub. Neither half
-emits a number — so there is nothing to optimize toward except actually being better than what's
-ranking.
+side-by-side. The floors guarantee they're judging a complete article, not a stub. The uniqueness
+gate (1.5) guarantees they're never asked to bless a *clone* — STRATEGY §5's rule that nothing
+ships without a named information-gain element is enforced here as a hard FAIL, so it can't be
+voted away by a polite panel. No part emits a number — so there is nothing to optimize toward
+except actually being better than, and different from, what's ranking.

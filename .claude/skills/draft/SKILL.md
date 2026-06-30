@@ -16,6 +16,7 @@ The old skill enforced numeric voice quotas (24–35-word paragraphs, em-dashes 
 
 1. **Depth.** Hit every section's word target ±20%, and the article total ±15% of the beat-spec target (restated at the top of the outline). If you finish a section 40% under target, you skipped evidence or specifics — go back to the dossier and add the missing concrete material. Never pad with abstractions to hit a number; depth = more specifics, not more words about words.
 2. **Specificity.** Every section earns its length with concrete material: named tools, real numbers (cited), steps a reader can follow, first-hand product detail, real user language from the deep-research file. A paragraph with no specific noun or number in it is a candidate for deletion.
+   - **Render the dossier's authority element (Lesson 6, REQUIRED).** The BEAT SPEC names an `Authority element` — build it in, don't drop it. **Primarily product-led:** actually demonstrate the named own-tool capability first-hand (show it working — that IS our authority), where `/product-mentions` annotated it. **Where the dossier names a credible expert/source:** cite it as a plain inline link, and use `:::expert` for an attributed named-person opinion. Never invent an expert or an unsourced "studies show" — if the dossier went fully product-led, so does the draft.
 3. **Voice from examples.** Before writing a word: read `examples/README.md`, then **2 voice articles from `examples/voice/` in full, plus the 1 structure/niche example closest to this content type**. The prose in those files is the spec. Rules below are guardrails only.
 
 ## Input
@@ -135,6 +136,7 @@ Before saving, confirm:
 - [ ] Zero forbidden phrases; zero "Furthermore/Moreover/It is important to note" openers
 - [ ] Every numerical claim cited or carrying `[link]` for verify-claims
 - [ ] Product mentions only where annotated, demonstrative
+- [ ] **Authority element rendered (Lesson 6): the dossier's named element is in the prose — product-led first-hand demonstration of the named own-tool, plus any credible cited expert/source; no invented experts or unsourced "studies show"**
 - [ ] Every `[VISUAL:]` follows `templates/visual-strategy.md`: resolvable data (chart/diagram/table point at a real `research.<key>` or authored `config=` — NO invented keys), no native-component duplication (no PNG of a stat/quote/table/callout already in a `:::` directive), value-first ~80/20 (`type=external` third-party is the default; our-product only when on-topic), **sources varied** (not all Google SERPs), **screenshot-type visuals carry `annotate=<what to point out>`** (self-evident charts/diagrams don't), spaced (none stacked)
 - [ ] Internal links from `2-reference/` woven in with descriptive anchors
 
