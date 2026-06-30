@@ -60,16 +60,26 @@ The element must be **one of these four** (STRATEGY §5), and must actually be *
 - **A 180° challenge to consensus** — a defensible contrarian position, argued with real reasons, against what page 1 agrees on.
 
 **How to judge it (be skeptical, not generous):**
-1. Open the draft against the dossier's **BEAT SPEC → "Information gain"** line and the top-page
-   summaries in `1-research/{slug}.md`.
+1. Open the draft against the dossier's **BEAT SPEC → "Information gain" / "Our-own-evidence" /
+   "Angle"** lines (the uniqueness bundle `/research` step 8a locked) and the top-page summaries
+   in `1-research/{slug}.md`.
 2. Find the element in the *draft prose* and confirm it is **absent from the page-1 pages** —
    if the top results already have it, it is table-stakes coverage, not info-gain.
-3. **Name it explicitly** in the verdict block below: which of the four types, the exact section
+3. **Demand a REAL element, not a cosmetic one.** A qualifying element is one of: **our-own-evidence**
+   (a cited aggregate PostHog/Stripe usage stat — never PII — or a genuine first-hand product test
+   with specifics, or an aggregate-safe user story), **a 180° challenge to the page-1 consensus argued
+   with real reasons**, or **a genuinely better explanation/synthesis** the SERP lacks. "We added a
+   paragraph / a section / a list the others don't have" is **NOT** info-gain on its own — neither is
+   a longer word count, more headers, or a restated take in fresh words. If the named element is just
+   *more of the same coverage*, it FAILs.
+4. **Name it explicitly** in the verdict block below: which of the four types, the exact section
    it lives in, and one sentence on why the SERP doesn't have it.
 
 **A "unique element" that is really just (a) restated consensus, (b) a generic claim with no
 data/test behind it, (c) an own-product price/feature assertion `verify-claims` hasn't confirmed
-live, or (d) something already present on page 1 — does NOT count.** When in doubt, it fails.
+live, (d) something already present on page 1, or (e) a cosmetic add — an extra paragraph/section,
+more words, or reordered consensus with no new data, test, contrarian argument, or better
+explanation behind it — does NOT count.** When in doubt, it fails.
 
 Write the result to `quality-checks/{slug}-uniqueness.md`:
 
@@ -78,6 +88,8 @@ Write the result to `quality-checks/{slug}-uniqueness.md`:
 - Element type: <own-data | first-hand-testing | sharper-angle | 180-challenge>
 - Where: <H2/section it lives in>
 - Why the SERP lacks it: <one sentence, grounded in the top-page summaries>
+- Real, not cosmetic: <one sentence — why this is genuine info-gain and NOT just an extra paragraph/more words/reordered consensus>
+- Shareability (Contagious): <which STEPPS principle(s) make it worth sharing/linking — Social currency / Emotion / Practical value / Story — or "none" if it's un-shareable (a weakness to flag)>
 - (on FAIL) What's missing: <the named gap; route to /research for data/testing, /outline for angle/coverage>
 ```
 
@@ -97,8 +109,14 @@ audience: {audience}. Each gets ONE lens:
 - **Lens B — Voice & readability:** does it read like the `examples/voice/` anchors (reader-felt,
   concrete, leads with the real decision) or like generic AI? Would a serious blog run it under
   a byline?
-- **Lens C — Reader intent & information gain:** does it satisfy the searcher better than the
-  SERP, and carry ≥ 1 genuine thing the top 10 don't have?
+- **Lens C — Reader intent, information gain & shareability:** does it satisfy the searcher better
+  than the SERP, and carry ≥ 1 genuine thing the top 10 don't have? **Plus a Contagious read
+  (Lesson 7; `/contagious-why-things-catch-on`): would anyone actually share or link this, and which
+  STEPPS does it hit — Social currency (does sharing it make the reader look smart/in-the-know?),
+  Emotion (a surprising, high-arousal finding?), Practical value (a benchmark/yardstick they'd pass
+  on?), or Story?** An article that satisfies intent but is forgettably un-shareable — nothing here
+  earns a link — is a weakness to name, because un-shareable means no off-page lift (STRATEGY Lesson 7).
+  Name the STEPPS principle(s) it hits, or flag that it hits none.
 
 Each sub-agent answers in this exact shape:
 > **VERDICT: KEEP_OURS | KEEP_COMPETITOR | TOSS_UP** — default to KEEP_COMPETITOR / TOSS_UP if

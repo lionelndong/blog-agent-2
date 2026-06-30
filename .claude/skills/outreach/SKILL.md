@@ -12,6 +12,13 @@ Outreach has a deservedly bad reputation because most of it is spam: a generic t
 
 > **Data layer (light): Ahrefs MCP** (`mcp__ahrefs__*`) — used only to identify *linkers/mentioners* and to pull the prospect's context. Read [`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) first (string params, `select`+`country`, `doc {tool:"..."}` for unfamiliar tools). The prospect list itself comes from `/linkbuild-competitor-mining`; this skill personalizes and drafts.
 
+> **When to use `/oversubscribed` (Daniel Priestley) — read it before a guest-post / link-demand push (Lesson 9).** When the goal shifts from a single link to **building demand for our guest articles** — a queue of bloggers who *want* to run our content — apply Priestley's demand>supply model (`/oversubscribed`):
+> - **Demand > supply ("pitch MORE than you can handle").** Don't pitch one editor and wait; build a *pipeline* of qualified prospects so more sites want our guest post / data study than we can place. The aim is to be **oversubscribed on guest slots** — that's what lets us pick the relevant, on-brand placements and hold standards, instead of begging any site that'll have us. (This rides on, not against, the far-right "fewer people, better" effort rule below — more *qualified* prospects, each still a real, personalized, them-focused note.)
+> - **The 7-Hour Rule (~11 educate/entertain touches before any ask).** A cold "will you run my guest post?" converts poorly. Warm the best targets first with **~7 hours / ~11 touches of genuinely useful, no-ask value** (our data studies, benchmarks, useful threads — 80/20 educate/entertain) so that by the time we propose a guest article, they already know and trust the work. **Signal, don't sell** — ask for the signal of interest, not the link.
+> - **Products-for-prospects.** Our **data studies / linkable assets ARE the products-for-prospects** — the free, high-value things that build demand and earn the right to pitch. `/linkable-asset` produces them; outreach uses them as the warming touches and the citable hook (this is exactly why **new-proof** is our strongest excuse). 
+>
+> This is a *lens for the demand-building push*, layered on top of — never replacing — the anti-spam, ≤1-follow-up, operator-gated rules below. More demand does **not** mean more volume of cold asks; it means more *warmed, qualified* prospects who want what we have.
+
 ## Input
 
 `/outreach <asset-slug>` — the linkable asset (a data study, a definitive guide, a free tool) we're earning links **for**. Reads:
@@ -79,6 +86,7 @@ We operate at the far-right end **only**. The cost of that is we contact *fewer*
 - [ ] ≤ 1 follow-up is structurally enforced via `outreach-log.csv`; no prospect can receive a 2nd nudge.
 - [ ] No draft is addressed to a suppression-list domain or an affiliate prospect owned by Alex.
 - [ ] Nothing is queued to actually send without an operator-approval step recorded.
+- [ ] **For a guest-post / link-demand push: the `/oversubscribed` lens is applied — a pipeline of qualified prospects (demand>supply), best targets warmed with ~11 no-ask value touches (7-Hour Rule) before any guest-article ask, and our data studies used as the products-for-prospects — WITHOUT increasing cold-ask volume or breaking the ≤1-follow-up / operator-gate rules.**
 
 ## DO / DON'T
 **DO**

@@ -43,6 +43,7 @@ For slug `{slug}`:
    <!-- byline: <Byline Name> | persona: <persona-slug> -->
    ```
    e.g. `<!-- byline: Sloane Avery | persona: sloane-avery -->`. `/format-for-publish` reads this line to attach the Strapi author relation, so keep the format byte-for-byte exact.
+2a. **Brainstorm ≥5 headlines, then pick the strongest (MANDATORY — Lesson 6).** Lesson 6 is blunt: *"Brainstorm at least FIVE different headlines for every article — if you won't, the article is almost guaranteed to flop."* Before you write the H1, draft **≥5 distinct headline variations** for this article (genuinely different angles/framings, not five rewordings of one). Lead each toward the dossier's locked angle + own-evidence, and pull on **Contagious** (`/contagious-why-things-catch-on`) for the hook — **Social currency** (a headline that makes the sharer look in-the-know, e.g. fronting our exclusive stat/benchmark), **curiosity / surprise** (a counter-intuitive finding), or **Emotion** (high-arousal framing). Then pick the single strongest and use it as the H1. Keep ≤ ~60 chars where the keyword allows; stay honest (no clickbait the article can't pay off). Jot the five (and the pick) in your working notes — only the winning H1 lands in the draft file. This step does **not** change the byline-first-line contract: the byline comment is still line 1, the chosen H1 still comes immediately after it.
 3. **Draft the intro** (150–200 words): hook (direct claim, surprising cited stat, opinion, or problem-naming), thesis, preview.
 4. **Draft each H2 in order:**
    - Open with the section's BLUF (or a sentence capturing the same idea)
@@ -125,6 +126,7 @@ For slug `{slug}`:
 Before saving, confirm:
 - [ ] Author persona selected from the content-type via `examples/authors.md`; drafted in that persona's craft, OUR register
 - [ ] Byline comment is the **very first line** of the file (`<!-- byline: <Name> | persona: <slug> -->`), before the H1, exact format
+- [ ] **≥5 distinct headlines brainstormed (Lesson 6), strongest chosen as the H1, hook drawn from Contagious (social currency / curiosity / emotion) — five genuinely different angles, not rewordings**
 - [ ] Read 2 voice examples + 1 structure/niche example this run (not from memory)
 - [ ] Every outline section drafted; word targets hit ±20%; total ±15% of beat-spec target
 - [ ] Listicle item count matches the outline (no compression)

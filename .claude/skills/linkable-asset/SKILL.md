@@ -91,20 +91,34 @@ If you are running autonomously, you **stop at step 1** and surface the draft pa
 
 ---
 
-## The linkbait dimensions (Lesson 7 — what makes an asset link-worthy)
+## The linkbait dimensions (Lesson 7 — what makes an asset link-worthy), mapped to Contagious STEPPS
 
-Pick the angle that our data can actually support. A study is strongest when it hits **two or more**:
+Pick the angle that our data can actually support. A study is strongest when it hits **two or more**.
+Lesson 7 names four linkbait dimensions; each maps onto a **Contagious / STEPPS** principle
+(`/contagious-why-things-catch-on`, Jonah Berger) — and STEPPS is the engineering manual for *why*
+each one earns a share/link. **The data study is our strongest linkbait, so engineer it explicitly
+for shareability:**
 
-| Dimension | What it is | Our data study version |
-|---|---|---|
-| **Numbers** | A concrete, quotable statistic people repeat | "The state of AI companions 2026: N data points from M conversations" — the headline stat IS the link |
-| **Utility** | A benchmark/reference others measure themselves against | "AI companion engagement benchmarks" — what 'normal' usage looks like, so writers cite us as the yardstick |
-| **Emotion** | A surprising / counter-intuitive finding | a trend that defies the assumption (e.g. "voice adoption outpaced text faster than anyone expected") — with the real number behind it |
-| **Stories** | A narrative the data tells over time | "How AI-companion behavior shifted across 2026" — a trend line, not a snapshot |
+| Dimension (Lesson 7) | STEPPS principle | What it is | Our data study version |
+|---|---|---|---|
+| **Numbers** | **Social currency** | A concrete, quotable statistic people repeat — and sharing an exclusive number makes the sharer look in-the-know | "The state of AI companions 2026: N data points from M conversations" — the headline stat IS the link. Our **exclusive** data is pure social currency: only we have it, so citing us signals insider knowledge. |
+| **Utility** | **Practical value** | "News you can use" — a benchmark/reference others measure themselves against | "AI companion engagement benchmarks" — what 'normal' usage looks like, so writers cite us as the yardstick. Most brand-safe, most-cited shape. |
+| **Emotion** | **Emotion** (high-arousal) | A surprising / counter-intuitive finding — arousal (surprise, awe), not mere positivity, drives sharing | a trend that defies the assumption (e.g. "voice adoption outpaced text faster than anyone expected") — with the real number behind it. Lead with the *gap* between expectation and reality. |
+| **Stories** | **Stories** (Trojan Horse) | A narrative the data tells over time, with our brand **integral** to the telling | "How AI-companion behavior shifted across 2026" — a trend line, not a snapshot; build it so the story can't be told without naming Pleasur.AI as the source (valuable virality, not a "fool in the pool"). |
 
-**Numbers + Utility** is our bread-and-butter: a *benchmark report* ("here's what typical engagement
-looks like") is the most-cited, most brand-safe shape — it's useful, it's quotable, and it positions
-Pleasur.AI as the category's data authority without a single PII risk.
+**Engineer the share, don't hope for it (STEPPS moves to apply on top of the dimension):**
+- **Inner remarkability + Social currency** — find the one genuinely *surprising* number in the data
+  and make it the headline; the more remarkable, the more it gets repeated. An exclusive stat only we
+  hold is the strongest social currency a product company has.
+- **Practical value** — frame the study as a **benchmark/yardstick** readers and writers can act on
+  and measure against; package it scannable (`:::stat` / `:::stat-group`) so the useful bit is
+  effortless to lift and cite.
+- **Brand-integral story** — if the angle is a trend, make Pleasur.AI inseparable from the finding so
+  every citation carries the brand (valuable virality).
+
+**Numbers + Utility (Social currency + Practical value)** is our bread-and-butter: a *benchmark report*
+("here's what typical engagement looks like") is the most-cited, most brand-safe shape — it's useful,
+it's quotable, and it positions Pleasur.AI as the category's data authority without a single PII risk.
 
 ---
 
@@ -209,6 +223,7 @@ Reads:
       no single-person anecdote, nothing finer than country / coarse date.
 - [ ] **Every cohort ≥ the minimum floor** (default 100); below-floor metrics suppressed + listed, not shipped.
 - [ ] Headline carries a **quotable Numbers/Utility stat**; ≥ 2 linkbait dimensions hit.
+- [ ] **Engineered for shareability via STEPPS (`/contagious-why-things-catch-on`): the surprising/exclusive number is the headline (Social currency + inner remarkability), the study reads as a citable benchmark/yardstick (Practical value), and — if a trend — the brand is integral to the story. Name which STEPPS principle(s) the study is built to hit.**
 - [ ] `:::methodology` discloses source (our product analytics), sample size, date range, definitions,
       and the explicit **aggregate-only / no-PII** note.
 - [ ] **Internal-link routing present:** links DOWN to the cluster keystone(s) + money/product page

@@ -12,6 +12,8 @@ The fastest links to win are the ones our competitors already earned: someone wh
 
 > **Data layer: Ahrefs MCP** (`mcp__ahrefs__*`). Read [`../research/references/ahrefs-mcp-cheatsheet.md`](../research/references/ahrefs-mcp-cheatsheet.md) first — params are comma-separated **strings** not JSON arrays, `select` + `country`/`mode` are required on most endpoints, and for any tool you haven't used this run call `doc {tool:"..."}` to get its exact schema. **Never invent tool names.** Ahrefs is the sole backlink source; if it's down, HALT and surface it (same outage policy as the keyword pipeline) — do not fall back to a non-Ahrefs source or guessed links.
 
+> **When to use `/oversubscribed` (Daniel Priestley) — building the demand pipeline (Lesson 9).** This skill is where the **demand>supply** discipline starts. Priestley's rule for `/outreach` is to *"pitch MORE blogs than you can handle"* — and you can only do that if this list is **deep and qualified** enough to feed it. So mine for a **surplus of relevant, vetted prospects** (a pipeline `/outreach` can warm and work), not a thin handful. The vetting bar stays exactly as below (relevance-dominant, trash-filtered, de-duped) — *oversubscribed* means more *qualified* prospects, never more noise. The prospects' linked competitor pages also tell you which of our **products-for-prospects** (data studies / linkable assets — `/linkable-asset`) will warm each one. Apply the lens here only as far as building the queue; the 7-Hour-Rule warming and the actual asks live in `/outreach`.
+
 ## Input
 
 `/linkbuild-competitor-mining` (no args), optionally `--cluster <id>` to bias relevance scoring toward one money cluster.
@@ -72,6 +74,7 @@ Reads:
 - [ ] At least one of each prospect type appears when the data supports it (a competitor with best-by-links pages should yield superfans; ≥ 2 rivals should yield power-linkers).
 - [ ] `maybe_affiliate` candidates are flagged for Alex reconciliation, not silently queued for cold outreach.
 - [ ] Each top prospect carries `competitor_evidence` (which rival page they linked) so `/outreach` can write a them-focused, specific excuse — never a generic blast.
+- [ ] **The vetted queue is deep enough to feed a demand>supply `/outreach` push (`/oversubscribed`): a surplus of *qualified, relevant* prospects (not a thin handful), with the relevance/trash/de-dupe bar fully held — more qualified prospects, never more noise.**
 
 ## DO / DON'T
 **DO**
