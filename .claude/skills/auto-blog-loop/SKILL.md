@@ -44,7 +44,7 @@ For each iteration up to `--max`:
    - BLOG_AGENT_AUTO_PUBLISH=1 (enables publishedAt=now in format-for-publish)
    - BLOG_AGENT_REVISION_BUDGET=2 (max revision passes on quality FAIL)
    
-   The orchestrator's autonomous branch will: skip stages whose output exists, run research → brand-reference → outline → product-mentions → draft, run /quality-check (the floors + 3-reviewer panel gate; binary PASS/FAIL), auto-revise on FAIL up to 2 times then quarantine, run /verify-claims → /generate-visuals (deterministic screenshots/charts only, no AI image gen) → /preview, then auto-run /format-for-publish --auto-publish.
+   The orchestrator's autonomous branch will: skip stages whose output exists, run research → brand-reference → outline → product-mentions → draft → /squeeze-max-traffic, run /quality-check (the floors + 3-reviewer panel gate; binary PASS/FAIL), auto-revise on FAIL up to 2 times then quarantine, run /verify-claims → components-lint → /generate-visuals → /capture-visuals (finish any bot-walled externals — provider-agnostic, model-neutral) → /preview, then auto-run /format-for-publish --auto-publish. (This is the canonical /blog-pipeline chain — visuals span deterministic charts/diagrams/tables + real screenshots/action-shots + external captures + the gated AI infographic/concept lanes, NOT "screenshots only".)
    
    Return: final verdict (PASS or QUARANTINED), the failed floors / panel result if any, list of stages run with paths, public Strapi URL on auto-publish, any failures. Under 500 words.
    ```
@@ -132,7 +132,7 @@ No "open in browser" or "review the preview" instructions — autonomous mode me
 0 4 * * 1 ndong cd /opt/blog-agent && doppler run -- claude -p "/auto-blog-loop --update-mode --max 1" --model claude-sonnet-4-6 >> /var/log/blog-agent.log 2>&1
 ```
 
-The `--model claude-sonnet-4-6` pin matches existing memory ("Claude-in-Chrome work always runs on Sonnet 4.6") and prevents cron drift to Opus.
+**Provider-agnostic note (the cron above is the LEGACY standalone example).** In production the engine runs via the EO's Paperclip routine on whatever adapter the EO is configured with (Claude *or* Codex) — there is no cron model pin in that path. The pipeline is designed so the model doesn't change the outcome: visuals capture is model-neutral (`/capture-visuals` uses a headed browser engine, not a Claude-only tool), and every data/gate step is deterministic. So **do NOT hardcode a model for the capture/visuals/gate work** — pin a model only if you specifically want a particular model's *prose*. The old `--model claude-sonnet-4-6` line is kept only as an illustrative standalone-cron snippet.
 
 ## When the loop should NOT run
 
