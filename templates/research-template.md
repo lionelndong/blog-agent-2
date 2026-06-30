@@ -81,6 +81,9 @@ Grouped into themes (not flat FAQ spam):
   - {{TOPIC}}
   - {{TOPIC}}
 - Differentiation topics: {{partial-coverage topics we go deeper on}}
-- Information gain (≥1 REQUIRED): {{the thing nobody on page 1 has}}
+- Information gain — the ANGLE (≥1 REQUIRED): {{the unique thesis nobody on page 1 has + its mode — NEW DATA / 180° CONTRARIAN (with arguments) / GENUINELY BETTER EXPLANATION; name the page-1 consensus take + how this departs — NOT a clone}}
+- Our-own-evidence — the uncloneable core (≥1 REQUIRED — Priceonomics): {{≥1 of: an aggregate PostHog/Stripe usage stat (AGGREGATE ONLY, never PII, sourced inline) | a first-hand product test of a named own-tool | an aggregate-safe user story — real/genuinely-tested, NEVER fabricated}}
+- Authority element (≥1 REQUIRED): {{primarily product-led — the own-tool we demonstrate first-hand; plus a credible named expert/study where it fits — at least one must be product-led}}
+- Shareability hook (REQUIRED — Contagious STEPPS): {{which STEPPS make it worth sharing/linking — Social currency / Emotion / Practical value / Story}}
 - Secondary keywords to work in naturally: {{from url_organic + variations}}
 - Beatability: {{honest read — authority spread, incumbent content quality}}
