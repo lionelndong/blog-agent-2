@@ -78,6 +78,26 @@ def arrow_bold(sx, sy, ex, ey, color, w=7, bend=0.24, hd=22):
             % (sx, sy, cx, cy, bx, by, color, w, ex, ey, h1x, h1y, h2x, h2y, color))
 
 
+# SFW pass — blur explicit img/video >= min px (keep logos/icons/labels sharp) so
+# an annotated competitor/adult surface stays publishable on our SFW blog.
+BLUR_IMAGES_JS = """
+(min) => {
+  let n = 0;
+  document.querySelectorAll('img, video').forEach(el => {
+    const r = el.getBoundingClientRect();
+    const s = ((el.currentSrc||el.src||'') + ' ' + (el.alt||'')).toLowerCase();
+    if (r.width >= min && r.height >= min && !/logo|icon|wordmark/.test(s)) {
+      const px = Math.max(26, Math.round(Math.min(r.width, r.height) / 5));
+      el.style.setProperty('filter', 'blur(' + px + 'px)', 'important');
+      el.style.setProperty('clip-path', 'inset(0)', 'important');
+      n++;
+    }
+  });
+  return n;
+}
+"""
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--url", required=True)
@@ -90,7 +110,12 @@ def main():
     ap.add_argument("--scale", type=int, default=2)
     ap.add_argument("--shot-only", action="store_true")
     ap.add_argument("--strict", action="store_true")
+    ap.add_argument("--blur-images", dest="blur_images", type=int, default=64,
+                    help="Blur img/video >= N px before capture (SFW). Default 64 (our niche is 18+).")
+    ap.add_argument("--no-blur", dest="no_blur", action="store_true",
+                    help="Disable the SFW blur (for a genuinely SFW surface).")
     a = ap.parse_args()
+    blur_images = None if a.no_blur else a.blur_images
 
     targets = json.loads(a.targets)
     base_col = COLORS.get(a.color, COLORS["blue"])
@@ -111,6 +136,15 @@ def main():
             except Exception as e:
                 print("dismiss failed:", str(e)[:100])
         pg.wait_for_timeout(1200)
+        # SFW pass before measuring/drawing: blur explicit media so the annotated
+        # shot is publishable (logos/labels stay sharp; the callout sits on top).
+        if blur_images:
+            try:
+                nb = pg.evaluate(BLUR_IMAGES_JS, blur_images)
+                pg.wait_for_timeout(250)
+                print(f"SFW blur -> {nb} media element(s) >= {blur_images}px")
+            except Exception as e:
+                print("blur failed:", str(e)[:80])
         boxes = []
         for t in targets:
             try:

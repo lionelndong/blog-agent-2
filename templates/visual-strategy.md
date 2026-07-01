@@ -131,6 +131,14 @@ An unresolvable `[VISUAL:]` loud-fails and leaves the section blank — that is 
   professional content (a hard custom-instruction + clean prompts, regenerate any drift), hide the
   conversation-list / persona side-panels that carry flirty snippets, scroll past any suggestive opener, and
   **view the final frame** to confirm it's clean before shipping. A missing shot beats a risqué one.
+  **The engine now ENFORCES this: every `type=external` and `type=screenshot` capture is AUTO-BLURRED**
+  (explicit `img`/`video` blurred in place; logos/labels/UI stay sharp) and **size-capped** (no 4,000px
+  full-page). Opt out with `blur=off` ONLY for a genuinely text/SFW surface (a pricing/FAQ page). Still your
+  job: give a **TIGHT `selector`** so the shot clips to the relevant element — a broad `body`/`main`
+  selector trips the size backstop and reads as a bad full-page grab. For a drawn **callout** (box + arrow +
+  label pointing at the one thing), use **`type=annotation`** (also auto-blurred now) with a real target
+  `selector` — the `annotate=` text on a plain `type=external`/`type=screenshot` is a written hint, NOT a
+  drawn overlay, so it will not appear on the image.
 - **Annotate SCREENSHOTS by default; leave self-evident visuals clean.** A bare screenshot is vague —
   the reader doesn't know where to look. So **most screenshots** (SERPs, our product UI, competitor UIs,
   third-party artifacts) should carry a **light annotation that POINTS OUT the one thing the screenshot
