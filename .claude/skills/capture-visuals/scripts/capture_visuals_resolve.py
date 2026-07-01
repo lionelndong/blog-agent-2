@@ -86,7 +86,7 @@ def resolve(slug: str, *, headed: bool = True) -> dict[str, Any]:
 
         try:
             result = cs.capture(url, out_path, selector=sel, crop=crop,
-                                padding=48, headed=headed)
+                                padding=48, headed=headed, block_check=True)
             # Selectors are GUESSED blind (the EO never saw the live DOM), so a
             # wrong selector on a real page is common. If the page LOADED but the
             # selector was missing (bounding_box_failed), fall back to a clean
@@ -98,7 +98,7 @@ def resolve(slug: str, *, headed: bool = True) -> dict[str, Any]:
             if (result.get("status") != "captured" and sel
                     and result.get("reason") == "bounding_box_failed"):
                 vp = cs.capture(url, out_path, selector=None, crop=crop,
-                                padding=0, headed=headed)
+                                padding=0, headed=headed, block_check=True)
                 if vp.get("status") == "captured":
                     vp["clip"] = "viewport_fallback"
                     vp["selector_missed"] = sel

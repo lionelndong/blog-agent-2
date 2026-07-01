@@ -56,6 +56,20 @@ CF_BODY_HINTS = (
     "ray id:",
 )
 
+# Bot-block / login-wall / error fingerprints (title + body). Used only when a
+# caller passes block_check=True (e.g. /capture-visuals for external sources) so
+# a block/login/404 page is NEVER presented as a real captured source. Kept
+# distinct from CF_* (those get a wait-and-retry; these are hard rejects). These
+# strings are unambiguous bot-block/login language, unlikely on our own product UI.
+_BLOCK_HINTS = (
+    "you've been blocked", "you have been blocked", "blocked by network security",
+    "access denied", "access to this page has been denied",
+    "are you a robot", "unusual traffic", "automated traffic",
+    "too many requests", "rate limited", "log in to your reddit account",
+    "enable javascript and cookies to continue", "sign in to confirm you",
+    "this page isn't available", "page not found",
+)
+
 # Realistic user agent — Playwright's default flags us as automation
 DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -324,8 +338,15 @@ def capture(
     expected_what: str | None = None,
     headed: bool = False,
     padding: int = 0,
+    block_check: bool = False,
 ) -> dict[str, Any]:
-    """Capture a screenshot. Returns a result dict for the manifest."""
+    """Capture a screenshot. Returns a result dict for the manifest.
+
+    block_check=True (opt-in; used for external/cited sources) rejects a page
+    that is a bot-block / login wall / 404 rather than capturing it, so a block
+    page is never embedded as a real cited source. Off by default so our own
+    product captures (which legitimately show login/product chrome) are unaffected.
+    """
     # Prefer patchright over playwright. Patchright is a drop-in fork that
     # patches CDP detection to bypass Cloudflare/DataDome/PerimeterX bot
     # protection. Patchright requires MINIMAL launch options — no channel,
@@ -502,6 +523,33 @@ def capture(
                     "final_url": page.url,
                     "auth_used": auth_state is not None,
                     "hint": "Cloudflare detected automation. Either refresh the auth state (cookies prove you're a returning user, which CF treats more leniently) or use a residential-IP proxy / non-headless mode for this domain.",
+                }
+
+        # Hard-reject bot-block / login-wall / 404 pages for external sources
+        # (opt-in). A block page must NEVER be embedded as a real cited source —
+        # this is the honesty fix (PLE-3077): a Reddit "you've been blocked by
+        # network security" page was being captured + embedded as a real user
+        # quote. page_title is already computed above; sample the body too.
+        if block_check:
+            try:
+                body_l = (page.inner_text("body", timeout=3_000) or "").lower()[:2000]
+            except Exception:
+                body_l = ""
+            blob = (page_title or "") + " " + body_l
+            hit = next((h for h in _BLOCK_HINTS if h in blob), None)
+            if hit:
+                _cleanup()
+                return {
+                    "status": "failed",
+                    "reason": "access_blocked",
+                    "blocked_marker": hit,
+                    "page_title": (page_title or "")[:120],
+                    "url": url,
+                    "final_url": page.url,
+                    "hint": ("Page is a bot-block / login wall / 404, not the real "
+                             "content — do NOT present it as a cited source. Use a "
+                             "residential-IP proxy or the Claude-in-Chrome backend for "
+                             "this domain, or drop the visual."),
                 }
 
         # Dismiss known blocking modals (age gate, cookie banner, etc.)
