@@ -10,7 +10,7 @@ This best AI companion apps 2026 guide compares Pleasur.ai, Replika, Character.A
 
 Start with the job you want the app to do, then test the tradeoffs before you pay.
 
-![Use case table](images/best-ai-companion-apps/table-pub-1.png)
+![Use case table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_1_4cf6044903.png)
 
 - **Adult 18+ custom companion with persistent chat history** — Pleasur.ai — Web-based custom companion creation, adult positioning, chat history continuity, image generation, and pricing on one site — Adult-focused; not a wellness or therapy app
 - **Deep non-adult memory and relationship continuity** — Nomi — Officially positions itself around short, medium, and long-term memory — Not the right fit if your priority is adult content
