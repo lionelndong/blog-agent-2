@@ -13,6 +13,14 @@ Most paragraphs get none. Never stack two visuals back-to-back — give them roo
 visuals than past posts only because those posts *missed* real value-moments — fix the misses, never
 manufacture filler.)
 
+**Calibration (this matters — we've been UNDER-visualizing).** Ahrefs runs roughly **1 visual per
+150–200 words — ~15–25 in a long guide** — because they *show nearly everything they reference*: every
+tool they name, every data point, every process, every real artifact. So a 2,500-word post with 4
+visuals is **under-visualized, not tastefully restrained.** The discipline is "no filler," NOT "few
+visuals": if a paragraph names a showable thing (a tool, a screen, a number, a process, a real example),
+that *is* a value-moment — show it. Aim to match Ahrefs' density with real, earned visuals; a sparse
+post reads thinner and less credible than the SERP winners we're trying to beat.
+
 ## 2. The trigger — value the reader can SEE
 
 Place a visual when a section does one of these **and text alone leaves value on the table**:
@@ -29,8 +37,19 @@ Pure argument, transition, or text the reader simply reads → **no visual**.
 ## 3. Value-first — mostly the reader's world, not us (~80/20)
 
 Evidence (Ahrefs audit, 107 images / 5 varied posts): **~80% of their visuals are about a third party /
-the reader's world** (competitor tools, Google SERPs, Reddit/forums, real emails, real examples) and only
-~20% their own product — and the lone self-heavy post is one literally *about* their tools.
+the reader's world** and only ~20% their own product — the lone self-heavy post is one literally *about*
+their tools.
+
+**But "third party" is NOT "Google + Reddit" — that's the mistake to avoid.** The actual Ahrefs mix:
+**screenshots of the specific tools/products/sites the post discusses ~30% + their own product ~21% +
+charts of real data ~17% + real emails/artifacts ~14% + other real websites ~8% + diagrams ~5% —
+Google SERP only ~4%, Reddit a small slice.** So the **default visual for a point is a screenshot of the
+specific thing that point is about** (the competitor app you're comparing, the exact feature you're
+explaining, the real review/artifact you reference) — or a **chart** when the point is data, or a
+**diagram** when it's a concept/flow. A **Google SERP or a Reddit/forum thread is occasional (~a few %) —
+use it ONLY when a search result or a real user's own words *is* the point, never by reflex and never as
+filler.** If most of a post's visuals are SERPs and Reddit, the type selection is wrong: go screenshot the
+actual tools, features, and artifacts instead.
 
 **Adopt this.** Unless the post is genuinely about Pleasur.AI, most visuals should show the **category /
 world** — competitor companion apps, real chat patterns, SERPs, market data, Reddit/X discussions.
@@ -68,7 +87,7 @@ art), **covers**, **demos/GIFs**, **embeds**.
 
 ## 5. The `[VISUAL:]` type catalog
 
-- `type=external;sub=reddit-comment|tweet|linkedin|news-quote|competitor-ui|serp;url=…;selector=…;crop=padded;annotate=<what to point out>` — **the workhorse.** Screenshot the real third-party thing. (Reddit comment `#t1_<id>`; tweet `article[data-testid="tweet"]`.) `annotate=` = the one thing this screenshot proves; run it through `annotate_screenshot.py`.
+- `type=external;sub=competitor-ui|reddit-comment|tweet|linkedin|news-quote|serp;url=…;selector=…;crop=padded;annotate=<what to point out>` — screenshot a real third-party thing. **Reach for it to show the SPECIFIC tool/site/artifact the point is about** (a competitor app you're comparing via `sub=competitor-ui`, a real review, a genuine forum thread) — this, alongside our-product `type=screenshot`, `type=chart`, and `type=diagram`, is where the bulk of visuals come from (see §3). **`sub=serp` and `sub=reddit-comment` are OCCASIONAL — use only when a search result or a real user's words IS the point; do NOT default to them or fill a post with them.** (Reddit comment `#t1_<id>`; tweet `article[data-testid="tweet"]`.) `annotate=` = the one thing this screenshot proves; run it through `annotate_screenshot.py`.
 - `type=screenshot;target=<product-slug>;what=…;annotate=<what to point out>` — our product, **on-topic posts only**. `annotate=` names the specific point to emphasize; realize it via `annotate_screenshot.py`.
 - `type=action-shot;url=…;goal=…;what=…;annotate=<what to point out>` — logged-in product, **SFW (blur explicit + PII)**. `annotate=` = the point the shot makes; run it through `annotate_screenshot.py`.
 - `type=chart;data=research.<KEY-THAT-EXISTS>|config=<file>;style=…;title=…` — branded chart from **real** data.
