@@ -64,8 +64,8 @@ For slug `{slug}`:
      chromium + node + bundled apexcharts/dagre — invoked as subprocesses):
      - `chart` → `render_chart_web.py` (ApexCharts headless, brand theme + real logo) — **replaces** the old matplotlib `render_chart.py`
      - `diagram` (`process`/`decision-tree`/`flowchart`/`cycle`) → `render_diagram_web.py` (dagre layout + brand card)
-     - `table` (`comparison`/`pricing-table`/`feature-table`) → `render_table_card.py` (brand table card)
-     - `cover` / `hero` → `render_cover.py` (deterministic line-art hero, 1600×900, free — never the AI cover lane)
+     - `table` (`comparison`/`pricing-table`/`feature-table`) → **DROPPED — author a NATIVE `:::` component** (`:::table`/`:::feature-matrix`/`:::decision-table`/`:::proscons`/`:::pricing`), never a PNG. (`render_table_card.py` still runs inside `/format-for-publish` for the site-renderer table→card conversion, PLEAA-567 — just not as an authored visual.)
+     - `cover` / `hero` → **`cover_hero_engine.js` (the APPROVED Ahrefs FLAT-VECTOR illustration on brand-blue) → `logo_stamp.py --no-logo --bg-color #2E90FA`**, 1600×900, needs the vision gate. AI (Replicate) — a deliberate operator override of the deterministic default, FOR COVERS. `render_cover.py` line-art is the FREE FALLBACK (no key / gen fails).
      - `annotation` → `annotate_screenshot.py --strict` (callout boxes/arrows; a missing target HARD-FAILS)
      - `screenshot` → `capture_screenshot.py` (patchright; uses `auth/state.json` if it exists)
      - `action-shot` → `action_shot.py` (deterministic retina capture + brand frame; **default** now, no paid cloud agent). Logged-in shots need the showcase session → else `manual` (`session_required`).

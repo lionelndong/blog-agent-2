@@ -850,66 +850,92 @@ def _build_table_spec(a: dict[str, str], slug: str, title: str) -> tuple[dict[st
 
 
 def _handle_table(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
-    """Table / comparison / pricing / grid → render_table_card.py (brand table card).
+    """Table / comparison / pricing / grid / feature-matrix / pros-cons →
+    NATIVE COMPONENT, never a PNG (ndong-locked rule).
 
-    Deterministic crisp text (never an image model). Spec is built from the
-    placeholder attrs: `config=`/`spec=` path, an inline `data=` spec object,
-    `data=research.<key>` resolving to a spec/rows, or `columns=A,B,C` for a
-    generic GFM table. Loud-fails (no substitution) when no usable spec exists or
-    the engine errors.
+    The blog renders native `:::` directives inline (`:::table`, `:::feature-matrix`,
+    `:::decision-table`, `:::proscons`, `:::pricing`, …) — selectable, accessible,
+    SEO-readable, responsive. A PNG of a table is ALWAYS worse. So a
+    `[VISUAL:type=table|comparison|pricing-table|feature-table]` placeholder is
+    DROPPED here (stripped from the draft, no image generated) and logged as a
+    manual TODO. Author the comparison/table as the NATIVE `:::` component in
+    `/draft` instead. (`render_table_card.py` is NOT retired — `/format-for-publish`
+    still uses it to convert an authored native table into the site's card render
+    per PLEAA-567; that compat path is untouched. It is just never an AUTHORED
+    visual placeholder.)
     """
     a = item["attrs"]
-    title = a.get("title") or a.get("what") or "Comparison"
     name = _slug(a.get("title") or a.get("what") or item["type"])
-    out_path = out_dir / f"table-{index}-{name}.png"
-
-    spec, err = _build_table_spec(a, slug, title)
-    if err is not None:
-        return {
-            "status": "failed",
-            "reason": err,
-            "filename": out_path.name,
-            "hint": (
-                "Provide the table data: columns=A,B,C with rows in data= (inline "
-                "JSON list or research.<key>), or a full spec via config=<path> / "
-                "inline data=<spec object>. See COMPARISON-TABLE.md."
-            ),
-        }
-
-    spec_file = _spec_to_tempfile(spec, out_dir, f"table-{index}")
-    cmd = [sys.executable, str(_engine_path("render_table_card.py")),
-           "--spec", str(spec_file), "--out", str(out_path)]
-    return _engine_captured(_run_engine(cmd), out_path, engine="render_table_card",
-                            extra={"table_type": spec.get("type", "table")})
+    return {
+        "status": "drop",
+        "reason": "table_is_native_component",
+        "filename": f"table-{index}-{name}.png",
+        "hint": ("Tables/comparisons are NATIVE `:::` components (`:::table` / "
+                 "`:::feature-matrix` / `:::decision-table` / `:::proscons` / "
+                 "`:::pricing`), NEVER a PNG. Remove the [VISUAL:type=table] and "
+                 "author the native component in the draft — it renders inline, "
+                 "selectable + accessible + SEO-readable. format-for-publish handles "
+                 "any site-renderer table->card conversion."),
+    }
 
 
 def _handle_cover(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:
-    """Cover / hero → render_cover.py (deterministic line-art, free, no AI).
+    """Cover / hero → cover_hero_engine.js (the APPROVED Ahrefs FLAT-VECTOR
+    illustration: bold uniform navy outlines, flat fills, a friendly cartoon SFW
+    scene of the topic on brand-blue, no text on the image) → logo_stamp.py
+    (--no-logo, bg locked to #2E90FA). ndong picked this over the designed line-art
+    card — a deliberate operator OVERRIDE of the deterministic default, FOR COVERS.
+    `title` required (defaults to `what`); `scene` = the creative variable (the whole
+    game — derived from the title if absent); `bg` (blue|white, default blue). Every
+    AI cover owes the VISUAL-CRITIQUE-LOOP vision gate (flagged needs_vision_gate).
 
-    The article featured image (1600×900). We route to the free deterministic
-    engine (render_cover.py) — never the AI cover lane — so the auto-pipeline
-    stays cost-free and SFW. `title` is required (defaults to the article title via
-    `what`); `theme` (light|dark|bold|aurora), `accent`, `eyebrow`/`subtitle`,
-    `icon`, `motif` map straight to flags. `content=<path>` (a cover JSON) wins.
+    The deterministic line-art render_cover.py is the FREE FALLBACK, used ONLY when
+    REPLICATE_API_KEY is absent or the AI gen/stamp fails — a bad cover never ships.
     """
     a = item["attrs"]
     name = _slug(a.get("title") or a.get("what") or slug)
     out_path = out_dir / f"cover-{index}-{name}.png"
-    cmd = [sys.executable, str(_engine_path("render_cover.py")), "--out", str(out_path)]
-
+    title = a.get("title") or a.get("what")
     content = a.get("content")
+    if not title and not content:
+        return {"status": "failed", "reason": "cover_requires_title",
+                "filename": out_path.name,
+                "hint": "Add title= (or what=) — the cover needs the article title."}
+
+    # --- PRIMARY: the approved Ahrefs flat-vector AI cover (gen -> stamp -> gate) ---
+    if os.environ.get("REPLICATE_API_KEY") and title:
+        raw = out_dir / f".cover-{index}-{name}.raw.png"
+        cj = out_dir / f".cover-{index}-{name}.json"
+        cover_content = {"title": title, "bg": (a.get("bg") or "blue")}
+        if a.get("scene"):
+            cover_content["scene"] = a["scene"]
+        cj.write_text(json.dumps(cover_content), encoding="utf-8")
+        gen = _run_engine([_node_bin(), str(_engine_path("cover_hero_engine.js")),
+                           "--content", str(cj), "--out", str(raw)])
+        cj.unlink(missing_ok=True)
+        if gen["ok"] and raw.exists() and raw.stat().st_size > 0:
+            stamp = _run_engine([sys.executable, str(_engine_path("logo_stamp.py")),
+                                 "--no-logo", "--bg-color", "#2E90FA",
+                                 "--in", str(raw), "--out", str(out_path)])
+            raw.unlink(missing_ok=True)
+            if stamp["ok"] and out_path.exists() and out_path.stat().st_size > 0:
+                return {"status": "captured", "path": _rel_to_root(out_path),
+                        "engine": "cover_hero_engine+logo_stamp",
+                        "needs_vision_gate": True}
+        raw.unlink(missing_ok=True)  # AI path failed -> deterministic fallback below
+
+    # --- FALLBACK: free deterministic line-art cover (no REPLICATE key / AI failed) ---
+    cmd = [sys.executable, str(_engine_path("render_cover.py")), "--out", str(out_path)]
     if content:
         content_path = (ROOT / content) if not os.path.isabs(content) else Path(content)
-        if not content_path.exists():
+        if content_path.exists():
+            cmd += ["--content", str(content_path)]
+        elif title:
+            cmd += ["--title", title]
+        else:
             return {"status": "failed", "reason": f"cover_content_missing:{content}",
                     "filename": out_path.name}
-        cmd += ["--content", str(content_path)]
     else:
-        title = a.get("title") or a.get("what")
-        if not title:
-            return {"status": "failed", "reason": "cover_requires_title",
-                    "filename": out_path.name,
-                    "hint": "Add title= (or what=) — the cover needs the article title."}
         cmd += ["--title", title]
         if a.get("eyebrow"):
             cmd += ["--eyebrow", a["eyebrow"]]
@@ -923,8 +949,7 @@ def _handle_cover(item: dict[str, Any], slug: str, index: int, out_dir: Path) ->
             cmd += ["--icon", a["icon"]]
         if a.get("motif"):
             cmd += ["--motif", a["motif"]]
-
-    return _engine_captured(_run_engine(cmd), out_path, engine="render_cover")
+    return _engine_captured(_run_engine(cmd), out_path, engine="render_cover_fallback")
 
 
 def _handle_annotation(item: dict[str, Any], slug: str, index: int, out_dir: Path) -> dict[str, Any]:

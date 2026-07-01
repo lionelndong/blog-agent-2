@@ -275,8 +275,8 @@ VISUALS ARE ON (BLOG_AGENT_VISUALS=on by default). Run the dispatcher; it realiz
 (DISPLAY=:99 must be set for the headless-browser engines — the container has it.)
 
 Engines (all run in the container; full interface in .claude/skills/generate-visuals/SKILL.md + the per-type recipe docs):
-  chart -> render_chart_web.py | diagram -> render_diagram_web.py | table/comparison -> render_table_card.py |
-  cover -> render_cover.py | annotation -> annotate_screenshot.py --strict | screenshot -> capture_screenshot.py |
+  chart -> render_chart_web.py | diagram -> render_diagram_web.py | table/comparison -> DROPPED (author a NATIVE ::: component, never a PNG) |
+  cover -> cover_hero_engine.js (Ahrefs flat-vector) + logo_stamp (render_cover.py line-art = fallback only) | annotation -> annotate_screenshot.py --strict | screenshot -> capture_screenshot.py |
   action-shot -> action_shot.py | external -> capture_screenshot.py | demo/gif -> animate_demo.py |
   infographic -> infographic_engine.js + composite_logo.py | concept-illustration -> concept_illustration_engine.js.
   (type=image is retired/dropped; type=card uses native blog components and is skipped.)
