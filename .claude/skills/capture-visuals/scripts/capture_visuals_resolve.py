@@ -80,13 +80,18 @@ def resolve(slug: str, *, headed: bool = True) -> dict[str, Any]:
         url = attrs.get("url")
         sel = attrs.get("selector") or None
         crop = cs._parse_crop(attrs.get("crop")) if attrs.get("crop") else None
+        # SFW blur (our niche is 18+; externals are competitor/adult sites) + a
+        # height backstop so we never ship a 4000px full-page. Opt out with blur=off.
+        _blur = str(attrs.get("blur", "")).strip().lower()
+        blur_images = None if _blur in {"off", "0", "false", "no"} else (int(_blur) if _blur.isdigit() else 64)
         index = entry.get("index") or (entries.index(entry) + 1)
         name = gv._slug(attrs.get("what") or attrs.get("sub") or "external")
         out_path = out_dir / f"external-{index}-{name}.png"
 
         try:
             result = cs.capture(url, out_path, selector=sel, crop=crop,
-                                padding=48, headed=headed, block_check=True)
+                                padding=48, headed=headed, block_check=True,
+                                blur_images=blur_images, max_height=3600)
             # Selectors are GUESSED blind (the EO never saw the live DOM), so a
             # wrong selector on a real page is common. If the page LOADED but the
             # selector was missing (bounding_box_failed), fall back to a clean
@@ -98,7 +103,8 @@ def resolve(slug: str, *, headed: bool = True) -> dict[str, Any]:
             if (result.get("status") != "captured" and sel
                     and result.get("reason") == "bounding_box_failed"):
                 vp = cs.capture(url, out_path, selector=None, crop=crop,
-                                padding=0, headed=headed, block_check=True)
+                                padding=0, headed=headed, block_check=True,
+                                blur_images=blur_images, max_height=3600)
                 if vp.get("status") == "captured":
                     vp["clip"] = "viewport_fallback"
                     vp["selector_missed"] = sel

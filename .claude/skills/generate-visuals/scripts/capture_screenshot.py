@@ -70,6 +70,27 @@ _BLOCK_HINTS = (
     "this page isn't available", "page not found",
 )
 
+# SFW pass: blur explicit <img>/<video> tiles in place (keep UI text/labels/logos
+# sharp) so a competitor/adult-site or our-own-product capture is publishable on
+# our SFW public blog. Targets media >= `min` px; skips logos/icons/wordmarks;
+# clip-path contains the blur to the box. (Same mechanism as action_shot.py.)
+BLUR_IMAGES_JS = """
+(min) => {
+  let n = 0;
+  document.querySelectorAll('img, video').forEach(el => {
+    const r = el.getBoundingClientRect();
+    const s = ((el.currentSrc||el.src||'') + ' ' + (el.alt||'')).toLowerCase();
+    if (r.width >= min && r.height >= min && !/logo|icon|wordmark/.test(s)) {
+      const px = Math.max(26, Math.round(Math.min(r.width, r.height) / 5));
+      el.style.setProperty('filter', 'blur(' + px + 'px)', 'important');
+      el.style.setProperty('clip-path', 'inset(0)', 'important');
+      n++;
+    }
+  });
+  return n;
+}
+"""
+
 # Realistic user agent — Playwright's default flags us as automation
 DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -339,6 +360,8 @@ def capture(
     headed: bool = False,
     padding: int = 0,
     block_check: bool = False,
+    blur_images: int | None = None,
+    max_height: int | None = None,
 ) -> dict[str, Any]:
     """Capture a screenshot. Returns a result dict for the manifest.
 
@@ -632,6 +655,18 @@ def capture(
             except Exception:
                 pass
 
+        # SFW pass (opt-in via blur_images): blur explicit image/video tiles in
+        # place so a competitor / adult-site / our-own-product capture is
+        # publishable on our SFW public blog (logos/icons/labels stay sharp).
+        # Applied right before capture so late-loading media is caught too.
+        if blur_images:
+            try:
+                nblur = page.evaluate(BLUR_IMAGES_JS, blur_images)
+                page.wait_for_timeout(250)  # let the blur paint
+                sys.stderr.write(f"info: SFW blur applied to {nblur} media element(s) >= {blur_images}px\n")
+            except Exception as exc:
+                sys.stderr.write(f"warning: blur_images failed: {exc}\n")
+
         # Capture: prefer element-clipped > manual crop > viewport
         try:
             if selector:
@@ -726,6 +761,21 @@ def capture(
 
         _cleanup()
 
+    # Cap runaway full-page captures: a whole-homepage scroll (e.g. 4000px tall)
+    # reads as a bad, oversized screenshot on a blog. If the saved image is taller
+    # than max_height output px, crop to the top max_height so it stays a sensible,
+    # blog-usable size. (A tight selector avoids this entirely; this is a backstop.)
+    _height_capped = False
+    if max_height and out_path.exists():
+        try:
+            from PIL import Image
+            with Image.open(out_path) as _im:
+                if _im.height > max_height:
+                    _im.crop((0, 0, _im.width, max_height)).save(out_path, format="PNG")
+                    _height_capped = True
+        except Exception:
+            pass
+
     # Heuristic quality checks (relaxed when caller specified an explicit selector)
     quality = _check_quality(
         out_path,
@@ -757,6 +807,11 @@ def capture(
     }
     if quality["status"] == "suspect":
         result["needs_review"] = True
+    if _height_capped:
+        result["needs_review"] = True
+        result["height_capped"] = max_height
+    if blur_images:
+        result["blurred"] = True
 
     # Optional vision validation (costs money; only run if explicitly asked)
     if validate and expected_what:

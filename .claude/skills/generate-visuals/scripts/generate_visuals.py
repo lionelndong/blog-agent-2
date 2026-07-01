@@ -304,15 +304,39 @@ def _capture_with_playwright(
     validate = (a.get("validate") or "").lower() in {"1", "true", "yes"} or bool(
         os.environ.get("VISUAL_VALIDATION", "").lower() in {"1", "true", "yes"}
     )
+    # SFW: our niche is 18+, so blur explicit image/video media on external +
+    # product captures by DEFAULT (competitor/adult sites and our own create/
+    # explore surfaces show explicit art). Opt out per-placeholder with blur=off
+    # for a genuinely SFW shot (a text/pricing page), or blur=<px> to tune.
+    _blur = str(a.get("blur", "")).strip().lower()
+    if _blur in {"off", "0", "false", "no"}:
+        blur_images = None
+    elif _blur.isdigit():
+        blur_images = int(_blur)
+    else:
+        blur_images = 64
+    # Backstop against runaway full-page captures (a broad `body`/`main` selector
+    # gives a 4000px scroll that reads as a bad screenshot). Tight selectors avoid it.
+    try:
+        max_height = int(a.get("max_height") or 3600)
+    except (TypeError, ValueError):
+        max_height = 3600
+    # `annotate` on a screenshot/external placeholder is a free-text HINT (what to
+    # point out), NOT a CSS selector — only hand it to capture()'s highlighter when
+    # it actually looks like a selector, otherwise it silently no-ops or errors.
+    _ann = a.get("annotate")
+    _ann_sel = _ann if (_ann and _ann[:1] in "#.[") else None
     result = module.capture(
         url,
         out_path,
         selector=a.get("selector"),
         crop=crop,
-        annotate_selector=a.get("annotate"),
+        annotate_selector=_ann_sel,
         validate=validate,
         expected_what=a.get("what"),
         padding=padding,
+        blur_images=blur_images,
+        max_height=max_height,
     )
     result["url"] = url
     if crop_directive_ignored:
