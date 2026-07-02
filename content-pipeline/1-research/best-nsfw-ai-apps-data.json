@@ -1,0 +1,26 @@
+{
+  "keyword": "best nsfw ai apps",
+  "observed_date": "2026-07-02",
+  "source": "Ahrefs REST v3, country=us",
+  "metrics": {
+    "volume": 90,
+    "difficulty": 11,
+    "cpc": 110,
+    "parent_topic": "best nsfw ai chat app",
+    "traffic_potential": 40,
+    "intents": ["informational", "commercial"],
+    "serp_features": ["snippet", "sitelink"]
+  },
+  "serp": [
+    {"position": 1, "url": "https://aicompanionguides.com/blog/best-nsfw-ai-chat-apps-2026/", "domain_rating": 11, "url_rating": 5},
+    {"position": 3, "url": "https://zencreator.pro/ai-university/guides/uncensored-ai-app-guide", "domain_rating": 33, "url_rating": 4},
+    {"position": 4, "url": "https://www.nastia.ai/nsfw-ai-chat", "domain_rating": 47, "url_rating": 8},
+    {"position": 5, "url": "https://adult-ai-chatbot.firstory.io/", "domain_rating": 65, "url_rating": 4}
+  ],
+  "beat_spec": {
+    "target_word_count": 2200,
+    "item_count": 9,
+    "comparison_table_required": true,
+    "information_gain": "paid-customer filter rubric"
+  }
+}
