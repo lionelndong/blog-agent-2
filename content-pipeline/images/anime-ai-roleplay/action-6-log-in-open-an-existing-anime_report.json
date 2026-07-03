@@ -1,0 +1,18 @@
+{
+  "preset": "chat",
+  "url": "https://pleasur.ai",
+  "final_url": "https://pleasur.ai/",
+  "auth_required": true,
+  "auth_used": true,
+  "login_redirect": false,
+  "selector": null,
+  "frame": "device",
+  "caption": "A conversation with an AI companion on Pleasur.AI",
+  "viewport": {
+    "width": 430,
+    "height": 932
+  },
+  "sfw": true,
+  "raw_dims": null,
+  "steps_ran": 2
+}

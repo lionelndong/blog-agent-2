@@ -1,0 +1,74 @@
+{
+  "_meta": {
+    "keyword": "anime ai roleplay",
+    "slug": "anime-ai-roleplay",
+    "country": "US",
+    "source": "Ahrefs MCP (keywords-explorer-overview / matching-terms / serp-overview), pulled 2026-06-30; SERP page content via Firecrawl; pricing/create via live first-party fetch",
+    "notes": "Volumes in monthly US searches; KD = Ahrefs keyword difficulty (0-100). Reddit thread bodies not extractable (blocked)."
+  },
+  "primary_keyword_metrics": {
+    "volume_us": 60,
+    "global_volume": 90,
+    "keyword_difficulty": 26,
+    "parent_volume_ai_character_chat_free": 9800,
+    "traffic_potential": 13000
+  },
+  "keyword_family_volume_us": {
+    "ai_chat_anime": 2300,
+    "ai_anime_chat": 1900,
+    "anime_ai_chat": 1900,
+    "anime_chat_ai": 800,
+    "ai_anime_character_generator": 700,
+    "ai_anime_character": 600,
+    "ai_generated_anime_character": 300,
+    "ai_chat_anime_free": 250,
+    "best_ai_anime_chat": 150,
+    "anime_chat_ai_waifu_chatbot": 150,
+    "ai_anime_girlfriend_chat": 150,
+    "anime_ai_roleplay": 60
+  },
+  "keyword_difficulty_by_term": {
+    "anime_ai_roleplay": 26,
+    "anime_chat_ai_waifu_chatbot": 15,
+    "anime_character_ai_voice": 0,
+    "best_ai_anime_chat": 38,
+    "ai_anime_girlfriend_chat": 42,
+    "anime_ai_chat": 67,
+    "ai_anime_chat": 62,
+    "ai_chat_anime": 56
+  },
+  "serp_benchmark": {
+    "real_editorial_articles_on_page1": 1,
+    "tool_or_app_pages_on_page1": 7,
+    "reddit_discussion_threads_on_page1": 2,
+    "only_article_word_count": 1800,
+    "only_article_item_count_apps": 7,
+    "pages_with_comparison_table": 0,
+    "pages_with_handson_screenshots": 0,
+    "target_word_count": 1900,
+    "target_apps_compared": 7
+  },
+  "serp_top_traffic_estimates": {
+    "app_store_listing_pos1": 21,
+    "cycleai_pos2": 241,
+    "emochi_pos3": 7128,
+    "pinku_pos4": 2640,
+    "goombastomp_article_pos9": 2
+  },
+  "pleasurai_pricing_usd_monthly": {
+    "starter": 12.99,
+    "standard": 27.99,
+    "ultimate": 49.99,
+    "_source": "https://pleasur.ai/pricing (fetched 2026-06-30)"
+  },
+  "pleasurai_coin_allowance_monthly": {
+    "starter": 1500,
+    "standard": 5000,
+    "ultimate": 10000
+  },
+  "pleasurai_coin_costs": {
+    "ai_image": 10,
+    "voice_note": 10,
+    "phone_call_per_min": 50
+  }
+}

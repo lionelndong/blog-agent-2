@@ -1,0 +1,229 @@
+{
+  "slug": "anime-ai-roleplay",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "serp",
+        "url": "https://www.google.com/search?q=anime+ai+roleplay",
+        "selector": "#search",
+        "crop": "padded",
+        "what": "the \"anime ai roleplay\" results are app-store listings and product pages, not a single real guide",
+        "annotate": "the stacked app-store and product listings where a real how-to guide should be"
+      },
+      "alt": "the \"anime ai roleplay\" results are app-store listings and product pages, not a single real guide",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/anime-ai-roleplay/external-1-the-anime-ai-roleplay-results.png",
+        "url": "https://www.google.com/search?q=anime+ai+roleplay",
+        "final_url": "https://www.google.com/search?q=anime+ai+roleplay&sei=BUJEauDJL_r8ptQPs8-6sQY",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 1496,
+          "height": 3042,
+          "stddev_normalized": 0.1384,
+          "bytes": 543549
+        },
+        "sub": "serp",
+        "backend": "headed_patchright"
+      },
+      "raw": "[VISUAL:type=external;sub=serp;url=https://www.google.com/search?q=anime+ai+roleplay;selector=#search;crop=padded;what=the \"anime ai roleplay\" results are app-store listings and product pages, not a single real guide;annotate=the stacked app-store and product listings where a real how-to guide should be]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "reddit-comment",
+        "url": "https://www.reddit.com/r/AIAssisted/comments/anime-rp-forgot",
+        "selector": "#t1_examplecomment",
+        "crop": "padded",
+        "what": "a real user complaining their roleplay bot forgot the scenario",
+        "annotate": "the line where the user says the character forgot or reset the story"
+      },
+      "alt": "a real user complaining their roleplay bot forgot the scenario",
+      "status": "rejected",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/anime-ai-roleplay/external-2-a-real-user-complaining-their.png",
+        "url": "https://www.reddit.com/r/AIAssisted/comments/anime-rp-forgot",
+        "final_url": "https://www.reddit.com/r/AIAssisted/comments/anime-rp-forgot/",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.0785,
+          "bytes": 199695
+        },
+        "clip": "viewport_fallback",
+        "selector_missed": "#t1_examplecomment",
+        "sub": "reddit-comment",
+        "backend": "headed_patchright"
+      },
+      "raw": "[VISUAL:type=external;sub=reddit-comment;url=https://www.reddit.com/r/AIAssisted/comments/anime-rp-forgot;selector=#t1_examplecomment;crop=padded;what=a real user complaining their roleplay bot forgot the scenario;annotate=the line where the user says the character forgot or reset the story]",
+      "legacy": false,
+      "vision_check": {
+        "verdict": "REJECT",
+        "reason": "Reddit \"You have been blocked by network security\" bot-wall page; source URL /comments/anime-rp-forgot and selector #t1_examplecomment are fabricated (not a real post). Removed from draft per PLE-3076."
+      }
+    },
+    {
+      "index": 3,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "competitor-ui",
+        "url": "https://cycleai.ai",
+        "selector": ".character-options",
+        "crop": "padded",
+        "what": "archetype and personality selectors in a real rival product",
+        "annotate": "the tsundere/yandere archetype selectors"
+      },
+      "alt": "archetype and personality selectors in a real rival product",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/anime-ai-roleplay/external-3-archetype-and-personality-sele.png",
+        "url": "https://cycleai.ai",
+        "final_url": "https://www.cycleai.ai/",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.1999,
+          "bytes": 1287156
+        },
+        "clip": "viewport_fallback",
+        "selector_missed": ".character-options",
+        "sub": "competitor-ui",
+        "backend": "headed_patchright"
+      },
+      "raw": "[VISUAL:type=external;sub=competitor-ui;url=https://cycleai.ai;selector=.character-options;crop=padded;what=archetype and personality selectors in a real rival product;annotate=the tsundere/yandere archetype selectors]",
+      "legacy": false,
+      "vision_check": {
+        "verdict": "RECAPTION",
+        "reason": "Real reachable Cycle AI homepage hero, but selector .character-options missed (viewport fallback); original caption claimed archetype selectors not visible. Caption corrected in draft."
+      }
+    },
+    {
+      "index": 4,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "competitor-ui",
+        "url": "https://emochi.com",
+        "selector": ".character-grid",
+        "crop": "padded",
+        "what": "a \"pick from a gallery\" experience versus build-your-own",
+        "annotate": "the fixed character cards with voice-message and AI-art tags"
+      },
+      "alt": "a \"pick from a gallery\" experience versus build-your-own",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/anime-ai-roleplay/external-4-a-pick-from-a-gallery-experien.png",
+        "url": "https://emochi.com",
+        "final_url": "https://emochi.com/",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.2843,
+          "bytes": 3664061
+        },
+        "clip": "viewport_fallback",
+        "selector_missed": ".character-grid",
+        "sub": "competitor-ui",
+        "backend": "headed_patchright"
+      },
+      "raw": "[VISUAL:type=external;sub=competitor-ui;url=https://emochi.com;selector=.character-grid;crop=padded;what=a \"pick from a gallery\" experience versus build-your-own;annotate=the fixed character cards with voice-message and AI-art tags]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "action-shot",
+      "attrs": {
+        "type": "action-shot",
+        "url": "https://pleasur.ai/create",
+        "goal": "Log in with the saved session. Open the Companion Creator at Step 1 of 6. Select the Anime style. Capture the step-1 screen with the Anime toggle chosen.",
+        "what": "the Anime style choice at step 1 of the creator",
+        "annotate": "the selected \"Anime\" style toggle"
+      },
+      "alt": "the Anime style choice at step 1 of the creator",
+      "status": "manual",
+      "vision_gate": {
+        "pass": false,
+        "reason": "nsfw_explicit_style_tiles",
+        "detail": "VISUAL-CRITIQUE-LOOP action-shot SFW check FAILED: the Realistic and Anime style-preview tiles on /create render sexually explicit imagery (oral sex, exposed genitalia, explicit fluids) un-blurred. Not publishable on a public indexed blog. Also the header shows Login/Join Free + Sign Up Free CTA (anonymous state) so the 'Anime toggle chosen' intent was not achieved despite auth_used:true. The captured PNG is NOT promoted to the draft; placeholder restored. Editor must capture a clean SFW step-1 shot (blur explicit tiles in place) via /capture-visuals.",
+        "checked_against": "VISUAL-CRITIQUE-LOOP.md#action-shot"
+      },
+      "result": {
+        "status": "manual",
+        "reason": "stripped_from_cited_draft_after_sfw_gate_rejection",
+        "raw_capture_status": "captured",
+        "path_rejected": "content-pipeline/images/anime-ai-roleplay/action-5-log-in-with-the-saved-session.png",
+        "raw_path": "/paperclip/instances/default/projects/d11fb003-42e2-4b84-8d88-e1242ad09a70/58966819-f893-4728-ad83-5956700fd1c6/_default/blog-engine/content-pipeline/images/anime-ai-roleplay/action-5-log-in-with-the-saved-session.raw.png",
+        "frame": "plain",
+        "report": {
+          "preset": null,
+          "url": "https://pleasur.ai/create",
+          "final_url": "https://pleasur.ai/create",
+          "auth_required": false,
+          "auth_used": true,
+          "login_redirect": false,
+          "selector": null,
+          "frame": "plain",
+          "caption": "Log in with the saved session. Open the Companion Creator at Step 1 of 6. Select the Anime style. Capture the step-1 screen with the Anime toggle chosen.",
+          "viewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "sfw": true,
+          "raw_dims": [
+            2880,
+            1800
+          ],
+          "steps_ran": 0,
+          "out_dims": [
+            2696,
+            2030
+          ]
+        },
+        "url": "https://pleasur.ai/create"
+      },
+      "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai/create;goal=Log in with the saved session. Open the Companion Creator at Step 1 of 6. Select the Anime style. Capture the step-1 screen with the Anime toggle chosen.;what=the Anime style choice at step 1 of the creator;annotate=the selected \"Anime\" style toggle]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "action-shot",
+      "attrs": {
+        "type": "action-shot",
+        "url": "https://pleasur.ai",
+        "goal": "Log in. Open an existing anime character chat that has prior history. Surface a reply where the character references an earlier scenario detail. Tap the speaker icon on that reply. Keep it SFW \u2014 steer to clean content, hide flirty side-panels, blur any PII.",
+        "what": "the character recalling a prior-session detail with the in-chat voice control active",
+        "annotate": "the recalled detail plus the active speaker/voice icon"
+      },
+      "alt": "the character recalling a prior-session detail with the in-chat voice control active",
+      "status": "manual",
+      "result": {
+        "status": "manual",
+        "reason": "session_required",
+        "url": "https://pleasur.ai",
+        "goal": "Log in. Open an existing anime character chat that has prior history. Surface a reply where the character references an earlier scenario detail. Tap the speaker icon on that reply. Keep it SFW \u2014 steer to clean content, hide flirty side-panels, blur any PII.",
+        "filename": "action-6-log-in-open-an-existing-anime.png",
+        "hint": "Logged-in action-shot needs the Pleasur.AI showcase session. Mint it once with `python .claude/skills/generate-visuals/scripts/setup_auth.py --interactive --headed` (calls need Standard+), then re-run /generate-visuals."
+      },
+      "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai;goal=Log in. Open an existing anime character chat that has prior history. Surface a reply where the character references an earlier scenario detail. Tap the speaker icon on that reply. Keep it SFW \u2014 steer to clean content, hide flirty side-panels, blur any PII.;what=the character recalling a prior-session detail with the in-chat voice control active;annotate=the recalled detail plus the active speaker/voice icon]",
+      "legacy": false
+    }
+  ]
+}

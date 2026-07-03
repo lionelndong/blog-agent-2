@@ -1,0 +1,25 @@
+{
+  "preset": null,
+  "url": "https://pleasur.ai/create",
+  "final_url": "https://pleasur.ai/create",
+  "auth_required": false,
+  "auth_used": true,
+  "login_redirect": false,
+  "selector": null,
+  "frame": "plain",
+  "caption": "Log in with the saved session. Open the Companion Creator at Step 1 of 6. Select the Anime style. Capture the step-1 screen with the Anime toggle chosen.",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "sfw": true,
+  "raw_dims": [
+    2880,
+    1800
+  ],
+  "steps_ran": 0,
+  "out_dims": [
+    2696,
+    2030
+  ]
+}
