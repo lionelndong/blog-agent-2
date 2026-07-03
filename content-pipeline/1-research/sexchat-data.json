@@ -1,0 +1,41 @@
+{
+  "_meta": {
+    "source": "Ahrefs REST API via Doppler fallback, live web SERP sample, Pleasur.AI pricing page",
+    "fetched": "2026-07-03",
+    "keyword": "sexchat"
+  },
+  "keyword_metrics": {
+    "sexchat_us_volume": 60000,
+    "sexchat_kd": 71,
+    "sexchat_cpc": 80,
+    "parent_topic_volume": 239000,
+    "traffic_potential": 136000,
+    "global_volume": 360000
+  },
+  "same_intent_terms": {
+    "sexchat": 60000,
+    "sex chat": 244000,
+    "free sex chat": 71000,
+    "321 sexchat": 13000,
+    "ai sexchat": 1400,
+    "sexchat free": 1300,
+    "free sexchat": 800,
+    "free ai sexchat": 500
+  },
+  "serp_format_sample": {
+    "anonymous_chat_rooms": 6,
+    "ai_sex_chat_roundups": 2,
+    "sexual_health_chat": 2
+  },
+  "pleasur_pricing": {
+    "starter_monthly": 12.99,
+    "starter_coins": 1500,
+    "standard_monthly": 27.99,
+    "standard_coins": 5000,
+    "ultimate_monthly": 49.99,
+    "ultimate_coins": 10000,
+    "image_coins_each": 10,
+    "voice_note_coins_each": 10,
+    "phone_call_coins_per_minute": 50
+  }
+}
