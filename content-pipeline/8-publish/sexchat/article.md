@@ -45,7 +45,7 @@ AI sex chat has a different tradeoff. You lose the unpredictability of a real pe
 
 Use the table before you click into anything. It keeps the category straight. The examples mirror the broad categories visible across public adult-chat pages such as [Chatib](https://www.chatib.us/), [Viby](https://viby.chat/), and sexual-health resources like Planned Parenthood's [Roo chatbot](https://www.plannedparenthood.org/learn/roo-sexual-health-chatbot).
 
-![Option type table](images/sexchat/table-pub-1.png)
+![Option type table](https://elegant-cactus-c693703b28.media.strapiapp.com/table_pub_1_5bd2ace112.png)
 
 - **Anonymous adult chat room** — Fast public chat with strangers — Low identity requirement, but unpredictable users and variable moderation — Usually free, often ad-supported — Mostly text; some rooms allow images or cam — Skip if you want privacy, continuity, or tight control
 - **One-on-one stranger chat** — Random private conversation — Less public than a room, but still another person — Usually free with limits or filters — Text, sometimes photos — Skip if you do not want a stranger involved
