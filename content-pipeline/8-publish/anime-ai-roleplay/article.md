@@ -8,7 +8,7 @@ Here's what almost no guide tells you: the art and the app count are not what ma
 
 This guide names that failure, shows the five things to check so it doesn't happen to you, compares the seven options that genuinely do anime roleplay, and walks through building a custom anime companion that actually holds the thread across sessions.
 
-![the "anime ai roleplay" results are app-store listings and product pages, not a single real guide](https://elegant-cactus-c693703b28.media.strapiapp.com/external_1_the_anime_ai_roleplay_results_b07900a066.png)
+![the "anime ai roleplay" results are app-store listings and product pages, not a single real guide](https://elegant-cactus-c693703b28.media.strapiapp.com/external_1_the_anime_ai_roleplay_results_db125f4cfd.png)
 
 ## Why anime AI roleplay bots break character
 
@@ -46,7 +46,7 @@ Test memory the cheap way. Drop a specific, weird detail into the roleplay — y
 
 With the checklist in hand, here's how the actual options stack up against it.
 
-![a rival anime AI roleplay app leads its landing page with app-store installs rather than character-building](https://elegant-cactus-c693703b28.media.strapiapp.com/external_3_archetype_and_personality_sele_d1e1bb5b7c.png)
+![a rival anime AI roleplay app leads its landing page with app-store installs rather than character-building](https://elegant-cactus-c693703b28.media.strapiapp.com/external_3_archetype_and_personality_sele_7dde921b34.png)
 
 ## The best anime AI roleplay apps, compared
 
@@ -96,7 +96,7 @@ Skip the gallery and design a character that's actually yours — Anime style, y
 
 The table shows *what* each app does. The next section shows what it's actually like to build one and put its memory to the test.
 
-![a "pick from a gallery" experience versus build-your-own](https://elegant-cactus-c693703b28.media.strapiapp.com/external_4_a_pick_from_a_gallery_experien_babca10803.png)
+![a "pick from a gallery" experience versus build-your-own](https://elegant-cactus-c693703b28.media.strapiapp.com/external_4_a_pick_from_a_gallery_experien_cca4daddd8.png)
 
 ## I built and tested an anime companion that actually remembers
 
