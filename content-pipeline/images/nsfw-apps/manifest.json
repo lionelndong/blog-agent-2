@@ -1,0 +1,345 @@
+{
+  "slug": "nsfw-apps",
+  "visuals": [
+    {
+      "index": 1,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "serp",
+        "url": "https://www.google.com/search?q=nsfw+apps",
+        "selector": "#search",
+        "crop": "padded",
+        "what": "Google results for \"nsfw apps\" showing mixed app categories",
+        "annotate": "the different result types"
+      },
+      "alt": "Google results for \"nsfw apps\" showing mixed app categories",
+      "status": "failed",
+      "result": {
+        "status": "failed",
+        "reason": "bounding_box_failed",
+        "error": "Locator.bounding_box: Timeout 30000ms exceeded.\nCall log:\n  2 \u00d7 waiting for locator(\"#search\").first\n",
+        "url": "https://www.google.com/search?q=nsfw+apps",
+        "sub": "serp",
+        "fallback": {
+          "method": "claude_in_chrome",
+          "skill": "/capture-visuals",
+          "url": "https://www.google.com/search?q=nsfw+apps",
+          "selector": "#search",
+          "what": "Google results for \"nsfw apps\" showing mixed app categories",
+          "sub": "serp"
+        },
+        "hint": "Playwright blocked (bounding_box_failed). Run `/capture-visuals nsfw-apps` to retry this entry via Claude-in-Chrome (real Chrome session bypasses the wall). The skill picks up `failed` external entries automatically in unattended mode."
+      },
+      "raw": "[VISUAL:type=external;sub=serp;url=https://www.google.com/search?q=nsfw+apps;selector=#search;crop=padded;what=Google results for \"nsfw apps\" showing mixed app categories;annotate=the different result types]",
+      "legacy": false
+    },
+    {
+      "index": 2,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.pleasur_ai_monthly_coins",
+        "style": "bar",
+        "title": "Pleasur.AI monthly coins by paid tier"
+      },
+      "alt": "Pleasur.AI monthly coins by paid tier",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/nsfw-apps/chart-2-pleasur-ai-monthly-coins-by-pa.png",
+        "engine": "render_chart_web",
+        "chart_type": "bar"
+      },
+      "raw": "[VISUAL:type=chart;data=research.pleasur_ai_monthly_coins;style=bar;title=Pleasur.AI monthly coins by paid tier]",
+      "legacy": false
+    },
+    {
+      "index": 3,
+      "type": "chart",
+      "attrs": {
+        "type": "chart",
+        "data": "research.pleasur_ai_coin_costs",
+        "style": "bar",
+        "title": "Coin cost by metered action"
+      },
+      "alt": "Coin cost by metered action",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/nsfw-apps/chart-3-coin-cost-by-metered-action.png",
+        "engine": "render_chart_web",
+        "chart_type": "bar"
+      },
+      "raw": "[VISUAL:type=chart;data=research.pleasur_ai_coin_costs;style=bar;title=Coin cost by metered action]",
+      "legacy": false
+    },
+    {
+      "index": 4,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "create",
+        "what": "Pleasur.AI companion setup controls for appearance, personality, backstory, and conversation style",
+        "annotate": "the customization controls"
+      },
+      "alt": "Pleasur.AI companion setup controls for appearance, personality, backstory, and conversation style",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/nsfw-apps/screenshot-4-pleasur-ai-companion-setup-con.png",
+        "url": "https://pleasur.ai/create",
+        "final_url": "https://pleasur.ai/create",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.1154,
+          "bytes": 746098
+        },
+        "blurred": true
+      },
+      "raw": "[VISUAL:type=screenshot;target=create;what=Pleasur.AI companion setup controls for appearance, personality, backstory, and conversation style;annotate=the customization controls]",
+      "legacy": false
+    },
+    {
+      "index": 5,
+      "type": "screenshot",
+      "attrs": {
+        "type": "screenshot",
+        "target": "generate",
+        "what": "Pleasur.AI image generation style and prompt controls",
+        "annotate": "the style and prompt controls"
+      },
+      "alt": "Pleasur.AI image generation style and prompt controls",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/nsfw-apps/screenshot-5-pleasur-ai-image-generation-st.png",
+        "url": "https://pleasur.ai/generate",
+        "final_url": "https://pleasur.ai/generate/image",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 1800,
+          "stddev_normalized": 0.1545,
+          "bytes": 534983
+        },
+        "blurred": true
+      },
+      "raw": "[VISUAL:type=screenshot;target=generate;what=Pleasur.AI image generation style and prompt controls;annotate=the style and prompt controls]",
+      "legacy": false
+    },
+    {
+      "index": 6,
+      "type": "action-shot",
+      "attrs": {
+        "type": "action-shot",
+        "url": "https://pleasur.ai",
+        "goal": "Log in with the saved session. Open a clean SFW existing companion chat. Show the speaker icon next to a reply or the Call control on the character profile. Avoid explicit text, images, conversation lists, or personal account details.",
+        "what": "In-chat voice and call controls",
+        "annotate": "the speaker or Call control"
+      },
+      "alt": "In-chat voice and call controls",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/nsfw-apps/action-6-log-in-with-the-saved-session.png",
+        "raw_path": "/paperclip/instances/default/projects/d11fb003-42e2-4b84-8d88-e1242ad09a70/58966819-f893-4728-ad83-5956700fd1c6/_default/blog-engine/content-pipeline/images/nsfw-apps/action-6-log-in-with-the-saved-session.raw.png",
+        "frame": "device",
+        "report": {
+          "preset": "chat",
+          "url": "https://pleasur.ai",
+          "final_url": "https://pleasur.ai/",
+          "auth_required": true,
+          "auth_used": true,
+          "login_redirect": false,
+          "selector": null,
+          "frame": "device",
+          "caption": "A conversation with an AI companion on Pleasur.AI",
+          "viewport": {
+            "width": 430,
+            "height": 932
+          },
+          "sfw": true,
+          "raw_dims": [
+            860,
+            1864
+          ],
+          "steps_ran": 2,
+          "out_dims": [
+            1116,
+            2288
+          ]
+        },
+        "url": "https://pleasur.ai"
+      },
+      "raw": "[VISUAL:type=action-shot;url=https://pleasur.ai;goal=Log in with the saved session. Open a clean SFW existing companion chat. Show the speaker icon next to a reply or the Call control on the character profile. Avoid explicit text, images, conversation lists, or personal account details.;what=In-chat voice and call controls;annotate=the speaker or Call control]",
+      "legacy": false
+    },
+    {
+      "index": 7,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "competitor-ui",
+        "url": "https://candy.ai",
+        "selector": "main",
+        "crop": "padded",
+        "what": "Candy AI product page showing paid companion positioning",
+        "annotate": "the companion or subscription framing"
+      },
+      "alt": "Candy AI product page showing paid companion positioning",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/nsfw-apps/external-7-candy-ai-product-page-showing.png",
+        "url": "https://candy.ai",
+        "final_url": "https://candy.ai/",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2536,
+          "height": 3600,
+          "stddev_normalized": 0.1851,
+          "bytes": 2514927
+        },
+        "needs_review": true,
+        "height_capped": 3600,
+        "blurred": true,
+        "sub": "competitor-ui"
+      },
+      "raw": "[VISUAL:type=external;sub=competitor-ui;url=https://candy.ai;selector=main;crop=padded;what=Candy AI product page showing paid companion positioning;annotate=the companion or subscription framing]",
+      "legacy": false
+    },
+    {
+      "index": 8,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "competitor-ui",
+        "url": "https://www.nastia.ai/",
+        "selector": "main",
+        "crop": "padded",
+        "what": "Nastia product page showing adult companion feature breadth",
+        "annotate": "the feature breadth claim"
+      },
+      "alt": "Nastia product page showing adult companion feature breadth",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/nsfw-apps/external-8-nastia-product-page-showing-ad.png",
+        "url": "https://www.nastia.ai/",
+        "final_url": "https://www.nastia.ai/",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2752,
+          "height": 3600,
+          "stddev_normalized": 0.2105,
+          "bytes": 2571546
+        },
+        "needs_review": true,
+        "height_capped": 3600,
+        "blurred": true,
+        "sub": "competitor-ui"
+      },
+      "raw": "[VISUAL:type=external;sub=competitor-ui;url=https://www.nastia.ai/;selector=main;crop=padded;what=Nastia product page showing adult companion feature breadth;annotate=the feature breadth claim]",
+      "legacy": false
+    },
+    {
+      "index": 9,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "competitor-ui",
+        "url": "https://nsfw.tools/",
+        "selector": "main",
+        "crop": "padded",
+        "what": "NSFW tools directory showing many listings",
+        "annotate": "the listing-card format"
+      },
+      "alt": "NSFW tools directory showing many listings",
+      "status": "captured",
+      "result": {
+        "status": "captured",
+        "path": "content-pipeline/images/nsfw-apps/external-9-nsfw-tools-directory-showing-m.png",
+        "url": "https://nsfw.tools/",
+        "final_url": "https://nsfw.tools/",
+        "auth_used": true,
+        "quality": {
+          "status": "ok",
+          "width": 2880,
+          "height": 3600,
+          "stddev_normalized": 0.2147,
+          "bytes": 398910
+        },
+        "needs_review": true,
+        "height_capped": 3600,
+        "blurred": true,
+        "sub": "competitor-ui"
+      },
+      "raw": "[VISUAL:type=external;sub=competitor-ui;url=https://nsfw.tools/;selector=main;crop=padded;what=NSFW tools directory showing many listings;annotate=the listing-card format]",
+      "legacy": false
+    },
+    {
+      "index": 10,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "serp",
+        "url": "https://www.google.com/search?q=does+apple+allow+nsfw+apps",
+        "selector": "#search",
+        "crop": "padded",
+        "what": "Google results showing iPhone and app-store availability questions",
+        "annotate": "the iPhone and app-store wording"
+      },
+      "alt": "Google results showing iPhone and app-store availability questions",
+      "status": "failed",
+      "result": {
+        "status": "failed",
+        "reason": "bounding_box_failed",
+        "error": "Locator.bounding_box: Timeout 30000ms exceeded.\nCall log:\n  2 \u00d7 waiting for locator(\"#search\").first\n",
+        "url": "https://www.google.com/search?q=does+apple+allow+nsfw+apps",
+        "sub": "serp",
+        "fallback": {
+          "method": "claude_in_chrome",
+          "skill": "/capture-visuals",
+          "url": "https://www.google.com/search?q=does+apple+allow+nsfw+apps",
+          "selector": "#search",
+          "what": "Google results showing iPhone and app-store availability questions",
+          "sub": "serp"
+        },
+        "hint": "Playwright blocked (bounding_box_failed). Run `/capture-visuals nsfw-apps` to retry this entry via Claude-in-Chrome (real Chrome session bypasses the wall). The skill picks up `failed` external entries automatically in unattended mode."
+      },
+      "raw": "[VISUAL:type=external;sub=serp;url=https://www.google.com/search?q=does+apple+allow+nsfw+apps;selector=#search;crop=padded;what=Google results showing iPhone and app-store availability questions;annotate=the iPhone and app-store wording]",
+      "legacy": false
+    },
+    {
+      "index": 11,
+      "type": "external",
+      "attrs": {
+        "type": "external",
+        "sub": "news-quote",
+        "url": "https://developer.apple.com/app-store/review/guidelines/",
+        "selector": "#safety",
+        "crop": "padded",
+        "what": "Apple App Store Review Guidelines safety section",
+        "annotate": "the objectionable-content policy language"
+      },
+      "alt": "Apple App Store Review Guidelines safety section",
+      "status": "failed",
+      "result": {
+        "status": "failed",
+        "reason": "padded_crop_failed",
+        "error": "Image size (215907840 pixels) exceeds limit of 178956970 pixels, could be decompression bomb DOS attack.",
+        "url": "https://developer.apple.com/app-store/review/guidelines/",
+        "sub": "news-quote"
+      },
+      "raw": "[VISUAL:type=external;sub=news-quote;url=https://developer.apple.com/app-store/review/guidelines/;selector=#safety;crop=padded;what=Apple App Store Review Guidelines safety section;annotate=the objectionable-content policy language]",
+      "legacy": false
+    }
+  ]
+}

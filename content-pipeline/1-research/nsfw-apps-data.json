@@ -1,0 +1,37 @@
+{
+  "serp_word_counts": {
+    "zencreator_uncensored_ai_app_guide": 3785,
+    "theresanaiforthat_nsfw_apps": 3358,
+    "aicompanionguides_best_nsfw_ai_chat_apps": 3524,
+    "blackhatworld_nsfw_social_platform_thread": 1992,
+    "nsfw_tools_directory": 1662,
+    "antiland_top_nsfw_apps": 1555,
+    "reddclips_best_nsfw_apps": 1730,
+    "miniapps_nsfw_search": 496,
+    "_meta": {
+      "source": "Firecrawl extracts saved at content-pipeline/1-research/cache-nsfw-apps/firecrawl-raw.json",
+      "fetched": "2026-07-02",
+      "method": "rough body word count from extracted markdown, excluding failed Reddit/Facebook pages"
+    }
+  },
+  "pleasur_ai_coin_costs": {
+    "ai_image_generation": 10,
+    "voice_notes": 10,
+    "phone_calls_per_minute": 50,
+    "_meta": {
+      "source": "https://pleasur.ai/pricing",
+      "fetched": "2026-07-03",
+      "unit": "coins"
+    }
+  },
+  "pleasur_ai_monthly_coins": {
+    "starter": 1500,
+    "standard": 5000,
+    "ultimate": 10000,
+    "_meta": {
+      "source": "https://pleasur.ai/pricing",
+      "fetched": "2026-07-03",
+      "unit": "coins per month"
+    }
+  }
+}
